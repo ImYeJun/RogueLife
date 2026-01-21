@@ -10,10 +10,15 @@ public class ScheduleSystem : MonoBehaviour
 
     public void StartSchdule()
     {
-        
+        ScheduleEntryNode scheduleEntryNode = new ScheduleEntryNode();
+        scheduleEntryNode.OnScheduleSettled += SettleScheduleSelection;
+        scheduleEntryNode.OnMoveRequest += MoveNode;
+
+        currentNode = scheduleEntryNode;
+        currentNode.OnEnter();
     }
 
-    public void SelectSchedule(ScheduleData scheduleData)
+    public void SettleScheduleSelection(ScheduleData scheduleData)
     {
         
     }

@@ -8,11 +8,12 @@ public class BattleNode : Node
 
     public override void OnEnter()
     {
-        throw new System.NotImplementedException();
-    }
+        //TODO : engagingEnemiesData에 따라 적 일상 UI 띄우기
+        base.OnEnter();
 
-    public override void OnExit()
-    {
-        throw new System.NotImplementedException();
+        //TODO : engagingEnemiesData에 따라 encounterLine 연출 띄우기
+
+        battleSystem.OnBattleEnd += RequestNextNodeSelection;
+        battleSystem.EngageBattle();
     }
 }

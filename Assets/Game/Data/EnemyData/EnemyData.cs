@@ -7,7 +7,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] private string enemyName;
     [SerializeField] private string description;
     [SerializeField] private int maxOriginalHealth;
-    [SerializeField] private string engageLine;
+    [SerializeField] private string encounterLine;
     [SerializeField] private string victoryLine;
     [SerializeField] private string defeatLine;
     [SerializeField] private EnemyTier tier;
@@ -16,7 +16,7 @@ public class EnemyData : ScriptableObject
     public string EnemyName { get => enemyName; }
     public string Description { get => description; }
     public int MaxOriginalHealth { get => maxOriginalHealth; }
-    public string EngageLine { get => engageLine; }
+    public string EncounterLine { get => encounterLine; }
     public string VictoryLine { get => victoryLine; }
     public string DefeatLine { get => defeatLine; }
     public EnemyTier Tier { get => tier; }
