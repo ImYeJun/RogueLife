@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,6 +6,10 @@ public class BattleNode : Node
 {
     private BattleSystem battleSystem;
     private List<EnemyData> engagingEnemiesData;
+
+    public BattleNode(Action<Node> OnMoveRequest) : base(OnMoveRequest)
+    {
+    }
 
     public override void OnEnter()
     {

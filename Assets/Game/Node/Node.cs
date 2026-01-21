@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Node
@@ -7,6 +8,11 @@ public abstract class Node
     private List<Node> previousNodes = new List<Node>();
     private List<Node> nexNodes = new List<Node>();
     public event Action<Node> OnMoveRequest;
+
+    public Node(Action<Node> OnMoveRequest)
+    {
+        this.OnMoveRequest += OnMoveRequest;
+    }
 
     public virtual void OnEnter()
     {
