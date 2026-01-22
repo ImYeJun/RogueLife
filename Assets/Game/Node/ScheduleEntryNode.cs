@@ -3,7 +3,6 @@ using UnityEngine;
 
 class ScheduleEntryNode : Node
 {
-
     public event Action<ScheduleData> OnScheduleSettled;
 
     public ScheduleEntryNode(Action<Node> OnMoveRequest, Action<ScheduleData> OnScheduleSettled) : base(OnMoveRequest)

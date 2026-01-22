@@ -10,7 +10,6 @@ public class ScheduleExitNode : Node
         this.OnScheduleEnd += OnScheduleEnd;
     }
 
-
     public override void OnEnter()
     {
         OnScheduleEnd.Invoke();
