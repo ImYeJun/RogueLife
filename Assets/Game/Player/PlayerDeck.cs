@@ -22,27 +22,21 @@ public class PlayerDeck
 
     public bool TryMoveCard(Card card, DeckType from, DeckType to)
     {
-        Dictionary<CardData, List<Card>> fromDeck = GetDeck(from);
-        Dictionary<CardData, List<Card>> toDeck = GetDeck(to);
-
-        if (fromDeck == null || toDeck == null)
-        {
-            Debug.Log($"DeckTypes {from} or {to} are not valid.");
-            return false;
-        }
-        if (!HasCard(card, fromDeck))
+        if (!HasCard(card, from))
         {
             Debug.Log($"{from} doesn't contain the given card");
             return false;
         }
-        if (HasCard(card, toDeck))
+        if (HasCard(card, to))
         {
             Debug.Log($"{to} already contains the given card");
             return false;
         }
 
-        CardData cardData = card.Data;
+        Dictionary<CardData, List<Card>> fromDeck = GetDeck(from);
+        Dictionary<CardData, List<Card>> toDeck = GetDeck(to);
 
+        CardData cardData = card.Data;
         fromDeck[cardData].Remove(card);
         if (!toDeck.ContainsKey(cardData)) { toDeck.Add(cardData, new List<Card>()); }
         toDeck[cardData].Add(card);
@@ -50,10 +44,19 @@ public class PlayerDeck
         return true;
     }
 
-    private bool HasCard(Card card, Dictionary<CardData, List<Card>> deck)
+    public bool HasCard(Card card, DeckType deckType)
     {
-        if (!deck.ContainsKey(card.Data)) { return false ; }
+        Dictionary<CardData, List<Card>> deck = GetDeck(deckType);
+
+        if (deck == null) { return false; }
+        if (!deck.ContainsKey(card.Data)) { return false; }
+
         return deck[card.Data].Contains(card);
+    }
+
+    public bool HasCard(Card card)
+    {
+        return HasCard(card, DeckType.MAIN_DECK) || HasCard(card, DeckType.SIDE_DECK);
     }
 
     private Dictionary<CardData, List<Card>> GetDeck(DeckType type)

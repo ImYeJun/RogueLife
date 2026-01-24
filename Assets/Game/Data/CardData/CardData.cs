@@ -6,7 +6,7 @@ public class CardData : ScriptableObject
 {
     [SerializeField] private string cardName;
     [SerializeField] private string description;
-    [SerializeField] private string relfectionActivatedDescription;
+    [SerializeField] private string relfectionAppliedDescription;
     [SerializeField] private CardType type;
     [SerializeField] private CardAttribute attribute;
     [SerializeField] private CardRarity rarity;
@@ -16,7 +16,7 @@ public class CardData : ScriptableObject
 
     public string CardName { get => cardName; }
     public string Description { get => description; }
-    public string RelfectionActivatedDescription { get => relfectionActivatedDescription; }
+    public string RelfectionActivatedDescription { get => relfectionAppliedDescription; }
     public CardType Type { get => type; }
     public CardAttribute Attribute { get => attribute; }
     public CardRarity Rarity { get => rarity; }

@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHealth
@@ -17,6 +16,8 @@ public class PlayerHealth
 
     public void ReceiveDamage(int amount)
     {
+        if (amount < 0) return;
+
         if (currentBattleHealth > amount)
         {
             currentBattleHealth -= amount;
@@ -38,12 +39,12 @@ public class PlayerHealth
     public void HealBattleHealth(int amount) { 
         if (amount < 0) return;
         
-        currentBattleHealth = Mathf.Clamp(currentBattleHealth + amount, 0, maxBattleHealth);
+        currentBattleHealth = Mathf.Min(currentBattleHealth + amount, maxBattleHealth);
     }
     public void HealMentality(int amount) {
         if (amount < 0) return;
         
-        currentMentality = Mathf.Clamp(currentMentality + amount, 0, maxMentality);
+        currentMentality = Mathf.Min(currentMentality + amount, maxMentality);
     }
     public void IncreaseMaxBattleHealth(int amount) {
         if (amount < 0) return;

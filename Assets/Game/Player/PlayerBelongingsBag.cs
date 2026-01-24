@@ -3,21 +3,21 @@ using UnityEngine;
 
 public class PlayerBelongingsBag
 {
-    List<Belongings> sideBelongingsBag = new List<Belongings>();
-    List<Belongings> mainBelongingsBag = new List<Belongings>();
+    Dictionary<BelongingsData, Belongings> mainBelongingsBag = new Dictionary<BelongingsData, Belongings>();
+    Dictionary<BelongingsData, Belongings> sideBelongingsBag = new Dictionary<BelongingsData, Belongings>();
 
-    public IReadOnlyList<Belongings> SideBelongingsBag { get => sideBelongingsBag.AsReadOnly(); }
-    public IReadOnlyList<Belongings> MainBelongingsBag { get => mainBelongingsBag.AsReadOnly(); }
+    public IReadOnlyDictionary<BelongingsData, Belongings> MainBelongingsBag { get => mainBelongingsBag; }
+    public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
 
     public bool TryObtainBelongings(Belongings belongings)
     {
-        if (HasBelongings(belongings, sideBelongingsBag) || HasBelongings(belongings, mainBelongingsBag))
+        if (HasBelongings(belongings))
         {
             Debug.Log($"Player already has {belongings.Name}");
             return false;
         }
 
-        sideBelongingsBag.Add(belongings);
+        sideBelongingsBag[belongings.Data] = belongings;
         return true;
     }
 
@@ -29,44 +29,41 @@ public class PlayerBelongingsBag
             return false;
         }
 
-        List<Belongings> fromBag = GetBag(from);
-        List<Belongings> toBag = GetBag(to);
-
-        if (fromBag == null || toBag == null)
-        {
-            Debug.LogError($"The BelongingsBagTypes {from} or {to} are not valid.");
-            return false;
-        }
-        if (!HasBelongings(belongings, fromBag))
+        if (!HasBelongings(belongings, from))
         {
             Debug.Log($"There is no {belongings.Name} Belongings in {from}");
             return false;
         }
-        if (HasBelongings(belongings, toBag))
+        if (HasBelongings(belongings, to))
         {
             Debug.Log($"{to} already has {belongings.Name}");
             return false;
         }  
 
-        fromBag.Remove(belongings);
-        toBag.Add(belongings);
+        GetBag(from).Remove(belongings.Data);
+        GetBag(to)[belongings.Data] = belongings;
 
         return true;
     }
 
-    private bool HasBelongings(Belongings belongings, List<Belongings> bag)
+    public bool HasBelongings(Belongings belongings, BelongingsBagType bagType)
     {
-        foreach (Belongings equippedBelongings in bag)
-        {
-            if (equippedBelongings.Equals(belongings)) return true;
-        }
+        Dictionary<BelongingsData, Belongings> bag = GetBag(bagType);
 
-        return false;
+        if (bag == null) { return false;}
+        if (!bag.ContainsKey(belongings.Data)) { return false; }
+
+        return bag[belongings.Data] == belongings;
     }
 
-    private List<Belongings> GetBag(BelongingsBagType type)
+    public bool HasBelongings(Belongings belongings)
     {
-        return type switch
+        return HasBelongings(belongings, BelongingsBagType.MAIN_BELONGINGS_BAG) || HasBelongings(belongings, BelongingsBagType.SIDE_BELONGINGS_BAG);
+    }
+
+    private Dictionary<BelongingsData, Belongings> GetBag(BelongingsBagType bagType)
+    {
+        return bagType switch
         {
             BelongingsBagType.MAIN_BELONGINGS_BAG => mainBelongingsBag,
             BelongingsBagType.SIDE_BELONGINGS_BAG => sideBelongingsBag,

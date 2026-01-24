@@ -7,6 +7,17 @@ public class PlayerActionCost
 
     public int MaxActionCost { get => maxActionCost; }
     public int CurrentActionCost { get => currentActionCost; }
+    
+    public bool TrySpend(int amount)
+    {
+        if (amount < 0) { return false; }
+        if (currentActionCost < amount) { return false; }
+
+        currentActionCost -= amount;
+        return true;
+    }
+
+    public void Refill() { currentActionCost = maxActionCost; }
 
     public void IncreaseMaxActionCost(int amount) {
         if (amount < 0) return;
@@ -19,15 +30,4 @@ public class PlayerActionCost
         maxActionCost = Mathf.Max(maxActionCost - amount, 0);
         currentActionCost = Mathf.Min(currentActionCost, maxActionCost);
     }
-
-    public bool TrySpend(int amount)
-    {
-        if (amount < 0) { return false; }
-        if (currentActionCost < amount) { return false; }
-
-        currentActionCost -= amount;
-        return true;
-    }
-
-    public void Refill() { currentActionCost = maxActionCost; }
 }
