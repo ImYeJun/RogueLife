@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerActionCost
 {
-    private int maxActionCost;
+    private int maxActionCost = Constant.BASE_MAX_ACTION_COST;
     private int currentActionCost;
 
     public int MaxActionCost { get => maxActionCost; }

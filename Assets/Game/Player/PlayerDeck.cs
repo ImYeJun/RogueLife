@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class PlayerDeck
 {
-    public const int MAX_COPIES_PER_CARD = 3;
     private Dictionary<CardData, List<Card>> mainDeck = new Dictionary<CardData, List<Card>>();
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
 
@@ -14,7 +13,7 @@ public class PlayerDeck
     {
         if (!sideDeck.ContainsKey(card.Data)) { sideDeck.Add(card.Data, new List<Card>()); }
 
-        if (sideDeck[card.Data].Count == MAX_COPIES_PER_CARD) { return false; }
+        if (sideDeck[card.Data].Count == Constant.BASE_MAX_COPIES_PER_CARD) { return false; }
 
         sideDeck[card.Data].Add(card);
         return true;
