@@ -23,7 +23,7 @@ public class BattleSystem
     private int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
     private int maxHandZoneCardCount = Constant.BASE_MAX_HAND_ZONE_CARD_COUNT;
 
-    public event Action OnBattleExit;
+    public event Action<BattleResult> OnBattleExit;
 
     private void UpdateBattleContext()
     {
@@ -193,19 +193,21 @@ public class BattleSystem
     {
         OnBattleEnd();
         //TODO : 페이즈 소모로 인한 패널티 받기 로직 구현하기
-        ExitBattle();
+        ExitBattle(BattleResult.ALL_PHASE_END);
     }
 
     private void OnPlayerWin()
     {
         OnBattleEnd();
         //TODO : 전투 승리 선택 UI 띄우기
+        ExitBattle(BattleResult.PLAYER_WIN);
     }
 
     public void OnPlayerMentalBreakDown()
     {
         OnBattleEnd();
-        //TODO: 전투 종료 연출 실행
+        //TODO : 전투 플레이어 사망 연출 구현하기
+        ExitBattle(BattleResult.PLAYER_DIED);
     }
     
     private void OnBattleEnd()
@@ -214,10 +216,10 @@ public class BattleSystem
         currentBattleContext?.RequestBattleEnd();
     }
 
-    public void ExitBattle()
+    public void ExitBattle(BattleResult result)
     {
         //TODO: 전투 종료 연출 실행
-        OnBattleExit?.Invoke();
         battlePlayer.Health.OnMentalBreakDown -= OnPlayerMentalBreakDown;
+        OnBattleExit?.Invoke(result);
     }
 }

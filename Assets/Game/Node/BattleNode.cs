@@ -24,9 +24,10 @@ public class BattleNode : Node
         battleSystem.EngageBattle(engagingEnemiesData, player, startPhaseCount);
     }
 
-    public void OnBattleExit()
+    public void OnBattleExit(BattleResult result)
     {
         battleSystem.OnBattleExit -= OnBattleExit;
+        //TODO : Result에 따른 행동 구현하기
         RequestNextNodeSelection();
     }
 }
