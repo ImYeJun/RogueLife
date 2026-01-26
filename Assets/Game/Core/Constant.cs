@@ -4,4 +4,6 @@ public static class Constant{
     public const int BASE_START_TURN_DRAW_COUNT = 2;
     public const int BASE_MAX_ACTION_COST = 10;
     public const int BASE_MAX_HAND_ZONE_CARD_COUNT = 7;
+    public const int BASE_MAX_DECK_CARD_TYPE_COUNT = 24;
+    public const int MAX_MAIN_DECK_CARD_TYPE_COUNT = 8;
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth
+public class PlayerHealth : IChoiceHealth
 {
     private int currentBattleHealth;
     private int currentMentality;
@@ -27,14 +27,19 @@ public class PlayerHealth
             amount -= currentBattleHealth;
             currentBattleHealth = 0;
 
-            currentMentality = Mathf.Clamp(currentMentality - amount, 0, maxMentality);
-
-            if (IsMentalBrokenDown())
-            {
-                OnMentalBreakDown?.Invoke();
-            }
+            HurtMentality(amount);
         }
     }
+    public void HurtMentality(int amount)
+    {
+        currentMentality = Mathf.Clamp(currentMentality - amount, 0, maxMentality);
+
+        if (IsMentalBrokenDown())
+        {
+            OnMentalBreakDown?.Invoke();
+        }
+    }
+    public bool IsMentalBrokenDown() => currentMentality <= 0;
 
     public void HealBattleHealth(int amount) { 
         if (amount < 0) return;
@@ -68,5 +73,5 @@ public class PlayerHealth
         maxMentality = Mathf.Max(maxMentality - amount, 0);
         currentMentality = Mathf.Min(currentMentality, maxMentality);
     }
-    public bool IsMentalBrokenDown() => currentMentality <= 0;
+
 }

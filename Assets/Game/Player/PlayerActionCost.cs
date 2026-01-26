@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerActionCost
+public class PlayerActionCost : IChoiceActionCost
 {
     private int maxActionCost = Constant.BASE_MAX_ACTION_COST;
     private int currentActionCost;

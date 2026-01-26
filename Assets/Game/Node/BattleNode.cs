@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class BattleNode : Node
 {
     private BattleSystem battleSystem;
     private Player player;
-    private List<EnemyData> engagingEnemiesData;
+    private List<EnemyDataSlot> engagingEnemiesDataSlot;
     private int startPhaseCount;
 
-    public BattleNode(Action<Node> OnMoveRequest) : base(OnMoveRequest)
+    public BattleNode(Action<Node> OnMoveRequest, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest)
     {
+        this.engagingEnemiesDataSlot = engagingEnemiesDataSlot;
     }
 
     public override void OnEnter()
@@ -21,6 +23,7 @@ public class BattleNode : Node
         //TODO : engagingEnemiesData에 따라 encounterLine 연출 띄우기
 
         battleSystem.OnBattleExit += OnBattleExit;
+        List<EnemyData> engagingEnemiesData = engagingEnemiesDataSlot.Select(dataSlot => dataSlot.Data).ToList();
         battleSystem.EngageBattle(engagingEnemiesData, player, startPhaseCount);
     }
 

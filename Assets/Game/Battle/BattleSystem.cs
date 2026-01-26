@@ -216,7 +216,7 @@ public class BattleSystem
         currentBattleContext?.RequestBattleEnd();
     }
 
-    public void ExitBattle(BattleResult result)
+    private void ExitBattle(BattleResult result)
     {
         //TODO: 전투 종료 연출 실행
         battlePlayer.Health.OnMentalBreakDown -= OnPlayerMentalBreakDown;

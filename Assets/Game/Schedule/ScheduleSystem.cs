@@ -2,18 +2,20 @@ using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-public class ScheduleSystem : MonoBehaviour
+public class ScheduleSystem : IChoiceScheduleSystem
 {
     private Node currentNode;
     private List<Node> map;
     private ScheduleData currentScheduleData;
     private BattleSystem battleSystem;
+    private EnemyDataSlot bossDataSlot;
     private int finishedSchedulesCount = 0;
 
     public void StartSchdule()
     {
         ScheduleEntryNode scheduleEntryNode = new ScheduleEntryNode(MoveNode, SettleScheduleSelection);
 
+        bossDataSlot = null;
         currentNode = scheduleEntryNode;
         currentNode.OnEnter();
     }
@@ -48,5 +50,10 @@ public class ScheduleSystem : MonoBehaviour
         {
             StartSchdule();
         }
+    }
+
+    public void SetBoss(EnemyData bossData)
+    {
+        bossDataSlot.Data = bossData;
     }
 }
