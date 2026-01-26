@@ -17,7 +17,7 @@ public class BattleEnemy : BattleEntity
 
     public void PlanNextAction()
     {
-        
+        throw new System.NotImplementedException();
     }
 
     public override void OnDead()
@@ -27,6 +27,8 @@ public class BattleEnemy : BattleEntity
 
     public override void ReceiveDamage(int amount)
     {
-        throw new System.NotImplementedException();
+        currentHealth = Mathf.Max(currentHealth - amount, 0);
+
+        if (currentHealth <= 0) { OnDead(); }
     }
 }

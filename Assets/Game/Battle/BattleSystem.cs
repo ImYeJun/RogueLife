@@ -21,6 +21,7 @@ public class BattleSystem
     private bool isFirstPlayerTurn;
     private int startTurnDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;
     private int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
+    private int maxHandZoneCardCount = Constant.BASE_MAX_HAND_ZONE_CARD_COUNT;
 
     public event Action OnBattleExit;
 
@@ -31,14 +32,16 @@ public class BattleSystem
 
     public void EngageBattle(List<EnemyData> enemiesData, Player player, int startPhaseCount)
     {
-        UpdateBattleContext();
         battleEnemies.Clear();
         deckZoneCards.Clear();
         handZoneCards.Clear();
         graveZoneCards.Clear();
+        isBattleEnd = false;
+        isFirstPlayerTurn = true;
+
+        UpdateBattleContext();
 
         //TODO : 전투 진입 연출 구현
-        isBattleEnd = false;
 
         foreach (EnemyData enemyData in enemiesData)
         {
@@ -49,10 +52,10 @@ public class BattleSystem
         battlePlayer = new BattlePlayer(playerHealth);
         playerHealth.OnMentalBreakDown += OnPlayerMentalBreakDown;
         playerActionCost = player.ActionCost;
+        deckZoneCards = player.Deck.MainDeckCards;
 
         remainPhaseCount = startPhaseCount;
 
-        isFirstPlayerTurn = true;
         StartPhase();
     }
 
@@ -92,6 +95,12 @@ public class BattleSystem
             Card drawCard = deckZoneCards[randomIndex];
             deckZoneCards.RemoveAt(randomIndex);
             handZoneCards.Add(drawCard);
+
+            if (handZoneCards.Count() > maxHandZoneCardCount)
+            {
+                handZoneCards.Remove(drawCard);
+                graveZoneCards.Add(drawCard);
+            }
         }
     }
 
@@ -118,6 +127,10 @@ public class BattleSystem
         }
         if (!playerActionCost.TrySpend(card.CurrentActionCost)) { return false; }
 
+        UpdateBattleContext();
+        card.Execute(currentBattleContext);
+        handZoneCards.Remove(card);
+
         if (card.IsReflectionApplied)
         {
             card.UnapplyReflection();
@@ -127,10 +140,6 @@ public class BattleSystem
         {
             graveZoneCards.Add(card);
         }
-
-        UpdateBattleContext();
-        card.Execute(currentBattleContext);
-        handZoneCards.Remove(card);
 
         if (HasPlayerWin()) { OnPlayerWin(); }
         return true;

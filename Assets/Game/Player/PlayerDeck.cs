@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerDeck
@@ -7,6 +8,18 @@ public class PlayerDeck
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
 
     public IReadOnlyDictionary<CardData, List<Card>> MainDeck { get => mainDeck; }
+    public List<Card> MainDeckCards { get
+        {
+            List<Card> cards = new List<Card>();
+
+            foreach (var pair in mainDeck)
+            {
+                cards.AddRange(pair.Value);
+            }
+
+            return cards;
+        }
+    }
     public IReadOnlyDictionary<CardData, List<Card>> SideDeck { get => sideDeck; }
 
     public bool TryObtainCard(Card card)
