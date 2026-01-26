@@ -20,6 +20,18 @@ public class Card
     public int CurrentActionCost { get => currentActionCost; }
     public bool IsReflectionApplied { get => isReflectionApplied; }
 
+    public Card(Card card)
+    {
+        data = card.Data;
+        currentName = card.CurrentName;
+        currentDescription = card.CurrentDescription;
+        currentType = card.CurrentType;
+        currentAttribute = card.CurrentAttribute;
+        currentRarity = card.CurrentRarity;
+        currentActionCost = card.CurrentActionCost;
+        isReflectionApplied = card.IsReflectionApplied;
+    }
+
     public void Execute(BattleContext context)
     {
         if (isReflectionApplied) { data.ExecuteReflection(context); }

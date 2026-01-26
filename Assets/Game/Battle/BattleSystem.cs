@@ -52,7 +52,7 @@ public class BattleSystem
         battlePlayer = new BattlePlayer(playerHealth);
         playerHealth.OnMentalBreakDown += OnPlayerMentalBreakDown;
         playerActionCost = player.ActionCost;
-        deckZoneCards = player.Deck.MainDeckCards;
+        deckZoneCards = player.Deck.MainDeckCards.Select(card => new Card(card)).ToList();
 
         remainPhaseCount = startPhaseCount;
 
