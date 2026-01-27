@@ -1,6 +1,6 @@
 using UnityEngine;
 
-abstract public class ChoiceEffect
+public interface IChoiceEffect
 {
     public abstract void Execute(ChoiceContext context);
 }
