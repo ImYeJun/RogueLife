@@ -1,18 +1,29 @@
+using System;
 using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class ScheduleSystem : IChoiceScheduleSystem
 {
+    private BattleSystem battleSystem;
+
     private Node currentNode;
     private List<Node> map;
     private ScheduleData currentScheduleData;
-    private BattleSystem battleSystem;
     private EnemyDataSlot bossDataSlot;
-    private int finishedSchedulesCount = 0;
 
-    public void StartSchdule()
+    private Action onScheduleEnd;
+
+    public ScheduleSystem(BattleSystem battleSystem, Action onScheduleEnd)
     {
+        this.battleSystem = battleSystem;
+        this.onScheduleEnd = onScheduleEnd;
+    }
+
+    public void StartSchdule(ScheduleData scheduleData)
+    {
+        currentScheduleData = scheduleData;
+
         ScheduleEntryNode scheduleEntryNode = new ScheduleEntryNode(MoveNode, SettleScheduleSelection);
 
         bossDataSlot = null;
@@ -40,16 +51,7 @@ public class ScheduleSystem : IChoiceScheduleSystem
 
     public void EndSchedule()
     {
-        //TODO : 현재 일정 종료 처리
-
-        if (++finishedSchedulesCount == 3)
-        {
-            //TODO : 일기 보러가기 기능 구현
-        }
-        else
-        {
-            StartSchdule();
-        }
+        onScheduleEnd?.Invoke();
     }
 
     public void SetBoss(EnemyData bossData)

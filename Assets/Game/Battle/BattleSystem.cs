@@ -5,14 +5,16 @@ using UnityEngine;
 
 public class BattleSystem
 {
+    private PlayerHealth playerHealth;
+    private PlayerActionCost playerActionCost;
+    private PlayerDeck playerDeck;
+    private BattlePlayer battlePlayer;
+
     private int remainPhaseCount;
     private bool isBattleEnd;
 
     private BattleContext currentBattleContext;
-
     private List<BattleEnemy> battleEnemies = new List<BattleEnemy>();
-    private BattlePlayer battlePlayer;
-    private PlayerActionCost playerActionCost;
 
     private List<Card> deckZoneCards = new List<Card>();
     private List<Card> handZoneCards = new List<Card>();
@@ -24,13 +26,20 @@ public class BattleSystem
     private int maxHandZoneCardCount = Constant.BASE_MAX_HAND_ZONE_CARD_COUNT;
 
     public event Action<BattleResult> OnBattleExit;
+    
+    public BattleSystem(Player player)
+    {
+        playerHealth = player.Health;
+        playerActionCost = player.ActionCost;
+        playerDeck = player.Deck;
+    }
 
     private void UpdateBattleContext()
     {
         currentBattleContext = new BattleContext();
     }
 
-    public void EngageBattle(List<EnemyData> enemiesData, Player player, int startPhaseCount)
+    public void EngageBattle(List<EnemyData> enemiesData, int startPhaseCount)
     {
         battleEnemies.Clear();
         deckZoneCards.Clear();
@@ -48,11 +57,9 @@ public class BattleSystem
             battleEnemies.Add(new BattleEnemy(enemyData));
         }
 
-        PlayerHealth playerHealth = player.Health;
         battlePlayer = new BattlePlayer(playerHealth);
         playerHealth.OnMentalBreakDown += OnPlayerMentalBreakDown;
-        playerActionCost = player.ActionCost;
-        deckZoneCards = player.Deck.MainDeckCards.Select(card => new Card(card)).ToList();
+        deckZoneCards = playerDeck.MainDeckCards.Select(card => new Card(card)).ToList();
 
         remainPhaseCount = startPhaseCount;
 

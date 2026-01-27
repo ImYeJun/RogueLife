@@ -24,7 +24,7 @@ public class BattleNode : Node
 
         battleSystem.OnBattleExit += OnBattleExit;
         List<EnemyData> engagingEnemiesData = engagingEnemiesDataSlot.Select(dataSlot => dataSlot.Data).ToList();
-        battleSystem.EngageBattle(engagingEnemiesData, player, startPhaseCount);
+        battleSystem.EngageBattle(engagingEnemiesData, startPhaseCount);
     }
 
     public void OnBattleExit(BattleResult result)
