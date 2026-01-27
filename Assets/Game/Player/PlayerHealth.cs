@@ -32,6 +32,8 @@ public class PlayerHealth : IChoiceHealth
     }
     public void HurtMentality(int amount)
     {
+        if (amount < 0) return;
+
         currentMentality = Mathf.Clamp(currentMentality - amount, 0, maxMentality);
 
         if (IsMentalBrokenDown())

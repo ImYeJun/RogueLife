@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -50,7 +51,6 @@ public class PlayerBelongingsBag : IChoiceBelongingsBag
     {
         Dictionary<BelongingsData, Belongings> bag = GetBag(bagType);
 
-        if (bag == null) { return false;}
         if (!bag.ContainsKey(belongings.Data)) { return false; }
 
         return bag[belongings.Data] == belongings;
@@ -67,7 +67,7 @@ public class PlayerBelongingsBag : IChoiceBelongingsBag
         {
             BelongingsBagType.MAIN_BELONGINGS_BAG => mainBelongingsBag,
             BelongingsBagType.SIDE_BELONGINGS_BAG => sideBelongingsBag,
-            _ => null
+            _ => throw new ArgumentOutOfRangeException(nameof(bagType))
         };
     }
 }
