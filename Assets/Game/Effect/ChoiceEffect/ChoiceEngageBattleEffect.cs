@@ -15,6 +15,6 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
 
     public void Execute(ChoiceContext context)
     {
-        context.BattleSystem.EngageBattle(engaingEnemyData, player, startPhaseCount);
+        context.BattleSystem.EngageBattle(engaingEnemyData, startPhaseCount);
     }
 }
