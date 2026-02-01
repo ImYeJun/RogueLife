@@ -5,7 +5,7 @@ public class GameRun
     private int seed;
     private int finishedSchedulesCount;
 
-    private Player player; //TODO : Player 죽었을 때, runDiarySystem.WirteDiary() 실행 지점 정하기
+    private Player player;
     private BattleSystem battleSystem;
     private ScheduleSystem scheduleSystem;
     private RunDiarySystem runDiarySystem;
@@ -13,7 +13,7 @@ public class GameRun
     public GameRun()
     {
         player = new Player();
-        runDiarySystem = new RunDiarySystem();
+        runDiarySystem = new RunDiarySystem(new SpecialDiaryDatabase()); //TODO : Database SerializeField화 하기
         battleSystem = new BattleSystem(player);
         scheduleSystem = new ScheduleSystem(battleSystem, OnScheduleEnd);
 
