@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class ScheduleSkeletonTest
 {
-    private int testCount = 10;
+    private int testCount = 100;
 
     [Test]
     public void TestGeneratingScheduleSkelton()
