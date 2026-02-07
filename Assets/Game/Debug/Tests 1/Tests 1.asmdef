@@ -1,0 +1,15 @@
+{
+    "name": "Tests1",
+    "references": [
+        "GameAssembly"
+    ],
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "autoReferenced": false
+}

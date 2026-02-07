@@ -2,6 +2,7 @@ using System;
 
 public class GameRun
 {
+    private Random random;
     private int seed;
     private int finishedSchedulesCount;
 
@@ -10,20 +11,23 @@ public class GameRun
     private ScheduleSystem scheduleSystem;
     private RunDiarySystem runDiarySystem;
 
-    public GameRun()
+    public GameRun(int seed)
     {
+        this.seed = seed;
+        random = new Random(this.seed);
+
         player = new Player();
         runDiarySystem = new RunDiarySystem(new SpecialDiaryDatabase()); //TODO : Database SerializeField화 하기
         battleSystem = new BattleSystem(player);
-        scheduleSystem = new ScheduleSystem(battleSystem, OnScheduleEnd);
-
-        seed = new Random().Next(0, Int32.MaxValue); //* This is just a stop gap.
+        scheduleSystem = new ScheduleSystem(random, battleSystem, OnScheduleEnd);
     }
+
+    public GameRun() : this(new Random().Next()){}
 
     public void StartGame()
     {
         finishedSchedulesCount = 0;
-        scheduleSystem.StartSchdule(new ScheduleData()); //* This is just a stop gap since We haven't created test Data.
+        scheduleSystem.StartSchdule();
     }
 
     public void OnScheduleEnd()
@@ -34,7 +38,7 @@ public class GameRun
         }
         else
         {
-            scheduleSystem.StartSchdule(new ScheduleData()); //* This is just a stop gap since We haven't created test Data.
+            scheduleSystem.StartSchdule(); 
         }
     }
 }

@@ -1,0 +1,4 @@
+public enum NodeType
+{
+    BATTLE, INCIDENT, TRANSACION, ENTRY, EXIT, NONE
+}
