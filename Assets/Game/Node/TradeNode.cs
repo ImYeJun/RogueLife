@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TradeNode : Node
+public class TransactionNode : Node
 {
     private List<Choice> choices;
 
-    public TradeNode(Action<Node> OnMoveRequest) : base(OnMoveRequest)
+    public TransactionNode(Guid skeletonId, Action<Node> OnMoveRequest) : base(OnMoveRequest, skeletonId)
     {
     }
 

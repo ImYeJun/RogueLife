@@ -10,8 +10,15 @@ public class SchedulePath
     private int totalTransactionCount = 0;
     private Dictionary<NodeSkeleton, NodeType> visitedNodes = new Dictionary<NodeSkeleton, NodeType>();
 
+    public int RecentBattleSequence { get => recentBattleSequence; }
+    public int RecentIndicentSequence { get => recentIndicentSequence; }
+    public int RecentTransactionSeqeuence { get => recentTransactionSeqeuence; }
+    public int TotalBattleCount { get => totalBattleCount; }
+    public int TotalIndcidentCount { get => totalIndcidentCount; }
+    public int TotalTransactionCount { get => totalTransactionCount; }
     public Dictionary<NodeSkeleton, NodeType> VisitedNodes { get => visitedNodes; }
 
+    
     public SchedulePath Clone()
     {
         return new SchedulePath
@@ -37,5 +44,10 @@ public class SchedulePath
         if (type == NodeType.BATTLE) { totalBattleCount++; }
         if (type == NodeType.INCIDENT) { totalIndcidentCount++; }
         if (type == NodeType.TRANSACION) { totalTransactionCount++; }
+    }
+
+    public bool Contains(NodeSkeleton node)
+    {
+        return visitedNodes.ContainsKey(node);
     }
 }

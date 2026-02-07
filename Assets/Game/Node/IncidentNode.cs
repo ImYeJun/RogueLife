@@ -6,7 +6,7 @@ public class IncidentNode : Node
 {    
     private List<Choice> choices;
 
-    public IncidentNode(Action<Node> OnMoveRequest) : base(OnMoveRequest)
+    public IncidentNode(Guid skeletonId, Action<Node> OnMoveRequest) : base(OnMoveRequest, skeletonId)
     {
     }
 

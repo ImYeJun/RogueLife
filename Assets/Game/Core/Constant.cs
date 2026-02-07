@@ -12,5 +12,6 @@ public static class Constant{
     public const int MAX_SCHEDULE_REPETITION = 3;
     public static readonly string DIARY_STORE_PATH = Path.Combine(Application.persistentDataPath, "Diary");
     public const string ENCODE_KEY = "God please make this shit works";
-    public const int MAX_SCHEDULE_SKELETON_GENERATION_ATTEMPTS = 100000;
+    public const int MAX_SCHEDULE_SKELETON_GENERATION_ATTEMPTS = 10;
+    public const int MAX_SCHEDULE_GENERATION_ATTEMPTS = 10000;
 }

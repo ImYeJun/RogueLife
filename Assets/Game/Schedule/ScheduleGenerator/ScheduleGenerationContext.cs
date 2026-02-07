@@ -6,6 +6,8 @@ public class ScheduleGenerationContext
     private List<SchedulePath> completePaths = new List<SchedulePath>();
     private Dictionary<NodeSkeleton, List<SchedulePath>> passingByPathsOnNode = new Dictionary<NodeSkeleton, List<SchedulePath>>();
 
+    public List<SchedulePath> CompletePaths { get => completePaths; }
+    public Dictionary<NodeSkeleton, List<SchedulePath>> PassingByPathsOnNode { get => passingByPathsOnNode; }
     public int CompletePathCount { get => completePaths.Count; }
 
     public void RegisterCompletePath(SchedulePath path)

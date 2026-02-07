@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class ScheduleSkeletonGenerator
@@ -42,13 +41,13 @@ public class ScheduleSkeletonGenerator
     private bool TryGenerateSkeleton(out ScheduleSkeleton skeleton)
     {
         currentLayer = 0;
-        NodeSkeleton entryNode = new NodeSkeleton(currentLayer, NodeType.ENTRY);
+        NodeSkeleton entryNode = new NodeSkeleton(currentLayer, Guid.NewGuid(), NodeType.ENTRY);
         ScheduleSkeleton currentSkeleton = new ScheduleSkeleton(entryNode);
 
         CreateLayers(currentSkeleton);
         if (TryLinkLayers(currentSkeleton))
         {
-            NodeSkeleton exitNode = new NodeSkeleton(++currentLayer, NodeType.EXIT);
+            NodeSkeleton exitNode = new NodeSkeleton(++currentLayer, Guid.NewGuid(), NodeType.EXIT);
             currentSkeleton.AddNode(exitNode);
 
             var exitNodePreviousLayer = currentSkeleton.LayeredNodes[currentLayer - 1];
@@ -85,7 +84,7 @@ public class ScheduleSkeletonGenerator
 
             for (int j = 0; j < currentLayerNodeCount; j++)
             {
-                NodeSkeleton node = new NodeSkeleton(currentLayer);
+                NodeSkeleton node = new NodeSkeleton(currentLayer, Guid.NewGuid());
                 currentSkeleton.AddNode(node);
             }
 

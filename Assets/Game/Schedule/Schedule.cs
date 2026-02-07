@@ -7,7 +7,12 @@ public class Schedule : IChoiceScheduleSystem
     private Node startNode;
     private Node currentNode;
     private EnemyDataSlot bossDataSlot;
-    private List<Node> map;
+    private Dictionary<int, List<Node>> map;
+
+    public Dictionary<int, List<Node>> Map { get => map; }
+    public void FixMap(Dictionary<int, List<Node>> map) { this.map = map; }
+    public void FixStartNode(Node startNode) { this.startNode = startNode; }
+
     public event Action OnEnd; 
 
     public void MoveNode(Node nextNode)

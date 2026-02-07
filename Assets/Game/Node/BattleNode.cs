@@ -10,8 +10,9 @@ public class BattleNode : Node
     private List<EnemyDataSlot> engagingEnemiesDataSlot;
     private int startPhaseCount;
 
-    public BattleNode(Action<Node> OnMoveRequest, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest)
+    public BattleNode(Guid skeletonId, BattleSystem battleSystem, Action<Node> OnMoveRequest, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest, skeletonId)
     {
+        this.battleSystem = battleSystem;
         this.engagingEnemiesDataSlot = engagingEnemiesDataSlot;
     }
 
