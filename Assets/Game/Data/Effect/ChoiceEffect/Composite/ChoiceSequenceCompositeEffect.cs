@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class ChoiceSequenceCompositeEffect : IChoiceEffect
 {
-    [SerializeField] List<IChoiceEffect> choiceEffects;
+    [SerializeReference, SubclassSelector] List<IChoiceEffect> choiceEffects;
     
     public ChoiceSequenceCompositeEffect() {}
 

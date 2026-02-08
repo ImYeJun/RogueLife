@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class RandomChoiceEffectCandidate
 {
-    [SerializeField] IChoiceEffect effect;
+    [SerializeReference, SubclassSelector] IChoiceEffect effect;
     [SerializeField, Min(0)] int weight;
 
     public RandomChoiceEffectCandidate() {}

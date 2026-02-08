@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 
 [Serializable]
-public class ObtainBattleStartBuff : IChoiceEffect
+public class ChoiceObtainBattleStartBuffEffect : IChoiceEffect
 {
     [SerializeField] private BattleStatusEffect buff;
     [SerializeField] private FieldEffectDuration duration;
 
-    public ObtainBattleStartBuff() {}
+    public ChoiceObtainBattleStartBuffEffect() {}
 
     public void Execute(FieldContext context)
     {
