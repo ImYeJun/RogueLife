@@ -12,5 +12,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c54050fdd1fcd64786f1d59f939121f, type: 3}
   m_Name: IncidentData
   m_EditorClassIdentifier: GameAssembly::IncidentData
-  incidentName: 
-  choices: []
+  incidentName: sdasda;jlodfs;
+  choices:
+  - description: fdspkl; 'fds
+    effect:
+      rid: 7557519752953593967
+  - description: fdssdfasdaf
+    effect:
+      rid: 7557519752953593968
+  - description: sdfadsfafds
+    effect:
+      rid: -2
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7557519752953593967
+      type: {class: ChoiceDecreaseMaxCardVarietyEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 2
+    - rid: 7557519752953593968
+      type: {class: ChoiceRandomCompositeEffect, ns: , asm: GameAssembly}
+      data:
+        candidates:
+        - effect:
+            rid: 7557519752953593969
+          weight: 100
+        - effect:
+            rid: 7557519752953593970
+          weight: 300
+        - effect:
+            rid: 7557519752953593971
+          weight: 50
+        pickCount: 100
+    - rid: 7557519752953593969
+      type: {class: ChoiceIncreaseMaxActionCostEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 0
+        duration: 1
+    - rid: 7557519752953593970
+      type: {class: ChoiceIncreaseMaxCardVarietyEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 0
+    - rid: 7557519752953593971
+      type: {class: ChoiceDecreaseMaxMentalityEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 0

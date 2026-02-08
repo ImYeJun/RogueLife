@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class FullScheduleGeneratingTest
 {
-    private int testCount = 1;
+    private int testCount = 100;
 
     [Test]
     public void GenerateFullScheudle()
@@ -22,21 +22,36 @@ public class FullScheduleGeneratingTest
                 maxNodePerLayer : 5,
                 maxNodeLinkCount : 3,
                 additionalLinkMultiplierChance : 0.5f);
-            SchedulePathRule schedulePathRule = new SchedulePathRule(
-                maxBattleSequence : int.MaxValue,
-                maxIncidentSequence : int.MaxValue,
-                maxTransactionSequence : int.MaxValue,
-                minBattleCount : 0,
-                maxBattleCount : int.MaxValue,
-                minIncidentCount : 0,
-                maxIncidentCount : int.MaxValue,
-                minTransactionCount : 0,
-                maxTransactionCount : int.MaxValue);
-            SchedulePathCountRule schedulePathCountRule = new SchedulePathCountRule(
-                minCompeletePath : 0,
-                maxCompletePath : 10
+            ScheduleNodeTypeResolveRule typeResolveRule = new ScheduleNodeTypeResolveRule(
+                maxBattleSequence : 4,
+                maxIncidentSequence : 1,
+                maxTransactionSequence : 0,
+                new ScheduleLayerZoneRule(
+                    battleNodeWeight : 80,
+                    incidentNodeWeight : 20,
+                    transactionNodeWeight : 0,
+                    minBattleNodeCount : 0,
+                    minIncidentNodeCount : 0,
+                    minTransactionNodeCount : 0
+                ),
+                new ScheduleLayerZoneRule(
+                    battleNodeWeight : 50,
+                    incidentNodeWeight : 30,
+                    transactionNodeWeight : 20,
+                    minBattleNodeCount : 0,
+                    minIncidentNodeCount : 0,
+                    minTransactionNodeCount : 1
+                ),
+                new ScheduleLayerZoneRule(
+                    battleNodeWeight : 40,
+                    incidentNodeWeight : 40,
+                    transactionNodeWeight : 20,
+                    minBattleNodeCount : 0,
+                    minIncidentNodeCount : 0,
+                    minTransactionNodeCount : 1
+                )
             );
-            ScheduleGenerator generator = new ScheduleGenerator(scheduleSkeletonRule, schedulePathRule, new BattleSystem(new Player()), schedulePathCountRule);
+            ScheduleGenerator generator = new ScheduleGenerator(scheduleSkeletonRule, typeResolveRule, new BattleSystem(new Player()));
 
             string mermaidStoringPath = Path.Combine(Application.persistentDataPath, "Schedule Mermaids");
             if (!Directory.Exists(mermaidStoringPath)) { Directory.CreateDirectory(mermaidStoringPath); }
@@ -48,7 +63,7 @@ public class FullScheduleGeneratingTest
             {
                 int seed = random.Next();
                 Schedule skeleton = generator.GenerateSchedule(new System.Random(seed), new ScheduleData());
-                string fileContent = ToMermaid(skeleton.Map, seed, i, scheduleSkeletonRule, schedulePathRule, schedulePathCountRule);
+                string fileContent = ToMermaid(skeleton.Map, seed, i, scheduleSkeletonRule, typeResolveRule);
 
                 string filePath = Path.Combine(folderPath, i.ToString()) + ".md";
                 File.WriteAllText(filePath, fileContent);
@@ -66,9 +81,8 @@ public class FullScheduleGeneratingTest
     Dictionary<int, List<Node>> map,
     int seed,
     int attemptIndex,
-    ScheduleSkeletonRule scheduleSkeletonRule,
-    SchedulePathRule schedulePathRule,
-    SchedulePathCountRule schedulePathCountRule
+    ScheduleSkeletonRule skeletonRule,
+    ScheduleNodeTypeResolveRule nodeTypeResolveRule
     )
     {
         var sb = new StringBuilder();
@@ -80,19 +94,35 @@ public class FullScheduleGeneratingTest
         sb.AppendLine($"- **Attempt**: `{attemptIndex}`");
         sb.AppendLine();
         sb.AppendLine("## Schedule Skeleton Rule");
-        sb.AppendLine($"- Layer: {scheduleSkeletonRule.MinLayer} ~ {scheduleSkeletonRule.MaxLayer}");
-        sb.AppendLine($"- NodePerLayer: {scheduleSkeletonRule.MinNodePerLayer} ~ {scheduleSkeletonRule.MaxNodePerLayer}");
-        sb.AppendLine($"- MaxNodeLinkCount: {scheduleSkeletonRule.MaxNodeLinkCount}");
-        sb.AppendLine($"- AdditionalLinkMultiplierChance: {scheduleSkeletonRule.AdditionalLinkMultiplierChance}");
-        sb.AppendLine("## Schedule Path Rule");
-        sb.AppendLine($"- MaxBattleSequence: {schedulePathRule.MaxBattleSequence}");
-        sb.AppendLine($"- MaxIncidentSequence: {schedulePathRule.MaxIncidentSequence}");
-        sb.AppendLine($"- MaxTransactionSequence: {schedulePathRule.MaxTransactionSequence}");
-        sb.AppendLine($"- BattleCount: {schedulePathRule.MinBattleCount} ~ {schedulePathRule.MaxBattleCount}");
-        sb.AppendLine($"- IncidentCount: {schedulePathRule.MinIncidentCount} ~ {schedulePathRule.MaxIncidentCount}");
-        sb.AppendLine($"- TransactionCount: {schedulePathRule.MinTransactionCount} ~ {schedulePathRule.MaxTransactionCount}");
-        sb.AppendLine("## Schedule Path Count Rule");
-        sb.AppendLine($"- CompeletePath: {schedulePathCountRule.MinCompeletePath} ~ {schedulePathCountRule.MaxCompletePath}");
+        sb.AppendLine($"- Layer: {skeletonRule.MinLayer} ~ {skeletonRule.MaxLayer}");
+        sb.AppendLine($"- NodePerLayer: {skeletonRule.MinNodePerLayer} ~ {skeletonRule.MaxNodePerLayer}");
+        sb.AppendLine($"- MaxNodeLinkCount: {skeletonRule.MaxNodeLinkCount}");
+        sb.AppendLine($"- AdditionalLinkMultiplierChance: {skeletonRule.AdditionalLinkMultiplierChance}");
+        sb.AppendLine("## Node Type Resolve Rule");
+        sb.AppendLine($"- MaxBattleSequence: {nodeTypeResolveRule.MaxBattleSequence}");
+        sb.AppendLine($"- MaxIncidentSequence: {nodeTypeResolveRule.MaxIncidentSequence}");
+        sb.AppendLine($"- MaxTransactionSequence: {nodeTypeResolveRule.MaxTransactionSequence}");
+        sb.AppendLine("### Early Layer Zone Rule");
+        sb.AppendLine($"- Battle Node Weight : {nodeTypeResolveRule.EarlyLayerZoneRule.BattleNodeWeight}");
+        sb.AppendLine($"- Incident Node Weight : {nodeTypeResolveRule.EarlyLayerZoneRule.IncidentNodeWeight}");
+        sb.AppendLine($"- Transaction Node Weight : {nodeTypeResolveRule.EarlyLayerZoneRule.TransactionNodeWeight}");
+        sb.AppendLine($"- Min Battle Node Count : {nodeTypeResolveRule.EarlyLayerZoneRule.MinBattleNodeCount}");
+        sb.AppendLine($"- Min Incident Node Count : {nodeTypeResolveRule.EarlyLayerZoneRule.MinIncidentNodeCount}");
+        sb.AppendLine($"- Min Transaction Node Count : {nodeTypeResolveRule.EarlyLayerZoneRule.MinTransactionNodeCount}");
+        sb.AppendLine("### Middle Layer Zone Rule");
+        sb.AppendLine($"- Battle Node Weight : {nodeTypeResolveRule.MiddleLayerZoneRule.BattleNodeWeight}");
+        sb.AppendLine($"- Incident Node Weight : {nodeTypeResolveRule.MiddleLayerZoneRule.IncidentNodeWeight}");
+        sb.AppendLine($"- Transaction Node Weight : {nodeTypeResolveRule.MiddleLayerZoneRule.TransactionNodeWeight}");
+        sb.AppendLine($"- Min Battle Node Count : {nodeTypeResolveRule.MiddleLayerZoneRule.MinBattleNodeCount}");
+        sb.AppendLine($"- Min Incident Node Count : {nodeTypeResolveRule.MiddleLayerZoneRule.MinIncidentNodeCount}");
+        sb.AppendLine($"- Min Transaction Node Count : {nodeTypeResolveRule.MiddleLayerZoneRule.MinTransactionNodeCount}");
+        sb.AppendLine("### Late Layer Zone Rule");
+        sb.AppendLine($"- Battle Node Weight : {nodeTypeResolveRule.LateLayerZoneRule.BattleNodeWeight}");
+        sb.AppendLine($"- Incident Node Weight : {nodeTypeResolveRule.LateLayerZoneRule.IncidentNodeWeight}");
+        sb.AppendLine($"- Transaction Node Weight : {nodeTypeResolveRule.LateLayerZoneRule.TransactionNodeWeight}");
+        sb.AppendLine($"- Min Battle Node Count : {nodeTypeResolveRule.LateLayerZoneRule.MinBattleNodeCount}");
+        sb.AppendLine($"- Min Incident Node Count : {nodeTypeResolveRule.LateLayerZoneRule.MinIncidentNodeCount}");
+        sb.AppendLine($"- Min Transaction Node Count : {nodeTypeResolveRule.LateLayerZoneRule.MinTransactionNodeCount}");
         sb.AppendLine();
 
         // ---- Mermaid 시작

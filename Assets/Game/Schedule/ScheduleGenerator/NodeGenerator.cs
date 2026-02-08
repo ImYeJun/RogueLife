@@ -20,7 +20,7 @@ public class NodeGenerator
                 return new BattleNode(skeletonId, battleSystem, onMoveRequest, null); //TODO determine the enemy by ScheduleData
             case NodeType.INCIDENT:
                 return new IncidentNode(skeletonId, onMoveRequest);
-            case NodeType.TRANSACION:
+            case NodeType.TRANSACTION:
                 return new TransactionNode(skeletonId, onMoveRequest);
             case NodeType.EXIT:
                 return new ScheduleExitNode(skeletonId, onMoveRequest, onScheduleEnd);

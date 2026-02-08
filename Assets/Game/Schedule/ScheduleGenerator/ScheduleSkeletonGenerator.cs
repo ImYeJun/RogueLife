@@ -40,11 +40,16 @@ public class ScheduleSkeletonGenerator
 
     private bool TryGenerateSkeleton(out ScheduleSkeleton skeleton)
     {
+        int layerCount = currentRandom.Next(rule.MinLayer, rule.MaxLayer + 1);
+        int middleLayerCount = (int)Mathf.Ceil((float)layerCount / 2);
+        int earlyLayerCount = (int)Mathf.Ceil((float)(layerCount - middleLayerCount) / 2);
+        int lateLayerCount = layerCount - earlyLayerCount - middleLayerCount + 1;
+
         currentLayer = 0;
         NodeSkeleton entryNode = new NodeSkeleton(currentLayer, Guid.NewGuid(), NodeType.ENTRY);
-        ScheduleSkeleton currentSkeleton = new ScheduleSkeleton(entryNode);
+        ScheduleSkeleton currentSkeleton = new ScheduleSkeleton(entryNode, earlyLayerCount, middleLayerCount, lateLayerCount);
 
-        CreateLayers(currentSkeleton);
+        CreateLayers(currentSkeleton, layerCount);
         if (TryLinkLayers(currentSkeleton))
         {
             NodeSkeleton exitNode = new NodeSkeleton(++currentLayer, Guid.NewGuid(), NodeType.EXIT);
@@ -57,20 +62,20 @@ public class ScheduleSkeletonGenerator
                 exitNode.PreviousNodes.Add(node);
             }
 
-            skeleton = currentSkeleton;
-            return true;
+            //TODO fix THIS FUCKED IsValid() method
+            // if (currentSkeleton.IsValid())
+            // {
+                skeleton = currentSkeleton;
+                return true;
+            // }
         }
-        else
-        {
-            skeleton = null;
-            return false;
-        }
+        
+        skeleton = null;
+        return false;
     }
 
-    private void CreateLayers(ScheduleSkeleton currentSkeleton)
+    private void CreateLayers(ScheduleSkeleton currentSkeleton, int layerCount)
     {
-        int layerCount = currentRandom.Next(rule.MinLayer, rule.MaxLayer + 1);
-
         int previousLayerNodeCount = 1;
         for (int i = 0; i < layerCount; i++)
         {
@@ -108,10 +113,10 @@ public class ScheduleSkeletonGenerator
 
             foreach (var currentNode in currentLayer)
             {
-                var possiblePreviousTargets = previousLayer.Where(node => node.NextNodes.Count < rule.MaxNodePerLayer).ToList();
+                var possiblePreviousTargets = previousLayer.Where(node => node.NextNodes.Count < rule.MaxNodeLinkCount).ToList();
                 if (possiblePreviousTargets.Count <= 0)
                 {
-                    Debug.LogError("Fucked Seed in Generating Schedule Skeleton");
+                    UnityEngine.Debug.LogError("Fucked Seed in Generating Schedule Skeleton");
                     return false;
                 }
 

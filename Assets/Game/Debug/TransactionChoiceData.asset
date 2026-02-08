@@ -15,9 +15,11 @@ MonoBehaviour:
   description: 
   subDescription: 
   effect:
-    rid: -2
+    rid: 7557519752953593973
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519752953593973
+      type: {class: ChoiceObtainSpecificCardEffect, ns: , asm: GameAssembly}
+      data:
+        obtainingCardData: {fileID: 0}

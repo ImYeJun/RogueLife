@@ -1,18 +1,83 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class ScheduleSkeleton
 {
     private Dictionary<int, HashSet<NodeSkeleton>> layeredNodes = new Dictionary<int, HashSet<NodeSkeleton>>(); // <layer, Node>
     private NodeSkeleton startNode;
+    private readonly int earlyLayerCount;
+    private readonly int middleLayerCount;
+    private readonly int lateLayerCount;
 
-    public ScheduleSkeleton(NodeSkeleton startNode)
+    public ScheduleSkeleton(NodeSkeleton startNode, int earlyLayerCount, int middleLayerCount, int lateLayerCount)
     {
-        this.startNode = startNode;
+        this.earlyLayerCount = earlyLayerCount;
+        this.middleLayerCount = middleLayerCount;
+        this.lateLayerCount = lateLayerCount;
 
+        this.startNode = startNode;
         AddNode(startNode);
     }
 
     public Dictionary<int, HashSet<NodeSkeleton>> LayeredNodes { get => layeredNodes; }
+    public int FirstLayer { get => layeredNodes.Keys.OrderBy(l => l).First(); }
+    public int LastLayer { get => layeredNodes.Keys.OrderByDescending(l => l).First(); }
+    public Dictionary<int, HashSet<NodeSkeleton>> EarlyLayers
+    {
+        get
+        {
+            // if (!IsValid()) { return null; }
+
+            Dictionary<int, HashSet<NodeSkeleton>> layers = new Dictionary<int, HashSet<NodeSkeleton>>();
+
+            int fisrtLayer = FirstLayer;
+            for (int i = 0; i < earlyLayerCount; i++)
+            {
+                int layer = fisrtLayer + i;
+                layers.Add(layer, layeredNodes[layer]);
+            }
+
+            return layers;
+        }
+    }
+    public Dictionary<int, HashSet<NodeSkeleton>> MiddleLayers
+    {
+        get
+        {
+            // if (!IsValid()) { return null; }
+
+            Dictionary<int, HashSet<NodeSkeleton>> layers = new Dictionary<int, HashSet<NodeSkeleton>>();
+
+            int fisrtLayer = FirstLayer + earlyLayerCount;
+            for (int i = 0; i < middleLayerCount; i++)
+            {
+                int layer = fisrtLayer + i;
+                layers.Add(layer, layeredNodes[layer]);
+            }
+
+            return layers;
+        }
+    }
+    public Dictionary<int, HashSet<NodeSkeleton>> LateLayers
+    {
+        get
+        {
+            // if (!IsValid()) { return null; }
+            
+            Dictionary<int, HashSet<NodeSkeleton>> layers = new Dictionary<int, HashSet<NodeSkeleton>>();
+
+            int fisrtLayer = FirstLayer + earlyLayerCount + middleLayerCount;
+            for (int i = 0; i < lateLayerCount; i++)
+            {
+                int layer = fisrtLayer + i;
+                layers.Add(layer, layeredNodes[layer]);
+            }
+
+            return layers;
+        }
+    }
+
+    public NodeSkeleton StartNode { get => startNode;  }
     public List<NodeSkeleton> Nodes 
     { 
         get
@@ -30,7 +95,6 @@ public class ScheduleSkeleton
             return nodes;
         }
     }
-    public NodeSkeleton StartNode { get => startNode;  }
 
     public void AddNode(NodeSkeleton node)
     {
@@ -40,5 +104,22 @@ public class ScheduleSkeleton
         }
         
         layeredNodes[node.Layer].Add(node);
+    }
+
+    public bool IsValid()
+    {
+        var layers = layeredNodes.Keys.OrderBy(l => l).ToList();
+
+        if (layers == null || layers.Count == 0) { return false; }
+
+        for (int i = 0; i < layers.Count - 2; i++)
+        {
+            if (layers[i] != layers[i + 1] - 1)
+            {
+                return false;
+            }
+        }
+
+        return layers.Count == (earlyLayerCount + middleLayerCount + lateLayerCount);
     }
 }

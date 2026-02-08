@@ -4,20 +4,15 @@ using System.Linq;
 
 public class ScheduleGenerator
 {
-    private ScheduleGenerationContext generationContext;
     private ScheduleSkeletonGenerator skeletonGenerator;
-    private SchedulePathCollector pathCollector;
+    private ScheduleNodeTypeResolver nodeTypeResolver;
     private NodeGenerator nodeGenerator;
-    private SchedulePathCountRule pathCountRule;
 
-    public ScheduleGenerator(ScheduleSkeletonRule skeletonRule, SchedulePathRule pathRule, BattleSystem battleSystem, SchedulePathCountRule pathCountRule)
+    public ScheduleGenerator(ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule, BattleSystem battleSystem)
     {
-        generationContext = new ScheduleGenerationContext();
         skeletonGenerator = new ScheduleSkeletonGenerator(skeletonRule);
-        pathCollector = new SchedulePathCollector(pathRule, generationContext);
+        nodeTypeResolver = new ScheduleNodeTypeResolver(typeResolveRule);
         nodeGenerator = new NodeGenerator(battleSystem);
-
-        this.pathCountRule = pathCountRule;
     }
 
     public Schedule GenerateSchedule(Random random, ScheduleData scheduleData)
@@ -37,82 +32,17 @@ public class ScheduleGenerator
             attempts++;
         }
         
-        UnityEngine.Debug.Log($"attempt count : {attempts}");
         return result;
     }
 
     private bool TryGenerateSchedule(Random random, ScheduleData scheduleData, out Schedule schedule)
     {
-        generationContext.ResetContext();
-
         ScheduleSkeleton scheduleSkeleton = skeletonGenerator.GenerateSkeleton(random);
         
-        pathCollector.StartCollect(scheduleSkeleton.StartNode);
+        nodeTypeResolver.ResolveSkeletonNodeType(random, scheduleSkeleton);
 
-        ResolveSkeletonNodeType(random);
-
-        if (IsAppropriatePathCount())
-        {
-            schedule = MaterializeSchedule(scheduleSkeleton);
-            return true;
-        }
-        else
-        {
-            schedule = null;
-            return false;
-        }
-    }
-
-    private bool IsAppropriatePathCount()
-    {
-        return 
-            generationContext.CompletePathCount >= pathCountRule.MinCompeletePath &&
-            generationContext.CompletePathCount <= pathCountRule.MaxCompletePath;
-    }
-
-    private void ResolveSkeletonNodeType(Random random)
-    {
-        var completedPath = generationContext.CompletePaths;
-        var passingByPathsOnNode = generationContext.PassingByPathsOnNode;
-
-        UnityEngine.Debug.Log($"total complte paths count : {completedPath.Count}");
-        var removeTargets = new HashSet<SchedulePath>();
-        foreach (var pair in passingByPathsOnNode)
-        {
-            var node = pair.Key;
-            var typeCount = new Dictionary<NodeType, int>();
-
-            foreach (var path in pair.Value)
-            {
-                NodeType type = path.VisitedNodes[node];
-                typeCount.TryAdd(type, 0);
-                typeCount[type]++;
-            }
-
-            bool isAllSameCount = typeCount.Values.All(value => value == typeCount.Values.First());
-            NodeType fixedType;
-
-            if (isAllSameCount) { 
-                var keyList = typeCount.Keys.ToList();
-                fixedType = keyList[random.Next(keyList.Count)];
-            }
-            else { fixedType = typeCount.OrderByDescending(key => key.Value).First().Key;} 
-
-            node.FixedType = fixedType;
-
-            foreach (var path in pair.Value)
-            {
-                if (path.VisitedNodes[node] != fixedType)
-                {
-                    removeTargets.Add(path);
-                }
-            }
-        }
-
-        foreach (var path in removeTargets)
-        {
-            generationContext.CompletePaths.Remove(path);
-        }
+        schedule = MaterializeSchedule(scheduleSkeleton);
+        return true;
     }
 
     private Schedule MaterializeSchedule(ScheduleSkeleton skeleton)

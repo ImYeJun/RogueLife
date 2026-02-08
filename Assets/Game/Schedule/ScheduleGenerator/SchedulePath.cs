@@ -39,11 +39,11 @@ public class SchedulePath
 
         recentBattleSequence = type == NodeType.BATTLE ? recentBattleSequence + 1 : 0;
         recentIndicentSequence = type == NodeType.INCIDENT ? recentIndicentSequence + 1 : 0;
-        recentTransactionSeqeuence = type == NodeType.TRANSACION ? recentTransactionSeqeuence + 1 : 0;
+        recentTransactionSeqeuence = type == NodeType.TRANSACTION ? recentTransactionSeqeuence + 1 : 0;
 
         if (type == NodeType.BATTLE) { totalBattleCount++; }
         if (type == NodeType.INCIDENT) { totalIndcidentCount++; }
-        if (type == NodeType.TRANSACION) { totalTransactionCount++; }
+        if (type == NodeType.TRANSACTION) { totalTransactionCount++; }
     }
 
     public bool Contains(NodeSkeleton node)
