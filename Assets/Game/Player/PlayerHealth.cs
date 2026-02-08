@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerHealth : IChoiceHealth
+public class PlayerHealth : IFieldHealth
 {
     private int currentBattleHealth;
     private int currentMentality;
@@ -13,8 +13,9 @@ public class PlayerHealth : IChoiceHealth
     public int CurrentMentality { get => currentMentality; }
     public int MaxBattleHealth { get => maxBattleHealth; }
     public int MaxMentality { get => maxMentality; }
-
-    public void ReceiveDamage(int amount)
+    
+    //TODO 정신력, 전투체력 데미지 메소드 분리하기
+    public void HurtBattleHealth(int amount)
     {
         if (amount < 0) return;
 
@@ -76,4 +77,13 @@ public class PlayerHealth : IChoiceHealth
         currentMentality = Mathf.Min(currentMentality, maxMentality);
     }
 
+    public void HealMentality(int amount, bool isOverflowable)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void HurtBattleHealth(int amount, bool isOverflowable)
+    {
+        throw new NotImplementedException();
+    }
 }

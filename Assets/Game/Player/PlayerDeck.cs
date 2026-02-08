@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerDeck : IChoiceDeck
+public class PlayerDeck : IFieldDeck
 {
     private Dictionary<CardData, List<Card>> mainDeck = new Dictionary<CardData, List<Card>>();
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
@@ -141,5 +141,40 @@ public class PlayerDeck : IChoiceDeck
             DeckType.SIDE_DECK => sideDeck,
             _ => throw new ArgumentOutOfRangeException(nameof(type))
         };
+    }
+
+    public void RegisterDeckobserver(IDeckObserver observer)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UnrgisterDeckobserver(IDeckObserver observer)
+    {
+        throw new NotImplementedException();
+    }
+
+    public List<Card> GetSpecificCardsByData(CardData data)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool TryRemoveRandomCard(CardType type, CardAttribute attribute)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void IncreaseMaxCardVariety(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DecreaseMaxCardVariety(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool TryRemoveCardByData(CardData data, int amount)
+    {
+        throw new NotImplementedException();
     }
 }

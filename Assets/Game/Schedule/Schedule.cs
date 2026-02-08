@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class Schedule : IChoiceScheduleSystem
+public class Schedule : IFieldScheduleSystem
 {
     private ScheduleData scheduleData;
     private Node startNode;

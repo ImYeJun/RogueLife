@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerActionCost : IChoiceActionCost
+public class PlayerActionCost : IFieldActionCost
 {
     private int maxActionCost = Constant.BASE_MAX_ACTION_COST;
     private int currentActionCost;
@@ -19,15 +19,25 @@ public class PlayerActionCost : IChoiceActionCost
 
     public void Refill() { currentActionCost = maxActionCost; }
 
-    public void IncreaseMaxActionCost(int amount) {
+    public void IncreaseMaxCapacity(int amount) {
         if (amount < 0) return;
 
         maxActionCost += amount;
     }
-    public void DecreaseMaxActionCost(int amount) {
+    public void DecreaseMaxCapacity(int amount) {
         if (amount < 0) return;
 
         maxActionCost = Mathf.Max(maxActionCost - amount, 0);
         currentActionCost = Mathf.Min(currentActionCost, maxActionCost);
+    }
+
+    public void IncreaseMaxCapacity(int amount, FieldEffectDuration duration)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void DecreaseMaxCapacity(int amount, FieldEffectDuration duration)
+    {
+        throw new System.NotImplementedException();
     }
 }

@@ -1,0 +1,12 @@
+using System.Collections.Generic;
+
+public interface IFieldDeck {
+    public void RegisterDeckobserver(IDeckObserver observer);
+    public void UnrgisterDeckobserver(IDeckObserver observer);
+    public List<Card> GetSpecificCardsByData(CardData data);
+    public bool TryObtainCard(Card card);
+    public bool TryRemoveRandomCard(CardType type, CardAttribute attribute);
+    public bool TryRemoveCardByData(CardData data, int amount);
+    public void IncreaseMaxCardVariety(int amount);
+    public void DecreaseMaxCardVariety(int amount);
+}
