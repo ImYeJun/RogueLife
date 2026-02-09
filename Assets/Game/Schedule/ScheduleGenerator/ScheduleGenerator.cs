@@ -41,11 +41,11 @@ public class ScheduleGenerator
         
         nodeTypeResolver.ResolveSkeletonNodeType(random, scheduleSkeleton);
 
-        schedule = MaterializeSchedule(scheduleSkeleton);
+        schedule = MaterializeSchedule(scheduleSkeleton, scheduleData);
         return true;
     }
 
-    private Schedule MaterializeSchedule(ScheduleSkeleton skeleton)
+    private Schedule MaterializeSchedule(ScheduleSkeleton skeleton, ScheduleData data)
     {
         Dictionary<int, List<Node>> layered = new Dictionary<int, List<Node>>();
         Schedule schedule = new Schedule();
@@ -89,7 +89,7 @@ public class ScheduleGenerator
                         if (nextSkeltonNodesId.Contains(nextNode.SkeletonId))
                         {
                             node.LinkNextNode(nextNode);
-                            nextNode.LinkPreviousNode(node); //! TODO Refactor this shit hack.
+                            nextNode.LinkPreviousNode(node);
                         }
                     }
                 }

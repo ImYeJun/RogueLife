@@ -43,25 +43,31 @@ public class ScheduleSkeletonGenerator
         int layerCount = currentRandom.Next(rule.MinLayer, rule.MaxLayer + 1);
         int middleLayerCount = (int)Mathf.Ceil((float)layerCount / 2);
         int earlyLayerCount = (int)Mathf.Ceil((float)(layerCount - middleLayerCount) / 2);
-        int lateLayerCount = layerCount - earlyLayerCount - middleLayerCount + 1;
+        int lateLayerCount = layerCount - earlyLayerCount - middleLayerCount;
 
         currentLayer = 0;
+        //* resolving pre early layer
         NodeSkeleton entryNode = new NodeSkeleton(currentLayer, Guid.NewGuid(), NodeType.ENTRY);
-        ScheduleSkeleton currentSkeleton = new ScheduleSkeleton(entryNode, earlyLayerCount, middleLayerCount, lateLayerCount);
 
+        ScheduleSkeleton currentSkeleton = new ScheduleSkeleton(entryNode, 1, earlyLayerCount, middleLayerCount, lateLayerCount, 2);
         CreateLayers(currentSkeleton, layerCount);
         if (TryLinkLayers(currentSkeleton))
         {
+            //* resolving post late layers
+            NodeSkeleton bossNode = new NodeSkeleton(++currentLayer, Guid.NewGuid(), NodeType.BOSS);
+            var bossNodePreviousLayer = currentSkeleton.LayeredNodes[currentLayer - 1];
+            foreach (var node in bossNodePreviousLayer)
+            {
+                node.NextNodes.Add(bossNode);
+                bossNode.PreviousNodes.Add(node);
+            }
+
             NodeSkeleton exitNode = new NodeSkeleton(++currentLayer, Guid.NewGuid(), NodeType.EXIT);
             currentSkeleton.AddNode(exitNode);
 
-            var exitNodePreviousLayer = currentSkeleton.LayeredNodes[currentLayer - 1];
-            foreach (var node in exitNodePreviousLayer)
-            {
-                node.NextNodes.Add(exitNode);
-                exitNode.PreviousNodes.Add(node);
-            }
-
+            bossNode.NextNodes.Add(exitNode);
+            exitNode.NextNodes.Add(bossNode);
+    
             //TODO fix THIS FUCKED IsValid() method
             // if (currentSkeleton.IsValid())
             // {

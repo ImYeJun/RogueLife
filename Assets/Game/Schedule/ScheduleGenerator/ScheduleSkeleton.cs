@@ -5,15 +5,19 @@ public class ScheduleSkeleton
 {
     private Dictionary<int, HashSet<NodeSkeleton>> layeredNodes = new Dictionary<int, HashSet<NodeSkeleton>>(); // <layer, Node>
     private NodeSkeleton startNode;
+    private readonly int preEarlyLayerCount;
     private readonly int earlyLayerCount;
     private readonly int middleLayerCount;
     private readonly int lateLayerCount;
+    private readonly int postLayerLayerCount;
 
-    public ScheduleSkeleton(NodeSkeleton startNode, int earlyLayerCount, int middleLayerCount, int lateLayerCount)
+    public ScheduleSkeleton(NodeSkeleton startNode, int preEarlyLayerCount, int earlyLayerCount, int middleLayerCount, int lateLayerCount, int postLayerLayerCount)
     {
+        this.preEarlyLayerCount = preEarlyLayerCount;
         this.earlyLayerCount = earlyLayerCount;
         this.middleLayerCount = middleLayerCount;
         this.lateLayerCount = lateLayerCount;
+        this.postLayerLayerCount = postLayerLayerCount;
 
         this.startNode = startNode;
         AddNode(startNode);
@@ -30,7 +34,7 @@ public class ScheduleSkeleton
 
             Dictionary<int, HashSet<NodeSkeleton>> layers = new Dictionary<int, HashSet<NodeSkeleton>>();
 
-            int fisrtLayer = FirstLayer;
+            int fisrtLayer = FirstLayer + preEarlyLayerCount;
             for (int i = 0; i < earlyLayerCount; i++)
             {
                 int layer = fisrtLayer + i;
@@ -48,7 +52,7 @@ public class ScheduleSkeleton
 
             Dictionary<int, HashSet<NodeSkeleton>> layers = new Dictionary<int, HashSet<NodeSkeleton>>();
 
-            int fisrtLayer = FirstLayer + earlyLayerCount;
+            int fisrtLayer = FirstLayer + preEarlyLayerCount + earlyLayerCount;
             for (int i = 0; i < middleLayerCount; i++)
             {
                 int layer = fisrtLayer + i;
@@ -66,7 +70,7 @@ public class ScheduleSkeleton
             
             Dictionary<int, HashSet<NodeSkeleton>> layers = new Dictionary<int, HashSet<NodeSkeleton>>();
 
-            int fisrtLayer = FirstLayer + earlyLayerCount + middleLayerCount;
+            int fisrtLayer = FirstLayer + preEarlyLayerCount + earlyLayerCount + middleLayerCount;
             for (int i = 0; i < lateLayerCount; i++)
             {
                 int layer = fisrtLayer + i;

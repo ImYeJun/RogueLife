@@ -22,6 +22,8 @@ public class NodeGenerator
                 return new IncidentNode(skeletonId, onMoveRequest);
             case NodeType.TRANSACTION:
                 return new TransactionNode(skeletonId, onMoveRequest);
+            case NodeType.BOSS:
+                return new BattleNode(skeletonId, battleSystem, onMoveRequest, null); //TODO determine the boss by ScheduleData
             case NodeType.EXIT:
                 return new ScheduleExitNode(skeletonId, onMoveRequest, onScheduleEnd);
             default:
