@@ -66,6 +66,7 @@ public class ScheduleGenerator
 
         int maxLayer = layered.Keys.OrderByDescending(l => l).First();
         Node startNode = null;
+
         foreach (var pair in layered)
         {
             var layer = pair.Key;
@@ -73,7 +74,7 @@ public class ScheduleGenerator
 
             if (layer != maxLayer)
             {
-                if (!layered.ContainsKey(layer + 1)) { throw new InvalidOperationException("The layer is not contiguous"); }
+                if (!layered.ContainsKey(layer + 1)) { throw new InvalidOperationException($"The layer is not contiguous ({layer} -> {layer + 1})"); }
                 var nextLayerNodes = layered[layer + 1];
 
                 foreach (var node in nodes)

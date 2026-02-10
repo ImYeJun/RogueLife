@@ -55,6 +55,8 @@ public class ScheduleSkeletonGenerator
         {
             //* resolving post late layers
             NodeSkeleton bossNode = new NodeSkeleton(++currentLayer, Guid.NewGuid(), NodeType.BOSS);
+            currentSkeleton.AddNode(bossNode);
+
             var bossNodePreviousLayer = currentSkeleton.LayeredNodes[currentLayer - 1];
             foreach (var node in bossNodePreviousLayer)
             {
