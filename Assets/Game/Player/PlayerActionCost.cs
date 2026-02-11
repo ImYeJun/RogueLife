@@ -1,43 +1,71 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerActionCost : IFieldActionCost
 {
     private int maxActionCost = Constant.BASE_MAX_ACTION_COST;
-    private int currentActionCost;
-
     public int MaxActionCost { get => maxActionCost; }
-    public int CurrentActionCost { get => currentActionCost; }
-    
-    public bool TrySpend(int amount)
+
+    private List<TemporalActionCostIncreaseModifier> temporalCostIncreaseModifiers = new List<TemporalActionCostIncreaseModifier>();
+    private List<TemporalActionCostDecreaseModifier> temporalCostDecreaseModifiers = new List<TemporalActionCostDecreaseModifier>();
+
+    // public bool TrySpend(int amount)
+    // {
+    //     if (amount < 0) { return false; }
+    //     if (currentActionCost < amount) { return false; }
+
+    //     currentActionCost -= amount;
+    //     return true;
+    // }
+
+    // public void Refill() { currentActionCost = maxActionCost; }
+
+    public void IncreaseMaxCapacity(int amount, FieldEffectDuration duration) 
     {
-        if (amount < 0) { return false; }
-        if (currentActionCost < amount) { return false; }
-
-        currentActionCost -= amount;
-        return true;
-    }
-
-    public void Refill() { currentActionCost = maxActionCost; }
-
-    public void IncreaseMaxCapacity(int amount) {
         if (amount < 0) return;
 
         maxActionCost += amount;
+
+        if (duration == FieldEffectDuration.SINGLE_BATTLE) 
+        { 
+            temporalCostIncreaseModifiers.Add(new TemporalActionCostIncreaseModifier(1, amount)); 
+        }
     }
-    public void DecreaseMaxCapacity(int amount) {
+
+    public void DecreaseMaxCapacity(int amount, FieldEffectDuration duration) 
+    {
         if (amount < 0) return;
 
-        maxActionCost = Mathf.Max(maxActionCost - amount, 0);
-        currentActionCost = Mathf.Min(currentActionCost, maxActionCost);
+        int actualDecreased = Mathf.Min(maxActionCost, amount);
+        
+        maxActionCost -= actualDecreased;
+
+        if (duration == FieldEffectDuration.SINGLE_BATTLE && actualDecreased > 0) 
+        { 
+            temporalCostDecreaseModifiers.Add(new TemporalActionCostDecreaseModifier(1, actualDecreased)); 
+        }
     }
 
-    public void IncreaseMaxCapacity(int amount, FieldEffectDuration duration)
+    public void OnBattleEnd()
     {
-        throw new System.NotImplementedException();
-    }
+        for (int i = temporalCostIncreaseModifiers.Count - 1; i >= 0; i--)
+        {
+            var element = temporalCostIncreaseModifiers[i];
+            if (--element.RemainBattleCount == 0)
+            {
+                DecreaseMaxCapacity(element.ModificatedAmount, FieldEffectDuration.ETERNAL);
+                temporalCostIncreaseModifiers.RemoveAt(i);
+            }
+        }
 
-    public void DecreaseMaxCapacity(int amount, FieldEffectDuration duration)
-    {
-        throw new System.NotImplementedException();
+        for (int i = temporalCostDecreaseModifiers.Count - 1; i >= 0; i--)
+        {
+            var element = temporalCostDecreaseModifiers[i];
+            if (--element.RemainBattleCount == 0)
+            {
+                IncreaseMaxCapacity(element.ModificatedAmount, FieldEffectDuration.ETERNAL);
+                temporalCostDecreaseModifiers.RemoveAt(i);
+            }
+        }
     }
 }

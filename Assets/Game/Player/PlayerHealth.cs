@@ -7,83 +7,110 @@ public class PlayerHealth : IFieldHealth
     private int currentMentality;
     private int maxBattleHealth;
     private int maxMentality;
+
     public event Action OnMentalBreakDown;
 
     public int CurrentBattleHealth { get => currentBattleHealth; }
     public int CurrentMentality { get => currentMentality; }
     public int MaxBattleHealth { get => maxBattleHealth; }
     public int MaxMentality { get => maxMentality; }
+
+    // 생성자 등을 통해 초기 Max값을 설정해야 한다면 추가가 필요하다.
     
-    //TODO 정신력, 전투체력 데미지 메소드 분리하기
-    public void HurtBattleHealth(int amount)
+    public void HurtBattleHealth(int amount, bool isOverflowable)
     {
         if (amount < 0) return;
 
-        if (currentBattleHealth > amount)
-        {
-            currentBattleHealth -= amount;
-        }
-        else
-        {
-            amount -= currentBattleHealth;
-            currentBattleHealth = 0;
+        int actualDamage = amount;
+        int overflowAmount = 0;
 
-            HurtMentality(amount);
+        if (currentBattleHealth < amount)
+        {
+            overflowAmount = amount - currentBattleHealth;
+            actualDamage = currentBattleHealth; 
+        }
+
+        currentBattleHealth -= actualDamage; 
+        
+        if (overflowAmount > 0 && isOverflowable)
+        {
+            HurtMentality(overflowAmount);
         }
     }
+
     public void HurtMentality(int amount)
     {
         if (amount < 0) return;
 
-        currentMentality = Mathf.Clamp(currentMentality - amount, 0, maxMentality);
+        bool wasBroken = IsMentalBrokenDown();
 
-        if (IsMentalBrokenDown())
+        currentMentality = Mathf.Max(0, currentMentality - amount);
+
+        if (!wasBroken && IsMentalBrokenDown())
         {
             OnMentalBreakDown?.Invoke();
         }
     }
+
     public bool IsMentalBrokenDown() => currentMentality <= 0;
 
-    public void HealBattleHealth(int amount) { 
+    public void HealBattleHealth(int amount)
+    {
         if (amount < 0) return;
-        
         currentBattleHealth = Mathf.Min(currentBattleHealth + amount, maxBattleHealth);
-    }
-    public void HealMentality(int amount) {
-        if (amount < 0) return;
-        
-        currentMentality = Mathf.Min(currentMentality + amount, maxMentality);
-    }
-    public void IncreaseMaxBattleHealth(int amount) {
-        if (amount < 0) return;
-        
-        maxBattleHealth += amount;
-    }
-    public void DecreaseMaxBattleHealth(int amount) {
-        if (amount < 0) return;
-        
-        maxBattleHealth = Mathf.Max(maxBattleHealth - amount, 0);
-        currentBattleHealth = Mathf.Min(currentBattleHealth, maxBattleHealth);
-    }
-    public void IncreaseMaxMentality(int amount) {
-        if (amount < 0) return;
-        
-        maxMentality += amount;
-    }
-    public void DecreaseMaxMentality(int amount) {
-        if (amount < 0) return;
-        
-        maxMentality = Mathf.Max(maxMentality - amount, 0);
-        currentMentality = Mathf.Min(currentMentality, maxMentality);
     }
 
     public void HealMentality(int amount, bool isOverflowable)
     {
-        throw new NotImplementedException();
+        if (amount < 0) return;
+
+        int overflowAmount = 0;
+        
+        if (currentMentality + amount > maxMentality)
+        {
+            overflowAmount = (currentMentality + amount) - maxMentality;
+            amount -= overflowAmount; 
+        }
+
+        currentMentality += amount;
+
+        if (overflowAmount > 0 && isOverflowable)
+        {
+            HealBattleHealth(overflowAmount);
+        }
     }
 
-    public void HurtBattleHealth(int amount, bool isOverflowable)
+    public void IncreaseMaxBattleHealth(int amount)
     {
-        throw new NotImplementedException();
+        if (amount < 0) return;
+        maxBattleHealth += amount;
+    }
+
+    public void DecreaseMaxBattleHealth(int amount)
+    {
+        if (amount < 0) return;
+        maxBattleHealth = Mathf.Max(0, maxBattleHealth - amount);
+        currentBattleHealth = Mathf.Min(currentBattleHealth, maxBattleHealth);
+    }
+
+    public void IncreaseMaxMentality(int amount)
+    {
+        if (amount < 0) return;
+        maxMentality += amount;
+    }
+
+    public void DecreaseMaxMentality(int amount)
+    {
+        if (amount < 0) return;
+
+        bool wasBroken = IsMentalBrokenDown();
+
+        maxMentality = Mathf.Max(0, maxMentality - amount);
+        currentMentality = Mathf.Min(currentMentality, maxMentality);
+
+        if (!wasBroken && IsMentalBrokenDown())
+        {
+            OnMentalBreakDown?.Invoke();
+        }
     }
 }

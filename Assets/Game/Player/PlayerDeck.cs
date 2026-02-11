@@ -7,10 +7,10 @@ public class PlayerDeck : IFieldDeck
 {
     private Dictionary<CardData, List<Card>> mainDeck = new Dictionary<CardData, List<Card>>();
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
-    public List<CardData> OwingCardTypes { get => mainDeck.Keys.Union(sideDeck.Keys).ToList(); }
-    public int OwingCardTypeCount { get => OwingCardTypes.Count(); }
+    public List<CardData> OwingCardData { get => mainDeck.Keys.Union(sideDeck.Keys).ToList(); }
+    public int OwingCardVariety { get => OwingCardData.Count(); }
 
-    private int maxDeckCardTypeCount = Constant.BASE_MAX_DECK_CARD_TYPE_COUNT;
+    private int maxCardVariety = Constant.BASE_MAX_DECK_CARD_TYPE_COUNT;
 
     public IReadOnlyDictionary<CardData, List<Card>> MainDeck { get => mainDeck; }
     public List<Card> MainDeckCards { get
@@ -26,17 +26,54 @@ public class PlayerDeck : IFieldDeck
         }
     }
     public IReadOnlyDictionary<CardData, List<Card>> SideDeck { get => sideDeck; }
+    public List<Card> SideDeckCards {
+        get
+        {
+            List<Card> cards = new List<Card>();
+
+            foreach (var pair in sideDeck)
+            {
+                cards.AddRange(pair.Value);
+            }
+
+            return cards;
+        }
+    }
+    public List<Card> OwingCards
+    {
+        get => MainDeckCards.Concat(SideDeckCards).ToList();
+    }
+    
+
+    HashSet<IDeckObserver> deckObservers = new HashSet<IDeckObserver>();
+
+    public List<Card> GetSpecificCardsByData(CardData data)
+    {
+        if (!HasCardData(data)) { return null; }
+
+        List<Card> result = new List<Card>();
+        
+        if (HasCardData(data, DeckType.MAIN_DECK)) { result.AddRange(mainDeck[data]); }
+        if (HasCardData(data, DeckType.SIDE_DECK)) { result.AddRange(sideDeck[data]); }
+
+        return result;
+    }
 
     public bool TryObtainCard(Card card)
     {
         if (!sideDeck.ContainsKey(card.Data)) { 
-            if (OwingCardTypeCount >= maxDeckCardTypeCount) { return false; }
+            if (OwingCardVariety >= maxCardVariety) { return false; }
             sideDeck.Add(card.Data, new List<Card>());
         }
 
-        if (GetCardTypeCount(card) >= Constant.BASE_MAX_COPIES_PER_CARD) { return false; }
+        if (GetCardDataCount(card) >= Constant.BASE_MAX_COPIES_PER_CARD) { return false; }
 
         sideDeck[card.Data].Add(card);
+
+        foreach (var observer in deckObservers)
+        {
+            observer.OnCardEquipped(card);
+        }
         return true;
     } 
     
@@ -54,6 +91,54 @@ public class PlayerDeck : IFieldDeck
         return false;
     }
     public bool TryRemoveCard(Card card) { return TryRemoveCard(card, DeckType.SIDE_DECK) || TryRemoveCard(card, DeckType.MAIN_DECK); }
+    public bool TryRemoveCardByData(CardData data, int amount)
+    {
+        if (!HasCardData(data)) { return false; }
+        
+        int overflowCount = 0;
+        if (HasCardData(data, DeckType.SIDE_DECK))
+        {
+            var cardList = sideDeck[data].ToList();
+
+            if (amount > cardList.Count)
+            {
+                overflowCount = amount - cardList.Count;
+                amount -= overflowCount;
+            }
+
+            for (int i = 0; i < amount ; i++)
+            {
+                bool check = TryRemoveCard(cardList[i], DeckType.SIDE_DECK);
+
+                if (check == false) { return check; }
+            }
+        }
+
+        if (overflowCount > 0)
+        {
+            if (HasCardData(data, DeckType.MAIN_DECK))
+            {
+                var cardList = mainDeck[data].ToList();
+
+                overflowCount = Mathf.Min(overflowCount, cardList.Count);
+                for (int i = 0; i < overflowCount; i++)
+                {
+                    bool check = TryRemoveCard(cardList[i], DeckType.MAIN_DECK);
+                    if (check == false) { return check; }
+                }
+            }
+        }
+
+        return true;
+    }
+    public bool TryRemoveRandomCard(System.Random random, CardType type, CardAttribute attribute)
+    {
+        var matchedCards = OwingCards.FindAll(card => card.CurrentType == type && card.CurrentAttribute == attribute);
+
+        int removingCardIndex = random.Next(matchedCards.Count);
+
+        return TryRemoveCard(matchedCards[removingCardIndex]);
+    }
 
     public bool TryMoveCard(Card card, DeckType from, DeckType to)
     {
@@ -69,7 +154,7 @@ public class PlayerDeck : IFieldDeck
         }
         if (to == DeckType.MAIN_DECK)
         {
-            if (!HasCardType(card, DeckType.MAIN_DECK) && mainDeck.Count() >= Constant.MAX_MAIN_DECK_CARD_TYPE_COUNT)
+            if (!HasCardData(card, DeckType.MAIN_DECK) && mainDeck.Count() >= Constant.MAX_MAIN_DECK_CARD_TYPE_COUNT)
             {
                 Debug.Log($"{DeckType.MAIN_DECK} is full.");
                 return false;
@@ -88,14 +173,37 @@ public class PlayerDeck : IFieldDeck
         return true;
     }
 
-    public void IncreaseMaxCardTypeCount(int amount = 1) { maxDeckCardTypeCount += amount; }
-    public void DecreaseMaxCardTypeCount(int amount = 1)
+    public void RegisterDeckobserver(IDeckObserver observer)
     {
-        maxDeckCardTypeCount = Mathf.Max(maxDeckCardTypeCount - amount, 0);
-
-        if (maxDeckCardTypeCount < OwingCardTypeCount)
+        if (deckObservers.Contains(observer))
         {
-            int discadCardTypeCount = OwingCardTypeCount - maxDeckCardTypeCount;
+            Debug.Log("Player Deck already has the observer");
+            return;
+        }
+
+        deckObservers.Add(observer);
+        observer.OnEquipped(OwingCards);
+    }
+    public void UnrgisterDeckobserver(IDeckObserver observer)
+    {
+        if (!deckObservers.Contains(observer))
+        {
+            Debug.Log("Player Deck doesn't have the observer");
+            return;
+        }
+
+        observer.OnUnequipped(OwingCards);
+        deckObservers.Remove(observer);
+    }
+
+    public void IncreaseMaxCardVariety(int amount = 1) { maxCardVariety += amount; }
+    public void DecreaseMaxCardVariety(int amount = 1)
+    {
+        maxCardVariety = Mathf.Max(maxCardVariety - amount, 0);
+
+        if (maxCardVariety < OwingCardVariety)
+        {
+            int discadCardTypeCount = OwingCardVariety - maxCardVariety;
 
             for (int i = 0; i <discadCardTypeCount; i++)
             {
@@ -114,24 +222,24 @@ public class PlayerDeck : IFieldDeck
     }
     public bool HasCard(Card card) { return HasCard(card, DeckType.MAIN_DECK) || HasCard(card, DeckType.SIDE_DECK); }
 
-    public bool HasCardType(CardData cardData, DeckType deckType) { 
+    public bool HasCardData(CardData cardData, DeckType deckType) { 
         var deck = GetDeck(deckType);
         return deck.ContainsKey(cardData);
     }
-    public bool HasCardType(CardData cardData) { return HasCardType(cardData, DeckType.MAIN_DECK) || HasCardType(cardData, DeckType.SIDE_DECK); }
-    public bool HasCardType(Card card, DeckType deckType) { return HasCardType(card.Data, deckType); }
-    public bool HasCardType(Card card) { return HasCardType(card.Data); }
+    public bool HasCardData(CardData cardData) { return HasCardData(cardData, DeckType.MAIN_DECK) || HasCardData(cardData, DeckType.SIDE_DECK); }
+    public bool HasCardData(Card card, DeckType deckType) { return HasCardData(card.Data, deckType); }
+    public bool HasCardData(Card card) { return HasCardData(card.Data); }
 
-    public int GetCardTypeCount(CardData cardData, DeckType deckType)
+    public int GetCardDataCount(CardData cardData, DeckType deckType)
     {
         var deck = GetDeck(deckType);
 
         if (!deck.ContainsKey(cardData)) { return 0; }
         return deck[cardData].Count();
     }
-    public int GetCardTypeCount(CardData cardData) { return GetCardTypeCount(cardData, DeckType.MAIN_DECK) + GetCardTypeCount(cardData, DeckType.SIDE_DECK); }
-    public int GetCardTypeCount(Card card, DeckType deckType) { return GetCardTypeCount(card.Data, deckType); }
-    public int GetCardTypeCount(Card card) { return GetCardTypeCount(card.Data); }
+    public int GetCardDataCount(CardData cardData) { return GetCardDataCount(cardData, DeckType.MAIN_DECK) + GetCardDataCount(cardData, DeckType.SIDE_DECK); }
+    public int GetCardDataCount(Card card, DeckType deckType) { return GetCardDataCount(card.Data, deckType); }
+    public int GetCardDataCount(Card card) { return GetCardDataCount(card.Data); }
 
     private Dictionary<CardData, List<Card>> GetDeck(DeckType type)
     {
@@ -141,40 +249,5 @@ public class PlayerDeck : IFieldDeck
             DeckType.SIDE_DECK => sideDeck,
             _ => throw new ArgumentOutOfRangeException(nameof(type))
         };
-    }
-
-    public void RegisterDeckobserver(IDeckObserver observer)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void UnrgisterDeckobserver(IDeckObserver observer)
-    {
-        throw new NotImplementedException();
-    }
-
-    public List<Card> GetSpecificCardsByData(CardData data)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool TryRemoveRandomCard(CardType type, CardAttribute attribute)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void IncreaseMaxCardVariety(int amount)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void DecreaseMaxCardVariety(int amount)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool TryRemoveCardByData(CardData data, int amount)
-    {
-        throw new NotImplementedException();
     }
 }

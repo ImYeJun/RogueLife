@@ -5,7 +5,7 @@ public interface IFieldDeck {
     public void UnrgisterDeckobserver(IDeckObserver observer);
     public List<Card> GetSpecificCardsByData(CardData data);
     public bool TryObtainCard(Card card);
-    public bool TryRemoveRandomCard(CardType type, CardAttribute attribute);
+    public bool TryRemoveRandomCard(System.Random random, CardType type, CardAttribute attribute);
     public bool TryRemoveCardByData(CardData data, int amount);
     public void IncreaseMaxCardVariety(int amount);
     public void DecreaseMaxCardVariety(int amount);

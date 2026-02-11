@@ -11,6 +11,6 @@ public class ChoiceRemoveRandomCardEffect : IChoiceEffect
 
     public void Execute(FieldContext context)
     {
-        context.Deck.TryRemoveRandomCard(type, attribute);
+        context.Deck.TryRemoveRandomCard(context.Random, type, attribute);
     }
 }

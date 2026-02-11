@@ -7,6 +7,7 @@ public class BattleSystem
 {
     private PlayerHealth playerHealth;
     private PlayerActionCost playerActionCost;
+    //TODO PlayerActionCost => BattlePlayerActionCost
     private PlayerDeck playerDeck;
     private BattlePlayer battlePlayer;
 
@@ -81,7 +82,7 @@ public class BattleSystem
     {
         //TODO : 플레이어 턴 시작 연출 실행
 
-        playerActionCost.Refill();
+        // playerActionCost.Refill();
 
         DrawCard();
         isFirstPlayerTurn = false;
@@ -132,7 +133,7 @@ public class BattleSystem
             Debug.Log("DeckZone doesn't have the given card.");
             return false;
         }
-        if (!playerActionCost.TrySpend(card.CurrentActionCost)) { return false; }
+        // if (!playerActionCost.TrySpend(card.CurrentActionCost)) { return false; }
 
         UpdateBattleContext();
         card.Execute(currentBattleContext);
