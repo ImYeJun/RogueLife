@@ -1,0 +1,4 @@
+public class EnemyTurnStartBattleEvent : BattleEvent
+{
+    
+}

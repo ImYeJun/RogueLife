@@ -1,4 +1,4 @@
 public enum BattleScope
 {
-    TURN, BATTLE
+    PHASE, BATTLE
 }

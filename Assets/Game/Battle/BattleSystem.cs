@@ -8,7 +8,7 @@ public class BattleSystem
     private BattleScheduler scheduler;
     private BattleActionPipeline pipeline;
     private BattleDeckSystem deckSystem;
-    private BattleAcionCost acionCost;
+    private BattleActionCost acionCost;
     private BattleEnemySystem enemySystem;
 
     public event Action<BattleResult> OnBattleExit;

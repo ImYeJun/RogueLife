@@ -8,6 +8,7 @@ public class BattleEnemy : BattleEntity
     private int currentHealth;
 
     public IReadOnlyList<IBattleAction> PlannedActions { get => plannedAction; }
+    public EnemyData Data { get => data; }
 
     public BattleEnemy(EnemyData enemyData)
     {

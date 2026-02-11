@@ -1,29 +1,63 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
 {
-    private Dictionary<EnemyData, HashSet<BattleEnemy>> currentEnemies;
-
+    private BattleContext context;
     private BattleEnemyHistory history;
+    private Dictionary<EnemyData, List<BattleEnemy>> currentEnemies = new Dictionary<EnemyData, List<BattleEnemy>>();
 
     public void SpawnEnemy(BattleEnemy enemy)
     {
-        throw new NotImplementedException();
+        EnemyData data = enemy.Data;
+
+        if (!currentEnemies.ContainsKey(data)) { currentEnemies.Add(data, new List<BattleEnemy>()); }
+
+        currentEnemies[data].Insert(0, enemy);
     }
 
-    public HashSet<BattleEnemy> GetBattleEnemies()
+    public List<BattleEnemy> GetBattleEnemies()
     {
-        throw new NotImplementedException();
+        return currentEnemies.Values.SelectMany(set => set).ToList();
     }
 
     public int GetEnemyCountByData(EnemyData data)
     {
-        throw new NotImplementedException();
+        return currentEnemies.ContainsKey(data) ? currentEnemies[data].Count : 0;
     }
 
     public void OnBattleEvent(BattleEvent battleEvent)
     {
-        throw new NotImplementedException();
+        if (battleEvent is PhaseStartBattleEvent)
+        {
+            foreach (var enemyList in currentEnemies.Values)
+            {
+                foreach (var enemy in enemyList)
+                {
+                    enemy.PlanNextAction();
+                }
+            }
+        }
+
+        if (battleEvent is EnemyTurnStartBattleEvent)
+        {
+            foreach (var enemyList in currentEnemies.Values)
+            {
+                for (int i = enemyList.Count - 1; i >= 0; i--)
+                {
+                    var enemy = enemyList[i];
+                    var actions = enemy.PlannedActions;
+
+                    foreach (var action in actions)
+                    {
+                        context.ActionScheduler.Enqueue(new EntityBattleAction(enemy, action));
+                    }
+                }
+            }
+
+            context.BattleScheduler.EndEnemyTurn();
+        }
     }
 }
+

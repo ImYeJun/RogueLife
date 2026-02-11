@@ -20,6 +20,19 @@ public class Card
     public int CurrentActionCost { get => currentActionCost; }
     public bool IsReflectionApplied { get => isReflectionApplied; }
 
+    public Card(CardData data)
+    {
+        this.data = data;
+
+        currentName = data.CardName;
+        currentDescription = data.Description;
+        currentType = data.Type;
+        currentAttribute = data.Attribute;
+        currentRarity = data.Rarity;
+        currentActionCost = data.ActionCost;
+        isReflectionApplied = false;
+    }
+
     public Card(Card card)
     {
         data = card.Data;

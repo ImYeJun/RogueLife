@@ -1,6 +1,7 @@
 using System;
+using UnityEngine;
 
-public class BattleAcionCost : IBattleActionCost, IBattleEventObserver
+public class BattleActionCost : IBattleActionCost, IBattleEventObserver
 {
     private int currentActionCost;
     private int maxActionCost;
@@ -9,23 +10,38 @@ public class BattleAcionCost : IBattleActionCost, IBattleEventObserver
 
     public int ActionCost => currentActionCost;
 
+    public int MaxActionCost { get => maxActionCost; set{
+            if (value < 0) { UnityEngine.Debug.LogWarning("max action cost cannot be negative."); }
+            maxActionCost = value;
+        } }
+
     public bool HasEnough(int amount)
     {
-        throw new NotImplementedException();
+        return currentActionCost >= amount;
     }
 
     public void Consume(int amount)
     {
-        throw new NotImplementedException();
+        int actualAmount = Mathf.Min(amount, maxActionCost - currentActionCost);
+
+        currentActionCost -= actualAmount;
+        history.RecordConsume(actualAmount);
     }
 
     public void Restore(int amount)
     {
-        throw new NotImplementedException();
+        int actualAmount = Math.Min(amount, maxActionCost - currentActionCost);
+
+        currentActionCost += actualAmount;
+        history.RecordRestore(actualAmount);
     }
 
     public void OnBattleEvent(BattleEvent battleEvent)
     {
-        throw new NotImplementedException();
+        if (battleEvent is PlayerTurnStartBattleEvent)
+        {
+            int restoreAmount = maxActionCost - currentActionCost;
+            Restore(restoreAmount);
+        }
     }
 }
