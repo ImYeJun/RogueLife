@@ -46,7 +46,7 @@ public class PlayerActionCost : IFieldActionCost
         }
     }
 
-    public void OnBattleEnd()
+    public void OnBattleEnd(BattleResult reuslt)
     {
         for (int i = temporalCostIncreaseModifiers.Count - 1; i >= 0; i--)
         {

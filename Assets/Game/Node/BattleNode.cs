@@ -23,14 +23,14 @@ public class BattleNode : Node
 
         //TODO : engagingEnemiesData에 따라 encounterLine 연출 띄우기
 
-        battleSystem.OnBattleExit += OnBattleExit;
+        // battleSystem.OnBattleExit += OnBattleExit;
         List<EnemyData> engagingEnemiesData = engagingEnemiesDataSlot.Select(dataSlot => dataSlot.Data).ToList();
-        battleSystem.EngageBattle(engagingEnemiesData, startPhaseCount);
+        battleSystem.EngageBattle(engagingEnemiesData, startPhaseCount, OnBattleExit);
     }
 
     public void OnBattleExit(BattleResult result)
     {
-        battleSystem.OnBattleExit -= OnBattleExit;
+        // battleSystem.OnBattleExit -= OnBattleExit;
         //TODO : Result에 따른 행동 구현하기
         RequestNextNodeSelection();
     }

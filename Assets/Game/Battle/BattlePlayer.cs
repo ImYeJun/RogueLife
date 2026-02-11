@@ -18,6 +18,6 @@ public class BattlePlayer : BattleEntity
 
     public override void ReceiveDamage(int amount)
     {
-        playerHealth.HurtBattleHealth(amount);
+        playerHealth.HurtBattleHealth(amount, true);
     }
 }

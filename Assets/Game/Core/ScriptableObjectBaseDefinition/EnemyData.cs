@@ -11,7 +11,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] private string victoryLine;
     [SerializeField] private string defeatLine;
     [SerializeField] private EnemyTier tier;
-    [SerializeField] private List<BattleAction> battleActions;
+    [SerializeField] private List<IBattleAction> battleActions;
     [SerializeField] private Sprite usualSprite;
     [SerializeField] private Sprite battleSprite;
 
@@ -23,7 +23,7 @@ public class EnemyData : ScriptableObject
     public string VictoryLine { get => victoryLine; }
     public string DefeatLine { get => defeatLine; }
     public EnemyTier Tier { get => tier; }
-    public List<BattleAction> BattleActions { get => battleActions; }
+    public List<IBattleAction> BattleActions { get => battleActions; }
     public Sprite UsualSprite { get => usualSprite; }
     public Sprite BattleSprite { get => battleSprite; }
 }

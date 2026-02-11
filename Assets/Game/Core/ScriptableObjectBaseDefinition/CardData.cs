@@ -11,8 +11,8 @@ public class CardData : ScriptableObject
     [SerializeField] private CardAttribute attribute;
     [SerializeField] private CardRarity rarity;
     [SerializeField] private int actionCost;
-    [SerializeField] private List<BattleAction> actions;
-    [SerializeField] private List<BattleAction> reflectedActions;
+    [SerializeField] private List<IBattleAction> actions;
+    [SerializeField] private List<IBattleAction> reflectedActions;
 
     public string CardName { get => cardName; }
     public string Description { get => description; }
@@ -24,7 +24,7 @@ public class CardData : ScriptableObject
 
     public void Execute(BattleContext context)
     {
-        foreach (BattleAction action in actions)
+        foreach (IBattleAction action in actions)
         {
             action.Execute(context);
         }
@@ -32,7 +32,7 @@ public class CardData : ScriptableObject
 
     public void ExecuteReflection(BattleContext context)
     {
-        foreach (BattleAction action in reflectedActions)
+        foreach (IBattleAction action in reflectedActions)
         {
             action.Execute(context);
         }

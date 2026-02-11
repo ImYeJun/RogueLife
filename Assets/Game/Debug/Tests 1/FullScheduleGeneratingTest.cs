@@ -51,7 +51,7 @@ public class FullScheduleGeneratingTest
                     minTransactionNodeCount : 1
                 )
             );
-            ScheduleGenerator generator = new ScheduleGenerator(scheduleSkeletonRule, typeResolveRule, new BattleSystem(new Player()));
+            ScheduleGenerator generator = new ScheduleGenerator(scheduleSkeletonRule, typeResolveRule, new BattleSystem());
 
             string mermaidStoringPath = Path.Combine(Application.persistentDataPath, "Schedule Mermaids");
             if (!Directory.Exists(mermaidStoringPath)) { Directory.CreateDirectory(mermaidStoringPath); }
