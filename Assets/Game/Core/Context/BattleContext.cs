@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class BattleContext
 {
+    private System.Random random;
     private IBattleScheduler battleScheduler;
     private IBattleEventBus eventBus;
     private IBattleActionScheduler actionScheduler;
@@ -11,7 +12,7 @@ public class BattleContext
     private IBattlePlayerContainerContext playerContainer;
     private IBattleActionCost actionCost;
     private IBattleActionCostHistoryContext actionCostHistory;
-    private ICardPlayHistoryContext cardPlayHistory;
+    private IBattleDeckHistoryContext cardPlayHistory;
     private IBattleDeckSystemContext deckSystem;
     private IDrawDeckContext drawDeck;
     private IHandDeckContext handDeck;
@@ -19,6 +20,7 @@ public class BattleContext
     private IBattleEnemySystemContext enemySystem;
     private IBattleEnemyHistoryContext enemyHistory;
 
+    public System.Random Random { get => random; }
     public IBattleScheduler BattleScheduler { get => battleScheduler; }
     public IBattleEventBus EventBus { get => eventBus; }
     public IBattleActionScheduler ActionScheduler { get => actionScheduler; }
@@ -27,7 +29,7 @@ public class BattleContext
     public IBattlePlayerContainerContext PlayerContainer { get => playerContainer; }
     public IBattleActionCost ActionCost { get => actionCost; }
     public IBattleActionCostHistoryContext ActionCostHistory { get => actionCostHistory; }
-    public ICardPlayHistoryContext CardPlayHistory { get => cardPlayHistory; }
+    public IBattleDeckHistoryContext CardPlayHistory { get => cardPlayHistory; }
     public IBattleDeckSystemContext DeckSystem { get => deckSystem; }
     public IDrawDeckContext DrawDeck { get => drawDeck; }
     public IHandDeckContext HandDeck { get => handDeck; }

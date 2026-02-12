@@ -51,7 +51,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
 
                     foreach (var action in actions)
                     {
-                        context.ActionScheduler.Enqueue(new EntityBattleAction(enemy, action));
+                        context.ActionScheduler.Enqueue(new BattleEntityAction(enemy, action));
                     }
                 }
             }

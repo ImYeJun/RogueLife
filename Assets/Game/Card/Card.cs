@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Card
@@ -45,7 +46,7 @@ public class Card
         isReflectionApplied = card.IsReflectionApplied;
     }
 
-    public void Execute(BattleContext context)
+    public void Execute(BattleContext context, TargetBattleEntity targetEntity)
     {
         if (isReflectionApplied) { data.ExecuteReflection(context); }
         else { data.Execute(context); }
@@ -55,4 +56,14 @@ public class Card
     public void UnapplyReflection() { isReflectionApplied = false; }
 
     public void Equals(Card operand) => operand.Data.Equals(data);
+
+    public void OnDraw(BattleContext context)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool IsAbleToUse(BattleContext context)
+    {
+        throw new NotImplementedException();
+    }
 }

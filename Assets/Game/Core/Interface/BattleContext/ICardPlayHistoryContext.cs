@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 
-public interface ICardPlayHistoryContext {
-    public bool HasPlayedConditionedCard(CardAttribute attribite, CardType type, BattleScope scope);
+public interface IBattleDeckHistoryContext {
+    public void RecordUseCard(Card card);
+    public Card GetRecentlyPlayedCard();
+    public bool HasPlayedCard(CardAttribute attribite, CardType type, BattleScope scope);
     public bool HasPlayedCard(BattleScope scope);
     public int GetPlayedCardCount(BattleScope scope);
-    public HashSet<Card> GetRecentlyGravedCard(int amount);
-    public Card GetRecentlyPlayedCard();
+    public List<Card> GetRecentlyGravedCard(int amount);
 }

@@ -1,6 +1,6 @@
 using System;
 
-public class EntityBattleAction : IBattleAction
+public class BattleEntityAction : IBattleAction
 {
     private bool isNullified = false;
     private BattleEntity actor;
@@ -11,7 +11,7 @@ public class EntityBattleAction : IBattleAction
     public IBattleAction Action { get => action; }
     public BattleActionScope ActionScope { get => actionScope; }
 
-    public EntityBattleAction(BattleEntity actor, IBattleAction action)
+    public BattleEntityAction(BattleEntity actor, IBattleAction action)
     {
         this.actor = actor;
         this.action = action;
