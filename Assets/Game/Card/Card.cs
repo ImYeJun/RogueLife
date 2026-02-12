@@ -4,6 +4,7 @@ using UnityEngine;
 public class Card
 {
     private CardData data;
+    private CardBattleBehaviour battleBehaviourInstance;
     private string currentName;
     private string currentDescription;
     private CardType currentType;
@@ -20,10 +21,12 @@ public class Card
     public CardRarity CurrentRarity { get => currentRarity; }
     public int CurrentActionCost { get => currentActionCost; }
     public bool IsReflectionApplied { get => isReflectionApplied; }
+    public CardTargetType TargetType => data.TargetType;
 
     public Card(CardData data)
     {
         this.data = data;
+        battleBehaviourInstance = this.data.CloneBattleBehaviour();
 
         currentName = data.CardName;
         currentDescription = data.Description;
@@ -46,24 +49,19 @@ public class Card
         isReflectionApplied = card.IsReflectionApplied;
     }
 
-    public void Execute(BattleContext context, TargetBattleEntity targetEntity)
+    public void OnDraw(BattleContext context) { battleBehaviourInstance.OnDraw(context); }
+    public bool IsAbleToUse(BattleContext context, CardTarget target) { return battleBehaviourInstance.IsAbleToUse(context, target); }
+    public void Execute(BattleContext context, CardTarget targetEntity)
     {
-        if (isReflectionApplied) { data.ExecuteReflection(context); }
-        else { data.Execute(context); }
+        if (isReflectionApplied) { 
+            battleBehaviourInstance.ExecuteReflection(context, targetEntity);
+            UnapplyReflection();
+        }
+        else { battleBehaviourInstance.Execute(context, targetEntity); }
     }
 
     public void ApplyReflection() { isReflectionApplied = true; }
     public void UnapplyReflection() { isReflectionApplied = false; }
 
-    public void Equals(Card operand) => operand.Data.Equals(data);
-
-    public void OnDraw(BattleContext context)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool IsAbleToUse(BattleContext context)
-    {
-        throw new NotImplementedException();
-    }
+    public bool Equals(Card operand) => operand.Data.Equals(data);
 }

@@ -29,6 +29,9 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
             throw new InvalidOperationException("There is no enemy for given the argument");
         }
         enemy.Died -= RemoveEnemy;
+
+        if (currentEnemies[enemy.Data].Count == 0) { currentEnemies.Remove(enemy.Data); }
+        if (currentEnemies.Count == 0) { context.EventBus.Publish(new BattleEndBattleEvent(BattleResult.PLAYER_WIN)); }
     }
 
     public List<BattleEnemy> GetBattleEnemies()

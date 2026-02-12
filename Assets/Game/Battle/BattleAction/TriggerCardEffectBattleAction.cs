@@ -1,16 +1,16 @@
 public class TriggerCardEffectBattleAction : IBattleAction
 {
     private Card card;
-    private TargetBattleEntity targetEntity;
+    private CardTarget targetEntity;
 
-    public TriggerCardEffectBattleAction(Card card, TargetBattleEntity targetEntity)
+    public TriggerCardEffectBattleAction(Card card, CardTarget targetEntity)
     {
         this.card = card;
         this.targetEntity = targetEntity;
     }
 
     public Card Card { get => card; }
-    public TargetBattleEntity TargetEntity { get => targetEntity; }
+    public CardTarget CardTarget { get => targetEntity; }
 
     public void Execute(BattleContext context)
     {

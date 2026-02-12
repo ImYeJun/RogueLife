@@ -1,19 +1,19 @@
 public class UseCardEffectBattleAction : IBattleAction
 {
     private Card card;
-    private TargetBattleEntity targetEntity;
+    private CardTarget cardTarget;
 
-    public UseCardEffectBattleAction(Card card, TargetBattleEntity targetEntity)
+    public UseCardEffectBattleAction(Card card, CardTarget cardTarget)
     {
         this.card = card;
-        this.targetEntity = targetEntity;
+        this.cardTarget = cardTarget;
     }
 
     public Card Card { get => card; }
-    public TargetBattleEntity TargetEntity { get => targetEntity; }
+    public CardTarget CardTarget { get => cardTarget; }
 
     public void Execute(BattleContext context)
     {
-        card.Execute(context, targetEntity);
+        card.Execute(context, cardTarget);
     }
 }

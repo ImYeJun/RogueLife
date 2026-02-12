@@ -1,22 +1,22 @@
 public class TryTriggerCardEffectBattleAction : IBattleAction
 {
     private Card card;
-    private TargetBattleEntity targetEntity;
+    private CardTarget cardTarget;
 
-    public TryTriggerCardEffectBattleAction(Card card, TargetBattleEntity targetEntity)
+    public TryTriggerCardEffectBattleAction(Card card, CardTarget cardTarget)
     {
         this.card = card;
-        this.targetEntity = targetEntity;
+        this.cardTarget = cardTarget;
     }
 
     public Card Card { get => card; }
-    public TargetBattleEntity TargetEntity { get => targetEntity; }
+    public CardTarget CardTarget { get => cardTarget; }
 
     public void Execute(BattleContext context)
     {
-        if (card.IsAbleToUse(context))
+        if (card.IsAbleToUse(context, cardTarget))
         {
-            context.ActionScheduler.Enqueue(new TriggerCardEffectBattleAction(card, targetEntity));
+            context.ActionScheduler.Enqueue(new TriggerCardEffectBattleAction(card, cardTarget));
         }
     }
 }

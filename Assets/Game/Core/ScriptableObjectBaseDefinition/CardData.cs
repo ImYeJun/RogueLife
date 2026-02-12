@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardData", menuName = "Scriptable Objects/CardData")]
@@ -11,8 +10,7 @@ public class CardData : ScriptableObject
     [SerializeField] private CardAttribute attribute;
     [SerializeField] private CardRarity rarity;
     [SerializeField] private int actionCost;
-    [SerializeField] private List<IBattleAction> actions;
-    [SerializeField] private List<IBattleAction> reflectedActions;
+    [SerializeReference, SubclassSelector] private CardBattleBehaviour battleBehaviour;
 
     public string CardName { get => cardName; }
     public string Description { get => description; }
@@ -21,20 +19,7 @@ public class CardData : ScriptableObject
     public CardAttribute Attribute { get => attribute; }
     public CardRarity Rarity { get => rarity; }
     public int ActionCost { get => actionCost; }
+    public CardTargetType TargetType => battleBehaviour.TargetType;
 
-    public void Execute(BattleContext context)
-    {
-        foreach (IBattleAction action in actions)
-        {
-            action.Execute(context);
-        }
-    }
-
-    public void ExecuteReflection(BattleContext context)
-    {
-        foreach (IBattleAction action in reflectedActions)
-        {
-            action.Execute(context);
-        }
-    }
+    public CardBattleBehaviour CloneBattleBehaviour() { return battleBehaviour.Clone(); }
 }
