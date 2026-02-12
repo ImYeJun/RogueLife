@@ -11,7 +11,7 @@ public class BattlePlayer : BattleEntity
 
     public PlayerHealth Health { get => playerHealth; }
 
-    public override void OnDead()
+    protected override void OnDead()
     {
         base.OnDead();
     }
@@ -19,5 +19,15 @@ public class BattlePlayer : BattleEntity
     public override void ReceiveDamage(int amount)
     {
         playerHealth.HurtBattleHealth(amount, true);
+    }
+
+    public override void RequestHurt(int amount, HurtSource source)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void Heal(int amount)
+    {
+        throw new System.NotImplementedException();
     }
 }

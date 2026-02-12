@@ -15,6 +15,20 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
         if (!currentEnemies.ContainsKey(data)) { currentEnemies.Add(data, new List<BattleEnemy>()); }
 
         currentEnemies[data].Insert(0, enemy);
+        enemy.Died += RemoveEnemy;
+    }
+
+    public void RemoveEnemy(BattleEnemy enemy)
+    {
+        if (!currentEnemies.ContainsKey(enemy.Data)) { throw new InvalidOperationException($"There's not enemy data for {enemy.Data.EnemyName}"); }
+
+        var enemyList = currentEnemies[enemy.Data];
+
+        if (!enemyList.Remove(enemy))
+        {
+            throw new InvalidOperationException("There is no enemy for given the argument");
+        }
+        enemy.Died -= RemoveEnemy;
     }
 
     public List<BattleEnemy> GetBattleEnemies()
@@ -42,16 +56,17 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
 
         if (battleEvent is EnemyTurnStartBattleEvent)
         {
-            foreach (var enemyList in currentEnemies.Values)
+            foreach (var enemyGroup in currentEnemies.Values)
             {
-                for (int i = enemyList.Count - 1; i >= 0; i--)
+                for (int i = enemyGroup.Count - 1; i >= 0; i--)
                 {
-                    var enemy = enemyList[i];
-                    var actions = enemy.PlannedActions;
+                    var enemy = enemyGroup[i];
+                    var plannedActions = enemy.PlannedActions;
 
-                    foreach (var action in actions)
+                    foreach (var actionData in plannedActions)
                     {
-                        context.ActionScheduler.Enqueue(new BattleEntityAction(enemy, action));
+                        var executeAction = new ExecuteEnemyActionBattleAction(actionData);
+                        context.ActionScheduler.Enqueue(new BattleEntityAction(enemy, executeAction));
                     }
                 }
             }

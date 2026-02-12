@@ -22,7 +22,7 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserver
 
     public void Consume(int amount)
     {
-        int actualAmount = Mathf.Min(amount, maxActionCost - currentActionCost);
+        int actualAmount = Mathf.Min(amount, currentActionCost);
 
         currentActionCost -= actualAmount;
         history.RecordConsume(actualAmount);
@@ -36,12 +36,18 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserver
         history.RecordRestore(actualAmount);
     }
 
+    public void Fullfill()
+    {
+        int restoreAmount = maxActionCost - currentActionCost;
+        Restore(restoreAmount);
+    }
+    
     public void OnBattleEvent(BattleEvent battleEvent)
     {
         if (battleEvent is PlayerTurnStartBattleEvent)
         {
-            int restoreAmount = maxActionCost - currentActionCost;
-            Restore(restoreAmount);
+            Fullfill();
         }
     }
+
 }

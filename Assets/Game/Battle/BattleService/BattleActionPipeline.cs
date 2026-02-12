@@ -10,7 +10,7 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     private Stack<BattleActionScope> actionScopeStack = new Stack<BattleActionScope>();
     private BattleActionScope CurrentScope => actionScopeStack.Count > 0 ? actionScopeStack.Peek() : null;
 
-    private List<IBattleActionInterrupter> actionInterrupters = new List<IBattleActionInterrupter>();
+    private List<IBattleActionModifier> actionModifiers = new List<IBattleActionModifier>();
     private List<IBattleActionPreObserver> actionPreObservers = new List<IBattleActionPreObserver>();
     private List<IBattleActionPostObserver> actionPostObservers = new List<IBattleActionPostObserver>();
     
@@ -32,9 +32,9 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         {
             var currentAction = actionQueue.Dequeue();
 
-            for (int i = actionInterrupters.Count - 1; i >= 0; i--)
+            for (int i = actionModifiers.Count - 1; i >= 0; i--)
             {
-                actionInterrupters[i].InterruptAction(currentAction, context);
+                actionModifiers[i].ModifyAction(currentAction, context);
             }
             
             for (int i = actionPreObservers.Count - 1; i >= 0; i--)
@@ -74,14 +74,14 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         CurrentScope?.Decrease();
     }
 
-    public void SubscribeInterrupter(IBattleActionInterrupter interrupter)
+    public void SubscribeActionModifier(IBattleActionModifier modifier)
     {
-        if (actionInterrupters.Contains(interrupter))
+        if (actionModifiers.Contains(modifier))
         {
-            UnityEngine.Debug.LogWarning("The given interrupter is already subscribing.");
+            UnityEngine.Debug.LogWarning("The given modifier is already subscribing.");
         }
 
-        actionInterrupters.Add(interrupter);
+        actionModifiers.Add(modifier);
     }
     public void SubscribePreObserver(IBattleActionPreObserver preObserver)
     {
@@ -101,14 +101,14 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
 
         actionPostObservers.Add(postObserver);
     }
-    public void UnsubscribeInterrupter(IBattleActionInterrupter interrupter)
+    public void UnsubscribeActionModifier(IBattleActionModifier modifier)
     {
-        if (!actionInterrupters.Contains(interrupter))
+        if (!actionModifiers.Contains(modifier))
         {
-            UnityEngine.Debug.LogWarning("The given interrupter is not subscribing.");
+            UnityEngine.Debug.LogWarning("The given modifier is not subscribing.");
         }
 
-        actionInterrupters.Remove(interrupter);
+        actionModifiers.Remove(modifier);
     }
     public void UnsubscribePreObserver(IBattleActionPreObserver preObserver)
     {

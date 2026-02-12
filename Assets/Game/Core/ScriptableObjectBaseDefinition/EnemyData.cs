@@ -11,10 +11,9 @@ public class EnemyData : ScriptableObject
     [SerializeField] private string victoryLine;
     [SerializeField] private string defeatLine;
     [SerializeField] private EnemyTier tier;
-    [SerializeField] private List<IBattleAction> battleActions;
     [SerializeField] private Sprite usualSprite;
     [SerializeField] private Sprite battleSprite;
-
+    [SerializeReference, SubclassSelector] private BattleEnemyBehaviour battleBehaviour;
 
     public string EnemyName { get => enemyName; }
     public string Description { get => description; }
@@ -23,7 +22,11 @@ public class EnemyData : ScriptableObject
     public string VictoryLine { get => victoryLine; }
     public string DefeatLine { get => defeatLine; }
     public EnemyTier Tier { get => tier; }
-    public List<IBattleAction> BattleActions { get => battleActions; }
     public Sprite UsualSprite { get => usualSprite; }
     public Sprite BattleSprite { get => battleSprite; }
+
+    public BattleEnemyBehaviour CloneBehaviour()
+    {
+        return battleBehaviour.Clone();
+    }
 }

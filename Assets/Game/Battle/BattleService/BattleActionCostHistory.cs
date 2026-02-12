@@ -13,13 +13,15 @@ public class BattleActionCostHistory : IBattleActionCostHistoryContext, IBattleE
     public void RecordConsume(int amount)
     {
         if (amount < 0) { UnityEngine.Debug.LogWarning("Consume amount cannot be negative."); }
+        if (amount == 0) { return ;}
 
         consumeHistory[phaseIndex] += amount;
     }
     public void RecordRestore(int amount)
     {
         if (amount < 0) { UnityEngine.Debug.LogWarning("Restore amount cannot be negative."); }
-    
+        if (amount == 0) { return ;}
+
         restoreHistory[phaseIndex] += amount;
     }
 
