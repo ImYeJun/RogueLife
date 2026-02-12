@@ -4,18 +4,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BelongingsData", menuName = "Scriptable Objects/BelongingsData")]
 public class BelongingsData : ScriptableObject
 {
-    [SerializeField] List<IBattleAction> actions;
     [SerializeField] string belongingsName;
     [SerializeField] string description;
+    [SerializeReference, SubclassSelector] private FieldBelongingsBehaviour fieldBehaviour;
+    [SerializeReference, SubclassSelector] private BattleBelongingsBehaviour battleBehaviour;
 
     public string BelongingsName { get => belongingsName; }
     public string Description { get => description; }
 
-    public void Execute(BattleContext context)
-    {
-        foreach (IBattleAction action in actions)
-        {
-            action.Execute(context);
-        }
-    }
+    public FieldBelongingsBehaviour CloneFieldBehaviour() { return fieldBehaviour.Clone(); }
+    public BattleBelongingsBehaviour CloneBattleBehaviour() { return battleBehaviour.Clone(); }
 }

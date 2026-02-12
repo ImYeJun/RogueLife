@@ -1,13 +1,16 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BattlePlayer : BattleEntity
+public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
 {
     private PlayerHealth playerHealth;
+    private List<BattleBelongings> belongings = new List<BattleBelongings>();
 
-    public BattlePlayer(PlayerHealth playerHealth)
+    public BattlePlayer(PlayerHealth playerHealth, List<BattleBelongings> belongings)
     {
         this.playerHealth = playerHealth;
         this.playerHealth.OnMentalBreakDown += OnDead;
+        this.belongings = belongings;
     }
 
     public PlayerHealth Health { get => playerHealth; }

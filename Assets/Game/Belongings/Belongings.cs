@@ -1,18 +1,25 @@
 public class Belongings
 {
-    private BelongingsData belongingsData;
+    private BelongingsData data;
+    private FieldBelongingsBehaviour behaviourInstance;
 
-    public string Name => belongingsData.BelongingsName;
-    public string Description => belongingsData.Description;
-    public BelongingsData Data => belongingsData;
-
-    public void Execute(BattleContext context)
+    public Belongings(BelongingsData data)
     {
-        belongingsData.Execute(context);
+        this.data = data;
+        behaviourInstance = this.data.CloneFieldBehaviour();
     }
+
+    public string Name => data.BelongingsName;
+    public string Description => data.Description;
+    public BelongingsData Data => data;
+
+    public void OnEquipped(FieldContext context) { behaviourInstance.OnEquipped(context); }
+    public void OnUnequipped(FieldContext context) { behaviourInstance.OnUnqeuipped(context); }
+
+    public BattleBelongings GenerateBattleBelongings(IBattleBelongingsOwner owner) { return new BattleBelongings(data, owner); }
 
     public bool Equals(Belongings operand)
     {
-        return operand.belongingsData.Equals(belongingsData);
+        return operand.data.Equals(data);
     }
 }
