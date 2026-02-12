@@ -15,8 +15,6 @@ public class PlayerHealth : IFieldHealth
     public int MaxBattleHealth { get => maxBattleHealth; }
     public int MaxMentality { get => maxMentality; }
 
-    // 생성자 등을 통해 초기 Max값을 설정해야 한다면 추가가 필요하다.
-    
     public void HurtBattleHealth(int amount, bool isOverflowable)
     {
         if (amount < 0) return;
