@@ -50,6 +50,7 @@ public class ScheduleGenerator
         Dictionary<int, List<Node>> layered = new Dictionary<int, List<Node>>();
         Schedule schedule = new Schedule();
 
+        nodeGenerator.Reset();
         foreach (var pair in skeleton.LayeredNodes)
         {
             int layer = pair.Key;
@@ -58,7 +59,7 @@ public class ScheduleGenerator
             layered[layer] = new List<Node>();
             foreach (NodeSkeleton nodeSkeleton in layerSkeletonNodes)
             {
-                Node node = nodeGenerator.Generate(nodeSkeleton.Id, nodeSkeleton, schedule.MoveNode, schedule.EndSchedule);
+                Node node = nodeGenerator.Generate(nodeSkeleton.Id, nodeSkeleton, data, schedule.MoveNode, schedule.EndSchedule);
 
                 layered[layer].Add(node);
             }
@@ -98,8 +99,11 @@ public class ScheduleGenerator
         }
 
         if (startNode == null) { throw new InvalidOperationException("Start Node is not found"); }
+        if (nodeGenerator.BossDataSlot == null) { throw new InvalidOperationException("Boss Node is not generated"); }
+        schedule.FixData(data);
         schedule.FixMap(layered);
         schedule.FixStartNode(startNode);
+        schedule.SetBossDataSlot(nodeGenerator.BossDataSlot);
 
         return schedule;
     }

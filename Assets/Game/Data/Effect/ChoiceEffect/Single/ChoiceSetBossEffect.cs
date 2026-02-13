@@ -10,6 +10,6 @@ public class ChoiceSetBossEffect : IChoiceEffect
 
     public void Execute(FieldContext context)
     {
-        context.ScheduleSystem.SetBoss(bossData);
+        context.ScheduleSystem.SetBossData(bossData);
     }
 }

@@ -11,7 +11,7 @@ public class GameRun
     private ScheduleSystem scheduleSystem;
     private RunDiarySystem runDiarySystem;
 
-    public GameRun(int seed)
+    public GameRun(int seed, ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule)
     {
         this.seed = seed;
         random = new Random(this.seed);
@@ -19,15 +19,14 @@ public class GameRun
         player = new Player();
         runDiarySystem = new RunDiarySystem(new SpecialDiaryDatabase()); //TODO : Database SerializeField화 하기
         battleSystem = new BattleSystem(random);
-        scheduleSystem = new ScheduleSystem(random, battleSystem, OnScheduleEnd);
+        scheduleSystem = new ScheduleSystem(random, skeletonRule, typeResolveRule, battleSystem, OnScheduleEnd);
     }
-
-    public GameRun() : this(new Random().Next()){}
+    public GameRun(ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) : this(new Random().Next(), skeletonRule, typeResolveRule){}
 
     public void StartGame()
     {
         finishedSchedulesCount = 0;
-        scheduleSystem.StartSchdule();
+        scheduleSystem.StartSchdule(player);
     }
 
     public void OnScheduleEnd()
@@ -38,7 +37,7 @@ public class GameRun
         }
         else
         {
-            scheduleSystem.StartSchdule(); 
+            scheduleSystem.StartSchdule(player); 
         }
     }
 }

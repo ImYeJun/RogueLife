@@ -5,5 +5,5 @@ using System.Linq;
 using System.Text;
 
 public interface IFieldScheduleSystem {
-    public void SetBoss(EnemyData bossData);
+    public void SetBossData(EnemyData bossData);
 }
