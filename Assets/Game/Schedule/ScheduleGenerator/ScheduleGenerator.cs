@@ -100,10 +100,12 @@ public class ScheduleGenerator
 
         if (startNode == null) { throw new InvalidOperationException("Start Node is not found"); }
         if (nodeGenerator.BossDataSlot == null) { throw new InvalidOperationException("Boss Node is not generated"); }
+        if (nodeGenerator.ExitNode == null) { throw new InvalidOperationException("Exit Node is not generated"); }
         schedule.FixData(data);
         schedule.FixMap(layered);
         schedule.FixStartNode(startNode);
         schedule.SetBossDataSlot(nodeGenerator.BossDataSlot);
+        schedule.FixExitNode(nodeGenerator.ExitNode);
 
         return schedule;
     }

@@ -52,6 +52,8 @@ public class BattleScheduler : IBattleScheduler
     {
         context.EventBus.Publish(new BattleEndBattleEvent(result));
 
+        //TODO : Result에 따른 전투 상황 내의 연출 구현
+
         OnBattleEnd?.Invoke(result);
     }
 

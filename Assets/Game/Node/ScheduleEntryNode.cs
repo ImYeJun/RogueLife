@@ -7,8 +7,9 @@ public class ScheduleEntryNode : Node
     {
     }
 
-    public override void OnEnter(Player player)
+    public override void OnEnter(Player player, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(player);
+        base.OnEnter(player, scheduleHistory);
+        RequestNextNodeSelection();
     }
 }

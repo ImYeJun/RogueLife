@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+[Serializable]
 public class Card
 {
     private CardData data;
@@ -40,6 +41,8 @@ public class Card
     public Card(Card card)
     {
         data = card.Data;
+        battleBehaviourInstance = data.CloneBattleBehaviour();
+
         currentName = card.CurrentName;
         currentDescription = card.CurrentDescription;
         currentType = card.CurrentType;

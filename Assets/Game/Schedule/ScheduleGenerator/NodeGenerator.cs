@@ -6,6 +6,7 @@ public class NodeGenerator
 {
     private IEngageBattle battleSystem;
     private EnemyDataSlot bossDataSlot;
+    private Node exitNode;
 
     public NodeGenerator(IEngageBattle battleSystem)
     {
@@ -13,8 +14,13 @@ public class NodeGenerator
     }
 
     public EnemyDataSlot BossDataSlot { get => bossDataSlot; }
+    public Node ExitNode { get => exitNode; }
 
-    public void Reset() { bossDataSlot = null; }
+    public void Reset() { 
+        bossDataSlot = null;
+        exitNode = null;
+    }
+
     public Node Generate(Guid skeletonId, NodeSkeleton nodeSkeleton, ScheduleData data, Action<Node, Player> onMoveRequest, Action onScheduleEnd)
     {
         switch (nodeSkeleton.FixedType)
@@ -22,16 +28,20 @@ public class NodeGenerator
             case NodeType.ENTRY:
                 return new ScheduleEntryNode(skeletonId, onMoveRequest);
             case NodeType.BATTLE:
-                return new BattleNode(skeletonId, battleSystem, onMoveRequest, null); //TODO determine the enemy and StartPhaseCount by ScheduleData
+                return new BattleNode(skeletonId, onMoveRequest, battleSystem, null); //TODO determine the enemy and StartPhaseCount by ScheduleData
             case NodeType.INCIDENT:
-                return new IncidentNode(skeletonId, onMoveRequest);
+                return new IncidentNode(skeletonId, onMoveRequest, new IncidentData()); //TODO determine the incident data by ScheduleData
             case NodeType.TRANSACTION:
                 return new TransactionNode(skeletonId, onMoveRequest);
             case NodeType.BOSS:
+                if (bossDataSlot != null) { throw new InvalidOperationException("More than two boss nodes cannot be existed in a schedule."); }
                 bossDataSlot = new EnemyDataSlot(data.BossData);
-                return new BattleNode(skeletonId, battleSystem, onMoveRequest, new List<EnemyDataSlot>{ bossDataSlot });
+                return new BattleNode(skeletonId, onMoveRequest, battleSystem, new List<EnemyDataSlot>{ bossDataSlot });
             case NodeType.EXIT:
-                return new ScheduleExitNode(skeletonId, onMoveRequest, onScheduleEnd);
+                if (exitNode != null) { throw new InvalidOperationException("More than two exit nodes cannot be existed in a schedule."); }
+                var node = new ScheduleExitNode(skeletonId, onMoveRequest, onScheduleEnd);
+                exitNode = node;
+                return node;
             default:
                 throw new ArgumentException($"Invalid Node Type to genearte : {nodeSkeleton.FixedType}");
         }

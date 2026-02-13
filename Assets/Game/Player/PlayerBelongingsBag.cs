@@ -2,13 +2,35 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBelongingsBag : IFieldBelongingsBag
+public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelongingsBag
 {
     Dictionary<BelongingsData, Belongings> mainBelongingsBag = new Dictionary<BelongingsData, Belongings>();
     Dictionary<BelongingsData, Belongings> sideBelongingsBag = new Dictionary<BelongingsData, Belongings>();
 
     public IReadOnlyDictionary<BelongingsData, Belongings> MainBelongingsBag { get => mainBelongingsBag; }
     public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
+
+    public Dictionary<BelongingsData, Belongings> GetClonedMainBag() { 
+        var result = new Dictionary<BelongingsData, Belongings>();
+
+        foreach (var pair in mainBelongingsBag)
+        {
+            result[pair.Key] = new Belongings(pair.Value);
+        }
+
+        return result;
+    }
+
+    public Dictionary<BelongingsData, Belongings> GetClonedSideBag() { 
+        var result = new Dictionary<BelongingsData, Belongings>();
+
+        foreach (var pair in sideBelongingsBag)
+        {
+            result[pair.Key] = new Belongings(pair.Value);
+        }
+
+        return result;
+    }
 
     public List<BattleBelongings> GetBattleBelongings(IBattleBelongingsOwner owner)
     {

@@ -26,18 +26,37 @@ public class GameRun
     public void StartGame()
     {
         finishedSchedulesCount = 0;
-        scheduleSystem.StartSchdule(player);
+        scheduleSystem.StartSchdule(player, OnScheduleDataUnsettled);
     }
 
-    public void OnScheduleEnd()
+    public void OnScheduleDataUnsettled()
     {
-        if (++finishedSchedulesCount >= Constant.MAX_SCHEDULE_REPETITION)
+        runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
+    }
+
+    public void OnScheduleEnd(ScheduleHistory history)
+    {
+        finishedSchedulesCount++;
+        runDiarySystem.RecordScheduleHistory(finishedSchedulesCount, history);
+        
+        if (history.HasEarlyExited)
         {
-            runDiarySystem.WriteDiary();
+            //TODO 세이브 기능 만들기 (유저가 Esc 키 눌러서 나간 경우)
+            return;
+        }
+        if (history.HasMentalBroken)
+        {
+            runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
+            return;
+        }
+
+        if (finishedSchedulesCount >= Constant.MAX_SCHEDULE_REPETITION)
+        {
+            runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, true);
         }
         else
         {
-            scheduleSystem.StartSchdule(player); 
+            scheduleSystem.StartSchdule(player, OnScheduleDataUnsettled); 
         }
     }
 }

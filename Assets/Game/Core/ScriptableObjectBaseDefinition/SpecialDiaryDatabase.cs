@@ -4,13 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpecialDiaryDatabase", menuName = "Scriptable Objects/SpecialDiaryDatabase")]
 public class SpecialDiaryDatabase : ScriptableObject
 {
-    [SerializeField] private List<SpeicalDiaryData> speicalDiaryDatas;
+    [SerializeField] private List<SpecialDiaryData> speicalDiaryDatas;
 
-    public bool TryGetSpecialDiaryData(DiaryContext context, out SpeicalDiaryData speicalDiaryData)
+    public bool TryGetSpecialDiaryData(DiaryContext context, out SpecialDiaryData speicalDiaryData)
     {
-        foreach (SpeicalDiaryData element in speicalDiaryDatas)
+        foreach (SpecialDiaryData element in speicalDiaryDatas)
         {
-            if (element.AreRequirementsFullfilled(context))
+            if (element.AreRequirementsFulfilled(context))
             {
                 speicalDiaryData = element;
                 return true;

@@ -1,3 +1,6 @@
+using System;
+
+[Serializable]
 public class Belongings
 {
     private BelongingsData data;
@@ -7,6 +10,12 @@ public class Belongings
     {
         this.data = data;
         behaviourInstance = this.data.CloneFieldBehaviour();
+    }
+
+    public Belongings(Belongings belongings)
+    {
+        data = belongings.data;
+        behaviourInstance = data.CloneFieldBehaviour();
     }
 
     public string Name => data.BelongingsName;

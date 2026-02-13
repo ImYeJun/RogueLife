@@ -1,15 +1,12 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class IncidentNode : Node
-{    
-    private IncidentData data;
+public class TransactionNode : Node
+{
     private List<Choice> choices;
 
-    public IncidentNode(Guid skeletonId, Action<Node, Player> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
+    public TransactionNode(Guid skeletonId, Action<Node, Player> OnMoveRequest) : base(OnMoveRequest, skeletonId)
     {
-        this.data = data;
     }
 
     public List<Choice> Choices { get => choices; }
@@ -17,7 +14,6 @@ public class IncidentNode : Node
     public override void OnEnter(Player player, ScheduleHistory scheduleHistory)
     {
         base.OnEnter(player, scheduleHistory);
-
         player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
         //TODO : choices에 따라 선택지 UI 띄우기
     }
@@ -29,7 +25,7 @@ public class IncidentNode : Node
 
     protected override void OnExit(Node nextNode)
     {
-        scheduleHistory.RecordEncounterIncident(data);
+        scheduleHistory.RecordTransaction();
         RecordBelongingsEquipping();
 
         player.Health.OnMentalBreakDown -= OnPlayerMentalBroken;

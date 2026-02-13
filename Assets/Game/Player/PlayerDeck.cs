@@ -3,10 +3,41 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class PlayerDeck : IFieldDeck
+public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
 {
     private Dictionary<CardData, List<Card>> mainDeck = new Dictionary<CardData, List<Card>>();
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
+    public Dictionary<CardData, List<Card>> GetClonedMainDeck() { 
+        var result = new Dictionary<CardData, List<Card>>();
+        foreach (var pair in mainDeck)
+        {
+            var clonedCards = new List<Card>();
+            foreach (var card in pair.Value)
+            {
+                clonedCards.Add(new Card(card));
+            }
+            result[pair.Key] = clonedCards;
+        }
+
+        return result;
+    }
+
+    public Dictionary<CardData, List<Card>> GetClonedSideDeck()
+    {
+        var result = new Dictionary<CardData, List<Card>>();
+        foreach (var pair in sideDeck)
+        {
+            var clonedCards = new List<Card>();
+            foreach (var card in pair.Value)
+            {
+                clonedCards.Add(new Card(card));
+            }
+            result[pair.Key] = clonedCards;
+        }
+
+        return result;
+    }
+    
     public List<CardData> OwingCardData { get => mainDeck.Keys.Union(sideDeck.Keys).ToList(); }
     public int OwingCardVariety { get => OwingCardData.Count(); }
 
@@ -43,7 +74,6 @@ public class PlayerDeck : IFieldDeck
     {
         get => MainDeckCards.Concat(SideDeckCards).ToList();
     }
-    
 
     HashSet<IDeckObserver> deckObservers = new HashSet<IDeckObserver>();
 
