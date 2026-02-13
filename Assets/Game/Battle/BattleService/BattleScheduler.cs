@@ -1,9 +1,22 @@
 using System;
+using System.Collections.Generic;
 
 public class BattleScheduler : IBattleScheduler
 {
     private BattleContext context;
-    private Action<BattleResult> onBattleEnd;
+    private Action<BattleResult> OnBattleEnd;
+
+    public BattleScheduler(Action<BattleResult> onBattleEnd)
+    {
+        OnBattleEnd = onBattleEnd;
+    }
+
+    public void SetContext(BattleContext context) { this.context = context; }
+    
+    public void StartBattle(int startPhaseCount, int maxActionCost, int fisrtTurnDrawCount, int turnStartDrawCount, List<Card> startDrawDeck, BattlePlayer battlePlayer, List<BattleEnemy> enemies)
+    {
+        context.EventBus.Publish(new BattleStartEvent(startPhaseCount, maxActionCost, fisrtTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies));
+    }
 
     public void StartPhase()
     {
@@ -39,6 +52,7 @@ public class BattleScheduler : IBattleScheduler
     {
         context.EventBus.Publish(new BattleEndBattleEvent(result));
 
-        onBattleEnd?.Invoke(result);
+        OnBattleEnd?.Invoke(result);
     }
+
 }

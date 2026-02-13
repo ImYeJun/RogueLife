@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class ScheduleEntryNode : Node
 {
-    public ScheduleEntryNode(Guid skeletonId, Action<Node> OnMoveRequest) : base(OnMoveRequest, skeletonId)
+    public ScheduleEntryNode(Guid skeletonId, Action<Node, Player> OnMoveRequest) : base(OnMoveRequest, skeletonId)
     {
     }
 
-    public override void OnEnter()
+    public override void OnEnter(Player player)
     {
-        base.OnEnter();
-        //TODO : 일정 테마 선택 기능 구현
+        base.OnEnter(player);
     }
 }

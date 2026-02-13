@@ -1,25 +1,99 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-public class BattleSystem
+public class BattleSystem : IEngageBattle
 {
     private BattleContext context;
     private BattleEventBus eventBus;
     private BattleScheduler scheduler;
     private BattleActionPipeline pipeline;
-    private BattleDeckSystem deckSystem;
+    private BattlePhase phase;
     private BattleActionCost acionCost;
+    private BattlePlayerContainer playerContainer;
+    private BattleDeckSystem deckSystem;
     private BattleEnemySystem enemySystem;
+
+    public BattleSystem(Random random)
+    {
+        eventBus = new BattleEventBus();
+        scheduler = new BattleScheduler(ExitBattle);
+        pipeline = new BattleActionPipeline();
+        phase = new BattlePhase();
+        playerContainer = new BattlePlayerContainer();
+        acionCost = new BattleActionCost();
+        deckSystem = new BattleDeckSystem();
+        enemySystem = new BattleEnemySystem();
+
+        context = new BattleContext(
+            random : random,
+            eventBus : eventBus,
+            battleScheduler : scheduler,
+            actionScheduler : pipeline,
+            actionObserverHub : pipeline,
+            phase : phase,
+            playerContainer : playerContainer,
+            actionCost : acionCost,
+            actionCostHistory : acionCost.History,
+            deckSystem : deckSystem,
+            cardPlayHistory : deckSystem.History,
+            drawDeck : deckSystem[BattleDeckType.DRAW],
+            handDeck : deckSystem[BattleDeckType.HAND],
+            graveDeck : deckSystem[BattleDeckType.GRAVE],
+            enemySystem : enemySystem,
+            enemyHistory : enemySystem.History
+        );
+
+        scheduler.SetContext(context);
+        pipeline.SetContext(context);
+        phase.SetContext(context);
+        deckSystem.SetContext(context);
+        enemySystem.SetContext(context);
+
+        eventBus.Subscribe(phase);
+        eventBus.Subscribe(acionCost);
+        eventBus.Subscribe(acionCost.History);
+        eventBus.Subscribe(deckSystem);
+        eventBus.Subscribe(deckSystem.History);
+        eventBus.Subscribe(playerContainer);
+        eventBus.Subscribe(enemySystem);
+        eventBus.Subscribe(enemySystem.History);
+    }
 
     public event Action<BattleResult> OnBattleExit;
 
-    public void EngageBattle(List<EnemyData> engagingEnemiesData, int startPhaseCount, Action<BattleResult> onBattleExit)
+    public void EngageBattle(Player player, List<EnemyDataSlot> engagingEnemiesDataSlot, int startPhaseCount, Action<BattleResult> battleExit)
     {
-        throw new NotImplementedException();
+        int maxActionCost = player.ActionCost.MaxActionCost;
+        int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
+        int turnStartDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;
+        List<Card> startDrawDeck = player.Deck.MainDeckCards
+                                    .Select(originalCard => new Card(originalCard)) 
+                                    .ToList();
+
+        BattlePlayer battlePlayer = new BattlePlayer(player.Health);
+        List<BattleBelongings> battleBelongingsBag = player.BelongingsBag.GetBattleBelongings(battlePlayer);
+        foreach (var battleBelongings in battleBelongingsBag) { eventBus.Subscribe(battleBelongings.BehaviourInstance); }
+        battlePlayer.SetBelongings(battleBelongingsBag);
+
+        List<BattleEnemy> enemies = new List<BattleEnemy>();
+        foreach (var dataSlot in engagingEnemiesDataSlot)
+        {
+            enemies.Add(new BattleEnemy(dataSlot.Data));
+        }
+
+        scheduler.StartBattle(startPhaseCount, maxActionCost, fisrtTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies);
     }
 
     public void ExitBattle(BattleResult result)
     {
+        var battleBelongings = playerContainer.Player.Belongings;
+
+        foreach (var belongings in battleBelongings)
+        {
+            eventBus.Unsubscribe(belongings.BehaviourInstance);
+        }
+        
         OnBattleExit?.Invoke(result);
     }
 }

@@ -8,12 +8,17 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserver
 
     private BattleActionCostHistory history;
 
-    public int ActionCost => currentActionCost;
+    public BattleActionCost()
+    {
+        history = new BattleActionCostHistory();
+    }
 
+    public int ActionCost => currentActionCost;
     public int MaxActionCost { get => maxActionCost; set{
             if (value < 0) { UnityEngine.Debug.LogWarning("max action cost cannot be negative."); }
             maxActionCost = value;
         } }
+    public BattleActionCostHistory History { get => history; }
 
     public bool HasEnough(int amount)
     {
@@ -44,6 +49,11 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserver
     
     public void OnBattleEvent(BattleEvent battleEvent)
     {
+        if (battleEvent is BattleStartEvent payload)
+        {
+            maxActionCost = payload.MaxActionCost;
+        }
+
         if (battleEvent is PlayerTurnStartBattleEvent)
         {
             Fullfill();

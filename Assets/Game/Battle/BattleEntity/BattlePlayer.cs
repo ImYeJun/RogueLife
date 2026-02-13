@@ -6,14 +6,16 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
     private PlayerHealth playerHealth;
     private List<BattleBelongings> belongings = new List<BattleBelongings>();
 
-    public BattlePlayer(PlayerHealth playerHealth, List<BattleBelongings> belongings)
+    public BattlePlayer(PlayerHealth playerHealth)
     {
         this.playerHealth = playerHealth;
         this.playerHealth.OnMentalBreakDown += OnDead;
-        this.belongings = belongings;
     }
 
     public PlayerHealth Health { get => playerHealth; }
+    
+    public void SetBelongings(List<BattleBelongings> belongings) { this.belongings = belongings; }
+    public List<BattleBelongings> Belongings { get => belongings;  }
 
     protected override void OnDead()
     {

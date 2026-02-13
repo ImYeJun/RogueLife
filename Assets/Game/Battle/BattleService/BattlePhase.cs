@@ -5,6 +5,8 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserver
     private BattleContext context;
     private int remainPhase;
 
+    public void SetContext(BattleContext context) { this.context = context; }
+
     public void Increase(int amount)
     {
         remainPhase += amount;
@@ -19,6 +21,11 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserver
 
     public void OnBattleEvent(BattleEvent battleEvent)
     {
+        if (battleEvent is BattleStartEvent payload)
+        {
+            remainPhase = payload.StartPhaseCount;
+        }
+
         if (battleEvent is PhaseEndBattleEvent)
         {
             Decrease();

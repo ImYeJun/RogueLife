@@ -15,9 +15,9 @@ public class Schedule : IFieldScheduleSystem
 
     public event Action OnEnd; 
 
-    public void MoveNode(Node nextNode)
+    public void MoveNode(Node nextNode, Player player)
     {
-        
+        throw new NotImplementedException();
     }
 
     public void SetBoss(EnemyData bossData)

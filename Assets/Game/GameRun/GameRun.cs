@@ -18,7 +18,7 @@ public class GameRun
 
         player = new Player();
         runDiarySystem = new RunDiarySystem(new SpecialDiaryDatabase()); //TODO : Database SerializeField화 하기
-        battleSystem = new BattleSystem();
+        battleSystem = new BattleSystem(random);
         scheduleSystem = new ScheduleSystem(random, battleSystem, OnScheduleEnd);
     }
 

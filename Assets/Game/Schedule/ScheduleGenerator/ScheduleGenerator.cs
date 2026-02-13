@@ -8,7 +8,7 @@ public class ScheduleGenerator
     private ScheduleNodeTypeResolver nodeTypeResolver;
     private NodeGenerator nodeGenerator;
 
-    public ScheduleGenerator(ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule, BattleSystem battleSystem)
+    public ScheduleGenerator(ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule, IEngageBattle battleSystem)
     {
         skeletonGenerator = new ScheduleSkeletonGenerator(skeletonRule);
         nodeTypeResolver = new ScheduleNodeTypeResolver(typeResolveRule);

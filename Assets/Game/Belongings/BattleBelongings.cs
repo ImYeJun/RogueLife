@@ -10,4 +10,6 @@ public class BattleBelongings
         behaviourInstance = this.data.CloneBattleBehaviour();
         this.owner = owner;
     }
+
+    public BattleBelongingsBehaviour BehaviourInstance { get => behaviourInstance; }
 }

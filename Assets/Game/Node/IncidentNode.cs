@@ -6,15 +6,15 @@ public class IncidentNode : Node
 {    
     private List<Choice> choices;
 
-    public IncidentNode(Guid skeletonId, Action<Node> OnMoveRequest) : base(OnMoveRequest, skeletonId)
+    public IncidentNode(Guid skeletonId, Action<Node, Player> OnMoveRequest) : base(OnMoveRequest, skeletonId)
     {
     }
 
     public List<Choice> Choices { get => choices; }
 
-    public override void OnEnter()
+    public override void OnEnter(Player player)
     {
-        base.OnEnter();
+        base.OnEnter(player);
         //TODO : choices에 따라 선택지 UI 띄우기
     }
 }

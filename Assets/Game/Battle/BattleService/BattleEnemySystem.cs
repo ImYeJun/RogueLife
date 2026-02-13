@@ -8,6 +8,10 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
     private BattleEnemyHistory history;
     private Dictionary<EnemyData, List<BattleEnemy>> currentEnemies = new Dictionary<EnemyData, List<BattleEnemy>>();
 
+    public BattleEnemyHistory History { get => history; }
+    
+    public void SetContext(BattleContext context) { this.context = context; }
+
     public void SpawnEnemy(BattleEnemy enemy)
     {
         EnemyData data = enemy.Data;
@@ -46,6 +50,15 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
 
     public void OnBattleEvent(BattleEvent battleEvent)
     {
+        if (battleEvent is BattleStartEvent payload)
+        {
+            foreach(var enemy in payload.Enemies)
+            {
+                currentEnemies.Clear();
+                SpawnEnemy(enemy);
+            }
+        }
+
         if (battleEvent is PhaseStartBattleEvent)
         {
             foreach (var enemyList in currentEnemies.Values)

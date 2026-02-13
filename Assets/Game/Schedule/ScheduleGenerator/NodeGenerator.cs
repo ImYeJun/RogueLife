@@ -3,14 +3,14 @@ using System.Reflection;
 
 public class NodeGenerator
 {
-    private BattleSystem battleSystem;
+    private IEngageBattle battleSystem;
 
-    public NodeGenerator(BattleSystem battleSystem)
+    public NodeGenerator(IEngageBattle battleSystem)
     {
         this.battleSystem = battleSystem;
     }
 
-    public Node Generate(Guid skeletonId, NodeSkeleton nodeSkeleton, Action<Node> onMoveRequest, Action onScheduleEnd)
+    public Node Generate(Guid skeletonId, NodeSkeleton nodeSkeleton, Action<Node, Player> onMoveRequest, Action onScheduleEnd)
     {
         switch (nodeSkeleton.FixedType)
         {

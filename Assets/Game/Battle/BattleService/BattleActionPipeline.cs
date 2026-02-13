@@ -14,6 +14,8 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     private List<IBattleActionPreObserver> actionPreObservers = new List<IBattleActionPreObserver>();
     private List<IBattleActionPostObserver> actionPostObservers = new List<IBattleActionPostObserver>();
     
+    public void SetContext(BattleContext context) { this.context = context; }
+    
     public void Enqueue(IBattleAction action)
     {
         actionQueue.Enqueue(action);

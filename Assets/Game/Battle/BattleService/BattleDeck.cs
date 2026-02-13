@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleDeck : IBattleEventObserver, IDrawDeckContext, IHandDeckContext, IGraveDeckContext
+public class BattleDeck : IDrawDeckContext, IHandDeckContext, IGraveDeckContext
 {
     private List<Card> deck = new List<Card>();
     public Card this[int index]
@@ -11,6 +11,8 @@ public class BattleDeck : IBattleEventObserver, IDrawDeckContext, IHandDeckConte
     }
 
     public int Count { get => deck.Count; }
+    public void SetDeck(List<Card> deck) { this.deck = deck; }
+    public void Clear() { deck.Clear();}
 
     public void AddCard(Card card)
     {
@@ -76,13 +78,5 @@ public class BattleDeck : IBattleEventObserver, IDrawDeckContext, IHandDeckConte
     public bool HasCard(Card card)
     {
         return deck.Contains(card);
-    }
-
-    public void OnBattleEvent(BattleEvent battleEvent)
-    {
-        if (battleEvent is BattleStartEvent)
-        {
-            deck.Clear();
-        }
     }
 }

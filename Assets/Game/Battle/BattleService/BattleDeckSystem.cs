@@ -7,14 +7,26 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver
 {
     private BattleContext context;
     private BattleDeckHistory history;
-
-    private int newTurnDrawAmount;
+    private bool isFisrtTurn;
+    private int fisrtTurnDrawCount;
+    private int turnStartDrawCount;
     private Dictionary<BattleDeckType, BattleDeck> deckMap = new Dictionary<BattleDeckType, BattleDeck>
     {
         { BattleDeckType.DRAW, new BattleDeck() },
         { BattleDeckType.HAND, new BattleDeck() },
         { BattleDeckType.GRAVE, new BattleDeck() }
     };
+    public BattleDeck this[BattleDeckType type]
+    {
+        get
+        {
+            if (!deckMap.ContainsKey(type)) { throw new ArgumentOutOfRangeException($"Battle Deck System doesn't have the given type deck {type}");}
+            return deckMap[type];
+        }
+    }
+    public BattleDeckHistory History { get => history; }
+
+    public void SetContext(BattleContext context) { this.context = context; }
 
     public void MoveCard(Card card, BattleDeckType destination)
     {
@@ -50,9 +62,27 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver
 
     public void OnBattleEvent(BattleEvent battleEvent)
     {
+        if (battleEvent is BattleStartEvent payload)
+        {
+            fisrtTurnDrawCount = payload.FisrtTurnDrawCount;
+            turnStartDrawCount = payload.TurnStartDrawCount;
+            isFisrtTurn = true;
+
+            foreach (var pair in deckMap)
+            {
+                pair.Value.Clear();
+
+                if (pair.Key == BattleDeckType.DRAW)
+                {
+                    pair.Value.SetDeck(payload.StartDrawDeck);
+                }
+            }
+        }
+
         if (battleEvent is PlayerTurnStartBattleEvent)
         {
-            int acutalDrawAmount = newTurnDrawAmount;
+            int acutalDrawAmount = isFisrtTurn ? fisrtTurnDrawCount : turnStartDrawCount;
+            isFisrtTurn = false; 
 
             if (deckMap[BattleDeckType.DRAW].Count < acutalDrawAmount)
             {

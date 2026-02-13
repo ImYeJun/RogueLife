@@ -10,6 +10,18 @@ public class PlayerBelongingsBag : IFieldBelongingsBag
     public IReadOnlyDictionary<BelongingsData, Belongings> MainBelongingsBag { get => mainBelongingsBag; }
     public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
 
+    public List<BattleBelongings> GetBattleBelongings(IBattleBelongingsOwner owner)
+    {
+        var result = new List<BattleBelongings>();
+
+        foreach(var belongings in mainBelongingsBag.Values)
+        {
+            result.Add(belongings.GenerateBattleBelongings(owner));
+        }
+
+        return result;
+    }
+
     public bool TryObtainBelongings(Belongings belongings)
     {
         if (HasBelongings(belongings))
