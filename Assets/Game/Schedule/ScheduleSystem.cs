@@ -3,6 +3,7 @@ using System;
 public class ScheduleSystem
 {
     private System.Random random;
+    private FieldContext context;
     private ScheduleGenerator scheduleGenerator;
     private Action<ScheduleHistory> onScheduleEnd;
 
@@ -19,6 +20,9 @@ public class ScheduleSystem
 
     public void StartSchdule(Player player, Action OnScheduleUnsettled)
     {
+        // context = new FieldContext();
+        //TODO Schedule System에서 Player와 FieldSystem 이중성 문제 해결하기
+
         //TODO UI에게 일정 선택 요청 보내고 (보낼 때 player을 담아서 보냄), 그 옵저버로 SettleCurrentScheduleData 등록하기, 만약에 조기 종료시 OnScheduleUnsettled실행
     }
 
@@ -27,7 +31,7 @@ public class ScheduleSystem
         currentSchedule = scheduleGenerator.GenerateSchedule(random, data);
         currentSchedule.OnEnd += EndSchedule;
 
-        currentSchedule.EnterStartNode(player);
+        currentSchedule.EnterStartNode(player, context);
     }
 
     public void EndSchedule(ScheduleHistory history)

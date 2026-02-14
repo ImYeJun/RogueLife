@@ -12,6 +12,19 @@ public class FieldContext
     private IFieldActionCost actionCost;
     private IFieldHealth health;
 
+    public FieldContext(Random random, IFieldCardDatabase cardDatabase, IFieldDeck deck, IFieldBelongingsDatabase belongingsDatabase, IFieldBelongingsBag belongingsBag, IFieldScheduleSystem scheduleSystem, IFieldBattleSystem battleSystem, IFieldActionCost actionCost, IFieldHealth health)
+    {
+        this.random = random;
+        this.cardDatabase = cardDatabase;
+        this.deck = deck;
+        this.belongingsDatabase = belongingsDatabase;
+        this.belongingsBag = belongingsBag;
+        this.scheduleSystem = scheduleSystem;
+        this.battleSystem = battleSystem;
+        this.actionCost = actionCost;
+        this.health = health;
+    }
+
     public Random Random { get => random; }
     public IFieldCardDatabase CardDatabase { get => cardDatabase; }
     public IFieldDeck Deck { get => deck;}

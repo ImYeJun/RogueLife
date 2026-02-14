@@ -2,6 +2,8 @@ using System.Collections.Generic;
 
 public interface IEnemyBehaviourOwner
 {
+    public bool IsFirstAction { get; }
+    public int PreviousActionCount { get; }
     public IReadOnlyList<BattleStatusEffect> CurrentBuffs { get; }
     public IReadOnlyList<BattleStatusEffect> CurrentDebuffs { get; }
     public EnemyData Data { get; }

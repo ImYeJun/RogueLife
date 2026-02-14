@@ -1,4 +1,4 @@
 public enum CardRarity
 {
-    COMMON, RARE, LEGENDARY
+    COMMON = 0, RARE = 1, LEGENDARY = 2, Any = -1
 }

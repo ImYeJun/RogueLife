@@ -5,9 +5,9 @@ public class ScheduleLayerZoneRule
     [Min(0)] private int battleNodeWeight;
     [Min(0)] private int incidentNodeWeight;
     [Min(0)] private int transactionNodeWeight;
-    private int minBattleNodeCount;
-    private int minIncidentNodeCount;
-    private int minTransactionNodeCount;
+    [Min(0)] private int minBattleNodeCount;
+    [Min(0)] private int minIncidentNodeCount;
+    [Min(0)] private int minTransactionNodeCount;
     
     public ScheduleLayerZoneRule(
         int battleNodeWeight,

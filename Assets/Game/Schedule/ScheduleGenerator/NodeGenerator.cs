@@ -21,7 +21,7 @@ public class NodeGenerator
         exitNode = null;
     }
 
-    public Node Generate(Guid skeletonId, NodeSkeleton nodeSkeleton, ScheduleData data, Action<Node, Player> onMoveRequest, Action onScheduleEnd)
+    public Node Generate(Guid skeletonId, NodeSkeleton nodeSkeleton, ScheduleData data, Action<Node, Player, FieldContext> onMoveRequest, Action onScheduleEnd)
     {
         switch (nodeSkeleton.FixedType)
         {

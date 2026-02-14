@@ -5,14 +5,14 @@ public class ScheduleExitNode : Node
 {
     public Action OnScheduleEnd;
 
-    public ScheduleExitNode(Guid skeletonId, Action<Node, Player> OnMoveRequest, Action OnScheduleEnd) : base(OnMoveRequest, skeletonId)
+    public ScheduleExitNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest, Action OnScheduleEnd) : base(OnMoveRequest, skeletonId)
     {
         this.OnScheduleEnd = OnScheduleEnd;
     }
 
-    public override void OnEnter(Player player, ScheduleHistory scheduleHistory)
+    public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
     {
-        base.player = player;
+        base.OnEnter(player, context, scheduleHistory);
 
         scheduleHistory.RemainMentalityOnExit = player.Health.CurrentMentality;
         OnScheduleEnd.Invoke();

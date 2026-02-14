@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class ScheduleEntryNode : Node
 {
-    public ScheduleEntryNode(Guid skeletonId, Action<Node, Player> OnMoveRequest) : base(OnMoveRequest, skeletonId)
+    public ScheduleEntryNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest) : base(OnMoveRequest, skeletonId)
     {
     }
 
-    public override void OnEnter(Player player, ScheduleHistory scheduleHistory)
+    public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(player, scheduleHistory);
+        base.OnEnter(player, context, scheduleHistory);
         RequestNextNodeSelection();
     }
 }

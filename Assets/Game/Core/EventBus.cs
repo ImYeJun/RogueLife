@@ -1,10 +1,9 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public static class EventBus
 {
-    private static Dictionary<Type, List<Delegate>> subscribers;
+    private static Dictionary<Type, List<Delegate>> subscribers = new Dictionary<Type, List<Delegate>>();
 
     public static void Subscribe<TEventData>(Action<TEventData> action)
     {
@@ -34,11 +33,15 @@ public static class EventBus
 
         if (subscribers.ContainsKey(eventType))
         {
-            List<Delegate> copiedList = subscribers[eventType];
+            var subscriberList = subscribers[eventType];
+            var copiedList = new List<Delegate>(subscriberList);
 
-            foreach (Action<TEventData> action in copiedList)
+            foreach (var wrapper in copiedList)
             {
-                action.Invoke(eventData);
+                if (wrapper is Action<TEventData> action)
+                {
+                    action.Invoke(eventData);
+                }
             } 
         }
     }

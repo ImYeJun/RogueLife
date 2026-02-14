@@ -10,16 +10,22 @@ public class BattleNode : Node
     private List<EnemyDataSlot> engagingEnemiesDataSlot;
     private int startPhaseCount;
     private bool hasResolved;
+    private int lossMentalityOnUnresolved;
+    private EnemyResolveReward resolveReward;
 
-    public BattleNode(Guid skeletonId, Action<Node, Player> OnMoveRequest, IEngageBattle battleSystem, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest, skeletonId)
+    public BattleNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest, IEngageBattle battleSystem, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest, skeletonId)
     {
         this.battleSystem = battleSystem;
         this.engagingEnemiesDataSlot = engagingEnemiesDataSlot;
+
+        var mainEnemyData = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Data.Tier).First().Data;
+        lossMentalityOnUnresolved = mainEnemyData.LossMentalityOnUnresolved;
+        resolveReward = mainEnemyData.Reward;
     }
-    public override void OnEnter(Player player, ScheduleHistory scheduleHistory)
+    public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
     {
         //TODO : engagingEnemiesData에 따라 적 일상 UI 띄우기
-        base.OnEnter(player, scheduleHistory);
+        base.OnEnter(player, context, scheduleHistory);
 
         //TODO : engagingEnemiesData에 따라 encounterLine 연출 띄우기
 
@@ -28,14 +34,17 @@ public class BattleNode : Node
 
     public void OnBattleExit(BattleResult result)
     {
+        player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
         hasResolved = result == BattleResult.PLAYER_WIN;
 
         switch (result)
         {
             case BattleResult.PLAYER_WIN:
-                throw new NotImplementedException(); //TODO 보상 구현
+                GetReward();
+                break;
             case BattleResult.ALL_PHASE_END:
-                throw new NotImplementedException(); //TODO 패널티 구현
+                GetPenalty();
+                break;
             case BattleResult.PLAYER_DIED:
                 OnPlayerMentalBroken();
                 return;
@@ -44,6 +53,19 @@ public class BattleNode : Node
         }
         
         RequestNextNodeSelection();
+    }
+
+    private void GetReward()
+    {
+        if (resolveReward is CardEnemyResolveReward cardReward)
+        {
+            context.CardDatabase.GetEnemyResolveReward(context.Random, cardReward);
+        }
+    }
+
+    private void GetPenalty()
+    {
+        player.Health.HurtBattleHealth(lossMentalityOnUnresolved, true);
     }
 
     protected override void OnExit(Node nextNode)
@@ -57,6 +79,7 @@ public class BattleNode : Node
         }
         RecordBelongingsEquipping();
 
+        player.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
         base.OnExit(nextNode);
     }
 }

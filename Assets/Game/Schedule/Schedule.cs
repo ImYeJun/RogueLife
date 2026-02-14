@@ -32,11 +32,11 @@ public class Schedule : IFieldScheduleSystem
 
     public event Action<ScheduleHistory> OnEnd; 
 
-    public void EnterStartNode(Player player) { 
+    public void EnterStartNode(Player player, FieldContext context) { 
         currentNode = null;
-        MoveNode(startNode, player);
+        MoveNode(startNode, player, context);
     }
-    public void MoveNode(Node nextNode, Player player)
+    public void MoveNode(Node nextNode, Player player, FieldContext context)
     {
         if (currentNode != null && !currentNode.NextNodes.Contains(nextNode) && nextNode != exitNode) 
         { 
@@ -44,7 +44,7 @@ public class Schedule : IFieldScheduleSystem
         }
 
         currentNode = nextNode;
-        nextNode.OnEnter(player, history);
+        nextNode.OnEnter(player, context, history);
     }
 
     public void SetBossData(EnemyData bossData)

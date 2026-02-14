@@ -2,5 +2,5 @@ using UnityEngine;
 
 public enum EnemyTier
 {
-    NORMAL, ELITE, BOSS
+    NORMAL = 0, ELITE = 1, BOSS = 2
 }

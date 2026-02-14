@@ -10,7 +10,7 @@ public class ChoiceObtainSpecificCardEffect : IChoiceEffect
 
     public void Execute(FieldContext context)
     {
-        Card card = context.CardDatabase.MaterializeCardData(obtainingCardData);
+        Card card = context.CardDatabase.Materialize(obtainingCardData);
         context.Deck.TryObtainCard(card);
     }
 }

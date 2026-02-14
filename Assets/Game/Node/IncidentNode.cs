@@ -7,16 +7,16 @@ public class IncidentNode : Node
     private IncidentData data;
     private List<Choice> choices;
 
-    public IncidentNode(Guid skeletonId, Action<Node, Player> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
+    public IncidentNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
     {
         this.data = data;
     }
 
     public List<Choice> Choices { get => choices; }
 
-    public override void OnEnter(Player player, ScheduleHistory scheduleHistory)
+    public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(player, scheduleHistory);
+        base.OnEnter(player, context, scheduleHistory);
 
         player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
         //TODO : choices에 따라 선택지 UI 띄우기

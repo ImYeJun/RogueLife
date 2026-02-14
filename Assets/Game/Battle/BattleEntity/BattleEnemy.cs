@@ -5,29 +5,37 @@ using UnityEngine;
 public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner
 {    
     private EnemyData data;
-    private List<EnemyAction> plannedAction = new List<EnemyAction>();
+    private List<EnemyAction> plannedActions = new List<EnemyAction>();
     private BattleEnemyBehaviour behaviourInstance;
+    private bool isFirstAction;
+    private int previousActionCount;
     private int currentHealth;
     private int currentMaxHealth;
 
     public event Action<BattleEnemy> Died;
 
-    public IReadOnlyList<EnemyAction> PlannedActions { get => plannedAction; }
+    public IReadOnlyList<EnemyAction> PlannedActions { get => plannedActions; }
     public EnemyData Data { get => data; }
+    public bool IsFirstAction => isFirstAction;
+    public int PreviousActionCount => previousActionCount;
 
     public BattleEnemy(EnemyData enemyData)
     {
         data = enemyData;
         currentMaxHealth = data.MaxBaseHealth;
         currentHealth = currentMaxHealth;
-        behaviourInstance = data.CloneBehaviour();
+
+        behaviourInstance = data.CloneBehaviour(this);
+        isFirstAction = true;
+        previousActionCount = 0;
     }
 
     public void PlanNextAction()
     {
         if (IsDead) { return; }
 
-        throw new System.NotImplementedException();
+        plannedActions = behaviourInstance.PlanAction(context.Random);
+        previousActionCount = plannedActions.Count;
     }
 
     protected override void OnDead()

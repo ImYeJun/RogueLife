@@ -1,9 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "CardDatabase", menuName = "Scriptable Objects/Database/CardDatabase")]
-public class CardDatabase : ScriptableObject, ISerializationCallbackReceiver {
+public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerializationCallbackReceiver {
     [SerializeField] private List<CardData> availableCardData;
     private Dictionary<string, CardData> idLookUp = new Dictionary<string, CardData>();
 
@@ -26,24 +27,45 @@ public class CardDatabase : ScriptableObject, ISerializationCallbackReceiver {
 
     public Card GetRandomCard(System.Random random)
     {
-        return GetRandomCard(random, CardAttribute.ANY, CardType.ANY);
+        return GetRandomCard(random, CardRarity.Any, CardType.ANY, CardAttribute.ANY);
     }
-
-    public Card GetRandomCard(System.Random random, CardAttribute attribute, CardType type)
+    public Card GetRandomCard(System.Random random, CardRarity rarity, CardType type, CardAttribute attribute)
     {
-        var candidates = availableCardData.Where(data => 
-            (attribute == CardAttribute.ANY || (attribute & data.Attribute) == attribute) && 
-            (type == CardType.ANY || (type & data.Type) == type)
+        var filterdCardData = availableCardData.Where(data =>
+            (rarity == CardRarity.Any) || (data.Rarity == rarity) &&
+            (type == CardType.ANY || data.Type == type) &&
+            (attribute == CardAttribute.ANY || data.Attribute == attribute)
         ).ToList();
 
-        if (candidates.Count == 0) { 
-            Debug.LogWarning($"There's no cards that fullfills the condition (attribute : {attribute}, type : {type})");
+        if (filterdCardData.Count <= 0) { 
+            Debug.LogWarning($"There's no cards that fullfills the condition (rarity : {rarity},attribute : {attribute}, type : {type})");
             return null;
         }
-
-        var selectedData = candidates[random.Next(candidates.Count)];
-
+        var selectedData = filterdCardData[random.Next(filterdCardData.Count)];
         return Materialize(selectedData);
+    }
+
+    public List<Card> GetEnemyResolveReward(System.Random random,CardEnemyResolveReward data)
+    {
+        var result = new List<Card>();
+
+        int minRarity = (int)data.LowestRarity;
+        int maxRarity = (int)data.HighestRarity;
+
+        for (int i = 0; i < data.Amount; i++)
+        {
+            CardRarity selectedRarity = 
+                data.LowestRarity == CardRarity.Any || data.HighestRarity == CardRarity.Any ? 
+                CardRarity.Any : (CardRarity)random.Next(minRarity, maxRarity + 1); 
+            
+            var card = GetRandomCard(random, selectedRarity, CardType.ANY, CardAttribute.ANY);
+            if (card == null) { card = GetRandomCard(random); }
+            if (card == null) { throw new InvalidOperationException("[CardDatabase] Shit Database, There's no card data for rewarding. What a mess!");}
+
+            result.Add(card);
+        }
+
+        return result;
     }
 
     public void OnBeforeSerialize() { }
@@ -92,5 +114,6 @@ public class CardDatabase : ScriptableObject, ISerializationCallbackReceiver {
             }
         }
     }
+
 #endif
 }
