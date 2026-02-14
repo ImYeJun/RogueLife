@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "CardData", menuName = "Scriptable Objects/CardData")]
 public class CardData : ScriptableObject
 {
+    [SerializeField] private string id;
     [SerializeField] private string cardName;
     [SerializeField] private string description;
     [SerializeField] private string relfectionAppliedDescription;
@@ -12,6 +13,7 @@ public class CardData : ScriptableObject
     [SerializeField] private int actionCost;
     [SerializeReference, SubclassSelector] private CardBattleBehaviour battleBehaviour;
 
+    public string Id { get => id; }
     public string CardName { get => cardName; }
     public string Description { get => description; }
     public string RelfectionActivatedDescription { get => relfectionAppliedDescription; }

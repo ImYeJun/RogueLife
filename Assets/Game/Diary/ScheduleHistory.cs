@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public class ScheduleHistory
 {
-    private Dictionary<EnemyData, (int ecounerCount, int resolvedCount)> encounterEnemies = new Dictionary<EnemyData, (int ecounerCount, int resolvedCount)>();
+    private Dictionary<EnemyData, (int encounterCount, int resolvedCount)> encounterEnemies = new Dictionary<EnemyData, (int encounerCount, int resolvedCount)>();
     private Dictionary<IncidentData, int> encounterIncidents = new Dictionary<IncidentData, int>();
     private int transactionCount = 0;
 
-    private Dictionary<BelongingsData, int> equippedBelongingsCounts = new Dictionary<BelongingsData, int>();
+    private Dictionary<BelongingsData, int> equippedBelongingsNodeCounts = new Dictionary<BelongingsData, int>();
 
     private bool hasMetBoss = false;
     private bool hasResolvedBoss = false;
@@ -15,10 +15,45 @@ public class ScheduleHistory
     private bool hasEarlyExited = false;
     private int remainMentalityOnExit;
 
-    public IReadOnlyDictionary<EnemyData, (int ecounerCount, int resolvedCount)> EncounterEnemies { get => encounterEnemies; }
+    public ScheduleHistory() {}
+    public ScheduleHistory(ScheduleHistorySaveData saveData, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase)
+    {
+        foreach (var pair in saveData.encounterEnemies)
+        {
+            var data = enemyDatabase.GetData(pair.Key);
+            if (data == null) { throw new InvalidOperationException($"[ScheduleHistory] Failed to get enemy data, Id : {pair.Key}"); }
+
+            encounterEnemies[data] = pair.Value;
+        }
+
+        foreach (var pair in saveData.encounterIncidents)
+        {
+            var data = incidentDatabase.GetData(pair.Key);
+            if (data == null) { throw new InvalidOperationException($"[ScheduleHistory] Failed to get incident data, Id : {pair.Key}"); }
+
+            encounterIncidents[data] = pair.Value;
+        }
+
+        transactionCount = saveData.transactionCount;
+
+        foreach (var pair in saveData.equippedBelongingsNodeCount)
+        {
+            var data = belongingsDatabase.GetData(pair.Key);
+            if (data == null) { throw new InvalidOperationException($"[ScheduleHistory] Failed to get belongings data, Id : {pair.Key}"); }
+
+            equippedBelongingsNodeCounts[data] = pair.Value;
+        }
+
+        hasMetBoss = saveData.hasMetBoss;
+        hasMentalBroken = saveData.hasMentalBroken;
+        hasEarlyExited = saveData.hasEarlyExited;
+    }
+
+    public IReadOnlyDictionary<EnemyData, (int encounerCount, int resolvedCount)> EncounterEnemies { get => encounterEnemies; }
     public IReadOnlyDictionary<IncidentData, int> EncounterIncidents { get => encounterIncidents; }
     public int TransactionCount { get => transactionCount; }
-    public IReadOnlyDictionary<BelongingsData, int> BelongingsEquippingNodeCount { get => equippedBelongingsCounts; }
+    public IReadOnlyDictionary<BelongingsData, int> BelongingsEquippingNodeCount { get => equippedBelongingsNodeCounts; }
+    public bool HasMetBoss { get => hasMetBoss; }
     public bool HasResolvedBoss { get => hasResolvedBoss; }
     public bool HasMentalBroken { get => hasMentalBroken; set => hasMentalBroken = value; }
     public bool HasEarlyExited { get => hasEarlyExited; set => hasEarlyExited = value; }
@@ -30,7 +65,7 @@ public class ScheduleHistory
 
         var history = encounterEnemies[data];
 
-        history.ecounerCount++;
+        history.encounterCount++;
         history.resolvedCount = isResolved ? history.resolvedCount + 1 : history.resolvedCount;
 
         encounterEnemies[data] = history;
@@ -53,8 +88,8 @@ public class ScheduleHistory
 
     public void RecordEquippedBelongings(BelongingsData data)
     {
-        if (!equippedBelongingsCounts.ContainsKey(data)) { equippedBelongingsCounts[data] = 0; }
+        if (!equippedBelongingsNodeCounts.ContainsKey(data)) { equippedBelongingsNodeCounts[data] = 0; }
 
-        equippedBelongingsCounts[data]++;
+        equippedBelongingsNodeCounts[data]++;
     }
 }

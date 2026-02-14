@@ -1,29 +1,47 @@
 using System;
-using UnityEngine;
+using System.Collections.Generic;
 
-[Serializable]
 public class Diary
 {
-    [SerializeField] private string description;
-    [SerializeField] private SpecialDiaryImageType imageType;
-    [SerializeField] private string date;
+    private Guid id;
+    private DateTime date;
+    private Dictionary<int, ScheduleHistory> scheduleHistories;
+    private bool areAllSchedulesFinished;
+    private FinalEquipment finalEquipment;
+    private bool isSpecial;
+    private SpecialDiaryData specialDiaryData;
 
-    public Diary(string description, SpecialDiaryImageType imageType, string date)
+    public Diary(Guid id, DateTime date, Dictionary<int, ScheduleHistory> scheduleHistories, 
+                bool areAllSchedulesFinished, FinalEquipment finalEquipment, 
+                bool isSpecial, SpecialDiaryData specialDiaryData)
     {
-        this.description = description;
-        this.imageType = imageType;
+        this.id = id;
         this.date = date;
+        this.scheduleHistories = scheduleHistories;
+        this.areAllSchedulesFinished = areAllSchedulesFinished;
+        this.finalEquipment = finalEquipment;
+        this.isSpecial = isSpecial;
+        this.specialDiaryData = specialDiaryData;
     }
 
-    public string Description { get => description; }
-    public SpecialDiaryImageType Image { get => imageType; }
-    public string Date { get => date; }
+    public Diary(Guid id, DateTime date, Dictionary<int, ScheduleHistory> scheduleHistories, 
+                bool areAllSchedulesFinished, FinalEquipment finalEquipment, SpecialDiaryData specialDiaryData = null)
+        : this(id, date, scheduleHistories, areAllSchedulesFinished, finalEquipment, specialDiaryData != null, specialDiaryData) { }
 
-    public  bool Equals(Diary operand)
+    public Diary(DateTime date, Dictionary<int, ScheduleHistory> scheduleHistories, 
+                bool areAllSchedulesFinished, FinalEquipment finalEquipment, SpecialDiaryData specialDiaryData = null)
+        : this(Guid.NewGuid(), date, scheduleHistories, areAllSchedulesFinished, finalEquipment, specialDiaryData != null, specialDiaryData) { }
+
+    public Guid Id { get => id; }
+    public DateTime Date { get => date; }
+    public IReadOnlyDictionary<int, ScheduleHistory> ScheduleHistories { get => scheduleHistories; }
+    public bool AreAllSchedulesFinished { get => areAllSchedulesFinished; }
+    public FinalEquipment FinalEquipment { get => finalEquipment; }
+    public bool IsSpecial { get => isSpecial; }
+    public SpecialDiaryData SpecialDiaryData { get => specialDiaryData; }
+
+    public bool Equals(Diary operand)
     {
-        return 
-            description == operand.description
-            && imageType == operand.imageType
-            && date == operand.date;
+        return id == operand.Id;
     }
 }

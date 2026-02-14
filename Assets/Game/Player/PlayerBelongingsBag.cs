@@ -10,23 +10,23 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
     public IReadOnlyDictionary<BelongingsData, Belongings> MainBelongingsBag { get => mainBelongingsBag; }
     public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
 
-    public Dictionary<BelongingsData, Belongings> GetClonedMainBag() { 
-        var result = new Dictionary<BelongingsData, Belongings>();
+    public List<BelongingsData> GetClonedMainBag() { 
+        var result = new List<BelongingsData>();
 
         foreach (var pair in mainBelongingsBag)
         {
-            result[pair.Key] = new Belongings(pair.Value);
+            result.Add(pair.Key);
         }
 
         return result;
     }
 
-    public Dictionary<BelongingsData, Belongings> GetClonedSideBag() { 
-        var result = new Dictionary<BelongingsData, Belongings>();
+    public List<BelongingsData> GetClonedSideBag() { 
+        var result = new List<BelongingsData>();
 
         foreach (var pair in sideBelongingsBag)
         {
-            result[pair.Key] = new Belongings(pair.Value);
+            result.Add(pair.Key);
         }
 
         return result;

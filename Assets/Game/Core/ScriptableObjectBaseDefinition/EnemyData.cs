@@ -4,6 +4,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Scriptable Objects/EnemyData")]
 public class EnemyData : ScriptableObject
 {
+    [SerializeField] private string id;
     [SerializeField] private string enemyName;
     [SerializeField] private string description;
     [SerializeField] private int maxBaseHealth;
@@ -15,6 +16,7 @@ public class EnemyData : ScriptableObject
     [SerializeField] private Sprite battleSprite;
     [SerializeReference, SubclassSelector] private BattleEnemyBehaviour battleBehaviour;
 
+    public string Id { get => id; }
     public string EnemyName { get => enemyName; }
     public string Description { get => description; }
     public int MaxBaseHealth { get => maxBaseHealth; }

@@ -11,17 +11,25 @@ public class GameRun
     private ScheduleSystem scheduleSystem;
     private RunDiarySystem runDiarySystem;
 
-    public GameRun(int seed, ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule)
+    public GameRun(
+        int seed, 
+        (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
+        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase) databases
+    )
     {
         this.seed = seed;
         random = new Random(this.seed);
 
         player = new Player();
-        runDiarySystem = new RunDiarySystem(new SpecialDiaryDatabase()); //TODO : Database SerializeField화 하기
+        runDiarySystem = new RunDiarySystem(databases.specialDiaryDatabase, databases.enemyDatabase, databases.incidentDatabase, databases.belongingsDatabase, databases.cardDatabase);
         battleSystem = new BattleSystem(random);
-        scheduleSystem = new ScheduleSystem(random, skeletonRule, typeResolveRule, battleSystem, OnScheduleEnd);
+        scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd);
     }
-    public GameRun(ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) : this(new Random().Next(), skeletonRule, typeResolveRule){}
+    public GameRun(
+        (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
+        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase) databases
+        ) 
+        : this(new Random().Next(), rules, databases){}
 
     public void StartGame()
     {

@@ -1,7 +1,6 @@
 using System;
 using UnityEngine;
 
-[Serializable]
 public class Card
 {
     private CardData data;
@@ -50,6 +49,21 @@ public class Card
         currentRarity = card.CurrentRarity;
         currentActionCost = card.CurrentActionCost;
         isReflectionApplied = card.IsReflectionApplied;
+    }
+
+    public Card(CardData cardData, CardSaveData cardSaveData)
+    {
+        if (cardData.Id != cardSaveData.cardId) { throw new InvalidOperationException("[Card] the given arguments' id are not matched"); }
+
+        data = cardData;
+
+        currentName = cardSaveData.cardName;
+        currentDescription = cardSaveData.description;
+        currentType = cardSaveData.type;
+        currentAttribute = cardSaveData.attribute;
+        currentRarity = cardSaveData.rarity;
+        currentActionCost = cardSaveData.actionCost;
+        isReflectionApplied =false;
     }
 
     public void OnDraw(BattleContext context) { battleBehaviourInstance.OnDraw(context); }

@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ScheduleData", menuName = "Scriptable Objects/ScheduleData")]
 public class ScheduleData : ScriptableObject
 {
+    [SerializeField] private string id;
     [SerializeField] private string scheduleName;
     [SerializeField] private string description;
     [SerializeField] private Sprite[] usualBackground;
@@ -12,6 +13,7 @@ public class ScheduleData : ScriptableObject
     [SerializeField] private Sprite choiceSprite;
     [SerializeField] private EnemyData bossData;
 
+    public string Id { get => id; }
     public string ScheduleName { get => scheduleName; }
     public string Description { get => description; }
     public Sprite[] UsualBackground { get => usualBackground; }

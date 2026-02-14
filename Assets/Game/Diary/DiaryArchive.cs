@@ -2,20 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Unity.IO.LowLevel.Unsafe;
-using UnityEngine;
+using Newtonsoft.Json;
 
 public class DiaryArchive
 {
     private List<Diary> diaries = new List<Diary>();
-    
+    private EnemyDatabase enemyDatabase;
+    private IncidentDatabase incidentDatabase;
+    private BelongingsDatabase belongingsDatabase;
+    private CardDatabase cardDatabase;
+    private SpecialDiaryDatabase specialDiaryDatabase;
+
+    public DiaryArchive(EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, SpecialDiaryDatabase specialDiaryDatabase)
+    {
+        this.enemyDatabase = enemyDatabase;
+        this.incidentDatabase = incidentDatabase;
+        this.belongingsDatabase = belongingsDatabase;
+        this.cardDatabase = cardDatabase;
+        this.specialDiaryDatabase = specialDiaryDatabase;
+    }
+
     public void AddDiary(Diary diary)
     {
-        string json = JsonUtility.ToJson(diary);
-        string encryptedJson = EncryptDecrypt(json);
+        DiarySaveData saveData = new DiarySaveData(diary);
+
+        string json = JsonConvert.SerializeObject(saveData);
+        // string json = JsonUtility.ToJson(diary);
+        string encryptedJson = json;
+        // string encryptedJson = EncryptDecrypt(json);
 
         string diaryID = Guid.NewGuid().ToString();
-        string savePath = Path.Combine(Constant.DIARY_STORE_PATH, diaryID) + ".txt";
+        string savePath = Path.Combine(Constant.DIARY_STORE_PATH, $"{diaryID}.sav");
 
         EnsureDiaryDirectoryExists();
         File.WriteAllText(savePath, encryptedJson);
@@ -24,16 +41,62 @@ public class DiaryArchive
     public void LoadDiaries()
     {
         EnsureDiaryDirectoryExists();
-        string[] diaryPaths = Directory.GetFiles(Constant.DIARY_STORE_PATH, "*.txt");
+        string[] diaryPaths = Directory.GetFiles(Constant.DIARY_STORE_PATH, "*.sav");
+
+        diaries.Clear();
 
         foreach (string path in diaryPaths)
         {
-            string encryptedJson = File.ReadAllText(path);
-            string json = EncryptDecrypt(encryptedJson);
-            Diary diary = JsonUtility.FromJson<Diary>(json);
+            try 
+            {
+                string encryptedJson = File.ReadAllText(path);
+                string json = encryptedJson; 
+                // string json = EncryptDecrypt(encryptedJson);
 
-            diaries.Add(diary);
+                DiarySaveData saveData = JsonConvert.DeserializeObject<DiarySaveData>(json);
+                
+                if (saveData == null) { throw new Exception("SaveData is null"); }
+
+                Diary diary = MaterializeSaveData(saveData);
+                diaries.Add(diary);
+            }
+            catch (Exception e)
+            {
+                UnityEngine.Debug.LogWarning($"[DiaryArchive] Failed to load diary file: {path}\nError: {e.Message}");
+            }
         }
+    }
+
+    private Diary MaterializeSaveData(DiarySaveData saveData)
+    {
+        Guid id = new Guid(saveData.id);
+        
+        DateTime date;
+        if (!DateTime.TryParse(saveData.date, out date))
+        {
+            throw new InvalidOperationException("[DiaryArchive] The given date format is not valid.");
+        }
+
+        Dictionary<int, ScheduleHistory> scheduleHistories = new Dictionary<int, ScheduleHistory>();
+        foreach(var pair in saveData.scheduleHistories)
+        {
+            scheduleHistories[pair.Key] = new ScheduleHistory(pair.Value, enemyDatabase, incidentDatabase, belongingsDatabase);
+        }
+
+        bool areAllScheduleFinished = saveData.areAllSchedulesFinished;
+
+        FinalEquipment finalEquipment = new FinalEquipment(saveData.finalEquipment, cardDatabase, belongingsDatabase);
+
+        bool isSpecial = saveData.isSpecial;
+        SpecialDiaryData specialDiaryData = null;
+        if (isSpecial) { 
+            specialDiaryData = specialDiaryDatabase.GetData(saveData.specialDiaryId);
+            if (specialDiaryData == null) { throw new InvalidOperationException($"[DiaryArchive] Failed to get special diary data, Id : {saveData.specialDiaryId}");}
+        }
+
+        return isSpecial ? 
+            new Diary(id, date, scheduleHistories, areAllScheduleFinished, finalEquipment, specialDiaryData) :
+            new Diary(id, date, scheduleHistories, areAllScheduleFinished, finalEquipment);
     }
 
     public bool HasDiary(Diary operand)

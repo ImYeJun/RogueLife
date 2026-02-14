@@ -3,12 +3,14 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "BelongingsData", menuName = "Scriptable Objects/BelongingsData")]
 public class BelongingsData : ScriptableObject
-{
+{    
+    [SerializeField] private string id;
     [SerializeField] string belongingsName;
     [SerializeField] string description;
     [SerializeReference, SubclassSelector] private FieldBelongingsBehaviour fieldBehaviour;
     [SerializeReference, SubclassSelector] private BattleBelongingsBehaviour battleBehaviour;
 
+    public string Id { get => id; }
     public string BelongingsName { get => belongingsName; }
     public string Description { get => description; }
 

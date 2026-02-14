@@ -4,13 +4,12 @@ public class RunDiarySystem
 {
     private DiaryContext context;
     private SpecialDiaryDatabase specialDiaryDatabase;
-    private IRunDiaryEnemyDatabaseContext enemyDatabase;
-    private IRunDiaryIncidentDatabaseContext incidentDatabase;
-    private DiaryArchive archive = new DiaryArchive();
+    private DiaryArchive archive;
 
-    public RunDiarySystem(SpecialDiaryDatabase specialDiaryDatabase)
+    public RunDiarySystem(SpecialDiaryDatabase specialDiaryDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase)
     {
-        context = new DiaryContext();
+        context = new DiaryContext(enemyDatabase, incidentDatabase);
+        archive = new DiaryArchive(enemyDatabase, incidentDatabase, belongingsDatabase, cardDatabase, specialDiaryDatabase);
         this.specialDiaryDatabase = specialDiaryDatabase;
     }
 
@@ -23,18 +22,18 @@ public class RunDiarySystem
     {
         context.Date = DateTime.Now;
         
-        SpecialDiaryData speicalDiaryData;
         context.RecordFinalEquipments(playerDeck, playerBelongingsBag);
         context.AreAllScheduleFinished = areAllScheduleFinished;
 
+        SpecialDiaryData specialDiaryData;
         Diary diary;
-        if (specialDiaryDatabase.TryGetSpecialDiaryData(context, out speicalDiaryData))
+        if (specialDiaryDatabase.TryGetData(context, out specialDiaryData))
         {
-            diary = new Diary(speicalDiaryData.Description, SpecialDiaryImageType.FISRT, DateTime.Now.ToString());
+            diary = new Diary(context.Date, context.ScheduleHistories, context.AreAllScheduleFinished, context.FinalEquipment);
         }
         else
         {
-            diary = new Diary("TEST", SpecialDiaryImageType.NONE, DateTime.Now.ToString());
+            diary = new Diary(context.Date, context.ScheduleHistories, context.AreAllScheduleFinished, context.FinalEquipment, specialDiaryData);
         }
 
         archive.AddDiary(diary);
