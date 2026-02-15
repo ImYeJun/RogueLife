@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class DiaryContext
 {
@@ -16,8 +17,19 @@ public class DiaryContext
         this.incidentDatabase = incidentDatabase;
     }
 
+    public IRunDiaryEnemyDatabaseContext EnemyDatabase { get => enemyDatabase; }
+    public IRunDiaryIncidentDatabaseContext IncidentDatabase { get => incidentDatabase; }
     public DateTime Date { get => date; set => date = value; }
     public Dictionary<int, ScheduleHistory> ScheduleHistories { get => scheduleHistories; }
+    public ScheduleHistory LastScheduleHistory {
+        get
+        {
+            if (scheduleHistories.Count == 0) { return null; }
+
+            var lastIndex = scheduleHistories.Keys.OrderByDescending(sel => sel).First();
+            return scheduleHistories[lastIndex];
+        }
+    }
     public bool AreAllScheduleFinished { get => areAllScheduleFinished; set => areAllScheduleFinished = value; }
     public FinalEquipment FinalEquipment { get => finalEquipment; }
 
