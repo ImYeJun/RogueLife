@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c8a7bc03751ca459da7e3952a509e9, type: 3}
+  m_Name: TransactionChoice_2_12
+  m_EditorClassIdentifier: GameAssembly::TransactionChoiceData
+  id: TransactionChoice_2_12
+  description: "\uBB34~ \uBE59! \uC774\uAC83\uB3C4 \uC2E4\uB825\uC774\uC9C0"
+  subDescription: "\uC800\uC810 \uBC29\uC5B4 1\uC7A5 \u2192 \uAC10\uB098\uBE57! 1\uC7A5"
+  condition:
+    rid: 7557519912807170172
+  effect:
+    rid: 7557519912807170174
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557519912807170172
+      type: {class: CardAvailableChoiceCondition, ns: , asm: GameAssembly}
+      data:
+        cardData: {fileID: 0}
+        amount: 1
+    - rid: 7557519912807170174
+      type: {class: ChoiceSequenceCompositeEffect, ns: , asm: GameAssembly}
+      data:
+        choiceEffects:
+        - rid: 7557519912807170175
+        - rid: 7557519912807170176
+    - rid: 7557519912807170175
+      type: {class: ChoiceRemoveSpecificCardEffect, ns: , asm: GameAssembly}
+      data:
+        removingCardData: {fileID: 0}
+        amount: 1
+    - rid: 7557519912807170176
+      type: {class: ChoiceObtainSpecificCardEffect, ns: , asm: GameAssembly}
+      data:
+        obtainingCardData: {fileID: 0}

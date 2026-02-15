@@ -27,12 +27,12 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
 
     public Card GetRandomCard(System.Random random)
     {
-        return GetRandomCard(random, CardRarity.Any, CardType.ANY, CardAttribute.ANY);
+        return GetRandomCard(random, CardRarity.ANY, CardType.ANY, CardAttribute.ANY);
     }
     public Card GetRandomCard(System.Random random, CardRarity rarity, CardType type, CardAttribute attribute)
     {
         var filterdCardData = availableCardData.Where(data =>
-            (rarity == CardRarity.Any) || (data.Rarity == rarity) &&
+            (rarity == CardRarity.ANY) || (data.Rarity == rarity) &&
             (type == CardType.ANY || data.Type == type) &&
             (attribute == CardAttribute.ANY || data.Attribute == attribute)
         ).ToList();
@@ -55,8 +55,8 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
         for (int i = 0; i < data.Amount; i++)
         {
             CardRarity selectedRarity = 
-                data.LowestRarity == CardRarity.Any || data.HighestRarity == CardRarity.Any ? 
-                CardRarity.Any : (CardRarity)random.Next(minRarity, maxRarity + 1); 
+                data.LowestRarity == CardRarity.ANY || data.HighestRarity == CardRarity.ANY ? 
+                CardRarity.ANY : (CardRarity)random.Next(minRarity, maxRarity + 1); 
             
             var card = GetRandomCard(random, selectedRarity, CardType.ANY, CardAttribute.ANY);
             if (card == null) { card = GetRandomCard(random); }

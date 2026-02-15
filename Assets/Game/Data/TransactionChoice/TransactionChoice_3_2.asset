@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c8a7bc03751ca459da7e3952a509e9, type: 3}
+  m_Name: TransactionChoice_3_2
+  m_EditorClassIdentifier: GameAssembly::TransactionChoiceData
+  id: TransactionChoice_3_2
+  description: "\uC815\uB9D0 \uC544\uBB34\uAC83\uB3C4 \uC548 \uBC14\uAFBC\uB2E4\uACE0?
+    \uC9C4\uC9DC \uC88B\uC740\uAC70 \uB9CE\uC740\uB370? \uC790\u2026 \uC7A0\uAE50
+    \uAC00\uC9C0\uB9C8!"
+  subDescription: 
+  condition:
+    rid: 7557519912807170170
+  effect:
+    rid: 7557519912807170171
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557519912807170170
+      type: {class: NoneChoideCondition, ns: , asm: GameAssembly}
+      data: 
+    - rid: 7557519912807170171
+      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
+      data: 

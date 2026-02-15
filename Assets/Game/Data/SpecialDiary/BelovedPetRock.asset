@@ -12,9 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2cf7f11711aa1b42a758260a290edf7, type: 3}
   m_Name: BelovedPetRock
   m_EditorClassIdentifier: GameAssembly::SpecialDiaryData
-  id: 
+  id: SpecialDiary_BelovedPetRock
   description: 
-  requirements: []
+  requirements:
+  - rid: 7557519912807170146
+  - rid: 7557519912807170147
+  - rid: 7557519912807170148
+  - rid: 7557519912807170149
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 7557519912807170146
+      type: {class: SpecialDiaryRequirementsFinalEquippingBelongings, ns: , asm: GameAssembly}
+      data:
+        data: {fileID: 0}
+    - rid: 7557519912807170147
+      type: {class: SpecialDiaryRequirementBelongingsEquipNodeCount, ns: , asm: GameAssembly}
+      data:
+        data: {fileID: 0}
+        requiredNodeCount: 15
+    - rid: 7557519912807170148
+      type: {class: SpecialDiaryRequirementAllScheduleFinished, ns: , asm: GameAssembly}
+      data: 
+    - rid: 7557519912807170149
+      type: {class: SpecialDiaryRequirementRemainMentality, ns: , asm: GameAssembly}
+      data:
+        amount: 55

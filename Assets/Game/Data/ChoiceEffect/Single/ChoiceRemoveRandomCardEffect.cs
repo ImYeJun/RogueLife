@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class ChoiceRemoveRandomCardEffect : IChoiceEffect
 {
+    [SerializeField] private CardRarity rarity;
     [SerializeField] private CardType type;
     [SerializeField] private CardAttribute attribute;
 
