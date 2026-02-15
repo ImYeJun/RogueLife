@@ -9,4 +9,5 @@ public class IncidentData : ScriptableObject {
     
     public string Id { get => id; }
     public string IncidentName { get => incidentName; }
+    public List<IncidentChoiceData> Choices { get => choices; }
 }

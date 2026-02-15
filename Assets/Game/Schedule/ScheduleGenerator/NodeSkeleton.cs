@@ -7,6 +7,7 @@ public class NodeSkeleton
     private Guid id;
     private int layer = 0;
     private NodeType fixedType = NodeType.NONE;
+    private EnemyTier spawnEnemyTier;
     private List<NodeSkeleton> previousNodes = new List<NodeSkeleton>();
     private List<NodeSkeleton> nextNodes = new List<NodeSkeleton>();
     private int ascendentsWorstBatttleNodeSequence = 0;
@@ -27,6 +28,14 @@ public class NodeSkeleton
     public Guid Id { get => id;  }
     public int Layer { get => layer; }
     public NodeType FixedType { get => fixedType; set => fixedType = value; }
+    public EnemyTier SpawnEnemyTier { get {
+            if (fixedType != NodeType.BATTLE) { throw new InvalidOperationException($"[NodeSkeleton] Cannot get SpawnEnemyTier since it's not battle node. NodeType : {fixedType}"); }
+
+            return spawnEnemyTier;
+        }
+
+        set => spawnEnemyTier = value;
+    }
     public List<NodeSkeleton> PreviousNodes { get => previousNodes; }
     public List<NodeSkeleton> NextNodes { get => nextNodes; }
     public int AscendentsWorstBatttleNodeSequence { get => ascendentsWorstBatttleNodeSequence; set => ascendentsWorstBatttleNodeSequence = value; }

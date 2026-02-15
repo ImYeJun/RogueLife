@@ -92,6 +92,7 @@ public class ScheduleNodeTypeResolver
                 {
                     case NodeType.BATTLE:
                         totalBattleNodeCount++;
+                        node.SpawnEnemyTier = rule.RequestResolveEnemyTier(random, type);
                         break;
                     case NodeType.INCIDENT:
                         totalIncidentNodeCount++;

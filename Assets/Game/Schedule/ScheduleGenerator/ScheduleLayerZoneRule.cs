@@ -8,15 +8,10 @@ public class ScheduleLayerZoneRule
     [Min(0)] private int minBattleNodeCount;
     [Min(0)] private int minIncidentNodeCount;
     [Min(0)] private int minTransactionNodeCount;
-    
-    public ScheduleLayerZoneRule(
-        int battleNodeWeight,
-        int incidentNodeWeight,
-        int transactionNodeWeight,
-        int minBattleNodeCount,
-        int minIncidentNodeCount,
-        int minTransactionNodeCount
-    )
+    [Min(0)] private int normalEnemySpawnWeight;
+    [Min(0)] private int eliteEnemySpawnWeight;
+
+    public ScheduleLayerZoneRule(int battleNodeWeight, int incidentNodeWeight, int transactionNodeWeight, int minBattleNodeCount, int minIncidentNodeCount, int minTransactionNodeCount, int normalEnemySpawnWeight, int eliteEnemySpawnWeight)
     {
         this.battleNodeWeight = battleNodeWeight;
         this.incidentNodeWeight = incidentNodeWeight;
@@ -24,6 +19,8 @@ public class ScheduleLayerZoneRule
         this.minBattleNodeCount = minBattleNodeCount;
         this.minIncidentNodeCount = minIncidentNodeCount;
         this.minTransactionNodeCount = minTransactionNodeCount;
+        this.normalEnemySpawnWeight = normalEnemySpawnWeight;
+        this.eliteEnemySpawnWeight = eliteEnemySpawnWeight;
     }
 
     public int BattleNodeWeight { get => battleNodeWeight; }
@@ -32,4 +29,6 @@ public class ScheduleLayerZoneRule
     public int MinBattleNodeCount { get => minBattleNodeCount; }
     public int MinIncidentNodeCount { get => minIncidentNodeCount; }
     public int MinTransactionNodeCount { get => minTransactionNodeCount; }
+    public int NormalEnemySpawnWeight { get => normalEnemySpawnWeight; }
+    public int EliteEnemySpawnWeight { get => eliteEnemySpawnWeight; }
 }

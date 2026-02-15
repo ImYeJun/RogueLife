@@ -4,16 +4,21 @@ public class ScheduleSystem
 {
     private System.Random random;
     private FieldContext context;
+    private ScheduleDatabase scheduleDatabase;
     private ScheduleGenerator scheduleGenerator;
     private Action<ScheduleHistory> onScheduleEnd;
 
     private Schedule currentSchedule;
     public Schedule CurrentSchedule { get => currentSchedule; }
 
-    public ScheduleSystem(System.Random random, ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule nodeTypeResolveRule, IEngageBattle battleSystem, Action<ScheduleHistory> onScheduleEnd)
+    public ScheduleSystem(
+        System.Random random, ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule nodeTypeResolveRule, IEngageBattle battleSystem, Action<ScheduleHistory> onScheduleEnd,
+        ScheduleDatabase scheduleDatabase, TransactionChoiceDatabase transactionChoiceDatabase
+    )
     {
         this.random = random;
         this.onScheduleEnd = onScheduleEnd;
+        this.scheduleDatabase = scheduleDatabase;
 
         scheduleGenerator = new ScheduleGenerator(skeletonRule, nodeTypeResolveRule, battleSystem);
     }

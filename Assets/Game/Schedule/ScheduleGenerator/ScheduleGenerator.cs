@@ -8,7 +8,9 @@ public class ScheduleGenerator
     private ScheduleNodeTypeResolver nodeTypeResolver;
     private NodeGenerator nodeGenerator;
 
-    public ScheduleGenerator(ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule, IEngageBattle battleSystem)
+    public ScheduleGenerator(
+        ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule, IEngageBattle battleSystem
+        )
     {
         skeletonGenerator = new ScheduleSkeletonGenerator(skeletonRule);
         nodeTypeResolver = new ScheduleNodeTypeResolver(typeResolveRule);
@@ -41,11 +43,11 @@ public class ScheduleGenerator
         
         nodeTypeResolver.ResolveSkeletonNodeType(random, scheduleSkeleton);
 
-        schedule = MaterializeSchedule(scheduleSkeleton, scheduleData);
+        schedule = MaterializeSchedule(random, scheduleSkeleton, scheduleData);
         return true;
     }
 
-    private Schedule MaterializeSchedule(ScheduleSkeleton skeleton, ScheduleData data)
+    private Schedule MaterializeSchedule(Random random, ScheduleSkeleton skeleton, ScheduleData data)
     {
         Dictionary<int, List<Node>> layered = new Dictionary<int, List<Node>>();
         Schedule schedule = new Schedule();
@@ -59,7 +61,7 @@ public class ScheduleGenerator
             layered[layer] = new List<Node>();
             foreach (NodeSkeleton nodeSkeleton in layerSkeletonNodes)
             {
-                Node node = nodeGenerator.Generate(nodeSkeleton.Id, nodeSkeleton, data, schedule.MoveNode, schedule.EndSchedule);
+                Node node = nodeGenerator.Generate(random, nodeSkeleton.Id, nodeSkeleton, data, schedule.MoveNode, schedule.EndSchedule);
 
                 layered[layer].Add(node);
             }

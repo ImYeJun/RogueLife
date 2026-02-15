@@ -11,6 +11,14 @@ public class GameRun
     private ScheduleSystem scheduleSystem;
     private RunDiarySystem runDiarySystem;
 
+    private SpecialDiaryDatabase specialDiaryDatabase;
+    private ScheduleDatabase scheduleDatabase;
+    private EnemyDatabase enemyDatabase;
+    private IncidentDatabase incidentDatabase;
+    private TransactionChoiceDatabase transactionChoiceDatabase;
+    private CardDatabase cardDatabase;
+    private BelongingsDatabase belongingsDatabase;
+
     public GameRun(
         int seed, 
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
@@ -20,10 +28,18 @@ public class GameRun
         this.seed = seed;
         random = new Random(this.seed);
 
+        specialDiaryDatabase = databases.specialDiaryDatabase;
+        scheduleDatabase = databases.scheduleDatabase;
+        enemyDatabase = databases.enemyDatabase;
+        incidentDatabase = databases.incidentDatabase;
+        transactionChoiceDatabase = databases.transactionChoiceDatabase;
+        cardDatabase = databases.cardDatabase;
+        belongingsDatabase = databases.belongingsDatabase;
+
         player = new Player();
         runDiarySystem = new RunDiarySystem(databases.specialDiaryDatabase, databases.enemyDatabase, databases.incidentDatabase, databases.belongingsDatabase, databases.cardDatabase);
         battleSystem = new BattleSystem(random);
-        scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd);
+        scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase);
     }
     public GameRun(
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,

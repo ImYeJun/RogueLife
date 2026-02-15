@@ -19,6 +19,8 @@ public class IncidentNode : Node
         base.OnEnter(player, context, scheduleHistory);
 
         player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
+
+        var choices = data.Choices;
         //TODO : choices에 따라 선택지 UI 띄우기
     }
 

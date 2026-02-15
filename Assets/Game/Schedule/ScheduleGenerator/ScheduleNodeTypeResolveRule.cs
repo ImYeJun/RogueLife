@@ -35,7 +35,6 @@ public class ScheduleNodeTypeResolveRule
 
         //* Weighted Random Algorithm
         int totalWeight = rule.BattleNodeWeight + rule.IncidentNodeWeight + rule.TransactionNodeWeight;
-
         if (totalWeight <= 0) { throw new InvalidOperationException("Total weight cannot be negative."); }
 
         double battleNodeWeight = (double)rule.BattleNodeWeight / totalWeight;
@@ -67,6 +66,35 @@ public class ScheduleNodeTypeResolveRule
             if (currentWeight >= pivot) { return pair.Key; }
         }
 
+        var lastItem = pool[pool.Count - 1];
+        return lastItem.Key;
+    }
+
+    public EnemyTier RequestResolveEnemyTier(System.Random random, ScheduleLayerZoneType type)
+    {
+        ScheduleLayerZoneRule rule = SelectRule(type);
+
+        //* Weighted Random Algorithm
+        int totalWeight = rule.NormalEnemySpawnWeight + rule.EliteEnemySpawnWeight;
+        if (totalWeight <= 0) { throw new InvalidOperationException("Total weight cannot be negative."); }
+
+        List<KeyValuePair<EnemyTier, int>> pool = new()
+        {
+            new(EnemyTier.NORMAL, rule.NormalEnemySpawnWeight),
+            new(EnemyTier.ELITE, rule.EliteEnemySpawnWeight)
+        };
+        pool = pool.OrderBy(element => element.Value).ToList();
+
+        double pivot = totalWeight * random.NextDouble();
+        double currentWeight = 0;
+
+        foreach (var pair in pool)
+        {
+            currentWeight += pair.Value;
+
+            if (currentWeight >= pivot) { return pair.Key; }
+        }
+        
         var lastItem = pool[pool.Count - 1];
         return lastItem.Key;
     }
