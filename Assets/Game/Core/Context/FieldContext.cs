@@ -37,4 +37,15 @@ public class FieldContext
     public IFieldActionCost ActionCost { get => actionCost; }
     public IFieldDeck Deck { get => deck; }
     public IFieldBelongingsBag BelongingsBag { get => belongingsBag; }
+    
+    //! This code is a total hack! It's completely fucked up!
+    //! To avoid side effects, this MUST be used ONLY for implementing the 'ChoiceEngageBattleEffect' feature.
+    //! Technically, the right way is to refactor the BattleSystem structure. 
+    //! But I have to create over 200 data entries immediately, so there's absolutely no time.
+    //! I had no choice but to use this hack. Shit!!!!!!
+    //! I'll refactor this shitty code if I ever get some spare time... or when this code inevitably blows up.
+    public bool HasEngagedBattleByChoiceEngageBattleEffect { get; set; } = false;
+    public Action RequestNextNodeSelectionForChoiceEngageBattleEffect;
+    public Action<EnemyData, bool> RecordEncounterEnemyForChoiceEngageBattleEffect;
+    public Action OnPlayerMentalBrokenForChoiceEngageBattleEffect;
 }

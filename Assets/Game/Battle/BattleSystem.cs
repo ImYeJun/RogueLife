@@ -62,8 +62,17 @@ public class BattleSystem : IFieldBattleSystem
 
     public event Action<BattleResult> OnBattleExit;
 
-    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag belongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot, int startPhaseCount, Action<BattleResult> battleExit)
+    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag belongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResult> battleExit)
     {
+        var mainEnemyData = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Data.Tier).First().Data;
+        int startPhaseCount = mainEnemyData.Tier switch
+        {
+            EnemyTier.NORMAL => Constant.NORMAL_ENEMY_START_PHASE_COUNT,
+            EnemyTier.ELITE => Constant.ELITE_ENEMY_START_PHASE_COUNT,
+            EnemyTier.BOSS => Constant.BOSS_ENEMY_START_PHASE_COUNT,
+            _ => throw new InvalidOperationException($"[BattleSystem] {mainEnemyData.Tier} is not supported for determining start phase count.")
+        };
+
         int maxActionCost = actionCost.MaxActionCost;
         int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
         int turnStartDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;

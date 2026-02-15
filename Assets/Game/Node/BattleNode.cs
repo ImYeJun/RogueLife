@@ -8,7 +8,6 @@ public class BattleNode : Node
 {
     private IEngageBattle battleSystem;
     private List<EnemyDataSlot> engagingEnemiesDataSlot;
-    private int startPhaseCount;
     private bool hasResolved;
     private int lossMentalityOnUnresolved;
     private EnemyResolveReward resolveReward;
@@ -29,7 +28,7 @@ public class BattleNode : Node
 
         //TODO : engagingEnemiesData에 따라 encounterLine 연출 띄우기
 
-        battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, startPhaseCount, OnBattleExit);
+        battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, OnBattleExit);
     }
 
     public void OnBattleExit(BattleResult result)
@@ -59,7 +58,18 @@ public class BattleNode : Node
     {
         if (resolveReward is CardEnemyResolveReward cardReward)
         {
-            context.CardDatabase.GetEnemyResolveReward(context.Random, cardReward);
+            var rewardCards = context.CardDatabase.GetEnemyResolveReward(context.Random, cardReward);
+            foreach (var card in rewardCards)
+            {
+                if (context.Deck.TryObtainCard(card))
+                {
+                    //TODO 카드 획득 연출 띄우기
+                }
+                else
+                {
+                    //TODO 획득 실패 연출 띄우기
+                }
+            }
         }
     }
 

@@ -61,6 +61,7 @@ public abstract class Node
 
     public void OnPlayerMentalBroken()
     {
+        if (context.HasEngagedBattleByChoiceEngageBattleEffect) { return; } //! Shit hack. Refactor it!!!!
         //TODO : 멘탈 붕괴 연출
         
         scheduleHistory.HasMentalBroken = true;

@@ -28,4 +28,8 @@ public static class Constant{
     public const int NORMAL_ENEMY_MENTALITY_PENALTY_AMOUNT = 10;
     public const int ELITE_ENEMY_MENTALITY_PENALTY_AMOUNT = 20;
     public const int BOSS_ENEMY_MENTALITY_PENALTY_AMOUNT = 35;
+
+    public const int NORMAL_ENEMY_START_PHASE_COUNT = 5;
+    public const int ELITE_ENEMY_START_PHASE_COUNT = 6;
+    public const int BOSS_ENEMY_START_PHASE_COUNT = 8;
 }

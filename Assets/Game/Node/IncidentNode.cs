@@ -22,11 +22,19 @@ public class IncidentNode : Node
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
 
         //TODO : choices에 따라 선택지 UI 띄우기
+
+        context.RecordEncounterEnemyForChoiceEngageBattleEffect = scheduleHistory.RecordEncounterEnemy; //! SHIT HACK, Refactor it!
+        context.RequestNextNodeSelectionForChoiceEngageBattleEffect = RequestNextNodeSelection; //! SHIT HACK, Refactor it!
+        context.OnPlayerMentalBrokenForChoiceEngageBattleEffect = OnPlayerMentalBroken; //! SHIT HACK, Refactor it!
     }
 
-    public void OnChoiceSettled()
-    {
-        RequestNextNodeSelection();
+    public void OnChoiceSettled(IncidentChoiceData selectedcChoice)
+    {  
+        selectedcChoice.OnSelected(context);
+
+        if (!context.HasEngagedBattleByChoiceEngageBattleEffect) { //! SHIT HACK, Refactor it!
+            RequestNextNodeSelection();
+        }
     }
 
     protected override void OnExit(Node nextNode)
