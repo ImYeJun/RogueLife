@@ -5,7 +5,7 @@ using UnityEngine;
 public class IncidentNode : Node
 {    
     private IncidentData data;
-    private List<IncidentChoiceData> choices;
+    private List<IIncidentChoiceData> choices;
 
     public IncidentNode(Guid skeletonId, Action<Node, FieldContext> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
     {
@@ -13,7 +13,7 @@ public class IncidentNode : Node
         choices = data.Choices;
     }
 
-    public List<IncidentChoiceData> Choices { get => choices; }
+    public List<IIncidentChoiceData> Choices { get => choices; }
 
     public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
     {
@@ -28,7 +28,7 @@ public class IncidentNode : Node
         context.OnPlayerMentalBrokenForChoiceEngageBattleEffect = OnPlayerMentalBroken; //! SHIT HACK, Refactor it!
     }
 
-    public void OnChoiceSettled(IncidentChoiceData selectedcChoice)
+    public void OnChoiceSettled(IIncidentChoiceData selectedcChoice)
     {  
         selectedcChoice.OnSelected(context);
 

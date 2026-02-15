@@ -5,9 +5,9 @@ using UnityEngine;
 public class IncidentData : ScriptableObject {
     [SerializeField] private string id;
     [SerializeField] private string incidentName;
-    [SerializeField] private List<IncidentChoiceData> choices;
+    [SerializeReference, SubclassSelector] private List<IIncidentChoiceData> choices;
     
     public string Id { get => id; }
     public string IncidentName { get => incidentName; }
-    public List<IncidentChoiceData> Choices { get => choices; }
+    public List<IIncidentChoiceData> Choices { get => choices; }
 }

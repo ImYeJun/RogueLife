@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c54050fdd1fcd64786f1d59f939121f, type: 3}
+  m_Name: PuddleIncident
+  m_EditorClassIdentifier: GameAssembly::IncidentData
+  id: Incident_Puddle
+  incidentName: "\uBB3C \uC6C5\uB369\uC774 \uC0AC\uAC74"
+  choices:
+  - rid: 7557519912807170206
+  - rid: 7557519912807170207
+  - rid: 7557519912807170208
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 7557519912807170206
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: 
+        effect:
+          rid: -2
+    - rid: 7557519912807170207
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: 
+        effect:
+          rid: -2
+    - rid: 7557519912807170208
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: 
+        effect:
+          rid: -2

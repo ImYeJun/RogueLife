@@ -15,7 +15,7 @@ MonoBehaviour:
   id: TransactionChoice_1_2
   description: "\uACC4\uD68D\uC744 \uC138\uC6B0\uACE0 \uD589\uB3D9\uD558\uBA74 \uBB34\uC11C\uC6B8\uAC8C
     \uC5C6\uC9C0"
-  subDescription: "\uB79C\uB364\uD55C \uCE74\uB4DC 1\uC7A5 \u2192 \uB79C\uB364 \uBB3C\uB9AC
+  subDescription: "\uB79C\uB364\uD55C \uCE74\uB4DC 1\uC7A5 \u2192 \uB79C\uB364 \uB9C8\uBC95
     \uCE74\uB4DC 1\uC7A5"
   condition:
     rid: 7557519912807170159

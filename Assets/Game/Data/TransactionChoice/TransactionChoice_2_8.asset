@@ -39,7 +39,7 @@ MonoBehaviour:
       type: {class: ChoiceRemoveSpecificCardEffect, ns: , asm: GameAssembly}
       data:
         removingCardData: {fileID: 0}
-        amount: 1
+        amount: 2
     - rid: 7557519912807170176
       type: {class: ChoiceObtainSpecificCardEffect, ns: , asm: GameAssembly}
       data:

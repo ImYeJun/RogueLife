@@ -12,6 +12,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fa19e08a7040849b896cd9c840b601, type: 3}
   m_Name: TransactionChoiceDatabase
   m_EditorClassIdentifier: GameAssembly::TransactionChoiceDatabase
-  firstChoices: []
-  secondChoices: []
-  thirdChoices: []
+  firstChoices:
+  - {fileID: 11400000, guid: a640b9e6e1f07e84f8dfca7f5fd08643, type: 2}
+  - {fileID: 11400000, guid: 928c3af77d46561499f6c199041244fa, type: 2}
+  - {fileID: 11400000, guid: 1488c788c9f351e4facc61e6cbfb7e75, type: 2}
+  secondChoices:
+  - {fileID: 11400000, guid: 1d114b2f1b52edd4c95756532e53c056, type: 2}
+  - {fileID: 11400000, guid: 5e50656f3b35c1a42b4cb5f4e99570fb, type: 2}
+  - {fileID: 11400000, guid: 6890c7b89d9a13242a4f01221edd9e2a, type: 2}
+  - {fileID: 11400000, guid: 23113aa9e4afcbf44ba91373440ce37a, type: 2}
+  - {fileID: 11400000, guid: ede3d6d74b2c4fc47a09fdfa103a1e8d, type: 2}
+  - {fileID: 11400000, guid: c99fa93fad59aa042b7d3f4e4f2b433e, type: 2}
+  - {fileID: 11400000, guid: dd038732bc35f32428431cf0d783e35f, type: 2}
+  - {fileID: 11400000, guid: eafc78e7c50d6274d9d6752ab1cf4998, type: 2}
+  - {fileID: 11400000, guid: 6374c7f1dc203524c88f5654a4fb7aa6, type: 2}
+  - {fileID: 11400000, guid: fc09889a413443843ace4d7e8489dd6b, type: 2}
+  - {fileID: 11400000, guid: 446aa523d5d6bb648aaff1f36b1e0752, type: 2}
+  - {fileID: 11400000, guid: ff3af32650f110a41957862d498ed3b7, type: 2}
+  - {fileID: 11400000, guid: c7a04dcc02cb1c949b2e932a6c216bdb, type: 2}
+  thirdChoices:
+  - {fileID: 11400000, guid: 13f3855cd7ecc104dbcd7d505e8e9f46, type: 2}
+  - {fileID: 11400000, guid: 6d8a3703f4886a74298a466d56d9fcb2, type: 2}
+  - {fileID: 11400000, guid: 2bc591981100d4145bd6e4bd8c61566c, type: 2}

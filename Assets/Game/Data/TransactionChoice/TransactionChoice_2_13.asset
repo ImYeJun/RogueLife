@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c8a7bc03751ca459da7e3952a509e9, type: 3}
   m_Name: TransactionChoice_2_13
   m_EditorClassIdentifier: GameAssembly::TransactionChoiceData
-  id: TransactionChoice_2_12
-  description: "\uBB34~ \uBE59! \uC774\uAC83\uB3C4 \uC2E4\uB825\uC774\uC9C0"
-  subDescription: "\uC800\uC810 \uBC29\uC5B4 1\uC7A5 \u2192 \uAC10\uB098\uBE57! 1\uC7A5"
+  id: TransactionChoice_2_13
+  description: "\uC774\uAC8C \uC9C4\uC9DC \uB7ED\uD0A4 \uD380\uCE58\uC9C0"
+  subDescription: "\uACF5\uACA9, \uADFC\uB370 \uC6B4\uC744 \uACC1\uB4E4\uC778 1\uC7A5
+    \u2192 \uB2E4\uC717\uC758 \uB3CC 1\uC7A5"
   condition:
     rid: 7557519912807170172
   effect:
