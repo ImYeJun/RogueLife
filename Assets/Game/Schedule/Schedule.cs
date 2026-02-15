@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class Schedule : IFieldScheduleSystem
+public class Schedule
 {
     private ScheduleHistory history = new ScheduleHistory();
     private ScheduleData data;
@@ -32,11 +32,11 @@ public class Schedule : IFieldScheduleSystem
 
     public event Action<ScheduleHistory> OnEnd; 
 
-    public void EnterStartNode(Player player, FieldContext context) { 
+    public void EnterStartNode(FieldContext context) { 
         currentNode = null;
-        MoveNode(startNode, player, context);
+        MoveNode(startNode, context);
     }
-    public void MoveNode(Node nextNode, Player player, FieldContext context)
+    public void MoveNode(Node nextNode, FieldContext context)
     {
         if (currentNode != null && !currentNode.NextNodes.Contains(nextNode) && nextNode != exitNode) 
         { 
@@ -44,7 +44,7 @@ public class Schedule : IFieldScheduleSystem
         }
 
         currentNode = nextNode;
-        nextNode.OnEnter(player, context, history);
+        nextNode.OnEnter(context, history);
     }
 
     public void SetBossData(EnemyData bossData)

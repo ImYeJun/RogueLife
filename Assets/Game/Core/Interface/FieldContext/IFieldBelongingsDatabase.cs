@@ -1,4 +1,4 @@
 public interface IFieldBelongingsDatabase
 {
-    public Belongings MaterializeBelongingsData(BelongingsData data);
+    public Belongings Materialize(BelongingsData belongingsData);
 }

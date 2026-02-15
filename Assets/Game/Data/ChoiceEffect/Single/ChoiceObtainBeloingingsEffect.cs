@@ -10,7 +10,7 @@ public class ChoiceObtainBeloingingsEffect : IChoiceEffect
 
     public void Execute(FieldContext context)
     {   
-        Belongings belongings = context.BelongingsDatabase.MaterializeBelongingsData(obtainingBelongingsData);
+        Belongings belongings = context.BelongingsDatabase.Materialize(obtainingBelongingsData);
         context.BelongingsBag.TryObtainBelongings(belongings);
     }
 }

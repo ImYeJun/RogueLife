@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [CreateAssetMenu(fileName = "BelongingsDatabase", menuName = "Scriptable Objects/Database/BelongingsDatabase")]
-public class BelongingsDatabase : ScriptableObject, ISerializationCallbackReceiver {
+public class BelongingsDatabase : ScriptableObject, IFieldBelongingsDatabase, ISerializationCallbackReceiver {
     [SerializeField] private List<BelongingsData> availableBelongingsData;
     private Dictionary<string, BelongingsData> idLookUp = new Dictionary<string, BelongingsData>();
 

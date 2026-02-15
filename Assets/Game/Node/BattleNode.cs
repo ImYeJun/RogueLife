@@ -13,7 +13,7 @@ public class BattleNode : Node
     private int lossMentalityOnUnresolved;
     private EnemyResolveReward resolveReward;
 
-    public BattleNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest, IEngageBattle battleSystem, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest, skeletonId)
+    public BattleNode(Guid skeletonId, Action<Node, FieldContext> OnMoveRequest, IEngageBattle battleSystem, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest, skeletonId)
     {
         this.battleSystem = battleSystem;
         this.engagingEnemiesDataSlot = engagingEnemiesDataSlot;
@@ -22,19 +22,19 @@ public class BattleNode : Node
         lossMentalityOnUnresolved = mainEnemyData.LossMentalityOnUnresolved;
         resolveReward = mainEnemyData.Reward;
     }
-    public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
     {
         //TODO : engagingEnemiesData에 따라 적 일상 UI 띄우기
-        base.OnEnter(player, context, scheduleHistory);
+        base.OnEnter(context, scheduleHistory);
 
         //TODO : engagingEnemiesData에 따라 encounterLine 연출 띄우기
 
-        battleSystem.EngageBattle(player, engagingEnemiesDataSlot, startPhaseCount, OnBattleExit);
+        battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, startPhaseCount, OnBattleExit);
     }
 
     public void OnBattleExit(BattleResult result)
     {
-        player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
+        context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
         hasResolved = result == BattleResult.PLAYER_WIN;
 
         switch (result)
@@ -65,7 +65,7 @@ public class BattleNode : Node
 
     private void GetPenalty()
     {
-        player.Health.HurtBattleHealth(lossMentalityOnUnresolved, true);
+        context.Health.HurtBattleHealth(lossMentalityOnUnresolved, true);
     }
 
     protected override void OnExit(Node nextNode)
@@ -79,7 +79,7 @@ public class BattleNode : Node
         }
         RecordBelongingsEquipping();
 
-        player.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
+        context.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
         base.OnExit(nextNode);
     }
 }

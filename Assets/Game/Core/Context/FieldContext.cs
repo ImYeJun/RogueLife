@@ -3,38 +3,38 @@ using System;
 public class FieldContext
 {
     private Random random;
-    private IFieldCardDatabase cardDatabase;
     private IFieldTransactionChoiceDatabase transactionChoiceDatabase;
-    private IFieldDeck deck;
+    private IFieldCardDatabase cardDatabase;
     private IFieldBelongingsDatabase belongingsDatabase;
-    private IFieldBelongingsBag belongingsBag;
     private IFieldScheduleSystem scheduleSystem;
     private IFieldBattleSystem battleSystem;
-    private IFieldActionCost actionCost;
     private IFieldHealth health;
+    private IFieldActionCost actionCost;
+    private IFieldDeck deck;
+    private IFieldBelongingsBag belongingsBag;
 
-    public FieldContext(Random random, IFieldCardDatabase cardDatabase, IFieldTransactionChoiceDatabase transactionChoiceDatabase, IFieldDeck deck, IFieldBelongingsDatabase belongingsDatabase, IFieldBelongingsBag belongingsBag, IFieldScheduleSystem scheduleSystem, IFieldBattleSystem battleSystem, IFieldActionCost actionCost, IFieldHealth health)
+    public FieldContext(Random random, IFieldTransactionChoiceDatabase transactionChoiceDatabase, IFieldCardDatabase cardDatabase, IFieldBelongingsDatabase belongingsDatabase, IFieldScheduleSystem scheduleSystem, IFieldBattleSystem battleSystem, IFieldHealth health, IFieldActionCost actionCost, IFieldDeck deck, IFieldBelongingsBag belongingsBag)
     {
         this.random = random;
-        this.cardDatabase = cardDatabase;
         this.transactionChoiceDatabase = transactionChoiceDatabase;
-        this.deck = deck;
+        this.cardDatabase = cardDatabase;
         this.belongingsDatabase = belongingsDatabase;
-        this.belongingsBag = belongingsBag;
         this.scheduleSystem = scheduleSystem;
         this.battleSystem = battleSystem;
-        this.actionCost = actionCost;
         this.health = health;
+        this.actionCost = actionCost;
+        this.deck = deck;
+        this.belongingsBag = belongingsBag;
     }
 
     public Random Random { get => random; }
+    public IFieldTransactionChoiceDatabase TransactionChoiceDatabase { get => transactionChoiceDatabase; }
     public IFieldCardDatabase CardDatabase { get => cardDatabase; }
-    public IFieldTransactionChoiceDatabase TransactionChoiceDatabase { get => transactionChoiceDatabase;  }
-    public IFieldDeck Deck { get => deck;}
     public IFieldBelongingsDatabase BelongingsDatabase { get => belongingsDatabase; }
-    public IFieldBelongingsBag BelongingsBag { get => belongingsBag;}
-    public IFieldScheduleSystem ScheduleSystem { get => scheduleSystem;}
-    public IFieldBattleSystem BattleSystem { get => battleSystem;}
-    public IFieldActionCost ActionCost { get => actionCost;}
-    public IFieldHealth Health { get => health;}
+    public IFieldScheduleSystem ScheduleSystem { get => scheduleSystem; }
+    public IFieldBattleSystem BattleSystem { get => battleSystem; }
+    public IFieldHealth Health { get => health; }
+    public IFieldActionCost ActionCost { get => actionCost; }
+    public IFieldDeck Deck { get => deck; }
+    public IFieldBelongingsBag BelongingsBag { get => belongingsBag; }
 }

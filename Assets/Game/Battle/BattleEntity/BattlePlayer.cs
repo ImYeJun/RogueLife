@@ -3,17 +3,15 @@ using UnityEngine;
 
 public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
 {
-    private PlayerHealth playerHealth;
+    private IBattleHealth playerHealth;
     private List<BattleBelongings> belongings = new List<BattleBelongings>();
 
-    public BattlePlayer(PlayerHealth playerHealth)
+    public BattlePlayer(IBattleHealth playerHealth)
     {
         this.playerHealth = playerHealth;
         this.playerHealth.OnMentalBreakDown += OnDead;
     }
 
-    public PlayerHealth Health { get => playerHealth; }
-    
     public void SetBelongings(List<BattleBelongings> belongings) { this.belongings = belongings; }
     public List<BattleBelongings> Belongings { get => belongings;  }
 

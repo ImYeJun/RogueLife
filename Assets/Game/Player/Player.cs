@@ -5,3 +5,4 @@ public class Player
     public PlayerDeck Deck { get; }
     public PlayerBelongingsBag BelongingsBag { get; }
 }
+

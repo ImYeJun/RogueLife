@@ -7,7 +7,7 @@ public class IncidentNode : Node
     private IncidentData data;
     private List<IncidentChoiceData> choices;
 
-    public IncidentNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
+    public IncidentNode(Guid skeletonId, Action<Node, FieldContext> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
     {
         this.data = data;
         choices = data.Choices;
@@ -15,11 +15,11 @@ public class IncidentNode : Node
 
     public List<IncidentChoiceData> Choices { get => choices; }
 
-    public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(player, context, scheduleHistory);
+        base.OnEnter(context, scheduleHistory);
 
-        player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
+        context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
 
         //TODO : choices에 따라 선택지 UI 띄우기
     }
@@ -34,7 +34,7 @@ public class IncidentNode : Node
         scheduleHistory.RecordEncounterIncident(data);
         RecordBelongingsEquipping();
 
-        player.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
+        context.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
         base.OnExit(nextNode);
     }
 }

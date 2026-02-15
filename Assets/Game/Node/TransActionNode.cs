@@ -5,14 +5,14 @@ public class TransactionNode : Node
 {
     private Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices = new Dictionary<TransactionChoiceOrder, TransactionChoiceData>();
 
-    public TransactionNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest) : base(OnMoveRequest, skeletonId)
+    public TransactionNode(Guid skeletonId, Action<Node, FieldContext> OnMoveRequest) : base(OnMoveRequest, skeletonId)
     {
     }
 
-    public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(player, context, scheduleHistory);
-        player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
+        base.OnEnter(context, scheduleHistory);
+        context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
         
         foreach (TransactionChoiceOrder order in Enum.GetValues(typeof(TransactionChoiceOrder)))
         {
@@ -40,7 +40,7 @@ public class TransactionNode : Node
         scheduleHistory.RecordTransaction();
         RecordBelongingsEquipping();
 
-        player.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
+        context.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
         base.OnExit(nextNode);
     }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 public abstract class Node
 {
-    protected Player player;
     protected FieldContext context;
     protected ScheduleHistory scheduleHistory;
 
@@ -21,17 +20,16 @@ public abstract class Node
     public void LinkPreviousNode(Node previousNode) { previousNodes.Add(previousNode); }
     public void FixExitNode(Node exitNode) { this.exitNode = exitNode; }
 
-    public Action<Node, Player, FieldContext> OnMoveRequest;
+    public Action<Node, FieldContext> OnMoveRequest;
 
-    public Node(Action<Node, Player, FieldContext> OnMoveRequest, Guid skeletonId)
+    public Node(Action<Node, FieldContext> OnMoveRequest, Guid skeletonId)
     {
         this.OnMoveRequest = OnMoveRequest;
         this.skeletonId = skeletonId;
     }
 
-    public virtual void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
+    public virtual void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
     {
-        this.player = player;
         this.context = context;
         this.scheduleHistory = scheduleHistory;
         //TODO : 노드 진입 연출 실행
@@ -39,7 +37,7 @@ public abstract class Node
 
     protected void RecordBelongingsEquipping()
     {
-        var mainBelongingsBag = player.BelongingsBag.MainBelongingsBag;
+        var mainBelongingsBag = context.BelongingsBag.MainBelongingsBag;
 
         foreach (var pair in mainBelongingsBag)
         {
@@ -55,9 +53,8 @@ public abstract class Node
     protected virtual void OnExit(Node nextNode)
     {
         //TODO : 노드 퇴장 연출 실행
-        OnMoveRequest.Invoke(nextNode, player, context);
+        OnMoveRequest.Invoke(nextNode, context);
         
-        player = null;
         context = null;
         scheduleHistory = null;
     }

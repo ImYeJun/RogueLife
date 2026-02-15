@@ -22,7 +22,7 @@ public class NodeGenerator
     }
 
     //TODO Break this method into pieces by Node SubType
-    public Node Generate(Random random, Guid skeletonId, NodeSkeleton nodeSkeleton, ScheduleData data, Action<Node, Player, FieldContext> onMoveRequest, Action onScheduleEnd)
+    public Node Generate(Random random, Guid skeletonId, NodeSkeleton nodeSkeleton, ScheduleData data, Action<Node, FieldContext> onMoveRequest, Action onScheduleEnd)
     {
         switch (nodeSkeleton.FixedType)
         {
@@ -48,7 +48,7 @@ public class NodeGenerator
         }
     }
 
-    private BattleNode MaterializeBattleNode(Random random, ScheduleData data, Guid skeletonId, EnemyTier spawnEnemyTier, Action<Node, Player, FieldContext> onMoveRequest)
+    private BattleNode MaterializeBattleNode(Random random, ScheduleData data, Guid skeletonId, EnemyTier spawnEnemyTier, Action<Node, FieldContext> onMoveRequest)
     {
         var availableEnemyData = spawnEnemyTier == EnemyTier.NORMAL ? data.AvailableNormalEnemyData : data.AvailableEliteEnemyData;
         if (availableEnemyData.Count == 0) { throw new InvalidOperationException("[NodeGenerator] availableEnemyData is empty"); }
@@ -59,7 +59,7 @@ public class NodeGenerator
         return new BattleNode(skeletonId, onMoveRequest, battleSystem, slots);
     }
 
-    private IncidentNode MaterializeIncidentNode(Random random, ScheduleData data, Guid skeletonId, Action<Node, Player, FieldContext> onMoveRequest)
+    private IncidentNode MaterializeIncidentNode(Random random, ScheduleData data, Guid skeletonId, Action<Node, FieldContext> onMoveRequest)
     {
         var availableIncidentData = data.AvailableIncidentData;
         if (availableIncidentData.Count == 0) { throw new InvalidOperationException("[NodeGenerator] availableIncidentData is empty"); }

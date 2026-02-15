@@ -50,7 +50,14 @@ public class GameRun
     public void StartGame()
     {
         finishedSchedulesCount = 0;
-        scheduleSystem.StartSchdule(player, OnScheduleDataUnsettled);
+        scheduleSystem.StartSchdule(
+            transactionChoiceDatabase : transactionChoiceDatabase,
+            cardDatabase : cardDatabase,
+            belongingsDatabase : belongingsDatabase,
+            battleSystem : battleSystem,
+            player : player,
+            OnScheduleUnsettled : OnScheduleDataUnsettled
+        );
     }
 
     public void OnScheduleDataUnsettled()
@@ -68,6 +75,8 @@ public class GameRun
             //TODO 세이브 기능 만들기 (유저가 Esc 키 눌러서 나간 경우)
             return;
         }
+
+        //TODO Diary 용도의 Player interface 만들기
         if (history.HasMentalBroken)
         {
             runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
@@ -80,7 +89,14 @@ public class GameRun
         }
         else
         {
-            scheduleSystem.StartSchdule(player, OnScheduleDataUnsettled); 
+            scheduleSystem.StartSchdule(
+                transactionChoiceDatabase : transactionChoiceDatabase,
+                cardDatabase : cardDatabase,
+                belongingsDatabase : belongingsDatabase,
+                battleSystem : battleSystem,
+                player : player,
+                OnScheduleUnsettled : OnScheduleDataUnsettled
+            ); 
         }
     }
 }

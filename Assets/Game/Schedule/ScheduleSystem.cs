@@ -1,6 +1,6 @@
 using System;
 
-public class ScheduleSystem
+public class ScheduleSystem : IFieldScheduleSystem
 {
     private System.Random random;
     private FieldContext context;
@@ -23,25 +23,41 @@ public class ScheduleSystem
         scheduleGenerator = new ScheduleGenerator(skeletonRule, nodeTypeResolveRule, battleSystem);
     }
 
-    public void StartSchdule(Player player, Action OnScheduleUnsettled)
+    public void StartSchdule(TransactionChoiceDatabase transactionChoiceDatabase, CardDatabase cardDatabase, BelongingsDatabase belongingsDatabase, BattleSystem battleSystem, Player player, Action OnScheduleUnsettled)
     {
-        // context = new FieldContext();
-        //TODO Schedule System에서 Player와 FieldSystem 이중성 문제 해결하기
+        context = new FieldContext(
+            random : random,
+            transactionChoiceDatabase : transactionChoiceDatabase,
+            cardDatabase : cardDatabase,
+            belongingsDatabase : belongingsDatabase,
+            scheduleSystem : this,
+            battleSystem : battleSystem,
+            health : player.Health,
+            actionCost : player.ActionCost,
+            deck : player.Deck,
+            belongingsBag : player.BelongingsBag
+        );
 
         //TODO UI에게 일정 선택 요청 보내고 (보낼 때 player을 담아서 보냄), 그 옵저버로 SettleCurrentScheduleData 등록하기, 만약에 조기 종료시 OnScheduleUnsettled실행
     }
 
-    public void SettleCurrentScheduleData(ScheduleData data, Player player)
+    public void SettleCurrentScheduleData(ScheduleData data)
     {
         currentSchedule = scheduleGenerator.GenerateSchedule(random, data);
         currentSchedule.OnEnd += EndSchedule;
 
-        currentSchedule.EnterStartNode(player, context);
+        currentSchedule.EnterStartNode(context);
     }
 
     public void EndSchedule(ScheduleHistory history)
     {
         currentSchedule.OnEnd -= EndSchedule;
         onScheduleEnd?.Invoke(history);
+    }
+
+    public void SetBossData(EnemyData bossData)
+    {
+        if (currentSchedule == null) { throw new InvalidOperationException("[ScheduleSystem] Schedule is not settled."); }
+        currentSchedule.SetBossData(bossData);
     }
 }

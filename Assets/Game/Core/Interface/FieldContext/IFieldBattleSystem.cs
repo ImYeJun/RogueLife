@@ -1,8 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public interface IFieldBattleSystem
+public interface IFieldBattleSystem : IEngageBattle
 {
-    public void EngageBattle(List<EnemyData> engagingEnemiesData, int startPahseCount);
     public void RegisterBattleStartBuff(BattleStatusEffect buff, FieldEffectDuration duration);
 }

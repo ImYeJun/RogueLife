@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleSystem : IEngageBattle
+public class BattleSystem : IFieldBattleSystem
 {
     private BattleContext context;
     private BattleEventBus eventBus;
@@ -62,17 +62,15 @@ public class BattleSystem : IEngageBattle
 
     public event Action<BattleResult> OnBattleExit;
 
-    public void EngageBattle(Player player, List<EnemyDataSlot> engagingEnemiesDataSlot, int startPhaseCount, Action<BattleResult> battleExit)
+    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag belongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot, int startPhaseCount, Action<BattleResult> battleExit)
     {
-        int maxActionCost = player.ActionCost.MaxActionCost;
+        int maxActionCost = actionCost.MaxActionCost;
         int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
         int turnStartDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;
-        List<Card> startDrawDeck = player.Deck.MainDeckCards
-                                    .Select(originalCard => new Card(originalCard)) 
-                                    .ToList();
+        List<Card> startDrawDeck = deck.GetClonedMainDeck().Values.SelectMany(sel => sel).ToList();
 
-        BattlePlayer battlePlayer = new BattlePlayer(player.Health);
-        List<BattleBelongings> battleBelongingsBag = player.BelongingsBag.GetBattleBelongings(battlePlayer);
+        BattlePlayer battlePlayer = new BattlePlayer(battleHealth);
+        List<BattleBelongings> battleBelongingsBag = belongingsBag.GetBattleBelongings(battlePlayer);
         foreach (var battleBelongings in battleBelongingsBag) { eventBus.Subscribe(battleBelongings.BehaviourInstance); }
         battlePlayer.SetBelongings(battleBelongingsBag);
 
@@ -95,5 +93,11 @@ public class BattleSystem : IEngageBattle
         }
         
         OnBattleExit?.Invoke(result);
+    }
+
+    public void RegisterBattleStartBuff(BattleStatusEffect buff, FieldEffectDuration duration)
+    {
+        throw new NotImplementedException();
+        //TODO 구체 데이터 만들면서 구현하기
     }
 }
