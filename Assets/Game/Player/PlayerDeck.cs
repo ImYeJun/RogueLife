@@ -77,6 +77,16 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
 
     HashSet<IDeckObserver> deckObservers = new HashSet<IDeckObserver>();
 
+    public bool HasEnoughCard(CardData data, int amount = 1)
+    {
+        int totalCount = 0;
+        
+        totalCount += mainDeck.ContainsKey(data) ? mainDeck[data].Count : 0;
+        totalCount += sideDeck.ContainsKey(data) ? sideDeck[data].Count : 0;
+
+        return totalCount >= amount;
+    }
+
     public List<Card> GetSpecificCardsByData(CardData data)
     {
         if (!HasCardData(data)) { return null; }

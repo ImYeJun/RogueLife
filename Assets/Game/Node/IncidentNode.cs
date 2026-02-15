@@ -5,14 +5,15 @@ using UnityEngine;
 public class IncidentNode : Node
 {    
     private IncidentData data;
-    private List<Choice> choices;
+    private List<IncidentChoiceData> choices;
 
     public IncidentNode(Guid skeletonId, Action<Node, Player, FieldContext> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
     {
         this.data = data;
+        choices = data.Choices;
     }
 
-    public List<Choice> Choices { get => choices; }
+    public List<IncidentChoiceData> Choices { get => choices; }
 
     public override void OnEnter(Player player, FieldContext context, ScheduleHistory scheduleHistory)
     {
@@ -20,7 +21,6 @@ public class IncidentNode : Node
 
         player.Health.OnMentalBreakDown += OnPlayerMentalBroken;
 
-        var choices = data.Choices;
         //TODO : choices에 따라 선택지 UI 띄우기
     }
 

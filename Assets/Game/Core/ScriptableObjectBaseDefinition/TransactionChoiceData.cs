@@ -5,14 +5,22 @@ public class TransactionChoiceData : ScriptableObject {
     [SerializeField] private string id;
     [SerializeField] private string description;
     [SerializeField] private string subDescription;
+    [SerializeReference, SubclassSelector] private IChoiceCondition condition;
     [SerializeReference, SubclassSelector] private IChoiceEffect effect;
 
     public string Id { get => id; }
     public string Description { get => description; }
     public string SubDescription { get => subDescription; }
 
-    public void OnSelcted(FieldContext context)
+    public bool IsFulfilled(FieldContext context)
     {
+        return condition.IsFulfilled(context);
+    }
+
+    public void OnSelected(FieldContext context)
+    {
+        if (!IsFulfilled(context)) { return; }
+
         effect.Execute(context);
     }
 }
