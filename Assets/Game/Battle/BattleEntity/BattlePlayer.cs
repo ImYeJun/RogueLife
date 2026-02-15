@@ -20,7 +20,7 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
         base.OnDead();
 
         playerHealth.OnMentalBreakDown -= OnDead;
-        context.EventBus.Publish(new BattleEndBattleEvent(BattleResult.PLAYER_DIED));
+        context.BattleScheduler.EndBattle(BattleResult.PLAYER_DIED);
     }
 
     public override void ReceiveDamage(int amount) { playerHealth.HurtBattleHealth(amount, false); }
