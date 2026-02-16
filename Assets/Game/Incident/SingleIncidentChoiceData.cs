@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -7,10 +8,9 @@ public class SingleIncidentChoiceData : IIncidentChoiceData
     [SerializeField] private string description;
     [SerializeReference, SubclassSelector] private IChoiceEffect effect;
 
-    public string Description { get => description; }
-
-    public void OnSelected(FieldContext context)
+    public List<DeterminedIncidentChoiceData> DetermineEffect(FieldContext context)
     {
-        effect.Execute(context);
+        var result = new List<DeterminedIncidentChoiceData>{ new DeterminedIncidentChoiceData(description, effect) };
+        return result;
     }
 }

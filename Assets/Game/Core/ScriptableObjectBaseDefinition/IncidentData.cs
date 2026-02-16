@@ -9,5 +9,16 @@ public class IncidentData : ScriptableObject {
     
     public string Id { get => id; }
     public string IncidentName { get => incidentName; }
-    public List<IIncidentChoiceData> Choices { get => choices; }
+    
+    public List<DeterminedIncidentChoiceData> DetermineEffect(FieldContext context)
+    {
+        var result = new List<DeterminedIncidentChoiceData>();
+
+        foreach (var choice in choices)
+        {
+            result.AddRange(choice.DetermineEffect(context));
+        }
+        
+        return result;
+    }
 }

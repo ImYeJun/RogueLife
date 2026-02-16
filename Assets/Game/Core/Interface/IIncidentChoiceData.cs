@@ -1,7 +1,8 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface IIncidentChoiceData
 {
-    public void OnSelected(FieldContext context);
+    public List<DeterminedIncidentChoiceData> DetermineEffect(FieldContext context);
 }

@@ -6,23 +6,31 @@ using UnityEngine;
 public class RandomCompositeIncidentChoiceData : IIncidentChoiceData
 {
     [SerializeField] private List<RandomIncidentChoiceCandidate> candidates;
-    private IIncidentChoiceData selectedCandidate;
+    [SerializeField] private int pickCount;
 
-    public void OnSelected(FieldContext context)
+    public List<DeterminedIncidentChoiceData> DetermineEffect(FieldContext context)
     {
-        if (candidates == null || candidates.Count == 0) { return; }
-        
-        var selectedCandidate = SelectCandidate(context);
+        if (candidates.Count < pickCount) { throw new InvalidOperationException("[RandomCompositeIncidentChoiceData] the amount exceed candidates' element count"); }
 
-        selectedCandidate?.Effect.Execute(context);
+        var selectedCandidates = new List<DeterminedIncidentChoiceData>();
+
+        var remainPool = new List<RandomIncidentChoiceCandidate>(candidates);
+        for (int i = 0; i < pickCount; i++)
+        {
+            var selected = SelectCandidate(context, remainPool);
+            selectedCandidates.Add(new DeterminedIncidentChoiceData(selected.Description, selected.Effect));
+            remainPool.Remove(selected);
+        }
+
+        return selectedCandidates;
     }
 
-    public RandomIncidentChoiceCandidate SelectCandidate(FieldContext context)
+    public RandomIncidentChoiceCandidate SelectCandidate(FieldContext context, List<RandomIncidentChoiceCandidate> pool)
     {
         var random = context.Random;
         
         double totalWeight = 0;
-        foreach (var candidate in candidates)
+        foreach (var candidate in pool)
         {
             if (candidate.Weight > 0)
             {
@@ -32,14 +40,14 @@ public class RandomCompositeIncidentChoiceData : IIncidentChoiceData
 
         if (totalWeight <= 0)
         {
-            int randomIndex = random.Next(candidates.Count);
-            return candidates[randomIndex];
+            int randomIndex = random.Next(pool.Count);
+            return pool[randomIndex];
         }
 
         double pivot = totalWeight * random.NextDouble();
         double currentWeight = 0;
 
-        foreach (var candidate in candidates)
+        foreach (var candidate in pool)
         {
             if (candidate.Weight <= 0) continue;
 
@@ -51,6 +59,6 @@ public class RandomCompositeIncidentChoiceData : IIncidentChoiceData
             }
         }
 
-        return candidates[candidates.Count - 1];
+        return pool[pool.Count - 1];
     }
 }
