@@ -16,7 +16,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     public bool IsDead { get => isDead; }
 
     public abstract void ReceiveDamage(int amount);
-    public abstract void RequestHurt(int amount, HurtSource source);
+    public abstract void RequestHurt(int amount, BattleHurtSource source);
     public abstract void Heal(int amount);
     public void RequestHeal(int amount)
     {
@@ -78,8 +78,14 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     {
         if (IsDead) { return; }
         
-        if (equippedBuffs.Contains(statusEffect)) { RemoveBuff(statusEffect); }
-        else if (equippedDebuffs.Contains(statusEffect)) { RemoveDebuff(statusEffect); }
+        if (equippedBuffs.Contains(statusEffect)) { 
+            statusEffect.OnRemoved();
+            RemoveBuff(statusEffect);
+        }
+        else if (equippedDebuffs.Contains(statusEffect)) { 
+            statusEffect.OnRemoved();
+            RemoveDebuff(statusEffect);
+        }
         else { throw new InvalidOperationException("The battle entity doesn't contain given status effect"); }
     }
     public void RemoveBuff(BattleStatusEffect buff)

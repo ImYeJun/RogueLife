@@ -10,5 +10,5 @@ public interface IEnemyBehaviourOwner
 
     public void RequestApplyBuff(BattleStatusEffect buff);
     public void RequestHeal(int amount);
-    public void RequestHurt(int amount, HurtSource source);
+    public void RequestHurt(int amount, BattleHurtSource source);
 }

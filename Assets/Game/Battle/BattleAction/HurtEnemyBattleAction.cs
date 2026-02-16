@@ -1,10 +1,10 @@
 public class HurtEnemyBattleAction : IBattleAction
 {
     private BattleEnemy enemy;
-    private HurtSource source;
+    private BattleHurtSource source;
     private int amount;
 
-    public HurtEnemyBattleAction(BattleEnemy enemy, HurtSource source, int amount)
+    public HurtEnemyBattleAction(BattleEnemy enemy, BattleHurtSource source, int amount)
     {
         this.enemy = enemy;
         this.source = source;
@@ -12,7 +12,7 @@ public class HurtEnemyBattleAction : IBattleAction
     }
 
     public BattleEnemy Enemy { get => enemy; }
-    public HurtSource Source { get => source; }
+    public BattleHurtSource Source { get => source; }
     public int Amount { get => amount; }
 
     public void Execute(BattleContext context)

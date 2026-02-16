@@ -12,9 +12,100 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c54050fdd1fcd64786f1d59f939121f, type: 3}
   m_Name: VendingMachineIncident
   m_EditorClassIdentifier: GameAssembly::IncidentData
-  id: 
-  incidentName: 
-  choices: []
+  id: Incident_VendingMachine
+  incidentName: "\uC790\uD310\uAE30 \uC0AC\uAC74"
+  choices:
+  - rid: 1582000786587255006
+  - rid: 1582000786587255001
+  - rid: 1582000786587255000
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1582000786587255000
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: "\uD760\u2026 \uBD80\uC218\uBA74 \uC548\uC5D0 \uC788\uB294 \uC74C\uB8CC\uB97C
+          \uB2E4 \uBA39\uC744 \uC218 \uC788\uB294\uAC70 \uC544\uB2CC\uAC00?"
+        effect:
+          rid: 1582000786587255005
+    - rid: 1582000786587255001
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: "\uB3C8\uC774 \uC5C6\uB124.. \uADF8\uB0E5 \uAC00\uC57C\uC9C0"
+        effect:
+          rid: 1582000786587255004
+    - rid: 1582000786587255004
+      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000786587255005
+      type: {class: ChoiceRandomCompositeEffect, ns: , asm: GameAssembly}
+      data:
+        candidates:
+        - effect:
+            rid: 1582000786587255010
+          weight: 20
+        - effect:
+            rid: 1582000786587255011
+          weight: 80
+        pickCount: 1
+    - rid: 1582000786587255006
+      type: {class: RandomCompositeIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        candidates:
+        - effect:
+            rid: 1582000786587255007
+          description: "\uD1A1\uD1A1 \uD280\uB294 \uD0C4\uC0B0 \uC74C\uB8CC\uB97C
+            \uBA39\uACE0\uC2F6\uC5B4"
+          weight: 10
+        - effect:
+            rid: 1582000786587255008
+          description: "\uAC74\uAC15\uC5D0 \uC88B\uC740 \uC57C\uCC44 \uC74C\uB8CC\uB97C
+            \uBA39\uC5B4\uC57C\uC9C0"
+          weight: 10
+        - effect:
+            rid: 1582000786587255009
+          description: "\uCE74\uD398\uC778 \uBCF4\uCDA9! \uCEE4\uD53C\uB97C \uBA39\uC5B4\uC57C\uC9C0"
+          weight: 10
+        pickCount: 3
+    - rid: 1582000786587255007
+      type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
+      data:
+        engaingEnemyData:
+        - {fileID: 0}
+    - rid: 1582000786587255008
+      type: {class: ChoiceHealMentalityEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 10
+        isOverflowable: 1
+    - rid: 1582000786587255009
+      type: {class: ChoiceIncreaseMaxActionCostEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 5
+        duration: 0
+    - rid: 1582000786587255010
+      type: {class: ChoiceSequenceCompositeEffect, ns: , asm: GameAssembly}
+      data:
+        choiceEffects:
+        - rid: 1582000786587255012
+        - rid: 1582000786587255014
+        - rid: 1582000786587255015
+    - rid: 1582000786587255011
+      type: {class: ChoiceHurtBattleHealth, ns: , asm: GameAssembly}
+      data:
+        amount: 20
+        isOverflowable: 1
+    - rid: 1582000786587255012
+      type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
+      data:
+        engaingEnemyData:
+        - {fileID: 0}
+    - rid: 1582000786587255014
+      type: {class: ChoiceHealMentalityEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 10
+        isOverflowable: 1
+    - rid: 1582000786587255015
+      type: {class: ChoiceIncreaseMaxActionCostEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 5
+        duration: 0

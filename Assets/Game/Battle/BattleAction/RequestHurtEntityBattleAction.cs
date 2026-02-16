@@ -1,17 +1,17 @@
 public class RequestHurtEntityBattleAction : IBattleAction
 {
-    private HurtSource source;
+    private BattleHurtSource source;
     private int amount;
     private BattleEntity target;
 
-    public RequestHurtEntityBattleAction(HurtSource source, int amount, BattleEntity target)
+    public RequestHurtEntityBattleAction(BattleHurtSource source, int amount, BattleEntity target)
     {
         this.source = source;
         this.amount = amount;
         this.target = target;
     }
 
-    public HurtSource Source { get => source; }
+    public BattleHurtSource Source { get => source; }
     public int Amount { get => amount; }
     public BattleEntity Target { get => target; }
 

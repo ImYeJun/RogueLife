@@ -26,7 +26,7 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
     public override void ReceiveDamage(int amount) { playerHealth.HurtBattleHealth(amount, false); }
     public void ReceiveMentalDamage(int amount) { playerHealth.HurtMentality(amount); }
 
-    public override void RequestHurt(int amount, HurtSource source)
+    public override void RequestHurt(int amount, BattleHurtSource source)
     {
         var hurtContext = GenerateHurtContext(amount);
 

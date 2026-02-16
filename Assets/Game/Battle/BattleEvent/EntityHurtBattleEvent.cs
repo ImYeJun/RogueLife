@@ -2,9 +2,9 @@ public class EntityHurtBattleEvent : BattleEvent
 {
     private int amount;
     private BattleEntity victim;
-    private HurtSource source;
+    private BattleHurtSource source;
 
-    public EntityHurtBattleEvent(int amount, BattleEntity victim, HurtSource source)
+    public EntityHurtBattleEvent(int amount, BattleEntity victim, BattleHurtSource source)
     {
         this.amount = amount;
         this.victim = victim;
@@ -13,5 +13,5 @@ public class EntityHurtBattleEvent : BattleEvent
 
     public int Amount { get => amount; }
     public BattleEntity Victim { get => victim; }
-    public HurtSource Source { get => source; }
+    public BattleHurtSource Source { get => source; }
 }

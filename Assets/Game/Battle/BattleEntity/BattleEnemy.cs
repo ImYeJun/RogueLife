@@ -52,7 +52,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner
         currentHealth = Mathf.Min(currentHealth + amount, currentMaxHealth);
     }
 
-    public override void RequestHurt(int amount, HurtSource source)
+    public override void RequestHurt(int amount, BattleHurtSource source)
     {
         if (IsDead) { return; }
         

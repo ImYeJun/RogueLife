@@ -12,9 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c54050fdd1fcd64786f1d59f939121f, type: 3}
   m_Name: AlleyIncident
   m_EditorClassIdentifier: GameAssembly::IncidentData
-  id: 
-  incidentName: 
-  choices: []
+  id: Incident_Alley
+  incidentName: "\uACE8\uBAA9\uAE38 \uC0AC\uAC74"
+  choices:
+  - rid: 1582000786587254981
+  - rid: 1582000786587254980
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1582000786587254980
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: "\uC544\uBB34\uB9AC \uADF8\uB798\uB3C4 \uC800\uAE34 \uC880;;"
+        effect:
+          rid: 1582000786587254982
+    - rid: 1582000786587254981
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: "\uC9C0\uAE08 \uBE68\uB9AC \uAC00\uC57C\uD558\uB294\uB370..
+          \uBB34\uC11C\uC6B4\uAC8C \uC911\uC694\uD55C\uAC8C \uC544\uB2C8\uC57C!"
+        effect:
+          rid: 1582000786587254983
+    - rid: 1582000786587254982
+      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000786587254983
+      type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
+      data:
+        engaingEnemyData:
+        - {fileID: 0}

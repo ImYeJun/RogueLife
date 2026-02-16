@@ -12,9 +12,46 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c54050fdd1fcd64786f1d59f939121f, type: 3}
   m_Name: CatIncident
   m_EditorClassIdentifier: GameAssembly::IncidentData
-  id: 
-  incidentName: 
-  choices: []
+  id: Incident_Cat
+  incidentName: "\uACE0\uC591\uC774 \uC0AC\uAC74"
+  choices:
+  - rid: 1582000786587254994
+  - rid: 1582000786587254995
+  - rid: 1582000786587254996
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1582000786587254994
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: "\uADC0\uC5EC\uC6CC! \uC4F0\uB2E4\uB4EC\uACE0 \uC2F6\uC5B4!"
+        effect:
+          rid: 1582000786587254999
+    - rid: 1582000786587254995
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: "\uAC04\uC2DD\uC744 \uC918\uC57C\uACA0\uB2E4 \uCE04\uB974\uAC00
+          \uC5B4\uB514\uC788\uB354\uB77C.."
+        effect:
+          rid: 1582000786587254998
+    - rid: 1582000786587254996
+      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+      data:
+        description: "\uC73C\uC73C\u2026 \uB108\uBB34 \uADC0\uC5FD\uC9C0\uB9CC..
+          \uBC14\uC058\uB2E4.. \uBBF8\uC548\uD574!"
+        effect:
+          rid: 1582000786587254997
+    - rid: 1582000786587254997
+      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000786587254998
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
+      data:
+        rarity: 0
+        type: 0
+        attribute: 0
+    - rid: 1582000786587254999
+      type: {class: ChoiceHealMentalityEffect, ns: , asm: GameAssembly}
+      data:
+        amount: 10
+        isOverflowable: 1

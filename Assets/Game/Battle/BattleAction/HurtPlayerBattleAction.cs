@@ -1,17 +1,17 @@
 public class HurtPlayerBattleAction : IBattleAction
 {   
-    private HurtSource source;
+    private BattleHurtSource source;
     private BattlePlayer player;
     private PlayerBattleHurtContext hurtContext;
 
-    public HurtPlayerBattleAction(HurtSource source, BattlePlayer player, PlayerBattleHurtContext hurtContext)
+    public HurtPlayerBattleAction(BattleHurtSource source, BattlePlayer player, PlayerBattleHurtContext hurtContext)
     {
         this.source = source;
         this.player = player;
         this.hurtContext = hurtContext;
     }
 
-    public HurtSource Source { get => source; }
+    public BattleHurtSource Source { get => source; }
     public BattlePlayer Player { get => player; }
     public PlayerBattleHurtContext HurtContext { get => hurtContext; }
 
