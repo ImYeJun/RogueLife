@@ -1,5 +1,6 @@
 using System;
 
+//TODO Close 했을 때 구독자 해지하는 로직 추가하기
 public class BattleActionScope
 {
     private int aliveCount = 1;

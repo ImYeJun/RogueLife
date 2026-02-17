@@ -1,0 +1,3 @@
+namespace Battle.StatusEffect.Behaviour
+{
+}

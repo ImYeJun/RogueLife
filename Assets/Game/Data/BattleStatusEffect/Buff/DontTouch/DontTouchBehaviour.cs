@@ -9,8 +9,7 @@ namespace Battle.StatusEffect.Behaviour
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DontTouch() {}
-
-        public DontTouch(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state) 
+        private DontTouch(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state) 
         : base(context, owner, state) { }
 
         public override void OnApplied()

@@ -10,19 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
-  m_Name: BattleStatusEffectData
+  m_Name: DontTouch
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
+  id: Buff_DontDouch
+  battleStatusEffectName: "\uC190 \uB300\uC9C0\uB9C8!"
+  description: "\uC0C1\uB300\uBC29\uC774 \uC790\uC2E0\uC744 \uB300\uC0C1\uC73C\uB85C\uD558\uB294
+    \uD589\uB3D9\uC744 \uBB34\uD6A8\uC2DC\uD0A8\uB2E4 (\uC77C\uD68C\uC131)"
   type: 0
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 1582000809001615612
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000809001615612
+      type: {class: DontTouch, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 

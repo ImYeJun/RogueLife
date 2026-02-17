@@ -1,22 +1,27 @@
+using UnityEngine;
+
 public class RequestHurtEntityBattleAction : IBattleAction, IEntityTargetedBattleAction
 {
     private BattleHurtSource source;
-    private int amount;
+    private int damage;
     private BattleEntity target;
 
-    public RequestHurtEntityBattleAction(BattleHurtSource source, int amount, BattleEntity target)
+    public RequestHurtEntityBattleAction(BattleHurtSource source, int damage, BattleEntity target)
     {
         this.source = source;
-        this.amount = amount;
+        this.damage = damage;
         this.target = target;
     }
 
     public BattleHurtSource Source { get => source; }
-    public int Amount { get => amount; }
+    public int Damage { get => damage; }
     public BattleEntity Target { get => target; }
 
     public void Execute(BattleContext context)
     {
-        target.RequestHurt(amount, source);
+        target.RequestHurt(damage, source);
     }
+
+    public void AddDamage(int amount) { damage += amount; }
+    public void ReduceDamage(int amount) { damage = Mathf.Min(damage - amount, 0); }
 }

@@ -10,6 +10,7 @@ public class BattleEntityAction : IBattleAction
     public BattleEntity Actor { get => actor; }
     public IBattleAction Action { get => action; }
     public BattleActionScope ActionScope { get => actionScope; }
+    public bool IsNullified { get => isNullified; }
 
     public BattleEntityAction(BattleEntity actor, IBattleAction action)
     {

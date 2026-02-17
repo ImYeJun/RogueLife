@@ -1,5 +1,4 @@
 using System;
-using Battle.StatusEffect.Behaviour;
 
 [Serializable]
 public abstract class DisposableBattleStatusEffectBehaviour : BattleStatusEffectBehaviour

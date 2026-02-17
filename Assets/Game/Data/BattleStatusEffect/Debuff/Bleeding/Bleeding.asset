@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
+  m_Name: Bleeding
+  m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
+  id: Debuff_Bleeding
+  battleStatusEffectName: "\uCD9C\uD608"
+  description: "\uD134 \uC885\uB8CC\uC2DC, \uC2A4\uD0DD X 5 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C
+    \uC785\uC2B5\uB2C8\uB2E4. \uD574\uB2F9 \uB514\uBC84\uD504 \uC9C0\uC18D \uB3D9\uC548
+    \uD589\uB3D9\uD560 \uB54C \uB9C8\uB2E4 \uD589\uB3D9\uC774 \uB05D\uB09C \uD6C4,
+    5\uC758 \uD53C\uD574\uB97C \uC785\uC2B5\uB2C8\uB2E4."
+  type: 1
+  grantedCondition: 0
+  requiredTraits: -1
+  icon: {fileID: 0}
+  behaviour:
+    rid: 1582000809001615613
+  references:
+    version: 2
+    RefIds:
+    - rid: 1582000809001615613
+      type: {class: Bleeding, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 
