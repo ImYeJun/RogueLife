@@ -4,11 +4,11 @@ public interface IEnemyBehaviourOwner
 {
     public bool IsFirstAction { get; }
     public int PreviousActionCount { get; }
-    public IReadOnlyList<BattleStatusEffect> CurrentBuffs { get; }
-    public IReadOnlyList<BattleStatusEffect> CurrentDebuffs { get; }
+    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs { get; }
+    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs { get; }
     public EnemyData Data { get; }
 
-    public void RequestApplyBuff(BattleStatusEffect buff);
+    public void ApplyStatusEffect(BattleStatusEffect newEffect);
     public void RequestHeal(int amount);
     public void RequestHurt(int amount, BattleHurtSource source);
 }

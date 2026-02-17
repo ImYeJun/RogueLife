@@ -3,12 +3,14 @@ public class TryUseCardBattleAction : IBattleAction
     private int cost;
     private Card card;
     private CardTarget cardTarget;
+    private bool hasNullified;
 
     public TryUseCardBattleAction(int cost, Card card, CardTarget cardTarget)
     {
         this.cost = cost;
         this.card = card;
         this.cardTarget = cardTarget;
+        hasNullified = false;
     }
 
     public int Cost { get => cost; }
@@ -17,11 +19,17 @@ public class TryUseCardBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
+        if (hasNullified) { return; }
         if (!card.IsAbleToUse(context, cardTarget)) { return; }
         if (!context.ActionCost.HasEnough(cost)) { return; }
 
         //* If race condition problem happens, refactor this code to work synchronously.
         context.ActionScheduler.Enqueue(new ConsumeActionCostBattleAction(cost));
         context.ActionScheduler.Enqueue(new UseCardBattleAction(card, cardTarget));
+    }
+
+    public void Nullify()
+    {
+        hasNullified = true;
     }
 }

@@ -78,7 +78,7 @@ public class BattleSystem : IFieldBattleSystem
         int turnStartDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;
         List<Card> startDrawDeck = deck.GetClonedMainDeck().Values.SelectMany(sel => sel).ToList();
 
-        BattlePlayer battlePlayer = new BattlePlayer(battleHealth);
+        BattlePlayer battlePlayer = new BattlePlayer(context, battleHealth);
         List<BattleBelongings> battleBelongingsBag = belongingsBag.GetBattleBelongings(battlePlayer);
         foreach (var battleBelongings in battleBelongingsBag) { eventBus.Subscribe(battleBelongings.BehaviourInstance); }
         battlePlayer.SetBelongings(battleBelongingsBag);
@@ -86,7 +86,7 @@ public class BattleSystem : IFieldBattleSystem
         List<BattleEnemy> enemies = new List<BattleEnemy>();
         foreach (var dataSlot in engagingEnemiesDataSlot)
         {
-            enemies.Add(new BattleEnemy(dataSlot.Data));
+            enemies.Add(new BattleEnemy(context, dataSlot.Data));
         }
 
         scheduler.StartBattle(startPhaseCount, maxActionCost, fisrtTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies);

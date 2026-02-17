@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver
+public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver, IBattleActionModifier
 {
     private BattleContext context;
     private BattleDeckHistory history;
-    private bool isFisrtTurn;
-    private int fisrtTurnDrawCount;
+    private bool isFirstTurn;
+    private int firstTurnDrawCount;
     private int turnStartDrawCount;
     private Dictionary<BattleDeckType, BattleDeck> deckMap = new Dictionary<BattleDeckType, BattleDeck>
     {
@@ -55,18 +55,30 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver
         }
     }
 
-    public Card RequestDrawingCard(System.Random random, CardAttribute attribite, CardType type)
+    public Card RequestDrawingCard(System.Random random, CardAttribute attribute, CardType type)
     {
-        return deckMap[BattleDeckType.DRAW].GetRandomCard(random, attribite, type);
+        return deckMap[BattleDeckType.DRAW].GetRandomCard(random, attribute, type);
+    }
+
+    public void ModifyAction(IBattleAction action, BattleContext context)
+    {
+        if (action is TryUseCardBattleAction tryUseCardBattleActionv)
+        {
+            var player =  context.PlayerContainer.Player;
+            if (player.CurrentCondition.HasFlag(BattleEntityCondition.STUNNED))
+            {
+                tryUseCardBattleActionv.Nullify();
+            }
+        }
     }
 
     public void OnBattleEvent(BattleEvent battleEvent)
     {
         if (battleEvent is BattleStartEvent payload)
         {
-            fisrtTurnDrawCount = payload.FisrtTurnDrawCount;
+            firstTurnDrawCount = payload.FisrtTurnDrawCount;
             turnStartDrawCount = payload.TurnStartDrawCount;
-            isFisrtTurn = true;
+            isFirstTurn = true;
 
             foreach (var pair in deckMap)
             {
@@ -77,12 +89,14 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver
                     pair.Value.SetDeck(payload.StartDrawDeck);
                 }
             }
+
+            context.ActionObserverHub.SubscribeActionModifier(this);
         }
 
         if (battleEvent is PlayerTurnStartBattleEvent)
         {
-            int acutalDrawAmount = isFisrtTurn ? fisrtTurnDrawCount : turnStartDrawCount;
-            isFisrtTurn = false; 
+            int acutalDrawAmount = isFirstTurn ? firstTurnDrawCount : turnStartDrawCount;
+            isFirstTurn = false; 
 
             if (deckMap[BattleDeckType.DRAW].Count < acutalDrawAmount)
             {
@@ -95,6 +109,11 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver
             {
                 context.ActionScheduler.Enqueue(new RequestDrawCardBattleAction(CardAttribute.ANY, CardType.ANY, Guid.NewGuid()));
             }
+        }
+
+        if (battleEvent is BattleEndBattleEvent)
+        {
+            context.ActionObserverHub.UnsubscribeActionModifier(this);
         }
     }
 

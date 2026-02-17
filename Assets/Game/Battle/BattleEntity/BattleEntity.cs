@@ -1,19 +1,31 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class BattleEntity : IBattleStatusEffectOwner
 {
     protected BattleContext context;
-    private List<BattleStatusEffect> equippedBuffs = new List<BattleStatusEffect>();
-    private List<BattleStatusEffect> equippedDebuffs = new List<BattleStatusEffect>();
+    private BattleEntityTrait trait;
+    private BattleEntityCondition currentCondition;
 
-    public IReadOnlyList<BattleStatusEffect> CurrentBuffs { get => equippedBuffs; }
-    public IReadOnlyList<BattleStatusEffect> CurrentDebuffs { get => equippedDebuffs; }
+    private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippedBuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
+    private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippedDebuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
+
+    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs { get => equippedBuffs; }
+    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs { get => equippedDebuffs; }
 
     protected bool isDead = false;
 
+    protected BattleEntity(BattleContext context, BattleEntityTrait trait)
+    {
+        this.context = context;
+        this.trait = trait;
+    }
+
     public bool IsDead { get => isDead; }
+    public BattleEntityTrait Trait { get => trait; }
+    public BattleEntityCondition CurrentCondition { get => currentCondition; }
 
     public abstract void ReceiveDamage(int amount);
     public abstract void RequestHurt(int amount, BattleHurtSource source);
@@ -27,45 +39,59 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     {
         isDead = true;
 
-        var expiredBuffs = equippedBuffs.ToArray();
-        var expiredDebuffs = equippedDebuffs.ToArray();
+        var buffList = equippedBuffs.Values.ToList();
+        foreach (var buff in buffList)
+        {
+            buff.OnRemoved(true);
+        }
+
+        var debuffList = equippedDebuffs.Values.ToList();
+        foreach (var debuff in debuffList)
+        {
+            debuff.OnRemoved(true);
+        }
 
         equippedBuffs.Clear();
         equippedDebuffs.Clear();
-
-        foreach (var buff in expiredBuffs) { buff.OnRemoved(); }
-        foreach (var debuff in expiredDebuffs) { debuff.OnRemoved(); }
+        currentCondition = BattleEntityCondition.NONE;
     }
 
-    public void RequestApplyBuff(BattleStatusEffect buff)
+    public void RequestApplyStatusEffect(BattleStatusEffect effect)
     {
         if (IsDead) { return; }
         
-        context.ActionScheduler.Enqueue(new ApplyEntityBuffBattleAction(this, buff));
+        context.ActionScheduler.Enqueue(new ApplyEntityStatusEffectBattleAction(this, effect));
     }
-    public void ApplyBuff(BattleStatusEffect buff)
+
+    public void ApplyStatusEffect(BattleStatusEffect newEffect)
     {
         if (IsDead) { return; }
-        
-        if (equippedBuffs.Contains(buff)) { 
-            UnityEngine.Debug.LogWarning("The Entity is already equipping given buff.");
+
+        if (!trait.HasFlag(newEffect.RequiredTraits))
+        {
+            Debug.LogWarning($"[BattleEntity] The entity doesn't fulfilled the required trait. Required : {newEffect.RequiredTraits}, Entity Trait : {trait}");
             return;
         }
 
-        equippedBuffs.Add(buff);
-        buff.OnApplied();
-    }
-    public void ApplyDebuff(BattleStatusEffect debuff)
-    {
-        if (IsDead) { return; }
-        
-        if (equippedBuffs.Contains(debuff)) { 
-            UnityEngine.Debug.LogWarning("The Entity is already equipping given debuff.");
+        var targetDict = GetEffectDictionary(newEffect.Data.Type);
+
+        if (targetDict == null)
+        {
+            Debug.LogError($"[BattleEntity] Unsupported Effect Type: {newEffect.Data.Type}");
             return;
         }
 
-        equippedDebuffs.Add(debuff);
-        debuff.OnApplied();
+        if (targetDict.TryGetValue(newEffect.Data, out var existingEffect))
+        {
+            existingEffect.MergeWith(newEffect);
+        }
+        else
+        {
+            targetDict[newEffect.Data] = newEffect;
+            newEffect.OnApplied(context, this, RequestRemoveStatusEffect);
+        }
+
+        UpdateCondition();
     }
 
     public void RequestRemoveStatusEffect(BattleStatusEffect statusEffect)
@@ -74,44 +100,47 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
         
         context.ActionScheduler.Enqueue(new RemoveEntityStatusEffect(this, statusEffect));
     }
+
     public void RemoveStatusEffect(BattleStatusEffect statusEffect)
     {
         if (IsDead) { return; }
-        
-        if (equippedBuffs.Contains(statusEffect)) { 
-            statusEffect.OnRemoved();
-            RemoveBuff(statusEffect);
-        }
-        else if (equippedDebuffs.Contains(statusEffect)) { 
-            statusEffect.OnRemoved();
-            RemoveDebuff(statusEffect);
-        }
-        else { throw new InvalidOperationException("The battle entity doesn't contain given status effect"); }
-    }
-    public void RemoveBuff(BattleStatusEffect buff)
-    {
-        if (IsDead) { return; }
-        
-        if (!equippedBuffs.Contains(buff))
-        {
-            UnityEngine.Debug.LogWarning("The Entity isn't equipping given buff.");
-            return;
-        }
 
-        buff.OnRemoved();
-        equippedBuffs.Remove(buff);
-    }
-    public void RemoveDebuff(BattleStatusEffect debuff)
-    {
-        if (IsDead) { return; }
-        
-        if (!equippedDebuffs.Contains(debuff))
+        var targetDict = GetEffectDictionary(statusEffect.Data.Type);
+
+        if (targetDict != null && targetDict.ContainsKey(statusEffect.Data))
         {
-            UnityEngine.Debug.LogWarning("The Entity isn't equipping given debuff.");
-            return;
+            statusEffect.OnRemoved();
+            targetDict.Remove(statusEffect.Data);
+
+            UpdateCondition();
+        }
+        else
+        {
+            Debug.LogWarning("[BattleEntity] The battle entity doesn't contain given status effect");
+        }
+    }
+    
+    private void UpdateCondition()
+    {
+        currentCondition = BattleEntityCondition.NONE;
+        foreach (var buff in equippedBuffs.Values)
+        {
+            currentCondition |= buff.GrantedCondition;
         }
         
-        debuff.OnRemoved();
-        equippedBuffs.Remove(debuff);
+        foreach (var debuff in equippedDebuffs.Values)
+        {
+            currentCondition |= debuff.GrantedCondition;
+        }
+    }
+
+    private Dictionary<BattleStatusEffectData, BattleStatusEffect> GetEffectDictionary(BattleStatusEffectType type)
+    {
+        return type switch
+        {
+            BattleStatusEffectType.BUFF => equippedBuffs,
+            BattleStatusEffectType.DEBUFF => equippedDebuffs,
+            _ => null
+        };
     }
 }

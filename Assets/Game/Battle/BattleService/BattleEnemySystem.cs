@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
+public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver, IBattleActionModifier
 {
     private BattleContext context;
     private BattleEnemyHistory history;
@@ -48,6 +48,22 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
         return currentEnemies.ContainsKey(data) ? currentEnemies[data].Count : 0;
     }
 
+    public void ModifyAction(IBattleAction action, BattleContext context)
+    {
+        if (action is BattleEntityAction battleEntityAction)
+        {
+            var actor = battleEntityAction.Actor;
+            var enemyList = currentEnemies.Values.SelectMany(sel => sel);
+            if (enemyList.Contains(actor))
+            {
+                if (actor.CurrentCondition.HasFlag(BattleEntityCondition.STUNNED))
+                {
+                    battleEntityAction.Nullify();
+                }
+            }
+        }
+    }
+
     public void OnBattleEvent(BattleEvent battleEvent)
     {
         if (battleEvent is BattleStartEvent payload)
@@ -57,6 +73,8 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
                 currentEnemies.Clear();
                 SpawnEnemy(enemy);
             }
+
+            context.ActionObserverHub.SubscribeActionModifier(this);
         }
 
         if (battleEvent is PhaseStartBattleEvent)
@@ -88,6 +106,11 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
             }
 
             context.BattleScheduler.EndEnemyTurn();
+        }
+
+        if (battleEvent is BattleEndBattleEvent)
+        {
+            context.ActionObserverHub.SubscribeActionModifier(this);
         }
     }
 }

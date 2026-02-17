@@ -6,7 +6,7 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
     private IBattleHealth playerHealth;
     private List<BattleBelongings> belongings = new List<BattleBelongings>();
 
-    public BattlePlayer(IBattleHealth playerHealth)
+    public BattlePlayer(BattleContext context, IBattleHealth playerHealth) : base(context, BattleEntityTrait.PLAYER)
     {
         this.playerHealth = playerHealth;
         this.playerHealth.OnMentalBreakDown += OnDead;

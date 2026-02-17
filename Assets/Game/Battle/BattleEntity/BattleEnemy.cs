@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner
+public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleEntity
 {    
     private EnemyData data;
     private List<EnemyAction> plannedActions = new List<EnemyAction>();
@@ -19,7 +19,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner
     public bool IsFirstAction => isFirstAction;
     public int PreviousActionCount => previousActionCount;
 
-    public BattleEnemy(EnemyData enemyData)
+    public BattleEnemy(BattleContext context, EnemyData enemyData) : base(context, BattleEntityTrait.ENEMY)
     {
         data = enemyData;
         currentMaxHealth = data.MaxBaseHealth;
@@ -66,5 +66,11 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner
         currentHealth = Mathf.Max(currentHealth - amount, 0);
 
         if (currentHealth <= 0) { OnDead(); }
+    }
+
+    public BattleEntity GetClone()
+    {
+        var clone = new BattleEnemy(context, data);
+        return clone;
     }
 }

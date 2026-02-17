@@ -1,4 +1,4 @@
-public class RequestHurtEntityBattleAction : IBattleAction
+public class RequestHurtEntityBattleAction : IBattleAction, IEntityTargetedBattleAction
 {
     private BattleHurtSource source;
     private int amount;
