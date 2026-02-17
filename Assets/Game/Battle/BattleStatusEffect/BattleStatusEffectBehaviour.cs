@@ -8,6 +8,8 @@ public abstract class BattleStatusEffectBehaviour
     protected IBattleStatusEffectOwner owner;
     protected IBattleStatusEffectState state;
 
+    protected BattleStatusEffectBehaviour() {}
+
     protected BattleStatusEffectBehaviour(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)
     {
         this.context = context;

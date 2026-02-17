@@ -1,5 +1,11 @@
+using System;
+using Battle.StatusEffect.Behaviour;
+
+[Serializable]
 public abstract class DisposableBattleStatusEffectBehaviour : BattleStatusEffectBehaviour
 {
+    protected DisposableBattleStatusEffectBehaviour() {}
+
     protected DisposableBattleStatusEffectBehaviour(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state) 
     : base(context, owner, state) { }
 
