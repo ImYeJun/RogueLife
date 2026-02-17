@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
+  m_Name: Toughen
+  m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
+  id: Buff_Toughen
+  battleStatusEffectName: "\uB2E8\uB2E8\uD574\uC9C0\uAE30"
+  description: "\uB2E4\uC74C \uC790\uC2E0\uC774 \uBC1B\uB294 \uD53C\uD574\uB97C \uC2A4\uD0DD
+    X 5 \uAC10\uC18C\uC2DC\uD0A8\uB2E4. (\uC77C\uD68C\uC131)"
+  type: 0
+  grantedCondition: 0
+  requiredTraits: -1
+  icon: {fileID: 0}
+  behaviour:
+    rid: 7557519963809120355
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557519963809120355
+      type: {class: Toughen, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 

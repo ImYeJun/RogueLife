@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class TryUseCardBattleAction : IBattleAction
 {
     private int cost;
@@ -31,5 +33,15 @@ public class TryUseCardBattleAction : IBattleAction
     public void Nullify()
     {
         hasNullified = true;
+    }
+
+    public void ReduceCost(int amount)
+    {
+        cost = Mathf.Max(cost - amount, 0);
+    }
+
+    public void IncreaseCost(int amount)
+    {
+        cost += amount;
     }
 }

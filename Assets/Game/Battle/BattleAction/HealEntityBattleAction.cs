@@ -10,7 +10,7 @@ public class HealEntityBattleAction : IBattleAction
     }
 
     public BattleEntity Target { get => target; }
-    public int Amount { get => amount; }
+    public int Amount { get => amount; set => amount = value; }
 
     public void Execute(BattleContext context)
     {
