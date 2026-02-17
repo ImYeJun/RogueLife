@@ -4,7 +4,7 @@ using UnityEngine;
 public class BattleStatusEffectData : ScriptableObject {
     [SerializeField] private string id;
     [SerializeField] private string battleStatusEffectName;
-    [SerializeField] private string description;
+    [SerializeField, TextArea] private string description;
     [SerializeField] private BattleStatusEffectType type;
     [SerializeField] private BattleEntityCondition grantedCondition;
     [SerializeField] private BattleEntityTrait requiredTraits;

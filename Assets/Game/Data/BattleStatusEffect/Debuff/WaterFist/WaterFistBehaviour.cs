@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using Battle.HurtSource;
 
 namespace Battle.StatusEffect.Behaviour
 {
@@ -17,22 +18,18 @@ namespace Battle.StatusEffect.Behaviour
             context.ActionObserverHub.SubscribeActionModifier(this);
         }
 
-        public override void ActivateEffect()
-        {
-            //TODO Delete this Method. It's useless!
-        }
-
         public override void OnRemoved(bool isOwnerDied = false)
         {
             context.ActionObserverHub.UnsubscribeActionModifier(this);
         }
 
+        public override void OnMerged() { }
 
         public void ModifyAction(IBattleAction action, BattleContext context)
         {
             if (action is RequestHurtEntityBattleAction requestHurtEntityBattleAction)
             {
-                if (requestHurtEntityBattleAction.Source is EntityBattleHurtSource entityBattleHurtSource)
+                if (requestHurtEntityBattleAction.Source is EntitySource entityBattleHurtSource)
                 {
                     if (entityBattleHurtSource.SourceEntity != owner) return;
 

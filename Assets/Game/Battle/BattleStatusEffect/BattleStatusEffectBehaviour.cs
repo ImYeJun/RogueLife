@@ -19,6 +19,6 @@ public abstract class BattleStatusEffectBehaviour
 
     public abstract void OnApplied();
     public abstract void OnRemoved(bool isOwnerDied = false);
-    public abstract void ActivateEffect();
+    public abstract void OnMerged();
     public abstract BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state);
 }

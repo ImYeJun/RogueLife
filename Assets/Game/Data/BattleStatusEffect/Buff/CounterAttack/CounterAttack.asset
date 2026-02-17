@@ -10,21 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
-  m_Name: WaterFist
+  m_Name: CounterAttack
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: Debuff_WaterFist
-  battleStatusEffectName: "\uBB3C \uC8FC\uBA39"
-  description: "\uC790\uC2E0\uC774 \uC8FC\uB294 \uD53C\uD574\uB97C \uC2A4\uD0DD X
-    5 \uB9CC\uD07C \uAC10\uC18C\uC2DC\uD0A8\uB2E4."
-  type: 1
+  id: Buff_CounterAttack
+  battleStatusEffectName: "\uBC18\uACA9"
+  description: "\uC0C1\uB300\uC5D0\uAC8C \uD53C\uD574\uB97C \uBC1B\uC740 \uACBD\uC6B0,
+    \uADF8 \uC0C1\uB300\uC5D0\uAC8C \uC2A4\uD0DD X 5 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C
+    \uC900\uB2E4. (\uC77C\uD68C\uC131)"
+  type: 0
   grantedCondition: 0
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519958088089679
+    rid: 7557519958088089697
   references:
     version: 2
     RefIds:
-    - rid: 7557519958088089679
-      type: {class: WaterFist, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519958088089697
+      type: {class: CounterAttack, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
       data: 

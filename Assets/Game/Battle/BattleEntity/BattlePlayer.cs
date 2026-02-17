@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Battle.HurtSource;
 using UnityEngine;
 
 public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
@@ -23,8 +24,14 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
         context.BattleScheduler.EndBattle(BattleResult.PLAYER_DIED);
     }
 
-    public override void ReceiveDamage(int amount) { playerHealth.HurtBattleHealth(amount, false); }
-    public void ReceiveMentalDamage(int amount) { playerHealth.HurtMentality(amount); }
+    public void ReceiveDamage(PlayerBattleHurtContext hurtContext, BattleHurtSource source) { 
+        if (hurtContext.TotalDamage <= 0) { return; }
+
+        playerHealth.HurtBattleHealth(hurtContext.BattleHealthDamage, false);
+        playerHealth.HurtMentality(hurtContext.MentalityDamage);
+
+        context.EventBus.Publish(new EntityHurtBattleEvent(hurtContext.TotalDamage, this, source));
+    }
 
     public override void RequestHurt(int amount, BattleHurtSource source)
     {
@@ -43,4 +50,9 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
     }
 
     public override void Heal(int amount) { playerHealth.HealBattleHealth(amount); }
+
+    public override BattleHurtSource GetAsHurtSource()
+    {
+        return new EntitySource(this);
+    }
 }

@@ -1,6 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.HurtSource;
 using UnityEngine;
 
 public abstract class BattleEntity : IBattleStatusEffectOwner
@@ -14,7 +14,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
 
     public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs { get => equippedBuffs; }
     public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs { get => equippedDebuffs; }
-
+    
     protected bool isDead = false;
 
     protected BattleEntity(BattleContext context, BattleEntityTrait trait)
@@ -26,8 +26,8 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     public bool IsDead { get => isDead; }
     public BattleEntityTrait Trait { get => trait; }
     public BattleEntityCondition CurrentCondition { get => currentCondition; }
+    abstract public BattleHurtSource GetAsHurtSource();
 
-    public abstract void ReceiveDamage(int amount);
     public abstract void RequestHurt(int amount, BattleHurtSource source);
     public abstract void Heal(int amount);
     public void RequestHeal(int amount)

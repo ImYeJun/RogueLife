@@ -1,3 +1,5 @@
+using Battle.HurtSource;
+
 public class HurtEnemyBattleAction : IBattleAction
 {
     private BattleEnemy enemy;
@@ -17,6 +19,6 @@ public class HurtEnemyBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        enemy.ReceiveDamage(amount);
+        enemy.ReceiveDamage(amount, source);
     }
 }

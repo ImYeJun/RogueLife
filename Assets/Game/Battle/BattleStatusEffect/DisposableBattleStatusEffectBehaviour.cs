@@ -8,12 +8,8 @@ public abstract class DisposableBattleStatusEffectBehaviour : BattleStatusEffect
     protected DisposableBattleStatusEffectBehaviour(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state) 
     : base(context, owner, state) { }
 
-    public sealed override void ActivateEffect()
+    public void RequestExpire()
     {
-        PerformAction();
-
         state.RequestExpired();
     }
-
-    public abstract void PerformAction();
 }

@@ -1,3 +1,5 @@
+using Battle.HurtSource;
+
 public class HurtPlayerBattleAction : IBattleAction
 {   
     private BattleHurtSource source;
@@ -17,7 +19,6 @@ public class HurtPlayerBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        if (hurtContext.BattleHealthDamage > 0) { player.ReceiveDamage(hurtContext.BattleHealthDamage); }
-        if (hurtContext.MentalityDamage > 0) { player.ReceiveMentalDamage(hurtContext.MentalityDamage); }
+        if (hurtContext.TotalDamage > 0) { player.ReceiveDamage(hurtContext, source); }
     }
 }

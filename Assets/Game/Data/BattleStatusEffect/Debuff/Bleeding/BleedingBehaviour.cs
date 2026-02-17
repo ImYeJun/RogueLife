@@ -19,28 +19,20 @@ namespace Battle.StatusEffect.Behaviour
             context.EventBus.Subscribe(this);
             context.ActionObserverHub.SubscribePostObserver(this);
         }
-
-        public override void ActivateEffect()
-        {
-            owner.RequestHurt(state.StackCount * 5, new NonEntityBattleHurtSource());
-        }
-
-        public void BleedAfterAction(BattleContext context)
-        {
-            owner.RequestHurt(5, new NonEntityBattleHurtSource());
-        }
-        
+    
         public override void OnRemoved(bool isOwnerDied = false)
         {
             context.EventBus.Unsubscribe(this);
             context.ActionObserverHub.UnsubscribePostObserver(this);
         }
 
+        public override void OnMerged() { }
+
         public void OnBattleEvent(BattleEvent battleEvent)
         {
             if (battleEvent is PlayerTurnEndBattleEvent || battleEvent is EnemyTurnEndBattleEvent)
             {
-                ActivateEffect();
+                owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
             }
         }
 
@@ -57,6 +49,11 @@ namespace Battle.StatusEffect.Behaviour
             }
         }
         
+        public void BleedAfterAction(BattleContext context)
+        {
+            owner.RequestHurt(5, new NoneEntitySource());
+        }
+
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)
         {
             return new Bleeding(context, owner, state);

@@ -1,3 +1,5 @@
+using Battle.HurtSource;
+
 public class EntityHurtBattleEvent : BattleEvent
 {
     private int amount;

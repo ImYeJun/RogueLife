@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Battle.HurtSource;
 using UnityEngine;
 
 public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleEntity
@@ -59,18 +60,32 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         context.ActionScheduler.Enqueue(new HurtEnemyBattleAction(this, source, amount));
     }
 
-    public override void ReceiveDamage(int amount)
+    public void ReceiveDamage(int amount, BattleHurtSource source)
     {
         if (IsDead) { return; }
+        if (amount <= 0) { return; }
 
-        currentHealth = Mathf.Max(currentHealth - amount, 0);
+        int determinedAmount = Mathf.Min(amount, currentHealth);
+        currentHealth -= determinedAmount;
 
+        context.EventBus.Publish(new EntityHurtBattleEvent(determinedAmount, this, source));
         if (currentHealth <= 0) { OnDead(); }
     }
 
-    public BattleEntity GetClone()
+    public BattleEntity Clone(float maxHealthMultiplier = 1.0f)
     {
         var clone = new BattleEnemy(context, data);
+        
+        int newMaxHealth = Mathf.Max(1, Mathf.RoundToInt(clone.currentMaxHealth * maxHealthMultiplier));
+
+        clone.currentMaxHealth = newMaxHealth;
+        clone.currentHealth = newMaxHealth;
+
         return clone;
+    }
+
+    public override BattleHurtSource GetAsHurtSource()
+    {
+        return new EntitySource(this);
     }
 }

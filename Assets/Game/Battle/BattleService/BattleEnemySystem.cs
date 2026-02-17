@@ -21,7 +21,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
         currentEnemies[data].Insert(0, enemy);
         enemy.Died += RemoveEnemy;
     }
-
+    
     public void RemoveEnemy(BattleEnemy enemy)
     {
         if (!currentEnemies.ContainsKey(enemy.Data)) { throw new InvalidOperationException($"There's not enemy data for {enemy.Data.EnemyName}"); }

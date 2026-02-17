@@ -1,11 +1,14 @@
-public abstract class EntityBattleHurtSource : BattleHurtSource
+namespace Battle.HurtSource
 {
-    protected BattleEntity sourceEntity;
-
-    protected EntityBattleHurtSource(BattleEntity sourceEntity)
+    public class EntitySource : BattleHurtSource
     {
-        this.sourceEntity = sourceEntity;
-    }
+        protected BattleEntity sourceEntity;
 
-    public BattleEntity SourceEntity { get => sourceEntity; }
+        public EntitySource(BattleEntity sourceEntity) : base(sourceEntity)
+        {
+            this.sourceEntity = sourceEntity;
+        }
+
+        public BattleEntity SourceEntity { get => sourceEntity; }
+    }
 }

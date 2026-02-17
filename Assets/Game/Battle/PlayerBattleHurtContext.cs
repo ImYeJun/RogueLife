@@ -13,6 +13,7 @@ public class PlayerBattleHurtContext
 
     public int BattleHealthDamage { get => battleHealthDamage; }
     public int MentalityDamage { get => mentalityDamage; }
+    public int TotalDamage { get => battleHealthDamage + mentalityDamage; }
     public bool IsOverflow { get => isOverflow; }
 
     public void NullifyBattleHealthDamamge() { battleHealthDamage = 0; }

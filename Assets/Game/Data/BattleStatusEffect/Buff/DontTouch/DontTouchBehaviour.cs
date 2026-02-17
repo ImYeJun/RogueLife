@@ -22,7 +22,7 @@ namespace Battle.StatusEffect.Behaviour
             context.ActionObserverHub.UnsubscribeActionModifier(this);
         }
 
-        public override void PerformAction() { }
+        public override void OnMerged() { }
 
         public void ModifyAction(IBattleAction action, BattleContext context)
         {
@@ -33,18 +33,11 @@ namespace Battle.StatusEffect.Behaviour
             {
                 if (targetedAction.Target == owner)
                 {
-                    BlockAndConsume(entityAction);
+                    entityAction.Nullify();
                 }
             }
         }
-
-        private void BlockAndConsume(BattleEntityAction action)
-        {
-            action.Nullify();
-            
-            ActivateEffect();
-        }
-
+        
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)
         {
             return new DontTouch(context, owner, state);

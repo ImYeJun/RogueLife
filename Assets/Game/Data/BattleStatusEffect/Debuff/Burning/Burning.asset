@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
   m_Name: Burning
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
-  type: 0
+  id: Debuff_Burning
+  battleStatusEffectName: "\uBD88\uD0C4\uB2E4 \uBD88!"
+  description: "\uD134 \uC885\uB8CC\uC2DC, \uC2A4\uD0DD X 5 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C
+    \uC785\uC2B5\uB2C8\uB2E4."
+  type: 1
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519958088089678
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519958088089678
+      type: {class: Burning, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 
