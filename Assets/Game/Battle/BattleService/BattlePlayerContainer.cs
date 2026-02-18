@@ -1,14 +1,15 @@
-public class BattlePlayerContainer : IBattleEventObserver, IBattlePlayerContainerContext
+public class BattlePlayerContainer : IBattleEventObserveService, IBattlePlayerContainerContext
 {
     private BattlePlayer player;
 
     public BattlePlayer Player { get => player; }
 
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent payload)
-        {
-            player = payload.BattlePlayer;
-        }
+        eventBus.Subscribe<BattleStartEvent>(EnrollPlayer);
+    }
+    public void EnrollPlayer(BattleStartEvent payload)
+    {
+        player = payload.BattlePlayer;
     }
 }

@@ -6,7 +6,7 @@ using System.Runtime.Remoting.Messaging;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class CounterAttack : DisposableBattleStatusEffectBehaviour, IBattleEventObserver
+    public class CounterAttack : DisposableBattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -16,29 +16,26 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.EventBus.Subscribe(this);
+            context.EventBus.Subscribe<EntityHurtBattleEvent>(ExecuteCounterAttack);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.EventBus.Unsubscribe(this);
+            context.EventBus.Unsubscribe<EntityHurtBattleEvent>(ExecuteCounterAttack);
         }
 
-        public void OnBattleEvent(BattleEvent battleEvent)
+        public void ExecuteCounterAttack(EntityHurtBattleEvent entityHurtBattleEvent)
         {
-            if (battleEvent is EntityHurtBattleEvent entityHurtBattleEvent)
-            {
-                var victim = entityHurtBattleEvent.Victim;
-                if (victim != owner) { return; }
+            var victim = entityHurtBattleEvent.Victim;
+            if (victim != owner) { return; }
 
-                var source = entityHurtBattleEvent.Source;
-                if (source.Caster is not BattleEntity sourceEntity) { return; }
-                
-                context.ActionScheduler.Enqueue(new RequestHurtEntityBattleAction(owner.GetAsHurtSource(), state.StackCount * 5, sourceEntity));
-                RequestExpire();
-            }
+            var source = entityHurtBattleEvent.Source;
+            if (source.Caster is not BattleEntity sourceEntity) { return; }
+            
+            context.ActionScheduler.Enqueue(new RequestHurtEntityBattleAction(owner.GetAsHurtSource(), state.StackCount * 5, sourceEntity));
+            RequestExpire();
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)

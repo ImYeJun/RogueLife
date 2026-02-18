@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BattleActionCost : IBattleActionCost, IBattleEventObserver
+public class BattleActionCost : IBattleActionCost, IBattleEventObserveService
 {
     private int currentActionCost;
     private int maxActionCost;
@@ -47,17 +47,11 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserver
         Restore(restoreAmount);
     }
     
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent payload)
-        {
-            maxActionCost = payload.MaxActionCost;
-        }
-
-        if (battleEvent is PlayerTurnStartBattleEvent)
-        {
-            Fullfill();
-        }
+        eventBus.Subscribe<BattleStartEvent>(InitiateCost);
+        eventBus.Subscribe<PlayerTurnStartBattleEvent>(FullfillOnTurnState);
     }
-
+    public void InitiateCost(BattleStartEvent payload) { maxActionCost = payload.MaxActionCost; }
+    public void FullfillOnTurnState(PlayerTurnStartBattleEvent payload) { Fullfill(); }    
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleEnemyHistory : IBattleEnemyHistoryContext, IBattleEventObserver
+public class BattleEnemyHistory : IBattleEnemyHistoryContext, IBattleEventObserveService
 {
     private int phaseIndex;
     private Dictionary<int, Dictionary<BattleEnemy, int>> enemyHurtHistory = new Dictionary<int, Dictionary<BattleEnemy, int>>();
@@ -34,29 +34,31 @@ public class BattleEnemyHistory : IBattleEnemyHistoryContext, IBattleEventObserv
         }
     }
 
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent)
-        {
-            enemyHurtHistory.Clear();
-            phaseIndex = -1;
-        }
-
-        if (battleEvent is PhaseStartBattleEvent)
-        {
-            phaseIndex++;
-            enemyHurtHistory[phaseIndex] = new Dictionary<BattleEnemy, int>();
-        }
-
-        if (battleEvent is EntityHurtBattleEvent payload)
-        {
-            if (payload.Victim is BattleEnemy enemy)
+        eventBus.Subscribe<BattleStartEvent>(Initiate);
+        eventBus.Subscribe<PhaseStartBattleEvent>(CreateNewEra);
+        eventBus.Subscribe<EntityHurtBattleEvent>(RecordEnemyHurt);
+    }
+    public void Initiate(BattleStartEvent payload)
+    {
+        enemyHurtHistory.Clear();
+        phaseIndex = -1;
+    }
+    public void CreateNewEra(PhaseStartBattleEvent payload)
+    {
+        phaseIndex++;
+        enemyHurtHistory[phaseIndex] = new Dictionary<BattleEnemy, int>();
+    }
+    public void RecordEnemyHurt(EntityHurtBattleEvent payload)
+    {
+        if (payload.Victim is BattleEnemy enemy)
             {
                 if (payload.Amount <= 0) return;
                 if (!enemyHurtHistory[phaseIndex].ContainsKey(enemy)) { enemyHurtHistory[phaseIndex].Add(enemy, 0); }
 
                 enemyHurtHistory[phaseIndex][enemy] += payload.Amount;
             }
-        }
     }
+
 }

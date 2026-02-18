@@ -1,8 +1,7 @@
 using System;
 
 [Serializable]
-public abstract class BattleBelongingsBehaviour : IBattleEventObserver
+public abstract class BattleBelongingsBehaviour
 {
-    public abstract void OnBattleEvent(BattleEvent battleEvent);
     public abstract BattleBelongingsBehaviour Clone();
 }

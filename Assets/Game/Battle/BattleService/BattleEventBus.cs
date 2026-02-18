@@ -1,30 +1,67 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class BattleEventBus : IBattleEventBus
 {
-    private HashSet<IBattleEventObserver> observers = new HashSet<IBattleEventObserver>();
+    private Dictionary<Type, List<ObserverWrapper>> observers = new Dictionary<Type, List<ObserverWrapper>>();
     
-    public void Publish(BattleEvent battleEvent)
+    private struct ObserverWrapper
     {
-        foreach (var observer in observers)
+        public Delegate action;
+        public BattleEventObserverStage stage;
+    }
+
+    public void Publish<T>(T battleEvent) where T : BattleEvent
+    {
+        var eventType = typeof(T);
+        
+        if (!observers.TryGetValue(eventType, out var wrapperList) || wrapperList.Count == 0)
         {
-            observer.OnBattleEvent(battleEvent);
+            return;
+        }
+
+        for (int i = wrapperList.Count - 1; i >= 0; i--)
+        {
+            var materializedAction = (Action<T>)wrapperList[i].action;
+            materializedAction.Invoke(battleEvent);
         }
     }
 
-    public void Subscribe(IBattleEventObserver observer)
+    public void Subscribe<T>(Action<T> observer, BattleEventObserverStage stage = BattleEventObserverStage.MIDDLE) where T : BattleEvent
     {
-        if (!observers.Add(observer))
-        {
-            UnityEngine.Debug.LogWarning("The given observer is already subscribing Battle Event bus.");
+        var eventType = typeof(T);
+        if (!observers.ContainsKey(eventType)) 
+        { 
+            observers[eventType] = new List<ObserverWrapper>(); 
         }
+
+        var wrapperList = observers[eventType];
+        
+        if (wrapperList.Any(wrapper => wrapper.action == (Delegate)observer))
+        {
+            Debug.LogWarning("[BattleEventBus] The given observer is already subscribing.");
+            return;
+        }
+
+        wrapperList.Add(new ObserverWrapper { action = observer, stage = stage });
+        wrapperList.Sort((a, b) => b.stage.CompareTo(a.stage));
     }
 
-    public void Unsubscribe(IBattleEventObserver observer)
+    public void Unsubscribe<T>(Action<T> observer) where T : BattleEvent
     {
-        if (!observers.Remove(observer))
+        var eventType = typeof(T);
+        if (!observers.TryGetValue(eventType, out var wrapperList) || wrapperList.Count == 0)
         {
-            UnityEngine.Debug.LogError("The given observer is not subscribing Battle Event bus.");
+            Debug.LogWarning("[BattleEventBus] The given observer is not subscribing.");
+            return;
+        }
+
+        int removedCount = wrapperList.RemoveAll(wrapper => wrapper.action == (Delegate)observer);
+        if (removedCount == 0)
+        {
+            Debug.LogWarning("[BattleEventBus] The given observer is not subscribing.");
         }
     }
 }

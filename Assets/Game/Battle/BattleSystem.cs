@@ -50,14 +50,14 @@ public class BattleSystem : IFieldBattleSystem
         deckSystem.SetContext(context);
         enemySystem.SetContext(context);
 
-        eventBus.Subscribe(phase);
-        eventBus.Subscribe(acionCost);
-        eventBus.Subscribe(acionCost.History);
-        eventBus.Subscribe(deckSystem);
-        eventBus.Subscribe(deckSystem.History);
-        eventBus.Subscribe(playerContainer);
-        eventBus.Subscribe(enemySystem);
-        eventBus.Subscribe(enemySystem.History);
+        phase.SubscribeEventBus(eventBus);
+        acionCost.SubscribeEventBus(eventBus);
+        acionCost.History.SubscribeEventBus(eventBus);
+        deckSystem.SubscribeEventBus(eventBus);
+        deckSystem.History.SubscribeEventBus(eventBus);
+        playerContainer.SubscribeEventBus(eventBus);
+        enemySystem.SubscribeEventBus(eventBus);
+        enemySystem.History.SubscribeEventBus(eventBus);
     }
 
     public event Action<BattleResult> OnBattleExit;
@@ -80,7 +80,6 @@ public class BattleSystem : IFieldBattleSystem
 
         BattlePlayer battlePlayer = new BattlePlayer(context, battleHealth);
         List<BattleBelongings> battleBelongingsBag = belongingsBag.GetBattleBelongings(battlePlayer);
-        foreach (var battleBelongings in battleBelongingsBag) { eventBus.Subscribe(battleBelongings.BehaviourInstance); }
         battlePlayer.SetBelongings(battleBelongingsBag);
 
         List<BattleEnemy> enemies = new List<BattleEnemy>();
@@ -94,13 +93,7 @@ public class BattleSystem : IFieldBattleSystem
 
     public void ExitBattle(BattleResult result)
     {
-        var battleBelongings = playerContainer.Player.Belongings;
 
-        foreach (var belongings in battleBelongings)
-        {
-            eventBus.Unsubscribe(belongings.BehaviourInstance);
-        }
-        
         OnBattleExit?.Invoke(result);
     }
 

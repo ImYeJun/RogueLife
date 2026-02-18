@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver, IBattleActionModifier
+public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveService, IBattleActionModifier
 {
     private BattleContext context;
     private BattleEnemyHistory history;
@@ -64,54 +64,55 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserver
         }
     }
 
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent payload)
+        eventBus.Subscribe<BattleStartEvent>(Initiate);
+        eventBus.Subscribe<PhaseStartBattleEvent>(PlanNextEnemyAction);
+        eventBus.Subscribe<EnemyTurnStartBattleEvent>(ExecuteEnemyAction);
+        eventBus.Subscribe<BattleEndBattleEvent>(OnBattleEnd);
+    }
+    public void Initiate(BattleStartEvent payload)
+    {
+        currentEnemies.Clear();
+        foreach (var enemy in payload.Enemies)
         {
-            foreach(var enemy in payload.Enemies)
-            {
-                currentEnemies.Clear();
-                SpawnEnemy(enemy);
-            }
-
-            context.ActionObserverHub.SubscribeActionModifier(this);
+            SpawnEnemy(enemy);
         }
 
-        if (battleEvent is PhaseStartBattleEvent)
+        context.ActionObserverHub.SubscribeActionModifier(this);
+    }
+    public void PlanNextEnemyAction(PhaseStartBattleEvent payload)
+    {
+        foreach (var enemyList in currentEnemies.Values)
         {
-            foreach (var enemyList in currentEnemies.Values)
+            foreach (var enemy in enemyList)
             {
-                foreach (var enemy in enemyList)
+                enemy.PlanNextAction();
+            }
+        }
+    }
+    public void ExecuteEnemyAction(EnemyTurnStartBattleEvent payload)
+    {
+        foreach (var enemyGroup in currentEnemies.Values)
+        {
+            for (int i = enemyGroup.Count - 1; i >= 0; i--)
+            {
+                var enemy = enemyGroup[i];
+                var plannedActions = enemy.PlannedActions;
+
+                foreach (var actionData in plannedActions)
                 {
-                    enemy.PlanNextAction();
+                    var executeAction = new ExecuteEnemyActionBattleAction(actionData);
+                    context.ActionScheduler.Enqueue(new BattleEntityAction(enemy, executeAction));
                 }
             }
         }
 
-        if (battleEvent is EnemyTurnStartBattleEvent)
-        {
-            foreach (var enemyGroup in currentEnemies.Values)
-            {
-                for (int i = enemyGroup.Count - 1; i >= 0; i--)
-                {
-                    var enemy = enemyGroup[i];
-                    var plannedActions = enemy.PlannedActions;
-
-                    foreach (var actionData in plannedActions)
-                    {
-                        var executeAction = new ExecuteEnemyActionBattleAction(actionData);
-                        context.ActionScheduler.Enqueue(new BattleEntityAction(enemy, executeAction));
-                    }
-                }
-            }
-
-            context.BattleScheduler.EndEnemyTurn();
-        }
-
-        if (battleEvent is BattleEndBattleEvent)
-        {
-            context.ActionObserverHub.SubscribeActionModifier(this);
-        }
+        context.BattleScheduler.EndEnemyTurn();
+    }
+    public void OnBattleEnd(BattleEndBattleEvent payload)
+    {
+        context.ActionObserverHub.SubscribeActionModifier(this);
     }
 }
 

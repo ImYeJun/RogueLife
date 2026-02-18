@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BattlePhase : IBattlePhaseContext, IBattleEventObserver
+public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
 {
     private BattleContext context;
     private int remainPhase;
@@ -19,16 +19,12 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserver
         if (remainPhase <= 0) { context.BattleScheduler.EndBattle(BattleResult.ALL_PHASE_END); }
     }
 
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent payload)
-        {
-            remainPhase = payload.StartPhaseCount;
-        }
-
-        if (battleEvent is PhaseEndBattleEvent)
-        {
-            Decrease();
-        }
+        eventBus.Subscribe<BattleStartEvent>(InitiatePhase);
+        eventBus.Subscribe<PhaseEndBattleEvent>(OnPhaseEnd);
     }
+
+    public void InitiatePhase(BattleStartEvent payload) { remainPhase = payload.StartPhaseCount; }
+    public void OnPhaseEnd(PhaseEndBattleEvent payload) { Decrease(); }
 }

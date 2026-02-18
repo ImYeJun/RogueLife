@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserver
+public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveService
 {
     private int phaseIndex;
     private Dictionary<int, List<Card>> usedHistory = new Dictionary<int, List<Card>>();
@@ -78,20 +78,21 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserver
         }
     }
 
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent)
-        {
-            usedHistory.Clear();
-            gravedHistory.Clear();
-            phaseIndex = -1;
-        }
-
-        if (battleEvent is PhaseStartBattleEvent)
-        {
-            phaseIndex++;
-            usedHistory[phaseIndex] = new List<Card>();
-            gravedHistory[phaseIndex] = new List<Card>();
-        }
+        eventBus.Subscribe<BattleStartEvent>(InitiateHistory);
+        eventBus.Subscribe<PhaseStartBattleEvent>(CreateNewEra);
+    }
+    public void InitiateHistory(BattleStartEvent payload)
+    {
+        usedHistory.Clear();
+        gravedHistory.Clear();
+        phaseIndex = -1;
+    }
+    public void CreateNewEra(PhaseStartBattleEvent payload)
+    {
+        phaseIndex++;
+        usedHistory[phaseIndex] = new List<Card>();
+        gravedHistory[phaseIndex] = new List<Card>();
     }
 }

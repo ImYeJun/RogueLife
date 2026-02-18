@@ -29,12 +29,15 @@ namespace Battle.StatusEffect.Behaviour
             if (action is not BattleEntityAction entityAction) return;
             if (entityAction.Actor == owner) return; 
             
-            if (entityAction is IEntityTargetedBattleAction targetedAction)
+            var intendedAction = entityAction.Action;
+            if (intendedAction is IEntityTargetedBattleAction targetedAction)
             {
                 if (targetedAction.Target == owner)
                 {
                     entityAction.Nullify();
                 }
+
+                RequestExpire();
             }
         }
         

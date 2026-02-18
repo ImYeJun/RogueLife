@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleActionCostHistory : IBattleActionCostHistoryContext, IBattleEventObserver
+public class BattleActionCostHistory : IBattleActionCostHistoryContext, IBattleEventObserveService
 {
     private int phaseIndex;
     private Dictionary<int, int> consumeHistory = new Dictionary<int, int>();
@@ -38,21 +38,21 @@ public class BattleActionCostHistory : IBattleActionCostHistoryContext, IBattleE
         }
     }
 
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent)
-        {
-            consumeHistory.Clear();
-            restoreHistory.Clear();
-            phaseIndex = -1;
-        }
-
-        if (battleEvent is PhaseStartBattleEvent)
-        {
-            phaseIndex++;
-            consumeHistory[phaseIndex] = 0;
-            restoreHistory[phaseIndex] = 0;
-        }
+        eventBus.Subscribe<BattleStartEvent>(InitiateHistory);
+        eventBus.Subscribe<PhaseStartBattleEvent>(CreateNewEra);
     }
-
+    public void InitiateHistory(BattleStartEvent payload)
+    {
+        consumeHistory.Clear();
+        restoreHistory.Clear();
+        phaseIndex = -1;
+    }
+    public void CreateNewEra(PhaseStartBattleEvent payload)
+    {
+        phaseIndex++;
+        consumeHistory[phaseIndex] = 0;
+        restoreHistory[phaseIndex] = 0;
+    }
 }

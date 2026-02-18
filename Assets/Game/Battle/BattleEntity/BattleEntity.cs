@@ -9,11 +9,11 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     private BattleEntityTrait trait;
     private BattleEntityCondition currentCondition;
 
-    private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippedBuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
-    private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippedDebuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
+    private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippingBuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
+    private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippingDebuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
 
-    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs { get => equippedBuffs; }
-    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs { get => equippedDebuffs; }
+    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs { get => equippingBuffs; }
+    public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs { get => equippingDebuffs; }
     
     protected bool isDead = false;
 
@@ -21,6 +21,9 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     {
         this.context = context;
         this.trait = trait;
+
+        context.EventBus.Subscribe<PlayerTurnEndBattleEvent>(OnPlayerTurnEnded);
+        context.EventBus.Subscribe<EnemyTurnEndBattleEvent>(OnEnemyTurnEnded);
     }
 
     public bool IsDead { get => isDead; }
@@ -39,21 +42,24 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     {
         isDead = true;
 
-        var buffList = equippedBuffs.Values.ToList();
+        var buffList = equippingBuffs.Values.ToList();
         foreach (var buff in buffList)
         {
             buff.OnRemoved(true);
         }
 
-        var debuffList = equippedDebuffs.Values.ToList();
+        var debuffList = equippingDebuffs.Values.ToList();
         foreach (var debuff in debuffList)
         {
             debuff.OnRemoved(true);
         }
 
-        equippedBuffs.Clear();
-        equippedDebuffs.Clear();
+        equippingBuffs.Clear();
+        equippingDebuffs.Clear();
         currentCondition = BattleEntityCondition.NONE;
+
+        context.EventBus.Unsubscribe<PlayerTurnEndBattleEvent>(OnPlayerTurnEnded);
+        context.EventBus.Unsubscribe<EnemyTurnEndBattleEvent>(OnEnemyTurnEnded);
     }
 
     public void RequestApplyStatusEffect(BattleStatusEffect effect)
@@ -94,6 +100,25 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
         UpdateCondition();
     }
 
+    public void OnPlayerTurnEnded(PlayerTurnEndBattleEvent payload)
+    {
+        var buffList = equippingBuffs.Values.ToList();
+        for (int i = buffList.Count - 1; i >= 0; i--)
+        {
+            var buff = buffList[i];
+            buff.DecreaseTurn();
+        }
+    }
+    public void OnEnemyTurnEnded(EnemyTurnEndBattleEvent payload)
+    {
+        var debuffList = equippingDebuffs.Values.ToList();
+        for (int i = debuffList.Count - 1; i >= 0; i--)
+        {
+            var debuff = debuffList[i];
+            debuff.DecreaseTurn();
+        }
+    }
+
     public void RequestRemoveStatusEffect(BattleStatusEffect statusEffect)
     {
         if (IsDead) { return; }
@@ -123,12 +148,12 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     private void UpdateCondition()
     {
         currentCondition = BattleEntityCondition.NONE;
-        foreach (var buff in equippedBuffs.Values)
+        foreach (var buff in equippingBuffs.Values)
         {
             currentCondition |= buff.GrantedCondition;
         }
         
-        foreach (var debuff in equippedDebuffs.Values)
+        foreach (var debuff in equippingDebuffs.Values)
         {
             currentCondition |= debuff.GrantedCondition;
         }
@@ -138,8 +163,8 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     {
         return type switch
         {
-            BattleStatusEffectType.BUFF => equippedBuffs,
-            BattleStatusEffectType.DEBUFF => equippedDebuffs,
+            BattleStatusEffectType.BUFF => equippingBuffs,
+            BattleStatusEffectType.DEBUFF => equippingDebuffs,
             _ => null
         };
     }

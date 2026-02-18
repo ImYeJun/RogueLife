@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class Burning : BattleStatusEffectBehaviour, IBattleEventObserver
+    public class Burning : BattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -14,22 +14,25 @@ namespace Battle.StatusEffect.Behaviour
         
         public override void OnApplied()
         {
-            context.EventBus.Subscribe(this);
+            context.EventBus.Subscribe<PlayerTurnEndBattleEvent>(HurtOnPlayerTurnEnd);
+            context.EventBus.Subscribe<EnemyTurnEndBattleEvent>(HurtOnEnemyTurnEnd);
         }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.EventBus.Unsubscribe(this);
+            context.EventBus.Unsubscribe<PlayerTurnEndBattleEvent>(HurtOnPlayerTurnEnd);
+            context.EventBus.Unsubscribe<EnemyTurnEndBattleEvent>(HurtOnEnemyTurnEnd);
         }
 
         public override void OnMerged() { }
 
-        public void OnBattleEvent(BattleEvent battleEvent)
+        public void HurtOnPlayerTurnEnd(PlayerTurnEndBattleEvent payload)
         {
-            if (battleEvent is PlayerTurnStartBattleEvent || battleEvent is EnemyTurnStartBattleEvent)
-            {
-                owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
-            }
+            owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
+        }
+        public void HurtOnEnemyTurnEnd(EnemyTurnEndBattleEvent payload)
+        {
+            owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver, IBattleActionModifier
+public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveService, IBattleActionModifier
 {
     private BattleContext context;
     private BattleDeckHistory history;
@@ -72,49 +72,50 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver, 
         }
     }
 
-    public void OnBattleEvent(BattleEvent battleEvent)
+    public void SubscribeEventBus(IBattleEventBus eventBus)
     {
-        if (battleEvent is BattleStartEvent payload)
+        eventBus.Subscribe<BattleStartEvent>(Initiate);
+        eventBus.Subscribe<PlayerTurnStartBattleEvent>(StartTurnDraw);
+        eventBus.Subscribe<BattleEndBattleEvent>(OnBattleEnd);
+    }
+    public void Initiate(BattleStartEvent payload)
+    {
+        firstTurnDrawCount = payload.FisrtTurnDrawCount;
+        turnStartDrawCount = payload.TurnStartDrawCount;
+        isFirstTurn = true;
+
+        foreach (var pair in deckMap)
         {
-            firstTurnDrawCount = payload.FisrtTurnDrawCount;
-            turnStartDrawCount = payload.TurnStartDrawCount;
-            isFirstTurn = true;
+            pair.Value.Clear();
 
-            foreach (var pair in deckMap)
+            if (pair.Key == BattleDeckType.DRAW)
             {
-                pair.Value.Clear();
-
-                if (pair.Key == BattleDeckType.DRAW)
-                {
-                    pair.Value.SetDeck(payload.StartDrawDeck);
-                }
-            }
-
-            context.ActionObserverHub.SubscribeActionModifier(this);
-        }
-
-        if (battleEvent is PlayerTurnStartBattleEvent)
-        {
-            int acutalDrawAmount = isFirstTurn ? firstTurnDrawCount : turnStartDrawCount;
-            isFirstTurn = false; 
-
-            if (deckMap[BattleDeckType.DRAW].Count < acutalDrawAmount)
-            {
-                ReviveGraveCards();
-            }
-
-            acutalDrawAmount = Mathf.Min(acutalDrawAmount, deckMap[BattleDeckType.DRAW].Count);
-
-            for (int i = 0; i < acutalDrawAmount; i++)
-            {
-                context.ActionScheduler.Enqueue(new RequestDrawCardBattleAction(CardAttribute.ANY, CardType.ANY, Guid.NewGuid()));
+                pair.Value.SetDeck(payload.StartDrawDeck);
             }
         }
 
-        if (battleEvent is BattleEndBattleEvent)
+        context.ActionObserverHub.SubscribeActionModifier(this);
+    }
+    public void StartTurnDraw(PlayerTurnStartBattleEvent payload)
+    {
+        int acutalDrawAmount = isFirstTurn ? firstTurnDrawCount : turnStartDrawCount;
+        isFirstTurn = false;
+
+        if (deckMap[BattleDeckType.DRAW].Count < acutalDrawAmount)
         {
-            context.ActionObserverHub.UnsubscribeActionModifier(this);
+            ReviveGraveCards();
         }
+
+        acutalDrawAmount = Mathf.Min(acutalDrawAmount, deckMap[BattleDeckType.DRAW].Count);
+
+        for (int i = 0; i < acutalDrawAmount; i++)
+        {
+            context.ActionScheduler.Enqueue(new RequestDrawCardBattleAction(CardAttribute.ANY, CardType.ANY, Guid.NewGuid()));
+        }
+    }
+    public void OnBattleEnd(BattleEndBattleEvent payload)
+    {
+        context.ActionObserverHub.UnsubscribeActionModifier(this);
     }
 
     private void ReviveGraveCards()
@@ -125,4 +126,5 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserver, 
             context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
         }
     }
+
 }
