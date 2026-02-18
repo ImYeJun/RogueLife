@@ -10,9 +10,9 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     private Stack<BattleActionScope> actionScopeStack = new Stack<BattleActionScope>();
     private BattleActionScope CurrentScope => actionScopeStack.Count > 0 ? actionScopeStack.Peek() : null;
 
-    private List<IBattleActionModifier> actionModifiers = new List<IBattleActionModifier>();
-    private List<IBattleActionPreObserver> actionPreObservers = new List<IBattleActionPreObserver>();
-    private List<IBattleActionPostObserver> actionPostObservers = new List<IBattleActionPostObserver>();
+    private ActionPipelinePhase modifyPhase = new ActionPipelinePhase();
+    private ActionPipelinePhase preObservePhase = new ActionPipelinePhase();
+    private ActionPipelinePhase postObservePhase = new ActionPipelinePhase();
     
     public void SetContext(BattleContext context) { this.context = context; }
     
@@ -34,22 +34,10 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         {
             var currentAction = actionQueue.Dequeue();
 
-            for (int i = actionModifiers.Count - 1; i >= 0; i--)
-            {
-                actionModifiers[i].ModifyAction(currentAction, context);
-            }
-            
-            for (int i = actionPreObservers.Count - 1; i >= 0; i--)
-            {
-                actionPreObservers[i].PreObserveAction(currentAction, context);
-            }
-
+            modifyPhase.Publish((dynamic)currentAction, context);
+            preObservePhase.Publish((dynamic)currentAction, context);
             currentAction.Execute(context);
-
-            for (int i = actionPostObservers.Count - 1; i >= 0; i--)
-            {
-                actionPostObservers[i].PostObserveAction(currentAction, context);
-            }
+            postObservePhase.Publish((dynamic)currentAction, context);
 
             CurrentScope?.Decrease();
             if (CurrentScope?.AliveCount == 0) { PopActionScope(); }
@@ -76,58 +64,28 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         CurrentScope?.Decrease();
     }
 
-    public void SubscribeActionModifier(IBattleActionModifier modifier)
+    public void SubscribeActionModifier<T>(Action<T, BattleContext> modifier, PipelinePhaseStep step = PipelinePhaseStep.MAIN) where T : IBattleAction
     {
-        if (actionModifiers.Contains(modifier))
-        {
-            UnityEngine.Debug.LogWarning("The given modifier is already subscribing.");
-        }
-
-        actionModifiers.Add(modifier);
+        modifyPhase.Subscribe(modifier, step);
     }
-    public void SubscribePreObserver(IBattleActionPreObserver preObserver)
+    public void SubscribePreObserver<T>(Action<T, BattleContext> preObserver, PipelinePhaseStep step = PipelinePhaseStep.MAIN) where T : IBattleAction
     {
-        if (actionPreObservers.Contains(preObserver))
-        {
-            UnityEngine.Debug.LogWarning("The given preObserver is already subscribing.");
-        }
-
-        actionPreObservers.Add(preObserver);
+        preObservePhase.Subscribe(preObserver, step);
     }
-    public void SubscribePostObserver(IBattleActionPostObserver postObserver)
+    public void SubscribePostObserver<T>(Action<T, BattleContext> postObserver, PipelinePhaseStep step = PipelinePhaseStep.MAIN) where T : IBattleAction
     {
-        if (actionPostObservers.Contains(postObserver))
-        {
-            UnityEngine.Debug.LogWarning("The given postObserver is already subscribing.");
-        }
-
-        actionPostObservers.Add(postObserver);
+        postObservePhase.Subscribe(postObserver, step);
     }
-    public void UnsubscribeActionModifier(IBattleActionModifier modifier)
+    public void UnsubscribeActionModifier<T>(Action<T, BattleContext> modifier) where T : IBattleAction
     {
-        if (!actionModifiers.Contains(modifier))
-        {
-            UnityEngine.Debug.LogWarning("The given modifier is not subscribing.");
-        }
-
-        actionModifiers.Remove(modifier);
+        modifyPhase.Unsubscribe(modifier);
     }
-    public void UnsubscribePreObserver(IBattleActionPreObserver preObserver)
+    public void UnsubscribePreObserver<T>(Action<T, BattleContext> preObserver) where T : IBattleAction
     {
-        if (!actionPreObservers.Contains(preObserver))
-        {
-            UnityEngine.Debug.LogWarning("The given preObserver is not subscribing.");
-        }
-
-        actionPreObservers.Remove(preObserver);
+        preObservePhase.Unsubscribe(preObserver);
     }
-    public void UnsubscribePostObserver(IBattleActionPostObserver postObserver)
+    public void UnsubscribePostObserver<T>(Action<T, BattleContext> postObserver) where T : IBattleAction
     {
-        if (!actionPostObservers.Contains(postObserver))
-        {
-            UnityEngine.Debug.LogWarning("The given postObserver is not subscribing.");
-        }
-
-        actionPostObservers.Remove(postObserver);
+        postObservePhase.Unsubscribe(postObserver);
     }
 }

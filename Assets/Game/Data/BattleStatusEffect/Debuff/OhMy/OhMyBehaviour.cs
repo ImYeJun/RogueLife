@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class OhMy : DisposableBattleStatusEffectBehaviour, IBattleActionModifier
+    public class OhMy : DisposableBattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -17,27 +17,24 @@ namespace Battle.StatusEffect.Behaviour
             return new OhMy(context, owner, state);
         }
 
-        public void ModifyAction(IBattleAction action, BattleContext context)
+        public void NullifyAction(BattleEntityAction entityAction, BattleContext context)
         {
-            if (action is BattleEntityAction entityAction)
-            {
-                if (entityAction.Action != owner) { return; }
+            if (entityAction.Action != owner) { return; }
 
-                entityAction.Nullify();
-                RequestExpire();
-            }
+            entityAction.Nullify();
+            RequestExpire();
         }
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier(this);
+            context.ActionObserverHub.SubscribeActionModifier<BattleEntityAction>(NullifyAction);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribeActionModifier(this);
+            context.ActionObserverHub.UnsubscribeActionModifier<BattleEntityAction>(NullifyAction);
         }
     }
 }

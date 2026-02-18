@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class DontTouch : DisposableBattleStatusEffectBehaviour, IBattleActionModifier
+    public class DontTouch : DisposableBattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -14,19 +14,18 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier(this);
+            context.ActionObserverHub.SubscribeActionModifier<BattleEntityAction>(NullifyIfTouched);
         }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribeActionModifier(this);
+            context.ActionObserverHub.UnsubscribeActionModifier<BattleEntityAction>(NullifyIfTouched);
         }
 
         public override void OnMerged() { }
 
-        public void ModifyAction(IBattleAction action, BattleContext context)
+        public void NullifyIfTouched(BattleEntityAction entityAction, BattleContext context )
         {
-            if (action is not BattleEntityAction entityAction) return;
             if (entityAction.Actor == owner) return; 
             
             var intendedAction = entityAction.Action;
@@ -40,7 +39,7 @@ namespace Battle.StatusEffect.Behaviour
                 RequestExpire();
             }
         }
-        
+
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)
         {
             return new DontTouch(context, owner, state);

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveService, IBattleActionModifier
+public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveService
 {
     private BattleContext context;
     private BattleEnemyHistory history;
@@ -47,23 +47,19 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
     {
         return currentEnemies.ContainsKey(data) ? currentEnemies[data].Count : 0;
     }
-
-    public void ModifyAction(IBattleAction action, BattleContext context)
+    public void NullifyActionIfStunned(BattleEntityAction battleEntityAction, BattleContext context)
     {
-        if (action is BattleEntityAction battleEntityAction)
+        var actor = battleEntityAction.Actor;
+        var enemyList = currentEnemies.Values.SelectMany(sel => sel);
+        if (enemyList.Contains(actor))
         {
-            var actor = battleEntityAction.Actor;
-            var enemyList = currentEnemies.Values.SelectMany(sel => sel);
-            if (enemyList.Contains(actor))
+            if (actor.CurrentCondition.HasFlag(BattleEntityCondition.STUNNED))
             {
-                if (actor.CurrentCondition.HasFlag(BattleEntityCondition.STUNNED))
-                {
-                    battleEntityAction.Nullify();
-                }
+                battleEntityAction.Nullify();
             }
         }
     }
-
+    
     public void SubscribeEventBus(IBattleEventBus eventBus)
     {
         eventBus.Subscribe<BattleStartEvent>(Initiate);
@@ -79,7 +75,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
             SpawnEnemy(enemy);
         }
 
-        context.ActionObserverHub.SubscribeActionModifier(this);
+        context.ActionObserverHub.SubscribeActionModifier<BattleEntityAction>(NullifyActionIfStunned);
     }
     public void PlanNextEnemyAction(PhaseStartBattleEvent payload)
     {
@@ -112,7 +108,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
     }
     public void OnBattleEnd(BattleEndBattleEvent payload)
     {
-        context.ActionObserverHub.SubscribeActionModifier(this);
+        context.ActionObserverHub.UnsubscribeActionModifier<BattleEntityAction>(NullifyActionIfStunned);
     }
 }
 

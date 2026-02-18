@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class DeadlyPoision : BattleStatusEffectBehaviour, IBattleActionModifier
+    public class DeadlyPoision : BattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -17,21 +17,17 @@ namespace Battle.StatusEffect.Behaviour
             return new DeadlyPoision(context, owner, state);
         }
 
-        public void ModifyAction(IBattleAction action, BattleContext context)
+        public void ReduceHealAmount(HealEntityBattleAction healEntity, BattleContext context)
         {
-            if (action is HealEntityBattleAction healEntity)
-            {
-                if (healEntity.Target != owner) { return; }
-                healEntity.Amount /= 2;
-            }
+            if (healEntity.Target != owner) { return; }
+            healEntity.Amount /= 2;
         }
-
         public override void OnApplied()
         {
+            context.ActionObserverHub.SubscribeActionModifier<HealEntityBattleAction>(ReduceHealAmount);
             context.EventBus.Subscribe<PlayerTurnEndBattleEvent>(HurtOnPlayerTurnEnd);
             context.EventBus.Subscribe<EnemyTurnEndBattleEvent>(HurtOnEnemyTurnEnd);
         }
-
         public void HurtOnPlayerTurnEnd(PlayerTurnEndBattleEvent payload)
         {
             owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
@@ -40,11 +36,10 @@ namespace Battle.StatusEffect.Behaviour
         {
             owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
         }
-
         public override void OnMerged() { }
-
         public override void OnRemoved(bool isOwnerDied = false)
         {
+            context.ActionObserverHub.UnsubscribeActionModifier<HealEntityBattleAction>(ReduceHealAmount);
             context.EventBus.Unsubscribe<PlayerTurnEndBattleEvent>(HurtOnPlayerTurnEnd);
             context.EventBus.Unsubscribe<EnemyTurnEndBattleEvent>(HurtOnEnemyTurnEnd);
         }

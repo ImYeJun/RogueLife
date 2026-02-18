@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class WeakenMuscle : DisposableBattleStatusEffectBehaviour, IBattleActionModifier
+    public class WeakenMuscle : DisposableBattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -17,30 +17,27 @@ namespace Battle.StatusEffect.Behaviour
             return new WeakenMuscle(context, owner, state);
         }
 
-        public void ModifyAction(IBattleAction action, BattleContext context)
+        public void WeakenDamage(RequestHurtEntityBattleAction requestHurtEntity, BattleContext context)
         {
-            if (action is RequestHurtEntityBattleAction requestHurtEntity)
-            {
-                var source = requestHurtEntity.Source;
+            var source = requestHurtEntity.Source;
 
-                if (source.Caster is not BattleEntity sourceEntity) { return; }
-                if (sourceEntity != owner) { return; }
+            if (source.Caster is not BattleEntity sourceEntity) { return; }
+            if (sourceEntity != owner) { return; }
 
-                requestHurtEntity.ReduceDamage(state.StackCount * 5);
-                RequestExpire();
-            }
+            requestHurtEntity.ReduceDamage(state.StackCount * 5);
+            RequestExpire();
         }
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier(this);
+            context.ActionObserverHub.SubscribeActionModifier<RequestHurtEntityBattleAction>(WeakenDamage);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribeActionModifier(this);
+            context.ActionObserverHub.UnsubscribeActionModifier<RequestHurtEntityBattleAction>(WeakenDamage);
         }
     }
 }

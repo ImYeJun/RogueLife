@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class HeavyBody : DisposableBattleStatusEffectBehaviour, IBattleActionModifier
+    public class HeavyBody : DisposableBattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -17,26 +17,23 @@ namespace Battle.StatusEffect.Behaviour
             return new HeavyBody(context, owner, state);
         }
 
-        public void ModifyAction(IBattleAction action, BattleContext context)
+        public void IncreaseCost(TryUseCardBattleAction tryUseCard, BattleContext context)
         {
-            if (action is TryUseCardBattleAction tryUseCard)
-            {
-                tryUseCard.IncreaseCost(state.StackCount);
+            tryUseCard.IncreaseCost(state.StackCount);
 
-                RequestExpire();
-            }
+            RequestExpire();
         }
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier(this);
+            context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(IncreaseCost);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribeActionModifier(this);
+            context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(IncreaseCost);
         }
     }
 }

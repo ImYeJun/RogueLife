@@ -5,7 +5,7 @@ using Battle.HurtSource;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class WaterFist : BattleStatusEffectBehaviour, IBattleActionModifier
+    public class WaterFist : BattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -15,27 +15,24 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier(this);
+            context.ActionObserverHub.SubscribeActionModifier<RequestHurtEntityBattleAction>(WeakenDamage);
         }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribeActionModifier(this);
+            context.ActionObserverHub.UnsubscribeActionModifier<RequestHurtEntityBattleAction>(WeakenDamage);
         }
 
         public override void OnMerged() { }
 
-        public void ModifyAction(IBattleAction action, BattleContext context)
+        public void WeakenDamage(RequestHurtEntityBattleAction requestHurtEntityBattleAction, BattleContext context)
         {
-            if (action is RequestHurtEntityBattleAction requestHurtEntityBattleAction)
-            {
-                if (requestHurtEntityBattleAction.Source is EntitySource entityBattleHurtSource)
+            if (requestHurtEntityBattleAction.Source is EntitySource entityBattleHurtSource)
                 {
                     if (entityBattleHurtSource.SourceEntity != owner) return;
 
                     requestHurtEntityBattleAction.ReduceDamage(state.StackCount * 5);
                 }
-            }
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)

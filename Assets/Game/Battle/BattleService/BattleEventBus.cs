@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class BattleEventBus : IBattleEventBus
 {
-    private Dictionary<Type, List<ObserverWrapper>> observers = new Dictionary<Type, List<ObserverWrapper>>();
-    
     private struct ObserverWrapper
     {
         public Delegate action;
         public BattleEventObserverStage stage;
     }
+    
+    private Dictionary<Type, List<ObserverWrapper>> observers = new Dictionary<Type, List<ObserverWrapper>>();
 
     public void Publish<T>(T battleEvent) where T : BattleEvent
     {
@@ -38,7 +38,6 @@ public class BattleEventBus : IBattleEventBus
         }
 
         var wrapperList = observers[eventType];
-        
         if (wrapperList.Any(wrapper => wrapper.action == (Delegate)observer))
         {
             Debug.LogWarning("[BattleEventBus] The given observer is already subscribing.");

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveService, IBattleActionModifier
+public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveService
 {
     private BattleContext context;
     private BattleDeckHistory history;
@@ -60,18 +60,15 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         return deckMap[BattleDeckType.DRAW].GetRandomCard(random, attribute, type);
     }
 
-    public void ModifyAction(IBattleAction action, BattleContext context)
+    public void NullifyCardUseOnStnned(TryUseCardBattleAction tryUseCardBattleAction, BattleContext context)
     {
-        if (action is TryUseCardBattleAction tryUseCardBattleActionv)
+        var player =  context.PlayerContainer.Player;
+
+        if (player.CurrentCondition.HasFlag(BattleEntityCondition.STUNNED))
         {
-            var player =  context.PlayerContainer.Player;
-            if (player.CurrentCondition.HasFlag(BattleEntityCondition.STUNNED))
-            {
-                tryUseCardBattleActionv.Nullify();
-            }
+            tryUseCardBattleAction.Nullify();
         }
     }
-
     public void SubscribeEventBus(IBattleEventBus eventBus)
     {
         eventBus.Subscribe<BattleStartEvent>(Initiate);
@@ -94,7 +91,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             }
         }
 
-        context.ActionObserverHub.SubscribeActionModifier(this);
+        context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStnned);
     }
     public void StartTurnDraw(PlayerTurnStartBattleEvent payload)
     {
@@ -115,9 +112,8 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     }
     public void OnBattleEnd(BattleEndBattleEvent payload)
     {
-        context.ActionObserverHub.UnsubscribeActionModifier(this);
+        context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStnned);
     }
-
     private void ReviveGraveCards()
     {
         var graveDeck = deckMap[BattleDeckType.GRAVE];

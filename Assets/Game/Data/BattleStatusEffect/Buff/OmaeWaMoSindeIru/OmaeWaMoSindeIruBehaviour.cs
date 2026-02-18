@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class OmaeWaMoSindeIru : BattleStatusEffectBehaviour, IBattleActionPreObserver
+    public class OmaeWaMoSindeIru : BattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -18,14 +18,14 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribePreObserver(this);
+            // context.ActionObserverHub.SubscribePreObserver(this);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribePreObserver(this);
+            // context.ActionObserverHub.UnsubscribePreObserver(this);
         }
 
         public void PreObserveAction(IBattleAction action, BattleContext context)

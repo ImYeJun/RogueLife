@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class ThatsWeakSpot : DisposableBattleStatusEffectBehaviour, IBattleActionModifier
+    public class ThatsWeakSpot : DisposableBattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -17,27 +17,24 @@ namespace Battle.StatusEffect.Behaviour
             return new ThatsWeakSpot(context, owner, state);
         }
 
-        public void ModifyAction(IBattleAction action, BattleContext context)
+        public void StrengthenDamage(RequestHurtEntityBattleAction requestHurtEntity, BattleContext context)
         {
-            if (action is RequestHurtEntityBattleAction requestHurtEntity)
-            {
-                if (requestHurtEntity.Target != owner) { return; }
+            if (requestHurtEntity.Target != owner) { return; }
 
-                requestHurtEntity.AddDamage(state.StackCount * 5);
-                RequestExpire();
-            }
+            requestHurtEntity.AddDamage(state.StackCount * 5);
+            RequestExpire();
         }
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier(this);
+            context.ActionObserverHub.SubscribeActionModifier<RequestHurtEntityBattleAction>(StrengthenDamage);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribeActionModifier(this);
+            context.ActionObserverHub.UnsubscribeActionModifier<RequestHurtEntityBattleAction>(StrengthenDamage);
         }
     }
 }

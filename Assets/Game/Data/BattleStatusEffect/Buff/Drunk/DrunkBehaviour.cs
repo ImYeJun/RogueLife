@@ -7,7 +7,7 @@ using Battle.HurtSource;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class Drunk : DisposableBattleStatusEffectBehaviour, IBattleActionPostObserver
+    public class Drunk : DisposableBattleStatusEffectBehaviour
     {[Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Drunk() {}
@@ -17,19 +17,18 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribePostObserver(this);
+            context.ActionObserverHub.SubscribePostObserver<RequestHurtEntityBattleAction>(DrunkKick);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            context.ActionObserverHub.UnsubscribePostObserver(this);
+            context.ActionObserverHub.UnsubscribePostObserver<RequestHurtEntityBattleAction>(DrunkKick);
         }
 
-        public void PostObserveAction(IBattleAction action, BattleContext context)
+        public void DrunkKick(RequestHurtEntityBattleAction requestHurtEntityBattleAction, BattleContext context)
         {
-            if (action is not RequestHurtEntityBattleAction requestHurtEntityBattleAction) { return; }
             if (requestHurtEntityBattleAction.Target != owner) { return; }
 
             var source = requestHurtEntityBattleAction.Source;
@@ -43,6 +42,5 @@ namespace Battle.StatusEffect.Behaviour
         {
             return new Drunk(context, owner, state);
         }
-
     }
 }

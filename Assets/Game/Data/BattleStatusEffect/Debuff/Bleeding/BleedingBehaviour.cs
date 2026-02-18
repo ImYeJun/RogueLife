@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
-    public class Bleeding : BattleStatusEffectBehaviour, IBattleActionPostObserver
+    public class Bleeding : BattleStatusEffectBehaviour
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -18,14 +18,14 @@ namespace Battle.StatusEffect.Behaviour
         {
             context.EventBus.Subscribe<PlayerTurnEndBattleEvent>(HurtOnPlayerTurnEnd);
             context.EventBus.Subscribe<EnemyTurnEndBattleEvent>(HurtOnEnemyTurnEnd);
-            context.ActionObserverHub.SubscribePostObserver(this);
+            context.ActionObserverHub.SubscribePostObserver<BattleEntityAction>(OnOwnerActioned);
         }
     
         public override void OnRemoved(bool isOwnerDied = false)
         {
             context.EventBus.Unsubscribe<PlayerTurnEndBattleEvent>(HurtOnPlayerTurnEnd);
             context.EventBus.Unsubscribe<EnemyTurnEndBattleEvent>(HurtOnEnemyTurnEnd);
-            context.ActionObserverHub.UnsubscribePostObserver(this);
+            context.ActionObserverHub.UnsubscribePostObserver<BattleEntityAction>(OnOwnerActioned);
         }
 
         public override void OnMerged() { }
@@ -39,19 +39,15 @@ namespace Battle.StatusEffect.Behaviour
             owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
         }
 
-        public void PostObserveAction(IBattleAction action, BattleContext context)
+        public void OnOwnerActioned(BattleEntityAction battleEntityAction, BattleContext context)
         {
-            if (action is BattleEntityAction battleEntityAction)
-            {
-                if (battleEntityAction.IsNullified) return;
+            if (battleEntityAction.IsNullified) return;
 
-                if (battleEntityAction.Actor == owner)
-                {
-                    battleEntityAction.AddActionOnScopeClose(BleedAfterAction);
-                }
+            if (battleEntityAction.Actor == owner)
+            {
+                battleEntityAction.AddActionOnScopeClose(BleedAfterAction);
             }
         }
-        
         public void BleedAfterAction(BattleContext context)
         {
             owner.RequestHurt(5, new NoneEntitySource());
