@@ -26,7 +26,7 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(ReduceCost);
+            context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(ReduceCost, PipelinePhaseStep.EARLY);
         }
 
         public override void OnMerged() { }

@@ -30,7 +30,7 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier<RequestHurtEntityBattleAction>(StrengthenDamage);
+            context.ActionObserverHub.SubscribeActionModifier<RequestHurtEntityBattleAction>(StrengthenDamage, PipelinePhaseStep.EARLY);
         }
 
         public override void OnMerged() { }

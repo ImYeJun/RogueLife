@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
+  m_Name: OmaeWaMoSindeIru
+  m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
+  id: Buff_OmaeWaMoSindeIru
+  battleStatusEffectName: "\uC624\uB9C8\uC5D0\uC640 \uBAA8 \uC2E0\uB370\uC774\uB8E8"
+  description: "\uC790\uC2E0\uC774 \uC0C1\uB300\uBC29\uC5D0\uAC8C \uD53C\uD574\uB97C
+    \uC8FC\uB294 \uB300\uC2E0 \uADF8 \uD53C\uD574\uC758 \uC2A4\uD0DD X 0.5\uBC30
+    \uB9CC\uD07C \uB098\uB2C8? \uB514\uBC84\uD504\uB97C \uC900\uB2E4. "
+  type: 0
+  grantedCondition: 0
+  requiredTraits: -1
+  icon: {fileID: 0}
+  behaviour:
+    rid: 7557519985129553994
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557519985129553994
+      type: {class: OmaeWaMoSindeIru, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data:
+        naniData: {fileID: 11400000, guid: da7a0af7dec547d4aa97b13cb539f560, type: 2}

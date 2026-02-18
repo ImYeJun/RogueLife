@@ -1,7 +1,5 @@
 using System;
 using System.ComponentModel;
-using System.Resources;
-using UnityEngine;
 
 namespace Battle.StatusEffect.Behaviour
 {

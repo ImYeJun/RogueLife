@@ -18,28 +18,29 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            // context.ActionObserverHub.SubscribePreObserver(this);
+            context.ActionObserverHub.SubscribeActionModifier<RequestHurtEntityBattleAction>(YouAreAlreadyDead, PipelinePhaseStep.LATE);
         }
 
         public override void OnMerged() { }
 
         public override void OnRemoved(bool isOwnerDied = false)
         {
-            // context.ActionObserverHub.UnsubscribePreObserver(this);
+            context.ActionObserverHub.UnsubscribeActionModifier<RequestHurtEntityBattleAction>(YouAreAlreadyDead);
         }
 
-        public void PreObserveAction(IBattleAction action, BattleContext context)
+        public void YouAreAlreadyDead(RequestHurtEntityBattleAction requestHurtEntityBattleAction, BattleContext context)
         {
-            if (action is RequestHurtEntityBattleAction requestHurtEntityBattleAction)
-            {
-                var damage = requestHurtEntityBattleAction.Damage;
-                //* 무효화
-                var target = requestHurtEntityBattleAction.Target;
+            BattleEntity caster = requestHurtEntityBattleAction.Source.Caster;
+            if (caster != owner) { return; }
+            
+            var existingDamage = requestHurtEntityBattleAction.Damage;
+            var target = requestHurtEntityBattleAction.Target;
 
-                var stack = (int)(damage * 0.5);
-                var nani = new BattleStatusEffect(naniData, stack);
-                context.ActionScheduler.Enqueue(new ApplyEntityStatusEffectBattleAction(target, nani));
-            }
+            requestHurtEntityBattleAction.Nullify();
+
+            var stack = (int)(existingDamage * 0.5);
+            var nani = new BattleStatusEffect(naniData, stack);
+            context.ActionScheduler.Enqueue(new ApplyEntityStatusEffectBattleAction(target, nani));
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)

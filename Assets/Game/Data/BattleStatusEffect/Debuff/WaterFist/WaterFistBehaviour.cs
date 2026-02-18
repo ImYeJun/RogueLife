@@ -27,12 +27,9 @@ namespace Battle.StatusEffect.Behaviour
 
         public void WeakenDamage(RequestHurtEntityBattleAction requestHurtEntityBattleAction, BattleContext context)
         {
-            if (requestHurtEntityBattleAction.Source is EntitySource entityBattleHurtSource)
-                {
-                    if (entityBattleHurtSource.SourceEntity != owner) return;
+            if (requestHurtEntityBattleAction.Source.Caster != owner) { return; }
 
-                    requestHurtEntityBattleAction.ReduceDamage(state.StackCount * 5);
-                }
+            requestHurtEntityBattleAction.ReduceDamage(state.StackCount * 5);
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)

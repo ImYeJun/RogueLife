@@ -72,7 +72,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         if (currentHealth <= 0) { OnDead(); }
     }
 
-    public BattleEntity Clone(float maxHealthMultiplier = 1.0f)
+    public void Clone(float maxHealthMultiplier = 1.0f)
     {
         var clone = new BattleEnemy(context, data);
         
@@ -81,7 +81,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         clone.currentMaxHealth = newMaxHealth;
         clone.currentHealth = newMaxHealth;
 
-        return clone;
+        context.EnemySystem.SpawnEnemy(clone);
     }
 
     public override BattleHurtSource GetAsHurtSource()

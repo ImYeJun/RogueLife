@@ -27,7 +27,7 @@ namespace Battle.StatusEffect.Behaviour
 
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier<BattleEntityAction>(NullifyAction);
+            context.ActionObserverHub.SubscribeActionModifier<BattleEntityAction>(NullifyAction, PipelinePhaseStep.EARLY);
         }
 
         public override void OnMerged() { }

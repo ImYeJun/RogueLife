@@ -8,7 +8,8 @@ namespace Battle.StatusEffect.Behaviour
 {
     [Serializable]
     public class Drunk : DisposableBattleStatusEffectBehaviour
-    {[Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
+    {
+        [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Drunk() {}
         private Drunk(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state) 

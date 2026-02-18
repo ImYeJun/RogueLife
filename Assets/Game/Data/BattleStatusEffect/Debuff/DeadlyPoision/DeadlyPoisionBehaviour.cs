@@ -24,7 +24,7 @@ namespace Battle.StatusEffect.Behaviour
         }
         public override void OnApplied()
         {
-            context.ActionObserverHub.SubscribeActionModifier<HealEntityBattleAction>(ReduceHealAmount);
+            context.ActionObserverHub.SubscribeActionModifier<HealEntityBattleAction>(ReduceHealAmount, PipelinePhaseStep.EARLY);
             context.EventBus.Subscribe<PlayerTurnEndBattleEvent>(HurtOnPlayerTurnEnd);
             context.EventBus.Subscribe<EnemyTurnEndBattleEvent>(HurtOnEnemyTurnEnd);
         }
