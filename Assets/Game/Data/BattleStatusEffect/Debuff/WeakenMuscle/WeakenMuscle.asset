@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
   m_Name: WeakenMuscle
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
-  type: 0
+  id: Debuff_WeakenMuscle
+  battleStatusEffectName: "\uADFC\uB825 \uC57D\uD654"
+  description: "\uB2E4\uC74C \uC790\uC2E0\uC774 \uC8FC\uB294 \uD53C\uD574\uAC00 \uC2A4\uD0DD
+    X 5 \uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4. (\uC77C\uD68C\uC131)"
+  type: 1
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519963809120334
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519963809120334
+      type: {class: WeakenMuscle, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 

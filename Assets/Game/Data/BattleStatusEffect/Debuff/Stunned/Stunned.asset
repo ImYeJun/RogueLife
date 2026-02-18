@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
   m_Name: Stunned
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
-  type: 0
-  grantedCondition: 0
-  requiredTraits: 0
+  id: Debuff_Stunned
+  battleStatusEffectName: "\uD589\uB3D9 \uBD88\uAC00"
+  description: "\uC774 \uB514\uBC84\uD504\uB97C \uC18C\uC9C0\uD558\uACE0\uC788\uB294
+    \uD134\uC5D0 \uD589\uB3D9\uD560 \uC218 \uC5C6\uB2E4."
+  type: 1
+  grantedCondition: -1
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519963809120361
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519963809120361
+      type: {class: Stunned, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 

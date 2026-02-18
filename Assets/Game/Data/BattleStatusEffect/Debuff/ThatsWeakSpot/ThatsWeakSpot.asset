@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: ThatsWeakSpot
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
   id: Debuff_ThatsWeakSpot
-  battleStatusEffectName: 
-  description: 
-  type: 0
+  battleStatusEffectName: "\uAC70\uAE34 \uC57D\uC810\uC778\uB370.."
+  description: "\uB2E4\uC74C \uC790\uC2E0\uC774 \uBC1B\uB294 \uD53C\uD574\uAC00 \uC2A4\uD0DD
+    X 5 \uB9CC\uD07C \uC99D\uAC00\uD569\uB2C8\uB2E4. (\uC77C\uD68C\uC131)"
+  type: 1
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519963809120358
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519963809120358
+      type: {class: ThatsWeakSpot, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 

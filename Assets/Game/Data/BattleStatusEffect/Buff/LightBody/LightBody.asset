@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
   m_Name: LightBody
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
+  id: Buff_LightBody
+  battleStatusEffectName: "\uAC00\uBCBC\uC6CC\uC9C4 \uBAB8"
+  description: "\uB2E4\uC74C \uC790\uC2E0\uC774 \uC0AC\uC6A9\uD558\uB294 \uCE74\uB4DC\uC758
+    \uD589\uB3D9\uB825\uC774 \uC2A4\uD0DD X 1 \uB9CC\uD07C \uAC10\uC18C\uD569\uB2C8\uB2E4.
+    (\uC77C\uD68C\uC131)"
   type: 0
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: 1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519963809120339
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519963809120339
+      type: {class: LightBody, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 

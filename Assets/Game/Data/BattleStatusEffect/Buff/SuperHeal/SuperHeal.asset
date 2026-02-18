@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: SuperHeal
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
   id: Buff_SuperHeal
-  battleStatusEffectName: 
-  description: 
+  battleStatusEffectName: "\uCD08\uC7AC\uC0DD"
+  description: "\uD134 \uC885\uB8CC \uC2DC, \uC790\uC2E0\uC758 \uCCB4\uB825\uC744
+    \uC2A4\uD0DD X 5 \uD68C\uBCF5\uD55C\uB2E4."
   type: 0
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519963809120345
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519963809120345
+      type: {class: SuperHeal, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+      data: 
