@@ -35,7 +35,10 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
         enemy.Died -= RemoveEnemy;
 
         if (currentEnemies[enemy.Data].Count == 0) { currentEnemies.Remove(enemy.Data); }
-        if (currentEnemies.Count == 0) { context.BattleScheduler.EndBattle(BattleResult.PLAYER_WIN); }
+        if (currentEnemies.Count == 0) { 
+            var action = new RequestBattleEndBattleAction(BattleResult.PLAYER_WIN);
+            context.ActionScheduler.EnqueueFront(action);
+        }
     }
 
     public List<BattleEnemy> GetBattleEnemies()

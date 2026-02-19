@@ -21,7 +21,9 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
         base.OnDead();
 
         playerHealth.OnMentalBreakDown -= OnDead;
-        context.BattleScheduler.EndBattle(BattleResult.PLAYER_DIED);
+
+        var action = new RequestBattleEndBattleAction(BattleResult.PLAYER_DIED);
+        context.ActionScheduler.EnqueueFront(action);
     }
 
     public void ReceiveDamage(PlayerBattleHurtContext hurtContext, BattleHurtSource source) { 

@@ -103,7 +103,8 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             ReviveGraveCards();
         }
 
-        acutalDrawAmount = Mathf.Min(acutalDrawAmount, deckMap[BattleDeckType.DRAW].Count);
+        int totalAvailable = deckMap[BattleDeckType.DRAW].Count + deckMap[BattleDeckType.GRAVE].Count;
+        acutalDrawAmount = Mathf.Min(acutalDrawAmount, totalAvailable);
 
         for (int i = 0; i < acutalDrawAmount; i++)
         {
@@ -114,12 +115,23 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     {
         context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
     }
-    private void ReviveGraveCards()
+    public void ReviveGraveCards(bool insertFront = false)
     {
         var graveDeck = deckMap[BattleDeckType.GRAVE];
-        for (int i = graveDeck.Count - 1; i >= 0; i--)
+
+        if (insertFront)
         {
-            context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
+            for (int i = graveDeck.Count - 1; i >= 0; i--)
+            {
+                context.ActionScheduler.EnqueueFront(new MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
+            }
+        }
+        else
+        {
+            for (int i = graveDeck.Count - 1; i >= 0; i--)
+            {
+                context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
+            }
         }
     }
 }

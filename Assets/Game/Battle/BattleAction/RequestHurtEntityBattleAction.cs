@@ -18,6 +18,7 @@ public class RequestHurtEntityBattleAction : IBattleAction, IEntityTargetedBattl
     public BattleHurtSource Source { get => source; }
     public int Damage { get => damage; }
     public BattleEntity Target { get => target; }
+    public bool HasNullified { get => hasNullified; }
 
     public void Execute(BattleContext context)
     {

@@ -56,5 +56,4 @@ public class BattleScheduler : IBattleScheduler
 
         OnBattleEnd?.Invoke(result);
     }
-
 }

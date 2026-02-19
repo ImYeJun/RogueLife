@@ -22,9 +22,18 @@ public class RequestDrawCardBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        var drawingCard = context.DeckSystem.RequestDrawingCard(context.Random, rarity, attribute, type);
+        if (context.DrawDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.ANY, CardType.ANY) == 0)
+        {
+            if (context.GraveDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.ANY, CardType.ANY) != 0)
+            {
+                context.DeckSystem.ReviveGraveCards(true);
+                context.ActionScheduler.Enqueue(this);
+            }
 
-        if (drawingCard == null) { return; }
+            return;
+        }
+
+        var drawingCard = context.DeckSystem.RequestDrawingCard(context.Random, rarity, attribute, type);
         context.ActionScheduler.Enqueue(new DrawCardBattleAction(requestId, drawingCard));
     }
 }

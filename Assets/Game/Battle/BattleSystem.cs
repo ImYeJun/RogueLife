@@ -50,6 +50,7 @@ public class BattleSystem : IFieldBattleSystem
         deckSystem.SetContext(context);
         enemySystem.SetContext(context);
 
+        pipeline.SubscribeEventBus(eventBus);
         phase.SubscribeEventBus(eventBus);
         acionCost.SubscribeEventBus(eventBus);
         acionCost.History.SubscribeEventBus(eventBus);

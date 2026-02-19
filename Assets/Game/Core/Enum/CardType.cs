@@ -2,5 +2,5 @@ using System;
 
 public enum CardType
 {
-    ANY, ATTACK, EFFECT, DEBUFF, SPECIAL, TIME
+    ANY, ATTACK, EFFECT, DEFENSE, SPECIAL, TIME
 }

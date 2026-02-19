@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 
-public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserverHub
+public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserverHub, IBattleEventObserveService
 {
     private BattleContext context;
     private bool isRunning = false;
+    private bool isInBattle = false;
 
     private LinkedList<IBattleAction> actionQueue = new LinkedList<IBattleAction>();
     private Stack<BattleActionScope> actionScopeStack = new Stack<BattleActionScope>();
@@ -18,6 +19,8 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     
     public void Enqueue(IBattleAction action)
     {
+        if (!isInBattle) { return; }
+
         actionQueue.AddLast(action);
 
         CurrentScope?.Increase();
@@ -30,6 +33,8 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     }
     public void EnqueueFront(IBattleAction action)
     {
+        if (!isInBattle) { return; }
+        
         actionQueue.AddFirst(action);
 
         CurrentScope?.Increase();
@@ -42,7 +47,7 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     }
     private void Run()
     {
-        while (actionQueue.Count > 0)
+        while (isInBattle && actionQueue.Count > 0)
         {
             var currentAction = actionQueue.First.Value;
             actionQueue.RemoveFirst();
@@ -100,5 +105,25 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     public void UnsubscribePostObserver<T>(Action<T, BattleContext> postObserver) where T : IBattleAction
     {
         postObservePhase.Unsubscribe(postObserver);
+    }
+
+    public void SubscribeEventBus(IBattleEventBus eventBus)
+    {
+        eventBus.Subscribe<BattleStartEvent>(InitiatePipeline);
+        eventBus.Subscribe<BattleEndBattleEvent>(CancelAllAcionOnEnd);
+    }
+    public void InitiatePipeline(BattleStartEvent payload)
+    {
+        isInBattle = true;
+    }
+    public void CancelAllAcionOnEnd(BattleEndBattleEvent payload)
+    {
+        isInBattle = false;
+        
+        actionQueue.Clear();
+        actionScopeStack.Clear();
+        modifyPhase.Clear();
+        preObservePhase.Clear();
+        postObservePhase.Clear();
     }
 }

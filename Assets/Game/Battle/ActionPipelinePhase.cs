@@ -61,4 +61,9 @@ public class ActionPipelinePhase{
             UnityEngine.Debug.LogWarning("[ActionPipelinePhase] The given observer is not subscribing.");
         }
     }
+
+    public void Clear()
+    {
+        observers.Clear();
+    }
 }

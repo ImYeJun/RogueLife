@@ -16,7 +16,10 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
     {
         remainPhase = Mathf.Max(remainPhase - amount, 0);
 
-        if (remainPhase <= 0) { context.BattleScheduler.EndBattle(BattleResult.ALL_PHASE_END); }
+        if (remainPhase <= 0) { 
+            var action = new RequestBattleEndBattleAction(BattleResult.ALL_PHASE_END);
+            context.ActionScheduler.EnqueueFront(action);
+        }
     }
 
     public void SubscribeEventBus(IBattleEventBus eventBus)
