@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,12 +53,12 @@ public class BattleDeck : IDrawDeckContext, IHandDeckContext, IGraveDeckContext
         return GetCardsByCondition(rarity, attribute, type).Count;
     }
     
-    public Card GetRandomCard(Random random)
+    public Card? GetRandomCard(Random random)
     {
         return GetRandomCard(random, CardRarity.ANY, CardAttribute.ANY, CardType.ANY);
     }
 
-    public Card GetRandomCard(Random random, CardRarity rarity, CardAttribute attribite, CardType type)
+    public Card? GetRandomCard(Random random, CardRarity rarity, CardAttribute attribite, CardType type)
     {
         if (deck.Count <= 0)
         {

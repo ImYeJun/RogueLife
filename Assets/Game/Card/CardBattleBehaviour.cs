@@ -45,9 +45,8 @@ public abstract class CardBattleBehaviour<T, Q> : CardBattleBehaviour
     where T : CardTarget 
     where Q : CardTarget
 {
-    [SerializeReference, SubclassSelector] private CardTargetType 
-    targetType;
-    [SerializeReference, SubclassSelector] private CardTargetType reflectionTargetType;
+    [SerializeReference, SubclassSelector] protected CardTargetType targetType;
+    [SerializeReference, SubclassSelector] protected CardTargetType reflectionTargetType;
 
     protected CardBattleBehaviour() {}
     protected CardBattleBehaviour(ICardBehaviourOwner owner) : base(owner)

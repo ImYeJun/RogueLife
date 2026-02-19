@@ -32,6 +32,8 @@ namespace Battle.StatusEffects.Behaviour
         public void Dodge(RequestHurtEntityBattleAction requestHurtEntity, BattleContext context)
         {
             if (requestHurtEntity.Target != owner) { return; }
+            if (requestHurtEntity.HasNullified) { return; }
+            if (requestHurtEntity.Damage == 0) { return; }
 
             requestHurtEntity.Nullify();
             RequestExpire();

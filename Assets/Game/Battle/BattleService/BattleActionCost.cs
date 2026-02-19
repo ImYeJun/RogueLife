@@ -13,7 +13,7 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserveService
         history = new BattleActionCostHistory();
     }
 
-    public int ActionCost => currentActionCost;
+    public int RemainCost => currentActionCost;
     public int MaxActionCost { get => maxActionCost; set{
             if (value < 0) { UnityEngine.Debug.LogWarning("max action cost cannot be negative."); }
             maxActionCost = value;

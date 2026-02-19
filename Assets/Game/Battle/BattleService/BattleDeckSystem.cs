@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +18,12 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         { BattleDeckType.HAND, new BattleDeck() },
         { BattleDeckType.GRAVE, new BattleDeck() }
     };
+
+    public BattleDeckSystem()
+    {
+        history = new BattleDeckHistory();
+    }
+
     public BattleDeck this[BattleDeckType type]
     {
         get
@@ -26,7 +34,9 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     }
     public BattleDeckHistory History { get => history; }
 
-    public void SetContext(BattleContext context) { this.context = context; }
+    public void SetContext(BattleContext context) { 
+        this.context = context;
+    }
 
     public void MoveCard(Card card, BattleDeckType destination)
     {
@@ -55,7 +65,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         }
     }
 
-    public Card RequestDrawingCard(System.Random random, CardRarity rarity, CardAttribute attribute, CardType type)
+    public Card? RequestDrawingCard(System.Random random, CardRarity rarity, CardAttribute attribute, CardType type)
     {
         return deckMap[BattleDeckType.DRAW].GetRandomCard(random, rarity, attribute, type);
     }

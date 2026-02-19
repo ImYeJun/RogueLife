@@ -20,6 +20,8 @@ namespace Battle.StatusEffects.Behaviour
         public void ReduceDamage(RequestHurtEntityBattleAction requestHurtEntity, BattleContext context)
         {
             if (requestHurtEntity.Target != owner) { return; }
+            if (requestHurtEntity.HasNullified) { return; }
+            if (requestHurtEntity.Damage <= 0) { return; }
 
             requestHurtEntity.ReduceDamage(state.StackCount * 5);
             RequestExpire();

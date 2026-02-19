@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 
 public class RequestDrawCardBattleAction : IBattleAction
@@ -26,14 +28,15 @@ public class RequestDrawCardBattleAction : IBattleAction
         {
             if (context.GraveDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.ANY, CardType.ANY) != 0)
             {
+                context.ActionScheduler.EnqueueFront(this);
                 context.DeckSystem.ReviveGraveCards(true);
-                context.ActionScheduler.Enqueue(this);
             }
 
             return;
         }
 
-        var drawingCard = context.DeckSystem.RequestDrawingCard(context.Random, rarity, attribute, type);
+        Card? drawingCard = context.DeckSystem.RequestDrawingCard(context.Random, rarity, attribute, type);
+        if (drawingCard is null) { return; }
         context.ActionScheduler.Enqueue(new DrawCardBattleAction(requestId, drawingCard));
     }
 }

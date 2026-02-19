@@ -11,11 +11,12 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
     private Dictionary<int, List<Card>> usedHistory = new Dictionary<int, List<Card>>();
     //* <PhaseIndex, PlayedCardsDuringPlayerTurnWithSeuqnece>
     private Dictionary<int, List<Card>> gravedHistory = new Dictionary<int, List<Card>>();
+
     //* <PhaseIndex, GravedCardsDuringPlayerTurnWithSeuqnece>
     private List<Card> UsedCardsDuringBattle => usedHistory.Values.SelectMany(sel=>sel).ToList();
     private List<Card> CurrentPhaseUseHistory => usedHistory[phaseIndex];
     private List<Card> CurrentPhaseGravedHistory => gravedHistory[phaseIndex];
-
+    
     public void RecordUseCard(Card card)
     {
         usedHistory[phaseIndex].Add(card);
@@ -27,23 +28,30 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
     
     public Card? GetRecentlyPlayedCard()
     {
-        if (CurrentPhaseUseHistory.Count == 0) { 
-            if (!usedHistory.TryGetValue(phaseIndex - 1, out var previousEra)) { return null; }
-            if (previousEra.Count == 0) { return null; }
+        for (int i = usedHistory.Count - 1; i >= 0; i--)
+        {
+            var currentEra = usedHistory[i];
 
-            return previousEra[previousEra.Count - 1];
+            if (currentEra.Count == 0) { continue; }
+            return currentEra[currentEra.Count - 1];
         }
-        return CurrentPhaseUseHistory[CurrentPhaseUseHistory.Count - 1];
+
+        return null;
     }
     public List<Card> GetRecentlyGravedCard(int amount)
     {
         var result = new List<Card>();
 
-        int actualAmount = Mathf.Min(amount, CurrentPhaseGravedHistory.Count);
-
-        for (int i = 0; i < actualAmount; i++)
+        int remainingAmount = amount;
+        for (int i = gravedHistory.Count - 1; i >= 0; i--)
         {
-            result.Add(CurrentPhaseGravedHistory[CurrentPhaseGravedHistory.Count - 1 - i]);
+            var currentEra = gravedHistory[i];
+
+            for (int j = currentEra.Count - 1; j >= 0; j--)
+            {
+                result.Add(currentEra[j]);
+                if (--remainingAmount <= 0) { return result; } 
+            }
         }
 
         return result;

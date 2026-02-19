@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 public class CompositeCardTarget : CardTarget
 {
@@ -10,4 +11,9 @@ public class CompositeCardTarget : CardTarget
     }
 
     public List<CardTarget> Targets { get => targets; }
+
+    public T GetTarget<T>() where T : CardTarget
+    {
+        return targets.OfType<T>().FirstOrDefault();
+    }
 }
