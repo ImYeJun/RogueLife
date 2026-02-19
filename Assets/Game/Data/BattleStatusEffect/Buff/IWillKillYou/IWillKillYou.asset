@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
   m_Name: IWillKillYou
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
+  id: Buff_IWillKillYou
+  battleStatusEffectName: "\uC8FD\uC5EC\uC8FC\uB9C8!"
+  description: "\uC790\uC2E0\uC774 \uC8FC\uB294 \uD53C\uD574\uB97C \uC2A4\uD0DD X
+    5 \uB9CC\uD07C \uC99D\uAC00\uC2DC\uD0A8\uB2E4."
   type: 0
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519985129554024
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519985129554024
+      type: {class: IWillKillYou, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+      data: 

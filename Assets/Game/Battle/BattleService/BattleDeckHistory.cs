@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +25,14 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
         gravedHistory[phaseIndex].Add(card);
     }
     
-    public Card GetRecentlyPlayedCard()
+    public Card? GetRecentlyPlayedCard()
     {
-        if (CurrentPhaseUseHistory.Count == 0) { return null; }
+        if (CurrentPhaseUseHistory.Count == 0) { 
+            if (!usedHistory.TryGetValue(phaseIndex - 1, out var previousEra)) { return null; }
+            if (previousEra.Count == 0) { return null; }
+
+            return previousEra[previousEra.Count - 1];
+        }
         return CurrentPhaseUseHistory[CurrentPhaseUseHistory.Count - 1];
     }
     public List<Card> GetRecentlyGravedCard(int amount)

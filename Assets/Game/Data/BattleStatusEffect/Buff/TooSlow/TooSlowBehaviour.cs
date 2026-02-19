@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Battle.StatusEffect.Behaviour
+namespace Battle.StatusEffects.Behaviour
 {
     [Serializable]
     public class TooSlow : DisposableBattleStatusEffectBehaviour

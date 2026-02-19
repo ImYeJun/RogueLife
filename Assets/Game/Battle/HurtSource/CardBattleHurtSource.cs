@@ -1,6 +1,6 @@
 #nullable enable
 
-namespace Battle.HurtSource{
+namespace Battle.HurtSources{
     public class CardSource : BattleHurtSource
     {
         private Card sourceCard;

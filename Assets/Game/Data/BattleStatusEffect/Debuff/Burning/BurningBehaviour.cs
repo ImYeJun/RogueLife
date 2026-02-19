@@ -1,7 +1,8 @@
 using System;
 using System.ComponentModel;
+using Battle.HurtSources;
 
-namespace Battle.StatusEffect.Behaviour
+namespace Battle.StatusEffects.Behaviour
 {
     [Serializable]
     public class Burning : BattleStatusEffectBehaviour

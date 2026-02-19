@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Battle.HurtSource;
+using Battle.HurtSources;
 using UnityEngine;
 
 public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleEntity

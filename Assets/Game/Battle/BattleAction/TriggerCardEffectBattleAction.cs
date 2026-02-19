@@ -1,3 +1,5 @@
+using Battle.Cards.Casters;
+
 public class TriggerCardEffectBattleAction : IBattleAction
 {
     private Card card;
@@ -14,6 +16,6 @@ public class TriggerCardEffectBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        context.ActionScheduler.Enqueue(new UseCardEffectBattleAction(card, targetEntity));
+        context.ActionScheduler.Enqueue(new UseCardEffectBattleAction(card, new NoneEntityCaster(), targetEntity));
     }
 }

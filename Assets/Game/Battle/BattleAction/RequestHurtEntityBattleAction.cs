@@ -1,4 +1,4 @@
-using Battle.HurtSource;
+using Battle.HurtSources;
 using UnityEngine;
 
 public class RequestHurtEntityBattleAction : IBattleAction, IEntityTargetedBattleAction

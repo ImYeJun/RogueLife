@@ -21,10 +21,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519985129553997
+    rid: 7557519985129554020
   references:
     version: 2
     RefIds:
-    - rid: 7557519985129553997
-      type: {class: DefensiveStance, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554020
+      type: {class: DefensiveStance, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

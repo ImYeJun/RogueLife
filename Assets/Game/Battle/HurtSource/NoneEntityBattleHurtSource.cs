@@ -1,9 +1,10 @@
-using Battle.HurtSource;
-
-public class NoneEntitySource : BattleHurtSource
+namespace Battle.HurtSources
 {
-    public NoneEntitySource() : base()
+    public class NoneEntitySource : BattleHurtSource
     {
-        
+        public NoneEntitySource() : base()
+        {
+            
+        }
     }
 }

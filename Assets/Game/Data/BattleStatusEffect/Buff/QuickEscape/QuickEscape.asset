@@ -24,10 +24,10 @@ MonoBehaviour:
   requiredTraits: 2
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519958088089677
+    rid: 7557519985129554029
   references:
     version: 2
     RefIds:
-    - rid: 7557519958088089677
-      type: {class: QuickEscape, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554029
+      type: {class: QuickEscape, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

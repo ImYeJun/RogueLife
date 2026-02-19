@@ -12,17 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
   m_Name: NanoMachine
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
+  id: Buff_NanoMachine
+  battleStatusEffectName: "\uB098\uB178\uBA38\uC2E0"
+  description: "\uC0C1\uB300\uBC29\uC5D0\uAC8C \uD53C\uD574\uB97C \uBC1B\uC740 \uACBD\uC6B0,
+    \uADF8 \uD53C\uD574\uC758 \uC2A4\uD0DD X 0.5 \uBC30 \uB9CC\uD07C \uCCB4\uB825\uC744
+    \uD68C\uBCF5\uD55C\uB2E4. (\uC77C\uD68C\uC131)"
   type: 0
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519985129554027
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519985129554027
+      type: {class: NanoMachine, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+      data: 

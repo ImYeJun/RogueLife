@@ -21,10 +21,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519958088089700
+    rid: 7557519985129554039
   references:
     version: 2
     RefIds:
-    - rid: 7557519958088089700
-      type: {class: Nani, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554039
+      type: {class: Nani, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

@@ -21,10 +21,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 1582000809001615612
+    rid: 7557519985129554021
   references:
     version: 2
     RefIds:
-    - rid: 1582000809001615612
-      type: {class: DontTouch, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554021
+      type: {class: DontTouch, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

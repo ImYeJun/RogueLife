@@ -3,7 +3,7 @@ using System.ComponentModel;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 
-namespace Battle.StatusEffect.Behaviour
+namespace Battle.StatusEffects.Behaviour
 {
     [Serializable]
     public class OmaeWaMoSindeIru : BattleStatusEffectBehaviour

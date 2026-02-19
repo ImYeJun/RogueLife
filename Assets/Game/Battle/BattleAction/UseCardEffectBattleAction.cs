@@ -1,19 +1,20 @@
+using Battle.Cards.Casters;
+
 public class UseCardEffectBattleAction : IBattleAction
 {
     private Card card;
-    private CardTarget cardTarget;
+    private CardCaster caster;
+    private CardTarget target;
 
-    public UseCardEffectBattleAction(Card card, CardTarget cardTarget)
+    public UseCardEffectBattleAction(Card card, CardCaster caster, CardTarget target)
     {
         this.card = card;
-        this.cardTarget = cardTarget;
+        this.caster = caster;
+        this.target = target;
     }
-
-    public Card Card { get => card; }
-    public CardTarget CardTarget { get => cardTarget; }
 
     public void Execute(BattleContext context)
     {
-        card.Execute(context, cardTarget);
+        card.Execute(context, caster, target);
     }
 }

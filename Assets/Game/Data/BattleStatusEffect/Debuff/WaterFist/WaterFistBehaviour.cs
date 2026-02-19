@@ -1,8 +1,8 @@
 using System;
 using System.ComponentModel;
-using Battle.HurtSource;
+using Battle.HurtSources;
 
-namespace Battle.StatusEffect.Behaviour
+namespace Battle.StatusEffects.Behaviour
 {
     [Serializable]
     public class WaterFist : BattleStatusEffectBehaviour

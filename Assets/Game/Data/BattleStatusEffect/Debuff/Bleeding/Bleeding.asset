@@ -23,10 +23,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 1582000809001615613
+    rid: 7557519985129554035
   references:
     version: 2
     RefIds:
-    - rid: 1582000809001615613
-      type: {class: Bleeding, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554035
+      type: {class: Bleeding, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

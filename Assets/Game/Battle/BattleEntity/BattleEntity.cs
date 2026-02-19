@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Battle.HurtSource;
+using Battle.HurtSources;
 using UnityEngine;
 
 public abstract class BattleEntity : IBattleStatusEffectOwner

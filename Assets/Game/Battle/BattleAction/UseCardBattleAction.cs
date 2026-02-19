@@ -1,20 +1,23 @@
+using Battle.Cards.Casters;
+
 public class UseCardBattleAction : IBattleAction
 {
     private Card card;
-    private CardTarget cardTarget;
+    private CardTarget target;
 
-    public UseCardBattleAction(Card card, CardTarget cardTarget)
+    public UseCardBattleAction(Card card, CardTarget target)
     {
         this.card = card;
-        this.cardTarget = cardTarget;
+        this.target = target;
     }
 
     public Card Card { get => card; }
-    public CardTarget CardTarget { get => cardTarget; }
+    public CardTarget Target { get => target; }
 
     public void Execute(BattleContext context)
     {
-        var cardEffectAction = new UseCardEffectBattleAction(card, cardTarget);
+        var caster = new EntityCardCaster(context.PlayerContainer.Player);
+        var cardEffectAction = new UseCardEffectBattleAction(card, caster, target);
         context.ActionScheduler.Enqueue(new BattleEntityAction(context.PlayerContainer.Player, cardEffectAction));
 
         //* It says this code is limited in scalability. If new features are needed, this code may be refactored.

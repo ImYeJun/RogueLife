@@ -55,9 +55,9 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         }
     }
 
-    public Card RequestDrawingCard(System.Random random, CardAttribute attribute, CardType type)
+    public Card RequestDrawingCard(System.Random random, CardRarity rarity, CardAttribute attribute, CardType type)
     {
-        return deckMap[BattleDeckType.DRAW].GetRandomCard(random, attribute, type);
+        return deckMap[BattleDeckType.DRAW].GetRandomCard(random, rarity, attribute, type);
     }
 
     public void NullifyCardUseOnStnned(TryUseCardBattleAction tryUseCardBattleAction, BattleContext context)
@@ -107,7 +107,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
 
         for (int i = 0; i < acutalDrawAmount; i++)
         {
-            context.ActionScheduler.Enqueue(new RequestDrawCardBattleAction(CardAttribute.ANY, CardType.ANY, Guid.NewGuid()));
+            context.ActionScheduler.Enqueue(new RequestDrawCardBattleAction(CardRarity.ANY, CardAttribute.ANY, CardType.ANY, Guid.NewGuid()));
         }
     }
     public void OnBattleEnd(BattleEndBattleEvent payload)

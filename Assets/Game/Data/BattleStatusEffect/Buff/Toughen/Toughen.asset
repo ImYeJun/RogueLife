@@ -21,10 +21,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519963809120355
+    rid: 7557519985129554034
   references:
     version: 2
     RefIds:
-    - rid: 7557519963809120355
-      type: {class: Toughen, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554034
+      type: {class: Toughen, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

@@ -1,15 +1,11 @@
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
+[Serializable]
 public class CompositeCardTargetType : CardTargetType
 {
-    private List<CardTargetType> requiredTypes;
-
-    public CompositeCardTargetType(List<CardTargetType> requiredTypes)
-    {
-        this.requiredTypes = requiredTypes;
-    }
-
-    public List<CardTargetType> RequiredTypes { get => requiredTypes; }
+    [SerializeReference, SubclassSelector] private List<CardTargetType> requiredTypes;
 
     public override bool IsValid(CardTarget target, BattleContext context)
     {

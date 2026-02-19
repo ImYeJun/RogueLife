@@ -21,7 +21,6 @@ public class CardData : ScriptableObject
     public CardAttribute Attribute { get => attribute; }
     public CardRarity Rarity { get => rarity; }
     public int ActionCost { get => actionCost; }
-    public CardTargetType TargetType => battleBehaviour.TargetType;
 
     public CardBattleBehaviour CloneBattleBehaviour() { return battleBehaviour.Clone(); }
 }

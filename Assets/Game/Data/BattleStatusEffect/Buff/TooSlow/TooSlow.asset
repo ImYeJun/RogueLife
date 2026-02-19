@@ -12,17 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8db8e4fa2f7ffff49bf7fad6d9f6d452, type: 3}
   m_Name: TooSlow
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectData
-  id: 
-  battleStatusEffectName: 
-  description: 
+  id: Buff_TooSlow
+  battleStatusEffectName: "\uB290\uB824."
+  description: "\uB2E4\uC74C \uC790\uC2E0\uC774 \uBC1B\uB294 \uACF5\uACA9\uC744 \uD68C\uD53C\uD55C\uB2E4.
+    (\uC77C\uD68C\uC131)"
   type: 0
   grantedCondition: 0
-  requiredTraits: 0
+  requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: -2
+    rid: 7557519985129554033
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557519985129554033
+      type: {class: TooSlow, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+      data: 

@@ -21,10 +21,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519958088089692
+    rid: 7557519985129554022
   references:
     version: 2
     RefIds:
-    - rid: 7557519958088089692
-      type: {class: Drunk, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554022
+      type: {class: Drunk, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

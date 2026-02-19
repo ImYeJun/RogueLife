@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Battle.HurtSource;
+using Battle.HurtSources;
 
 public interface IEnemyBehaviourOwner
 {

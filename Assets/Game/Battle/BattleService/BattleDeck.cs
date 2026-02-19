@@ -37,25 +37,26 @@ public class BattleDeck : IDrawDeckContext, IHandDeckContext, IGraveDeckContext
         return deck;
     }
 
-    public List<Card> GetCardsByCondition(CardAttribute attribute, CardType type)
+    public List<Card> GetCardsByCondition(CardRarity rarity, CardAttribute attribute, CardType type)
     {
         return deck.Where(card => 
+            (rarity == CardRarity.ANY || card.CurrentRarity == rarity) &&
             (attribute == CardAttribute.ANY || attribute == card.CurrentAttribute) &&
             (type == CardType.ANY || type == card.CurrentType)
         ).ToList();
     }
 
-    public int GetCardsCountByCondition(CardAttribute attribute, CardType type)
+    public int GetCardsCountByCondition(CardRarity rarity, CardAttribute attribute, CardType type)
     {
-        return GetCardsByCondition(attribute, type).Count;
+        return GetCardsByCondition(rarity, attribute, type).Count;
     }
     
     public Card GetRandomCard(Random random)
     {
-        return GetRandomCard(random, CardAttribute.ANY, CardType.ANY);
+        return GetRandomCard(random, CardRarity.ANY, CardAttribute.ANY, CardType.ANY);
     }
 
-    public Card GetRandomCard(Random random, CardAttribute attribite, CardType type)
+    public Card GetRandomCard(Random random, CardRarity rarity, CardAttribute attribite, CardType type)
     {
         if (deck.Count <= 0)
         {
@@ -64,6 +65,7 @@ public class BattleDeck : IDrawDeckContext, IHandDeckContext, IGraveDeckContext
         }
 
         var filtered = deck.Where(card => 
+            (rarity == CardRarity.ANY || card.CurrentRarity == rarity) &&
             (attribite == CardAttribute.ANY || card.CurrentAttribute == attribite) &&
             (type == CardType.ANY || card.CurrentType == type)
         ).ToList();

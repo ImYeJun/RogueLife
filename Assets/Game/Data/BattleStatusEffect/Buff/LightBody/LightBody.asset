@@ -22,10 +22,10 @@ MonoBehaviour:
   requiredTraits: 1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519963809120339
+    rid: 7557519985129554025
   references:
     version: 2
     RefIds:
-    - rid: 7557519963809120339
-      type: {class: LightBody, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554025
+      type: {class: LightBody, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

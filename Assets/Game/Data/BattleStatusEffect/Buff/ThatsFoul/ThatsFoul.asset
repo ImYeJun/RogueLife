@@ -21,10 +21,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519963809120364
+    rid: 7557519985129554032
   references:
     version: 2
     RefIds:
-    - rid: 7557519963809120364
-      type: {class: ThatsFoul, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554032
+      type: {class: ThatsFoul, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 

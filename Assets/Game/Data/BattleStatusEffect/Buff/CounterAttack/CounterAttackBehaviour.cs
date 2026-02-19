@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Runtime.Remoting.Messaging;
 
-namespace Battle.StatusEffect.Behaviour
+namespace Battle.StatusEffects.Behaviour
 {
     [Serializable]
     public class CounterAttack : DisposableBattleStatusEffectBehaviour

@@ -13,7 +13,7 @@ public class BattleContext
     private IBattleActionCost actionCost;
     private IBattleActionCostHistoryContext actionCostHistory;
     private IBattleDeckSystemContext deckSystem;
-    private IBattleDeckHistoryContext cardPlayHistory;
+    private IBattleDeckHistoryContext battleDeckHistory;
     private IDrawDeckContext drawDeck;
     private IHandDeckContext handDeck;
     private IGraveDeckContext graveDeck;
@@ -32,7 +32,7 @@ public class BattleContext
         this.actionCost = actionCost;
         this.actionCostHistory = actionCostHistory;
         this.deckSystem = deckSystem;
-        this.cardPlayHistory = cardPlayHistory;
+        this.battleDeckHistory = cardPlayHistory;
         this.drawDeck = drawDeck;
         this.handDeck = handDeck;
         this.graveDeck = graveDeck;
@@ -50,7 +50,7 @@ public class BattleContext
     public IBattleActionCost ActionCost { get => actionCost; }
     public IBattleActionCostHistoryContext ActionCostHistory { get => actionCostHistory; }
     public IBattleDeckSystemContext DeckSystem { get => deckSystem; }
-    public IBattleDeckHistoryContext CardPlayHistory { get => cardPlayHistory; }
+    public IBattleDeckHistoryContext BattleDeckHistory { get => battleDeckHistory; }
     public IDrawDeckContext DrawDeck { get => drawDeck; }
     public IHandDeckContext HandDeck { get => handDeck; }
     public IGraveDeckContext GraveDeck { get => graveDeck; }

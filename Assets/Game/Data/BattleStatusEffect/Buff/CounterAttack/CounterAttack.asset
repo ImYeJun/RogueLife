@@ -22,10 +22,10 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519958088089697
+    rid: 7557519985129554019
   references:
     version: 2
     RefIds:
-    - rid: 7557519958088089697
-      type: {class: CounterAttack, ns: Battle.StatusEffect.Behaviour, asm: GameAssembly}
+    - rid: 7557519985129554019
+      type: {class: CounterAttack, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
       data: 
