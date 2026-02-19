@@ -51,7 +51,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         }
         if (sourceDeck == deckMap[BattleDeckType.GRAVE] && destinationDeck == deckMap[BattleDeckType.DRAW])
         {
-            card.ApplyReflection();
+            context.ActionScheduler.Enqueue(new ApplyReflectEffectOnCard(card));
         }
     }
 
@@ -60,7 +60,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         return deckMap[BattleDeckType.DRAW].GetRandomCard(random, rarity, attribute, type);
     }
 
-    public void NullifyCardUseOnStnned(TryUseCardBattleAction tryUseCardBattleAction, BattleContext context)
+    public void NullifyCardUseOnStunned(TryUseCardBattleAction tryUseCardBattleAction, BattleContext context)
     {
         var player =  context.PlayerContainer.Player;
 
@@ -91,7 +91,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             }
         }
 
-        context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStnned);
+        context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
     }
     public void StartTurnDraw(PlayerTurnStartBattleEvent payload)
     {
@@ -112,7 +112,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     }
     public void OnBattleEnd(BattleEndBattleEvent payload)
     {
-        context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStnned);
+        context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
     }
     private void ReviveGraveCards()
     {
@@ -122,5 +122,4 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
         }
     }
-
 }

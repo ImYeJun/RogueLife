@@ -1,9 +1,11 @@
+#nullable enable
+
 using System;
 using Battle.Cards.Casters;
 using Battle.HurtSources;
 using UnityEngine;
 
-public class Card
+public class Card : ICardBehaviourOwner
 {
     private CardData data;
     private CardBattleBehaviour behaviourInstance;
@@ -28,7 +30,7 @@ public class Card
     public Card(CardData data)
     {
         this.data = data;
-        behaviourInstance = this.data.CloneBattleBehaviour();
+        behaviourInstance = this.data.CloneBattleBehaviour(this);
 
         currentName = data.CardName;
         currentDescription = data.Description;
@@ -42,7 +44,7 @@ public class Card
     public Card(Card card)
     {
         data = card.Data;
-        behaviourInstance = data.CloneBattleBehaviour();
+        behaviourInstance = data.CloneBattleBehaviour(this);
 
         currentName = card.CurrentName;
         currentDescription = card.CurrentDescription;
@@ -58,7 +60,7 @@ public class Card
         if (cardData.Id != cardSaveData.cardId) { throw new InvalidOperationException("[Card] the given arguments' id are not matched"); }
 
         data = cardData;
-        behaviourInstance = data.CloneBattleBehaviour();
+        behaviourInstance = data.CloneBattleBehaviour(this);
 
         currentName = cardSaveData.cardName;
         currentDescription = cardSaveData.description;
@@ -70,7 +72,11 @@ public class Card
     }
 
     public void OnDraw(BattleContext context) { behaviourInstance.OnDraw(context); }
-    public bool IsAbleToUse(BattleContext context, CardTarget target) { return behaviourInstance.IsAbleToUse(context, target); }
+    public bool IsAbleToUse(BattleContext context, CardTarget target) { 
+        return isReflectionApplied ?
+            behaviourInstance.IsAbleToUseReflect(context, target) : 
+            behaviourInstance.IsAbleToUse(context, target);
+    }
     public void Execute(BattleContext context, CardCaster caster, CardTarget targetEntity)
     {
         if (!behaviourInstance.IsTargetValid(targetEntity, context, isReflectionApplied)) { return; }
@@ -84,6 +90,12 @@ public class Card
 
     public void ApplyReflection() { isReflectionApplied = true; }
     public void UnapplyReflection() { isReflectionApplied = false; }
+
+    public BattleHurtSource GetAsHurtSource(CardCaster cardCaster)
+    {
+        BattleEntity? caster = cardCaster.Caster;
+        return new CardSource(this, caster);
+    }
 
     public bool Equals(Card operand) => operand.Data.Equals(data);
 }

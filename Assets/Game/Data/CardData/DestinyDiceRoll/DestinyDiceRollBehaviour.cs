@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Battle.Cards.Casters;
 
 namespace Battle.Cards.Behaviours
@@ -6,12 +7,23 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class DestinyDiceRoll : CardBattleBehaviour<SingleEnemyCardTarget, SingleEnemyCardTarget>
     {
-        public override CardBattleBehaviour Clone()
+        [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public DestinyDiceRoll() {}
+        private DestinyDiceRoll(ICardBehaviourOwner owner) 
+        : base(owner) { }
+
+        public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new DestinyDiceRoll();
+            return new DestinyDiceRoll(owner);
         }
 
         public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        {
+            return true;
+        }
+
+        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
         {
             return true;
         }

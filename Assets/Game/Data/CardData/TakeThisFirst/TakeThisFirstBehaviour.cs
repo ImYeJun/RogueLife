@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Battle.Cards.Casters;
 using Battle.HurtSources;
 
@@ -7,12 +8,23 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class TakeThisFirst : CardBattleBehaviour<SingleEnemyCardTarget, SingleEnemyCardTarget>
     {
-        public override CardBattleBehaviour Clone()
+        [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public TakeThisFirst() {}
+        private TakeThisFirst(ICardBehaviourOwner owner) 
+        : base(owner) { }
+
+        public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new TakeThisFirst();
+            return new TakeThisFirst(owner);
         }
 
         public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        {
+            return true;
+        }
+
+        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
         {
             return true;
         }
@@ -21,7 +33,7 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            var hurtSource = caster.GetAsHurtSource();
+            var hurtSource = owner.GetAsHurtSource(caster);
             int damage = 20;
             var targetEntity = target.Enemy;
 
@@ -31,7 +43,7 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            var hurtSource = caster.GetAsHurtSource();
+            var hurtSource = owner.GetAsHurtSource(caster);
             int damage = 30;
             var targetEntity = target.Enemy;
 

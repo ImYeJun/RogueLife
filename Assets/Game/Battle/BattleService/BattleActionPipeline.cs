@@ -6,7 +6,7 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     private BattleContext context;
     private bool isRunning = false;
 
-    private Queue<IBattleAction> actionQueue = new Queue<IBattleAction>();
+    private LinkedList<IBattleAction> actionQueue = new LinkedList<IBattleAction>();
     private Stack<BattleActionScope> actionScopeStack = new Stack<BattleActionScope>();
     private BattleActionScope CurrentScope => actionScopeStack.Count > 0 ? actionScopeStack.Peek() : null;
 
@@ -18,7 +18,19 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     
     public void Enqueue(IBattleAction action)
     {
-        actionQueue.Enqueue(action);
+        actionQueue.AddLast(action);
+
+        CurrentScope?.Increase();
+
+        if (!isRunning)
+        {
+            isRunning = true;
+            Run();
+        }
+    }
+    public void EnqueueFront(IBattleAction action)
+    {
+        actionQueue.AddFirst(action);
 
         CurrentScope?.Increase();
 
@@ -32,7 +44,8 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     {
         while (actionQueue.Count > 0)
         {
-            var currentAction = actionQueue.Dequeue();
+            var currentAction = actionQueue.First.Value;
+            actionQueue.RemoveFirst();
 
             modifyPhase.Publish((dynamic)currentAction, context);
             preObservePhase.Publish((dynamic)currentAction, context);

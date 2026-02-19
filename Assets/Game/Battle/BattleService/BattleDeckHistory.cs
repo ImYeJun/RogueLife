@@ -49,12 +49,13 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
         return result;
     }
 
-    public bool HasPlayedCard(CardAttribute attribute, CardType type, BattleScope scope)
+    public bool HasPlayedCard(CardRarity rarity, CardAttribute attribute, CardType type, BattleScope scope)
     {
         switch (scope)
         {
             case BattleScope.PHASE:
                 return usedHistory[phaseIndex].Any(card => 
+                    (rarity == CardRarity.ANY || card.CurrentRarity == rarity) &&
                     (attribute == CardAttribute.ANY || card.CurrentAttribute == attribute) &&
                     (type == CardType.ANY || card.CurrentType == type)
                 );
@@ -69,7 +70,7 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
     }
     public bool HasPlayedCard(BattleScope scope)
     {
-        return HasPlayedCard(CardAttribute.ANY, CardType.ANY, scope);
+        return HasPlayedCard(CardRarity.ANY, CardAttribute.ANY, CardType.ANY, scope);
     }
 
     public int GetPlayedCardCount(BattleScope scope)

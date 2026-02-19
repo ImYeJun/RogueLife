@@ -1,9 +1,16 @@
-using Battle.HurtSources;
+#nullable enable
 
 namespace Battle.Cards.Casters
 {
     public abstract class CardCaster
     {
-        public abstract BattleHurtSource GetAsHurtSource();
+        private BattleEntity? caster;
+
+        protected CardCaster(BattleEntity? caster = null)
+        {
+            this.caster = caster;
+        }
+
+        public BattleEntity? Caster { get => caster;  }
     }
 }

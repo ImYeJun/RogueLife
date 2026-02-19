@@ -5,8 +5,8 @@ public class CardData : ScriptableObject
 {
     [SerializeField] private string id;
     [SerializeField] private string cardName;
-    [SerializeField] private string description;
-    [SerializeField] private string relfectionAppliedDescription;
+    [SerializeField, TextArea] private string description;
+    [SerializeField, TextArea] private string relfectionAppliedDescription;
     [SerializeField] private CardType type;
     [SerializeField] private CardAttribute attribute;
     [SerializeField] private CardRarity rarity;
@@ -22,5 +22,5 @@ public class CardData : ScriptableObject
     public CardRarity Rarity { get => rarity; }
     public int ActionCost { get => actionCost; }
 
-    public CardBattleBehaviour CloneBattleBehaviour() { return battleBehaviour.Clone(); }
+    public CardBattleBehaviour CloneBattleBehaviour(ICardBehaviourOwner owner) { return battleBehaviour.Clone(owner); }
 }

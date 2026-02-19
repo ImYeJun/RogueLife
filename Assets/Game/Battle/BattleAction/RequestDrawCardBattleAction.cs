@@ -6,7 +6,7 @@ public class RequestDrawCardBattleAction : IBattleAction
     private CardAttribute attribute;
     private CardType type;
     private Guid requestId;
-
+    
     public RequestDrawCardBattleAction(CardRarity rarity, CardAttribute attribute, CardType type, Guid requestId)
     {
         this.rarity = rarity;

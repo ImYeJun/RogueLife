@@ -5,6 +5,14 @@ using UnityEngine;
 [Serializable]
 public abstract class CardBattleBehaviour
 {
+    protected ICardBehaviourOwner owner;
+
+    protected CardBattleBehaviour() {}
+    protected CardBattleBehaviour(ICardBehaviourOwner owner)
+    {
+        this.owner = owner;
+    }
+
     public abstract CardTargetType TargetType { get; }
     public abstract CardTargetType ReflectionTargetType { get; }
 
@@ -12,7 +20,8 @@ public abstract class CardBattleBehaviour
     public abstract void Execute(BattleContext context, CardCaster caster, CardTarget target);
     public abstract void ExecuteReflection(BattleContext context, CardCaster caster, CardTarget target);
     public abstract bool IsAbleToUse(BattleContext context, CardTarget target);
-    public abstract CardBattleBehaviour Clone();
+    public abstract bool IsAbleToUseReflect(BattleContext context, CardTarget target);
+    public abstract CardBattleBehaviour Clone(ICardBehaviourOwner owner);
     public bool IsTargetValid(CardTarget target, BattleContext context, bool isReflectionApplied) 
     {
         CardTargetType type = isReflectionApplied ? ReflectionTargetType : TargetType;
@@ -36,8 +45,14 @@ public abstract class CardBattleBehaviour<T, Q> : CardBattleBehaviour
     where T : CardTarget 
     where Q : CardTarget
 {
-    [SerializeReference, SubclassSelector] private CardTargetType targetType;
+    [SerializeReference, SubclassSelector] private CardTargetType 
+    targetType;
     [SerializeReference, SubclassSelector] private CardTargetType reflectionTargetType;
+
+    protected CardBattleBehaviour() {}
+    protected CardBattleBehaviour(ICardBehaviourOwner owner) : base(owner)
+    {
+    }
 
     public override CardTargetType TargetType { get => targetType; }
     public override CardTargetType ReflectionTargetType { get => reflectionTargetType; }

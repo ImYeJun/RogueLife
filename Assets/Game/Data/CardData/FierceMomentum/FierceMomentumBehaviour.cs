@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Battle.Cards.Casters;
 using UnityEngine;
 
@@ -9,6 +10,19 @@ namespace Battle.Cards.Behaviours
     {
         [SerializeField] private BattleStatusEffectData lightBodyData;
 
+        [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public FierceMomentum() {}
+        private FierceMomentum(ICardBehaviourOwner owner, BattleStatusEffectData lightBodyData) 
+        : base(owner)
+        {
+            this.lightBodyData = lightBodyData;
+        }
+
+        public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
+        {
+            return new FierceMomentum(owner, lightBodyData);
+        }
         private class ActionModifier
         {
             private int remainObserveCount;
@@ -36,15 +50,11 @@ namespace Battle.Cards.Behaviours
             }
         }
 
-        public override CardBattleBehaviour Clone()
-        {
-            return new FierceMomentum()
-            {
-                lightBodyData = this.lightBodyData
-            };
-        }
-
         public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        {
+            return true;
+        }
+        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
         {
             return true;
         }
@@ -64,5 +74,6 @@ namespace Battle.Cards.Behaviours
         {
             new ActionModifier(context.ActionObserverHub);
         }
+
     }
 }
