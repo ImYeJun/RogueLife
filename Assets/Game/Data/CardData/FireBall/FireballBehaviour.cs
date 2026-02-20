@@ -3,7 +3,7 @@ using System.ComponentModel;
 using Battle.Cards.Casters;
 using UnityEngine;
 
-namespace  Battle.Cards.Behaviours
+namespace Battle.Cards.Behaviours
 {
     [Serializable]
     public class Fireball : CardBattleBehaviour<SingleEnemyCardTarget, SingleEnemyCardTarget>
@@ -43,8 +43,6 @@ namespace  Battle.Cards.Behaviours
 
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            
-            
             ExecuteCommonAction(context, caster, target);
         }
         

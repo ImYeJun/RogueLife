@@ -12,18 +12,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081e90a48ea29da42b7f97bfcd9b9a61, type: 3}
   m_Name: DammMiss
   m_EditorClassIdentifier: GameAssembly::CardData
-  id: 
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  id: Card_DamnMiss
+  cardName: "\uAC10\uB098\uBE57!"
+  description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uAC04 \uC9C0\uC18D\uB418\uB294
+    \uB290\uB824. 1 \uC2A4\uD0DD\uC744 20% \uD655\uB960\uB85C \uBD80\uC5EC\uD55C\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uAC04 \uC9C0\uC18D\uB418\uB294
+    \uB290\uB824. 1 \uC2A4\uD0DD\uC744 40% \uD655\uB960\uB85C \uBD80\uC5EC\uD55C\uB2E4."
+  type: 3
+  attribute: 3
+  rarity: 2
+  actionCost: 3
   battleBehaviour:
-    rid: -2
+    rid: 1582000865578844244
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000865578844244
+      type: {class: DamnMiss, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000865578844245
+        reflectionTargetType:
+          rid: 1582000865578844246
+        tooSlowData: {fileID: 11400000, guid: 6f0f50f3957938c4ca5ad34f0c9c7d69, type: 2}
+    - rid: 1582000865578844245
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000865578844246
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 

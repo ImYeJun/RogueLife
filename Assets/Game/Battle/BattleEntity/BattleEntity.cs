@@ -102,15 +102,21 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
 
     public void OnPlayerTurnEnded(PlayerTurnEndBattleEvent payload)
     {
+        DecreaseStatusEffectDuration();
+    }
+    public void OnEnemyTurnEnded(EnemyTurnEndBattleEvent payload)
+    {
+        DecreaseStatusEffectDuration();
+    }
+    private void DecreaseStatusEffectDuration()
+    {
         var buffList = equippingBuffs.Values.ToList();
         for (int i = buffList.Count - 1; i >= 0; i--)
         {
             var buff = buffList[i];
             buff.DecreaseTurn();
         }
-    }
-    public void OnEnemyTurnEnded(EnemyTurnEndBattleEvent payload)
-    {
+
         var debuffList = equippingDebuffs.Values.ToList();
         for (int i = debuffList.Count - 1; i >= 0; i--)
         {

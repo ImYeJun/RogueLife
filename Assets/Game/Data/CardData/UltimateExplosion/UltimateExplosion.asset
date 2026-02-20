@@ -12,18 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081e90a48ea29da42b7f97bfcd9b9a61, type: 3}
   m_Name: UltimateExplosion
   m_EditorClassIdentifier: GameAssembly::CardData
-  id: 
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  id: Card_UltimateExplosion
+  cardName: "\uAD81\uADF9\uC758 \uB9C8\uBC95! \uC775\uC2A4\uD50C\uB85C\uC804!"
+  description: "\uBC1C\uB3D9 \uC2DC, \uB0A8\uC740 \uCF54\uC2A4\uD2B8\uB97C \uC804\uBD80
+    \uC18C\uBAA8\uD558\uACE0, \uC0C1\uB300 \uC804\uBD80\uC5D0\uAC8C \uC18C\uBAA8\uD55C
+    \uCF54\uC2A4\uD2B8 X 5 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4.
+    \uC774\uD6C4 \uC790\uC2E0\uC758 \uD134\uC744 \uB05D\uB0C5\uB2C8\uB2E4."
+  relfectionAppliedDescription: "\uBC1C\uB3D9 \uC2DC, \uB0A8\uC740 \uCF54\uC2A4\uD2B8\uB97C
+    \uC804\uBD80 \uC18C\uBAA8\uD558\uACE0, \uC0C1\uB300 \uC804\uBD80\uC5D0\uAC8C
+    \uC18C\uBAA8\uD55C \uCF54\uC2A4\uD2B8 X 10 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C
+    \uC90D\uB2C8\uB2E4. \uC774\uD6C4 \uC790\uC2E0\uC758 \uD134\uC744 \uB05D\uB0C5\uB2C8\uB2E4."
+  type: 1
+  attribute: 2
+  rarity: 2
+  actionCost: 3
   battleBehaviour:
-    rid: -2
+    rid: 1582000865578844250
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000865578844250
+      type: {class: UltimateExplosion, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000865578844251
+        reflectionTargetType:
+          rid: 1582000865578844252
+    - rid: 1582000865578844251
+      type: {class: AllEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000865578844252
+      type: {class: AllEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 

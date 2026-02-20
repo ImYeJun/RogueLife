@@ -28,6 +28,7 @@ public class TryUseCardBattleAction : IBattleAction
         //* If race condition problem happens, refactor this code to work synchronously.
         context.ActionScheduler.Enqueue(new ConsumeActionCostBattleAction(cost));
         context.ActionScheduler.Enqueue(new UseCardBattleAction(card, cardTarget));
+        //TODO Delegate the UseCardBattleAction action to UI
     }
 
     public void Nullify()

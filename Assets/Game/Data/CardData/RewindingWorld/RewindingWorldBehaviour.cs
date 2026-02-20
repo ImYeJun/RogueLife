@@ -7,6 +7,8 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class RewindingWorld : CardBattleBehaviour<NoneCardTarget, NoneCardTarget>
     {
+        private bool isCheckingCardUse = false;
+
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RewindingWorld() {}
@@ -30,7 +32,9 @@ namespace Battle.Cards.Behaviours
 
         public override void OnDraw(BattleContext context)
         {
-            throw new NotImplementedException();
+            if (isCheckingCardUse) { return; }
+
+
         }
 
         protected override void OnExecute(BattleContext context, CardCaster caster, NoneCardTarget target)

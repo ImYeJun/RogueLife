@@ -12,18 +12,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081e90a48ea29da42b7f97bfcd9b9a61, type: 3}
   m_Name: ButIAmMage
   m_EditorClassIdentifier: GameAssembly::CardData
-  id: 
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  id: Card_ButIAmMage
+  cardName: "\uB098 \uB9C8\uBC95\uC0AC\uC778\uB370\u2026?"
+  description: "\uC774\uBC88 \uD134 \uC190 \uD328\uC5D0 \uB9C8\uBC95 \uC18D\uC131\uC758
+    \uCE74\uB4DC\uAC00 \uC5C6\uC744 \uACBD\uC6B0 \uC0AC\uC6A9\uD560 \uC218 \uC788\uB2E4,
+    \uB371\uC5D0\uC11C \uB9C8\uBC95 \uC18D\uC131\uC758 \uCE74\uB4DC\uB97C 3\uC7A5
+    \uBF51\uB294\uB2E4."
+  relfectionAppliedDescription: "\uC774\uBC88 \uD134, \uB9C8\uBC95 \uC18D\uC131\uC758
+    \uCE74\uB4DC\uB97C \uC0AC\uC6A9\uD558\uC9C0 \uC54A\uC558\uC744 \uACBD\uC6B0 \uC0AC\uC6A9\uD560
+    \uC218 \uC788\uB2E4, \uB371\uC5D0\uC11C \uB9C8\uBC95 \uC18D\uC131\uC758 \uCE74\uB4DC\uB97C
+    3\uC7A5 \uBF51\uB294\uB2E4."
+  type: 4
+  attribute: 2
+  rarity: 2
+  actionCost: 5
   battleBehaviour:
-    rid: -2
+    rid: 1582000865578844229
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000865578844229
+      type: {class: ButIAmMage, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000865578844233
+        reflectionTargetType:
+          rid: 1582000865578844234
+    - rid: 1582000865578844233
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000865578844234
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 

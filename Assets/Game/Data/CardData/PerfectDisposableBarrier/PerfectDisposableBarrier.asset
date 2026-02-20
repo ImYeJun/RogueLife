@@ -13,17 +13,33 @@ MonoBehaviour:
   m_Name: PerfectDisposableBarrier
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_PerfectDisposableBarrier
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uBB34\uC5C7\uC774\uB4E0 \uB9C9\uC544\uC8FC\uB294 \uBCA0\uB9AC\uC5B4
+    (\uC77C\uD68C\uC6A9)"
+  description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+    \uADF8\uAC70 \uBC18\uCE59\uC774\uC57C 1 \uC2A4\uD0DD\uC744 \uAC74\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uC804\uD22C \uC885\uB8CC\uAE4C\uC9C0
+    \uC9C0\uC18D\uB418\uB294 \uADF8\uAC70 \uBC18\uCE59\uC774\uC57C 1\uC2A4\uD0DD\uC744
+    \uAC74\uB2E4."
+  type: 3
+  attribute: 2
+  rarity: 1
+  actionCost: 2
   battleBehaviour:
-    rid: -2
+    rid: 1582000865578844238
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000865578844238
+      type: {class: PerfectDisposableBarrier, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000865578844239
+        reflectionTargetType:
+          rid: 1582000865578844240
+        thatsFoulData: {fileID: 11400000, guid: 808fa2c5a6f27384287e17eaac9de9d5, type: 2}
+    - rid: 1582000865578844239
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000865578844240
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
