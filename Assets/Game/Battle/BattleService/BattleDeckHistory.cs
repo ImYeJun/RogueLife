@@ -26,14 +26,16 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
         gravedHistory[phaseIndex].Add(card);
     }
     
-    public Card? GetRecentlyPlayedCard()
+    public Card? GetRecentlyPlayedCard(ICardBehaviourOwner? ignoringCardBehaviourOwner = null)
     {
         for (int i = usedHistory.Count - 1; i >= 0; i--)
         {
             var currentEra = usedHistory[i];
 
             if (currentEra.Count == 0) { continue; }
-            return currentEra[currentEra.Count - 1];
+            var selecetedCard = currentEra[currentEra.Count - 1];
+            if (selecetedCard == ignoringCardBehaviourOwner) { continue; }
+            return selecetedCard;
         }
 
         return null;

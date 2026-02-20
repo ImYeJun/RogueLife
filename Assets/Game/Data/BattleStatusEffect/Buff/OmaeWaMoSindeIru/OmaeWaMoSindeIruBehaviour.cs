@@ -11,8 +11,11 @@ namespace Battle.StatusEffects.Behaviour
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public OmaeWaMoSindeIru() {}
-        private OmaeWaMoSindeIru(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state) 
-        : base(context, owner, state) { }
+        private OmaeWaMoSindeIru(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state, BattleStatusEffectData naniData) 
+        : base(context, owner, state)
+        {
+            this.naniData = naniData;
+        }
 
         [SerializeField] private BattleStatusEffectData naniData;
 
@@ -30,7 +33,7 @@ namespace Battle.StatusEffects.Behaviour
 
         public void YouAreAlreadyDead(RequestHurtEntityBattleAction requestHurtEntityBattleAction, BattleContext context)
         {
-            BattleEntity caster = requestHurtEntityBattleAction.Source.Caster;
+            if (requestHurtEntityBattleAction.Source.Caster is not BattleEntity caster) { return; }
             if (caster != owner) { return; }
             
             var existingDamage = requestHurtEntityBattleAction.Damage;
@@ -38,14 +41,14 @@ namespace Battle.StatusEffects.Behaviour
 
             requestHurtEntityBattleAction.Nullify();
 
-            var stack = (int)(existingDamage * 0.5);
+            var stack = (int)(existingDamage * 0.5f * state.StackCount);
             var nani = new BattleStatusEffect(naniData, stack);
             context.ActionScheduler.Enqueue(new ApplyEntityStatusEffectBattleAction(target, nani));
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)
         {
-            return new OmaeWaMoSindeIru(context, owner, state);
+            return new OmaeWaMoSindeIru(context, owner, state, naniData);
         }
     }
 }

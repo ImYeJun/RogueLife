@@ -6,6 +6,7 @@ public class TryUseCardBattleAction : IBattleAction
     private Card card;
     private CardTarget cardTarget;
     private bool hasNullified;
+    private bool isSuccess;
 
     public TryUseCardBattleAction(int cost, Card card, CardTarget cardTarget)
     {
@@ -13,11 +14,13 @@ public class TryUseCardBattleAction : IBattleAction
         this.card = card;
         this.cardTarget = cardTarget;
         hasNullified = false;
+        isSuccess = false;
     }
 
     public int Cost { get => cost; }
     public Card Card { get => card; }
     public CardTarget CardTarget { get => cardTarget; }
+    public bool IsSuccess { get => isSuccess; }
 
     public void Execute(BattleContext context)
     {
@@ -28,6 +31,8 @@ public class TryUseCardBattleAction : IBattleAction
         //* If race condition problem happens, refactor this code to work synchronously.
         context.ActionScheduler.Enqueue(new ConsumeActionCostBattleAction(cost));
         context.ActionScheduler.Enqueue(new UseCardBattleAction(card, cardTarget));
+
+        isSuccess = true;
         //TODO Delegate the UseCardBattleAction action to UI
     }
 
