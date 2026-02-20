@@ -13,17 +13,32 @@ MonoBehaviour:
   m_Name: DoubleOrNothing
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_DoubleOrNothing
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uBB3B\uACE0 \uB354\uBE14\uB85C \uAC00!"
+  description: "\uC790\uC2E0\uC744 \uC81C\uC678\uD55C \uC190 \uD328\uC758 \uCE74\uB4DC
+    \uD55C \uC7A5\uC744 \uB371\uC73C\uB85C \uB418\uB3CC\uB9AC\uACE0, 40% \uD655\uB960\uB85C
+    \uB450 \uC7A5\uC744 \uB371\uC5D0\uC11C \uAC00\uC838\uC635\uB2C8\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC744 \uC81C\uC678\uD55C  \uC190 \uD328\uC758
+    \uCE74\uB4DC \uD55C \uC7A5\uC744 \uB371\uC73C\uB85C \uB418\uB3CC\uB9AC\uACE0,
+    40% \uD655\uB960\uB85C \uC138 \uC7A5\uC744 \uB371\uC5D0\uC11C \uAC00\uC838\uC635\uB2C8\uB2E4."
+  type: 2
+  attribute: 3
+  rarity: 1
+  actionCost: 4
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922236025
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922236025
+      type: {class: DoubleOrNothing, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922236026
+        reflectionTargetType:
+          rid: 1582000878922236027
+    - rid: 1582000878922236026
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922236027
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 

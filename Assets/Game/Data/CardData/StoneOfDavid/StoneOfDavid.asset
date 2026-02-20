@@ -12,18 +12,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081e90a48ea29da42b7f97bfcd9b9a61, type: 3}
   m_Name: StoneOfDavid
   m_EditorClassIdentifier: GameAssembly::CardData
-  id: 
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  id: Card_StoneOfDavid
+  cardName: "\uB2E4\uC717\uC758 \uB3CC"
+  description: "\uC0C1\uB300\uAC00 \uC790\uC2E0\uBCF4\uB2E4 \uCCB4\uB825\uC774 \uB9CE\uC744
+    \uACBD\uC6B0 \uC0AC\uC6A9\uD560 \uC218 \uC788\uB2E4. 5%\uD655\uB960\uB85C \uC0C1\uB300\uB97C
+    \uC989\uC0AC\uC2DC\uD0A4\uB294 \uB3CC\uC744 \uB358\uC9C4\uB2E4."
+  relfectionAppliedDescription: "\uC0C1\uB300\uAC00 \uC790\uC2E0\uBCF4\uB2E4 \uCCB4\uB825\uC774
+    \uB9CE\uC744 \uACBD\uC6B0 \uC0AC\uC6A9\uD560 \uC218 \uC788\uB2E4. 10% \uD655\uB960\uB85C
+    \uC0C1\uB300\uB97C \uC989\uC0AC\uC2DC\uD0A4\uB294 \uB3CC\uC744 \uB358\uC9C4\uB2E4."
+  type: 4
+  attribute: 3
+  rarity: 2
+  actionCost: 7
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922235995
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922235995
+      type: {class: StoneOfDavid, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922235996
+        reflectionTargetType:
+          rid: 1582000878922235997
+    - rid: 1582000878922235996
+      type: {class: CompositeCardTargetType, ns: , asm: GameAssembly}
+      data:
+        requiredTypes:
+        - rid: 1582000878922235998
+        - rid: 1582000878922235999
+    - rid: 1582000878922235997
+      type: {class: CompositeCardTargetType, ns: , asm: GameAssembly}
+      data:
+        requiredTypes:
+        - rid: 1582000878922236000
+        - rid: 1582000878922236001
+    - rid: 1582000878922235998
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922235999
+      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922236000
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922236001
+      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 

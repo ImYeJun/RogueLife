@@ -13,17 +13,33 @@ MonoBehaviour:
   m_Name: OmaeWaMoSindeIru
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_OmaeWaMoSindeIru
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uB10C \uC774\uBBF8 \uC8FD\uC5B4 \uC788\uB2E4."
+  description: "\uC790\uC2E0\uC5D0\uAC8C \uD55C \uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+    \uC624\uB9C8\uC5D0\uC640 \uBAA8 \uC2E0\uB370\uC774\uB8E8 2\uC2A4\uD0DD\uC744
+    \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uD55C \uD134 \uB3D9\uC548
+    \uC9C0\uC18D\uB418\uB294 \uC624\uB9C8\uC5D0\uC640 \uBAA8 \uC2E0\uB370\uC774\uB8E8
+    3\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  type: 2
+  attribute: 1
+  rarity: 2
+  actionCost: 5
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922236048
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922236048
+      type: {class: OmaeWaMoSindeIru, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922236049
+        reflectionTargetType:
+          rid: 1582000878922236050
+        omaeWaMoSindeIruData: {fileID: 11400000, guid: 4da924eada9d8d749ac76558be9b2210, type: 2}
+    - rid: 1582000878922236049
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922236050
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 

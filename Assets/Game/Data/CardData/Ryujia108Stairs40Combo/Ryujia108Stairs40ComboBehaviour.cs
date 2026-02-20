@@ -49,7 +49,7 @@ namespace Battle.Cards.Behaviours
                         .ToList();
             ExecuteCommonAction(context, cards);
         }
-        private static void ExecuteCommonAction(BattleContext context, List<Card> cards)
+        private void ExecuteCommonAction(BattleContext context, List<Card> cards)
         {
             foreach (var card in cards)
             {

@@ -13,17 +13,35 @@ MonoBehaviour:
   m_Name: LuckyNumber
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_LuckyNumber
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uD589\uC6B4\uC758 \uC22B\uC790 "
+  description: "\uC790\uC2E0\uC758 \uC190 \uD328\uAC00 7\uC7A5\uC774\uACE0 \uC774\uBC88
+    \uD134 \uB0A8\uC740 \uCF54\uC2A4\uD2B8\uAC00 7\uC774\uBA70, \uBB18\uC9C0 \uD639\uC740
+    \uB371\uC5D0 \uB0A8\uC740 \uCE74\uB4DC\uAC00 7\uC7A5\uC77C \uACBD\uC6B0 \uC0AC\uC6A9\uD560
+    \uC218 \uC788\uB2E4. \uC774\uBC88 \uC804\uD22C\uC5D0\uC11C \uC2B9\uB9AC\uD55C\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC758 \uC190 \uD328\uAC00 7\uC7A5\uC774\uACE0
+    \uC774\uBC88 \uD134 \uB0A8\uC740 \uCF54\uC2A4\uD2B8\uAC00 7\uC774\uBA70, \uBB18\uC9C0
+    \uD639\uC740 \uB371\uC5D0 \uB0A8\uC740 \uCE74\uB4DC\uAC00 7\uC7A5\uC77C \uACBD\uC6B0
+    \uC0AC\uC6A9\uD560 \uC218 \uC788\uB2E4. \uC774\uBC88 \uC804\uD22C\uC5D0\uC11C
+    \uC2B9\uB9AC\uD55C\uB2E4."
+  type: 4
+  attribute: 3
+  rarity: 3
+  actionCost: 7
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922236019
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922236019
+      type: {class: LuckyNumber, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922236020
+        reflectionTargetType:
+          rid: 1582000878922236021
+    - rid: 1582000878922236020
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922236021
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 

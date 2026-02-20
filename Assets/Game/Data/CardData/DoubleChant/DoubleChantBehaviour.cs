@@ -34,16 +34,24 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
-            Card? previousUsedCard = context.BattleDeckHistory.GetRecentlyPlayedCard();
-            if (previousUsedCard is null) { return; }
-
-            // var action = new TryTriggerCardEffectBattleAction();
-            // context.ActionScheduler.Enqueue()
+            ExecuteCommonAction(context);
         }
-
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
-            throw new NotImplementedException();
+            ExecuteCommonAction(context);
+
+            var restoreCostAction = new RestoreActionCostBattleAction(1);
+            context.ActionScheduler.Enqueue(restoreCostAction);
+        }
+        private void ExecuteCommonAction(BattleContext context)
+        {
+            Card? previousUsedCard = context.BattleDeckHistory.GetRecentlyPlayedCard(owner);
+            if (previousUsedCard is null) { return; }
+
+            var triggerCardEffectAction = new TryTriggerCardEffectBattleAction(previousUsedCard, null);
+            //TODO Delegate the TriggerCardBattleAction action to UI
+            UnityEngine.Debug.LogError("[DoubleChant] card target should be chosen in the UI. Delegate it!");
+            // context.ActionScheduler.Enqueue(triggerCardEffectAction);
         }
     }
 }

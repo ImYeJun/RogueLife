@@ -13,17 +13,34 @@ MonoBehaviour:
   m_Name: FullyPrepared
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_FullyPrepared
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uC900\uBE44 \uB9CC\uC804"
+  description: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uC5D0, \uC790\uC2E0\uC5D0\uAC8C
+    \uD55C \uD134\uAC04 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654 2 \uC2A4\uD0DD\uC744
+    \uBD80\uC5EC\uD55C\uB2E4"
+  relfectionAppliedDescription: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uC5D0, \uC790\uC2E0\uC5D0\uAC8C
+    \uD55C \uD134\uAC04 \uC9C0\uC18D\uB418\uB294 \uC8FD\uC5EC\uC8FC\uB9C8! 2 \uC2A4\uD0DD\uC744
+    \uBD80\uC5EC\uD55C\uB2E4"
+  type: 2
+  attribute: 1
+  rarity: 1
+  actionCost: 2
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922235976
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922235976
+      type: {class: FullyPrepared, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922235977
+        reflectionTargetType:
+          rid: 1582000878922235978
+        strengthenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
+        iWillKillYouData: {fileID: 11400000, guid: 3181f164645fbda429d4e14a080ac1be, type: 2}
+    - rid: 1582000878922235977
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922235978
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 

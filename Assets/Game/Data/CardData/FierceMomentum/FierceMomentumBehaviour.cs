@@ -6,55 +6,31 @@ using UnityEngine;
 namespace Battle.Cards.Behaviours
 {
     [Serializable]
-    public class FierceMomentum : CardBattleBehaviour<PlayerCardTarget, NoneCardTarget>
+    public class FierceMomentum : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] private BattleStatusEffectData lightBodyData;
+        [SerializeField] private BattleStatusEffectData strengthenMuscleData;
+        [SerializeField] private BattleStatusEffectData iWillKillYouData;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FierceMomentum() {}
-        private FierceMomentum(ICardBehaviourOwner owner, BattleStatusEffectData lightBodyData) 
+        private FierceMomentum(ICardBehaviourOwner owner, BattleStatusEffectData strengthenMuscleData, BattleStatusEffectData iWillKillYouData) 
         : base(owner)
         {
-            this.lightBodyData = lightBodyData;
+            this.strengthenMuscleData = strengthenMuscleData;
+            this.iWillKillYouData = iWillKillYouData;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new FierceMomentum(owner, lightBodyData);
-        }
-        private class ActionModifier
-        {
-            private int remainObserveCount;
-            
-            public ActionModifier(IBattleActionObserverHub actionObserverHub)
-            {
-                remainObserveCount = 3;
-
-                actionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(ReduceCardActionCost);
-            }
-
-            public void ReduceCardActionCost(TryUseCardBattleAction tryUseCard, BattleContext context)
-            {
-                tryUseCard.ReduceCost(1);
-                
-                AfterObserve(context);
-            }
-
-            private void AfterObserve(BattleContext context)
-            {
-                if (--remainObserveCount <= 0)
-                {
-                    context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(ReduceCardActionCost);
-                }
-            }
+            return new FierceMomentum(owner, strengthenMuscleData, iWillKillYouData);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
         {
             return true;
         }
-        public override bool OnIsAbleToUseReflect(BattleContext context, NoneCardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, PlayerCardTarget target)
         {
             return true;
         }
@@ -63,17 +39,17 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            var player = target.Player;
-
-            var itsLight = new BattleStatusEffect(lightBodyData, 1, 1);
-            var action = new ApplyEntityStatusEffectBattleAction(player, itsLight);
-            context.ActionScheduler.Enqueue(action);
+            ExecuteCommonAction(context, target, strengthenMuscleData);
         }
-
-        protected override void OnExecuteReflection(BattleContext context, CardCaster caster, NoneCardTarget target)
+        protected override void OnExecuteReflection(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            new ActionModifier(context.ActionObserverHub);
+            ExecuteCommonAction(context, target, iWillKillYouData);
         }
-
+        private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, BattleStatusEffectData statusEffectData)
+        {
+            var statusEffect = new BattleStatusEffect(statusEffectData, 3, 2);
+            var applyStatusEffectAction = new ApplyEntityStatusEffectBattleAction(target.Player, statusEffect);
+            context.ActionScheduler.Enqueue(applyStatusEffectAction);
+        }
     }
 }

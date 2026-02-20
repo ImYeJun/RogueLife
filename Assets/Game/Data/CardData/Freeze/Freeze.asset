@@ -12,18 +12,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081e90a48ea29da42b7f97bfcd9b9a61, type: 3}
   m_Name: Freeze
   m_EditorClassIdentifier: GameAssembly::CardData
-  id: 
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  id: Card_Freeze
+  cardName: "\uC5BC\uC74C!"
+  description: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uAE4C\uC9C0, \uC790\uC2E0\uC744
+    \uD5A5\uD55C \uBAA8\uB4E0 \uD589\uB3D9\uC758 \uD6A8\uACFC\uB97C \uBC1B\uC9C0
+    \uC54A\uC9C0\uB9CC, \uC774\uBC88 \uD134\uC744 \uAC15\uC81C\uB85C \uC885\uB8CC\uD55C\uB2E4."
+  relfectionAppliedDescription: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uAE4C\uC9C0,
+    \uC790\uC2E0\uC744 \uD5A5\uD55C \uBAA8\uB4E0 \uD589\uB3D9\uC758 \uD6A8\uACFC\uB97C
+    \uBC1B\uC9C0 \uC54A\uACE0, \uCCB4\uB825 30\uC744 \uD68C\uBCF5\uD558\uC9C0\uB9CC,
+    \uC774\uBC88 \uD134\uC744 \uAC15\uC81C\uB85C \uC885\uB8CC\uD55C\uB2E4."
+  type: 3
+  attribute: 2
+  rarity: 2
+  actionCost: 6
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922235979
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922235979
+      type: {class: Freeze, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922235980
+        reflectionTargetType:
+          rid: 1582000878922235981
+    - rid: 1582000878922235980
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922235981
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 

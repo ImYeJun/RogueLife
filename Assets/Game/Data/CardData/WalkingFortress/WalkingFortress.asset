@@ -13,17 +13,35 @@ MonoBehaviour:
   m_Name: WalkingFortress
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_WalkingFortress
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uAC78\uC5B4 \uB2E4\uB2C8\uB294 \uCCA0\uC639\uC131"
+  description: "\uC790\uC2E0\uC5D0\uAC8C \uC774\uBC88 \uC804\uD22C\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+    \uADFC\uB825 \uC57D\uD654 1\uC2A4\uD0DD\uACFC \uBC29\uC5B4\uD0DC\uC138 6\uC2A4\uD0DD\uC744
+    \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uC774\uBC88 \uC804\uD22C\uB3D9\uC548
+    \uC9C0\uC18D\uB418\uB294 \uBC18\uACA9  2\uC2A4\uD0DD\uACFC \uBC29\uC5B4\uD0DC\uC138
+    6\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  type: 3
+  attribute: 1
+  rarity: 3
+  actionCost: 8
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922236045
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922236045
+      type: {class: WalkingFortress, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922236046
+        reflectionTargetType:
+          rid: 1582000878922236047
+        defensiveStanceData: {fileID: 11400000, guid: 30f236735daa9264280e404db68d49e1, type: 2}
+        weakenMuscleData: {fileID: 11400000, guid: 2f7b8bfd2e1be0f4fa341f8e0e2c7d6a, type: 2}
+        counterAttackData: {fileID: 11400000, guid: 6f60baed59b7d2b429bc10bd0e1fd889, type: 2}
+    - rid: 1582000878922236046
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922236047
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
