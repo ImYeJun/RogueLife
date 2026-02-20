@@ -10,10 +10,12 @@ public class PlayerHealth : IFieldHealth
 
     public event Action OnMentalBreakDown;
 
+    public bool IsFullHealth => currentBattleHealth >= maxBattleHealth && currentMentality >= maxMentality;
     public int CurrentBattleHealth { get => currentBattleHealth; }
     public int CurrentMentality { get => currentMentality; }
     public int MaxBattleHealth { get => maxBattleHealth; }
     public int MaxMentality { get => maxMentality; }
+
 
     public void HurtBattleHealth(int amount, bool isOverflowable)
     {

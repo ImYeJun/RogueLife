@@ -15,10 +15,13 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
 
     public event Action<BattleEnemy> Died;
 
+    public override int CurrentHealth => currentHealth;
+    public override bool IsFullHealth => currentHealth >= currentMaxHealth;
     public IReadOnlyList<EnemyAction> PlannedActions { get => plannedActions; }
     public EnemyData Data { get => data; }
     public bool IsFirstAction => isFirstAction;
     public int PreviousActionCount => previousActionCount;
+
 
     public BattleEnemy(BattleContext context, EnemyData enemyData) : base(context, BattleEntityTrait.ENEMY)
     {

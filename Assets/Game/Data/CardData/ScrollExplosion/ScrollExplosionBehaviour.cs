@@ -19,12 +19,12 @@ namespace Battle.Cards.Behaviours
             return new ScrollExplosion(owner);
         }
 
-        public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUse(BattleContext context, SingleEnemyCardTarget target)
         {
             return true;
         }
 
-        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, CompositeCardTarget target)
         {
             return true;
         }

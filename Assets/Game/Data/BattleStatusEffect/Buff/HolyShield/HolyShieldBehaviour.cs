@@ -37,7 +37,7 @@ namespace Battle.StatusEffects.Behaviour
             if (payload.Victim != owner) { return; }
 
             BattleEntity? sourceEntitiy = payload.Source.Caster;
-            if (sourceEntitiy is null) { return; }
+            if (sourceEntitiy is null || sourceEntitiy == owner) { return; }
 
             int damage = (int)(payload.Amount * 0.5);
             var action = new RequestHurtEntityBattleAction(new NoneEntitySource(), damage, sourceEntitiy);

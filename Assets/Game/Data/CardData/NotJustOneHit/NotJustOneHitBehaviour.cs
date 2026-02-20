@@ -18,14 +18,14 @@ namespace Battle.Cards.Behaviours
             return new NotJustOneHit(owner);
         }
 
-        public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)
         {
             var hurtEnemies = context.EnemyHistory.HurtEnemies(BattleScope.PHASE);
 
             return hurtEnemies.Count != 0;
         }
 
-        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, NoneCardTarget target)
         {
             var hurtEnemies = context.EnemyHistory.HurtEnemies(BattleScope.PHASE);
 

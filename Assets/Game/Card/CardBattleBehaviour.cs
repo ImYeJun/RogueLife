@@ -52,9 +52,20 @@ public abstract class CardBattleBehaviour<T, Q> : CardBattleBehaviour
     protected CardBattleBehaviour(ICardBehaviourOwner owner) : base(owner)
     {
     }
-
+        
     public override CardTargetType TargetType { get => targetType; }
     public override CardTargetType ReflectionTargetType { get => reflectionTargetType; }
+
+    public override bool IsAbleToUse(BattleContext context, CardTarget target)
+    {
+        return OnIsAbleToUse(context, (T)target);
+    }
+    public abstract bool OnIsAbleToUse(BattleContext context, T target);
+    public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
+    {
+        return OnIsAbleToUseReflect(context, (Q)target);
+    }
+    public abstract bool OnIsAbleToUseReflect(BattleContext context, Q target);
 
     public override sealed void Execute(BattleContext context, CardCaster caster, CardTarget target)
     {

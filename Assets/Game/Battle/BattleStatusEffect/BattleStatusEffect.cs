@@ -24,6 +24,14 @@ public class BattleStatusEffect : IBattleStatusEffectState
     public BattleStatusEffect(BattleStatusEffectData data, int startStackCount)
     : this(data,startStackCount, Int32.MaxValue, true) { }
 
+    public BattleStatusEffect(BattleStatusEffect origin)
+    {
+        data = origin.data;
+        stackCount = origin.stackCount;
+        remainTurn = origin.remainTurn;
+        isDurationEternal = origin.isDurationEternal;
+    }
+
     public BattleStatusEffectData Data { get => data;  }
     public int StackCount => stackCount;
     public bool IsDurationEternal => isDurationEternal;

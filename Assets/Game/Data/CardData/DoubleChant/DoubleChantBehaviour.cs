@@ -20,12 +20,12 @@ namespace Battle.Cards.Behaviours
             return new DoubleChant(owner);
         }
 
-        public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)
         {
             return true;
         }
 
-        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, NoneCardTarget target)
         {
             return true;
         }

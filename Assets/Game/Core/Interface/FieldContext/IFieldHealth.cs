@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 
 public interface IFieldHealth : IBattleHealth {
-    public int CurrentMentality { get; }
     public void HealMentality(int amount, bool isOverflowable);
     public void IncreaseMaxBattleHealth(int amount);
     public void DecreaseMaxBattleHealth(int amount);

@@ -19,12 +19,12 @@ namespace Battle.Cards.Behaviours
             return new UltimateExplosion(owner);
         }
 
-        public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUse(BattleContext context, AllEnemyCardTarget target)
         {
             return true;
         }
 
-        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, AllEnemyCardTarget target)
         {
             return true;
         }

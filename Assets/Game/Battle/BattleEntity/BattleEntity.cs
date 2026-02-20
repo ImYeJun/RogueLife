@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.HurtSources;
@@ -12,6 +13,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippingBuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
     private Dictionary<BattleStatusEffectData, BattleStatusEffect> equippingDebuffs = new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
 
+    public abstract int CurrentHealth { get; }
     public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs { get => equippingBuffs; }
     public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs { get => equippingDebuffs; }
     
@@ -26,6 +28,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
         context.EventBus.Subscribe<EnemyTurnEndBattleEvent>(OnEnemyTurnEnded);
     }
 
+    public abstract bool IsFullHealth { get; }
     public bool IsDead { get => isDead; }
     public BattleEntityTrait Trait { get => trait; }
     public BattleEntityCondition CurrentCondition { get => currentCondition; }
@@ -37,6 +40,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     {
         context.ActionScheduler.Enqueue(new HealEntityBattleAction(this, amount));
     }
+    public void Kill() { OnDead(); }
 
     protected virtual void OnDead()
     {

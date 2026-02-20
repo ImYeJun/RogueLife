@@ -50,11 +50,11 @@ namespace Battle.Cards.Behaviours
             }
         }
 
-        public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
         {
             return true;
         }
-        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, NoneCardTarget target)
         {
             return true;
         }

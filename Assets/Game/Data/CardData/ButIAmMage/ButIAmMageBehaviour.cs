@@ -18,11 +18,11 @@ namespace Battle.Cards.Behaviours
             return new ButIAmMage(owner);
         }
 
-        public override bool IsAbleToUse(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)
         {
             return context.HandDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.MAGIC, CardType.ANY) == 0;
         }
-        public override bool IsAbleToUseReflect(BattleContext context, CardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, NoneCardTarget target)
         {
             return !context.BattleDeckHistory.HasPlayedCard(CardRarity.ANY, CardAttribute.MAGIC, CardType.ANY, BattleScope.PHASE);
         }

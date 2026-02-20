@@ -13,6 +13,8 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
         this.playerHealth.OnMentalBreakDown += OnDead;
     }
 
+    public override bool IsFullHealth => playerHealth.IsFullHealth;
+    public override int CurrentHealth => playerHealth.CurrentBattleHealth + playerHealth.CurrentMentality;
     public void SetBelongings(List<BattleBelongings> belongings) { this.belongings = belongings; }
     public List<BattleBelongings> Belongings { get => belongings;  }
 
