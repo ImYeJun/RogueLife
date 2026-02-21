@@ -6,6 +6,7 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     private BattleContext context;
     private bool isRunning = false;
     private bool isInBattle = false;
+    private bool isPaused = false;
 
     private LinkedList<IBattleAction> actionQueue = new LinkedList<IBattleAction>();
     private Stack<BattleActionScope> actionScopeStack = new Stack<BattleActionScope>();
@@ -22,39 +23,40 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         if (!isInBattle) { return; }
 
         actionQueue.AddLast(action);
-
         CurrentScope?.Increase();
 
-        if (!isRunning)
+        // 💡 멈춰있지(isPaused) 않을 때만 루프를 돌립니다!
+        if (!isRunning && !isPaused) 
         {
             isRunning = true;
             Run();
         }
     }
+
     public void EnqueueFront(IBattleAction action)
     {
         if (!isInBattle) { return; }
-        
-        actionQueue.AddFirst(action);
 
+        actionQueue.AddFirst(action);
         CurrentScope?.Increase();
 
-        if (!isRunning)
+        if (!isRunning && !isPaused) 
         {
             isRunning = true;
             Run();
         }
     }
+
     private void Run()
     {
-        while (isInBattle && actionQueue.Count > 0)
+        while (isInBattle && !isPaused && actionQueue.Count > 0)
         {
             var currentAction = actionQueue.First.Value;
             actionQueue.RemoveFirst();
 
             modifyPhase.Publish((dynamic)currentAction, context);
             preObservePhase.Publish((dynamic)currentAction, context);
-            currentAction.Execute(context);
+            currentAction.Execute(context); 
             postObservePhase.Publish((dynamic)currentAction, context);
 
             CurrentScope?.Decrease();
@@ -62,6 +64,22 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         }
 
         isRunning = false;
+    }
+
+    public void Pause()
+    {
+        isPaused = true;
+    }
+
+    public void Resume()
+    {
+        isPaused = false;
+        
+        if (!isRunning && actionQueue.Count > 0)
+        {
+            isRunning = true;
+            Run();
+        }
     }
 
     public void PushActionScope(BattleActionScope scope)
