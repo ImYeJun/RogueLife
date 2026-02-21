@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using UnityEngine;
 
@@ -11,7 +12,8 @@ public class CardSaveData
     public CardType type;
     public CardAttribute attribute;
     public CardRarity rarity;
-    public int actionCost;
+    public int baseActionCost;
+    public HashSet<CardCostModifier> costModifiers;
 
     public CardSaveData(Card origin)
     {
@@ -20,11 +22,12 @@ public class CardSaveData
         type = origin.CurrentType;
         attribute = origin.CurrentAttribute;
         rarity = origin.CurrentRarity;
-        actionCost = origin.CurrentActionCost;
+        baseActionCost = origin.BaseActionCost;
+        costModifiers = origin.CostModifiers;
     }
 
     [JsonConstructor]
-    public CardSaveData(string cardId, string cardName, string description, CardType type, CardAttribute attribute, CardRarity rarity, int actionCost)
+    public CardSaveData(string cardId, string cardName, string description, CardType type, CardAttribute attribute, CardRarity rarity, int baseActionCost, HashSet<CardCostModifier> costModifiers)
     {
         this.cardId = cardId;
         this.cardName = cardName;
@@ -32,6 +35,7 @@ public class CardSaveData
         this.type = type;
         this.attribute = attribute;
         this.rarity = rarity;
-        this.actionCost = actionCost;
+        this.baseActionCost = baseActionCost;
+        this.costModifiers = costModifiers;
     }
 }

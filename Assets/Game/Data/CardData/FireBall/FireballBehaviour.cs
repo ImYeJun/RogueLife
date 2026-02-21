@@ -44,6 +44,11 @@ namespace Battle.Cards.Behaviours
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
             ExecuteCommonAction(context, caster, target);
+
+            if (owner.CurrentActionCost <= 0) { return; }
+
+            var decreaseCardActionCostAcion = new DecreaseCardActionCost(owner, 1, BattleScope.BATTLE);
+            context.ActionScheduler.Enqueue(decreaseCardActionCostAcion);
         }
         
         private void ExecuteCommonAction(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)

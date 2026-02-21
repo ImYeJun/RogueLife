@@ -12,18 +12,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 081e90a48ea29da42b7f97bfcd9b9a61, type: 3}
   m_Name: OmrGuessingMaster
   m_EditorClassIdentifier: GameAssembly::CardData
-  id: 
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  id: Card_OmrGuessingMaster
+  cardName: "OMR \uCC0D\uAE30 \uACE0\uC218"
+  description: "\uB371\uC5D0\uC11C \uCE74\uB4DC \uD55C \uC7A5\uC744 \uBF51\uACE0,
+    \uD574\uB2F9 \uCE74\uB4DC\uAC00 \uD589\uC6B4 \uC18D\uC131\uC77C \uACBD\uC6B0,
+    \uCCB4\uB825\uC744 10 \uD68C\uBCF5\uD558\uACE0, \uD574\uB2F9 \uCE74\uB4DC\uAC00
+    \uD589\uC6B4 \uC18D\uC131\uC774 \uC544\uB2D0 \uACBD\uC6B0, \uB371\uC73C\uB85C
+    \uB418\uB3CC\uB9B0\uB2E4."
+  relfectionAppliedDescription: "\uB371\uC5D0\uC11C \uCE74\uB4DC \uD55C \uC7A5\uC744
+    \uBF51\uACE0, \uD574\uB2F9 \uCE74\uB4DC\uAC00 \uD589\uC6B4 \uC18D\uC131\uC77C
+    \uACBD\uC6B0, \uCCB4\uB825\uC744 20 \uD68C\uBCF5\uD558\uACE0, \uD574\uB2F9 \uCE74\uB4DC\uAC00
+    \uD589\uC6B4 \uC18D\uC131\uC774 \uC544\uB2D0 \uACBD\uC6B0, \uB371\uC73C\uB85C
+    \uB418\uB3CC\uB9B0\uB2E4."
+  type: 2
+  attribute: 3
+  rarity: 1
+  actionCost: 2
   battleBehaviour:
-    rid: -2
+    rid: 1582000901244059720
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000901244059720
+      type: {class: OmrGuessingMaster, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000901244059721
+        reflectionTargetType:
+          rid: 1582000901244059723
+    - rid: 1582000901244059721
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000901244059723
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 

@@ -7,14 +7,14 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
 {
     private Dictionary<CardData, List<Card>> mainDeck = new Dictionary<CardData, List<Card>>();
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
-    public Dictionary<CardData, List<Card>> GetClonedMainDeck() { 
+    public Dictionary<CardData, List<Card>> GetClonedMainDeck(bool isBattle = false) { 
         var result = new Dictionary<CardData, List<Card>>();
         foreach (var pair in mainDeck)
         {
             var clonedCards = new List<Card>();
             foreach (var card in pair.Value)
             {
-                clonedCards.Add(new Card(card));
+                clonedCards.Add(new Card(card, isBattle));
             }
             result[pair.Key] = clonedCards;
         }

@@ -13,17 +13,29 @@ MonoBehaviour:
   m_Name: MuscleMemory
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_MuscleMemory
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uBA38\uC2AC \uBA54\uBAA8\uB9AC"
+  description: "\uCE74\uB4DC \uD55C \uC7A5\uC744 \uB371\uC5D0\uC11C \uAC00\uC838\uC628\uB2E4."
+  relfectionAppliedDescription: "\uCE74\uB4DC\uB97C \uB371\uC5D0\uC11C \uAC00\uC838\uC624\uACE0,
+    \uD574\uB2F9 \uCE74\uB4DC\uC5D0 \uBCF5\uAE30 \uD6A8\uACFC\uB97C \uC801\uC6A9\uD55C\uB2E4."
+  type: 5
+  attribute: 1
+  rarity: 2
+  actionCost: 2
   battleBehaviour:
-    rid: -2
+    rid: 1582000901244059725
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000901244059725
+      type: {class: MuscleMemory, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000901244059726
+        reflectionTargetType:
+          rid: 1582000901244059727
+    - rid: 1582000901244059726
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000901244059727
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 

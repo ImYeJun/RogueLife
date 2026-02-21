@@ -77,7 +77,7 @@ public class BattleSystem : IFieldBattleSystem
         int maxActionCost = actionCost.MaxActionCost;
         int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
         int turnStartDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;
-        List<Card> startDrawDeck = deck.GetClonedMainDeck().Values.SelectMany(sel => sel).ToList();
+        List<Card> startDrawDeck = deck.GetClonedMainDeck(isForBattleStart : true).Values.SelectMany(sel => sel).ToList();
 
         BattlePlayer battlePlayer = new BattlePlayer(context, battleHealth);
         List<BattleBelongings> battleBelongingsBag = belongingsBag.GetBattleBelongings(battlePlayer);

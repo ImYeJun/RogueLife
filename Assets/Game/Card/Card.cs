@@ -1,6 +1,7 @@
 #nullable enable
 
 using System;
+using System.Collections.Generic;
 using Battle.Cards.Casters;
 using Battle.HurtSources;
 using UnityEngine;
@@ -14,8 +15,10 @@ public class Card : ICardBehaviourOwner
     private CardType currentType;
     private CardAttribute currentAttribute;
     private CardRarity currentRarity;
-    private int currentActionCost;
     private bool isReflectionApplied;
+
+    private int baseActionCost;
+    private HashSet<CardCostModifier> costModifiers;
 
     public CardData Data { get => data; }
     public string CurrentName { get => currentName; }
@@ -23,9 +26,22 @@ public class Card : ICardBehaviourOwner
     public CardType CurrentType { get => currentType; }
     public CardAttribute CurrentAttribute { get => currentAttribute; }
     public CardRarity CurrentRarity { get => currentRarity; }
-    public int CurrentActionCost { get => currentActionCost; }
     public bool IsReflectionApplied { get => isReflectionApplied; }
     public CardTargetType TargetType { get => isReflectionApplied ? behaviourInstance.ReflectionTargetType : behaviourInstance.TargetType; }
+    public int BaseActionCost { get => baseActionCost; }
+    public HashSet<CardCostModifier> CostModifiers { get => costModifiers; }
+    public int CurrentActionCost { 
+        get {
+            int result = baseActionCost;
+            
+            foreach (var modifier in costModifiers)
+            {
+                result += modifier.Delta;
+            }
+
+            return Mathf.Max(result, 0);
+        }
+    }
 
     public Card(CardData data)
     {
@@ -37,11 +53,13 @@ public class Card : ICardBehaviourOwner
         currentType = data.Type;
         currentAttribute = data.Attribute;
         currentRarity = data.Rarity;
-        currentActionCost = data.ActionCost;
         isReflectionApplied = false;
-    }
 
-    public Card(Card card)
+        baseActionCost = data.ActionCost;
+        costModifiers = new HashSet<CardCostModifier>();
+    }
+    
+    public Card(Card card, bool isForBattleStart = false)
     {
         data = card.Data;
         behaviourInstance = data.CloneBattleBehaviour(this);
@@ -51,8 +69,11 @@ public class Card : ICardBehaviourOwner
         currentType = card.CurrentType;
         currentAttribute = card.CurrentAttribute;
         currentRarity = card.CurrentRarity;
-        currentActionCost = card.CurrentActionCost;
         isReflectionApplied = card.IsReflectionApplied;
+
+        baseActionCost = card.CurrentActionCost;
+        //TODO SHIT!! Refactor this fxxcked code.Create a class named BattleCard owning Card class as composition.
+        costModifiers = isForBattleStart ? new HashSet<CardCostModifier>(card.CostModifiers) : new HashSet<CardCostModifier>();
     }
 
     public Card(CardData cardData, CardSaveData cardSaveData)
@@ -67,8 +88,25 @@ public class Card : ICardBehaviourOwner
         currentType = cardSaveData.type;
         currentAttribute = cardSaveData.attribute;
         currentRarity = cardSaveData.rarity;
-        currentActionCost = cardSaveData.actionCost;
         isReflectionApplied = false;
+
+        baseActionCost = cardSaveData.baseActionCost;
+        costModifiers = cardSaveData.costModifiers;
+    }
+
+    public void AddCostModifier(CardCostModifier modifier)
+    {
+        if (!costModifiers.Add(modifier))
+        {
+            UnityEngine.Debug.LogWarning("[Card] The given cost modifier is already exisiting");
+        }
+    }
+    public void RemoveCostModifier(CardCostModifier modifier)
+    {
+        if (!costModifiers.Remove(modifier))
+        {
+            UnityEngine.Debug.LogWarning("[Card] The given cost modifier is not exisiting");
+        }
     }
 
     public void OnDraw(BattleContext context) { behaviourInstance.OnDraw(context); }
