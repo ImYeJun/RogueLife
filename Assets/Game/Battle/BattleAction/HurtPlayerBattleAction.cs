@@ -15,7 +15,10 @@ public class HurtPlayerBattleAction : IBattleAction
 
     public BattleHurtSource Source { get => source; }
     public BattlePlayer Player { get => player; }
-    public PlayerBattleHurtContext HurtContext { get => hurtContext; }
+    public int BattleHealthDamage { get => hurtContext.BattleHealthDamage; }
+    public int MentalityDamage { get => hurtContext.MentalityDamage; }
+    public int TotalDamage { get => hurtContext.BattleHealthDamage + hurtContext.MentalityDamage; }
+    public bool IsOverflow { get => hurtContext.IsOverflow; }
 
     public void Execute(BattleContext context)
     {

@@ -76,10 +76,13 @@ namespace Battle.Cards.Behaviours
         private void ExecuteCommonAction(BattleContext context, CardCaster caster, SingleEnemyCardTarget target, List<CandidateNumber> candidates)
         {
             var selecetdCandidate = SelecetCandidate(context.Random, candidates);
-
-            int damage = selecetdCandidate.number * 10;
-            var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), damage, target.Enemy);
-            context.ActionScheduler.Enqueue(hurtAction);
+            
+            for (int i = 0; i < selecetdCandidate.number; i++)
+            {
+                int damage = 10;
+                var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), damage, target.Enemy);
+                context.ActionScheduler.Enqueue(hurtAction);
+            }
         }
 
         private CandidateNumber SelecetCandidate(Random random, List<CandidateNumber> candidates)

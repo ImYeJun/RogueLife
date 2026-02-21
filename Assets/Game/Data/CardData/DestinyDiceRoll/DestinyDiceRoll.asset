@@ -13,17 +13,32 @@ MonoBehaviour:
   m_Name: DestinyDiceRoll
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_DestinyDiceRoll
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uC6B4\uBA85\uC758 \uB2E4\uC774\uC2A4 \uB864!"
+  description: "\uB2E8\uC77C \uC801\uC5D0\uAC8C 1~6 \uC0AC\uC774\uC758 \uC22B\uC790
+    X 10 \uB9CC\uD07C\uC758 \uB370\uBBF8\uC9C0\uB97C \uAC00\uD55C\uB2E4.\r\n{ \uD655\uB960
+    = 1 (30%), 2 (25%), 3 (20%), 4 (13%), 5 (8%), 6 (3%) }"
+  relfectionAppliedDescription: "\uB2E8\uC77C \uC801\uC5D0\uAC8C 3~6 \uC0AC\uC774\uC758
+    \uC22B\uC790 x 10  \uB9CC\uD07C\uC758 \uB370\uBBF8\uC9C0\uB97C \uAC00\uD55C\uB2E4.\r\n{
+    \uD655\uB960 = 3 (40%), 4 (30%), 5 (20%), 6(10%) }"
+  type: 1
+  attribute: 3
+  rarity: 1
+  actionCost: 2
   battleBehaviour:
-    rid: -2
+    rid: 1582000878922236068
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000878922236068
+      type: {class: DestinyDiceRoll, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000878922236069
+        reflectionTargetType:
+          rid: 1582000878922236070
+    - rid: 1582000878922236069
+      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000878922236070
+      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 

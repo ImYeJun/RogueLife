@@ -7,7 +7,7 @@ public class RequestDrawCardBattleAction : IBattleAction
     private CardRarity rarity;
     private CardAttribute attribute;
     private CardType type;
-    private Guid requestId;
+    private Guid requestId; //TODO Refactor this code to Interface.
     
     public RequestDrawCardBattleAction(CardRarity rarity, CardAttribute attribute, CardType type, Guid requestId)
     {

@@ -33,7 +33,6 @@ public class TryUseCardBattleAction : IBattleAction
         context.ActionScheduler.Enqueue(new UseCardBattleAction(card, cardTarget));
 
         isSuccess = true;
-        //TODO Delegate the UseCardBattleAction action to UI
     }
 
     public void Nullify()
