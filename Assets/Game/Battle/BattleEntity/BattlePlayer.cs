@@ -39,11 +39,9 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
 
     public override void RequestHurt(int amount, BattleHurtSource source)
     {
-        var hurtContext = GenerateHurtContext(amount);
-
-        context.ActionScheduler.Enqueue(new HurtPlayerBattleAction(source, this, hurtContext));
+        context.ActionScheduler.Enqueue(new RequestHurtPlayerBattleAction(amount, source, this));
     }
-    private PlayerBattleHurtContext GenerateHurtContext(int amount)
+    public PlayerBattleHurtContext GenerateHurtContext(int amount)
     {
         int currentBattleHealth = playerHealth.CurrentBattleHealth;
 
