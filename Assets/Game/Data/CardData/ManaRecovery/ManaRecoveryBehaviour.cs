@@ -47,11 +47,12 @@ namespace Battle.Cards.Behaviours
         }
         private void ExecuteCommonAction(BattleContext context)
         {
-            var recentlyUsedCard = context.BattleDeckHistory.GetRecentlyPlayedCard(owner);
-            if (recentlyUsedCard is null) { return; }
+            var recentHistory = context.BattleDeckHistory.GetRecentlyPlayedHistory(owner);
+            if (recentHistory is null) { return; }
+            var previousUsedCard = recentHistory.Value.UsedCard;
             
-            var restoreCostAction = new RestoreActionCostBattleAction(recentlyUsedCard.CurrentActionCost);
-            var moveCardAction = new MoveCardToDeckBattleAction(recentlyUsedCard, BattleDeckType.DRAW);
+            var restoreCostAction = new RestoreActionCostBattleAction(previousUsedCard.CurrentActionCost);
+            var moveCardAction = new MoveCardToDeckBattleAction(previousUsedCard, BattleDeckType.DRAW);
 
             context.ActionScheduler.Enqueue(restoreCostAction);
             context.ActionScheduler.Enqueue(moveCardAction);

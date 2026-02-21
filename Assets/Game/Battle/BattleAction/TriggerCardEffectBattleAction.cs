@@ -5,12 +5,14 @@ public class TriggerCardEffectBattleAction : IBattleAction
     private Card card;
     private CardTarget targetEntity;
     private int executeTimes;
+    private bool isReflection;
 
-    public TriggerCardEffectBattleAction(Card card, CardTarget targetEntity, int executeTimes = 1)
+    public TriggerCardEffectBattleAction(Card card, CardTarget targetEntity, int executeTimes, bool isReflection = false)
     {
         this.card = card;
         this.targetEntity = targetEntity;
         this.executeTimes = executeTimes;
+        this.isReflection = isReflection;
     }
 
     public Card Card { get => card; }
@@ -19,6 +21,11 @@ public class TriggerCardEffectBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        context.ActionScheduler.Enqueue(new UseCardEffectBattleAction(card, new NoneEntityCaster(), targetEntity, executeTimes));
+        var caster = new NoneEntityCaster();
+
+        for (int i = 0; i < executeTimes; i++)
+        {
+            card.Trigger(context, caster, targetEntity, isReflection);
+        }
     }
 }

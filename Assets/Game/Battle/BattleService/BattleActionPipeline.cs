@@ -25,7 +25,6 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         actionQueue.AddLast(action);
         CurrentScope?.Increase();
 
-        // 💡 멈춰있지(isPaused) 않을 때만 루프를 돌립니다!
         if (!isRunning && !isPaused) 
         {
             isRunning = true;

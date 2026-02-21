@@ -28,9 +28,8 @@ public class TryUseCardBattleAction : IBattleAction
         if (!card.IsAbleToUse(context, cardTarget)) { return; }
         if (!context.ActionCost.HasEnough(cost)) { return; }
 
-        //* If race condition problem happens, refactor this code to work synchronously.
-        context.ActionScheduler.Enqueue(new ConsumeActionCostBattleAction(cost));
-        context.ActionScheduler.Enqueue(new UseCardBattleAction(card, cardTarget));
+        context.ActionScheduler.EnqueueFront(new UseCardBattleAction(card, cardTarget));
+        context.ActionScheduler.EnqueueFront(new ConsumeActionCostBattleAction(cost));
 
         isSuccess = true;
     }

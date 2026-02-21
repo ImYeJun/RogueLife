@@ -45,13 +45,12 @@ namespace Battle.Cards.Behaviours
         }
         private void ExecuteCommonAction(BattleContext context)
         {
-            Card? previousUsedCard = context.BattleDeckHistory.GetRecentlyPlayedCard(owner);
-            if (previousUsedCard is null) { return; }
+            CardPlayHistory? recentHistory = context.BattleDeckHistory.GetRecentlyPlayedHistory(owner);
+            if (recentHistory is null) { return; }
+            Card previousUsedCard = recentHistory.Value.UsedCard;
 
-            var triggerCardEffectAction = new TryTriggerCardEffectBattleAction(previousUsedCard, null);
-            //TODO Delegate the TriggerCardBattleAction action to UI
-            UnityEngine.Debug.LogError("[DoubleChant] card target should be chosen in the UI. Delegate it!");
-            // context.ActionScheduler.Enqueue(triggerCardEffectAction);
+            var requestTryTriggerCardAction = new RequestTryTriggerCardBattleAction(previousUsedCard, recentHistory.Value.IsReflection);
+            context.ActionScheduler.Enqueue(requestTryTriggerCardAction);
         }
     }
 }

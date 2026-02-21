@@ -19,7 +19,14 @@ public class UseCardEffectBattleAction : IBattleAction
     {
         for (int i = 0; i < executeTimes; i++)
         {
-            card.Execute(context, caster, target);
+            card.Use(context, caster, target);
+            context.BattleDeckHistory.RecordUseCard(card, card.IsReflectionApplied);
         }
+
+        var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
+
+        if (card.IsReflectionApplied) { card.UnapplyReflection(); }
+        
+        context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(card, destination));
     }
 }

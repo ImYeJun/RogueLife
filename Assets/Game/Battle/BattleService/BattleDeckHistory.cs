@@ -8,36 +8,37 @@ using UnityEngine;
 public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveService
 {
     private int phaseIndex;
-    private Dictionary<int, List<Card>> usedHistory = new Dictionary<int, List<Card>>();
+    private Dictionary<int, List<CardPlayHistory>> usedHistory = new Dictionary<int, List<CardPlayHistory>>();
     //* <PhaseIndex, PlayedCardsDuringPlayerTurnWithSeuqnece>
     private Dictionary<int, List<Card>> gravedHistory = new Dictionary<int, List<Card>>();
 
     //* <PhaseIndex, GravedCardsDuringPlayerTurnWithSeuqnece>
-    private List<Card> UsedCardsDuringBattle => usedHistory.Values.SelectMany(sel=>sel).ToList();
-    private List<Card> CurrentPhaseUseHistory => usedHistory[phaseIndex];
+    private List<CardPlayHistory> UsedCardsDuringBattle => usedHistory.Values.SelectMany(sel=>sel).ToList();
+    private List<CardPlayHistory> CurrentPhaseUseHistory => usedHistory[phaseIndex];
     private List<Card> CurrentPhaseGravedHistory => gravedHistory[phaseIndex];
     
-    public void RecordUseCard(Card card)
+    public void RecordUseCard(Card card, bool isReflection = false)
     {
-        usedHistory[phaseIndex].Add(card);
+        usedHistory[phaseIndex].Add(new CardPlayHistory(card, isReflection));
     }
     public void RecordGravedCard(Card card)
     {
         gravedHistory[phaseIndex].Add(card);
     }
     
-    public Card? GetRecentlyPlayedCard(ICardBehaviourOwner? ignoringCardBehaviourOwner = null)
+    public CardPlayHistory? GetRecentlyPlayedHistory(ICardBehaviourOwner? ignoringCardBehaviourOwner = null)
     {
         for (int i = usedHistory.Count - 1; i >= 0; i--)
         {
             var currentEra = usedHistory[i];
 
-            if (currentEra.Count == 0) { continue; }
-            var selecetedCard = currentEra[currentEra.Count - 1];
-            if (selecetedCard == ignoringCardBehaviourOwner) { continue; }
-            return selecetedCard;
+            for (int j = currentEra.Count - 1; j >= 0; j--)
+            {
+                var selectedHistory = currentEra[j];
+                if (selectedHistory.UsedCard == ignoringCardBehaviourOwner) { continue; }
+                return selectedHistory;
+            }
         }
-
         return null;
     }
     public List<Card> GetRecentlyGravedCard(int amount)
@@ -64,15 +65,15 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
         switch (scope)
         {
             case BattleScope.PHASE:
-                return usedHistory[phaseIndex].Any(card => 
-                    (rarity == CardRarity.ANY || card.CurrentRarity == rarity) &&
-                    (attribute == CardAttribute.ANY || card.CurrentAttribute == attribute) &&
-                    (type == CardType.ANY || card.CurrentType == type)
+                return usedHistory[phaseIndex].Any(history => 
+                    (rarity == CardRarity.ANY || history.UsedCard.CurrentRarity == rarity) &&
+                    (attribute == CardAttribute.ANY || history.UsedCard.CurrentAttribute == attribute) &&
+                    (type == CardType.ANY || history.UsedCard.CurrentType == type)
                 );
             case BattleScope.BATTLE:
-                return UsedCardsDuringBattle.Any(card => 
-                    (attribute == CardAttribute.ANY || card.CurrentAttribute == attribute) &&
-                    (type == CardType.ANY || card.CurrentType == type)
+                return UsedCardsDuringBattle.Any(history => 
+                    (attribute == CardAttribute.ANY || history.UsedCard.CurrentAttribute == attribute) &&
+                    (type == CardType.ANY || history.UsedCard.CurrentType == type)
                 );
             default:
                 throw new InvalidOperationException($"{scope} is not valid for checking played card");
@@ -110,7 +111,22 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
     public void CreateNewEra(PhaseStartBattleEvent payload)
     {
         phaseIndex++;
-        usedHistory[phaseIndex] = new List<Card>();
+        usedHistory[phaseIndex] = new List<CardPlayHistory>();
         gravedHistory[phaseIndex] = new List<Card>();
     }
+}
+
+public struct CardPlayHistory
+{
+    private Card usedCard;
+    private bool isReflection;
+
+    public CardPlayHistory(Card usedCard, bool isReflection)
+    {
+        this.usedCard = usedCard;
+        this.isReflection = isReflection;
+    }
+
+    public Card UsedCard { get => usedCard; }
+    public bool IsReflection { get => isReflection; }
 }

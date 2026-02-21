@@ -115,14 +115,20 @@ public class Card : ICardBehaviourOwner
             behaviourInstance.IsAbleToUseReflect(context, target) : 
             behaviourInstance.IsAbleToUse(context, target);
     }
-    public void Execute(BattleContext context, CardCaster caster, CardTarget targetEntity)
+    public void Use(BattleContext context, CardCaster caster, CardTarget targetEntity)
     {
         if (!behaviourInstance.IsTargetValid(targetEntity, context, isReflectionApplied)) { return; }
 
         if (isReflectionApplied) { 
             behaviourInstance.ExecuteReflection(context, caster, targetEntity);
-            UnapplyReflection();
         }
+        else { behaviourInstance.Execute(context, caster, targetEntity); }
+    }
+    public void Trigger(BattleContext context, CardCaster caster, CardTarget targetEntity, bool isReflection = false)
+    {
+        if (!behaviourInstance.IsTargetValid(targetEntity, context, isReflection)) { return; }
+
+        if (isReflection) { behaviourInstance.ExecuteReflection(context, caster, targetEntity); }
         else { behaviourInstance.Execute(context, caster, targetEntity); }
     }
 
