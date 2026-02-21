@@ -1,4 +1,4 @@
 public enum BattleStatusEffectType
 {
-    BUFF, DEBUFF
+    BUFF, DEBUFF, ANY = -1
 }

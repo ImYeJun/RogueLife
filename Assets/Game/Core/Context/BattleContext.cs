@@ -4,6 +4,8 @@ using UnityEngine;
 public class BattleContext
 {
     private System.Random random;
+    private IBattleCardDatabase cardDatabase;
+    private IBattleBattleStatusEffectDatabase battleStatusEffectDatabase;
     private IBattleEventBus eventBus;
     private IBattleScheduler battleScheduler;
     private IBattleActionScheduler actionScheduler;
@@ -20,9 +22,11 @@ public class BattleContext
     private IBattleEnemySystemContext enemySystem;
     private IBattleEnemyHistoryContext enemyHistory;
 
-    public BattleContext(System.Random random, IBattleEventBus eventBus, IBattleScheduler battleScheduler, IBattleActionScheduler actionScheduler, IBattleActionObserverHub actionObserverHub, IBattlePhaseContext phase, IBattlePlayerContainerContext playerContainer, IBattleActionCost actionCost, IBattleActionCostHistoryContext actionCostHistory, IBattleDeckSystemContext deckSystem, IBattleDeckHistoryContext cardPlayHistory, IDrawDeckContext drawDeck, IHandDeckContext handDeck, IGraveDeckContext graveDeck, IBattleEnemySystemContext enemySystem, IBattleEnemyHistoryContext enemyHistory)
+    public BattleContext(System.Random random, IBattleCardDatabase cardDatabase, IBattleBattleStatusEffectDatabase battleStatusEffectDatabase, IBattleEventBus eventBus, IBattleScheduler battleScheduler, IBattleActionScheduler actionScheduler, IBattleActionObserverHub actionObserverHub, IBattlePhaseContext phase, IBattlePlayerContainerContext playerContainer, IBattleActionCost actionCost, IBattleActionCostHistoryContext actionCostHistory, IBattleDeckSystemContext deckSystem, IBattleDeckHistoryContext battleDeckHistory, IDrawDeckContext drawDeck, IHandDeckContext handDeck, IGraveDeckContext graveDeck, IBattleEnemySystemContext enemySystem, IBattleEnemyHistoryContext enemyHistory)
     {
         this.random = random;
+        this.cardDatabase = cardDatabase;
+        this.battleStatusEffectDatabase = battleStatusEffectDatabase;
         this.eventBus = eventBus;
         this.battleScheduler = battleScheduler;
         this.actionScheduler = actionScheduler;
@@ -32,7 +36,7 @@ public class BattleContext
         this.actionCost = actionCost;
         this.actionCostHistory = actionCostHistory;
         this.deckSystem = deckSystem;
-        this.battleDeckHistory = cardPlayHistory;
+        this.battleDeckHistory = battleDeckHistory;
         this.drawDeck = drawDeck;
         this.handDeck = handDeck;
         this.graveDeck = graveDeck;
@@ -41,6 +45,8 @@ public class BattleContext
     }
 
     public System.Random Random { get => random; }
+    public IBattleCardDatabase CardDatabase { get => cardDatabase; }
+    public IBattleBattleStatusEffectDatabase BattleStatusEffectDatabase { get => battleStatusEffectDatabase; }
     public IBattleEventBus EventBus { get => eventBus; }
     public IBattleScheduler BattleScheduler { get => battleScheduler; }
     public IBattleActionScheduler ActionScheduler { get => actionScheduler; }

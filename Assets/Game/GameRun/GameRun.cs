@@ -18,11 +18,12 @@ public class GameRun
     private TransactionChoiceDatabase transactionChoiceDatabase;
     private CardDatabase cardDatabase;
     private BelongingsDatabase belongingsDatabase;
+    private BattleStatusEffectDatabase battleStatusEffectDatabase;
 
     public GameRun(
         int seed, 
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
-        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase) databases
+        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases
     )
     {
         this.seed = seed;
@@ -35,15 +36,16 @@ public class GameRun
         transactionChoiceDatabase = databases.transactionChoiceDatabase;
         cardDatabase = databases.cardDatabase;
         belongingsDatabase = databases.belongingsDatabase;
+        battleStatusEffectDatabase = databases.battleStatusEffectDatabase;
 
         player = new Player();
         runDiarySystem = new RunDiarySystem(databases.specialDiaryDatabase, databases.enemyDatabase, databases.incidentDatabase, databases.belongingsDatabase, databases.cardDatabase);
-        battleSystem = new BattleSystem(random);
+        battleSystem = new BattleSystem(random, databases.cardDatabase, databases.battleStatusEffectDatabase);
         scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase);
     }
     public GameRun(
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
-        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase) databases
+        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases
         ) 
         : this(new Random().Next(), rules, databases){}
 

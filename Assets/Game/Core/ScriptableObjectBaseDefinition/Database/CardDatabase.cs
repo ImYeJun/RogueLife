@@ -1,3 +1,5 @@
+#nullable enable
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
     [SerializeField] private List<CardData> availableCardData;
     private Dictionary<string, CardData> idLookUp = new Dictionary<string, CardData>();
 
-    public CardData GetData(string id)
+    public CardData? GetData(string id)
     {
         if (!idLookUp.TryGetValue(id, out CardData data)) { return data ;}
         
@@ -16,8 +18,8 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
         return null;    
     }
 
-    public Card Materialize(CardData cardData) { return Materialize(cardData.Id); }
-    public Card Materialize(string id)
+    public Card? Materialize(CardData cardData) { return Materialize(cardData.Id); }
+    public Card? Materialize(string id)
     {
         if (!idLookUp.TryGetValue(id, out CardData data)) { return new Card(data);}
 
@@ -25,16 +27,17 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
         return null;
     }
 
-    public Card GetRandomCard(System.Random random)
+    public Card? GetRandomCard(System.Random random, List<CardData>? ignoringCardData = null)
     {
-        return GetRandomCard(random, CardRarity.ANY, CardType.ANY, CardAttribute.ANY);
+        return GetRandomCard(random, CardRarity.ANY, CardType.ANY, CardAttribute.ANY, ignoringCardData);
     }
-    public Card GetRandomCard(System.Random random, CardRarity rarity, CardType type, CardAttribute attribute)
+    public Card? GetRandomCard(System.Random random, CardRarity rarity, CardType type, CardAttribute attribute, List<CardData>? ignoringCardData = null)
     {
         var filterdCardData = availableCardData.Where(data =>
             (rarity == CardRarity.ANY) || (data.Rarity == rarity) &&
             (type == CardType.ANY || data.Type == type) &&
-            (attribute == CardAttribute.ANY || data.Attribute == attribute)
+            (attribute == CardAttribute.ANY || data.Attribute == attribute) &&
+            ((ignoringCardData is null) || !ignoringCardData.Contains(data))
         ).ToList();
 
         if (filterdCardData.Count <= 0) { 
@@ -44,28 +47,33 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
         var selectedData = filterdCardData[random.Next(filterdCardData.Count)];
         return Materialize(selectedData);
     }
+    public Card? GetRandomCard(System.Random random, CardRarity lowestRarity, CardRarity highestRarity, CardType type, CardAttribute attribute, List<CardData>? ignoringCardData = null)
+    {
+        var selectedRarity = GetRandomRarity(random, lowestRarity, highestRarity);
+        return GetRandomCard(random, selectedRarity, type, attribute, ignoringCardData);
+    }
 
     public List<Card> GetEnemyResolveReward(System.Random random,CardEnemyResolveReward data)
     {
         var result = new List<Card>();
 
-        int minRarity = (int)data.LowestRarity;
-        int maxRarity = (int)data.HighestRarity;
-
         for (int i = 0; i < data.Amount; i++)
         {
-            CardRarity selectedRarity = 
-                data.LowestRarity == CardRarity.ANY || data.HighestRarity == CardRarity.ANY ? 
-                CardRarity.ANY : (CardRarity)random.Next(minRarity, maxRarity + 1); 
-            
+            CardRarity selectedRarity = GetRandomRarity(random, data.LowestRarity, data.HighestRarity);
+
             var card = GetRandomCard(random, selectedRarity, CardType.ANY, CardAttribute.ANY);
             if (card == null) { card = GetRandomCard(random); }
-            if (card == null) { throw new InvalidOperationException("[CardDatabase] Shit Database, There's no card data for rewarding. What a mess!");}
+            if (card == null) { throw new InvalidOperationException("[CardDatabase] Shit Database, There's no card data for rewarding. What a mess!"); }
 
             result.Add(card);
         }
 
         return result;
+    }
+
+    private CardRarity GetRandomRarity(System.Random random, CardRarity minRarity, CardRarity maxRarity)
+    {
+        return minRarity == CardRarity.ANY || maxRarity == CardRarity.ANY ? CardRarity.ANY : (CardRarity)random.Next((int)minRarity, (int)maxRarity + 1);
     }
 
     public void OnBeforeSerialize() { }
@@ -114,6 +122,5 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
             }
         }
     }
-
 #endif
 }

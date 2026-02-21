@@ -14,7 +14,7 @@ public class BattleSystem : IFieldBattleSystem
     private BattleDeckSystem deckSystem;
     private BattleEnemySystem enemySystem;
 
-    public BattleSystem(Random random)
+    public BattleSystem(Random random, IBattleCardDatabase cardDatabase, IBattleBattleStatusEffectDatabase battleStatusEffectDatabase)
     {
         eventBus = new BattleEventBus();
         scheduler = new BattleScheduler(ExitBattle);
@@ -28,6 +28,8 @@ public class BattleSystem : IFieldBattleSystem
         context = new BattleContext(
             random : random,
             eventBus : eventBus,
+            cardDatabase : cardDatabase,
+            battleStatusEffectDatabase : battleStatusEffectDatabase,
             battleScheduler : scheduler,
             actionScheduler : pipeline,
             actionObserverHub : pipeline,
@@ -36,7 +38,7 @@ public class BattleSystem : IFieldBattleSystem
             actionCost : acionCost,
             actionCostHistory : acionCost.History,
             deckSystem : deckSystem,
-            cardPlayHistory : deckSystem.History,
+            battleDeckHistory : deckSystem.History,
             drawDeck : deckSystem[BattleDeckType.DRAW],
             handDeck : deckSystem[BattleDeckType.HAND],
             graveDeck : deckSystem[BattleDeckType.GRAVE],
