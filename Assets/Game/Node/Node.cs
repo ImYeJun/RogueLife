@@ -7,8 +7,8 @@ public abstract class Node
     protected ScheduleHistory scheduleHistory;
 
     Guid skeletonId;
-    private List<Node> previousNodes = new List<Node>();
-    private List<Node> nextNodes = new List<Node>();
+    protected List<Node> previousNodes = new List<Node>();
+    protected List<Node> nextNodes = new List<Node>();
     private Node exitNode;
 
     public Guid SkeletonId { get => skeletonId; }
@@ -32,6 +32,8 @@ public abstract class Node
     {
         this.context = context;
         this.scheduleHistory = scheduleHistory;
+
+        context.NextNodesForChoiceEngageBattleEffect = nextNodes; //! Shit hack. Refactor it!!!!
         //TODO : 노드 진입 연출 실행
     }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 public class FieldContext
 {
@@ -45,6 +46,7 @@ public class FieldContext
     //! I had no choice but to use this hack. Shit!!!!!!
     //! I'll refactor this shitty code if I ever get some spare time... or when this code inevitably blows up.
     public bool HasEngagedBattleByChoiceEngageBattleEffect { get; set; } = false;
+    public List<Node> NextNodesForChoiceEngageBattleEffect { get; set; } = new List<Node>();
     public Action RequestNextNodeSelectionForChoiceEngageBattleEffect;
     public Action<EnemyData, bool> RecordEncounterEnemyForChoiceEngageBattleEffect;
     public Action OnPlayerMentalBrokenForChoiceEngageBattleEffect;

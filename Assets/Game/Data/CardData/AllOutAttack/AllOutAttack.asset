@@ -14,16 +14,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_AllOutAttack
   cardName: "\uCD1D \uACF5\uC138"
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  description: "\uC0C1\uB300\uBC29\uC5D0\uAC8C \uB370\uBBF8\uC9C0 10 \uC744 \uC90D\uB2C8\uB2E4.
+    \uC774\uD6C4 \uC790\uC2E0\uC758 \uC190 \uD328\uC758 \uBB3C\uB9AC \uC18D\uC131
+    \uACF5\uACA9 \uC720\uD615\uC758 \uCE74\uB4DC\uB4E4\uC758 \uD589\uB3D9\uB825\uC744
+    \uC774\uBC88 \uC804\uD22C \uB3D9\uC548 2 \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
+  relfectionAppliedDescription: "\uC0C1\uB300\uBC29\uC5D0\uAC8C \uB370\uBBF8\uC9C0
+    10 \uC744 \uC90D\uB2C8\uB2E4. \uC774\uD6C4 \uC790\uC2E0\uC758 \uC190 \uD328\uC758
+    \uBB3C\uB9AC \uC18D\uC131 \uACF5\uACA9 \uC720\uD615\uC758 \uCE74\uB4DC\uB4E4\uC758
+    \uD589\uB3D9\uB825\uC744 \uC774\uBC88 \uC804\uD22C \uB3D9\uC548 3 \uAC10\uC18C\uC2DC\uD0B5\uB2C8\uB2E4."
+  type: 1
+  attribute: 1
+  rarity: 2
+  actionCost: 9
   battleBehaviour:
-    rid: -2
+    rid: 1582000905641787470
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 1582000905641787470
+      type: {class: AllOutAttack, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 1582000905641787471
+        reflectionTargetType:
+          rid: 1582000905641787472
+    - rid: 1582000905641787471
+      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 1582000905641787472
+      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
+      data: 

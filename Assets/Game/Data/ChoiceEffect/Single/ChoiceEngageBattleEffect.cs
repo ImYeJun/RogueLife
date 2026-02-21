@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using Battle.Cards.Behaviours;
 using UnityEditor.Graphs;
 using UnityEngine;
 
@@ -50,6 +51,9 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
             case BattleResult.PLAYER_DIED:
                 context.OnPlayerMentalBrokenForChoiceEngageBattleEffect.Invoke();
                 return;
+            case BattleResult.OUT_OF_MY_WAY:
+                OutOfMyWay();
+                return;
             default:
                 throw new InvalidOperationException($"{result} is not expected to be used in battle result");
         }
@@ -60,6 +64,16 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
         }
         
         context.RequestNextNodeSelectionForChoiceEngageBattleEffect.Invoke();
+    }
+
+    public void OutOfMyWay()
+    {
+        foreach (var enemyData in engaingEnemyData)
+        {
+            context.RecordEncounterEnemyForChoiceEngageBattleEffect.Invoke(enemyData, hasResolved);
+        }
+
+        
     }
 
     private void GetReward()

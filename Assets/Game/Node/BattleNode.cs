@@ -47,11 +47,21 @@ public class BattleNode : Node
             case BattleResult.PLAYER_DIED:
                 OnPlayerMentalBroken();
                 return;
+            case BattleResult.OUT_OF_MY_WAY:
+                OnOutOfMyWay();
+                return;
             default:
                 throw new InvalidOperationException($"{result} is not expected to be used in battle result");
         }
         
         RequestNextNodeSelection();
+    }
+
+    private void OnOutOfMyWay()
+    {
+        var randomNextNode = nextNodes[context.Random.Next(nextNodes.Count)];
+        
+        OnExit(randomNextNode);
     }
 
     private void GetReward()

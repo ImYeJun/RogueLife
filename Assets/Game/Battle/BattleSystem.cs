@@ -96,7 +96,6 @@ public class BattleSystem : IFieldBattleSystem
 
     public void ExitBattle(BattleResult result)
     {
-
         OnBattleExit?.Invoke(result);
     }
 
