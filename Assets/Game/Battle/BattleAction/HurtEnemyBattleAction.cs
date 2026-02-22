@@ -1,6 +1,6 @@
 using Battle.HurtSources;
 
-public class HurtEnemyBattleAction : IBattleAction
+public class HurtEnemyBattleAction : IBattleAction, IEntityTargetedBattleAction
 {
     private BattleEnemy enemy;
     private BattleHurtSource source;
@@ -16,6 +16,8 @@ public class HurtEnemyBattleAction : IBattleAction
     public BattleEnemy Enemy { get => enemy; }
     public BattleHurtSource Source { get => source; }
     public int Amount { get => amount; }
+
+    public BattleEntity Target => enemy;
 
     public void Execute(BattleContext context)
     {

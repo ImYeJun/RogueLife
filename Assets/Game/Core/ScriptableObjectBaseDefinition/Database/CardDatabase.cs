@@ -34,7 +34,7 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
     public Card? GetRandomCard(System.Random random, CardRarity rarity, CardType type, CardAttribute attribute, List<CardData>? ignoringCardData = null)
     {
         var filterdCardData = availableCardData.Where(data =>
-            (rarity == CardRarity.ANY) || (data.Rarity == rarity) &&
+            ((rarity == CardRarity.ANY) || (data.Rarity == rarity)) &&
             (type == CardType.ANY || data.Type == type) &&
             (attribute == CardAttribute.ANY || data.Attribute == attribute) &&
             ((ignoringCardData is null) || !ignoringCardData.Contains(data))

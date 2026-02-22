@@ -41,6 +41,16 @@ public class BattleDeckHistory : IBattleDeckHistoryContext, IBattleEventObserveS
         }
         return null;
     }
+    public List<CardPlayHistory>? GetRecentPhasePlayedHistory(ICardBehaviourOwner? ignoringCardBehaviourOwner = null)
+    {
+        if (!usedHistory.ContainsKey(phaseIndex)) { return null; }
+
+        var recentPhaseHistory = usedHistory[phaseIndex];
+        var filtered = ignoringCardBehaviourOwner is null ? recentPhaseHistory : recentPhaseHistory.Where(history => history.UsedCard != ignoringCardBehaviourOwner).ToList();
+        
+        return filtered;
+    }
+
     public List<Card> GetRecentlyGravedCard(int amount)
     {
         var result = new List<Card>();

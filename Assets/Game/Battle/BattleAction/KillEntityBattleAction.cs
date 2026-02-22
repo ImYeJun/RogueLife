@@ -1,4 +1,4 @@
-public class KillEntityBattleAction : IBattleAction
+public class KillEntityBattleAction : IBattleAction, IEntityTargetedBattleAction
 {
     private BattleEntity target;
 
@@ -6,6 +6,8 @@ public class KillEntityBattleAction : IBattleAction
     {
         this.target = target;
     }
+
+    public BattleEntity Target => target;
 
     public void Execute(BattleContext context)
     {

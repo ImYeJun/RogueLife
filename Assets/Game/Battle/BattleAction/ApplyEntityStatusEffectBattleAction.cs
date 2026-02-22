@@ -1,4 +1,4 @@
-public class ApplyEntityStatusEffectBattleAction : IBattleAction
+public class ApplyEntityStatusEffectBattleAction : IBattleAction, IEntityTargetedBattleAction
 {
     private BattleEntity target;
     private BattleStatusEffect statusEffect;

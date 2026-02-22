@@ -1,4 +1,4 @@
-public class HealEntityBattleAction : IBattleAction
+public class HealEntityBattleAction : IBattleAction, IEntityTargetedBattleAction
 {
     private BattleEntity target;
     private int amount;

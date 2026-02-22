@@ -2,6 +2,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Battle.Cards.Casters;
 
 namespace Battle.Cards.Behaviours
@@ -34,9 +35,32 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
+            ExecuteCommonAction(context, 0.4);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
+            ExecuteCommonAction(context, 0.5);
+        }
+        private void ExecuteCommonAction(BattleContext context, double probability)
+        {
+            int totalExecuteCount = 0;
+            
+            while (true)
+            {
+                if (context.Random.NextDouble() <= probability) { totalExecuteCount++; }
+                else { break; }
+            }
+
+            var availableCards = context.HandDeck.GetCards().Where(card => card != owner).ToList();
+            if (availableCards.Count == 0) { return; }
+
+            for (int i = 0; i < totalExecuteCount; i++)
+            {
+                var selectedCard = availableCards[context.Random.Next(availableCards.Count)];
+
+                var requestTryTiggerCardAction = new RequestTryTriggerCardBattleAction(selectedCard, true);
+                context.ActionScheduler.Enqueue(requestTryTiggerCardAction);
+            }
         }
     }
 }

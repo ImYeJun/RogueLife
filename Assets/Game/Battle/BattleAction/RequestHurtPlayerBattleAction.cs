@@ -1,6 +1,6 @@
 using Battle.HurtSources;
 
-public class RequestHurtPlayerBattleAction : IBattleAction
+public class RequestHurtPlayerBattleAction : IBattleAction, IEntityTargetedBattleAction
 {
     private int rawDamage;
     private BattleHurtSource source;
@@ -12,6 +12,8 @@ public class RequestHurtPlayerBattleAction : IBattleAction
         this.source = source;
         this.player = player;
     }
+
+    public BattleEntity Target => player;
 
     public void Execute(BattleContext context)
     {

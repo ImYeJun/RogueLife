@@ -1,6 +1,6 @@
 using Battle.HurtSources;
 
-public class HurtPlayerBattleAction : IBattleAction
+public class HurtPlayerBattleAction : IBattleAction, IEntityTargetedBattleAction
 {   
     private BattleHurtSource source;
     private BattlePlayer player;
@@ -19,6 +19,8 @@ public class HurtPlayerBattleAction : IBattleAction
     public int MentalityDamage { get => hurtContext.MentalityDamage; }
     public int TotalDamage { get => hurtContext.BattleHealthDamage + hurtContext.MentalityDamage; }
     public bool IsOverflow { get => hurtContext.IsOverflow; }
+
+    public BattleEntity Target => player;
 
     public void Execute(BattleContext context)
     {

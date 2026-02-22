@@ -8,17 +8,17 @@ using UnityEngine;
 namespace Battle.Cards.Behaviours
 {
     [Serializable]
-    public class Ryujia108Stairs40Combo : CardBattleBehaviour<NoneCardTarget, NoneCardTarget>
+    public class UnknownKnowledge : CardBattleBehaviour<NoneCardTarget, NoneCardTarget>
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Ryujia108Stairs40Combo() {}
-        private Ryujia108Stairs40Combo(ICardBehaviourOwner owner)
+        public UnknownKnowledge() {}
+        private UnknownKnowledge(ICardBehaviourOwner owner)
         : base(owner) {}
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new Ryujia108Stairs40Combo(owner);
+            return new UnknownKnowledge(owner);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)
@@ -37,25 +37,21 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
-            var cards = context.HandDeck.GetCardsByCondition(CardRarity.ANY, CardAttribute.PHYSICAL, CardType.ANY)
-                                .Where(card => card != owner)
-                                .ToList();
-            ExecuteCommonAction(context, cards);
+            ExecuteCommonAction(context, CardRarity.COMMON, CardRarity.RARE);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
-            var cards = context.HandDeck.GetCards()
-                        .Where(card => card != owner)
-                        .ToList();
-            ExecuteCommonAction(context, cards);
+            ExecuteCommonAction(context, CardRarity.RARE, CardRarity.RARE);
         }
-        private void ExecuteCommonAction(BattleContext context, List<Card> cards)
+        private void ExecuteCommonAction(BattleContext context, CardRarity lowestRarity, CardRarity highestRarity)
         {
-            foreach (var card in cards)
-            {
-                var requestTryUseCardAction = new RequestTryUseCardBattleAction(card, true);
-                context.ActionScheduler.Enqueue(requestTryUseCardAction);
-            }
+            var handMagicCards = context.HandDeck.GetCardsByCondition(CardRarity.ANY, CardAttribute.MAGIC, CardType.ANY).Select(card => card.Data).ToList();
+            var selectedCard = context.CardDatabase.GetRandomCard(context.Random, lowestRarity, highestRarity, CardType.ANY, CardAttribute.MAGIC, handMagicCards);
+
+            if (selectedCard is null) { return; }
+
+            var requestTryTriggerCardEffect = new RequestTryTriggerCardBattleAction(selectedCard, true);
+            context.ActionScheduler.Enqueue(requestTryTriggerCardEffect);
         }
     }
 }

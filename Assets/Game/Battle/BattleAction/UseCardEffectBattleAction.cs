@@ -15,6 +15,9 @@ public class UseCardEffectBattleAction : IBattleAction
         this.executeTimes = executeTimes;
     }
 
+    public Card Card { get => card; }
+    public CardCaster Caster { get => caster; }
+
     public void Execute(BattleContext context)
     {
         for (int i = 0; i < executeTimes; i++)
