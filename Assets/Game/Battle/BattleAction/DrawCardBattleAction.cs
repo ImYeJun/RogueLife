@@ -1,6 +1,6 @@
 using System;
 
-public class  DrawCardBattleAction : IBattleAction
+public class DrawCardBattleAction : IBattleAction
 {
     private Guid requestID;
     private Card card;

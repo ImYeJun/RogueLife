@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4229bc68f865ac7498d594b6e0c1fb62, type: 3}
+  m_Name: SmartLookingGlasses
+  m_EditorClassIdentifier: GameAssembly::BelongingsData
+  id: Belongings_SmartLookingGlasses
+  belongingsName: "\uBB54\uAC00 \uB611\uB611\uD574 \uBCF4\uC774\uB294 \uC548\uACBD"
+  image: {fileID: 0}
+  description: "\uD589\uB3D9\uB825 0,1,2 \uCE74\uB4DC\uB4E4\uC758 \uD589\uB3D9\uB825\uC774
+    1\uC529 \uC99D\uAC00\uD558\uACE0, \uD589\uB3D9\uB825 8,9,10 \uCE74\uB4DC\uB4E4\uC758
+    \uD589\uB3D9\uB825\uC774 1\uC529 \uAC10\uC18C\uD55C\uB2E4."
+  fieldBehaviour:
+    rid: 7557520071594606697
+  battleBehaviour:
+    rid: 7557520071594606698
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557520071594606697
+      type: {class: FieldSmartLookingGlasses, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data:
+        decreaseCardActionCost:
+          minRarity: 0
+          maxRarity: 0
+          type: 0
+          cardAttribute: 0
+          isCheckBaseCost: 1
+          baseCosts: 000000000100000002000000
+          amount: 1
+        increaseCardActionCost:
+          minRarity: 0
+          maxRarity: 0
+          type: 0
+          cardAttribute: 0
+          isCheckBaseCost: 1
+          baseCosts: 08000000090000000a000000
+          amount: 1
+    - rid: 7557520071594606698
+      type: {class: BattleSmartLookingGlasses, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 

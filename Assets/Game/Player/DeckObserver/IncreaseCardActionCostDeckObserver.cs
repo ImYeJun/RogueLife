@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Field.Deck.Observers
@@ -13,6 +14,8 @@ namespace Field.Deck.Observers
         [SerializeField] private CardRarity maxRarity;
         [SerializeField] private CardType type;
         [SerializeField] private CardAttribute cardAttribute;
+        [SerializeField] private bool isCheckBaseCost;
+        [SerializeField] private List<int> baseCosts;
         [SerializeField] private int amount;
 
         public void OnCardEquipped(Card card)
@@ -72,6 +75,7 @@ namespace Field.Deck.Observers
             if (minRarity != CardRarity.ANY && card.CurrentRarity < minRarity) return;
             if (maxRarity != CardRarity.ANY && card.CurrentRarity > maxRarity) return;
             if (type != CardType.ANY && card.CurrentType != type) return;
+            if (isCheckBaseCost && !baseCosts.Any(cost => cost == card.BaseActionCost)) return;
             if (cardAttribute != CardAttribute.ANY && card.CurrentAttribute != cardAttribute) return;
 
             var modifier = new CardCostModifier(amount);
