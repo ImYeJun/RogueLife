@@ -36,7 +36,7 @@ public abstract class EnemyData : ScriptableObject
         if (battleBehaviour == null)
         {
             Debug.LogError($"[EnemyData] Behaviour is missing in {enemyName} ({id})");
-        return null;
+            return null;
         }
 
         return battleBehaviour.Clone(owner);

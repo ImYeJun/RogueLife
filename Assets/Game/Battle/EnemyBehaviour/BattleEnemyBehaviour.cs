@@ -61,12 +61,14 @@ public abstract class BattleEnemyBehaviour
     protected abstract int CalculateActionCount(Random random);
     protected Pattern? GetAvailablePattern(Random random, int remainActionCount)
     {
-        foreach (var pattern in availablePatterns)
+        var validPatterns = availablePatterns
+            .Where(p => p.Condition.Invoke(random, remainActionCount))
+            .OrderByDescending(p => p.Preset.Count)
+            .ToList();
+
+        if (validPatterns.Count > 0)
         {
-            if (pattern.Condition.Invoke(random, remainActionCount))
-            {
-                return pattern;
-            }
+            return validPatterns.First();
         }
 
         return null;
