@@ -73,7 +73,10 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
             context.RecordEncounterEnemyForChoiceEngageBattleEffect.Invoke(enemyData, hasResolved);
         }
 
+        var shitNextNodes = context.NextNodesForChoiceEngageBattleEffect;
+        var randomNextNode = shitNextNodes[context.Random.Next(shitNextNodes.Count)];
         
+        context.OnExitForChoiceEngageBattleEffect(randomNextNode);
     }
 
     private void GetReward()

@@ -50,4 +50,5 @@ public class FieldContext
     public Action RequestNextNodeSelectionForChoiceEngageBattleEffect;
     public Action<EnemyData, bool> RecordEncounterEnemyForChoiceEngageBattleEffect;
     public Action OnPlayerMentalBrokenForChoiceEngageBattleEffect;
+    public Action<Node> OnExitForChoiceEngageBattleEffect;
 }

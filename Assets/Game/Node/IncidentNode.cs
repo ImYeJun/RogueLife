@@ -23,6 +23,7 @@ public class IncidentNode : Node
         context.RecordEncounterEnemyForChoiceEngageBattleEffect = scheduleHistory.RecordEncounterEnemy; //! SHIT HACK, Refactor it!
         context.RequestNextNodeSelectionForChoiceEngageBattleEffect = RequestNextNodeSelection; //! SHIT HACK, Refactor it!
         context.OnPlayerMentalBrokenForChoiceEngageBattleEffect = OnPlayerMentalBroken; //! SHIT HACK, Refactor it!
+        context.OnExitForChoiceEngageBattleEffect = ShitOnExit; //! SHIT HACK, Refactor it!
     }
 
     public void OnChoiceSettled(DeterminedIncidentChoiceData selectedChoice)
@@ -41,5 +42,9 @@ public class IncidentNode : Node
 
         context.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
         base.OnExit(nextNode);
+    }
+    public void ShitOnExit(Node nextNode)
+    {
+        OnExit(nextNode);
     }
 }
