@@ -1,12 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Field.Deck.Observers;
 using UnityEngine;
 
 public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
 {
     private Dictionary<CardData, List<Card>> mainDeck = new Dictionary<CardData, List<Card>>();
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
+    
     public Dictionary<CardData, List<Card>> GetClonedMainDeck(bool isBattle = false) { 
         var result = new Dictionary<CardData, List<Card>>();
         foreach (var pair in mainDeck)
@@ -125,6 +127,12 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
             deck[card.Data].Remove(card);
 
             if (deck[card.Data].Count == 0) { deck.Remove(card.Data); }
+            
+            foreach (var observer in deckObservers)
+            {
+                observer.OnCardRemoved(card);
+            }
+            
             return true;
         }
 
@@ -222,7 +230,7 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
         }
 
         deckObservers.Add(observer);
-        observer.OnEquipped(OwingCards);
+        observer.OnStartObserving(OwingCards);
     }
     public void UnrgisterDeckobserver(IDeckObserver observer)
     {
@@ -232,7 +240,7 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
             return;
         }
 
-        observer.OnUnequipped(OwingCards);
+        observer.OnStopObserving(OwingCards);
         deckObservers.Remove(observer);
     }
 

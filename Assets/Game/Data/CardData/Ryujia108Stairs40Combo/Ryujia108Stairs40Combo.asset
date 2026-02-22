@@ -33,10 +33,10 @@ MonoBehaviour:
         targetType:
           rid: 1582000878922235974
         reflectionTargetType:
-          rid: 1582000878922235975
+          rid: 7557520067223355465
     - rid: 1582000878922235974
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
       data: 
-    - rid: 1582000878922235975
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+    - rid: 7557520067223355465
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
       data: 

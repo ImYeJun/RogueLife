@@ -26,4 +26,14 @@ public class HurtPlayerBattleAction : IBattleAction, IEntityTargetedBattleAction
     {
         if (hurtContext.TotalDamage > 0) { player.ReceiveDamage(hurtContext, source); }
     }
+
+    public void NullifyBattleHealthDamamge()
+    {
+        hurtContext.NullifyBattleHealthDamamge();
+    }
+
+    public void NullifyMentalityDamage()
+    {
+        hurtContext.NullifyMentalityDamage();
+    }
 }

@@ -4,6 +4,11 @@ public class BattlePlayerContainer : IBattleEventObserveService, IBattlePlayerCo
 
     public BattlePlayer Player { get => player; }
 
+    public void OnEngageBattle(BattlePlayer player)
+    {
+        this.player = player;
+    }
+
     public void SubscribeEventBus(IBattleEventBus eventBus)
     {
         eventBus.Subscribe<BattleStartEvent>(EnrollPlayer);

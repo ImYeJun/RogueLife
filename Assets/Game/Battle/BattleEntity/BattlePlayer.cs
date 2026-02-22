@@ -5,7 +5,6 @@ using UnityEngine;
 public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
 {
     private IBattleHealth playerHealth;
-    private List<BattleBelongings> belongings = new List<BattleBelongings>();
 
     public BattlePlayer(BattleContext context, IBattleHealth playerHealth) : base(context, BattleEntityTrait.PLAYER)
     {
@@ -15,8 +14,6 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
 
     public override bool IsFullHealth => playerHealth.IsFullHealth;
     public override int CurrentHealth => playerHealth.CurrentBattleHealth + playerHealth.CurrentMentality;
-    public void SetBelongings(List<BattleBelongings> belongings) { this.belongings = belongings; }
-    public List<BattleBelongings> Belongings { get => belongings;  }
 
     protected override void OnDead()
     {

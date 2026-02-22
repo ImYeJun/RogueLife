@@ -11,5 +11,10 @@ public class BattleBelongings
         this.owner = owner;
     }
 
+    public void OnEngageBattle(BattleContext context)
+    {
+        behaviourInstance.OnEngageBattle(context);
+    }
+
     public BattleBelongingsBehaviour BehaviourInstance { get => behaviourInstance; }
 }

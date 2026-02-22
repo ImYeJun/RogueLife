@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Field.Deck.Observers;
 
 public interface IFieldDeck : IBattleEntryDeck {
     public void RegisterDeckobserver(IDeckObserver observer);

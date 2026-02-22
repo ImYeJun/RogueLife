@@ -13,17 +13,34 @@ MonoBehaviour:
   m_Name: Weaving
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_Weaving
-  cardName: 
-  description: 
-  relfectionAppliedDescription: 
-  type: 0
-  attribute: 0
-  rarity: 0
-  actionCost: 0
+  cardName: "\uC704\uBE59"
+  description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+    \uB290\uB824. 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548
+    \uC9C0\uC18D\uB418\uB294 \uB290\uB824. 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD558\uACE0,
+    \uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825
+    \uAC15\uD654 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+  type: 3
+  attribute: 1
+  rarity: 2
+  actionCost: 3
   battleBehaviour:
-    rid: -2
+    rid: 7557520067223355488
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520067223355488
+      type: {class: Weaving, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 7557520067223355489
+        reflectionTargetType:
+          rid: 7557520067223355490
+        tooSlowData: {fileID: 11400000, guid: 6f0f50f3957938c4ca5ad34f0c9c7d69, type: 2}
+        strengthenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
+    - rid: 7557520067223355489
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 7557520067223355490
+      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
+      data: 

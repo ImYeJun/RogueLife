@@ -11,6 +11,7 @@ public class BattleSystem : IFieldBattleSystem
     private BattlePhase phase;
     private BattleActionCost acionCost;
     private BattlePlayerContainer playerContainer;
+    private BattleBelongingsBag belongingsBag;
     private BattleDeckSystem deckSystem;
     private BattleEnemySystem enemySystem;
 
@@ -21,6 +22,7 @@ public class BattleSystem : IFieldBattleSystem
         pipeline = new BattleActionPipeline();
         phase = new BattlePhase();
         playerContainer = new BattlePlayerContainer();
+        belongingsBag = new BattleBelongingsBag();
         acionCost = new BattleActionCost();
         deckSystem = new BattleDeckSystem();
         enemySystem = new BattleEnemySystem();
@@ -35,6 +37,7 @@ public class BattleSystem : IFieldBattleSystem
             actionObserverHub : pipeline,
             phase : phase,
             playerContainer : playerContainer,
+            belongingsBag : belongingsBag,
             actionCost : acionCost,
             actionCostHistory : acionCost.History,
             deckSystem : deckSystem,
@@ -65,7 +68,7 @@ public class BattleSystem : IFieldBattleSystem
 
     public event Action<BattleResult> OnBattleExit;
 
-    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag belongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResult> battleExit)
+    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResult> battleExit)
     {
         var mainEnemyData = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Data.Tier).First().Data;
         int startPhaseCount = mainEnemyData.Tier switch
@@ -82,8 +85,10 @@ public class BattleSystem : IFieldBattleSystem
         List<Card> startDrawDeck = deck.GetClonedMainDeck(isForBattleStart : true).Values.SelectMany(sel => sel).ToList();
 
         BattlePlayer battlePlayer = new BattlePlayer(context, battleHealth);
-        List<BattleBelongings> battleBelongingsBag = belongingsBag.GetBattleBelongings(battlePlayer);
-        battlePlayer.SetBelongings(battleBelongingsBag);
+        playerContainer.OnEngageBattle(battlePlayer);
+
+        List<BattleBelongings> battleBelongings = entrybelongingsBag.GetBattleBelongings(battlePlayer);
+        belongingsBag.OnEngageBattle(battleBelongings, context);
 
         List<BattleEnemy> enemies = new List<BattleEnemy>();
         foreach (var dataSlot in engagingEnemiesDataSlot)
