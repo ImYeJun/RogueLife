@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 public abstract class EliteBattleEnemyBehaviour : BattleEnemyBehaviour
 {
+    protected EliteBattleEnemyBehaviour() { }
+    protected EliteBattleEnemyBehaviour(IEnemyBehaviourOwner owner) : base(owner) {}
+
     protected override int CalculateActionCount(Random random)
     {
         int previousActionCount = owner.PreviousActionCount;

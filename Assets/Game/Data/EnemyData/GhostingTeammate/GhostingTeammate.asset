@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0662f661a2dc254380c7d48f951f0cf, type: 3}
+  m_Name: GhostingTeammate
+  m_EditorClassIdentifier: GameAssembly::NormalEnemyData
+  id: 'Enemy_GhostingTeammate '
+  enemyName: "\uC5F0\uB77D\uC744 \uBC1B\uC9C0 \uC54A\uB294 \uD300\uC6D0"
+  description: "\uC870\uBCC4\uACFC\uC81C \uC911, \uC5F0\uB77D\uC744 \uC548 \uBC1B\uACE0
+    \uC7A0\uC218\uB97C \uD558\uB294 \uD300\uC6D0"
+  maxBaseHealth: 100
+  encounterLines:
+  - "\u2026\u2026\u2026."
+  actionLines:
+  - "\u2026\u2026\u2026\u2026"
+  - Zzzzzzz
+  victoryLines:
+  - "(\uC5EC\uC804\uD788 \uC0AC\uB77C\uC9C0\uC9C0\uC54A\uB294 1)"
+  defeatLines:
+  - "\uC557 \uBBF8\uC548 \uC790\uB290\uB77C \uBABB\uBD24\uB124"
+  usualSprite: {fileID: 0}
+  battleSprite: {fileID: 0}
+  battleBehaviour:
+    rid: 7557520089318686812
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557520089318686812
+      type: {class: GhostingTeammate, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        strengthenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
+        thatsFoulData: {fileID: 11400000, guid: 808fa2c5a6f27384287e17eaac9de9d5, type: 2}

@@ -29,9 +29,15 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
         if (hurtContext.TotalDamage <= 0) { return; }
 
         playerHealth.HurtBattleHealth(hurtContext.BattleHealthDamage, false);
-        playerHealth.HurtMentality(hurtContext.MentalityDamage);
+        HurtMentality(hurtContext.MentalityDamage);
+        // playerHealth.HurtMentality(hurtContext.MentalityDamage);
 
         context.EventBus.Publish(new EntityHurtBattleEvent(hurtContext.TotalDamage, this, source));
+    }
+
+    public void HurtMentality(int damage)
+    {
+        playerHealth.HurtMentality(damage);
     }
 
     public override void RequestHurt(int amount, BattleHurtSource source)

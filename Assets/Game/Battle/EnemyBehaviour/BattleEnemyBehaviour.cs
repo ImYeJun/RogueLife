@@ -10,6 +10,12 @@ public abstract class BattleEnemyBehaviour
     protected Dictionary<string, EnemyAction> availableActions;
     //* <actionId, EnemyAcion>
 
+    protected BattleEnemyBehaviour() {}
+    protected BattleEnemyBehaviour(IEnemyBehaviourOwner owner)
+    {
+        this.owner = owner;
+    }
+    
     protected struct Pattern
     {
         public Pattern(List<string> preset, Func<Random, int, bool> condition)

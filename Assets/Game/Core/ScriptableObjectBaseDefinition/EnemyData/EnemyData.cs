@@ -6,11 +6,12 @@ public abstract class EnemyData : ScriptableObject
 {
     [SerializeField] protected string id;
     [SerializeField] protected string enemyName;
-    [SerializeField] protected string description;
+    [SerializeField, TextArea] protected string description;
     [SerializeField] protected int maxBaseHealth;
-    [SerializeField] protected string encounterLine;
-    [SerializeField] protected string victoryLine;
-    [SerializeField] protected string defeatLine;
+    [SerializeField, TextArea] private List<string> encounterLines;
+    [SerializeField, TextArea] private List<string> actionLines;
+    [SerializeField, TextArea] private List<string> victoryLines;
+    [SerializeField, TextArea] private List<string> defeatLines;
     [SerializeField] protected Sprite usualSprite;
     [SerializeField] protected Sprite battleSprite;
     [SerializeReference, SubclassSelector] protected BattleEnemyBehaviour battleBehaviour;
@@ -22,9 +23,10 @@ public abstract class EnemyData : ScriptableObject
     public string EnemyName { get => enemyName; }
     public string Description { get => description; }
     public int MaxBaseHealth { get => maxBaseHealth; }
-    public string EncounterLine { get => encounterLine; }
-    public string VictoryLine { get => victoryLine; }
-    public string DefeatLine { get => defeatLine; }
+    protected List<string> EncounterLines { get => encounterLines; }
+    protected List<string> ActionLines { get => actionLines; }
+    protected List<string> VictoryLines { get => victoryLines; }
+    protected List<string> DefeatLines { get => defeatLines; }
     public Sprite UsualSprite { get => usualSprite; }
     public Sprite BattleSprite { get => battleSprite; }
     public EnemyTier Tier { get => tier; }

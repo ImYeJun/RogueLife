@@ -2,6 +2,9 @@ using System;
 
 public abstract class NormalBattleEnemyBehaviour : BattleEnemyBehaviour
 {
+    protected NormalBattleEnemyBehaviour() { }
+    protected NormalBattleEnemyBehaviour(IEnemyBehaviourOwner owner) : base(owner) {}
+
     protected override int CalculateActionCount(Random random)
     {
         int previousActionCount = owner.PreviousActionCount;
