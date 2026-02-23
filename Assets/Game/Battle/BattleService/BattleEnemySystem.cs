@@ -75,6 +75,8 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
         currentEnemies.Clear();
         foreach (var enemy in payload.Enemies)
         {
+            // var spawnEnemyAction = new SpawnEnemyBattleAction(enemy);
+            // context.ActionScheduler.Enqueue(spawnEnemyAction);
             SpawnEnemy(enemy);
         }
 

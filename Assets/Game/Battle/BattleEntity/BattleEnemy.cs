@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Battle.Enemies.Actions;
 using Battle.HurtSources;
 using UnityEngine;
 
@@ -21,7 +22,8 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     public EnemyData Data { get => data; }
     public bool IsFirstAction => isFirstAction;
     public int PreviousActionCount => previousActionCount;
-
+    public BattleEntity AsEntity => this;
+    public BattleHurtSource AsHurtSource => new EntitySource(this);
 
     public BattleEnemy(BattleContext context, EnemyData enemyData) : base(context, BattleEntityTrait.ENEMY)
     {
@@ -40,6 +42,8 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
 
         plannedActions = behaviourInstance.PlanAction(context.Random);
         previousActionCount = plannedActions.Count;
+
+        isFirstAction = false;
     }
 
     protected override void OnDead()
@@ -84,7 +88,8 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         clone.currentMaxHealth = newMaxHealth;
         clone.currentHealth = newMaxHealth;
 
-        context.EnemySystem.SpawnEnemy(clone);
+        var spawnEnemyAction = new SpawnEnemyBattleAction(clone);
+        context.ActionScheduler.Enqueue(spawnEnemyAction);
     }
 
     public override BattleHurtSource GetAsHurtSource()

@@ -12,16 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4229bc68f865ac7498d594b6e0c1fb62, type: 3}
   m_Name: ItsSakura
   m_EditorClassIdentifier: GameAssembly::BelongingsData
-  id: 
-  belongingsName: 
-  image: {fileID: 0}
-  description: 
+  id: Belongings_ItsSakura
+  belongingsName: "\uC0AC\uCFE0\uB77C\uB124? \uC0AC\uCFE0\uB77C\uC5EC?"
+  image: {fileID: 1151826637629668750, guid: bdf8718d39521ec4dbf669719d36125d, type: 3}
+  description: "\uCE74\uB4DC\uB97C \uBF51\uC744 \uB54C, 20% \uD655\uB960\uB85C \uD55C
+    \uC7A5\uC744 \uBF51\uB294\uB2E4. (\uD55C \uD134\uC5D0 \uCD5C\uB300 2\uBC88)"
   fieldBehaviour:
-    rid: -2
+    rid: 7557520071594606718
   battleBehaviour:
-    rid: -2
+    rid: 7557520071594606719
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520071594606718
+      type: {class: FieldItsSakura, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 
+    - rid: 7557520071594606719
+      type: {class: BattleItsSakura, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 

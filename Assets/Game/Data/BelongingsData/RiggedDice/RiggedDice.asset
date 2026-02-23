@@ -12,16 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4229bc68f865ac7498d594b6e0c1fb62, type: 3}
   m_Name: RiggedDice
   m_EditorClassIdentifier: GameAssembly::BelongingsData
-  id: 
-  belongingsName: 
-  image: {fileID: 0}
-  description: 
+  id: Belongings_RiggedDice
+  belongingsName: "\uD655\uB960 \uC8FC\uC791 \uC0AC\uAE30 \uC8FC\uC0AC\uC704"
+  image: {fileID: -4058791829147588255, guid: 7d4b4810955ec8248a35216b3d5f4553, type: 3}
+  description: "\uD589\uC6B4 \uC18D\uC131 \uCE74\uB4DC\uB97C \uC0AC\uC6A9\uD560 \uACBD\uC6B0,
+    5% \uD655\uB960\uB85C \uCE74\uB4DC \uD6A8\uACFC\uC744 \uC7AC\uBC1C\uB3D9 \uD558\uAC70\uB098,
+    (\uBCF5\uC81C\uB41C \uD6A8\uACFC\uC5D0\uC11C \uBCF5\uAE30 \uD6A8\uACFC\uB294
+    \uBBF8\uD3EC\uD568) 15% \uD655\uB960\uB85C 20\uB9CC\uD07C \uD53C\uD574\uB97C
+    \uBC1B\uB294\uB2E4"
   fieldBehaviour:
-    rid: -2
+    rid: 7557520071594606728
   battleBehaviour:
-    rid: -2
+    rid: 7557520071594606729
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520071594606728
+      type: {class: FieldRiggedDice, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 
+    - rid: 7557520071594606729
+      type: {class: BattleRiggedDice, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 

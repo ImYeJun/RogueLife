@@ -12,16 +12,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4229bc68f865ac7498d594b6e0c1fb62, type: 3}
   m_Name: BelovedMyStone
   m_EditorClassIdentifier: GameAssembly::BelongingsData
-  id: 
-  belongingsName: 
-  image: {fileID: 0}
-  description: 
+  id: Belongings_BelovedMyStone
+  belongingsName: "\uB9E4\uB048\uB9E4\uB048 \uC791\uACE0 \uADC0\uC5EC\uC6B4 \uB3CC\uB9F9\uC774"
+  image: {fileID: -3043433185822748734, guid: 3517892c619adc44e93b54b1a96737cd, type: 3}
+  description: "\uC778\uC0AC\uD574! \uB0B4 \uADC0\uC5EC\uC6B4 \uC560\uC644 \uB3CC\uB9F9\uC774\uC57C!
+    ( \uC544\uBB34 \uD6A8\uACFC \uC5C6\uC74C )"
   fieldBehaviour:
-    rid: -2
+    rid: 7557520071594606708
   battleBehaviour:
-    rid: -2
+    rid: 7557520071594606709
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520071594606708
+      type: {class: FieldBelovedMyStone, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 
+    - rid: 7557520071594606709
+      type: {class: BattleBelovedMyStone, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 

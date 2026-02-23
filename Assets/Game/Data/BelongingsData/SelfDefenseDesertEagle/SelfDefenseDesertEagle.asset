@@ -12,16 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4229bc68f865ac7498d594b6e0c1fb62, type: 3}
   m_Name: SelfDefenseDesertEagle
   m_EditorClassIdentifier: GameAssembly::BelongingsData
-  id: 
-  belongingsName: 
-  image: {fileID: 0}
-  description: 
+  id: Belongings_SelfDefenseDesertEagle
+  belongingsName: "\uD638\uC2E0\uC6A9 \uB370\uC800\uD2B8 \uC774\uAE00"
+  image: {fileID: -1435745045673502456, guid: 0ad90f52182d3914d9515d590e566f68, type: 3}
+  description: "\uC804\uD22C \uC9C4\uC785\uC2DC, \uC0C1\uB300\uBC29 \uC804\uBD80\uC5D0\uAC8C
+    \uD55C \uD134 \uB3D9\uC548 \uAC70\uAE34 \uC57D\uC810\uC778\uB370.. 1 \uC2A4\uD0DD\uC744
+    \uBD80\uC5EC\uD55C\uB2E4. "
   fieldBehaviour:
-    rid: -2
+    rid: 7557520071594606713
   battleBehaviour:
-    rid: -2
+    rid: 7557520071594606714
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520071594606713
+      type: {class: FieldSelfDefenseDesertEagle, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data: 
+    - rid: 7557520071594606714
+      type: {class: BattleSelfDefenseDesertEagle, ns: Belongingses.Behaviour, asm: GameAssembly}
+      data:
+        thatsWeakSpotData: {fileID: 11400000, guid: 8865c218364630545b0cacb75692e74a, type: 2}
