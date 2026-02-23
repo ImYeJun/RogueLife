@@ -7,7 +7,7 @@ using Battle.Enemies.Actions;
 public abstract class BattleEnemyBehaviour
 {
     protected IEnemyBehaviourOwner owner;
-    protected Dictionary<string, EnemyAction> availableActions;
+    protected Dictionary<string, EnemyAction> availableActions = new Dictionary<string, EnemyAction>();
     //* <actionId, EnemyAcion>
 
     protected BattleEnemyBehaviour() {}
@@ -18,7 +18,7 @@ public abstract class BattleEnemyBehaviour
     
     protected struct Pattern
     {
-        public Pattern(List<string> preset, Func<Random, int, bool> condition)
+        public Pattern(List<string> preset, Func<BattleContext, int, bool> condition)
         {
             Preset = preset;
             Condition = condition;
@@ -26,19 +26,19 @@ public abstract class BattleEnemyBehaviour
 
         public List<string> Preset { get; private set; }
         //* List<actionId>
-        public Func<Random, int , bool> Condition { get; private set; }
-        //* param : random, remainActionCount
+        public Func<BattleContext, int , bool> Condition { get; private set; }
+        //* param : context, remainActionCount
         //* return : isAvailable
     }
     protected List<Pattern> availablePatterns;
 
-    public List<EnemyAction> PlanAction(Random random)
+    public List<EnemyAction> PlanAction(BattleContext context)
     {
         var result = new List<EnemyAction>();
 
-        int remainActionCount = CalculateActionCount(random);
+        int remainActionCount = CalculateActionCount(context.Random);
 
-        var pattern = GetAvailablePattern(random, remainActionCount);
+        var pattern = GetAvailablePattern(context, remainActionCount);
 
         if (pattern != null)
         {
@@ -60,16 +60,16 @@ public abstract class BattleEnemyBehaviour
             }
         }
 
-        var remainActions = FillRemainAction(random, remainActionCount);
+        var remainActions = FillRemainAction(context.Random, remainActionCount);
         result.AddRange(remainActions);
 
         return result;
     }
     protected abstract int CalculateActionCount(Random random);
-    protected Pattern? GetAvailablePattern(Random random, int remainActionCount)
+    protected Pattern? GetAvailablePattern(BattleContext context, int remainActionCount)
     {
         var validPatterns = availablePatterns
-            .Where(p => p.Condition.Invoke(random, remainActionCount))
+            .Where(p => p.Condition.Invoke(context, remainActionCount))
             .OrderByDescending(p => p.Preset.Count)
             .ToList();
 

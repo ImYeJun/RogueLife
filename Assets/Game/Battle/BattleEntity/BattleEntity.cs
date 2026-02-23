@@ -16,6 +16,16 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     public abstract int CurrentHealth { get; }
     public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs { get => equippingBuffs; }
     public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs { get => equippingDebuffs; }
+    public List<BattleStatusEffect> GetBattleStatusEffects(BattleStatusEffectType type = BattleStatusEffectType.ANY)
+    {
+        return type switch
+        {
+            BattleStatusEffectType.BUFF => equippingBuffs.Values.ToList(),
+            BattleStatusEffectType.DEBUFF => equippingDebuffs.Values.ToList(),
+            BattleStatusEffectType.ANY => equippingBuffs.Values.Concat(equippingDebuffs.Values).ToList(),
+            _ => throw new InvalidOperationException($"[BattleEntity] {type} is not valid")
+        };
+    }
     
     protected bool isDead = false;
 
@@ -32,6 +42,8 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
     public bool IsDead { get => isDead; }
     public BattleEntityTrait Trait { get => trait; }
     public BattleEntityCondition CurrentCondition { get => currentCondition; }
+    public abstract int MaxHealth { get; }
+
     abstract public BattleHurtSource GetAsHurtSource();
 
     public abstract void RequestHurt(int amount, BattleHurtSource source);

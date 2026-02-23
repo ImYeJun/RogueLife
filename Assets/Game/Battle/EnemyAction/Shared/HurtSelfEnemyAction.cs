@@ -1,10 +1,10 @@
 namespace Battle.Enemies.Actions.Shared
 {
-    public class HurtItself : EnemyAction
+    public class HurtSelf : EnemyAction
     {
         private int damage;
 
-        public HurtItself(IEnemyBehaviourOwner owner, int damage) : base(owner)
+        public HurtSelf(IEnemyBehaviourOwner owner, int damage) : base(owner)
         {
             this.damage = damage;
         }

@@ -15,6 +15,8 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
     public override bool IsFullHealth => playerHealth.IsFullHealth;
     public override int CurrentHealth => playerHealth.CurrentBattleHealth + playerHealth.CurrentMentality;
 
+    public override int MaxHealth => playerHealth.MaxBattleHealth + playerHealth.MaxMentality;
+
     protected override void OnDead()
     {
         base.OnDead();

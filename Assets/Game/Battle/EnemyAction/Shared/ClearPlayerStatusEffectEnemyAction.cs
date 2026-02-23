@@ -1,15 +1,14 @@
+using System;
 using System.Linq;
 
 namespace Battle.Enemies.Actions.Shared
 {
-    public class RemovePlayerStatusEffect : EnemyAction
+    public class ClearPlayerStatusEffect : EnemyAction
     {
         private readonly BattleStatusEffectType type;
-        private int amount;
 
-        public RemovePlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectType type, int amount = 1) : base(owner)
+        public ClearPlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectType type = BattleStatusEffectType.ANY) : base(owner)
         {
-            this.amount = amount;
             this.type = type;
         }
 
@@ -18,12 +17,7 @@ namespace Battle.Enemies.Actions.Shared
             var player = context.PlayerContainer.Player;
             var playerStatusEffects = player.GetBattleStatusEffects(type);
 
-            if (playerStatusEffects.Count <= 0) { return; }
-
-            var random = context.Random;
-            var selectedStatusEffects = playerStatusEffects.OrderBy(sel => random.Next()).Take(amount);
-
-            foreach (var effect in selectedStatusEffects)
+            foreach (var effect in playerStatusEffects)
             {
                 var removeEffectAction = new RemoveEntityStatusEffect(player, effect);
 

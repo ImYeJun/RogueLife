@@ -12,20 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0662f661a2dc254380c7d48f951f0cf, type: 3}
   m_Name: ExhaustedGraduateStudent
   m_EditorClassIdentifier: GameAssembly::NormalEnemyData
-  id: 
-  enemyName: 
-  description: 
-  maxBaseHealth: 0
-  encounterLines: []
-  actionLines: []
-  victoryLines: []
-  defeatLines: []
+  id: Enemy_ExhaustedGraduateStudent
+  enemyName: "\uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD"
+  description: "\uC7A6\uC740 \uC5C5\uBB34\uB85C \uC778\uD574 \uC815\uC2E0\uC774 \uB098\uAC00\uBC84\uB9B0
+    \uB300\uD559\uC6D0\uC0DD"
+  maxBaseHealth: 100
+  encounterLines:
+  - "\uC73C\uC73C\u2026 \uD53C\uACE4\uD574\u2026"
+  actionLines:
+  - "\uD53C\uACE4\uD558\uB2E4\uB2C8\uAE4C\u2026"
+  - "\uBE68\uB9AC \uC26C\uACE0 \uC2F6\uC5B4.."
+  victoryLines:
+  - "\uC774\uC81C \uB108\uB3C4 \uAC19\uC774 \uD558\uB294\uAC70\uC57C\u2026"
+  defeatLines:
+  - "\uB4DC\uB514\uC5B4 \uC880 \uC26C\uACA0\uB124.."
   usualSprite: {fileID: 0}
   battleSprite: {fileID: 0}
   battleBehaviour:
-    rid: -2
+    rid: 7557520094982307917
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520094982307917
+      type: {class: ExhaustedGraduateStudent, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        thatsFoulData: {fileID: 11400000, guid: 808fa2c5a6f27384287e17eaac9de9d5, type: 2}

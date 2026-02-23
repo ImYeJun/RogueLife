@@ -24,6 +24,8 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     public int PreviousActionCount => previousActionCount;
     public BattleEntity AsEntity => this;
     public BattleHurtSource AsHurtSource => new EntitySource(this);
+    public override int MaxHealth => currentMaxHealth;
+
 
     public BattleEnemy(BattleContext context, EnemyData enemyData) : base(context, BattleEntityTrait.ENEMY)
     {
@@ -40,7 +42,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     {
         if (IsDead) { return; }
 
-        plannedActions = behaviourInstance.PlanAction(context.Random);
+        plannedActions = behaviourInstance.PlanAction(context);
         previousActionCount = plannedActions.Count;
 
         isFirstAction = false;

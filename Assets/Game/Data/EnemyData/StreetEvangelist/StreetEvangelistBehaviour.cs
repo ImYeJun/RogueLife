@@ -31,7 +31,7 @@ namespace Battle.Enemies.Behaviours
             {
                 new Pattern(
                     preset : new List<string>{ SECOND_ACTION, SECOND_ACTION, FIRST_ACTION  },
-                    condition : (random, remainActionCount) => remainActionCount >= 3
+                    condition : (context, remainActionCount) => remainActionCount >= 3
                 )
             };
         }

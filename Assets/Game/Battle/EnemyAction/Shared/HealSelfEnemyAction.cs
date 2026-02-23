@@ -1,10 +1,10 @@
 namespace Battle.Enemies.Actions.Shared
 {
-    public class HealItself : EnemyAction
+    public class HealSelf : EnemyAction
     {
         private int amount;
 
-        public HealItself(IEnemyBehaviourOwner owner, int amount) : base(owner)
+        public HealSelf(IEnemyBehaviourOwner owner, int amount) : base(owner)
         {
             this.amount = amount;
         }

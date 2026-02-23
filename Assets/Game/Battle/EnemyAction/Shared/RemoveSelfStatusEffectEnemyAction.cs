@@ -1,19 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace Battle.Enemies.Actions.Shared
 {
     public class RemoveItselfStatusEffect : EnemyAction
     {
-        private BattleStatusEffect statusEffect;
+        private readonly BattleStatusEffectType type;
+        private int amount;
 
-        public RemoveItselfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffect statusEffect) : base(owner)
+        public RemoveItselfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectType type, int amount = 1) : base(owner)
         {
-            this.statusEffect = statusEffect;
+            this.amount = amount;
+            this.type = type;
         }
 
         public override void Execute(BattleContext context)
         {
-            var removeStatuEffectAction = new RemoveEntityStatusEffect(owner.AsEntity, statusEffect);
+            var ownerAsEntity = owner.AsEntity;
+            var ownerStatusEffects = ownerAsEntity.GetBattleStatusEffects(type);
 
-            context.ActionScheduler.Enqueue(removeStatuEffectAction);
+            if (ownerStatusEffects.Count <= 0) { return; }
+
+            var random = context.Random;
+            var selectedStatusEffects = ownerStatusEffects.OrderBy(sel => random.Next()).Take(amount);
+
+            foreach (var effect in selectedStatusEffects)
+            {
+                var removeEffectAction = new RemoveEntityStatusEffect(ownerAsEntity, effect);
+
+                context.ActionScheduler.Enqueue(removeEffectAction);
+            }
         }
     }
 }

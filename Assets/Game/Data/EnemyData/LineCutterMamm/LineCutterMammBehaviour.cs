@@ -24,14 +24,14 @@ namespace Battle.Enemies.Behaviours
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
                 { FIRST_ACTION, new ApplySelfStatusEffect(owner, counterAttack, 2, 2) },
-                { SECOND_ACTION, new HealItself(owner, 10) }
+                { SECOND_ACTION, new HealSelf(owner, 10) }
             };
 
             availablePatterns = new List<Pattern>
             {
                 new Pattern(
                     preset : new List<string>{ SECOND_ACTION, FIRST_ACTION, FIRST_ACTION },
-                    condition : (random, remainActionCount) => remainActionCount >= 3
+                    condition : (context, remainActionCount) => remainActionCount >= 3
                 )
             };
         }
