@@ -1,10 +1,15 @@
 
+using System.Linq;
+
 namespace Battle.Enemies.Actions.Shared
 {
     public class DumpPlayerHandCard : EnemyAction
     {
-        public DumpPlayerHandCard(IEnemyBehaviourOwner owner) : base(owner)
+        private int dumpCardCount;
+
+        public DumpPlayerHandCard(IEnemyBehaviourOwner owner, int dumpCardCount = 1) : base(owner)
         {
+            this.dumpCardCount = dumpCardCount;
         }
 
         public override void Execute(BattleContext context)
@@ -12,10 +17,14 @@ namespace Battle.Enemies.Actions.Shared
             var handCards = context.HandDeck.GetCards();
             if (handCards.Count <= 0) { return; }
 
-            var selectedCard = handCards[context.Random.Next(handCards.Count)];
-            var dumpCardAction = new MoveCardToDeckBattleAction(selectedCard, BattleDeckType.GRAVE);
+            var suffled = handCards.OrderBy(card => context.Random.Next());
+            var selectedCards = suffled.Take(dumpCardCount);
 
-            context.ActionScheduler.Enqueue(dumpCardAction);
+            foreach (var card in selectedCards)
+            {
+                var dumpCardAction = new MoveCardToDeckBattleAction(card, BattleDeckType.GRAVE);
+                context.ActionScheduler.Enqueue(dumpCardAction);
+            }
         }
     }
 }

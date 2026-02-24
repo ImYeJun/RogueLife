@@ -48,9 +48,18 @@ namespace Battle.Enemies.Behaviours
                 )
             };
         }
+        
         public override BattleEnemyBehaviour Clone(IEnemyBehaviourOwner newOwner)
         {
             return new BlockingTrafficLight(this, newOwner);
+        }
+
+        public override void OnOwnerDied(BattleContext context)
+        {
+        }
+
+        public override void OnOwnerSpawned(BattleContext context)
+        {
         }
     }
 }

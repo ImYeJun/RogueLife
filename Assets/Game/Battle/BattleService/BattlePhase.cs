@@ -5,6 +5,7 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
     private BattleContext context;
     private int remainPhase;
 
+    public bool IsAllPhasedEnd => remainPhase <= 0;
     public void SetContext(BattleContext context) { this.context = context; }
 
     public void Increase(int amount)

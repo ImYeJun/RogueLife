@@ -30,7 +30,7 @@ public abstract class BattleEnemyBehaviour
         //* param : context, remainActionCount
         //* return : isAvailable
     }
-    protected List<Pattern> availablePatterns;
+    protected List<Pattern> availablePatterns = new List<Pattern>();
 
     public List<EnemyAction> PlanAction(BattleContext context)
     {
@@ -60,11 +60,12 @@ public abstract class BattleEnemyBehaviour
             }
         }
 
-        var remainActions = FillRemainAction(context.Random, remainActionCount);
+        var remainActions = FillRemainAction(context.Random, remainActionCount, result);
         result.AddRange(remainActions);
 
-        return result;
+        return ValidateActions(result);
     }
+
     protected abstract int CalculateActionCount(Random random);
     protected Pattern? GetAvailablePattern(BattleContext context, int remainActionCount)
     {
@@ -80,7 +81,7 @@ public abstract class BattleEnemyBehaviour
 
         return null;
     }
-    private List<EnemyAction> FillRemainAction(Random random, int remainActionCount)
+    private List<EnemyAction> FillRemainAction(Random random, int remainActionCount, List<EnemyAction> alreadyPlannedActions)
     {
         var result = new List<EnemyAction>();
         if (remainActionCount <= 0) { return result; }
@@ -92,14 +93,54 @@ public abstract class BattleEnemyBehaviour
             return result;
         }
 
-        for (int i = 0; i < remainActionCount; i++)
+        int actionCount = 0;
+        int tryCount = 0;
+        
+        var actionsOncePerTurn = new HashSet<EnemyAction>(
+            alreadyPlannedActions.Where(action => action.IsOncePerTurn)
+        );
+
+        while (actionCount < remainActionCount)
         {
             var chosenAction = actions[random.Next(actions.Count)];
+
+            if (actionsOncePerTurn.Contains(chosenAction)) {
+                if (++tryCount >= Constant.MAX_ACTION_CHOOSE_TRY_COUNT)
+                {
+                    UnityEngine.Debug.LogWarning("[BattleEnemyBehaviour] Exceed max action choose try count");
+                    break;
+                }
+                continue;
+            }
+            tryCount = 0;
+            
             result.Add(chosenAction);
+
+            if (chosenAction.IsOncePerTurn)
+            {
+                actionsOncePerTurn.Add(chosenAction);
+            }
+
+            actionCount++;
         }
 
         return result;
-    } 
+    }
+    private List<EnemyAction> ValidateActions(List<EnemyAction> result)
+    {
+        var finalResult = new List<EnemyAction>();
 
+        foreach (var action in result)
+        {
+            finalResult.Add(action);
+
+            if (action.IsLastAction) break;
+        }
+
+        return finalResult;
+    }
+    
     public abstract BattleEnemyBehaviour Clone(IEnemyBehaviourOwner newOwner);
+    public abstract void OnOwnerSpawned(BattleContext context);
+    public abstract void OnOwnerDied(BattleContext context);
 }

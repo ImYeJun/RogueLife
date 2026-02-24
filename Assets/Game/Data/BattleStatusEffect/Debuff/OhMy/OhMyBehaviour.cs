@@ -19,7 +19,7 @@ namespace Battle.StatusEffects.Behaviour
 
         public void NullifyAction(BattleEntityAction entityAction, BattleContext context)
         {
-            if (entityAction.Action != owner) { return; }
+            if (entityAction.Actor != owner) { return; }
 
             entityAction.Nullify();
             RequestExpire();

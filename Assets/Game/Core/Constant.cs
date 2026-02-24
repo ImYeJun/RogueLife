@@ -17,6 +17,9 @@ public static class Constant{
     public const int MAX_SCHEDULE_NODE_RESOLVE_ATTEMPTS = 10000;
 
     //* Battle Enemy Constants
+    public const int MAX_SPAWNED_ENEMY_COUNT = 5;
+    public const int MAX_ACTION_CHOOSE_TRY_COUNT = 100;
+
     public const int NORMAL_ENEMY_MIN_BEHAVIOUR_COUNT = 1;
     public const int NORMAL_ENEMY_MAX_BEHAVIOUR_COUNT = 2;
     public const int NORMAL_ENEMY_OVER_BEHAVIOUR_COUNT = 3;

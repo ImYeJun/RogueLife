@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7225abc08e80a0249881f297c7b61a31, type: 3}
+  m_Name: CartRidingKids
+  m_EditorClassIdentifier: GameAssembly::EliteEnemyData
+  id: 'Enemy_CartRidingKids '
+  enemyName: "\uCE74\uD2B8 \uD0C0\uACE0 \uB3CC\uC544 \uB2E4\uB2C8\uB294 \uC7BC\uBBFC\uC774\uB4E4"
+  description: "\uB9C8\uD2B8 \uCE74\uD2B8\uB97C \uD0C0\uACE0 \uB9C8\uD2B8 \uC548\uC744
+    \uB6F0\uC5B4\uB2E4\uB2C8\uB294 \uC5B4\uB9B0 \uC544\uC774\uB4E4"
+  maxBaseHealth: 200
+  encounterLines:
+  - "\uBE44\uCF1C, \uBE44\uCF1C! \uC720\uD6C4~"
+  actionLines:
+  - "\uAE38 \uB9C9\uC9C0\uB9C8!"
+  victoryLines:
+  - "\uADF8\uB7EC\uAC8C \uBE44\uD0A4\uB77C\uB2C8\uAE50~"
+  defeatLines:
+  - "\uC774\uB7F0\u2026 \uC544\uD504\uC796\uC544.."
+  usualSprite: {fileID: 0}
+  battleSprite: {fileID: 0}
+  battleBehaviour:
+    rid: 7557520110087307338
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557520110087307338
+      type: {class: CartRidingKids, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        strenghenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}

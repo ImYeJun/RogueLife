@@ -4,7 +4,7 @@ namespace Battle.Enemies.Actions.Shared
     {
         private int damage;
 
-        public HurtPlayer(IEnemyBehaviourOwner owner, int damage) : base(owner)
+        public HurtPlayer(IEnemyBehaviourOwner owner, int damage, bool isLastAction = false) : base(owner, isLastAction)
         {
             this.damage = damage;
         }

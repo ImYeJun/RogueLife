@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7225abc08e80a0249881f297c7b61a31, type: 3}
+  m_Name: DelinquentGang
+  m_EditorClassIdentifier: GameAssembly::EliteEnemyData
+  id: Enemy_DelinquentGang
+  enemyName: "\uBD88\uB7C9 \uD559\uC0DD \uD328\uAC70\uB9AC"
+  description: "\uD559\uAD50 \uB561\uB561\uC774 \uCE58\uACE0 \uB2F4\uBC30\uB97C \uC0AC\uB2EC\uB77C\uACE0
+    \uD611\uBC15\uD558\uB294 \uBD88\uB7C9 \uD559\uC0DD 3\uBA85"
+  maxBaseHealth: 200
+  encounterLines:
+  - "\uAC70\uAE30, \uB2F4\uBC30 \uD558\uB098\uB9CC \uC0AC\uC918\uC694"
+  actionLines:
+  - "\uC6B0\uB9AC \uB9D0\uC774 \uB9D0 \uAC19\uC9C0 \uC54A\uC544?"
+  - "\uADF8\uAC70 \uC774\uB9AC \uB0B4\uB194"
+  - "\uC5EC\uC790\uB77C\uACE0 \uBABB \uB54C\uB9B4\uAC70 \uAC19\uC544?"
+  victoryLines:
+  - "\uADF8\uB7EC\uAC8C \uC88B\uAC8C \uC88B\uAC8C \uC0AC\uC92C\uC73C\uBA74 \uC5BC\uB9C8\uB098
+    \uC88B\uC544"
+  defeatLines:
+  - "\uC73C\uC775! \uC8C4.. \uC8C4\uC1A1\uD569\uB2C8\uB2E4! "
+  usualSprite: {fileID: 0}
+  battleSprite: {fileID: 0}
+  battleBehaviour:
+    rid: 7557520117406892109
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557520117406892109
+      type: {class: DelinquentGang, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        waterFistData: {fileID: 11400000, guid: 2214e386bf6009f4f8a9cedd674e67e0, type: 2}

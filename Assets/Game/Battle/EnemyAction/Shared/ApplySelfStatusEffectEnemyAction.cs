@@ -1,3 +1,5 @@
+using NUnit.Framework;
+
 namespace Battle.Enemies.Actions.Shared
 {
     public class ApplySelfStatusEffect : EnemyAction
@@ -7,14 +9,14 @@ namespace Battle.Enemies.Actions.Shared
         private int duration;
         private bool isEthernal;
 
-        public ApplySelfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectData statusEffectData, int stack, int duration) : base(owner)
+        public ApplySelfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectData statusEffectData, int stack, int duration, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
         {
             this.statusEffectData = statusEffectData;
             this.stack = stack;
             this.duration = duration;
             isEthernal = false;
         }
-        public ApplySelfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectData statusEffectData, int stack) : base(owner)
+        public ApplySelfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectData statusEffectData, int stack, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
         {
             this.statusEffectData = statusEffectData;
             this.stack = stack;

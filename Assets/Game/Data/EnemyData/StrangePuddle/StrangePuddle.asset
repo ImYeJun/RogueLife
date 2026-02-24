@@ -12,20 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7225abc08e80a0249881f297c7b61a31, type: 3}
   m_Name: StrangePuddle
   m_EditorClassIdentifier: GameAssembly::EliteEnemyData
-  id: 
-  enemyName: 
-  description: 
-  maxBaseHealth: 0
-  encounterLines: []
-  actionLines: []
-  victoryLines: []
-  defeatLines: []
+  id: Enemy_StrangePuddle
+  enemyName: "\uBE44\uAC00 \uC624\uACE0 \uC0DD\uAE34 \uC774\uC0C1\uD55C \uBB3C\uC6C5\uB369\uC774"
+  description: "\uC774\uC0C1\uD560 \uC815\uB3C4\uB85C \uAE4A\uC740 \uBB3C\uC6C5\uB369\uC774"
+  maxBaseHealth: 200
+  encounterLines:
+  - "\uAF2C\uB974\uB974\uB975\u2026"
+  actionLines:
+  - "\uAFB8\uB975 \uAFB8\uB975"
+  - "\uAF2C\uB974\uB975"
+  victoryLines:
+  - "\uAF2C\uB975 \uAF2C\uB974\uB975\u2026."
+  defeatLines:
+  - "\u2026\u2026"
   usualSprite: {fileID: 0}
   battleSprite: {fileID: 0}
   battleBehaviour:
-    rid: -2
+    rid: 7557520098351382608
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520098351382608
+      type: {class: StrangePuddle, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        deadlyPoisionData: {fileID: 0}
+        heavyBodyData: {fileID: 0}

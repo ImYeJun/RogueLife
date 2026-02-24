@@ -11,7 +11,7 @@ public class BattleDeck : IDrawDeckContext, IHandDeckContext, IGraveDeckContext
     {
         get { return deck[index]; }
     }
-
+    
     public int Count { get => deck.Count; }
     public void SetDeck(List<Card> deck) { this.deck = deck; }
     public void Clear() { deck.Clear();}

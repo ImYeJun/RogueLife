@@ -7,7 +7,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
     private BattleContext context;
     private BattleEnemyHistory history;
     private Dictionary<EnemyData, List<BattleEnemy>> currentEnemies = new Dictionary<EnemyData, List<BattleEnemy>>();
-
+    public bool IsAnihilated => currentEnemies.Count <= 0;
     public BattleEnemyHistory History { get => history; }
     
     public void SetContext(BattleContext context) { this.context = context; }
@@ -16,34 +16,43 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
     {
         EnemyData data = enemy.Data;
 
+        if (currentEnemies.Values.Sum(list => list.Count) >= Constant.MAX_SPAWNED_ENEMY_COUNT) { return; }
+
         if (!currentEnemies.ContainsKey(data)) { currentEnemies.Add(data, new List<BattleEnemy>()); }
 
         currentEnemies[data].Insert(0, enemy);
         enemy.Died += RemoveEnemy;
+
+        enemy.OnSpawned();
     }
     
     public void RemoveEnemy(BattleEnemy enemy)
     {
-        if (!currentEnemies.ContainsKey(enemy.Data)) { throw new InvalidOperationException($"There's not enemy data for {enemy.Data.EnemyName}"); }
+        if (!currentEnemies.ContainsKey(enemy.Data)) { throw new InvalidOperationException($"[BattleEnemySystem] There's not enemy data for {enemy.Data.EnemyName}"); }
 
         var enemyList = currentEnemies[enemy.Data];
 
         if (!enemyList.Remove(enemy))
         {
-            throw new InvalidOperationException("There is no enemy for given the argument");
+            throw new InvalidOperationException("[BattleEnemySystem] There is no enemy for given the argument");
         }
         enemy.Died -= RemoveEnemy;
 
         if (currentEnemies[enemy.Data].Count == 0) { currentEnemies.Remove(enemy.Data); }
         if (currentEnemies.Count == 0) { 
-            var action = new RequestBattleEndBattleAction(BattleResult.PLAYER_WIN);
-            context.ActionScheduler.EnqueueFront(action);
+            var action = new RequestBattleEndBattleAction(BattleResult.PLAYER_ANNIHILATE_WIN);
+            context.ActionScheduler.Enqueue(action);
         }
     }
+
 
     public List<BattleEnemy> GetBattleEnemies()
     {
         return currentEnemies.Values.SelectMany(set => set).ToList();
+    }
+    public List<BattleEnemy> GetBattleEnemies(EnemyData data)
+    {
+        return currentEnemies[data] ?? new List<BattleEnemy>();
     }
 
     public int GetEnemyCountByData(EnemyData data)
@@ -75,8 +84,6 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
         currentEnemies.Clear();
         foreach (var enemy in payload.Enemies)
         {
-            // var spawnEnemyAction = new SpawnEnemyBattleAction(enemy);
-            // context.ActionScheduler.Enqueue(spawnEnemyAction);
             SpawnEnemy(enemy);
         }
 

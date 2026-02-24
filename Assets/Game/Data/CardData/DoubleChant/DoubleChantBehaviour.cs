@@ -45,7 +45,7 @@ namespace Battle.Cards.Behaviours
         }
         private void ExecuteCommonAction(BattleContext context)
         {
-            CardPlayHistory? recentHistory = context.BattleDeckHistory.GetRecentlyPlayedHistory(owner);
+            ExecuteCardEffectHistory? recentHistory = context.BattleDeckHistory.GetRecentlyPlayedHistory(owner);
             if (recentHistory is null) { return; }
             Card previousUsedCard = recentHistory.Value.UsedCard;
 

@@ -13,19 +13,28 @@ MonoBehaviour:
   m_Name: BlockingTrafficLight
   m_EditorClassIdentifier: GameAssembly::EliteEnemyData
   id: 'Enemy_BlockingTrafficLight '
-  enemyName: 
-  description: 
-  maxBaseHealth: 0
-  encounterLines: []
-  actionLines: []
-  victoryLines: []
-  defeatLines: []
+  enemyName: "\uC9C0\uB098\uAC00\uC9C0 \uBABB\uD558\uAC8C \uB9C9\uB294 \uC2E0\uD638\uB4F1"
+  description: "\uB0B4\uAC00 \uC9C0\uB098\uAC00\uB824\uACE0 \uD558\uBA74 \uBE68\uAC04
+    \uBD88\uC774 \uB418\uB294 \uC2E0\uD638\uB4F1"
+  maxBaseHealth: 200
+  encounterLines:
+  - "\uBE68\uAC04 \uBD88, \uBE68\uAC04 \uBD88 \uC785\uB2C8\uB2E4."
+  actionLines:
+  - "\uC9C0\uB098\uAC08 \uC218 \uC5C6\uB2E4!"
+  - "\uC5B4\uB51C!"
+  victoryLines:
+  - "\uADF8\uB798, \uADF8\uB798 \uB2E4\uB978 \uAE38\uB85C \uB3CC\uC544\uAC00\uB3C4\uB85D."
+  defeatLines:
+  - "\uC774\uB807\uAC8C \uB6AB\uB9AC\uB2E4\uB2C8.."
   usualSprite: {fileID: 0}
   battleSprite: {fileID: 0}
   battleBehaviour:
-    rid: -2
+    rid: 7557520098351382612
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520098351382612
+      type: {class: BlockingTrafficLight, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        nanoMachineData: {fileID: 11400000, guid: 9665bfa4c5221554dbbc791e9daeb476, type: 2}
+        heavyBodyData: {fileID: 11400000, guid: 5f286f1994735a9478b0da440ca1c440, type: 2}

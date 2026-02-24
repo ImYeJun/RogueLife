@@ -39,5 +39,13 @@ namespace Battle.Enemies.Behaviours
         {
             return new ExhaustedGraduateStudent(this, newOwner);
         }
+
+        public override void OnOwnerDied(BattleContext context)
+        {
+        }
+
+        public override void OnOwnerSpawned(BattleContext context)
+        {
+        }
     }
 }

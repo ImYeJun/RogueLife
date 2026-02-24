@@ -20,11 +20,11 @@ namespace Battle.StatusEffects.Behaviour
         {
             if (!isOwnerDied) return;
 
-            if (owner is ICloneableBattleEntity origin)
+            if (owner is BattleEnemy enemy)
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    origin.Clone(0.5f);
+                    enemy.Clone(0.5f);
                 }
             }
         }

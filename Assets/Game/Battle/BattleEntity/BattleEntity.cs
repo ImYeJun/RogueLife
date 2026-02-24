@@ -115,6 +115,11 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
 
         UpdateCondition();
     }
+    
+    public bool HasStatusEffect(BattleStatusEffectData data)
+    {
+        return equippingBuffs.ContainsKey(data) || equippingDebuffs.ContainsKey(data);
+    }
 
     public void OnPlayerTurnEnded(PlayerTurnEndBattleEvent payload)
     {

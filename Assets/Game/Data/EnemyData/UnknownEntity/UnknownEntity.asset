@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd5fb13a7cc9ff4eacb899ea665d317, type: 3}
+  m_Name: UnknownEntity
+  m_EditorClassIdentifier: GameAssembly::BossEnemyData
+  id: Enemy_UnknownEntity
+  enemyName: ???
+  description: "\uC8FC\uC6B4 \uAC8C\uC784\uAE30"
+  maxBaseHealth: 400
+  encounterLines:
+  - "\uCE58\uC9C1.. \uCE58\uC9C0\uC9C0\uC9C1!"
+  actionLines:
+  - "\uC0AC\uB77C\uC838\uB77C!"
+  - "\uAC15\uC790\uC5D0\uAC90 \uB9DE\uB294 \uB300\uC6B0\uB97C"
+  - "\uBB34\uB98E \uAFC7\uC5B4\uB77C!"
+  - "\uAC19\uC796\uC740 \uC218\uB97C \uC4F0\uB294\uAD6C\uB098"
+  victoryLines:
+  - "\uB098\uC57D\uD558\uAD6C\uB098"
+  defeatLines:
+  - "\uC990\uAC70\uC6E0\uB2E4, \uC774\uB984 \uBAA8\uB974\uB294 \uC790\uC5EC"
+  usualSprite: {fileID: 0}
+  battleSprite: {fileID: 0}
+  battleBehaviour:
+    rid: 7557520110087307341
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557520110087307341
+      type: {class: UnknownEntity, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        burningData: {fileID: 11400000, guid: 94d24b3a77324e043be1e0804c91d563, type: 2}
+        deadlyPoisionData: {fileID: 11400000, guid: 08bc4af93af16a849b6284642308fbca, type: 2}
+        bleedingData: {fileID: 11400000, guid: 539d8c479573299489581fed79b3fed1, type: 2}

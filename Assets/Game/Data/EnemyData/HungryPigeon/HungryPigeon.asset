@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd5fb13a7cc9ff4eacb899ea665d317, type: 3}
+  m_Name: HungryPigeon
+  m_EditorClassIdentifier: GameAssembly::BossEnemyData
+  id: Enemy_HungryPigeon
+  enemyName: "\uBC25\uB2EC\uB77C\uACE0 \uACF5\uACA9\uD558\uB294 \uBE44\uB458\uAE30"
+  description: "\uC774\uC820 \uC778\uAC04\uC744 \uC548 \uBB34\uC11C\uC6CC\uD558\uB294
+    \uAC78 \uB118\uC5B4 \uACF5\uACA9\uD558\uB294 \uBE44\uB458\uAE30"
+  maxBaseHealth: 300
+  encounterLines:
+  - "\uAD6C\uAD6C\uAD6C!"
+  actionLines:
+  - "\uAD6C\uAD6C! \uAD6C\uAD6C\uAD6C!"
+  victoryLines:
+  - "\uAD6C\uB8E9! \uAD6C\uB8E9! \uAD6C\uB8E8\uB8E9!"
+  defeatLines:
+  - "\uAD6C\uAFB9\u2026."
+  usualSprite: {fileID: 0}
+  battleSprite: {fileID: 0}
+  battleBehaviour:
+    rid: 7557520110087307345
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557520110087307345
+      type: {class: HungryPigeon, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        multiplyingComaradesData: {fileID: 11400000, guid: aa5daed305a82ed4d83bc907a367a801, type: 2}
+        toughenData: {fileID: 11400000, guid: c206aec4c8c51be4eaa4db3c12ed5f48, type: 2}

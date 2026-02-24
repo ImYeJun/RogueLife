@@ -19,13 +19,13 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     public override int CurrentHealth => currentHealth;
     public override bool IsFullHealth => currentHealth >= currentMaxHealth;
     public IReadOnlyList<EnemyAction> PlannedActions { get => plannedActions; }
+    public BattleEnemyBehaviour BehaviourInstance { get => behaviourInstance;  }
     public EnemyData Data { get => data; }
     public bool IsFirstAction => isFirstAction;
     public int PreviousActionCount => previousActionCount;
     public BattleEntity AsEntity => this;
     public BattleHurtSource AsHurtSource => new EntitySource(this);
     public override int MaxHealth => currentMaxHealth;
-
 
     public BattleEnemy(BattleContext context, EnemyData enemyData) : base(context, BattleEntityTrait.ENEMY)
     {
@@ -51,8 +51,14 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     protected override void OnDead()
     {
         base.OnDead();
-
+        
+        behaviourInstance.OnOwnerDied(context);
         Died?.Invoke(this);
+    }
+
+    public void OnSpawned()
+    {
+        behaviourInstance.OnOwnerSpawned(context);
     }
     
     public override void Heal(int amount)
@@ -85,7 +91,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     {
         var clone = new BattleEnemy(context, data);
         
-        int newMaxHealth = Mathf.Max(1, Mathf.RoundToInt(clone.currentMaxHealth * maxHealthMultiplier));
+        int newMaxHealth = Mathf.Max(1, Mathf.RoundToInt(currentMaxHealth * maxHealthMultiplier));
 
         clone.currentMaxHealth = newMaxHealth;
         clone.currentHealth = newMaxHealth;

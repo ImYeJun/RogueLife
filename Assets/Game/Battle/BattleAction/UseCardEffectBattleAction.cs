@@ -23,8 +23,9 @@ public class UseCardEffectBattleAction : IBattleAction
         for (int i = 0; i < executeTimes; i++)
         {
             card.Use(context, caster, target);
-            context.BattleDeckHistory.RecordUseCard(card, card.IsReflectionApplied);
+            context.BattleDeckHistory.RecordExecuteCardEffect(card, card.IsReflectionApplied);
         }
+        context.BattleDeckHistory.RecordUseCard(card, card.IsReflectionApplied);
 
         var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
 

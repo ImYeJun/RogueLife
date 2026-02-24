@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd5fb13a7cc9ff4eacb899ea665d317, type: 3}
+  m_Name: Pickpocket
+  m_EditorClassIdentifier: GameAssembly::BossEnemyData
+  id: Enemy_Pickpocket
+  enemyName: "\uC18C\uB9E4\uCE58\uAE30\uBC94"
+  description: "\uC9C0\uC544\uC758 \uC637 \uC8FC\uBA38\uB2C8\uC5D0\uC11C \uC9C0\uAC11,
+    \uD578\uB4DC\uD3F0\uC744 \uD6D4\uCE5C \uB3C4\uB451"
+  maxBaseHealth: 300
+  encounterLines:
+  - "\uC624\uD638.. \uC774\uAC70 \uB3C8 \uC880 \uB418\uACA0\uB294\uB370?"
+  actionLines:
+  - "\uC5D0\uC787 \uADF8\uB0E5 \uD3EC\uAE30\uD558\uACE0 \uB5A8\uC5B4\uC838"
+  - "\uC5B4\uCC28\uD53C \uB10C \uB0A0 \uBABB\uC7A1\uC544"
+  victoryLines:
+  - "\uC798 \uC788\uC5B4\uB77C~ \u314B"
+  defeatLines:
+  - "\uC73C\uC545! \uC81C\uBC1C \uC120\uCC98\uB97C\u2026"
+  usualSprite: {fileID: 0}
+  battleSprite: {fileID: 0}
+  battleBehaviour:
+    rid: 7557520110087307355
+  references:
+    version: 2
+    RefIds:
+    - rid: 7557520110087307355
+      type: {class: Pickpocket, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        dontTouchData: {fileID: 11400000, guid: a30294db91cab1b478a5131bf8fab57f, type: 2}
+        quickEscapeData: {fileID: 11400000, guid: 0a472abbe5948c142b9222c5d57c1400, type: 2}
+        obstacleForFleeingData: {fileID: 11400000, guid: 837d08f59f955ef4ea8e8fe49e751ca5, type: 2}

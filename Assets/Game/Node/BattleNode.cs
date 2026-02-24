@@ -34,11 +34,12 @@ public class BattleNode : Node
     public void OnBattleExit(BattleResult result)
     {
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
-        hasResolved = result == BattleResult.PLAYER_WIN;
+        hasResolved = result == BattleResult.PLAYER_SPECIAL_CARD_WIN;
 
         switch (result)
         {
-            case BattleResult.PLAYER_WIN:
+            case BattleResult.PLAYER_ANNIHILATE_WIN:
+            case BattleResult.PLAYER_SPECIAL_CARD_WIN:
                 GetReward();
                 break;
             case BattleResult.ALL_PHASE_END:
