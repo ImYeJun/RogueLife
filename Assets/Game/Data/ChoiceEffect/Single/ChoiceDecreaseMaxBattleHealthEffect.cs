@@ -8,7 +8,9 @@ public class ChoiceDecreaseMaxBattleHealthEffect : IChoiceEffect
 
     public ChoiceDecreaseMaxBattleHealthEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.Health.DecreaseMaxBattleHealth(amount);
     }

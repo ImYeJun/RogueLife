@@ -8,7 +8,9 @@ public class ChoiceObtainSpecificCardEffect : IChoiceEffect
 
     public ChoiceObtainSpecificCardEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         Card card = context.CardDatabase.Materialize(obtainingCardData);
         context.Deck.TryObtainCard(card);

@@ -9,7 +9,9 @@ public class ChoiceObtainBattleStartBuffEffect : IChoiceEffect
 
     public ChoiceObtainBattleStartBuffEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.BattleSystem.RegisterBattleStartBuff(buff, duration);
     }

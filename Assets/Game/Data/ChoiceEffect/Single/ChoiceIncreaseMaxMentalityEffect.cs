@@ -8,7 +8,9 @@ public class ChoiceIncreaseMaxMentalityEffect : IChoiceEffect
 
     public ChoiceIncreaseMaxMentalityEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.Health.IncreaseMaxMentality(amount);
     }

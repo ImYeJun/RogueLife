@@ -9,7 +9,9 @@ public class ChoiceHurtBattleHealth : IChoiceEffect
 
     public ChoiceHurtBattleHealth() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.Health.HurtBattleHealth(amount, isOverflowable);
     }

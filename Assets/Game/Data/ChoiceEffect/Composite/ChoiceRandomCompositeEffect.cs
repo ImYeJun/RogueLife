@@ -1,20 +1,25 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 [Serializable]
 public class ChoiceRandomCompositeEffect : IChoiceEffect
 {
-    [SerializeField] List<RandomChoiceEffectCandidate> candidates;
-    [SerializeField, Min(0)] int pickCount;
+    [SerializeField] private List<RandomChoiceEffectCandidate> candidates;
+    [SerializeField, Min(0)] private int pickCount;
+
+    private bool isInstantOutcome = true;
 
     public ChoiceRandomCompositeEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => isInstantOutcome;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         if (candidates == null || candidates.Count <= 0) { throw new InvalidOperationException($"Candidates cannot be empty"); }
         if (candidates.Count < pickCount) { throw new InvalidOperationException($"Pick count({pickCount}) cannot exceed candidates count({candidates.Count})"); }
+
+        isInstantOutcome = true;
 
         var pool = new List<RandomChoiceEffectCandidate>(candidates);
         for (int i = 0; i < pickCount; i++)
@@ -23,7 +28,12 @@ public class ChoiceRandomCompositeEffect : IChoiceEffect
 
             if (selectedCandidate != null)
             {
-                selectedCandidate.Effect.Execute(context);;
+                if (!selectedCandidate.Effect.IsInstant)
+                {
+                    isInstantOutcome = false;
+                }
+
+                selectedCandidate.Effect.Execute(context, currentNode);
             }
         }
     }

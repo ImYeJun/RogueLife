@@ -12,8 +12,8 @@ public abstract class Node
     private Node exitNode;
 
     public Guid SkeletonId { get => skeletonId; }
-    public IReadOnlyCollection<Node> PreviousNodes { get => previousNodes; }
-    public IReadOnlyCollection<Node> NextNodes { get => nextNodes; }
+    public IReadOnlyList<Node> PreviousNodes { get => previousNodes; }
+    public IReadOnlyList<Node> NextNodes { get => nextNodes; }
     public Node ExitNode { get => exitNode; }
 
     public void LinkNextNode(Node nextNode) { nextNodes.Add(nextNode); }
@@ -33,7 +33,6 @@ public abstract class Node
         this.context = context;
         this.scheduleHistory = scheduleHistory;
 
-        context.NextNodesForChoiceEngageBattleEffect = nextNodes; //! Shit hack. Refactor it!!!!
         //TODO : 노드 진입 연출 실행
     }
 
@@ -52,7 +51,7 @@ public abstract class Node
         //TODO : nextNodes에 따라 UI 띄우기 + 선택지 UI에 옵저버로 OnExit() 집어 넣기
     }
 
-    protected virtual void OnExit(Node nextNode)
+    public virtual void OnExit(Node nextNode)
     {
         //TODO : 노드 퇴장 연출 실행
         OnMoveRequest.Invoke(nextNode, context);
@@ -63,7 +62,6 @@ public abstract class Node
 
     public void OnPlayerMentalBroken()
     {
-        if (context.HasEngagedBattleByChoiceEngageBattleEffect) { return; } //! Shit hack. Refactor it!!!!
         //TODO : 멘탈 붕괴 연출
         
         scheduleHistory.HasMentalBroken = true;

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.BattleResultCommands;
+using UnityEditor.Experimental.GraphView;
 
 public class BattleSystem : IFieldBattleSystem
 {
@@ -66,11 +68,16 @@ public class BattleSystem : IFieldBattleSystem
         enemySystem.History.SubscribeEventBus(eventBus);
     }
 
-    public event Action<BattleResult> OnBattleExit;
+    public event Action<BattleResultCommand> OnBattleExit;
+    private EnemyTier mainEnemyTier;
 
-    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResult> battleExit)
+    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResultCommand> battleExit)
     {
         var mainEnemyData = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Data.Tier).First().Data;
+        mainEnemyTier = mainEnemyData.Tier;
+
+        OnBattleExit = battleExit;
+
         int startPhaseCount = mainEnemyData.Tier switch
         {
             EnemyTier.NORMAL => Constant.NORMAL_ENEMY_START_PHASE_COUNT,
@@ -101,7 +108,31 @@ public class BattleSystem : IFieldBattleSystem
 
     public void ExitBattle(BattleResult result)
     {
-        OnBattleExit?.Invoke(result);
+        BattleResultCommand resultCommand = result switch
+        {
+            BattleResult.PLAYER_SPECIAL_CARD_WIN => new 
+                CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
+                    new ObtainCardCommand(mainEnemyTier),
+                    new ObtainBelongingsCommand(mainEnemyTier),
+                    new RequestNextNodeSelectionCommand(mainEnemyTier)
+                }),
+            BattleResult.PLAYER_ANNIHILATE_WIN => new 
+                CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
+                    new ObtainCardCommand(mainEnemyTier),
+                    new ObtainBelongingsCommand(mainEnemyTier),
+                    new RequestNextNodeSelectionCommand(mainEnemyTier)
+                }),
+            BattleResult.ALL_PHASE_END => new CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
+                        new ReceiveDamageCommand(mainEnemyTier),
+                        new RequestNextNodeSelectionCommand(mainEnemyTier)
+                    }),
+            BattleResult.PLAYER_DIED => new PlayerDiedCommand(mainEnemyTier),
+            BattleResult.OUT_OF_MY_WAY => new OutOfMyWayCommand(mainEnemyTier),
+            _ => throw new InvalidOperationException($"[BattleSystem] {result} is not valid to generate resultCommand.")
+        };
+        
+        OnBattleExit?.Invoke(resultCommand);
+        OnBattleExit = null;
     }
 
     public void RegisterBattleStartBuff(BattleStatusEffect buff, FieldEffectDuration duration)

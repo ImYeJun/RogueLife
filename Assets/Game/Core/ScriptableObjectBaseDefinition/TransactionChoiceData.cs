@@ -11,16 +11,17 @@ public class TransactionChoiceData : ScriptableObject {
     public string Id { get => id; }
     public string Description { get => description; }
     public string SubDescription { get => subDescription; }
+    public bool IsInstantEffect => effect.IsInstant;
 
     public bool IsFulfilled(FieldContext context)
     {
         return condition.IsFulfilled(context);
     }
 
-    public void OnSelected(FieldContext context)
+    public void OnSelected(FieldContext context, Node currentNode)
     {
         if (!IsFulfilled(context)) { return; }
 
-        effect.Execute(context);
+        effect.Execute(context, currentNode);
     }
 }

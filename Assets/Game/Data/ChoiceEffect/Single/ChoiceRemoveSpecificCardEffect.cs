@@ -9,7 +9,9 @@ public class ChoiceRemoveSpecificCardEffect : IChoiceEffect
 
     public ChoiceRemoveSpecificCardEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.Deck.TryRemoveCardByData(removingCardData, amount);
     }

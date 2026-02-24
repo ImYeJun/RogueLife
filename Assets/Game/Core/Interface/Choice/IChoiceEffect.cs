@@ -3,5 +3,6 @@ using UnityEngine;
 
 public interface IChoiceEffect
 {
-    public abstract void Execute(FieldContext context);
+    public bool IsInstant { get; }
+    public abstract void Execute(FieldContext context, Node currentNode);
 }

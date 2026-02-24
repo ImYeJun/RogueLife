@@ -1,13 +1,16 @@
+#nullable enable
+
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 [CreateAssetMenu(fileName = "BelongingsDatabase", menuName = "Scriptable Objects/Database/BelongingsDatabase")]
 public class BelongingsDatabase : ScriptableObject, IFieldBelongingsDatabase, ISerializationCallbackReceiver {
-    [SerializeField] private List<BelongingsData> availableBelongingsData;
+    [SerializeField] private List<BelongingsData> availableBelongingsData = new List<BelongingsData>();
     private Dictionary<string, BelongingsData> idLookUp = new Dictionary<string, BelongingsData>();
 
-    public BelongingsData GetData(string id)
+    public BelongingsData? GetData(string id)
     {
         if (idLookUp.TryGetValue(id, out BelongingsData data)) { return data; }
         
@@ -15,8 +18,23 @@ public class BelongingsDatabase : ScriptableObject, IFieldBelongingsDatabase, IS
         return null;
     }
 
-    public Belongings Materialize(BelongingsData belongingsData) { return Materialize(belongingsData.Id); } 
-    public Belongings Materialize(string id)
+    public Belongings? GetRandomBelongings(System.Random random, List<BelongingsData>? ignoring = null)
+    {
+        var availableData = availableBelongingsData;
+
+        if (ignoring is not null)
+        {
+            availableData = availableData.Where(data => !ignoring.Contains(data)).ToList();
+        }
+
+        if (availableData.Count == 0) { return null; }
+
+        var selecetdData = availableData[random.Next(availableData.Count)];
+        return Materialize(selecetdData);
+    }
+
+    public Belongings? Materialize(BelongingsData belongingsData) { return Materialize(belongingsData.Id); } 
+    public Belongings? Materialize(string id)
     {
         if (idLookUp.TryGetValue(id, out BelongingsData data)) { return new Belongings(data); }
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelongingsBag
@@ -9,6 +10,8 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
 
     public IReadOnlyDictionary<BelongingsData, Belongings> MainBelongingsBag { get => mainBelongingsBag; }
     public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
+
+    public List<BelongingsData> EquippingBelongings => mainBelongingsBag.Keys.Concat(sideBelongingsBag.Keys).ToList();
 
     public List<BelongingsData> GetClonedMainBag() { 
         var result = new List<BelongingsData>();

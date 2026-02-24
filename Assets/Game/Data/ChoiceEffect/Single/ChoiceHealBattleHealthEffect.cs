@@ -8,7 +8,9 @@ public class ChoiceHealBattleHealthEffect : IChoiceEffect
 
     public ChoiceHealBattleHealthEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.Health.HealBattleHealth(amount);
     }

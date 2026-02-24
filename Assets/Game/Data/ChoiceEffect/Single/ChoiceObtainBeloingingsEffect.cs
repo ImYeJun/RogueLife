@@ -8,7 +8,9 @@ public class ChoiceObtainBeloingingsEffect : IChoiceEffect
 
     public ChoiceObtainBeloingingsEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {   
         Belongings belongings = context.BelongingsDatabase.Materialize(obtainingBelongingsData);
         context.BelongingsBag.TryObtainBelongings(belongings);

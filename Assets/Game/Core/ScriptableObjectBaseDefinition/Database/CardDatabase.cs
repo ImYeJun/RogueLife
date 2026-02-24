@@ -12,7 +12,7 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
 
     public CardData? GetData(string id)
     {
-        if (!idLookUp.TryGetValue(id, out CardData data)) { return data ;}
+        if (idLookUp.TryGetValue(id, out CardData data)) { return data ;}
         
         Debug.LogWarning($"[CardDatabase] There's no CardData for {id}");
         return null;    
@@ -21,7 +21,7 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
     public Card? Materialize(CardData cardData) { return Materialize(cardData.Id); }
     public Card? Materialize(string id)
     {
-        if (!idLookUp.TryGetValue(id, out CardData data)) { return new Card(data);}
+        if (idLookUp.TryGetValue(id, out CardData data)) { return new Card(data);}
 
         Debug.LogWarning($"[CardDatabase] There's no CardData for {id}");
         return null;
@@ -51,24 +51,6 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
     {
         var selectedRarity = GetRandomRarity(random, lowestRarity, highestRarity);
         return GetRandomCard(random, selectedRarity, type, attribute, ignoringCardData);
-    }
-
-    public List<Card> GetEnemyResolveReward(System.Random random,CardEnemyResolveReward data)
-    {
-        var result = new List<Card>();
-
-        for (int i = 0; i < data.Amount; i++)
-        {
-            CardRarity selectedRarity = GetRandomRarity(random, data.LowestRarity, data.HighestRarity);
-
-            var card = GetRandomCard(random, selectedRarity, CardType.ANY, CardAttribute.ANY);
-            if (card == null) { card = GetRandomCard(random); }
-            if (card == null) { throw new InvalidOperationException("[CardDatabase] Shit Database, There's no card data for rewarding. What a mess!"); }
-
-            result.Add(card);
-        }
-
-        return result;
     }
 
     private CardRarity GetRandomRarity(System.Random random, CardRarity minRarity, CardRarity maxRarity)

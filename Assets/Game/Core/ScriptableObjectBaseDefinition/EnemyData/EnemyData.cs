@@ -7,8 +7,6 @@ public abstract class EnemyData : ScriptableObject
     [SerializeField] protected string id;
     [SerializeField] protected string enemyName;
     [SerializeField] protected EnemyTier tier;
-    [SerializeField] protected int lossMentalityOnUnresolved;
-    protected EnemyResolveReward reward;
     [SerializeField, TextArea] protected string description;
     [SerializeField] protected int maxBaseHealth;
     [SerializeField, TextArea] private List<string> encounterLines;
@@ -30,8 +28,6 @@ public abstract class EnemyData : ScriptableObject
     public Sprite UsualSprite { get => usualSprite; }
     public Sprite BattleSprite { get => battleSprite; }
     public EnemyTier Tier { get => tier; }
-    public int LossMentalityOnUnresolved { get => lossMentalityOnUnresolved; }
-    public EnemyResolveReward Reward { get => reward; }
 
     public BattleEnemyBehaviour CloneBehaviour(IEnemyBehaviourOwner owner)
     {

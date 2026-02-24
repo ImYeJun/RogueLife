@@ -30,12 +30,15 @@ public class TransactionNode : Node
         if (!choices.ContainsKey(order)) { throw new InvalidOperationException($"[TransactionNode] there's no choice data for {order}"); }
 
         var choice = choices[order];
-        choice.OnSelected(context);
+        choice.OnSelected(context, this);
 
-        RequestNextNodeSelection();
+        if (choice.IsInstantEffect)
+        {
+            RequestNextNodeSelection();
+        }
     }
 
-    protected override void OnExit(Node nextNode)
+    public override void OnExit(Node nextNode)
     {
         scheduleHistory.RecordTransaction();
         RecordBelongingsEquipping();

@@ -10,7 +10,9 @@ public class ChoiceRemoveRandomCardEffect : IChoiceEffect
 
     public ChoiceRemoveRandomCardEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.Deck.TryRemoveRandomCard(context.Random, type, attribute);
     }

@@ -9,7 +9,9 @@ public class ChoiceIncreaseMaxActionCostEffect : IChoiceEffect
 
     public ChoiceIncreaseMaxActionCostEffect() {}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.ActionCost.IncreaseMaxCapacity(amount, duration);
     }

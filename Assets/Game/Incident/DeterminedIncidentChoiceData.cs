@@ -9,10 +9,11 @@ public class DeterminedIncidentChoiceData
         this.effect = effect;
     }
 
-    public void OnSelected(FieldContext context)
+    public void OnSelected(FieldContext context, Node currentNode)
     {
-        effect.Execute(context);
+        effect.Execute(context, currentNode);
     }
 
     public string Description { get => description; }
+    public bool IsInstantEffect => effect.IsInstant;
 }

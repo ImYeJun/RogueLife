@@ -19,32 +19,24 @@ public class IncidentNode : Node
 
         //TODO : choices에 따라 선택지 UI 띄우기
         var determiendChoices = data.DetermineEffect(context);
-
-        context.RecordEncounterEnemyForChoiceEngageBattleEffect = scheduleHistory.RecordEncounterEnemy; //! SHIT HACK, Refactor it!
-        context.RequestNextNodeSelectionForChoiceEngageBattleEffect = RequestNextNodeSelection; //! SHIT HACK, Refactor it!
-        context.OnPlayerMentalBrokenForChoiceEngageBattleEffect = OnPlayerMentalBroken; //! SHIT HACK, Refactor it!
-        context.OnExitForChoiceEngageBattleEffect = ShitOnExit; //! SHIT HACK, Refactor it!
     }
 
     public void OnChoiceSettled(DeterminedIncidentChoiceData selectedChoice)
     {  
-        selectedChoice.OnSelected(context);
+        selectedChoice.OnSelected(context, this);
         
-        if (!context.HasEngagedBattleByChoiceEngageBattleEffect) { //! SHIT HACK, Refactor it!
+        if (selectedChoice.IsInstantEffect)
+        {
             RequestNextNodeSelection();
         }
     }
 
-    protected override void OnExit(Node nextNode)
+    public override void OnExit(Node nextNode)
     {
         scheduleHistory.RecordEncounterIncident(data);
         RecordBelongingsEquipping();
 
         context.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
         base.OnExit(nextNode);
-    }
-    public void ShitOnExit(Node nextNode)
-    {
-        OnExit(nextNode);
     }
 }

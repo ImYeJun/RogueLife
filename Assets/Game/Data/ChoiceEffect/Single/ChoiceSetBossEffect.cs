@@ -8,7 +8,9 @@ public class ChoiceSetBossEffect : IChoiceEffect
 
     public ChoiceSetBossEffect(){}
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => true;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         context.ScheduleSystem.SetBossData(bossData);
     }

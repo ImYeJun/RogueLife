@@ -2,105 +2,43 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
+using Battle.BattleResultCommands;
 using Battle.Cards.Behaviours;
 using UnityEditor.Graphs;
 using UnityEngine;
 
 [Serializable]
-//! This feature is full of shit hacks!!!!! What a mess!!! Refactor it!!!!
 public class ChoiceEngageBattleEffect : IChoiceEffect
 {
     [SerializeField] private List<EnemyData> engaingEnemyData;
-    private bool hasResolved;
-    private int lossMentalityOnUnresolved;
-    private EnemyResolveReward resolveReward;
-    private FieldContext context;
 
     public ChoiceEngageBattleEffect() {}
+    private FieldContext context;
+    private Node currentNode;
 
-    public void Execute(FieldContext context)
+    public bool IsInstant => false;
+
+    public void Execute(FieldContext context, Node currentNode)
     {
         this.context = context;
-        var mainEnemyData = engaingEnemyData.OrderByDescending(data => data.Tier).First();
-        lossMentalityOnUnresolved = mainEnemyData.LossMentalityOnUnresolved;
-        resolveReward = mainEnemyData.Reward;
-        
-        var slots = new List<EnemyDataSlot>();
-        foreach (var data in engaingEnemyData)
-        {
-            slots.Add(new EnemyDataSlot(data));
-        }
+        this.currentNode = currentNode;
 
-        context.HasEngagedBattleByChoiceEngageBattleEffect = true;
-        context.BattleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, slots, OnBattleExit);
+        context.Health.OnMentalBreakDown -= currentNode.OnPlayerMentalBroken;
+
+        context.BattleSystem.EngageBattle(
+            battleHealth : context.Health,
+            actionCost : context.ActionCost,
+            deck : context.Deck,
+            belongingsBag : context.BelongingsBag,
+            engagingEnemiesDataSlot : engaingEnemyData.Select(data => new EnemyDataSlot(data)).ToList(),
+            battleExit : OnBattleExit
+        );
     }
 
-    public void OnBattleExit(BattleResult result)
+    public void OnBattleExit(BattleResultCommand resultCommand)
     {
-        context.HasEngagedBattleByChoiceEngageBattleEffect = false;
-        hasResolved = result == BattleResult.PLAYER_SPECIAL_CARD_WIN;
-
-        switch (result)
-        {
-            case BattleResult.PLAYER_ANNIHILATE_WIN:
-            case BattleResult.PLAYER_SPECIAL_CARD_WIN:
-                GetReward();
-                break;
-            case BattleResult.ALL_PHASE_END:
-                GetPenalty();
-                break;
-            case BattleResult.PLAYER_DIED:
-                context.OnPlayerMentalBrokenForChoiceEngageBattleEffect.Invoke();
-                return;
-            case BattleResult.OUT_OF_MY_WAY:
-                OutOfMyWay();
-                return;
-            default:
-                throw new InvalidOperationException($"{result} is not expected to be used in battle result");
-        }
+        context.Health.OnMentalBreakDown += currentNode.OnPlayerMentalBroken;
         
-        foreach (var enemyData in engaingEnemyData)
-        {
-            context.RecordEncounterEnemyForChoiceEngageBattleEffect.Invoke(enemyData, hasResolved);
-        }
-        
-        context.RequestNextNodeSelectionForChoiceEngageBattleEffect.Invoke();
-    }
-
-    public void OutOfMyWay()
-    {
-        foreach (var enemyData in engaingEnemyData)
-        {
-            context.RecordEncounterEnemyForChoiceEngageBattleEffect.Invoke(enemyData, hasResolved);
-        }
-
-        var shitNextNodes = context.NextNodesForChoiceEngageBattleEffect;
-        var randomNextNode = shitNextNodes[context.Random.Next(shitNextNodes.Count)];
-        
-        context.OnExitForChoiceEngageBattleEffect(randomNextNode);
-    }
-
-    private void GetReward()
-    {
-        if (resolveReward is CardEnemyResolveReward cardReward)
-        {
-            var rewardCards = context.CardDatabase.GetEnemyResolveReward(context.Random, cardReward);
-            foreach (var card in rewardCards)
-            {
-                if (context.Deck.TryObtainCard(card))
-                {
-                    //TODO 카드 획득 연출 띄우기
-                }
-                else
-                {
-                    //TODO 획득 실패 연출 띄우기
-                }
-            }
-        }
-    }
-
-    private void GetPenalty()
-    {
-        context.Health.HurtBattleHealth(lossMentalityOnUnresolved, true);
+        resultCommand.Resolve(context, currentNode);
     }
 }
