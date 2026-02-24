@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 081e90a48ea29da42b7f97bfcd9b9a61, type: 3}
-  m_Name: CardData
+  m_Name: TakeThisFirst
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_TakeThisFirst
   cardName: "\uC77C\uB2E8 \uD55C\uB300 \uB9DE\uC544"

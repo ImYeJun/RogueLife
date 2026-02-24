@@ -7,15 +7,15 @@ public class ScheduleData : ScriptableObject
 {
     [SerializeField] private string id;
     [SerializeField] private string scheduleName;
-    [SerializeField] private string description;
+    [SerializeField, TextArea] private string description;
     [SerializeField] private Sprite[] usualBackground;
     [SerializeField] private Sprite battleBackground;
     [SerializeField] private AudioClip usualBGM;
     [SerializeField] private AudioClip battleBGM;
     [SerializeField] private Sprite choiceSprite;
-    [SerializeField] private List<EnemyData> availableNormalEnemyData;
-    [SerializeField] private List<EnemyData> availableEliteEnemyData;
     [SerializeField] private EnemyData bossData;
+    [SerializeField] private List<EnemyData> availableEliteEnemyData;
+    [SerializeField] private List<EnemyData> availableNormalEnemyData;
     [SerializeField] private List<IncidentData> availableIncidentData;
 
     public string Id { get => id; }

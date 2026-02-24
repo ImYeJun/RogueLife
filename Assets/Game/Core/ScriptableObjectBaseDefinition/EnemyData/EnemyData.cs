@@ -6,6 +6,9 @@ public abstract class EnemyData : ScriptableObject
 {
     [SerializeField] protected string id;
     [SerializeField] protected string enemyName;
+    [SerializeField] protected EnemyTier tier;
+    [SerializeField] protected int lossMentalityOnUnresolved;
+    protected EnemyResolveReward reward;
     [SerializeField, TextArea] protected string description;
     [SerializeField] protected int maxBaseHealth;
     [SerializeField, TextArea] private List<string> encounterLines;
@@ -15,9 +18,6 @@ public abstract class EnemyData : ScriptableObject
     [SerializeField] protected Sprite usualSprite;
     [SerializeField] protected Sprite battleSprite;
     [SerializeReference, SubclassSelector] protected BattleEnemyBehaviour battleBehaviour;
-    protected EnemyTier tier;
-    protected int lossMentalityOnUnresolved;
-    protected EnemyResolveReward reward;
 
     public string Id { get => id; }
     public string EnemyName { get => enemyName; }

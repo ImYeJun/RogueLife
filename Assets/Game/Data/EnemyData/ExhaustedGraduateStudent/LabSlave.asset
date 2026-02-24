@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0662f661a2dc254380c7d48f951f0cf, type: 3}
   m_Name: LabSlave
   m_EditorClassIdentifier: GameAssembly::NormalEnemyData
-  id: Enemy_ExhaustedGraduateStudent
+  id: Enemy_LabSlave
   enemyName: "\uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD"
   description: "\uC7A6\uC740 \uC5C5\uBB34\uB85C \uC778\uD574 \uC815\uC2E0\uC774 \uB098\uAC00\uBC84\uB9B0
     \uB300\uD559\uC6D0\uC0DD"
@@ -29,9 +29,11 @@ MonoBehaviour:
   usualSprite: {fileID: 0}
   battleSprite: {fileID: 0}
   battleBehaviour:
-    rid: -2
+    rid: 7557520117406892116
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520117406892116
+      type: {class: LabSlave, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+      data:
+        thatsFoulData: {fileID: 11400000, guid: 808fa2c5a6f27384287e17eaac9de9d5, type: 2}
