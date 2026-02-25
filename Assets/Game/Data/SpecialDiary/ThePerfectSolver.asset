@@ -15,7 +15,9 @@ MonoBehaviour:
   id: SpecialDiary_ThePerfectSolver
   description: 
   requirements:
+  - rid: 7557520133779619937
   - rid: 7557519912807170143
+  - rid: 7557520133779619934
   - rid: 7557519912807170144
   - rid: 7557519912807170145
   references:
@@ -23,7 +25,8 @@ MonoBehaviour:
     RefIds:
     - rid: 7557519912807170143
       type: {class: SpecialDiaryRequirementResolveAllEnemies, ns: , asm: GameAssembly}
-      data: 
+      data:
+        filteringTier: 0
     - rid: 7557519912807170144
       type: {class: SpecialDiaryRequirementEncounterAllIncidents, ns: , asm: GameAssembly}
       data: 
@@ -31,3 +34,10 @@ MonoBehaviour:
       type: {class: SpecialDiaryRequirementRemainMentality, ns: , asm: GameAssembly}
       data:
         amount: 100
+    - rid: 7557520133779619934
+      type: {class: SpecialDiaryRequirementResolveAllEnemies, ns: , asm: GameAssembly}
+      data:
+        filteringTier: 1
+    - rid: 7557520133779619937
+      type: {class: SpcialDiaryRequirementAllMetBossResolved, ns: , asm: GameAssembly}
+      data: 

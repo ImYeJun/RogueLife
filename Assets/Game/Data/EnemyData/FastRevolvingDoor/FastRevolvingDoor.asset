@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::EliteEnemyData
   id: Enemy_FastRevolvingDoor
   enemyName: "\uBE60\uB978 \uC18D\uB3C4\uB85C \uB3CC\uC544\uAC00\uB294 \uD68C\uC804\uBB38"
+  tier: 1
   description: "\uC2DC\uC2A4\uD15C \uC624\uB958\uB85C \uB108\uBB34 \uBE60\uB978 \uC18D\uB3C4\uB85C
     \uD68C\uC804\uD558\uB294 \uD68C\uC804\uBB38"
   maxBaseHealth: 250

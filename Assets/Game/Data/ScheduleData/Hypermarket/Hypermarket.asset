@@ -12,30 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d8f18128117da4e8a2c527951e529e, type: 3}
   m_Name: Hypermarket
   m_EditorClassIdentifier: GameAssembly::ScheduleData
-  id: Schedule_UniversityCampus
-  scheduleName: "\uD559\uAD50 \uCEA0\uD37C\uC2A4"
-  description: "- \uC9C0\uC544\uAC00 \uB2E4\uB2C8\uB294 \uD559\uAD50\uC758 \uCEA0\uD37C\uC2A4\uC774\uB2E4.\r\n-
-    \uD574\uB2F9 \uC9C0\uC5ED\uB0B4\uC5D0\uC11C \uAF64\uB098 \uD070 \uCEA0\uD37C\uC2A4\uC774\uB2E4.\r\n-
-    \uCEA0\uD37C\uC2A4 \uB0B4\uBD80\uC5D4 \uB3C4\uC11C\uAD00, \uC2DD\uB2F9, \uCE74\uD398\uB4F1
-    \uD3B8\uC758 \uC2DC\uC124 \uB610\uD55C \uC874\uC7AC\uD55C\uB2E4."
+  id: Schedule_Hypermarket
+  scheduleName: "\uB300\uD615 \uB9C8\uD2B8"
+  description: "- \uC9C0\uC544\uAC00 \uC0AC\uB294 \uB3D9\uB124\uC5D0 \uC788\uB294
+    \uD070 \uB300\uD615 \uB9C8\uD2B8\r\n- \uC57D 6\uCE35 \uC815\uB3C4\uC758 \uB300\uD615
+    \uAC74\uBB3C\uC774\uB2E4.\r\n- \uC637, \uC2DD\uB8CC\uD488, \uAC00\uC804\uAC00\uAD6C,
+    \uC0DD\uD65C\uC6A9\uD488, \uC644\uAD6C \uB4F1\uC744 \uD310\uB9E4\uD55C\uB2E4.\r\n-
+    \uB9CE\uC740 \uC0AC\uB78C\uB4E4\uC774 \uC624\uACE0\uAC04\uB2E4."
   usualBackground: []
   battleBackground: {fileID: 0}
   usualBGM: {fileID: 0}
   battleBGM: {fileID: 0}
   choiceSprite: {fileID: 0}
-  availableNormalEnemyData:
-  - {fileID: 11400000, guid: e4a996f4779eaed43a514f698ae43044, type: 2}
-  - {fileID: 11400000, guid: c6584c2bc52357e42847e3698a2f419a, type: 2}
-  - {fileID: 11400000, guid: 12d25e6e68b369a458ede37f59da5b2e, type: 2}
-  - {fileID: 11400000, guid: 261c0a280922eff4386cda9dbcbaa477, type: 2}
+  bossData: {fileID: 11400000, guid: 33999fd26b7b42f4d80c018bb3b6c69d, type: 2}
   availableEliteEnemyData:
-  - {fileID: 11400000, guid: 19dd2c1aaee5b2a41b8456f267d1e5bd, type: 2}
-  - {fileID: 11400000, guid: afba649c94f0f6840bc9ff1d9d5ede43, type: 2}
-  bossData: {fileID: 11400000, guid: 5ad222229b8ffe14db6eebcaf73418e4, type: 2}
+  - {fileID: 11400000, guid: c7a1e940f3d6efe438055017817cf520, type: 2}
+  - {fileID: 11400000, guid: e1fc14da4db6fba43844ea28ba12ff7c, type: 2}
+  availableNormalEnemyData:
+  - {fileID: 11400000, guid: 149ed5615421c4c40bc965a52e22a78b, type: 2}
+  - {fileID: 11400000, guid: 8baf20f8dec3e6a499bca08f26c8a6a7, type: 2}
+  - {fileID: 11400000, guid: 33be83513ba127c4498a8b61081b1700, type: 2}
+  - {fileID: 11400000, guid: 261c0a280922eff4386cda9dbcbaa477, type: 2}
   availableIncidentData:
-  - {fileID: 11400000, guid: a02464fd0e7f0da40a80be80cf9bdf5c, type: 2}
-  - {fileID: 11400000, guid: 6e0f8ada28c30ba4082667d08083028d, type: 2}
-  - {fileID: 11400000, guid: 602895ed1d2b05843b6bc32bd33d77dd, type: 2}
-  - {fileID: 11400000, guid: 54337673a085cc5478590921fb6ac840, type: 2}
-  - {fileID: 11400000, guid: fcc0fe792f9881f4d992bcf9c00609db, type: 2}
   - {fileID: 11400000, guid: 85571bfb596b3c74c92c0c8f25f00e70, type: 2}
+  - {fileID: 11400000, guid: a02464fd0e7f0da40a80be80cf9bdf5c, type: 2}
+  - {fileID: 11400000, guid: fcc0fe792f9881f4d992bcf9c00609db, type: 2}
+  - {fileID: 11400000, guid: 602895ed1d2b05843b6bc32bd33d77dd, type: 2}
+  - {fileID: 11400000, guid: 5e3f375b441ee484aa4099604c866ad6, type: 2}
+  - {fileID: 11400000, guid: 54337673a085cc5478590921fb6ac840, type: 2}

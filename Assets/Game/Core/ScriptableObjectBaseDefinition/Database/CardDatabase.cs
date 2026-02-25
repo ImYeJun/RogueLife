@@ -33,29 +33,26 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
     }
     public Card? GetRandomCard(System.Random random, CardRarity rarity, CardType type, CardAttribute attribute, List<CardData>? ignoringCardData = null)
     {
+        return GetRandomCard(random, rarity, rarity, type, attribute, ignoringCardData);
+    }
+    public Card? GetRandomCard(System.Random random, CardRarity lowestRarity, CardRarity highestRarity, CardType type, CardAttribute attribute, List<CardData>? ignoringCardData = null)
+    {
+        lowestRarity = lowestRarity == CardRarity.ANY ? CardRarity.COMMON : lowestRarity;
+        highestRarity = highestRarity == CardRarity.ANY ? CardRarity.LEGENDARY : highestRarity;
+
         var filterdCardData = availableCardData.Where(data =>
-            ((rarity == CardRarity.ANY) || (data.Rarity == rarity)) &&
+            lowestRarity <= data.Rarity && data.Rarity <= highestRarity &&
             (type == CardType.ANY || data.Type == type) &&
             (attribute == CardAttribute.ANY || data.Attribute == attribute) &&
             ((ignoringCardData is null) || !ignoringCardData.Contains(data))
         ).ToList();
 
         if (filterdCardData.Count <= 0) { 
-            Debug.LogWarning($"There's no cards that fullfills the condition (rarity : {rarity},attribute : {attribute}, type : {type})");
+            Debug.LogWarning($"There's no cards that fullfills the condition (lowestRarity : {lowestRarity}, highestRarity : {highestRarity}, attribute : {attribute}, type : {type})");
             return null;
         }
         var selectedData = filterdCardData[random.Next(filterdCardData.Count)];
         return Materialize(selectedData);
-    }
-    public Card? GetRandomCard(System.Random random, CardRarity lowestRarity, CardRarity highestRarity, CardType type, CardAttribute attribute, List<CardData>? ignoringCardData = null)
-    {
-        var selectedRarity = GetRandomRarity(random, lowestRarity, highestRarity);
-        return GetRandomCard(random, selectedRarity, type, attribute, ignoringCardData);
-    }
-
-    private CardRarity GetRandomRarity(System.Random random, CardRarity minRarity, CardRarity maxRarity)
-    {
-        return minRarity == CardRarity.ANY || maxRarity == CardRarity.ANY ? CardRarity.ANY : (CardRarity)random.Next((int)minRarity, (int)maxRarity + 1);
     }
 
     public void OnBeforeSerialize() { }
@@ -84,13 +81,14 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
         if (availableCardData == null) { return; }
         HashSet<string> checkSet = new HashSet<string>();
 
+        int i = 0;
         foreach (var data in availableCardData)
         {
             if (data == null) continue;
 
             if (string.IsNullOrEmpty(data.Id))
             {
-                Debug.LogError($"[CardDatabase] 데이터 리스트에 ID가 비어있는 항목이 있습니다!", this);
+                Debug.LogError($"[CardDatabase] 데이터 리스트에 ID가 비어있는 항목이 있습니다! {i}", this);
                 continue;
             }
 
@@ -102,6 +100,7 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
             {
                 checkSet.Add(data.Id);
             }
+            i++;
         }
     }
 #endif

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::NormalEnemyData
   id: 'Enemy_GhostingTeammate '
   enemyName: "\uC5F0\uB77D\uC744 \uBC1B\uC9C0 \uC54A\uB294 \uD300\uC6D0"
+  tier: 0
   description: "\uC870\uBCC4\uACFC\uC81C \uC911, \uC5F0\uB77D\uC744 \uC548 \uBC1B\uACE0
     \uC7A0\uC218\uB97C \uD558\uB294 \uD300\uC6D0"
   maxBaseHealth: 100

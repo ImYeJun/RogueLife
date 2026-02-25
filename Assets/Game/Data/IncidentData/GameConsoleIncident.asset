@@ -39,4 +39,4 @@ MonoBehaviour:
     - rid: 1582000786587254987
       type: {class: ChoiceSetBossEffect, ns: , asm: GameAssembly}
       data:
-        bossData: {fileID: 0}
+        bossData: {fileID: 11400000, guid: 76a04ef44963798408e1be3d6de622d6, type: 2}

@@ -25,7 +25,7 @@ MonoBehaviour:
       type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
       data:
         engaingEnemyData:
-        - {fileID: 0}
+        - {fileID: 11400000, guid: 4dc57660ce0c54843b1aad101a750169, type: 2}
     - rid: 1582000786587254969
       type: {class: ChoiceHealMentalityEffect, ns: , asm: GameAssembly}
       data:

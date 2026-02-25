@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::BossEnemyData
   id: Enemy_UnknownEntity
   enemyName: ???
+  tier: 2
   description: "\uC8FC\uC6B4 \uAC8C\uC784\uAE30"
   maxBaseHealth: 400
   encounterLines:

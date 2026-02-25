@@ -191,6 +191,7 @@ namespace Battle.Enemies.Behaviours
 
         public override void OnOwnerDied(BattleContext context)
         {
+            
         }
 
         public override void OnOwnerSpawned(BattleContext context)

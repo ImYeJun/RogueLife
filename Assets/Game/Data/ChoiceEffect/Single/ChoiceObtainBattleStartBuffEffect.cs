@@ -13,6 +13,6 @@ public class ChoiceObtainBattleStartBuffEffect : IChoiceEffect
 
     public void Execute(FieldContext context, Node currentNode)
     {
-        context.BattleSystem.RegisterBattleStartBuff(buff, duration);
+        context.BattleSystem.RegisterBattleStartEffect(buff, duration);
     }
 }

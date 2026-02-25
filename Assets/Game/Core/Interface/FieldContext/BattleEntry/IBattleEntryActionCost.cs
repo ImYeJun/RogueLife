@@ -1,5 +1,5 @@
 public interface IBattleEntryActionCost
 {
-    public int MaxActionCost { get; }
-    public void OnBattleEnd(BattleResult result);
+    public int CurrentMaxActionCost { get; }
+    public void OnBattleEnd();
 }

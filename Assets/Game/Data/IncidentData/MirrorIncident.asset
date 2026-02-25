@@ -15,45 +15,114 @@ MonoBehaviour:
   id: Incident_Mirror
   incidentName: "\uAC70\uC6B8 \uC0AC\uAC74"
   choices:
-  - rid: 7557519912807170199
-  - rid: 7557519912807170202
-  - rid: 7557519912807170201
+  - rid: 7557520133779619914
+  - rid: 7557520133779619915
+  - rid: 7557520133779619916
   references:
     version: 2
     RefIds:
-    - rid: 7557519912807170199
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+    - rid: 7557520133779619914
+      type: {class: RandomCompositeIncidentChoiceData, ns: , asm: GameAssembly}
       data:
-        description: "\uC624\uB298\uB530\uB77C \uD798\uC774 \uB118\uCCD0\uB0AC\uC9C0.."
-        effect:
-          rid: 7557519912807170203
-    - rid: 7557519912807170201
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+        candidates:
+        - effect:
+            rid: 7557520133779619917
+          description: "\uC624\uB298\uB530\uB77C \uD798\uC774 \uB118\uCCD0\uB0AC\uC9C0.."
+          weight: 40
+        - effect:
+            rid: 7557520133779619918
+          description: "\uC624\uB298\uB530\uB77C \uD798\uC774 \uB118\uCCD0\uB0AC\uC9C0.."
+          weight: 50
+        - effect:
+            rid: 7557520133779619919
+          description: "\uC624\uB298\uB530\uB77C \uD798\uC774 \uB118\uCCD0\uB0AC\uC9C0.."
+          weight: 10
+        pickCount: 1
+    - rid: 7557520133779619915
+      type: {class: RandomCompositeIncidentChoiceData, ns: , asm: GameAssembly}
       data:
-        description: "\uC624\uB298\uB530\uB77C \uC6B4\uC774 \uC5C4\uCCAD \uC88B\uC558\uC5B4.."
-        effect:
-          rid: 7557519912807170205
-    - rid: 7557519912807170202
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
+        candidates:
+        - effect:
+            rid: 7557520133779619923
+          description: "\uC624\uB298\uB530\uB77C \uBA38\uB9AC\uAC00 \uC798\uB3CC\uC544\uAC14\uC5B4.."
+          weight: 40
+        - effect:
+            rid: 7557520133779619924
+          description: "\uC624\uB298\uB530\uB77C \uBA38\uB9AC\uAC00 \uC798\uB3CC\uC544\uAC14\uC5B4.."
+          weight: 50
+        - effect:
+            rid: 7557520133779619925
+          description: "\uC624\uB298\uB530\uB77C \uBA38\uB9AC\uAC00 \uC798\uB3CC\uC544\uAC14\uC5B4.."
+          weight: 10
+        pickCount: 1
+    - rid: 7557520133779619916
+      type: {class: RandomCompositeIncidentChoiceData, ns: , asm: GameAssembly}
       data:
-        description: "\uC624\uB298\uB530\uB77C \uBA38\uB9AC\uAC00 \uC798\uB3CC\uC544\uAC14\uC5B4.."
-        effect:
-          rid: 7557519912807170204
-    - rid: 7557519912807170203
+        candidates:
+        - effect:
+            rid: 7557520133779619926
+          description: "\uC624\uB298\uB530\uB77C \uC6B4\uC774 \uC5C4\uCCAD \uC88B\uC558\uC5B4.."
+          weight: 40
+        - effect:
+            rid: 7557520133779619927
+          description: "\uC624\uB298\uB530\uB77C \uC6B4\uC774 \uC5C4\uCCAD \uC88B\uC558\uC5B4.."
+          weight: 50
+        - effect:
+            rid: 7557520133779619928
+          description: "\uC624\uB298\uB530\uB77C \uC6B4\uC774 \uC5C4\uCCAD \uC88B\uC558\uC5B4.."
+          weight: 10
+        pickCount: 1
+    - rid: 7557520133779619917
       type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
       data:
-        rarity: 0
+        rarity: 1
         type: 0
         attribute: 1
-    - rid: 7557519912807170204
+    - rid: 7557520133779619918
       type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
       data:
-        rarity: 0
+        rarity: 2
+        type: 0
+        attribute: 1
+    - rid: 7557520133779619919
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
+      data:
+        rarity: 3
+        type: 0
+        attribute: 1
+    - rid: 7557520133779619923
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
+      data:
+        rarity: 1
         type: 0
         attribute: 2
-    - rid: 7557519912807170205
+    - rid: 7557520133779619924
       type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
       data:
-        rarity: 0
+        rarity: 2
+        type: 0
+        attribute: 2
+    - rid: 7557520133779619925
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
+      data:
+        rarity: 3
+        type: 0
+        attribute: 2
+    - rid: 7557520133779619926
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
+      data:
+        rarity: 1
+        type: 0
+        attribute: 3
+    - rid: 7557520133779619927
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
+      data:
+        rarity: 2
+        type: 0
+        attribute: 3
+    - rid: 7557520133779619928
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
+      data:
+        rarity: 3
         type: 0
         attribute: 3

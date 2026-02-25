@@ -23,15 +23,15 @@ MonoBehaviour:
   usualBGM: {fileID: 0}
   battleBGM: {fileID: 0}
   choiceSprite: {fileID: 0}
+  bossData: {fileID: 11400000, guid: 5ad222229b8ffe14db6eebcaf73418e4, type: 2}
+  availableEliteEnemyData:
+  - {fileID: 11400000, guid: 19dd2c1aaee5b2a41b8456f267d1e5bd, type: 2}
+  - {fileID: 11400000, guid: afba649c94f0f6840bc9ff1d9d5ede43, type: 2}
   availableNormalEnemyData:
   - {fileID: 11400000, guid: e4a996f4779eaed43a514f698ae43044, type: 2}
   - {fileID: 11400000, guid: c6584c2bc52357e42847e3698a2f419a, type: 2}
   - {fileID: 11400000, guid: 12d25e6e68b369a458ede37f59da5b2e, type: 2}
   - {fileID: 11400000, guid: 261c0a280922eff4386cda9dbcbaa477, type: 2}
-  availableEliteEnemyData:
-  - {fileID: 11400000, guid: 19dd2c1aaee5b2a41b8456f267d1e5bd, type: 2}
-  - {fileID: 11400000, guid: afba649c94f0f6840bc9ff1d9d5ede43, type: 2}
-  bossData: {fileID: 11400000, guid: 5ad222229b8ffe14db6eebcaf73418e4, type: 2}
   availableIncidentData:
   - {fileID: 11400000, guid: a02464fd0e7f0da40a80be80cf9bdf5c, type: 2}
   - {fileID: 11400000, guid: 6e0f8ada28c30ba4082667d08083028d, type: 2}

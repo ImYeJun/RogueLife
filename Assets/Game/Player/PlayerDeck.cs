@@ -89,6 +89,34 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
         return totalCount >= amount;
     }
 
+    public bool HasMatchingCard(CardRarity rarity, CardAttribute attribute, CardType type, int leastAmount = 1)
+    {
+        int matchingCardCount = 0;
+
+        foreach (var cardList in mainDeck.Values)
+        {
+            foreach (var card in cardList)
+            {
+                if (card.CurrentRarity == rarity &&
+                    card.CurrentAttribute == attribute &&
+                    card.CurrentType == type
+                ) { matchingCardCount++; }
+            }
+        }
+        foreach (var cardList in sideDeck.Values)
+        {
+            foreach (var card in cardList)
+            {
+                if (card.CurrentRarity == rarity &&
+                    card.CurrentAttribute == attribute &&
+                    card.CurrentType == type
+                ) { matchingCardCount++; }
+            }
+        }
+
+        return matchingCardCount >= leastAmount;
+    }
+
     public List<Card> GetSpecificCardsByData(CardData data)
     {
         if (!HasCardData(data)) { return null; }

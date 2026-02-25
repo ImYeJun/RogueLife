@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::EliteEnemyData
   id: Enemy_StrangePuddle
   enemyName: "\uBE44\uAC00 \uC624\uACE0 \uC0DD\uAE34 \uC774\uC0C1\uD55C \uBB3C\uC6C5\uB369\uC774"
+  tier: 1
   description: "\uC774\uC0C1\uD560 \uC815\uB3C4\uB85C \uAE4A\uC740 \uBB3C\uC6C5\uB369\uC774"
   maxBaseHealth: 200
   encounterLines:

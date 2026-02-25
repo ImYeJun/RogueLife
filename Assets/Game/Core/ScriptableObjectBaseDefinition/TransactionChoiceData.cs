@@ -3,8 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "TransactionChoiceData", menuName = "Scriptable Objects/TransactionChoiceData", order = 0)]
 public class TransactionChoiceData : ScriptableObject {
     [SerializeField] private string id;
-    [SerializeField] private string description;
-    [SerializeField] private string subDescription;
+    [SerializeField, TextArea] private string description;
+    [SerializeField, TextArea] private string subDescription;
     [SerializeReference, SubclassSelector] private IChoiceCondition condition;
     [SerializeReference, SubclassSelector] private IChoiceEffect effect;
 

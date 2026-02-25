@@ -1,34 +1,33 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlayerActionCost : IFieldActionCost
 {
-    private int maxActionCost = Constant.BASE_MAX_ACTION_COST;
-    public int MaxActionCost { get => maxActionCost; }
+    private int baseMaxActionCost = Constant.BASE_MAX_ACTION_COST;
+    public int CurrentMaxActionCost { 
+        get => baseMaxActionCost 
+                + temporalCostIncreaseModifiers.Sum(modifier => modifier.ModificatedAmount)
+                - temporalCostDecreaseModifiers.Sum(modifier => modifier.ModificatedAmount); }
 
     private List<TemporalActionCostIncreaseModifier> temporalCostIncreaseModifiers = new List<TemporalActionCostIncreaseModifier>();
     private List<TemporalActionCostDecreaseModifier> temporalCostDecreaseModifiers = new List<TemporalActionCostDecreaseModifier>();
-
-    // public bool TrySpend(int amount)
-    // {
-    //     if (amount < 0) { return false; }
-    //     if (currentActionCost < amount) { return false; }
-
-    //     currentActionCost -= amount;
-    //     return true;
-    // }
-
-    // public void Refill() { currentActionCost = maxActionCost; }
 
     public void IncreaseMaxCapacity(int amount, FieldEffectDuration duration) 
     {
         if (amount < 0) return;
 
-        maxActionCost += amount;
-
-        if (duration == FieldEffectDuration.SINGLE_BATTLE) 
-        { 
-            temporalCostIncreaseModifiers.Add(new TemporalActionCostIncreaseModifier(1, amount)); 
+        switch (duration)
+        {
+            case FieldEffectDuration.SINGLE_BATTLE:
+                temporalCostIncreaseModifiers.Add(new TemporalActionCostIncreaseModifier(1, amount)); 
+                break;
+            case FieldEffectDuration.ETERNAL:
+                baseMaxActionCost += amount;
+                break;
+            default:
+                throw new InvalidOperationException($"[PlayerActionCost] {duration} is not valid.");
         }
     }
 
@@ -36,24 +35,26 @@ public class PlayerActionCost : IFieldActionCost
     {
         if (amount < 0) return;
 
-        int actualDecreased = Mathf.Min(maxActionCost, amount);
-        
-        maxActionCost -= actualDecreased;
-
-        if (duration == FieldEffectDuration.SINGLE_BATTLE && actualDecreased > 0) 
-        { 
-            temporalCostDecreaseModifiers.Add(new TemporalActionCostDecreaseModifier(1, actualDecreased)); 
+        switch (duration)
+        {
+            case FieldEffectDuration.SINGLE_BATTLE:
+                temporalCostDecreaseModifiers.Add(new TemporalActionCostDecreaseModifier(1, amount)); 
+                break;
+            case FieldEffectDuration.ETERNAL:
+                baseMaxActionCost = Mathf.Max(baseMaxActionCost - amount, 0);
+                break;
+            default:
+                throw new InvalidOperationException($"[PlayerActionCost] {duration} is not valid.");
         }
     }
 
-    public void OnBattleEnd(BattleResult reuslt)
+    public void OnBattleEnd()
     {
         for (int i = temporalCostIncreaseModifiers.Count - 1; i >= 0; i--)
         {
             var element = temporalCostIncreaseModifiers[i];
             if (--element.RemainBattleCount == 0)
             {
-                DecreaseMaxCapacity(element.ModificatedAmount, FieldEffectDuration.ETERNAL);
                 temporalCostIncreaseModifiers.RemoveAt(i);
             }
         }
@@ -63,7 +64,6 @@ public class PlayerActionCost : IFieldActionCost
             var element = temporalCostDecreaseModifiers[i];
             if (--element.RemainBattleCount == 0)
             {
-                IncreaseMaxCapacity(element.ModificatedAmount, FieldEffectDuration.ETERNAL);
                 temporalCostDecreaseModifiers.RemoveAt(i);
             }
         }

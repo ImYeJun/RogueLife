@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::EliteEnemyData
   id: Enemy_DelinquentGang
   enemyName: "\uBD88\uB7C9 \uD559\uC0DD \uD328\uAC70\uB9AC"
+  tier: 1
   description: "\uD559\uAD50 \uB561\uB561\uC774 \uCE58\uACE0 \uB2F4\uBC30\uB97C \uC0AC\uB2EC\uB77C\uACE0
     \uD611\uBC15\uD558\uB294 \uBD88\uB7C9 \uD559\uC0DD 3\uBA85"
   maxBaseHealth: 200

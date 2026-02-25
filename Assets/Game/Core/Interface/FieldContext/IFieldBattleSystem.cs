@@ -3,5 +3,5 @@ using System.Collections.Generic;
 
 public interface IFieldBattleSystem : IEngageBattle
 {
-    public void RegisterBattleStartBuff(BattleStatusEffect buff, FieldEffectDuration duration);
+    public void RegisterBattleStartEffect(BattleStatusEffect buff, FieldEffectDuration duration);
 }

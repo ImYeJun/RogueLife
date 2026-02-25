@@ -40,4 +40,4 @@ MonoBehaviour:
       type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
       data:
         engaingEnemyData:
-        - {fileID: 0}
+        - {fileID: 11400000, guid: 19dd2c1aaee5b2a41b8456f267d1e5bd, type: 2}

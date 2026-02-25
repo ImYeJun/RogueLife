@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::NormalEnemyData
   id: Enemy_OtakuConfessor
   enemyName: "\uACE0\uBC31 \uACF5\uACA9\uD558\uB294 \uC624\uD0C0\uCFE0 \uB300\uD559\uC0DD"
+  tier: 0
   description: "- \uAC19\uC774 \uC218\uC5C5\uC744 \uB4E3\uB294 \uC624\uD0C0\uCFE0\r\n-
     \uB300\uD654\uB97C \uC77C\uC808 \uD574\uBCF8\uC801\uC5C6\uC73C\uB098 \uAC11\uC790\uAE30
     \uACE0\uBC31\uACF5\uACA9\uC744 \uD574\uBC84\uB9BC"

@@ -14,8 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::TransactionChoiceDatabase
   firstChoices:
   - {fileID: 11400000, guid: a640b9e6e1f07e84f8dfca7f5fd08643, type: 2}
+  - {fileID: 11400000, guid: 11fdfa3895eee3b41b66913943c07325, type: 2}
+  - {fileID: 11400000, guid: 80f8c0882a84c004092238d0452500b5, type: 2}
   - {fileID: 11400000, guid: 928c3af77d46561499f6c199041244fa, type: 2}
   - {fileID: 11400000, guid: 1488c788c9f351e4facc61e6cbfb7e75, type: 2}
+  - {fileID: 11400000, guid: 5a3c5629e86d26e43a6750d23335d186, type: 2}
   secondChoices:
   - {fileID: 11400000, guid: 1d114b2f1b52edd4c95756532e53c056, type: 2}
   - {fileID: 11400000, guid: 5e50656f3b35c1a42b4cb5f4e99570fb, type: 2}

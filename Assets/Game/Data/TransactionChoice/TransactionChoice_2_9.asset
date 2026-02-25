@@ -27,7 +27,7 @@ MonoBehaviour:
     - rid: 7557519912807170172
       type: {class: CardAvailableChoiceCondition, ns: , asm: GameAssembly}
       data:
-        cardData: {fileID: 0}
+        cardData: {fileID: 11400000, guid: 1bbcb59265353f04ba8ecbc148e1773b, type: 2}
         amount: 1
     - rid: 7557519912807170174
       type: {class: ChoiceSequenceCompositeEffect, ns: , asm: GameAssembly}
@@ -38,9 +38,9 @@ MonoBehaviour:
     - rid: 7557519912807170175
       type: {class: ChoiceRemoveSpecificCardEffect, ns: , asm: GameAssembly}
       data:
-        removingCardData: {fileID: 0}
+        removingCardData: {fileID: 11400000, guid: 1bbcb59265353f04ba8ecbc148e1773b, type: 2}
         amount: 1
     - rid: 7557519912807170176
       type: {class: ChoiceObtainSpecificCardEffect, ns: , asm: GameAssembly}
       data:
-        obtainingCardData: {fileID: 0}
+        obtainingCardData: {fileID: 11400000, guid: b353c74251140b5429d0e33c02fbf97f, type: 2}

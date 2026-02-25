@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::BossEnemyData
   id: Enemy_AdvisorProfessor
   enemyName: "\uB2F4\uB2F9 \uAD50\uC218"
+  tier: 2
   description: "\uC9C0\uC544\uB97C \uB2F4\uB2F9\uD558\uB294 \uAD50\uC218"
   maxBaseHealth: 300
   encounterLines:

@@ -68,8 +68,10 @@ public class BattleSystem : IFieldBattleSystem
         enemySystem.History.SubscribeEventBus(eventBus);
     }
 
+    //TODO Refactor this nullalbe attributes
     public event Action<BattleResultCommand> OnBattleExit;
     private EnemyTier mainEnemyTier;
+    private IBattleEntryActionCost actionCost;
 
     public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResultCommand> battleExit)
     {
@@ -77,6 +79,7 @@ public class BattleSystem : IFieldBattleSystem
         mainEnemyTier = mainEnemyData.Tier;
 
         OnBattleExit = battleExit;
+        this.actionCost = actionCost;
 
         int startPhaseCount = mainEnemyData.Tier switch
         {
@@ -86,7 +89,7 @@ public class BattleSystem : IFieldBattleSystem
             _ => throw new InvalidOperationException($"[BattleSystem] {mainEnemyData.Tier} is not supported for determining start phase count.")
         };
 
-        int maxActionCost = actionCost.MaxActionCost;
+        int maxActionCost = actionCost.CurrentMaxActionCost;
         int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
         int turnStartDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;
         List<Card> startDrawDeck = deck.GetClonedMainDeck(isForBattleStart : true).Values.SelectMany(sel => sel).ToList();
@@ -131,11 +134,13 @@ public class BattleSystem : IFieldBattleSystem
             _ => throw new InvalidOperationException($"[BattleSystem] {result} is not valid to generate resultCommand.")
         };
         
+        actionCost?.OnBattleEnd();
         OnBattleExit?.Invoke(resultCommand);
         OnBattleExit = null;
+        acionCost = null;
     }
 
-    public void RegisterBattleStartBuff(BattleStatusEffect buff, FieldEffectDuration duration)
+    public void RegisterBattleStartEffect(BattleStatusEffect buff, FieldEffectDuration duration)
     {
         throw new NotImplementedException();
         //TODO 구체 데이터 만들면서 구현하기
