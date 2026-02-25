@@ -12,5 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21dc7c82c3a4bc545b2dcdc6d2f44336, type: 3}
   m_Name: BattleStatusEffectDatabase
   m_EditorClassIdentifier: GameAssembly::BattleStatusEffectDatabase
-  buffData: []
-  debuffData: []
+  buffData:
+  - {fileID: 11400000, guid: 6f60baed59b7d2b429bc10bd0e1fd889, type: 2}
+  - {fileID: 11400000, guid: 30f236735daa9264280e404db68d49e1, type: 2}
+  - {fileID: 11400000, guid: a30294db91cab1b478a5131bf8fab57f, type: 2}
+  - {fileID: 11400000, guid: 2165a48a4c707cd48b9746deecf73ef5, type: 2}
+  - {fileID: 11400000, guid: 641a53f2c567a014684b5f42f0b42790, type: 2}
+  - {fileID: 11400000, guid: 3181f164645fbda429d4e14a080ac1be, type: 2}
+  - {fileID: 11400000, guid: 1d19fcd4e8fc1fe4e81ea8d07356f3c2, type: 2}
+  - {fileID: 11400000, guid: aa5daed305a82ed4d83bc907a367a801, type: 2}
+  - {fileID: 11400000, guid: 9665bfa4c5221554dbbc791e9daeb476, type: 2}
+  - {fileID: 11400000, guid: 4da924eada9d8d749ac76558be9b2210, type: 2}
+  - {fileID: 11400000, guid: 0a472abbe5948c142b9222c5d57c1400, type: 2}
+  - {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
+  - {fileID: 11400000, guid: 392afa61ada5cb74d82909fa5ae3c786, type: 2}
+  - {fileID: 11400000, guid: 808fa2c5a6f27384287e17eaac9de9d5, type: 2}
+  - {fileID: 11400000, guid: 6f0f50f3957938c4ca5ad34f0c9c7d69, type: 2}
+  - {fileID: 11400000, guid: c206aec4c8c51be4eaa4db3c12ed5f48, type: 2}
+  debuffData:
+  - {fileID: 11400000, guid: 539d8c479573299489581fed79b3fed1, type: 2}
+  - {fileID: 11400000, guid: 94d24b3a77324e043be1e0804c91d563, type: 2}
+  - {fileID: 11400000, guid: 08bc4af93af16a849b6284642308fbca, type: 2}
+  - {fileID: 11400000, guid: 5f286f1994735a9478b0da440ca1c440, type: 2}
+  - {fileID: 11400000, guid: da7a0af7dec547d4aa97b13cb539f560, type: 2}
+  - {fileID: 11400000, guid: 48b8906e8b2fa67448ac048224d44f3d, type: 2}
+  - {fileID: 11400000, guid: 1c164a0f2316f7542a63f360023e5cc7, type: 2}
+  - {fileID: 11400000, guid: 8865c218364630545b0cacb75692e74a, type: 2}
+  - {fileID: 11400000, guid: 2214e386bf6009f4f8a9cedd674e67e0, type: 2}
+  - {fileID: 11400000, guid: 2f7b8bfd2e1be0f4fa341f8e0e2c7d6a, type: 2}

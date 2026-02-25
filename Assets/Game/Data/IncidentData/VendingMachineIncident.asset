@@ -53,7 +53,7 @@ MonoBehaviour:
       data:
         candidates:
         - effect:
-            rid: 1582000786587255007
+            rid: 7557520140519604325
           description: "\uD1A1\uD1A1 \uD280\uB294 \uD0C4\uC0B0 \uC74C\uB8CC\uB97C
             \uBA39\uACE0\uC2F6\uC5B4"
           weight: 10
@@ -67,11 +67,6 @@ MonoBehaviour:
           description: "\uCE74\uD398\uC778 \uBCF4\uCDA9! \uCEE4\uD53C\uB97C \uBA39\uC5B4\uC57C\uC9C0"
           weight: 10
         pickCount: 3
-    - rid: 1582000786587255007
-      type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
-      data:
-        engaingEnemyData:
-        - {fileID: 0}
     - rid: 1582000786587255008
       type: {class: ChoiceHealMentalityEffect, ns: , asm: GameAssembly}
       data:
@@ -86,7 +81,7 @@ MonoBehaviour:
       type: {class: ChoiceSequenceCompositeEffect, ns: , asm: GameAssembly}
       data:
         choiceEffects:
-        - rid: 1582000786587255012
+        - rid: 7557520140519604326
         - rid: 1582000786587255014
         - rid: 1582000786587255015
     - rid: 1582000786587255011
@@ -94,11 +89,6 @@ MonoBehaviour:
       data:
         amount: 20
         isOverflowable: 1
-    - rid: 1582000786587255012
-      type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
-      data:
-        engaingEnemyData:
-        - {fileID: 0}
     - rid: 1582000786587255014
       type: {class: ChoiceHealMentalityEffect, ns: , asm: GameAssembly}
       data:
@@ -109,3 +99,21 @@ MonoBehaviour:
       data:
         amount: 5
         duration: 0
+    - rid: 7557520140519604325
+      type: {class: ChoiceApplyPlayerBattleStartStatusEffectEffect, ns: , asm: GameAssembly}
+      data:
+        statusEffectData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
+        isStatusEffectEternal: 0
+        startDuration: 1
+        startStack: 4
+        isBattleStartEffectEternal: 0
+        remainBattleCount: 1
+    - rid: 7557520140519604326
+      type: {class: ChoiceApplyPlayerBattleStartStatusEffectEffect, ns: , asm: GameAssembly}
+      data:
+        statusEffectData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
+        isStatusEffectEternal: 0
+        startDuration: 1
+        startStack: 4
+        isBattleStartEffectEternal: 0
+        remainBattleCount: 1

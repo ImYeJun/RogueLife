@@ -22,14 +22,25 @@ MonoBehaviour:
     \uC785\uD614\uC744 \uACBD\uC6B0 \uC0AC\uC6A9\uD560 \uC218 \uC788\uB2E4. \uD53C\uD574\uB97C
     \uC785\uD78C \uC801 \uD558\uB098\uC5D0\uAC8C 30 \uB9CC\uD07C\uC758 \uB370\uBBF8\uC9C0\uB97C
     \uC900\uB2E4."
-  type: 0
-  attribute: 0
-  rarity: 0
+  type: 4
+  attribute: 1
+  rarity: 1
   actionCost: 0
   battleBehaviour:
-    rid: -2
+    rid: 7557520140519604313
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 7557520140519604313
+      type: {class: NotJustOneHit, ns: Battle.Cards.Behaviours, asm: GameAssembly}
+      data:
+        targetType:
+          rid: 7557520140519604314
+        reflectionTargetType:
+          rid: 7557520140519604315
+    - rid: 7557520140519604314
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 
+    - rid: 7557520140519604315
+      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
+      data: 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Battle.BattleResultCommands;
+using Battle.StartEffects;
 using UnityEditor.Experimental.GraphView;
 
 public class BattleSystem : IFieldBattleSystem
@@ -9,9 +10,10 @@ public class BattleSystem : IFieldBattleSystem
     private BattleContext context;
     private BattleEventBus eventBus;
     private BattleScheduler scheduler;
+    private BattleStartEffectSystem startEffectSystem;
     private BattleActionPipeline pipeline;
     private BattlePhase phase;
-    private BattleActionCost acionCost;
+    private BattleActionCost actionCost;
     private BattlePlayerContainer playerContainer;
     private BattleBelongingsBag belongingsBag;
     private BattleDeckSystem deckSystem;
@@ -21,11 +23,12 @@ public class BattleSystem : IFieldBattleSystem
     {
         eventBus = new BattleEventBus();
         scheduler = new BattleScheduler(ExitBattle);
+        startEffectSystem = new BattleStartEffectSystem();
         pipeline = new BattleActionPipeline();
         phase = new BattlePhase();
         playerContainer = new BattlePlayerContainer();
         belongingsBag = new BattleBelongingsBag();
-        acionCost = new BattleActionCost();
+        actionCost = new BattleActionCost();
         deckSystem = new BattleDeckSystem();
         enemySystem = new BattleEnemySystem();
 
@@ -40,8 +43,8 @@ public class BattleSystem : IFieldBattleSystem
             phase : phase,
             playerContainer : playerContainer,
             belongingsBag : belongingsBag,
-            actionCost : acionCost,
-            actionCostHistory : acionCost.History,
+            actionCost : actionCost,
+            actionCostHistory : actionCost.History,
             deckSystem : deckSystem,
             battleDeckHistory : deckSystem.History,
             drawDeck : deckSystem[BattleDeckType.DRAW],
@@ -52,15 +55,17 @@ public class BattleSystem : IFieldBattleSystem
         );
 
         scheduler.SetContext(context);
+        startEffectSystem.SetContext(context);
         pipeline.SetContext(context);
         phase.SetContext(context);
         deckSystem.SetContext(context);
         enemySystem.SetContext(context);
 
+        startEffectSystem.SubscribeEventBus(eventBus);
         pipeline.SubscribeEventBus(eventBus);
         phase.SubscribeEventBus(eventBus);
-        acionCost.SubscribeEventBus(eventBus);
-        acionCost.History.SubscribeEventBus(eventBus);
+        actionCost.SubscribeEventBus(eventBus);
+        actionCost.History.SubscribeEventBus(eventBus);
         deckSystem.SubscribeEventBus(eventBus);
         deckSystem.History.SubscribeEventBus(eventBus);
         playerContainer.SubscribeEventBus(eventBus);
@@ -71,7 +76,7 @@ public class BattleSystem : IFieldBattleSystem
     //TODO Refactor this nullalbe attributes
     public event Action<BattleResultCommand> OnBattleExit;
     private EnemyTier mainEnemyTier;
-    private IBattleEntryActionCost actionCost;
+    private IBattleEntryActionCost fieldActionCost;
 
     public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResultCommand> battleExit)
     {
@@ -79,7 +84,7 @@ public class BattleSystem : IFieldBattleSystem
         mainEnemyTier = mainEnemyData.Tier;
 
         OnBattleExit = battleExit;
-        this.actionCost = actionCost;
+        fieldActionCost = actionCost;
 
         int startPhaseCount = mainEnemyData.Tier switch
         {
@@ -134,15 +139,14 @@ public class BattleSystem : IFieldBattleSystem
             _ => throw new InvalidOperationException($"[BattleSystem] {result} is not valid to generate resultCommand.")
         };
         
-        actionCost?.OnBattleEnd();
+        fieldActionCost?.OnBattleEnd();
         OnBattleExit?.Invoke(resultCommand);
         OnBattleExit = null;
-        acionCost = null;
+        fieldActionCost = null;
     }
 
-    public void RegisterBattleStartEffect(BattleStatusEffect buff, FieldEffectDuration duration)
+    public void AddBattleStartEffect(BattleStartEffect effect)
     {
-        throw new NotImplementedException();
-        //TODO 구체 데이터 만들면서 구현하기
+        startEffectSystem.AddEffect(effect);
     }
 }

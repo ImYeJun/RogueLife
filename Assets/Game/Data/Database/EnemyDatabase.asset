@@ -12,4 +12,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a64a776a030a5e4e9541d2c8d4cd24c, type: 3}
   m_Name: EnemyDatabase
   m_EditorClassIdentifier: GameAssembly::EnemyDatabase
-  availableEnemies: []
+  availableEnemies:
+  - {fileID: 11400000, guid: 5ad222229b8ffe14db6eebcaf73418e4, type: 2}
+  - {fileID: 11400000, guid: afba649c94f0f6840bc9ff1d9d5ede43, type: 2}
+  - {fileID: 11400000, guid: e1fc14da4db6fba43844ea28ba12ff7c, type: 2}
+  - {fileID: 11400000, guid: 19dd2c1aaee5b2a41b8456f267d1e5bd, type: 2}
+  - {fileID: 11400000, guid: 33be83513ba127c4498a8b61081b1700, type: 2}
+  - {fileID: 11400000, guid: e4a996f4779eaed43a514f698ae43044, type: 2}
+  - {fileID: 11400000, guid: c7a1e940f3d6efe438055017817cf520, type: 2}
+  - {fileID: 11400000, guid: 261c0a280922eff4386cda9dbcbaa477, type: 2}
+  - {fileID: 11400000, guid: e15c866e2f846f44c8e0ee0d09518ffd, type: 2}
+  - {fileID: 11400000, guid: 8baf20f8dec3e6a499bca08f26c8a6a7, type: 2}
+  - {fileID: 11400000, guid: 12d25e6e68b369a458ede37f59da5b2e, type: 2}
+  - {fileID: 11400000, guid: 33999fd26b7b42f4d80c018bb3b6c69d, type: 2}
+  - {fileID: 11400000, guid: 149ed5615421c4c40bc965a52e22a78b, type: 2}
+  - {fileID: 11400000, guid: 4dc57660ce0c54843b1aad101a750169, type: 2}
+  - {fileID: 11400000, guid: c6584c2bc52357e42847e3698a2f419a, type: 2}
+  - {fileID: 11400000, guid: 76a04ef44963798408e1be3d6de622d6, type: 2}
