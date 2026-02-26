@@ -51,6 +51,8 @@ public class BelongingsDatabase : ScriptableObject, IFieldBelongingsDatabase, IS
             if (belongingsData == null) continue;
 
             string id = belongingsData.Id;
+
+            if (id is null) { continue; }
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[BelongingsDatabase] Duplicate data detected: {id}. the previous data was overwritten.");

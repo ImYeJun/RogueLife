@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class SoundManager : SingletonManager<SoundManager>
 {
@@ -15,16 +16,20 @@ public class SoundManager : SingletonManager<SoundManager>
             float result;
             audioMixer.GetFloat(MASTER_VOLUME, out result);
 
-            return result;
+            return NormalizeDecibelToVolume(result);
         }
         set
         {
-            audioMixer.SetFloat(MASTER_VOLUME, NormalizeVolume(value));
+            audioMixer.SetFloat(MASTER_VOLUME, NormalizeVolumeToDecibel(value));
         }
     }
-    public float BgmVolume { get => bgmManager.Volume; set => bgmManager.Volume = NormalizeVolume(value); }
-    public float SoundEffectVolume { get => soundEffectManager.Volume; set => soundEffectManager.Volume = NormalizeVolume(value); }
-    private float NormalizeVolume(float value)
+    public float BgmVolume { get => NormalizeDecibelToVolume(bgmManager.Volume); set => bgmManager.Volume = NormalizeVolumeToDecibel(value); }
+    public float SoundEffectVolume { get => NormalizeDecibelToVolume(soundEffectManager.Volume); set => soundEffectManager.Volume = NormalizeVolumeToDecibel(value); }
+    private float NormalizeDecibelToVolume(float value)
+    {
+        return Mathf.Pow(10f, value/20f);
+    }
+    private float NormalizeVolumeToDecibel(float value)
     {
         value = Mathf.Clamp01(value);
 

@@ -23,6 +23,7 @@ public class ScheduleDatabase : ScriptableObject, ISerializationCallbackReceiver
             if (scheduleData == null) continue;
 
             string id = scheduleData.Id;
+            if (id is null) { continue; }
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[ScheduleDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
