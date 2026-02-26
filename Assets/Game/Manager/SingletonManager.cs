@@ -1,16 +1,15 @@
 using UnityEngine;
 
-public abstract class Manager<T> : MonoBehaviour where T : Component
+public abstract class SingletonManager<T> : MonoBehaviour where T : Component
 {
-    public T Instance { get; private set; }
+    public static T Instance { get; private set; }
 
     protected virtual void Awake() {
         if (Instance != null && Instance != this){
-            Destroy(this);
+            Destroy(gameObject);
         }
         else {
             Instance = this as T;
-            DontDestroyOnLoad(Instance);
         }
     }
 }
