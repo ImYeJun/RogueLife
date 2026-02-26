@@ -29,6 +29,8 @@ public class EnemyDatabase : ScriptableObject, IRunDiaryEnemyDatabaseContext, IS
             if (enemyData == null) continue;
 
             string id = enemyData.Id;
+            
+            if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[EnemyDatabase] Duplicate data detected: {id}. the previous data was overwritten.");

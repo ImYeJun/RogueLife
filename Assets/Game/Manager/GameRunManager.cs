@@ -7,14 +7,12 @@ public class GameRunManager : SingletonManager<GameRunManager>
     public GameRun? CurrentRun { get; private set; }
     
     [SerializeField] private DatabaseManager databaseManager;
-    [SerializeField] private ScheduleSkeletonRule scheduleSkeletonRule;
-    [SerializeField] private ScheduleNodeTypeResolveRule scheduleNodeTypeResolveRule;
-    //TODO Make Rules as SO
+    [SerializeField] private SkeletonGenerateRuleManager skeletonGenerateRuleManager;
 
     public void StartNewRun()
     {
         var databases = databaseManager.Databaes;
-        var rules = (scheduleSkeletonRule, scheduleNodeTypeResolveRule);
+        var rules = skeletonGenerateRuleManager.Rules;
 
         CurrentRun = new GameRun(rules, databases);
     }

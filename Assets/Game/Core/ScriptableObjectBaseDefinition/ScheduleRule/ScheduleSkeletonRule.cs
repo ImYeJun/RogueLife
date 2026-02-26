@@ -1,11 +1,14 @@
-public class ScheduleSkeletonRule
+using UnityEngine;
+
+[CreateAssetMenu(fileName = "ScheduleSkeletonRule", menuName = "Scriptable Objects/ScheudleRule/ScheduleSkeletonRule")]
+public class ScheduleSkeletonRule : ScriptableObject
 {
-    private int minLayer = 0;
-    private int maxLayer = 0;
-    private int minNodePerLayer = 0;
-    private int maxNodePerLayer = 0;
-    private int maxNodeLinkCount = 0;
-    private float additionalLinkMultiplierChance = 0;
+    [SerializeField] private int minLayer = 0;
+    [SerializeField] private int maxLayer = 0;
+    [SerializeField] private int minNodePerLayer = 0;
+    [SerializeField] private int maxNodePerLayer = 0;
+    [SerializeField] private int maxNodeLinkCount = 0;
+    [SerializeField] private float additionalLinkMultiplierChance = 0;
 
     public ScheduleSkeletonRule(int minLayer, int maxLayer, int minNodePerLayer, int maxNodePerLayer, int maxNodeLinkCount, float additionalLinkMultiplierChance)
     {

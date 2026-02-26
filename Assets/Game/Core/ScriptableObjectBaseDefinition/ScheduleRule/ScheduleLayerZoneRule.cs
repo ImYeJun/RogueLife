@@ -1,15 +1,17 @@
 using UnityEngine;
 
-public class ScheduleLayerZoneRule
+
+[CreateAssetMenu(fileName = "ScheduleLayerZoneRule", menuName = "Scriptable Objects/ScheudleRule/ScheduleLayerZoneRule")]
+public class ScheduleLayerZoneRule : ScriptableObject
 {
-    [Min(0)] private int battleNodeWeight;
-    [Min(0)] private int incidentNodeWeight;
-    [Min(0)] private int transactionNodeWeight;
-    [Min(0)] private int minBattleNodeCount;
-    [Min(0)] private int minIncidentNodeCount;
-    [Min(0)] private int minTransactionNodeCount;
-    [Min(0)] private int normalEnemySpawnWeight;
-    [Min(0)] private int eliteEnemySpawnWeight;
+    [SerializeField, Min(0)] private int battleNodeWeight;
+    [SerializeField, Min(0)] private int incidentNodeWeight;
+    [SerializeField, Min(0)] private int transactionNodeWeight;
+    [SerializeField, Min(0)] private int minBattleNodeCount;
+    [SerializeField, Min(0)] private int minIncidentNodeCount;
+    [SerializeField, Min(0)] private int minTransactionNodeCount;
+    [SerializeField, Min(0)] private int normalEnemySpawnWeight;
+    [SerializeField, Min(0)] private int eliteEnemySpawnWeight;
 
     public ScheduleLayerZoneRule(int battleNodeWeight, int incidentNodeWeight, int transactionNodeWeight, int minBattleNodeCount, int minIncidentNodeCount, int minTransactionNodeCount, int normalEnemySpawnWeight, int eliteEnemySpawnWeight)
     {

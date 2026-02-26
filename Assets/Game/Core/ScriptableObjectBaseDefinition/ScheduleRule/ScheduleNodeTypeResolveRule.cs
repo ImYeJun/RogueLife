@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ScheduleNodeTypeResolveRule
+[CreateAssetMenu(fileName = "ScheduleNodeTypeResolveRule", menuName = "Scriptable Objects/ScheudleRule/ScheduleNodeTypeResolveRule")]
+public class ScheduleNodeTypeResolveRule : ScriptableObject
 {
-    private int maxBattleSequence = 0;
-    private int maxIncidentSequence = 0;
-    private int maxTransactionSequence = 0;
-    private ScheduleLayerZoneRule earlyLayerZoneRule;
-    private ScheduleLayerZoneRule middleLayerZoneRule;
-    private ScheduleLayerZoneRule lateLayerZoneRule;
+    [SerializeField] private int maxBattleSequence = 0;
+    [SerializeField] private int maxIncidentSequence = 0;
+    [SerializeField] private int maxTransactionSequence = 0;
+    [SerializeField] private ScheduleLayerZoneRule earlyLayerZoneRule;
+    [SerializeField] private ScheduleLayerZoneRule middleLayerZoneRule;
+    [SerializeField] private ScheduleLayerZoneRule lateLayerZoneRule;
 
     public ScheduleNodeTypeResolveRule(int maxBattleSequence, int maxIncidentSequence, int maxTransactionSequence, ScheduleLayerZoneRule earlyLayerZoneRule, ScheduleLayerZoneRule middleLayerZoneRule, ScheduleLayerZoneRule lateLayerZoneRule)
     {

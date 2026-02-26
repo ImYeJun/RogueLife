@@ -82,7 +82,8 @@ public class TransactionChoiceDatabase : ScriptableObject, IFieldTransactionChoi
         foreach (var data in list)
         {
             if (data == null) continue;
-
+            
+            if (data.Id == null) { continue; }
             if (orderDict.ContainsKey(data.Id))
             {
                 Debug.LogWarning($"[TransactionChoiceDatabase] Duplicate ID '{data.Id}' in {order}. Overwritten.");

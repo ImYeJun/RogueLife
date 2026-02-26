@@ -39,6 +39,8 @@ public class SpecialDiaryDatabase : ScriptableObject, ISerializationCallbackRece
             if (specialDiaryData == null) continue;
 
             string id = specialDiaryData.Id;
+
+            if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[SpecialDiaryDatabase] Duplicate data detected: {id}. the previous data was overwritten.");

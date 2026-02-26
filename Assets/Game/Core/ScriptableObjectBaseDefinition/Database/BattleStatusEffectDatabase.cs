@@ -32,6 +32,8 @@ public class BattleStatusEffectDatabase : ScriptableObject, IBattleBattleStatusE
             if (effectData == null) { continue; }
 
             string id = effectData.Id;
+            
+            if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[BattleStatusEffectDatabase] Duplicate data detected: {id}. the previous data was overwritten.");

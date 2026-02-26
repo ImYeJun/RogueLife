@@ -28,6 +28,8 @@ public class IncidentDatabase : ScriptableObject, IRunDiaryIncidentDatabaseConte
             if (incidentData == null) continue;
 
             string id = incidentData.Id;
+            
+            if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[IncidentDatabase] Duplicate data detected: {id}. the previous data was overwritten.");

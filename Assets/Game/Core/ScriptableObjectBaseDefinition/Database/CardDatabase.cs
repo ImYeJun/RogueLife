@@ -66,6 +66,8 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
             if (cardData == null) { continue; }
 
             string id = cardData.Id;
+            
+            if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[CardDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
