@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ViewEvent
+namespace ViewEvent.Core
 {
     public abstract class ViewEventBus<TEvent> where TEvent : IViewEvent
     {

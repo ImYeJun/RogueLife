@@ -6,6 +6,8 @@ public class ScheduleDatabase : ScriptableObject, ISerializationCallbackReceiver
     [SerializeField] private List<ScheduleData> availableScheduleData;
     private Dictionary<string, ScheduleData> idLookUp = new Dictionary<string, ScheduleData>();
 
+    public List<ScheduleData> AvailableScheduleData { get => availableScheduleData; }
+
     public ScheduleData GetData(string id)
     {
         if (idLookUp.TryGetValue(id, out ScheduleData data)) { return data; }

@@ -22,7 +22,7 @@ MonoBehaviour:
   battleBackground: {fileID: 0}
   usualBGM: {fileID: 0}
   battleBGM: {fileID: 0}
-  choiceSprite: {fileID: 0}
+  choiceSprite: {fileID: 881676806763669821, guid: 31b3ccbd5a4593c4c8a5d3ff8c088670, type: 3}
   bossData: {fileID: 11400000, guid: e15c866e2f846f44c8e0ee0d09518ffd, type: 2}
   availableEliteEnemyData:
   - {fileID: 11400000, guid: c7a1e940f3d6efe438055017817cf520, type: 2}

@@ -1,0 +1,4 @@
+public interface ISelectingScheduleViewCommander : IViewCommander
+{
+    
+}

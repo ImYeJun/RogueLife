@@ -1,4 +1,6 @@
 using System;
+using ViewEvent.GameRunView;
+using ViewEvent.ScheduleSelecting;
 
 public class GameRun
 {
@@ -19,6 +21,11 @@ public class GameRun
     private CardDatabase cardDatabase;
     private BelongingsDatabase belongingsDatabase;
     private BattleStatusEffectDatabase battleStatusEffectDatabase;
+
+    private GameRunViewEventBus viewEventBus;
+
+    public ISelectingScheduleViewCommander SelectingScheudleViewCommander { get => scheduleSystem;  }
+    public ScheduleSelectingViewEventBus SelectingScheudleViewEventBus { get => scheduleSystem.SelectingScheduleViewEventBus; }
 
     public GameRun(
         int seed, 
@@ -42,6 +49,8 @@ public class GameRun
         runDiarySystem = new RunDiarySystem(databases.specialDiaryDatabase, databases.enemyDatabase, databases.incidentDatabase, databases.belongingsDatabase, databases.cardDatabase);
         battleSystem = new BattleSystem(random, databases.cardDatabase, databases.battleStatusEffectDatabase);
         scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase);
+
+        // viewEventBus = new GameRunViewEventBus();
     }
     public GameRun(
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
@@ -52,14 +61,6 @@ public class GameRun
     public void StartGame()
     {
         finishedSchedulesCount = 0;
-        scheduleSystem.StartSchdule(
-            transactionChoiceDatabase : transactionChoiceDatabase,
-            cardDatabase : cardDatabase,
-            belongingsDatabase : belongingsDatabase,
-            battleSystem : battleSystem,
-            player : player,
-            OnScheduleUnsettled : OnScheduleDataUnsettled
-        );
     }
 
     public void OnScheduleDataUnsettled()
@@ -91,14 +92,20 @@ public class GameRun
         }
         else
         {
-            scheduleSystem.StartSchdule(
-                transactionChoiceDatabase : transactionChoiceDatabase,
-                cardDatabase : cardDatabase,
-                belongingsDatabase : belongingsDatabase,
-                battleSystem : battleSystem,
-                player : player,
-                OnScheduleUnsettled : OnScheduleDataUnsettled
-            ); 
+            StartSchedule();
         }
+    }
+
+    public void StartSchedule()
+    {
+        scheduleSystem.StartSchdule(
+                    currentStartCount : finishedSchedulesCount,
+                    transactionChoiceDatabase: transactionChoiceDatabase,
+                    cardDatabase: cardDatabase,
+                    belongingsDatabase: belongingsDatabase,
+                    battleSystem: battleSystem,
+                    player: player,
+                    OnScheduleUnsettled: OnScheduleDataUnsettled
+                );
     }
 }

@@ -59,9 +59,6 @@ namespace Controller
                 return;
             }
 
-        }
-        
-        public void Start(){
             OnInitialize();
         }
 

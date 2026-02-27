@@ -1,7 +1,8 @@
 using UnityEngine;
 using ViewEvent;
+using ViewEvent.Core;
 
-namespace View
+namespace View.Core
 {
     public abstract class ViewBehaviour<TEvent> : MonoBehaviour where TEvent : IViewEvent
     {

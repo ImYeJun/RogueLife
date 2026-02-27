@@ -1,4 +1,5 @@
 using System;
+using ViewEvent.Core;
 
 namespace ViewEvent.ScheduleView
 {

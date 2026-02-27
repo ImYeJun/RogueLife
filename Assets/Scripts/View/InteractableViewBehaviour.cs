@@ -1,6 +1,6 @@
-using ViewEvent;
+using ViewEvent.Core;
 
-namespace View
+namespace View.Core
 {
     public abstract class InteractableViewBehaviour<TEvent, TCommander> : ViewBehaviour<TEvent> 
         where TEvent : IViewEvent 

@@ -1,4 +1,4 @@
-namespace ViewEvent
+namespace ViewEvent.Core
 {
     public interface IViewEvent {} 
 }
