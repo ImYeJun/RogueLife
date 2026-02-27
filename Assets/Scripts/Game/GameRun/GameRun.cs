@@ -24,7 +24,7 @@ public class GameRun
 
     private GameRunViewEventBus viewEventBus;
 
-    public ISelectingScheduleViewCommander SelectingScheudleViewCommander { get => scheduleSystem;  }
+    public ISelectingScheduleViewCommander SelectingScheduleViewCommander { get => scheduleSystem;  }
     public ScheduleSelectingViewEventBus SelectingScheudleViewEventBus { get => scheduleSystem.SelectingScheduleViewEventBus; }
 
     public GameRun(
@@ -50,7 +50,7 @@ public class GameRun
         battleSystem = new BattleSystem(random, databases.cardDatabase, databases.battleStatusEffectDatabase);
         scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase);
 
-        // viewEventBus = new GameRunViewEventBus();
+        viewEventBus = new GameRunViewEventBus();
     }
     public GameRun(
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
@@ -98,7 +98,7 @@ public class GameRun
 
     public void StartSchedule()
     {
-        scheduleSystem.StartSchdule(
+        scheduleSystem.StartSchedule(
                     currentStartCount : finishedSchedulesCount,
                     transactionChoiceDatabase: transactionChoiceDatabase,
                     cardDatabase: cardDatabase,

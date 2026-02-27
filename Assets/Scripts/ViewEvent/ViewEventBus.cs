@@ -5,7 +5,7 @@ namespace ViewEvent.Core
 {
     public abstract class ViewEventBus<TEvent> where TEvent : IViewEvent
     {
-        private Dictionary<Type, List<Delegate>> observerDict = new Dictionary<Type, List<Delegate>>();
+        protected Dictionary<Type, List<Delegate>> observerDict = new Dictionary<Type, List<Delegate>>();
 
         public void Publish<T>(T payload) where T : TEvent
         {

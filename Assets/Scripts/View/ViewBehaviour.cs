@@ -1,5 +1,4 @@
 using UnityEngine;
-using ViewEvent;
 using ViewEvent.Core;
 
 namespace View.Core
@@ -12,9 +11,10 @@ namespace View.Core
         {
             this.eventBus = eventBus;
 
-            OnInitialzied();
+            OnInitialized();
         }
 
-        public abstract void OnInitialzied();
+        public abstract void OnInitialized();
+        public abstract void OnDestroy();
     }
 } 

@@ -10,12 +10,17 @@ namespace View.ScheduleSelecting
     {
         [SerializeField] private List<ScheduleSelectButton> buttons;
 
-        public override void OnInitialzied()
+        public override void OnDestroy()
         {
-            eventBus.Subscribe<ReadToSelectSchedule>(OnReadToSelectSchedule);
+            eventBus.Unsubscribe<ReadyToSelectSchedule>(OnReadyToSelectSchedule);
         }
 
-        public void OnReadToSelectSchedule(ReadToSelectSchedule payload)
+        public override void OnInitialized()
+        {
+            eventBus.Subscribe<ReadyToSelectSchedule>(OnReadyToSelectSchedule);
+        }
+
+        public void OnReadyToSelectSchedule(ReadyToSelectSchedule payload)
         {
             var availableScheduleData = payload.AvailableScheduleData;
 

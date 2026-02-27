@@ -8,8 +8,9 @@ public class GameSceneManager : SingletonManager<GameSceneManager>
     public void LoadScene(SceneName name)
     {
         SceneManager.UnloadSceneAsync((int)currentScene);
-
+        
         SceneManager.LoadScene((int)name, LoadSceneMode.Additive);
+        currentScene = name;
     }
 
     public void StartGameFlow()

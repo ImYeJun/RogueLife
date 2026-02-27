@@ -1,6 +1,6 @@
 namespace Controller.StartMenu
 {
-    public class RootConroller : SceneRootController
+    public class StartMenuRootConroller : SceneRootController
     {
         protected override void OnInitialize()
         {

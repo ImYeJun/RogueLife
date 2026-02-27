@@ -29,7 +29,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         scheduleGenerator = new ScheduleGenerator(skeletonRule, nodeTypeResolveRule, battleSystem);
     }
 
-    public void StartSchdule(int currentStartCount, TransactionChoiceDatabase transactionChoiceDatabase, CardDatabase cardDatabase, BelongingsDatabase belongingsDatabase, BattleSystem battleSystem, Player player, Action OnScheduleUnsettled)
+    public void StartSchedule(int currentStartCount, TransactionChoiceDatabase transactionChoiceDatabase, CardDatabase cardDatabase, BelongingsDatabase belongingsDatabase, BattleSystem battleSystem, Player player, Action OnScheduleUnsettled)
     {
         context = new FieldContext(
             random : random,
@@ -45,7 +45,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         );
         
         var availiableData = scheduleDatabase.AvailableScheduleData.OrderBy(data => random.Next()).Take(Constant.SELECING_SCHEUDLE_COUNT).ToList();
-        // viewEventBus.Publish(new ReadToSelectSchedule(availiableData, currentStartCount));
+        viewEventBus.Publish(new ReadyToSelectSchedule(availiableData, currentStartCount));
     }
 
     public void SettleCurrentScheduleData(ScheduleData data)
@@ -54,6 +54,8 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         currentSchedule.OnEnd += EndSchedule;
 
         currentSchedule.EnterStartNode(context);
+
+        viewEventBus.Publish(new ScheduleSettled());
     }
 
     public void EndSchedule(ScheduleHistory history)

@@ -5,7 +5,7 @@ using ViewEvent.ScheduleSelecting;
 
 namespace Controller.SelectingSchedule
 {
-    public class RootController : SceneRootController
+    public class SelectingScheduleRootController : SceneRootController
     {
         private ISelectingScheduleViewCommander viewCommander;
         private ScheduleSelectingViewEventBus viewEventBus;
@@ -15,7 +15,7 @@ namespace Controller.SelectingSchedule
 
         protected override void OnInitialize()
         { 
-            viewCommander = currentRun.SelectingScheudleViewCommander;
+            viewCommander = currentRun.SelectingScheduleViewCommander;
             viewEventBus = currentRun.SelectingScheudleViewEventBus;
 
             foreach (var view in views)
@@ -27,7 +27,19 @@ namespace Controller.SelectingSchedule
                 interactabelView.Initialize(viewEventBus, viewCommander);
             }
 
+            viewEventBus.Subscribe<ScheduleSettled>(OnScheduleSettled);
+
             currentRun.StartSchedule();
+        }
+
+        public void OnScheduleSettled(ScheduleSettled payload)
+        {
+            GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE);
+        }
+
+        public void OnDestroy()
+        {
+            viewEventBus.Unsubscribe<ScheduleSettled>(OnScheduleSettled);
         }
     }
 }

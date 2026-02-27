@@ -12,7 +12,7 @@ namespace View.ScheduleSelecting
         private Image scheduleIcon;
         private TextMeshProUGUI text;
 
-        public override void OnInitialzied()
+        public override void OnInitialized()
         {
             scheduleIcon = GetComponentInChildren<Image>();
             text = GetComponentInChildren<TextMeshProUGUI>();
@@ -28,7 +28,11 @@ namespace View.ScheduleSelecting
 
         public void OnPressed()
         {
-            Debug.Log($"'{data.ScheduleName}' 입니다!!");
+            commander.SettleCurrentScheduleData(data);
+        }
+
+        public override void OnDestroy()
+        {
         }
     }
 }
