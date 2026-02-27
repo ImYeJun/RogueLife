@@ -14,6 +14,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ScheudleSelecting.unity
     guid: 1e4e15a1e762a9943886ec5b62bc6372
+  - enabled: 1
+    path: Assets/Scenes/Schedule.unity
+    guid: e1f6d2876e765b84baee4bb1db81366b
+  - enabled: 1
+    path: Assets/Scenes/Battle.unity
+    guid: 60f77c3bf1536274bb581dbac47baa3b
+  - enabled: 1
+    path: Assets/Scenes/WriteDiary.unity
+    guid: 6fcc39b9acef7da4b89d1d6ba135d8f1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

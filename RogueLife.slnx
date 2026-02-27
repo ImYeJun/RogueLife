@@ -1,5 +1,5 @@
 ﻿<Solution>
   <Project Path="GameAssembly.csproj" />
-  <Project Path="Tests1.csproj" />
   <Project Path="Assembly-CSharp.csproj" />
+  <Project Path="Tests1.csproj" />
 </Solution>
