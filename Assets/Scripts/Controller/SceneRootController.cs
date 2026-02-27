@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 namespace Controller
@@ -58,6 +59,9 @@ namespace Controller
                 return;
             }
 
+        }
+        
+        public void Start(){
             OnInitialize();
         }
 
