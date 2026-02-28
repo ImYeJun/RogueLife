@@ -1,15 +1,23 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using View.Core;
+using ViewEvent.StartMenu;
 
-namespace UI.StartMenu
+namespace View.StartMenu
 {
-    public class GameStartButton : MonoBehaviour {
-        public void OnPressed()
+    public class GameStartButton : InteractableViewBehaviour<IStartMenuViewEvent, IStartMenuViewCommander>
+    {
+        public override void OnDestroy()
         {
-            //TODO RootContoller에게 씬 전환 책임 이양
-            GameRunManager.Instance.StartNewRun();
-            GameRunManager.Instance.CurrentRun.StartGame();
-            GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE_SELECTING);
+        }
+
+        public override void OnInitialized()
+        {
+        }
+
+        public void OnPressed()
+        {            
+            commander.RequestStartDeckSelect();
         }
     }
 }

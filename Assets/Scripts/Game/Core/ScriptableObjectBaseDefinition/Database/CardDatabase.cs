@@ -77,33 +77,38 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
         }
     }
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR    
     private void OnValidate()
     {
         if (availableCardData == null) { return; }
-        HashSet<string> checkSet = new HashSet<string>();
+        
+        // 💡 HashSet 대신 Dictionary를 써서 '몇 번째 인덱스'에 그 ID가 있었는지 기억합니다.
+        Dictionary<string, int> checkDict = new Dictionary<string, int>();
 
-        int i = 0;
-        foreach (var data in availableCardData)
+        for (int i = 0; i < availableCardData.Count; i++)
         {
+            var data = availableCardData[i];
             if (data == null) continue;
 
             if (string.IsNullOrEmpty(data.Id))
             {
-                Debug.LogError($"[CardDatabase] 데이터 리스트에 ID가 비어있는 항목이 있습니다! {i}", this);
+                Debug.LogError($"[CardDatabase] 데이터 리스트에 ID가 비어있는 항목이 있습니다! 인덱스: {i}", this);
                 continue;
             }
 
-            if (checkSet.Contains(data.Id))
+            // 💡 중복을 발견하면, 기존에 있던 인덱스와 현재 인덱스를 둘 다 알려줍니다!
+            if (checkDict.ContainsKey(data.Id))
             {
-                Debug.LogError($"[CardDatabase] 치명적 오류: ID '{data.Id}'가 중복되었습니다! 수정해주세요.", this);
+                int previousIndex = checkDict[data.Id];
+                Debug.LogError($"[CardDatabase] 치명적 오류: ID '{data.Id}'가 중복되었습니다! (인덱스 {previousIndex}번과 {i}번 충돌) 수정해주세요.", this);
             }
             else
             {
-                checkSet.Add(data.Id);
+                checkDict.Add(data.Id, i);
+                idLookUp[data.Id] = data;
             }
-            i++;
         }
+        Debug.Log("");
     }
 #endif
 }

@@ -34,7 +34,8 @@ public class GameRun
     public GameRun(
         int seed, 
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
-        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases
+        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases,
+        StartDeck startDeck
     )
     {
         this.seed = seed;
@@ -49,7 +50,7 @@ public class GameRun
         belongingsDatabase = databases.belongingsDatabase;
         battleStatusEffectDatabase = databases.battleStatusEffectDatabase;
 
-        player = new Player();
+        player = new Player(startDeck, cardDatabase);
         runDiarySystem = new RunDiarySystem(databases.specialDiaryDatabase, databases.enemyDatabase, databases.incidentDatabase, databases.belongingsDatabase, databases.cardDatabase);
         battleSystem = new BattleSystem(random, databases.cardDatabase, databases.battleStatusEffectDatabase);
         scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase);
@@ -58,9 +59,10 @@ public class GameRun
     }
     public GameRun(
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
-        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases
+        (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases,
+        StartDeck startDeck
         ) 
-        : this(new Random().Next(), rules, databases){}
+        : this(new Random().Next(), rules, databases, startDeck){}
 
     public void StartGame()
     {

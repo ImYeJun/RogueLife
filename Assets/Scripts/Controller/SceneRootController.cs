@@ -8,21 +8,21 @@ namespace Controller
     public abstract class SceneRootController : MonoBehaviour {
         protected GameRun currentRun;
 
-        private void Awake()
+        private void Start()
         {
 #if UNITY_EDITOR
             if (GameRunManager.Instance is null)
             {
-                StartCoroutine(AwakeWithCoreSceneLoad());
+                StartCoroutine(StartWithCoreSceneLoad());
 
                 return;
             }
 #endif
-            OnAwake();
+            OnStart();
         }
 
 #if UNITY_EDITOR
-        private IEnumerator AwakeWithCoreSceneLoad()
+        private IEnumerator StartWithCoreSceneLoad()
         {
             EnsureCoreSceneLoaded();
 
@@ -34,8 +34,7 @@ namespace Controller
             });
 
             GameSceneManager.Instance.SetCurrentScene((SceneName)SceneManager.GetActiveScene().buildIndex);
-            GameRunManager.Instance.StartNewRun();
-            OnAwake();
+            OnStart();
         }
 
         private void EnsureCoreSceneLoaded()
@@ -48,7 +47,7 @@ namespace Controller
         }
 #endif
 
-        private void OnAwake()
+        private void OnStart()
         {
             currentRun = GameRunManager.Instance?.CurrentRun;
 
@@ -56,7 +55,7 @@ namespace Controller
             {
                 Debug.LogError("[SceneRootController] There's no GameRunManager or GameRun.");
 
-                return;
+                // return;
             }
 
             OnInitialize();

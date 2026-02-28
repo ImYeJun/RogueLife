@@ -7,7 +7,7 @@ using System.Text;
 public class ViewScriptGenerator : EditorWindow
 {
     // 💡 1. 여기에 씬별 프리셋 데이터를 정의합니다. (나중에 씬이 추가되면 여기에 추가만 하세요!)
-    private enum ScenePreset { None, Global, ScheduleSelecting, ScheduleView }
+    private enum ScenePreset { None, Global, StartMenu, ScheduleSelecting, ScheduleView }
 
     private ScenePreset currentPreset = ScenePreset.None;
     
@@ -35,6 +35,8 @@ public class ViewScriptGenerator : EditorWindow
         // 💡 2. 프리셋 버튼들을 가로로 예쁘게 배치합니다.
         if (GUILayout.Button("전역 (Global)", GUILayout.Height(30))) ApplyPreset(ScenePreset.Global);
         GUILayout.Space(5);
+        if (GUILayout.Button("시작 메뉴 (StartMenu)", GUILayout.Height(30))) ApplyPreset(ScenePreset.StartMenu);
+        GUILayout.Space(5);
         if (GUILayout.Button("일정 선택 (Selecting)", GUILayout.Height(30))) ApplyPreset(ScenePreset.ScheduleSelecting);
         GUILayout.Space(5);
         if (GUILayout.Button("일정 진행 (Schedule)", GUILayout.Height(30))) ApplyPreset(ScenePreset.ScheduleView);
@@ -61,8 +63,8 @@ public class ViewScriptGenerator : EditorWindow
         
         // 💡 3. 여기서 사용자가 스크립트 이름과 상호작용 여부를 결정합니다.
         scriptName = EditorGUILayout.TextField("Script Name", scriptName);
-        isInteractable = EditorGUILayout.Toggle("Is Interactable (조작 가능)?", isInteractable);
 
+        isInteractable = EditorGUILayout.Toggle("Is Interactable (조작 가능)?", isInteractable);
         GUILayout.Space(20);
 
         // 생성 버튼
@@ -85,6 +87,13 @@ public class ViewScriptGenerator : EditorWindow
                 eventNamespace = "ViewEvent.Global"; // 예시
                 eventType = "IViewEvent";
                 commanderType = "IViewCommander";
+                break;
+
+            case ScenePreset.StartMenu:
+                targetNamespace = "View.StartMenu";
+                eventNamespace = "ViewEvent.StartMenu";
+                eventType = "IStartMenuViewEvent";
+                commanderType = "IStartMenuViewCommander";
                 break;
 
             case ScenePreset.ScheduleSelecting:
@@ -175,7 +184,7 @@ public class ViewScriptGenerator : EditorWindow
         if (isInteractable)
         {
             sb.AppendLine();
-            sb.AppendLine("        public void OnSubmitPressed()");
+            sb.AppendLine("        public void OnInteract()");
             sb.AppendLine("        {");
             sb.AppendLine("            // TODO: commander를 통해 Model에 명령 전달");
             sb.AppendLine("            // commander.DoSomething();");
