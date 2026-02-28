@@ -2,10 +2,12 @@ using System.IO;
 using UnityEngine;
 
 public static class Constant{
+    public const int INITIAL_MAX_BATTLE_HEALTH = 100;
+    public const int INITIAL_MAX_MENTALITY = 50;
+    public const int INITIAL_MAX_ACTION_COST = 10;
     public const int BASE_MAX_COPIES_PER_CARD = 3;
     public const int BASE_FIRST_TURN_DRAW_COUNT = 5;
     public const int BASE_START_TURN_DRAW_COUNT = 2;
-    public const int BASE_MAX_ACTION_COST = 10;
     public const int BASE_MAX_HAND_ZONE_CARD_COUNT = 7;
     public const int BASE_MAX_DECK_CARD_TYPE_COUNT = 24;
     public const int MAX_MAIN_DECK_CARD_TYPE_COUNT = 8;
@@ -37,4 +39,5 @@ public static class Constant{
     public const int NORMAL_ENEMY_START_PHASE_COUNT = 5;
     public const int ELITE_ENEMY_START_PHASE_COUNT = 6;
     public const int BOSS_ENEMY_START_PHASE_COUNT = 8;
+
 }

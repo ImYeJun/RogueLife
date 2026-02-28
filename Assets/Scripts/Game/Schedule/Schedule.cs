@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
+using ViewEvent.ScheduleView;
 
 public class Schedule
 {
@@ -12,8 +14,12 @@ public class Schedule
     private EnemyDataSlot bossDataSlot;
     private Dictionary<int, List<Node>> map;
 
+    private bool hasStarted = false;
+
     public Dictionary<int, List<Node>> Map { get => map; }
-    
+
+    public bool HasStarted => hasStarted;
+
     public void FixData(ScheduleData data) { this.data = data; }
     public void FixMap(Dictionary<int, List<Node>> map) { this.map = map; }
     public void FixStartNode(Node startNode) { this.startNode = startNode; }
@@ -31,9 +37,11 @@ public class Schedule
     }
 
     public event Action<ScheduleHistory> OnEnd; 
+    public event Action<Node> OnNodeMoved;
 
     public void EnterStartNode(FieldContext context) { 
         currentNode = null;
+        hasStarted = true;
         MoveNode(startNode, context);
     }
     public void MoveNode(Node nextNode, FieldContext context)
@@ -44,6 +52,8 @@ public class Schedule
         }
 
         currentNode = nextNode;
+        
+        OnNodeMoved?.Invoke(currentNode);
         nextNode.OnEnter(context, history);
     }
 

@@ -600,7 +600,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9487b7ae1960cb9429d491851ed3b135, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleSelecting.ScheduleEndButton
-  onHoverImage: {fileID: 0}
+  onHoverImage: {fileID: 1947420146}
 --- !u!1 &838525420
 GameObject:
   m_ObjectHideFlags: 0

@@ -79,6 +79,9 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
 
     HashSet<IDeckObserver> deckObservers = new HashSet<IDeckObserver>();
 
+    public event Action<IReadOnlyDictionary<CardData, List<Card>>> OnMainDeckChanged;
+    public event Action<IReadOnlyDictionary<CardData, List<Card>>> OnSideDeckChanged;
+
     public bool HasEnoughCard(CardData data, int amount = 1)
     {
         int totalCount = 0;
@@ -323,7 +326,21 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
         {
             DeckType.MAIN_DECK => mainDeck,
             DeckType.SIDE_DECK => sideDeck,
-            _ => throw new ArgumentOutOfRangeException(nameof(type))
+            _ => throw new ArgumentOutOfRangeException($"[PlayerDeck] {type} is not valid.")
         };
+    }
+    private void OnDeckChanged(DeckType type)
+    {
+        switch (type)
+        {
+            case DeckType.MAIN_DECK:
+                OnMainDeckChanged?.Invoke(GetDeck(type));
+                break;
+            case DeckType.SIDE_DECK:
+                OnSideDeckChanged?.Invoke(GetDeck(type));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException($"[PlayerDeck] {type} is not valid.");
+        }
     }
 }

@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerActionCost : IFieldActionCost
 {
-    private int baseMaxActionCost = Constant.BASE_MAX_ACTION_COST;
+    private int baseMaxActionCost = Constant.INITIAL_MAX_ACTION_COST;
     public int CurrentMaxActionCost { 
         get => baseMaxActionCost 
                 + temporalCostIncreaseModifiers.Sum(modifier => modifier.ModificatedAmount)
@@ -13,6 +14,8 @@ public class PlayerActionCost : IFieldActionCost
 
     private List<TemporalActionCostIncreaseModifier> temporalCostIncreaseModifiers = new List<TemporalActionCostIncreaseModifier>();
     private List<TemporalActionCostDecreaseModifier> temporalCostDecreaseModifiers = new List<TemporalActionCostDecreaseModifier>();
+
+    public event Action<int> OnMaxActionCostChanged;
 
     public void IncreaseMaxCapacity(int amount, FieldEffectDuration duration) 
     {
@@ -29,6 +32,8 @@ public class PlayerActionCost : IFieldActionCost
             default:
                 throw new InvalidOperationException($"[PlayerActionCost] {duration} is not valid.");
         }
+
+        OnMaxActionCostChanged?.Invoke(CurrentMaxActionCost);
     }
 
     public void DecreaseMaxCapacity(int amount, FieldEffectDuration duration) 
@@ -46,10 +51,14 @@ public class PlayerActionCost : IFieldActionCost
             default:
                 throw new InvalidOperationException($"[PlayerActionCost] {duration} is not valid.");
         }
+
+        OnMaxActionCostChanged?.Invoke(CurrentMaxActionCost);
     }
 
     public void OnBattleEnd()
     {
+        int origin = CurrentMaxActionCost;
+
         for (int i = temporalCostIncreaseModifiers.Count - 1; i >= 0; i--)
         {
             var element = temporalCostIncreaseModifiers[i];
@@ -66,6 +75,11 @@ public class PlayerActionCost : IFieldActionCost
             {
                 temporalCostDecreaseModifiers.RemoveAt(i);
             }
+        }
+
+        if (origin != CurrentMaxActionCost)
+        {
+            OnMaxActionCostChanged?.Invoke(CurrentMaxActionCost);
         }
     }
 }

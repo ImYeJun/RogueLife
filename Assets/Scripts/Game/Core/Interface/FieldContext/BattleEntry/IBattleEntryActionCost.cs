@@ -1,5 +1,4 @@
-public interface IBattleEntryActionCost
+public interface IBattleEntryActionCost : IReadOnlyActionCost
 {
-    public int CurrentMaxActionCost { get; }
     public void OnBattleEnd();
 }

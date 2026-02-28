@@ -8,6 +8,9 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
     Dictionary<BelongingsData, Belongings> mainBelongingsBag = new Dictionary<BelongingsData, Belongings>();
     Dictionary<BelongingsData, Belongings> sideBelongingsBag = new Dictionary<BelongingsData, Belongings>();
 
+    public event Action<IReadOnlyDictionary<BelongingsData, Belongings>> OnMainBagChanged;
+    public event Action<IReadOnlyDictionary<BelongingsData, Belongings>> OnSideBagChanged;
+
     public IReadOnlyDictionary<BelongingsData, Belongings> MainBelongingsBag { get => mainBelongingsBag; }
     public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
 
@@ -56,8 +59,10 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
         }
 
         sideBelongingsBag[belongings.Data] = belongings;
+        OnBagChanged(BelongingsBagType.SIDE_BELONGINGS_BAG);
         return true;
     }
+
 
     public bool TryMoveBelongings(Belongings belongings, BelongingsBagType from, BelongingsBagType to)
     {
@@ -79,7 +84,10 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
         }  
 
         GetBag(from).Remove(belongings.Data);
+        OnBagChanged(from);
+
         GetBag(to)[belongings.Data] = belongings;
+        OnBagChanged(to);
 
         return true;
     }
@@ -104,7 +112,21 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
         {
             BelongingsBagType.MAIN_BELONGINGS_BAG => mainBelongingsBag,
             BelongingsBagType.SIDE_BELONGINGS_BAG => sideBelongingsBag,
-            _ => throw new ArgumentOutOfRangeException(nameof(bagType))
+            _ => throw new ArgumentOutOfRangeException($"[PlayerBelongingsBag] {bagType} is not valid.")
         };
+    }
+    private void OnBagChanged(BelongingsBagType type)
+    {
+        switch (type)
+        {
+            case BelongingsBagType.MAIN_BELONGINGS_BAG:
+                OnMainBagChanged.Invoke(GetBag(type));
+                break;
+            case BelongingsBagType.SIDE_BELONGINGS_BAG:
+                OnSideBagChanged.Invoke(GetBag(type));
+                break;
+            default:
+                throw new ArgumentOutOfRangeException($"[PlayerBelongingsBag] {type} is not valid.");
+        }
     }
 }

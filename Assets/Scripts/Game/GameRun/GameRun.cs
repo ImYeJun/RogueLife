@@ -1,6 +1,7 @@
 using System;
 using ViewEvent.GameRunView;
 using ViewEvent.ScheduleSelecting;
+using ViewEvent.ScheduleView;
 
 public class GameRun
 {
@@ -26,6 +27,9 @@ public class GameRun
 
     public ISelectingScheduleViewCommander SelectingScheduleViewCommander { get => scheduleSystem;  }
     public ScheduleSelectingViewEventBus SelectingScheudleViewEventBus { get => scheduleSystem.SelectingScheduleViewEventBus; }
+
+    public IScheduleViewCommander ScheduleViewCommander { get => scheduleSystem; }
+    public ScheduleViewEventBus ScheduleViewEventBus { get => scheduleSystem.ScheduleViewEventBus; }
 
     public GameRun(
         int seed, 
@@ -99,7 +103,7 @@ public class GameRun
     public void StartSchedule()
     {
         scheduleSystem.StartSchedule(
-                    currentStartCount : finishedSchedulesCount,
+                    currentStartCount : finishedSchedulesCount + 1,
                     transactionChoiceDatabase: transactionChoiceDatabase,
                     cardDatabase: cardDatabase,
                     belongingsDatabase: belongingsDatabase,

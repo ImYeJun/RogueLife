@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Field.Deck.Observers;
 
-public interface IFieldDeck : IBattleEntryDeck {
+public interface IFieldDeck : IBattleEntryDeck, IReadOnlyDeck {
     public void RegisterDeckobserver(IDeckObserver observer);
     public void UnrgisterDeckobserver(IDeckObserver observer);
     public bool HasEnoughCard(CardData data, int amount = 1);

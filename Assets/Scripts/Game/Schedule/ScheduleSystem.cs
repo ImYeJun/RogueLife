@@ -1,20 +1,24 @@
 using System;
 using System.Linq;
 using ViewEvent.ScheduleSelecting;
+using ViewEvent.ScheduleView;
 
-public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewCommander
+public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewCommander, IScheduleViewCommander
 {
     private System.Random random;
     private FieldContext context;
     private ScheduleDatabase scheduleDatabase;
     private ScheduleGenerator scheduleGenerator;
     private Action<ScheduleHistory> onScheduleEnd;
-    private ScheduleSelectingViewEventBus viewEventBus;
     private ScheduleSelectingViewEventBus scheduleSelectingViewEventBus;
+    private ScheduleViewEventBus scheduleViewEventBus;
+
+    private int currentStartCount;
 
     private Schedule currentSchedule;
     public Schedule CurrentSchedule { get => currentSchedule; }
-    public ScheduleSelectingViewEventBus SelectingScheduleViewEventBus { get => viewEventBus; }
+    public ScheduleSelectingViewEventBus SelectingScheduleViewEventBus { get => scheduleSelectingViewEventBus; }
+    public ScheduleViewEventBus ScheduleViewEventBus { get => scheduleViewEventBus; }
 
     public ScheduleSystem(
         System.Random random, ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule nodeTypeResolveRule, IEngageBattle battleSystem, Action<ScheduleHistory> onScheduleEnd,
@@ -25,7 +29,8 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         this.onScheduleEnd = onScheduleEnd;
         this.scheduleDatabase = scheduleDatabase;
 
-        viewEventBus = new ScheduleSelectingViewEventBus();
+        scheduleSelectingViewEventBus = new ScheduleSelectingViewEventBus();
+        scheduleViewEventBus = new ScheduleViewEventBus();
         scheduleGenerator = new ScheduleGenerator(skeletonRule, nodeTypeResolveRule, battleSystem);
     }
 
@@ -44,22 +49,40 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
             belongingsBag : player.BelongingsBag
         );
         
-        var availiableData = scheduleDatabase.AvailableScheduleData.OrderBy(data => random.Next()).Take(Constant.SELECING_SCHEUDLE_COUNT).ToList();
-        viewEventBus.Publish(new ReadyToSelectSchedule(availiableData, currentStartCount));
+        this.currentStartCount = currentStartCount;
+        var availableData = scheduleDatabase.AvailableScheduleData.OrderBy(data => random.Next()).Take(Constant.SELECING_SCHEUDLE_COUNT).ToList();
+        scheduleSelectingViewEventBus.Publish(new ReadyToSelectSchedule(availableData, currentStartCount));
     }
 
     public void SettleCurrentScheduleData(ScheduleData data)
     {
         currentSchedule = scheduleGenerator.GenerateSchedule(random, data);
         currentSchedule.OnEnd += EndSchedule;
+        currentSchedule.OnNodeMoved  += OnNodeMoved;
 
+
+        scheduleSelectingViewEventBus.Publish(new ScheduleSettled());
+    }
+
+    public void BroadcastCurrentState()
+    {
+        scheduleViewEventBus.Publish(new ScheduleStateSynced(
+            currentScheduleCount : currentStartCount,
+            health : context.Health,
+            actionCost : context.ActionCost,
+            deck : context.Deck,
+            belongingsBag : context.BelongingsBag
+        ));
+    }
+    public void EnterStartNodeIfNeeded()
+    {
+        if (currentSchedule.HasStarted) { return; } //? Should this condtion checking be delegated to RootController?
         currentSchedule.EnterStartNode(context);
-
-        viewEventBus.Publish(new ScheduleSettled());
     }
 
     public void EndSchedule(ScheduleHistory history)
     {
+        currentSchedule.OnNodeMoved -= OnNodeMoved; // 💡 짝맞춰서 해제 추가!
         currentSchedule.OnEnd -= EndSchedule;
         onScheduleEnd?.Invoke(history);
     }
@@ -68,5 +91,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         if (currentSchedule == null) { throw new InvalidOperationException("[ScheduleSystem] Schedule is not settled."); }
         currentSchedule.SetBossData(bossData);
+    }
+
+    public void OnNodeMoved(Node currentNode)
+    {
+        scheduleViewEventBus.Publish(new NodeMoved(currentNode));
     }
 }

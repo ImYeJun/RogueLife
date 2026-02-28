@@ -8,7 +8,18 @@ public class PlayerHealth : IFieldHealth
     private int maxBattleHealth;
     private int maxMentality;
 
+    public PlayerHealth()
+    {
+        maxMentality = Constant.INITIAL_MAX_MENTALITY;
+        currentMentality = maxMentality;
+
+        maxBattleHealth = Constant.INITIAL_MAX_BATTLE_HEALTH;
+        currentBattleHealth = maxBattleHealth;
+    }
+
     public event Action OnMentalBreakDown;
+    public event Action<int> OnBattleHealthChanged;
+    public event Action<int> OnMentalityChanged;
 
     public bool IsFullHealth => currentBattleHealth >= maxBattleHealth && currentMentality >= maxMentality;
     public int CurrentBattleHealth { get => currentBattleHealth; }
@@ -32,6 +43,8 @@ public class PlayerHealth : IFieldHealth
 
         currentBattleHealth -= actualDamage; 
         
+        OnMentalityChanged?.Invoke(currentBattleHealth);
+
         if (overflowAmount > 0 && isOverflowable)
         {
             HurtMentality(overflowAmount);
@@ -45,6 +58,7 @@ public class PlayerHealth : IFieldHealth
         bool wasBroken = IsMentalBrokenDown();
 
         currentMentality = Mathf.Max(0, currentMentality - amount);
+        OnMentalityChanged?.Invoke(currentMentality);
 
         if (!wasBroken && IsMentalBrokenDown())
         {
@@ -58,6 +72,8 @@ public class PlayerHealth : IFieldHealth
     {
         if (amount < 0) return;
         currentBattleHealth = Mathf.Min(currentBattleHealth + amount, maxBattleHealth);
+
+        OnMentalityChanged?.Invoke(currentBattleHealth);
     }
 
     public void HealMentality(int amount, bool isOverflowable)
@@ -73,6 +89,7 @@ public class PlayerHealth : IFieldHealth
         }
 
         currentMentality += amount;
+        OnMentalityChanged?.Invoke(currentMentality);
 
         if (overflowAmount > 0 && isOverflowable)
         {

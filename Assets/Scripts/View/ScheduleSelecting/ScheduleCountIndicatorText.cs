@@ -22,7 +22,7 @@ namespace View.ScheduleSelecting
 
         public void OnReadyToSelectSchedule(ReadyToSelectSchedule payload)
         {
-            int scheduleCount = payload.CurrentStartCount + 1;
+            int scheduleCount = payload.CurrentStartCount;
 
             text.text = $"Starting {scheduleCount} Schedule";
         }
