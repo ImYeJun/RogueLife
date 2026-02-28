@@ -15,10 +15,9 @@ public class Schedule
     private Dictionary<int, List<Node>> map;
 
     private bool hasStarted = false;
-
     public Dictionary<int, List<Node>> Map { get => map; }
-
     public bool HasStarted => hasStarted;
+    public ScheduleData Data { get => data; }
 
     public void FixData(ScheduleData data) { this.data = data; }
     public void FixMap(Dictionary<int, List<Node>> map) { this.map = map; }

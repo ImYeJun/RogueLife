@@ -67,6 +67,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void BroadcastCurrentState()
     {
         scheduleViewEventBus.Publish(new ScheduleStateSynced(
+            currentScheduleData : currentSchedule.Data,
             currentScheduleCount : currentStartCount,
             health : context.Health,
             actionCost : context.ActionCost,
