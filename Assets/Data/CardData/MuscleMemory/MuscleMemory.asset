@@ -26,6 +26,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000901244059725
       type: {class: MuscleMemory, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -35,7 +37,5 @@ MonoBehaviour:
           rid: 1582000901244059727
     - rid: 1582000901244059726
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000901244059727
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

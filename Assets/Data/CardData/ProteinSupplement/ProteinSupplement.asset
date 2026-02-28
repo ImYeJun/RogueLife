@@ -27,6 +27,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000865578844258
       type: {class: ProteinSupplement, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -36,7 +38,5 @@ MonoBehaviour:
           rid: 1582000865578844260
     - rid: 1582000865578844259
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000865578844260
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 

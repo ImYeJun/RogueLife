@@ -31,6 +31,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922236002
       type: {class: HitOnHurtSpot, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -40,7 +42,5 @@ MonoBehaviour:
           rid: 1582000878922236004
     - rid: 1582000878922236003
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236004
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

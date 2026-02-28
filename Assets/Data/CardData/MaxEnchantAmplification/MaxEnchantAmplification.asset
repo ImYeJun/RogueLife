@@ -30,6 +30,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922236005
       type: {class: MaxEnchantAmplification, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -51,13 +53,9 @@ MonoBehaviour:
         - rid: 1582000878922236012
     - rid: 1582000878922236008
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236010
       type: {class: AllEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236011
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236012
       type: {class: AllEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

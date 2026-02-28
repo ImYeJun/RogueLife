@@ -42,6 +42,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000905641787473
       type: {class: MysteriousAura, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -55,7 +57,5 @@ MonoBehaviour:
         ohMyData: {fileID: 11400000, guid: 48b8906e8b2fa67448ac048224d44f3d, type: 2}
     - rid: 1582000905641787474
       type: {class: BattleEntityCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000905641787475
       type: {class: BattleEntityCardTargetType, ns: , asm: GameAssembly}
-      data: 

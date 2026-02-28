@@ -33,6 +33,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000901244059720
       type: {class: OmrGuessingMaster, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -42,7 +44,5 @@ MonoBehaviour:
           rid: 1582000901244059723
     - rid: 1582000901244059721
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000901244059723
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 

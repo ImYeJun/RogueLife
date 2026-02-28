@@ -22,11 +22,11 @@ MonoBehaviour:
   requiredTraits: -1
   icon: {fileID: 0}
   behaviour:
-    rid: 7557519985129554028
+    rid: 7557520206837317737
   references:
     version: 2
     RefIds:
-    - rid: 7557519985129554028
-      type: {class: OmaeWaMoSindeIru, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+    - rid: 7557520206837317737
+      type: {class: OmaeWaMoSindeIru, ns: Battle.StatusEffects.Behaviour, asm: Assembly-CSharp}
       data:
         naniData: {fileID: 11400000, guid: da7a0af7dec547d4aa97b13cb539f560, type: 2}

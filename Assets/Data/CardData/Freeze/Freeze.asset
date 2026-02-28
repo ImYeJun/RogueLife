@@ -30,6 +30,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922235979
       type: {class: Freeze, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -39,7 +41,5 @@ MonoBehaviour:
           rid: 1582000878922235981
     - rid: 1582000878922235980
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922235981
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 

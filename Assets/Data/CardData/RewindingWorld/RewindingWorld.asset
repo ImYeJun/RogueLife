@@ -33,6 +33,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557520067223355481
       type: {class: RewindingWorld, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -42,7 +44,5 @@ MonoBehaviour:
           rid: 7557520067223355483
     - rid: 7557520067223355482
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 7557520067223355483
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

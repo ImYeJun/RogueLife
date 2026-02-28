@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922236058
       type: {class: RussianRoulette, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -50,13 +52,9 @@ MonoBehaviour:
         - rid: 1582000878922236064
     - rid: 1582000878922236061
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236062
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236063
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236064
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

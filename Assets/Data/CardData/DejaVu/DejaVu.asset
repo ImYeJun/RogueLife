@@ -27,6 +27,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922236022
       type: {class: DejaVu, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -36,7 +38,5 @@ MonoBehaviour:
           rid: 1582000878922236024
     - rid: 1582000878922236023
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236024
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

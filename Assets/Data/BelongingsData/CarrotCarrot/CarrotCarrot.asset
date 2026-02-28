@@ -26,9 +26,9 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557520071594606724
       type: {class: FieldCarrotCarrot, ns: Belongingses.Behaviour, asm: GameAssembly}
-      data: 
     - rid: 7557520071594606725
       type: {class: BattleCarrotCarrot, ns: Belongingses.Behaviour, asm: GameAssembly}
-      data: 

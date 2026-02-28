@@ -25,9 +25,9 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557520071594606742
       type: {class: FieldPrettyHeartMagicWand, ns: Belongingses.Behaviour, asm: GameAssembly}
-      data: 
     - rid: 7557520071594606743
       type: {class: BattlePrettyHeartMagicWand, ns: Belongingses.Behaviour, asm: GameAssembly}
-      data: 

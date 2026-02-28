@@ -2,8 +2,8 @@ using System.IO;
 using UnityEngine;
 
 public static class Constant{
-    public const int INITIAL_MAX_BATTLE_HEALTH = 100;
-    public const int INITIAL_MAX_MENTALITY = 50;
+    public const int INITIAL_MAX_BATTLE_HEALTH = 50;
+    public const int INITIAL_MAX_MENTALITY = 100;
     public const int INITIAL_MAX_ACTION_COST = 10;
     public const int BASE_MAX_COPIES_PER_CARD = 3;
     public const int BASE_FIRST_TURN_DRAW_COUNT = 5;

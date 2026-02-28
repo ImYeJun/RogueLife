@@ -32,6 +32,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557520067223355475
       type: {class: ChainActivation, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -41,7 +43,5 @@ MonoBehaviour:
           rid: 7557520067223355478
     - rid: 7557520067223355476
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 7557520067223355478
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

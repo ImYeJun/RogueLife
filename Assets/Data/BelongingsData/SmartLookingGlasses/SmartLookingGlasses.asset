@@ -25,6 +25,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557520071594606697
       type: {class: FieldSmartLookingGlasses, ns: Belongingses.Behaviour, asm: GameAssembly}
       data:
@@ -46,4 +48,3 @@ MonoBehaviour:
           amount: 1
     - rid: 7557520071594606698
       type: {class: BattleSmartLookingGlasses, ns: Belongingses.Behaviour, asm: GameAssembly}
-      data: 

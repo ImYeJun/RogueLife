@@ -27,6 +27,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000865578844241
       type: {class: PainlessHit, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -37,7 +39,5 @@ MonoBehaviour:
         toughenData: {fileID: 11400000, guid: c206aec4c8c51be4eaa4db3c12ed5f48, type: 2}
     - rid: 1582000865578844242
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000865578844243
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 

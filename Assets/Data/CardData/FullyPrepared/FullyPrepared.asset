@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922235976
       type: {class: FullyPrepared, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -40,7 +42,5 @@ MonoBehaviour:
         iWillKillYouData: {fileID: 11400000, guid: 3181f164645fbda429d4e14a080ac1be, type: 2}
     - rid: 1582000878922235977
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922235978
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 

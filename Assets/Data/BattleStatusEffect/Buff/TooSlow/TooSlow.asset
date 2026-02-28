@@ -25,6 +25,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557519985129554033
       type: {class: TooSlow, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
-      data: 

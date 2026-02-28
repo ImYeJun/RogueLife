@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922235995
       type: {class: StoneOfDavid, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -50,13 +52,9 @@ MonoBehaviour:
         - rid: 1582000878922236001
     - rid: 1582000878922235998
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922235999
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236000
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236001
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

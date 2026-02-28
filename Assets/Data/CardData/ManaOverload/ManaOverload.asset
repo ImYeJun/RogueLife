@@ -33,6 +33,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000905641787467
       type: {class: ManaOverload, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -42,7 +44,5 @@ MonoBehaviour:
           rid: 1582000905641787469
     - rid: 1582000905641787468
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000905641787469
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

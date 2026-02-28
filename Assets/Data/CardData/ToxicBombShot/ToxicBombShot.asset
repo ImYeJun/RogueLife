@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922235982
       type: {class: ToxicBombShot, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -39,7 +41,5 @@ MonoBehaviour:
         deadlyPoisionData: {fileID: 11400000, guid: 08bc4af93af16a849b6284642308fbca, type: 2}
     - rid: 1582000878922235983
       type: {class: AllEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922235984
       type: {class: AllEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

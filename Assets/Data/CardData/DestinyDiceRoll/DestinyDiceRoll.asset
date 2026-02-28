@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922236068
       type: {class: DestinyDiceRoll, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -38,7 +40,5 @@ MonoBehaviour:
           rid: 1582000878922236070
     - rid: 1582000878922236069
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236070
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

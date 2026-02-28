@@ -31,6 +31,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922236031
       type: {class: MatchBrokenClock, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -40,7 +42,5 @@ MonoBehaviour:
           rid: 1582000878922236033
     - rid: 1582000878922236032
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236033
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

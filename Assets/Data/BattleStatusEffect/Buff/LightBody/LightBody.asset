@@ -26,6 +26,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557519985129554025
       type: {class: LightBody, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
-      data: 

@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557520067223355469
       type: {class: UnknownKnowledge, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -38,7 +40,5 @@ MonoBehaviour:
           rid: 7557520067223355471
     - rid: 7557520067223355470
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 7557520067223355471
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

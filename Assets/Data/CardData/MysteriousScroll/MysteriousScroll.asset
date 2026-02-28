@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000905641787476
       type: {class: MysteriousScroll, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -38,7 +40,6 @@ MonoBehaviour:
           rid: 1582000905641787478
     - rid: 1582000905641787477
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000905641787478
       type: {class: CompositeCardTargetType, ns: , asm: GameAssembly}
       data:
@@ -47,7 +48,5 @@ MonoBehaviour:
         - rid: 1582000905641787480
     - rid: 1582000905641787479
       type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000905641787480
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

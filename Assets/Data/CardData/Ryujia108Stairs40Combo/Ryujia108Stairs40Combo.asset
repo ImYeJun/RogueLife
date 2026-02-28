@@ -27,6 +27,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922235973
       type: {class: Ryujia108Stairs40Combo, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -36,7 +38,5 @@ MonoBehaviour:
           rid: 7557520067223355465
     - rid: 1582000878922235974
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 7557520067223355465
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

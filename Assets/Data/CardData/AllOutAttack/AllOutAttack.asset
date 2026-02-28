@@ -31,6 +31,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000905641787470
       type: {class: AllOutAttack, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -40,7 +42,5 @@ MonoBehaviour:
           rid: 1582000905641787472
     - rid: 1582000905641787471
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000905641787472
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

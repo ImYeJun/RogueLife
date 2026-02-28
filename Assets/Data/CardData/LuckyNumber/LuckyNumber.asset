@@ -32,6 +32,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000878922236019
       type: {class: LuckyNumber, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -41,7 +43,5 @@ MonoBehaviour:
           rid: 1582000878922236021
     - rid: 1582000878922236020
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000878922236021
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

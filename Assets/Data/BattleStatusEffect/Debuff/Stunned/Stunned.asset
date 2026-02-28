@@ -25,6 +25,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557519985129554041
       type: {class: Stunned, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
-      data: 

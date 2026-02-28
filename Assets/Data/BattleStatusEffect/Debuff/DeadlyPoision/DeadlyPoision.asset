@@ -27,6 +27,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557519985129554037
       type: {class: DeadlyPoision, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
-      data: 

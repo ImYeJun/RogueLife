@@ -25,14 +25,14 @@ MonoBehaviour:
     5%, \uC774\uD6C4 \uAC01 \uCE74\uB4DC \uC0AC\uC6A9\uC2DC \uB9C8\uB2E4 4%\uC529
     \uC99D\uAC00 ]"
   fieldBehaviour:
-    rid: 7557520071594606692
+    rid: 7557520206837317754
   battleBehaviour:
-    rid: 7557520071594606693
+    rid: 7557520206837317755
   references:
     version: 2
     RefIds:
-    - rid: 7557520071594606692
-      type: {class: FieldBasicImplant, ns: Belongingses.Behaviour, asm: GameAssembly}
+    - rid: 7557520206837317754
+      type: {class: FieldBasicImplant, ns: Belongingses.Behaviour, asm: Assembly-CSharp}
       data:
         decreaseCardActionCost:
           minRarity: 0
@@ -42,7 +42,7 @@ MonoBehaviour:
           isCheckBaseCost: 0
           baseCosts: 
           amount: 1
-    - rid: 7557520071594606693
-      type: {class: BattleBasicImplant, ns: Belongingses.Behaviour, asm: GameAssembly}
+    - rid: 7557520206837317755
+      type: {class: BattleBasicImplant, ns: Belongingses.Behaviour, asm: Assembly-CSharp}
       data:
         stunnedData: {fileID: 11400000, guid: 1c164a0f2316f7542a63f360023e5cc7, type: 2}

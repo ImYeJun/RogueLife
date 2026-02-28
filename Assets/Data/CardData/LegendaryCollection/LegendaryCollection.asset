@@ -31,6 +31,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000865578844230
       type: {class: LegendaryCollectionBehaviour, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -40,7 +42,5 @@ MonoBehaviour:
           rid: 1582000865578844232
     - rid: 1582000865578844231
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000865578844232
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

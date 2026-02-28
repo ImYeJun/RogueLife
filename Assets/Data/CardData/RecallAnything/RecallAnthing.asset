@@ -29,6 +29,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 7557520140519604316
       type: {class: RecallAnything, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -38,7 +40,5 @@ MonoBehaviour:
           rid: 7557520140519604318
     - rid: 7557520140519604317
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 7557520140519604318
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 

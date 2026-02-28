@@ -31,6 +31,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000905641787461
       type: {class: Fireball, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -41,7 +43,5 @@ MonoBehaviour:
         burningData: {fileID: 11400000, guid: 94d24b3a77324e043be1e0804c91d563, type: 2}
     - rid: 1582000905641787462
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000905641787463
       type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-      data: 

@@ -30,6 +30,8 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
     - rid: 1582000865578844247
       type: {class: ICanDoThisAllDay, ns: Battle.Cards.Behaviours, asm: GameAssembly}
       data:
@@ -39,7 +41,5 @@ MonoBehaviour:
           rid: 1582000865578844249
     - rid: 1582000865578844248
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
     - rid: 1582000865578844249
       type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-      data: 
