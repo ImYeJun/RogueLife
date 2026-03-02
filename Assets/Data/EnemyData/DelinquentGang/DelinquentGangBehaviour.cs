@@ -15,7 +15,7 @@ namespace Battle.Enemies.Behaviours
         private const string SECOND_ACTION = "second";
         private const string THIRD_ACTION = "third";
 
-        [SerializeField] private BattleStatusEffectData waterFistData;
+        [SerializeField] private BattleStatusEffectEntity waterFistEntity;
 
         private class Imitate : EnemyAction
         {
@@ -43,11 +43,11 @@ namespace Battle.Enemies.Behaviours
         public DelinquentGang() {}
         private DelinquentGang(DelinquentGang template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            waterFistData = template.waterFistData;
+            waterFistEntity = template.waterFistEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplyPlayerStatusEffect(owner, waterFistData, 2, 2) },
+                { FIRST_ACTION, new ApplyPlayerStatusEffect(owner, waterFistEntity, 2, 2) },
                 { SECOND_ACTION, new HurtPlayer(owner, 30) },
                 { THIRD_ACTION, new Imitate(owner) }
             };

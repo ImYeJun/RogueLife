@@ -93,7 +93,7 @@ namespace Battle.Cards.Behaviours
             for (int i = playerBuffs.Count - 1; i >= 0; i--)
             {
                 var owningbuff = playerBuffs[i];
-                var clonedBuff = new BattleStatusEffect(owningbuff.Data, owningbuff.StackCount, owningbuff.RemainTurn * 2);
+                var clonedBuff = new BattleStatusEffect(owningbuff.Entity, owningbuff.StackCount, owningbuff.RemainTurn * 2);
                 var buffApplyAction = new ApplyEntityStatusEffectBattleAction(player, clonedBuff);
 
                 context.ActionScheduler.Enqueue(buffApplyAction);
@@ -105,7 +105,7 @@ namespace Battle.Cards.Behaviours
                 for (int j = enemyDebuffs.Count - 1; j >= 0; j--)
                 {
                     var owningDebuff = enemyDebuffs[j];
-                    var clonedDebuff = new BattleStatusEffect(owningDebuff.Data, owningDebuff.StackCount, owningDebuff.RemainTurn * 2);
+                    var clonedDebuff = new BattleStatusEffect(owningDebuff.Entity, owningDebuff.StackCount, owningDebuff.RemainTurn * 2);
                     var debuffApplyAction = new ApplyEntityStatusEffectBattleAction(enemy, clonedDebuff);
 
                     context.ActionScheduler.Enqueue(debuffApplyAction);

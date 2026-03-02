@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7194860790844506287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8332499631226680385}
+  - component: {fileID: 5447236415605563468}
+  m_Layer: 0
+  m_Name: HitOnHurtSpot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8332499631226680385
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194860790844506287}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5447236415605563468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7194860790844506287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0533510f236fb743985277e85afb09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardEntity
+  data: {fileID: 11400000, guid: e35255fa222a37049a2db487cf0ac4e6, type: 2}
+  battleBehaviour:
+    rid: 2642317808700489898
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317808700489898
+      type: {class: HitOnHurtSpot, ns: Battle.Cards.Behaviours, asm: Assembly-CSharp}
+      data:
+        targetType:
+          rid: 2642317808700489899
+        reflectionTargetType:
+          rid: 2642317808700489901
+    - rid: 2642317808700489899
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317808700489901
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 

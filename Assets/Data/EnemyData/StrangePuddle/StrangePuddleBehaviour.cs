@@ -14,8 +14,8 @@ namespace Battle.Enemies.Behaviours
         private const string SECOND_ACTION = "second";
         private const string THIRD_ACTION = "third";
 
-        [SerializeField] private BattleStatusEffectData deadlyPoisionData;
-        [SerializeField] private BattleStatusEffectData heavyBodyData;
+        [SerializeField] private BattleStatusEffectEntity deadlyPoisionEntity;
+        [SerializeField] private BattleStatusEffectEntity heavyBodyEntity;
 
         private class CorruptPlayerStatus : EnemyAction
         {
@@ -43,7 +43,7 @@ namespace Battle.Enemies.Behaviours
                 var playerDebuffs = player.GetBattleStatusEffects(BattleStatusEffectType.DEBUFF);
                 foreach (var debuff in playerDebuffs)
                 {
-                    var enhancedDebuff = new BattleStatusEffect(debuff.Data, 1, debuff.RemainTurn + 1);
+                    var enhancedDebuff = new BattleStatusEffect(debuff.Entity, 1, debuff.RemainTurn + 1);
 
                     var applyDebuffAction = new ApplyEntityStatusEffectBattleAction(player, enhancedDebuff);
                     context.ActionScheduler.Enqueue(applyDebuffAction);
@@ -56,13 +56,13 @@ namespace Battle.Enemies.Behaviours
         public StrangePuddle() {}
         private StrangePuddle(StrangePuddle template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            deadlyPoisionData = template.deadlyPoisionData;
-            heavyBodyData = template.heavyBodyData;
+            deadlyPoisionEntity = template.deadlyPoisionEntity;
+            heavyBodyEntity = template.heavyBodyEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplyPlayerStatusEffect(owner, deadlyPoisionData, 2, 3) },
-                { SECOND_ACTION, new ApplyPlayerStatusEffect(owner, heavyBodyData, 2, 2) },
+                { FIRST_ACTION, new ApplyPlayerStatusEffect(owner, deadlyPoisionEntity, 2, 3) },
+                { SECOND_ACTION, new ApplyPlayerStatusEffect(owner, heavyBodyEntity, 2, 2) },
                 { THIRD_ACTION, new CorruptPlayerStatus(owner) }
             };
 

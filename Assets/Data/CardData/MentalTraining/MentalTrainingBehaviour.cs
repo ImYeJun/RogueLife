@@ -43,19 +43,19 @@ namespace Battle.Cards.Behaviours
             }
         }
 
-        [SerializeField] private BattleStatusEffectData lightBodyData;
+        [SerializeField] private BattleStatusEffectEntity lightBodyEntity;
         
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public MentalTraining() {}
-        private MentalTraining(ICardBehaviourOwner owner, BattleStatusEffectData lightBodyData) : base(owner) 
+        private MentalTraining(ICardBehaviourOwner owner, BattleStatusEffectEntity lightBodyEntity) : base(owner) 
         { 
-            this.lightBodyData = lightBodyData;
+            this.lightBodyEntity = lightBodyEntity;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new MentalTraining(owner, this.lightBodyData);
+            return new MentalTraining(owner, this.lightBodyEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -74,7 +74,7 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            var lightBody = new BattleStatusEffect(lightBodyData, 1, 1);
+            var lightBody = new BattleStatusEffect(lightBodyEntity, 1, 1);
             var applyBuffAction = new ApplyEntityStatusEffectBattleAction(target.Player, lightBody);
             context.ActionScheduler.Enqueue(applyBuffAction);
         }

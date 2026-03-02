@@ -7,19 +7,19 @@ namespace Belongingses.Behaviour
     [Serializable]
     public class BattleSelfDefenseDesertEagle : BattleBelongingsBehaviour
     {
-        [SerializeField] private BattleStatusEffectData thatsWeakSpotData;
+        [SerializeField] private BattleStatusEffectEntity thatsWeakSpotEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public BattleSelfDefenseDesertEagle() {}
-        public BattleSelfDefenseDesertEagle(BattleStatusEffectData thatsWeakSpotData)
+        public BattleSelfDefenseDesertEagle(BattleStatusEffectEntity thatsWeakSpotEntity)
         {
-            this.thatsWeakSpotData = thatsWeakSpotData;
+            this.thatsWeakSpotEntity = thatsWeakSpotEntity;
         }
 
         public override BattleBelongingsBehaviour Clone()
         {
-            return new BattleSelfDefenseDesertEagle(thatsWeakSpotData);
+            return new BattleSelfDefenseDesertEagle(thatsWeakSpotEntity);
         }
 
         protected override void OnApplied()
@@ -38,7 +38,7 @@ namespace Belongingses.Behaviour
 
             foreach (var enemy in enemies)
             {
-                var thatsWeakSpot = new BattleStatusEffect(thatsWeakSpotData, 1, 1);
+                var thatsWeakSpot = new BattleStatusEffect(thatsWeakSpotEntity, 1, 1);
                 var applyDebuffAction = new ApplyEntityStatusEffectBattleAction(enemy, thatsWeakSpot);
 
                 context.ActionScheduler.Enqueue(applyDebuffAction);

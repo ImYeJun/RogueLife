@@ -3,48 +3,50 @@ using UnityEngine;
 
 public class BattleStatusEffect : IBattleStatusEffectState
 {
-    private BattleStatusEffectData data;
+    private BattleStatusEffectEntity entity;
     private int stackCount;
     private int remainTurn;
     private bool isDurationEternal;
     private BattleStatusEffectBehaviour behaviour;
     private Action<BattleStatusEffect> OnExpired;
 
-    private BattleStatusEffect(BattleStatusEffectData data, int stackCount, int remainTurn, bool isDurationEternal)
+    private BattleStatusEffect(BattleStatusEffectEntity entity, int stackCount, int remainTurn, bool isDurationEternal)
     {
-        this.data = data;
+        this.entity = entity;
         this.stackCount = stackCount;
         this.remainTurn = remainTurn;
         this.isDurationEternal = isDurationEternal;
     }
 
-    public BattleStatusEffect(BattleStatusEffectData data, int startStackCount, int startRemainTurn) 
-    : this(data, startStackCount, startRemainTurn, false) { }
+    public BattleStatusEffect(BattleStatusEffectEntity entity, int startStackCount, int startRemainTurn) 
+    : this(entity, startStackCount, startRemainTurn, false) { }
 
-    public BattleStatusEffect(BattleStatusEffectData data, int startStackCount)
-    : this(data,startStackCount, Int32.MaxValue, true) { }
+    public BattleStatusEffect(BattleStatusEffectEntity entity, int startStackCount)
+    : this(entity,startStackCount, Int32.MaxValue, true) { }
 
     public BattleStatusEffect(BattleStatusEffect origin)
     {
-        data = origin.data;
+        entity = origin.entity;
         stackCount = origin.stackCount;
         remainTurn = origin.remainTurn;
         isDurationEternal = origin.isDurationEternal;
     }
 
-    public BattleStatusEffectData Data { get => data;  }
+    public BattleStatusEffectEntity Entity { get => entity; }
+    public BattleStatusEffectData Data { get => entity.Data;  }
     public int StackCount => stackCount;
     public bool IsDurationEternal => isDurationEternal;
     public int RemainTurn => remainTurn;
     public bool IsExpired => remainTurn <= 0;
-    public BattleEntityTrait RequiredTraits => data.RequiredTraits;
-    public BattleEntityCondition GrantedCondition => data.GrantedCondition;
+    public BattleEntityTrait RequiredTraits => entity.Data.RequiredTraits;
+    public BattleEntityCondition GrantedCondition => entity.Data.GrantedCondition;
+
 
     public void OnApplied(BattleContext context, IBattleStatusEffectOwner owner, Action<BattleStatusEffect> onExpired)
     {
         OnExpired = onExpired;
 
-        behaviour = data.CloneBehaviour(context, owner, this);
+        behaviour = entity.CloneBehaviour(context, owner, this);
         behaviour.OnApplied();
     }
     
@@ -72,7 +74,7 @@ public class BattleStatusEffect : IBattleStatusEffectState
 
     public void MergeWith(BattleStatusEffect newEffect)
     {
-        if (data != newEffect.data) return;
+        if (entity.Data != newEffect.Data) return;
 
         stackCount += newEffect.stackCount;
 

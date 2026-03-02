@@ -5,25 +5,24 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardDatabase", menuName = "Scriptable Objects/Database/CardDatabase")]
-public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerializationCallbackReceiver {
-    [SerializeField] private List<CardData> availableCardData;
-    private Dictionary<string, CardData> idLookUp = new Dictionary<string, CardData>();
+public class CardDatabase : MonoBehaviour, IFieldCardDatabase, ISerializationCallbackReceiver {
+    [SerializeField] private List<CardEntity> availableCardEntities;
+    private Dictionary<string, CardEntity> idLookUp = new Dictionary<string, CardEntity>();
 
-    public CardData? GetData(string id)
+    public CardEntity? GetEntity(string id)
     {
-        if (idLookUp.TryGetValue(id, out CardData data)) { return data ;}
+        if (idLookUp.TryGetValue(id, out CardEntity data)) { return data ;}
         
         Debug.LogWarning($"[CardDatabase] There's no CardData for {id}");
         return null;    
     }
-
-    public Card? Materialize(CardData cardData) { return Materialize(cardData.Id); }
+    
+    public Card? Materialize(CardEntity entity){ return Materialize(entity.Id); }
     public Card? Materialize(string id)
     {
-        if (idLookUp.TryGetValue(id, out CardData data)) { return new Card(data);}
+        if (idLookUp.TryGetValue(id, out CardEntity entity)) { return new Card(entity);}
 
-        Debug.LogWarning($"[CardDatabase] There's no CardData for {id}");
+        Debug.LogWarning($"[CardDatabase] There's no CardEntity for {id}");
         return null;
     }
 
@@ -40,19 +39,24 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
         lowestRarity = lowestRarity == CardRarity.ANY ? CardRarity.COMMON : lowestRarity;
         highestRarity = highestRarity == CardRarity.ANY ? CardRarity.LEGENDARY : highestRarity;
 
-        var filterdCardData = availableCardData.Where(data =>
-            lowestRarity <= data.Rarity && data.Rarity <= highestRarity &&
+
+        var filterdCardEntity = availableCardEntities.Where(entity =>
+        {
+            var data = entity.Data;
+
+            return lowestRarity <= data.Rarity && data.Rarity <= highestRarity &&
             (type == CardType.ANY || data.Type == type) &&
             (attribute == CardAttribute.ANY || data.Attribute == attribute) &&
-            ((ignoringCardData is null) || !ignoringCardData.Contains(data))
+            ((ignoringCardData is null) || !ignoringCardData.Contains(data));
+        }
         ).ToList();
 
-        if (filterdCardData.Count <= 0) { 
+        if (filterdCardEntity.Count <= 0) { 
             Debug.LogWarning($"There's no cards that fullfills the condition (lowestRarity : {lowestRarity}, highestRarity : {highestRarity}, attribute : {attribute}, type : {type})");
             return null;
         }
-        var selectedData = filterdCardData[random.Next(filterdCardData.Count)];
-        return Materialize(selectedData);
+        var selectedEntity = filterdCardEntity[random.Next(filterdCardEntity.Count)];
+        return Materialize(selectedEntity);
     }
 
     public void OnBeforeSerialize() { }
@@ -61,11 +65,11 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
     {
         idLookUp.Clear();
 
-        foreach (var cardData in availableCardData)
+        foreach (var cardData in availableCardEntities)
         {
             if (cardData == null) { continue; }
 
-            string id = cardData.Id;
+            string id = cardData.Data.Id;
             
             if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
@@ -80,15 +84,16 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
 #if UNITY_EDITOR    
     private void OnValidate()
     {
-        if (availableCardData == null) { return; }
+        if (availableCardEntities == null) { return; }
         
         // 💡 HashSet 대신 Dictionary를 써서 '몇 번째 인덱스'에 그 ID가 있었는지 기억합니다.
         Dictionary<string, int> checkDict = new Dictionary<string, int>();
 
-        for (int i = 0; i < availableCardData.Count; i++)
+        for (int i = 0; i < availableCardEntities.Count; i++)
         {
-            var data = availableCardData[i];
-            if (data == null) continue;
+            var entity = availableCardEntities[i];
+            if (entity == null) continue;
+            var data = entity.Data;
 
             if (string.IsNullOrEmpty(data.Id))
             {
@@ -105,10 +110,9 @@ public class CardDatabase : ScriptableObject, IFieldCardDatabase, ISerialization
             else
             {
                 checkDict.Add(data.Id, i);
-                idLookUp[data.Id] = data;
+                idLookUp[data.Id] = entity;
             }
         }
-        Debug.Log("");
     }
 #endif
 }

@@ -15,7 +15,7 @@ namespace Battle.Enemies.Behaviours
         private const string SECOND_ACTION = "second";
         private const string THIRD_ACTION = "third";
 
-        [SerializeField] private BattleStatusEffectData bleedingData;
+        [SerializeField] private BattleStatusEffectEntity bleedingEntity;
 
         private class RecklessSpin : EnemyAction
         {
@@ -80,14 +80,14 @@ namespace Battle.Enemies.Behaviours
         public FastRevolvingDoor() {}
         private FastRevolvingDoor(FastRevolvingDoor template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            bleedingData = template.bleedingData;
+            bleedingEntity = template.bleedingEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
                 { FIRST_ACTION, new CompositeEnemyAction(owner, new List<EnemyAction>()
                 {
                     new HurtPlayer(owner, 20),
-                    new ApplyPlayerStatusEffect(owner, bleedingData, 2, 2)
+                    new ApplyPlayerStatusEffect(owner, bleedingEntity, 2, 2)
                 }) },
                 { SECOND_ACTION, new RecklessSpin(owner) },
                 { THIRD_ACTION, new HurtSelf(owner, 40) }

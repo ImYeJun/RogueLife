@@ -19,18 +19,18 @@ MonoBehaviour:
   typicalAttribute: 1
   startCards:
   - count: 3
-    data: {fileID: 11400000, guid: 7487bfe473a4ada43a93a7564e4b032d, type: 2}
+    entity: {fileID: 8493253864904853895, guid: fb479d9f92aa0374eac87a6b79034b8e, type: 3}
   - count: 3
-    data: {fileID: 11400000, guid: fa6d4af2b4bdc7a4c902b6324e69650c, type: 2}
+    entity: {fileID: 602546218775786506, guid: fb2abd94a0e91c04c9c98fed7befb826, type: 3}
   - count: 3
-    data: {fileID: 11400000, guid: 00b0c50c951f24e4ebc0c4ce814ee2ac, type: 2}
+    entity: {fileID: 7934024237814955395, guid: f7185d083be380941a0918232feb8164, type: 3}
   - count: 3
-    data: {fileID: 11400000, guid: 66a1484e88d248c418dc3cbc21cfdc2e, type: 2}
+    entity: {fileID: 689434005886071759, guid: d3eab7c63397ba845b801879512ec1c1, type: 3}
   - count: 3
-    data: {fileID: 11400000, guid: e35255fa222a37049a2db487cf0ac4e6, type: 2}
+    entity: {fileID: 5447236415605563468, guid: ecbf60853b55d5447a6430c32a66a64b, type: 3}
   - count: 3
-    data: {fileID: 11400000, guid: 93703e92402b4034cb9e59963f9b7ce4, type: 2}
+    entity: {fileID: 6101398221938368404, guid: fc619cad9288eef43aec545c16ad1cfe, type: 3}
   - count: 3
-    data: {fileID: 11400000, guid: 75a30bbf1b3b2b74d93b6da3c8544cdb, type: 2}
+    entity: {fileID: 1705250227771597027, guid: 3cffe91485fe4a54c819a5b0e6071b31, type: 3}
   - count: 3
-    data: {fileID: 11400000, guid: 14fb7c4d49e7f5c4a81afc622f0e23f7, type: 2}
+    entity: {fileID: 9108534278080539091, guid: a906f0dc7ee661c4ebf0b51abf70690d, type: 3}

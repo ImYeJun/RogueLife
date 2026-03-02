@@ -14,19 +14,19 @@ namespace Battle.Enemies.Behaviours
         private const string SECOND_ACTION = "second";
         private const string THIRD_ACTION = "third";
 
-        [SerializeField] private BattleStatusEffectData strenghenMuscleData;
+        [SerializeField] private BattleStatusEffectEntity strenghenMuscleEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public CartRidingKids() {}
         private CartRidingKids(CartRidingKids template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            strenghenMuscleData = template.strenghenMuscleData;
+            strenghenMuscleEntity = template.strenghenMuscleEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
                 { FIRST_ACTION, new HurtPlayer(owner, 40, true) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, strenghenMuscleData, 2, 2) },
+                { SECOND_ACTION, new ApplySelfStatusEffect(owner, strenghenMuscleEntity, 2, 2) },
                 { THIRD_ACTION, new RemoveItselfStatusEffect(owner, BattleStatusEffectType.DEBUFF) }
             };
 

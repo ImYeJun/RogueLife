@@ -8,20 +8,20 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class HealingFactor : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] BattleStatusEffectData superHealData;
+        [SerializeField] BattleStatusEffectEntity superHealEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public HealingFactor() {}
-        private HealingFactor(ICardBehaviourOwner owner, BattleStatusEffectData superHealData) 
+        private HealingFactor(ICardBehaviourOwner owner, BattleStatusEffectEntity superHealData) 
         : base(owner)
         {
-            this.superHealData = superHealData;
+            this.superHealEntity = superHealData;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new HealingFactor(owner, superHealData);
+            return new HealingFactor(owner, superHealEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -48,7 +48,7 @@ namespace Battle.Cards.Behaviours
         }
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, int duration)
         {
-            var superHeal = new BattleStatusEffect(superHealData, 2, duration);
+            var superHeal = new BattleStatusEffect(superHealEntity, 2, duration);
             var action = new ApplyEntityStatusEffectBattleAction(target.Player, superHeal);
             context.ActionScheduler.Enqueue(action);
         }

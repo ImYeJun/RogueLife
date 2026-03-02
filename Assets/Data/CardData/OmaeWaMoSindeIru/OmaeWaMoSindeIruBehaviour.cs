@@ -8,20 +8,20 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class OmaeWaMoSindeIru : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] BattleStatusEffectData omaeWaMoSindeIruData;
+        [SerializeField] BattleStatusEffectEntity omaeWaMoSindeIruEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public OmaeWaMoSindeIru() {}
-        private OmaeWaMoSindeIru(ICardBehaviourOwner owner, BattleStatusEffectData omaeWaMoSindeIruData)
+        private OmaeWaMoSindeIru(ICardBehaviourOwner owner, BattleStatusEffectEntity omaeWaMoSindeIruEntity)
         : base(owner)
         {
-            this.omaeWaMoSindeIruData = omaeWaMoSindeIruData;
+            this.omaeWaMoSindeIruEntity = omaeWaMoSindeIruEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new OmaeWaMoSindeIru(owner, omaeWaMoSindeIruData);
+            return new OmaeWaMoSindeIru(owner, omaeWaMoSindeIruEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -49,7 +49,7 @@ namespace Battle.Cards.Behaviours
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, int stackCount)
         {
             var player = target.Player;
-            var omaeWaMoSindeIru = new BattleStatusEffect(omaeWaMoSindeIruData, stackCount, 1);
+            var omaeWaMoSindeIru = new BattleStatusEffect(omaeWaMoSindeIruEntity, stackCount, 1);
             var applyBuffAction = new ApplyEntityStatusEffectBattleAction(player, omaeWaMoSindeIru);
             context.ActionScheduler.Enqueue(applyBuffAction);
         }

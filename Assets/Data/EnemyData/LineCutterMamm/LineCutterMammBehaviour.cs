@@ -12,18 +12,18 @@ namespace Battle.Enemies.Behaviours
         private const string FIRST_ACTION = "first";
         private const string SECOND_ACTION = "second";
 
-        [SerializeField] private BattleStatusEffectData counterAttack;
+        [SerializeField] private BattleStatusEffectEntity counterAttackEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LineCutterMamm() {}
         private LineCutterMamm(LineCutterMamm template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            counterAttack = template.counterAttack;
+            counterAttackEntity = template.counterAttackEntity;
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
-                { FIRST_ACTION, new ApplySelfStatusEffect(owner, counterAttack, 2, 2) },
+                { FIRST_ACTION, new ApplySelfStatusEffect(owner, counterAttackEntity, 2, 2) },
                 { SECOND_ACTION, new HealSelf(owner, 10) }
             };
 

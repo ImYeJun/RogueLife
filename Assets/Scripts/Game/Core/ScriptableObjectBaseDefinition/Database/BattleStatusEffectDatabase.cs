@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BattleStatusEffectDatabase", menuName = "Scriptable Objects/Database/BattleStatusEffectDatabase")]
-public class BattleStatusEffectDatabase : ScriptableObject, IBattleBattleStatusEffectDatabase, ISerializationCallbackReceiver 
+public class BattleStatusEffectDatabase : MonoBehaviour, IBattleBattleStatusEffectDatabase, ISerializationCallbackReceiver 
 {
-    [SerializeField] private List<BattleStatusEffectData> buffData = new List<BattleStatusEffectData>();
-    [SerializeField] private List<BattleStatusEffectData> debuffData = new List<BattleStatusEffectData>();
+    [SerializeField] private List<BattleStatusEffectEntity> buffEntities = new List<BattleStatusEffectEntity>();
+    [SerializeField] private List<BattleStatusEffectEntity> debuffEntities = new List<BattleStatusEffectEntity>();
     
-    private Dictionary<string, BattleStatusEffectData> idLookUp = new Dictionary<string, BattleStatusEffectData>();
+    private Dictionary<string, BattleStatusEffectEntity> idLookUp = new Dictionary<string, BattleStatusEffectEntity>();
 
     public void OnBeforeSerialize() { }
 
@@ -19,19 +18,19 @@ public class BattleStatusEffectDatabase : ScriptableObject, IBattleBattleStatusE
     {
         idLookUp.Clear();
 
-        ProcessListForDeserialize(buffData);
-        ProcessListForDeserialize(debuffData);
+        ProcessListForDeserialize(buffEntities);
+        ProcessListForDeserialize(debuffEntities);
     }
 
-    private void ProcessListForDeserialize(List<BattleStatusEffectData>? list)
+    private void ProcessListForDeserialize(List<BattleStatusEffectEntity>? list)
     {
         if (list == null) return;
 
-        foreach (var effectData in list)
+        foreach (var effectEntity in list)
         {
-            if (effectData == null) { continue; }
+            if (effectEntity == null) { continue; }
 
-            string id = effectData.Id;
+            string id = effectEntity.Id;
             
             if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
@@ -39,25 +38,25 @@ public class BattleStatusEffectDatabase : ScriptableObject, IBattleBattleStatusE
                 Debug.LogWarning($"[BattleStatusEffectDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
             }
 
-            idLookUp[id] = effectData;
+            idLookUp[id] = effectEntity;
         }
     }
 
-    public BattleStatusEffectData? GetRandomData(System.Random random, BattleStatusEffectType type)
+    public BattleStatusEffectEntity? GetRandomData(System.Random random, BattleStatusEffectType type)
     {
         switch (type)
         {
             case BattleStatusEffectType.BUFF:
-                return buffData.Count == 0 ? null : buffData[random.Next(buffData.Count)];
+                return buffEntities.Count == 0 ? null : buffEntities[random.Next(buffEntities.Count)];
             case BattleStatusEffectType.DEBUFF:
-                return debuffData.Count == 0 ? null : debuffData[random.Next(debuffData.Count)];
+                return debuffEntities.Count == 0 ? null : debuffEntities[random.Next(debuffEntities.Count)];
             case BattleStatusEffectType.ANY:
-                if (buffData.Count == 0 && debuffData.Count == 0) return null;
+                if (buffEntities.Count == 0 && debuffEntities.Count == 0) return null;
                 
-                if (buffData.Count == 0) return debuffData[random.Next(debuffData.Count)];
-                if (debuffData.Count == 0) return buffData[random.Next(buffData.Count)];
+                if (buffEntities.Count == 0) return debuffEntities[random.Next(debuffEntities.Count)];
+                if (debuffEntities.Count == 0) return buffEntities[random.Next(buffEntities.Count)];
                 
-                var selectedList = random.NextDouble() < 0.5 ? buffData : debuffData;
+                var selectedList = random.NextDouble() < 0.5 ? buffEntities : debuffEntities;
                 return selectedList[random.Next(selectedList.Count)];
             default:
                 throw new InvalidOperationException($"[BattleStatusEffectDatabase] {type} is not supported");
@@ -69,17 +68,19 @@ public class BattleStatusEffectDatabase : ScriptableObject, IBattleBattleStatusE
     {
         HashSet<string> checkSet = new HashSet<string>();
 
-        ValidateList(buffData, checkSet, "Buff", BattleStatusEffectType.BUFF);
-        ValidateList(debuffData, checkSet, "Debuff", BattleStatusEffectType.DEBUFF);
+        ValidateList(buffEntities, checkSet, "Buff", BattleStatusEffectType.BUFF);
+        ValidateList(debuffEntities, checkSet, "Debuff", BattleStatusEffectType.DEBUFF);
     }
 
-    private void ValidateList(List<BattleStatusEffectData>? list, HashSet<string> checkSet, string listName, BattleStatusEffectType expectedType)
+    private void ValidateList(List<BattleStatusEffectEntity>? list, HashSet<string> checkSet, string listName, BattleStatusEffectType expectedType)
     {
         if (list == null) return;
 
-        foreach (var data in list)
+        foreach (var entity in list)
         {
-            if (data == null) continue;
+            if (entity == null) continue;
+
+            var data = entity.Data;
 
             if (string.IsNullOrEmpty(data.Id))
             {

@@ -13,25 +13,25 @@ namespace Battle.Enemies.Behaviours
         private const string FIRST_ACTION = "first";
         private const string SECOND_ACTION = "second";
 
-        [SerializeField] private BattleStatusEffectData strengthenMuscleData;
-        [SerializeField] private BattleStatusEffectData toughenData;
+        [SerializeField] private BattleStatusEffectEntity strengthenMuscleEntity;
+        [SerializeField] private BattleStatusEffectEntity toughenEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public OtakuConfessor() {}
         private OtakuConfessor(OtakuConfessor template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            strengthenMuscleData = template.strengthenMuscleData;
-            toughenData = template.toughenData;
+            strengthenMuscleEntity = template.strengthenMuscleEntity;
+            toughenEntity = template.toughenEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
                 { FIRST_ACTION, new CompositeEnemyAction(owner, 
                     new List<EnemyAction>(){ 
                         new DirectlyDecreaseMentality(owner, 5),
-                        new ApplyPlayerStatusEffect(owner, strengthenMuscleData, 1, 2),
+                        new ApplyPlayerStatusEffect(owner, strengthenMuscleEntity, 1, 2),
                 }) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, toughenData, 2, 2) }
+                { SECOND_ACTION, new ApplySelfStatusEffect(owner, toughenEntity, 2, 2) }
             };
 
             availablePatterns = new List<Pattern>

@@ -32,9 +32,10 @@ namespace Controller.Schedule
 
             viewEventBus.Subscribe((ScheduleStateSynced payload) =>
             {
-                UnityEngine.Debug.Log($"BattleHealth : {payload.Health.CurrentBattleHealth}");
-                UnityEngine.Debug.Log($"Mentality {payload.Health.CurrentMentality}");
-                UnityEngine.Debug.Log($"MaxActionCost {payload.ActionCost.CurrentMaxActionCost}");
+                foreach (var deck in payload.Deck.MainDeck)
+                {
+                    UnityEngine.Debug.Log($"{deck.Key.Id} : {deck.Value.Count}");
+                }
             });
 
             viewCommander.BroadcastCurrentState();

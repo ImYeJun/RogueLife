@@ -12,19 +12,19 @@ namespace Battle.Enemies.Behaviours
         private const string FIRST_ACTION = "first";
         private const string SECOND_ACTION = "second";
 
-        [SerializeField] private BattleStatusEffectData drunkenData;
+        [SerializeField] private BattleStatusEffectEntity drunkenEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DrunkenMan() {}
         private DrunkenMan(DrunkenMan template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            drunkenData = template.drunkenData;
+            drunkenEntity = template.drunkenEntity;
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
                 { FIRST_ACTION, new HurtPlayer(owner, 20) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, drunkenData, 2, 2) }
+                { SECOND_ACTION, new ApplySelfStatusEffect(owner, drunkenEntity, 2, 2) }
             };
 
             availablePatterns = new List<Pattern>

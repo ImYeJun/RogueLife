@@ -18,27 +18,29 @@ public class FinalEquipment
 
         foreach (var pair in saveData.finalMainDeck)
         {
-            var data = cardDatabase.GetData(pair.Key);
-            if (data == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get card data, Id : {pair.Key}"); }
+            var entity = cardDatabase.GetEntity(pair.Key);
+            if (entity == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get card entity, Id : {pair.Key}"); }
 
+            var data = entity.Data;
             finalMainDeck[data] = new List<Card>();
 
             foreach(var cardSaveData in pair.Value)
             {
-                finalMainDeck[data].Add(new Card(data, cardSaveData));
+                finalMainDeck[data].Add(new Card(entity, cardSaveData));
             }
         }
 
         foreach (var pair in saveData.finalSideDeck)
         {
-            var data = cardDatabase.GetData(pair.Key);
-            if (data == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get card data, Id : {pair.Key}"); }
+            var entity = cardDatabase.GetEntity(pair.Key);
+            if (entity == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get card entity, Id : {pair.Key}"); }
 
+            var data = entity.Data;
             finalSideDeck[data] = new List<Card>();
 
             foreach(var cardSaveData in pair.Value)
             {
-                finalSideDeck[data].Add(new Card(data, cardSaveData));
+                finalSideDeck[data].Add(new Card(entity, cardSaveData));
             }
         }
 

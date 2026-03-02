@@ -16,8 +16,8 @@ namespace Battle.Enemies.Behaviours
         private const string FOURTH_ACTION = "fourth";
         private const string FIFTH_ACTION = "fifth";
 
-        [SerializeField] private BattleStatusEffectData multiplyingComaradesData;
-        [SerializeField] private BattleStatusEffectData toughenData;
+        [SerializeField] private BattleStatusEffectEntity multiplyingComaradesEntity;
+        [SerializeField] private BattleStatusEffectEntity toughenEntity;
 
         private class CallComarades : EnemyAction
         {
@@ -40,14 +40,14 @@ namespace Battle.Enemies.Behaviours
         public HungryPigeon() {}
         private HungryPigeon(HungryPigeon template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            multiplyingComaradesData = template.multiplyingComaradesData;
-            toughenData = template.toughenData;
+            multiplyingComaradesEntity = template.multiplyingComaradesEntity;
+            toughenEntity = template.toughenEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
                 { FIRST_ACTION, new HurtPlayer(owner, 15) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, multiplyingComaradesData, 1) },
-                { THIRD_ACTION, new ApplySelfStatusEffect(owner, toughenData, 3, 2) },
+                { SECOND_ACTION, new ApplySelfStatusEffect(owner, multiplyingComaradesEntity, 1) },
+                { THIRD_ACTION, new ApplySelfStatusEffect(owner, toughenEntity, 3, 2) },
                 { FOURTH_ACTION, new HealSelf(owner, 20)},
                 { FIFTH_ACTION, new CallComarades(owner) }
             };
@@ -56,7 +56,7 @@ namespace Battle.Enemies.Behaviours
             {
                 new Pattern(
                     preset : new List<string>{ SECOND_ACTION, THIRD_ACTION  },
-                    condition : (context, remainActionCount) => !owner.AsEntity.HasStatusEffect(multiplyingComaradesData)
+                    condition : (context, remainActionCount) => !owner.AsEntity.HasStatusEffect(multiplyingComaradesEntity.Data)
                 ),
                 new Pattern(
                     preset : new List<string>{ FIRST_ACTION, THIRD_ACTION, FIRST_ACTION  },

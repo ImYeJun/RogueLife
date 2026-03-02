@@ -8,27 +8,27 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class MysteriousAura : CardBattleBehaviour<BattleEntityCardTarget, BattleEntityCardTarget>
     {
-        [SerializeField] BattleStatusEffectData strengthenMuscleData;
-        [SerializeField] BattleStatusEffectData thatsWeakSpotData;
-        [SerializeField] BattleStatusEffectData thatsFoulData;
-        [SerializeField] BattleStatusEffectData ohMyData;
+        [SerializeField] BattleStatusEffectEntity strengthenMuscleEntity;
+        [SerializeField] BattleStatusEffectEntity thatsWeakSpotEntity;
+        [SerializeField] BattleStatusEffectEntity thatsFoulEntity;
+        [SerializeField] BattleStatusEffectEntity ohMyEntity;
 
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public MysteriousAura() {}
-        private MysteriousAura(ICardBehaviourOwner owner, BattleStatusEffectData strengthenMuscleData, BattleStatusEffectData thatsWeakSpotData, BattleStatusEffectData thatsFoulData, BattleStatusEffectData ohMyData)
+        private MysteriousAura(ICardBehaviourOwner owner, BattleStatusEffectEntity strengthenMuscleEntity, BattleStatusEffectEntity thatsWeakSpotEntity, BattleStatusEffectEntity thatsFoulEntity, BattleStatusEffectEntity ohMyEntity)
         : base(owner)
         {
-            this.strengthenMuscleData = strengthenMuscleData;
-            this.thatsWeakSpotData = thatsWeakSpotData;
-            this.thatsFoulData = thatsFoulData;
-            this.ohMyData = ohMyData;
+            this.strengthenMuscleEntity = strengthenMuscleEntity;
+            this.thatsWeakSpotEntity = thatsWeakSpotEntity;
+            this.thatsFoulEntity = thatsFoulEntity;
+            this.ohMyEntity = ohMyEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new MysteriousAura(owner, strengthenMuscleData, thatsWeakSpotData, thatsFoulData, ohMyData);
+            return new MysteriousAura(owner, strengthenMuscleEntity, thatsWeakSpotEntity, thatsFoulEntity, ohMyEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, BattleEntityCardTarget target)
@@ -54,11 +54,11 @@ namespace Battle.Cards.Behaviours
             switch (randomNumber)
             {
                 case 0:
-                    var strengthenMuscle = new BattleStatusEffect(strengthenMuscleData, 4, 2);
+                    var strengthenMuscle = new BattleStatusEffect(strengthenMuscleEntity, 4, 2);
                     determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, strengthenMuscle);
                     break;
                 case 1:
-                    var thatsWeakSpot = new BattleStatusEffect(thatsWeakSpotData, 4, 2);
+                    var thatsWeakSpot = new BattleStatusEffect(thatsWeakSpotEntity, 4, 2);
                     determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, thatsWeakSpot);
                     break;
                 case 2:
@@ -68,11 +68,11 @@ namespace Battle.Cards.Behaviours
                     determinedAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 10, targetEntity);
                     break;
                 case 4:
-                    var thatsFoul = new BattleStatusEffect(thatsFoulData, 1, 2);
+                    var thatsFoul = new BattleStatusEffect(thatsFoulEntity, 1, 2);
                     determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, thatsFoul);
                     break;
                 case 5:
-                    var ohMy = new BattleStatusEffect(ohMyData, 1, 2);
+                    var ohMy = new BattleStatusEffect(ohMyEntity, 1, 2);
                     determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, ohMy);
                     break;
                 default:
@@ -93,14 +93,14 @@ namespace Battle.Cards.Behaviours
                 switch (randomNumber)
                 {
                     case 0:
-                        var strengthenMuscle = new BattleStatusEffect(strengthenMuscleData, 4, 2);
+                        var strengthenMuscle = new BattleStatusEffect(strengthenMuscleEntity, 4, 2);
                         determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, strengthenMuscle);
                         break;
                     case 1:
                         determinedAction = new HealEntityBattleAction(targetEntity, 10);
                         break;
                     case 2:
-                        var thatsFoul = new BattleStatusEffect(thatsFoulData, 1, 2);
+                        var thatsFoul = new BattleStatusEffect(thatsFoulEntity, 1, 2);
                         determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, thatsFoul);
                         break;
                     default:
@@ -112,14 +112,14 @@ namespace Battle.Cards.Behaviours
                 switch (randomNumber)
                 {
                     case 0:
-                        var thatsWeakSpot = new BattleStatusEffect(thatsWeakSpotData, 4, 2);
+                        var thatsWeakSpot = new BattleStatusEffect(thatsWeakSpotEntity, 4, 2);
                         determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, thatsWeakSpot);
                         break;
                     case 1:
                         determinedAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 10, targetEntity);
                         break;
                     case 2:
-                        var ohMy = new BattleStatusEffect(ohMyData, 1, 2);
+                        var ohMy = new BattleStatusEffect(ohMyEntity, 1, 2);
                         determinedAction = new ApplyEntityStatusEffectBattleAction(targetEntity, ohMy);
                         break;
                     default:

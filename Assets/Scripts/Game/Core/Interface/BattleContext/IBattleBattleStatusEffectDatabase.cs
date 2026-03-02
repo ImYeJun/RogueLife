@@ -4,5 +4,5 @@ using System;
 
 public interface IBattleBattleStatusEffectDatabase
 {
-    public BattleStatusEffectData? GetRandomData(Random random, BattleStatusEffectType type);
+    public BattleStatusEffectEntity? GetRandomData(Random random, BattleStatusEffectType type);
 }

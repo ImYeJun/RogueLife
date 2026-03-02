@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class ChoiceApplyPlayerBattleStartStatusEffectEffect : IChoiceEffect
 {
-    [SerializeField] private BattleStatusEffectData statusEffectData;
+    [SerializeField] private BattleStatusEffectEntity statusEffectEntity;
     
     [Header("전투 내부에서의 버프 수명")]
     [SerializeField] private bool isStatusEffectEternal; 
@@ -26,14 +26,14 @@ public class ChoiceApplyPlayerBattleStartStatusEffectEffect : IChoiceEffect
         if (isBattleStartEffectEternal)
         {
             battleStartEffect = isStatusEffectEternal ? 
-                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(statusEffectData, startStack) :
-                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(statusEffectData, startStack, startDuration);
+                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(statusEffectEntity, startStack) :
+                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(statusEffectEntity, startStack, startDuration);
         }
         else
         {
             battleStartEffect = isStatusEffectEternal ? 
-                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(remainBattleCount, statusEffectData, startStack) :
-                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(remainBattleCount, statusEffectData, startStack, startDuration);
+                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(remainBattleCount, statusEffectEntity, startStack) :
+                new Battle.StartEffects.ApplyPlayerStatusEffectEffect(remainBattleCount, statusEffectEntity, startStack, startDuration);
         }
 
         context.BattleSystem.AddBattleStartEffect(battleStartEffect);

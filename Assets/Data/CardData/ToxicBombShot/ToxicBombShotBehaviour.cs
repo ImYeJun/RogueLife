@@ -8,20 +8,20 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class ToxicBombShot : CardBattleBehaviour<AllEnemyCardTarget, AllEnemyCardTarget>
     {
-        [SerializeField] private BattleStatusEffectData deadlyPoisionData;
+        [SerializeField] private BattleStatusEffectEntity deadlyPoisionEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToxicBombShot() {}
-        private ToxicBombShot(ICardBehaviourOwner owner, BattleStatusEffectData deadlyPoisionData) 
+        private ToxicBombShot(ICardBehaviourOwner owner, BattleStatusEffectEntity deadlyPoisionEntity) 
         : base(owner)
         {
-            this.deadlyPoisionData = deadlyPoisionData;
+            this.deadlyPoisionEntity = deadlyPoisionEntity;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new ToxicBombShot(owner, deadlyPoisionData);
+            return new ToxicBombShot(owner, deadlyPoisionEntity);
         }
         
         public override bool OnIsAbleToUse(BattleContext context, AllEnemyCardTarget target)
@@ -53,7 +53,7 @@ namespace Battle.Cards.Behaviours
             }
             foreach (var enemy in target.Enemies)
             {
-                var statusEffect = new BattleStatusEffect(deadlyPoisionData, 2, debuffDuration);
+                var statusEffect = new BattleStatusEffect(deadlyPoisionEntity, 2, debuffDuration);
                 var debuffAction = new ApplyEntityStatusEffectBattleAction(enemy, statusEffect);
                 context.ActionScheduler.Enqueue(debuffAction);
             }

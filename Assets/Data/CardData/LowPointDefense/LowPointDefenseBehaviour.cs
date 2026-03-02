@@ -8,20 +8,20 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class LowPointDefense : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] BattleStatusEffectData defensiveStanceData;
+        [SerializeField] BattleStatusEffectEntity defensiveStanceEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LowPointDefense() {}
-        private LowPointDefense(ICardBehaviourOwner owner, BattleStatusEffectData defensiveStanceData)
+        private LowPointDefense(ICardBehaviourOwner owner, BattleStatusEffectEntity defensiveStanceEntity)
         : base(owner)
         {
-            this.defensiveStanceData = defensiveStanceData;
+            this.defensiveStanceEntity = defensiveStanceEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new LowPointDefense(owner, defensiveStanceData);
+            return new LowPointDefense(owner, defensiveStanceEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -49,7 +49,7 @@ namespace Battle.Cards.Behaviours
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, int stackCount)
         {
             var player = target.Player;
-            var defense = new BattleStatusEffect(defensiveStanceData, stackCount, 2);
+            var defense = new BattleStatusEffect(defensiveStanceEntity, stackCount, 2);
             var applyBuffAction = new ApplyEntityStatusEffectBattleAction(player, defense);
             context.ActionScheduler.Enqueue(applyBuffAction);
         }

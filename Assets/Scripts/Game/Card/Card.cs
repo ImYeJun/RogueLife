@@ -43,10 +43,10 @@ public class Card : ICardBehaviourOwner
         }
     }
 
-    public Card(CardData data)
+    public Card(CardEntity entity)
     {
-        this.data = data;
-        behaviourInstance = this.data.CloneBattleBehaviour(this);
+        data = entity.Data;
+        behaviourInstance = entity.CloneBattleBehaviour(this);
 
         currentName = data.CardName;
         currentDescription = data.Description;
@@ -62,7 +62,7 @@ public class Card : ICardBehaviourOwner
     public Card(Card card, bool isForBattleStart = false)
     {
         data = card.Data;
-        behaviourInstance = data.CloneBattleBehaviour(this);
+        behaviourInstance = card.CloneBattleBehaviour(this);
 
         currentName = card.CurrentName;
         currentDescription = card.CurrentDescription;
@@ -76,12 +76,12 @@ public class Card : ICardBehaviourOwner
         costModifiers = isForBattleStart ? new HashSet<CardCostModifier>(card.CostModifiers) : new HashSet<CardCostModifier>();
     }
 
-    public Card(CardData cardData, CardSaveData cardSaveData)
+    public Card(CardEntity entity, CardSaveData cardSaveData)
     {
-        if (cardData.Id != cardSaveData.cardId) { throw new InvalidOperationException("[Card] the given arguments' id are not matched"); }
+        if (entity.Data.Id != cardSaveData.cardId) { throw new InvalidOperationException("[Card] the given arguments' id are not matched"); }
 
-        data = cardData;
-        behaviourInstance = data.CloneBattleBehaviour(this);
+        data = entity.Data;
+        behaviourInstance = entity.CloneBattleBehaviour(this);
 
         currentName = cardSaveData.cardName;
         currentDescription = cardSaveData.description;
@@ -142,4 +142,6 @@ public class Card : ICardBehaviourOwner
     }
 
     public bool Equals(Card operand) => operand.Data.Equals(data);
+
+    private CardBattleBehaviour CloneBattleBehaviour(ICardBehaviourOwner owner) => behaviourInstance.Clone(owner);
 }

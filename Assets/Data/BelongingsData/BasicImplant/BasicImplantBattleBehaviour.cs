@@ -7,20 +7,20 @@ namespace Belongingses.Behaviour
     [Serializable]
     public class BattleBasicImplant : BattleBelongingsBehaviour
     {
-        [SerializeField] BattleStatusEffectData stunnedData;
+        [SerializeField] BattleStatusEffectEntity stunnedEntity;
         private int currentProbability = 0;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public BattleBasicImplant() {}
-        public BattleBasicImplant(BattleStatusEffectData stunnedData)
+        public BattleBasicImplant(BattleStatusEffectEntity stunnedEntity)
         {
-            this.stunnedData = stunnedData;
+            this.stunnedEntity = stunnedEntity;
         }
 
         public override BattleBelongingsBehaviour Clone()
         {
-            return new BattleBasicImplant(stunnedData);
+            return new BattleBasicImplant(stunnedEntity);
         }
 
         protected override void OnApplied()
@@ -39,7 +39,7 @@ namespace Belongingses.Behaviour
 
             if (context.Random.Next(100) > currentProbability) { return; }
 
-            var stunned = new BattleStatusEffect(stunnedData, 1, 1);
+            var stunned = new BattleStatusEffect(stunnedEntity, 1, 1);
             var applyDebuffAction = new ApplyEntityStatusEffectBattleAction(context.PlayerContainer.Player, stunned);
 
             context.ActionScheduler.Enqueue(applyDebuffAction);

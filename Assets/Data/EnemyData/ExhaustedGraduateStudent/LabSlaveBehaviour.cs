@@ -13,19 +13,19 @@ namespace Battle.Enemies.Behaviours
         private const string FIRST_ACTION = "first";
         private const string SECOND_ACTION = "second";
 
-        [SerializeField] private BattleStatusEffectData thatsFoulData;
+        [SerializeField] private BattleStatusEffectEntity thatsFoulEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LabSlave() {}
         private LabSlave(LabSlave template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            thatsFoulData = template.thatsFoulData;
+            thatsFoulEntity = template.thatsFoulEntity;
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
                 { FIRST_ACTION, new HurtPlayer(owner, 20) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, thatsFoulData, 1, 2) }
+                { SECOND_ACTION, new ApplySelfStatusEffect(owner, thatsFoulEntity, 1, 2) }
             };
         }
         public override BattleEnemyBehaviour Clone(IEnemyBehaviourOwner newOwner)

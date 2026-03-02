@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2220430222849026225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6034301718213054191}
+  - component: {fileID: 1709211152515912858}
+  m_Layer: 0
+  m_Name: Fireball
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6034301718213054191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2220430222849026225}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1709211152515912858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2220430222849026225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0533510f236fb743985277e85afb09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardEntity
+  data: {fileID: 11400000, guid: 4735429a550915e4384dfe6cc44a7044, type: 2}
+  battleBehaviour:
+    rid: 2642317808700489879
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317808700489879
+      type: {class: Fireball, ns: Battle.Cards.Behaviours, asm: Assembly-CSharp}
+      data:
+        targetType:
+          rid: 2642317808700489880
+        reflectionTargetType:
+          rid: 2642317808700489881
+        burningEntity: {fileID: 5047164981748933573, guid: 4f30fc0bc2370e4429ab95193ecb358e, type: 3}
+    - rid: 2642317808700489880
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317808700489881
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 

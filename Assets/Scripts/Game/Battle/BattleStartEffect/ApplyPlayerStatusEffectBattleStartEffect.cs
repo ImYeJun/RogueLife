@@ -4,26 +4,26 @@ namespace Battle.StartEffects
 {
     public class ApplyPlayerStatusEffectEffect : BattleStartEffect
     {
-        private BattleStatusEffectData statusEffectData;
+        private BattleStatusEffectEntity statusEffectEntity;
         private int startStack;
         private int startDuration;
         private bool isStatusEffectEthernal;
 
-        public ApplyPlayerStatusEffectEffect(int remainBattleCount, BattleStatusEffectData data, int stack, int duration = -1) 
+        public ApplyPlayerStatusEffectEffect(int remainBattleCount, BattleStatusEffectEntity statusEffectEntity, int stack, int duration = -1) 
             : base(remainBattleCount)
         {
-            Init(data, stack, duration);
+            Init(statusEffectEntity, stack, duration);
         }
 
-        public ApplyPlayerStatusEffectEffect(BattleStatusEffectData data, int stack, int duration = -1) 
+        public ApplyPlayerStatusEffectEffect(BattleStatusEffectEntity statusEffectEntity, int stack, int duration = -1) 
             : base()
         {
-            Init(data, stack, duration);
+            Init(statusEffectEntity, stack, duration);
         }
 
-        private void Init(BattleStatusEffectData data, int stack, int duration)
+        private void Init(BattleStatusEffectEntity statusEffectEntity, int stack, int duration)
         {
-            statusEffectData = data;
+            this.statusEffectEntity = statusEffectEntity;
             startStack = stack;
             startDuration = duration;
             isStatusEffectEthernal = duration == -1;
@@ -31,7 +31,7 @@ namespace Battle.StartEffects
 
         protected override void OnApplyEffect(BattleContext context)
         {
-            var statusEffect = isStatusEffectEthernal ? new BattleStatusEffect(statusEffectData, startStack) : new BattleStatusEffect(statusEffectData, startStack, startDuration);
+            var statusEffect = isStatusEffectEthernal ? new BattleStatusEffect(statusEffectEntity, startStack) : new BattleStatusEffect(statusEffectEntity, startStack, startDuration);
             var player = context.PlayerContainer.Player;
 
             var applyStatueEffectAction = new ApplyEntityStatusEffectBattleAction(player, statusEffect);

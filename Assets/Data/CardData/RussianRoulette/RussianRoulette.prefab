@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1804849334827793152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1352989829469925234}
+  - component: {fileID: 2582747929828341327}
+  m_Layer: 0
+  m_Name: RussianRoulette
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1352989829469925234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804849334827793152}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2582747929828341327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804849334827793152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0533510f236fb743985277e85afb09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardEntity
+  data: {fileID: 11400000, guid: 456466d258706bb4cbcbcb276545409a, type: 2}
+  battleBehaviour:
+    rid: 2642317808700489985
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317808700489985
+      type: {class: RussianRoulette, ns: Battle.Cards.Behaviours, asm: Assembly-CSharp}
+      data:
+        targetType:
+          rid: 2642317808700489986
+        reflectionTargetType:
+          rid: 2642317808700489987
+    - rid: 2642317808700489986
+      type: {class: CompositeCardTargetType, ns: , asm: Assembly-CSharp}
+      data:
+        requiredTypes:
+        - rid: 2642317808700489988
+        - rid: 2642317808700489989
+    - rid: 2642317808700489987
+      type: {class: CompositeCardTargetType, ns: , asm: Assembly-CSharp}
+      data:
+        requiredTypes:
+        - rid: 2642317808700489990
+        - rid: 2642317808700489991
+    - rid: 2642317808700489988
+      type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317808700489989
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317808700489990
+      type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317808700489991
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 

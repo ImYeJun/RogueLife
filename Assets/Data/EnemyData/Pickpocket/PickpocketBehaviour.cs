@@ -16,8 +16,8 @@ namespace Battle.Enemies.Behaviours
         private const string FOURTH_ACTION = "fourth";
         private const string FIFTH_ACTION = "fifth";
 
-        [SerializeField] private BattleStatusEffectData dontTouchData;
-        [SerializeField] private BattleStatusEffectData quickEscapeData;
+        [SerializeField] private BattleStatusEffectEntity dontTouchEntity;
+        [SerializeField] private BattleStatusEffectEntity quickEscapeEntity;
         [SerializeField] private EnemyData obstacleForFleeingData;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
@@ -25,14 +25,14 @@ namespace Battle.Enemies.Behaviours
         public Pickpocket() {}
         private Pickpocket(Pickpocket template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            dontTouchData = template.dontTouchData;
-            quickEscapeData = template.quickEscapeData;
+            dontTouchEntity = template.dontTouchEntity;
+            quickEscapeEntity = template.quickEscapeEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplySelfStatusEffect(owner, dontTouchData, 1, 2) },
+                { FIRST_ACTION, new ApplySelfStatusEffect(owner, dontTouchEntity, 1, 2) },
                 { SECOND_ACTION, new SpawnEnemy(owner, obstacleForFleeingData, 3) },
-                { THIRD_ACTION, new ApplySelfStatusEffect(owner, quickEscapeData, 1, isLastAction : false, isOncePerTurn : true) },
+                { THIRD_ACTION, new ApplySelfStatusEffect(owner, quickEscapeEntity, 1, isLastAction : false, isOncePerTurn : true) },
                 { FOURTH_ACTION, new HealSelf(owner, 20)},
                 { FIFTH_ACTION, new DecreasePhaseCount(owner, 2) }
             };
@@ -41,7 +41,7 @@ namespace Battle.Enemies.Behaviours
             {
                 new Pattern(
                     preset : new List<string>{ THIRD_ACTION  },
-                    condition : (context, remainActionCount) => !owner.AsEntity.HasStatusEffect(quickEscapeData)
+                    condition : (context, remainActionCount) => !owner.AsEntity.HasStatusEffect(quickEscapeEntity.Data)
                 ),
                 new Pattern(
                     preset : new List<string>{ SECOND_ACTION, FIRST_ACTION, FOURTH_ACTION  },

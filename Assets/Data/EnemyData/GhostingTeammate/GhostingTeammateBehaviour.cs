@@ -12,21 +12,21 @@ namespace Battle.Enemies.Behaviours
         private const string FIRST_ACTION = "first";
         private const string SECOND_ACTION = "second";
 
-        [SerializeField] private BattleStatusEffectData strengthenMuscleData;
-        [SerializeField] private BattleStatusEffectData thatsFoulData;
+        [SerializeField] private BattleStatusEffectEntity strengthenMuscleEntity;
+        [SerializeField] private BattleStatusEffectEntity thatsFoulEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public GhostingTeammate() {}
         private GhostingTeammate(GhostingTeammate template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            strengthenMuscleData = template.strengthenMuscleData;
-            thatsFoulData = template.thatsFoulData;
+            strengthenMuscleEntity = template.strengthenMuscleEntity;
+            thatsFoulEntity = template.thatsFoulEntity;
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
-                { FIRST_ACTION, new ApplySelfStatusEffect(owner, strengthenMuscleData, 1, 2) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, thatsFoulData, 1, 2) }
+                { FIRST_ACTION, new ApplySelfStatusEffect(owner, strengthenMuscleEntity, 1, 2) },
+                { SECOND_ACTION, new ApplySelfStatusEffect(owner, thatsFoulEntity, 1, 2) }
             };
 
             availablePatterns = new List<Pattern>

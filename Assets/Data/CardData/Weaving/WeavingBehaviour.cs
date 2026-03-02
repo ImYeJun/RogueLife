@@ -8,22 +8,22 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class Weaving : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] BattleStatusEffectData tooSlowData;
-        [SerializeField] BattleStatusEffectData strengthenMuscleData;
+        [SerializeField] BattleStatusEffectEntity tooSlowEntity;
+        [SerializeField] BattleStatusEffectEntity strengthenMuscleEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Weaving() {}
-        private Weaving(ICardBehaviourOwner owner, BattleStatusEffectData tooSlowData, BattleStatusEffectData strengthenMuscleData)
+        private Weaving(ICardBehaviourOwner owner, BattleStatusEffectEntity tooSlowEntity, BattleStatusEffectEntity strengthenMuscleEntity)
         : base(owner)
         {
-            this.tooSlowData = tooSlowData;
-            this.strengthenMuscleData = strengthenMuscleData;
+            this.tooSlowEntity = tooSlowEntity;
+            this.strengthenMuscleEntity = strengthenMuscleEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new Weaving(owner, tooSlowData, strengthenMuscleData);
+            return new Weaving(owner, tooSlowEntity, strengthenMuscleEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -49,14 +49,14 @@ namespace Battle.Cards.Behaviours
             ExecuteCommonAction(context, target);
 
             var player = target.Player;
-            var strengthenMuscle = new BattleStatusEffect(strengthenMuscleData, 2, 2);
+            var strengthenMuscle = new BattleStatusEffect(strengthenMuscleEntity, 2, 2);
             var applyBuffAction = new ApplyEntityStatusEffectBattleAction(player, strengthenMuscle);
             context.ActionScheduler.Enqueue(applyBuffAction);
         }
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target)
         {
             var player = target.Player;
-            var tooSlow = new BattleStatusEffect(tooSlowData, 1, 2);
+            var tooSlow = new BattleStatusEffect(tooSlowEntity, 1, 2);
             var applyBuffAction = new ApplyEntityStatusEffectBattleAction(player, tooSlow);
             context.ActionScheduler.Enqueue(applyBuffAction);
         }

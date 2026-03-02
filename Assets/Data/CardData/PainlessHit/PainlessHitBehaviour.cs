@@ -8,20 +8,20 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class PainlessHit : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] BattleStatusEffectData toughenData;
+        [SerializeField] BattleStatusEffectEntity toughenEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PainlessHit() {}
-        private PainlessHit(ICardBehaviourOwner owner, BattleStatusEffectData toughenData)
+        private PainlessHit(ICardBehaviourOwner owner, BattleStatusEffectEntity toughenEntity)
         : base(owner)
         {
-            this.toughenData = toughenData;
+            this.toughenEntity = toughenEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new PainlessHit(owner, toughenData);
+            return new PainlessHit(owner, toughenEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -48,7 +48,7 @@ namespace Battle.Cards.Behaviours
         }
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, int stackCount)
         {
-            var toughen = new BattleStatusEffect(toughenData, stackCount, 2);
+            var toughen = new BattleStatusEffect(toughenEntity, stackCount, 2);
             var action = new ApplyEntityStatusEffectBattleAction(target.Player, toughen);
             context.ActionScheduler.Enqueue(action);
         }

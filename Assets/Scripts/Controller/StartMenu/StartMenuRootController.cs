@@ -10,7 +10,7 @@ namespace Controller.StartMenu
 {
     public class StartMenuRootConroller : SceneRootController
     {
-        [SerializeField] private MainMenuManager mainMenuManager;
+        [SerializeField] private StartMenuManager mainMenuManager;
         [SerializeField] private Transform startDeckSelectView;
         [SerializeField] private GameObject startDeckSelectButtonPrefab;
 

@@ -14,16 +14,16 @@ namespace Battle.Enemies.Behaviours
         private const string SECOND_ACTION = "second";
         private const string THIRD_ACTION = "third";
 
-        [SerializeField] private BattleStatusEffectData nanoMachineData;
-        [SerializeField] private BattleStatusEffectData heavyBodyData;
+        [SerializeField] private BattleStatusEffectEntity nanoMachineEntity;
+        [SerializeField] private BattleStatusEffectEntity heavyBodyEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public BlockingTrafficLight() {}
         private BlockingTrafficLight(BlockingTrafficLight template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            nanoMachineData = template.nanoMachineData;
-            heavyBodyData = template.heavyBodyData;
+            nanoMachineEntity = template.nanoMachineEntity;
+            heavyBodyEntity = template.heavyBodyEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
@@ -32,8 +32,8 @@ namespace Battle.Enemies.Behaviours
                     new HealSelf(owner, 50),
                     new RemoveItselfStatusEffect(owner, BattleStatusEffectType.DEBUFF, 1)
                 }) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, nanoMachineData, 1, 4) },
-                { THIRD_ACTION, new ApplyPlayerStatusEffect(owner, heavyBodyData, 2, 2) }
+                { SECOND_ACTION, new ApplySelfStatusEffect(owner, nanoMachineEntity, 1, 4) },
+                { THIRD_ACTION, new ApplyPlayerStatusEffect(owner, heavyBodyEntity, 2, 2) }
             };
 
             availablePatterns = new List<Pattern>

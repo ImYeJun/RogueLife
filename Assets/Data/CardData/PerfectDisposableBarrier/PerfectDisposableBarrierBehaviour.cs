@@ -8,20 +8,20 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class PerfectDisposableBarrier : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] BattleStatusEffectData thatsFoulData;
+        [SerializeField] BattleStatusEffectEntity thatsFoulEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PerfectDisposableBarrier() {}
-        private PerfectDisposableBarrier(ICardBehaviourOwner owner, BattleStatusEffectData thatsFoulData) 
+        private PerfectDisposableBarrier(ICardBehaviourOwner owner, BattleStatusEffectEntity thatsFoulEntity) 
         : base(owner)
         {
-            this.thatsFoulData = thatsFoulData;
+            this.thatsFoulEntity = thatsFoulEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new PerfectDisposableBarrier(owner, thatsFoulData);
+            return new PerfectDisposableBarrier(owner, thatsFoulEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -40,13 +40,13 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            var thatsFoul = new BattleStatusEffect(thatsFoulData, 1, 2);
+            var thatsFoul = new BattleStatusEffect(thatsFoulEntity, 1, 2);
             var action = new ApplyEntityStatusEffectBattleAction(target.Player, thatsFoul);
             context.ActionScheduler.Enqueue(action);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            var thatsFoul = new BattleStatusEffect(thatsFoulData, 1);
+            var thatsFoul = new BattleStatusEffect(thatsFoulEntity, 1);
             var action = new ApplyEntityStatusEffectBattleAction(target.Player, thatsFoul);
             context.ActionScheduler.Enqueue(action);
         }

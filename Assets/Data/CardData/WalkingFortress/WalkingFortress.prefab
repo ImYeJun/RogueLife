@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3240597894580190441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7510803853979846567}
+  - component: {fileID: 4998218212313494349}
+  m_Layer: 0
+  m_Name: WalkingFortress
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7510803853979846567
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3240597894580190441}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4998218212313494349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3240597894580190441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0533510f236fb743985277e85afb09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardEntity
+  data: {fileID: 11400000, guid: 70e8f06bb06f81c4f88b745ce68c49f9, type: 2}
+  battleBehaviour:
+    rid: 2642317808700490025
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317808700490025
+      type: {class: WalkingFortress, ns: Battle.Cards.Behaviours, asm: Assembly-CSharp}
+      data:
+        targetType:
+          rid: 2642317808700490026
+        reflectionTargetType:
+          rid: 2642317808700490027
+        defensiveStanceEntity: {fileID: 3444761750699771790, guid: 9aff4d163c7176a47a5f8bd7d653738c, type: 3}
+        weakenMuscleEntity: {fileID: 8473865381798110161, guid: c52f4d227de2a1143a6ab4e6e704d9cf, type: 3}
+        counterAttackEntity: {fileID: 735820330869655840, guid: 6f775ccf8d0454d4295ae4b3cf9ae826, type: 3}
+    - rid: 2642317808700490026
+      type: {class: NoneCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317808700490027
+      type: {class: NoneCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 

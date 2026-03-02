@@ -11,7 +11,6 @@ public class CardData : ScriptableObject
     [SerializeField] private CardAttribute attribute;
     [SerializeField] private CardRarity rarity;
     [SerializeField] private int actionCost;
-    [SerializeReference, SubclassSelector] private CardBattleBehaviour battleBehaviour;
 
     public string Id { get => id; }
     public string CardName { get => cardName; }
@@ -21,6 +20,4 @@ public class CardData : ScriptableObject
     public CardAttribute Attribute { get => attribute; }
     public CardRarity Rarity { get => rarity; }
     public int ActionCost { get => actionCost; }
-
-    public CardBattleBehaviour CloneBattleBehaviour(ICardBehaviourOwner owner) { return battleBehaviour.Clone(owner); }
 }

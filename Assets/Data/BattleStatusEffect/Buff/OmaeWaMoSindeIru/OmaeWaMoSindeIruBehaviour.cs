@@ -11,13 +11,13 @@ namespace Battle.StatusEffects.Behaviour
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public OmaeWaMoSindeIru() {}
-        private OmaeWaMoSindeIru(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state, BattleStatusEffectData naniData) 
+        private OmaeWaMoSindeIru(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state, BattleStatusEffectEntity naniEntity) 
         : base(context, owner, state)
         {
-            this.naniData = naniData;
+            this.naniEntity = naniEntity;
         }
 
-        [SerializeField] private BattleStatusEffectData naniData;
+        [SerializeField] private BattleStatusEffectEntity naniEntity;
 
         public override void OnApplied()
         {
@@ -42,13 +42,13 @@ namespace Battle.StatusEffects.Behaviour
             requestHurtEntityBattleAction.Nullify();
 
             var stack = (int)(existingDamage * 0.5f * state.StackCount);
-            var nani = new BattleStatusEffect(naniData, stack);
+            var nani = new BattleStatusEffect(naniEntity, stack);
             context.ActionScheduler.Enqueue(new ApplyEntityStatusEffectBattleAction(target, nani));
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)
         {
-            return new OmaeWaMoSindeIru(context, owner, state, naniData);
+            return new OmaeWaMoSindeIru(context, owner, state, naniEntity);
         }
     }
 }

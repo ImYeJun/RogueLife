@@ -8,20 +8,20 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class Fireball : CardBattleBehaviour<SingleEnemyCardTarget, SingleEnemyCardTarget>
     {
-        [SerializeField] private BattleStatusEffectData burningData;
+        [SerializeField] private BattleStatusEffectEntity burningEntity;
         
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Fireball() {}
-        private Fireball(ICardBehaviourOwner owner, BattleStatusEffectData burningData) 
+        private Fireball(ICardBehaviourOwner owner, BattleStatusEffectEntity burningEntity) 
         : base(owner)
         {
-            this.burningData = burningData;
+            this.burningEntity = burningEntity;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new Fireball(owner, burningData);
+            return new Fireball(owner, burningEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, SingleEnemyCardTarget target)
@@ -57,7 +57,7 @@ namespace Battle.Cards.Behaviours
 
             var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 10, targetEnemy);
 
-            var itsFire = new BattleStatusEffect(burningData, 1, 1);
+            var itsFire = new BattleStatusEffect(burningEntity, 1, 1);
             var debuffApplyAction = new ApplyEntityStatusEffectBattleAction(targetEnemy, itsFire);
 
             context.ActionScheduler.Enqueue(hurtAction);

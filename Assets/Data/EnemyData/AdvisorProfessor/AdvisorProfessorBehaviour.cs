@@ -16,10 +16,10 @@ namespace Battle.Enemies.Behaviours
         private const string FOURTH_ACTION = "fourth";
         private const string FIFTH_ACTION = "fifth";
 
-        [SerializeField] private BattleStatusEffectData defensiveStanceData;
-        [SerializeField] private BattleStatusEffectData iWillKillYouData;
-        [SerializeField] private BattleStatusEffectData heavyBodyData;
-        [SerializeField] private BattleStatusEffectData ohMyData;
+        [SerializeField] private BattleStatusEffectEntity defensiveStanceEntity;
+        [SerializeField] private BattleStatusEffectEntity iWillKillYouEntity;
+        [SerializeField] private BattleStatusEffectEntity heavyBodyEntity;
+        [SerializeField] private BattleStatusEffectEntity ohMyEntity;
         [SerializeField] private EnemyData labSlaveData;
 
         private class LabReorganization : EnemyAction
@@ -101,18 +101,18 @@ namespace Battle.Enemies.Behaviours
         private class PerformanceReview : EnemyAction
         {
             private EnemyData labSlaveData;
-            private BattleStatusEffectData defensiveStanceData;
-            private BattleStatusEffectData iWillKillYouData;
-            private BattleStatusEffectData heavyBodyData;
-            private BattleStatusEffectData ohMyData;
+            private BattleStatusEffectEntity defensiveStanceData;
+            private BattleStatusEffectEntity iWillKillYouData;
+            private BattleStatusEffectEntity heavyBodyData;
+            private BattleStatusEffectEntity ohMyData;
 
-            public PerformanceReview(IEnemyBehaviourOwner owner, EnemyData labSlaveData, BattleStatusEffectData defensiveStanceData, BattleStatusEffectData iWillKillYouData, BattleStatusEffectData heavyBodyData, BattleStatusEffectData ohMyData) : base(owner)
+            public PerformanceReview(IEnemyBehaviourOwner owner, EnemyData labSlaveData, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity iWillKillYouEntity, BattleStatusEffectEntity heavyBodyEntity, BattleStatusEffectEntity ohMyEntity) : base(owner)
             {
                 this.labSlaveData = labSlaveData;
-                this.defensiveStanceData = defensiveStanceData;
-                this.iWillKillYouData = iWillKillYouData;
-                this.heavyBodyData = heavyBodyData;
-                this.ohMyData = ohMyData;
+                this.defensiveStanceData = defensiveStanceEntity;
+                this.iWillKillYouData = iWillKillYouEntity;
+                this.heavyBodyData = heavyBodyEntity;
+                this.ohMyData = ohMyEntity;
             }
 
             public override void Execute(BattleContext context)
@@ -153,10 +153,10 @@ namespace Battle.Enemies.Behaviours
         public AdvisorProfessor() {}
         private AdvisorProfessor(AdvisorProfessor template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            defensiveStanceData = template.defensiveStanceData;
-            iWillKillYouData = template.iWillKillYouData;
-            heavyBodyData = template.heavyBodyData;
-            ohMyData = template.ohMyData;
+            defensiveStanceEntity = template.defensiveStanceEntity;
+            iWillKillYouEntity = template.iWillKillYouEntity;
+            heavyBodyEntity = template.heavyBodyEntity;
+            ohMyEntity = template.ohMyEntity;
             labSlaveData = template.labSlaveData;
 
             availableActions = new Dictionary<string, EnemyAction>
@@ -165,7 +165,7 @@ namespace Battle.Enemies.Behaviours
                 { SECOND_ACTION, new LabReorganization(owner, labSlaveData) },
                 { THIRD_ACTION, new ForcedLabor(owner, labSlaveData) },
                 { FOURTH_ACTION, new TakeCredit(owner, labSlaveData)},
-                { FIFTH_ACTION, new PerformanceReview(owner, labSlaveData, defensiveStanceData, iWillKillYouData, heavyBodyData, ohMyData) }
+                { FIFTH_ACTION, new PerformanceReview(owner, labSlaveData, defensiveStanceEntity, iWillKillYouEntity, heavyBodyEntity, ohMyEntity) }
             };
 
             availablePatterns = new List<Pattern>

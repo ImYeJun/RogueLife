@@ -16,9 +16,9 @@ namespace Battle.Enemies.Behaviours
         private const string FOURTH_ACTION = "fourth";
         private const string FIFTH_ACTION = "fifth";
 
-        [SerializeField] private BattleStatusEffectData burningData;
-        [SerializeField] private BattleStatusEffectData deadlyPoisionData;
-        [SerializeField] private BattleStatusEffectData bleedingData;
+        [SerializeField] private BattleStatusEffectEntity burningEntity;
+        [SerializeField] private BattleStatusEffectEntity deadlyPoisionEntity;
+        [SerializeField] private BattleStatusEffectEntity bleedingEntity;
 
         private class Payback : EnemyAction
         {
@@ -41,9 +41,9 @@ namespace Battle.Enemies.Behaviours
         public UnknownEntity() {}
         private UnknownEntity(UnknownEntity template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            burningData = template.burningData;
-            deadlyPoisionData = template.deadlyPoisionData;
-            bleedingData = template.bleedingData;
+            burningEntity = template.burningEntity;
+            deadlyPoisionEntity = template.deadlyPoisionEntity;
+            bleedingEntity = template.bleedingEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
@@ -56,9 +56,9 @@ namespace Battle.Enemies.Behaviours
                 { THIRD_ACTION, new DumpPlayerHandCard(owner, 3) },
                 { FOURTH_ACTION, new CompositeEnemyAction(owner, new List<EnemyAction>()
                 {
-                    new ApplyPlayerStatusEffect(owner, burningData, 2, 2),
-                    new ApplyPlayerStatusEffect(owner, deadlyPoisionData, 1, 2),
-                    new ApplyPlayerStatusEffect(owner, bleedingData, 1, 2),
+                    new ApplyPlayerStatusEffect(owner, burningEntity, 2, 2),
+                    new ApplyPlayerStatusEffect(owner, deadlyPoisionEntity, 1, 2),
+                    new ApplyPlayerStatusEffect(owner, bleedingEntity, 1, 2),
                 })},
                 { FIFTH_ACTION, new Payback(owner) }
             };

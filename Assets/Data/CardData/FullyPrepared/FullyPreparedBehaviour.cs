@@ -39,22 +39,22 @@ namespace Battle.Cards.Behaviours
             }
         }
 
-        [SerializeField] private BattleStatusEffectData strengthenMuscleData;
-        [SerializeField] private BattleStatusEffectData iWillKillYouData;
+        [SerializeField] private BattleStatusEffectEntity strengthenMuscleEntity;
+        [SerializeField] private BattleStatusEffectEntity iWillKillYouEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FullyPrepared() {}
-        private FullyPrepared(ICardBehaviourOwner owner, BattleStatusEffectData strengthenMuscleData, BattleStatusEffectData iWillKillYouData) 
+        private FullyPrepared(ICardBehaviourOwner owner, BattleStatusEffectEntity strengthenMuscleEntity, BattleStatusEffectEntity iWillKillYouEntity) 
         : base(owner)
         {
-            this.strengthenMuscleData = strengthenMuscleData;
-            this.iWillKillYouData = iWillKillYouData;
+            this.strengthenMuscleEntity = strengthenMuscleEntity;
+            this.iWillKillYouEntity = iWillKillYouEntity;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new FullyPrepared(owner, strengthenMuscleData, iWillKillYouData);
+            return new FullyPrepared(owner, strengthenMuscleEntity, iWillKillYouEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -74,15 +74,15 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            ExecuteCommonAction(context, target, strengthenMuscleData);
+            ExecuteCommonAction(context, target, strengthenMuscleEntity);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            ExecuteCommonAction(context, target, iWillKillYouData);
+            ExecuteCommonAction(context, target, iWillKillYouEntity);
         }
-        private static void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, BattleStatusEffectData data)
+        private static void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, BattleStatusEffectEntity entity)
         {
-            var statusEffect = new BattleStatusEffect(data, 2, 1);
+            var statusEffect = new BattleStatusEffect(entity, 2, 1);
             var observer = new Observer(context, target, statusEffect);
             context.EventBus.Subscribe<PlayerTurnStartBattleEvent>(observer.OnNextTurnStart);
             context.EventBus.Subscribe<BattleEndBattleEvent>(observer.OnBattleEnd);

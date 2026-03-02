@@ -1,0 +1,74 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8135243515909195206
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3396360904881080394}
+  - component: {fileID: 5860955065387588365}
+  m_Layer: 0
+  m_Name: BattleStatusEffectDatabase
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3396360904881080394
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8135243515909195206}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5860955065387588365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8135243515909195206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21dc7c82c3a4bc545b2dcdc6d2f44336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BattleStatusEffectDatabase
+  buffEntities:
+  - {fileID: 735820330869655840, guid: 6f775ccf8d0454d4295ae4b3cf9ae826, type: 3}
+  - {fileID: 3444761750699771790, guid: 9aff4d163c7176a47a5f8bd7d653738c, type: 3}
+  - {fileID: 7230161176750448165, guid: a880b8684c5598940b3c7da8d5743e5d, type: 3}
+  - {fileID: 1720449476629460493, guid: c893c98f4b3ceee4eae2c18e1ec293c1, type: 3}
+  - {fileID: 7845713386699510644, guid: 5f2fab588e7fe21498ce7def6aa6acd5, type: 3}
+  - {fileID: 692099163767706470, guid: e9acdca6363a8da48917512ede4cfa79, type: 3}
+  - {fileID: 4726228972849699375, guid: 872668b5ff8fc4246a1a1238b17b831d, type: 3}
+  - {fileID: 6565128570610699401, guid: be428a3da06ab8b44908e84aa758ff74, type: 3}
+  - {fileID: 1528043196149843826, guid: ffd1ffc8d6938ab409ebee8f381b5eee, type: 3}
+  - {fileID: 9157469529484252645, guid: ec6c2850f7634ab44a7eda66de95e33f, type: 3}
+  - {fileID: 5454865058051319498, guid: 6557d6524b6f44548b28181847a3f1e8, type: 3}
+  - {fileID: 260859648227605929, guid: 52bd3ce89aa649743a8a3d5ad6ec53da, type: 3}
+  - {fileID: 1639237896740785062, guid: 5b902817de30b6541af8515ce381822f, type: 3}
+  - {fileID: 4046744780823191490, guid: 168ea2aa94356894ebce55ef72e507ac, type: 3}
+  - {fileID: 4658834514991387192, guid: 1418c8e58799eb142b6a3b902c6d37fa, type: 3}
+  - {fileID: 5143523475626910405, guid: 859bca0ba6bb8f244909efd3a7be9f80, type: 3}
+  debuffEntities:
+  - {fileID: 3466926294431135688, guid: a11ba23e4e4a5ef468b8f54862056623, type: 3}
+  - {fileID: 5047164981748933573, guid: 4f30fc0bc2370e4429ab95193ecb358e, type: 3}
+  - {fileID: 1129708655047833910, guid: d5fc07dab9706284990a50fae7fd0d3a, type: 3}
+  - {fileID: 5683683562752445561, guid: 296ec2950b9d60246bf2bc8c9983b4c0, type: 3}
+  - {fileID: 2732248709290587097, guid: 3a3078925af2c004dbdf529e3bc5a6cf, type: 3}
+  - {fileID: 1139658005740229312, guid: f8dba1daade89f1459f74f121b7e81d8, type: 3}
+  - {fileID: 1386342635657152432, guid: 3f8a404c2a4f23e4bbddf91eb0179fa0, type: 3}
+  - {fileID: 7818370963762758796, guid: 0bb72c70721af144da6fc9f0a249b803, type: 3}
+  - {fileID: 5053196897390440036, guid: 91d4a2757336c03469989c78640608fa, type: 3}
+  - {fileID: 8473865381798110161, guid: c52f4d227de2a1143a6ab4e6e704d9cf, type: 3}

@@ -2,21 +2,21 @@ namespace Battle.Enemies.Actions.Shared
 {
     public class ApplyPlayerStatusEffect : EnemyAction
     {
-        private BattleStatusEffectData statusEffectData;
+        private BattleStatusEffectEntity statusEffectEntity;
         private int stack;
         private int duration;
         private bool isEthernal;
 
-        public ApplyPlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectData statusEffectData, int stack, int duration) : base(owner)
+        public ApplyPlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack, int duration) : base(owner)
         {
-            this.statusEffectData = statusEffectData;
+            this.statusEffectEntity = statusEffectEntity;
             this.stack = stack;
             this.duration = duration;
             isEthernal = false;
         }
-        public ApplyPlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectData statusEffectData, int stack) : base(owner)
+        public ApplyPlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack) : base(owner)
         {
-            this.statusEffectData = statusEffectData;
+            this.statusEffectEntity = statusEffectEntity;
             this.stack = stack;
             duration = int.MaxValue;
             isEthernal = true;
@@ -24,7 +24,7 @@ namespace Battle.Enemies.Actions.Shared
 
         public override void Execute(BattleContext context)
         {
-            var statusEffect = isEthernal ? new BattleStatusEffect(statusEffectData, stack) : new BattleStatusEffect(statusEffectData, stack, duration);
+            var statusEffect = isEthernal ? new BattleStatusEffect(statusEffectEntity, stack) : new BattleStatusEffect(statusEffectEntity, stack, duration);
             var applyStatusEffectAction = new ApplyEntityStatusEffectBattleAction(context.PlayerContainer.Player, statusEffect);
 
             context.ActionScheduler.Enqueue(applyStatusEffectAction);

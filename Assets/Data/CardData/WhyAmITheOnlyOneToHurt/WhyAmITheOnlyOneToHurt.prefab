@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1372994937784876621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7115289244826141822}
+  - component: {fileID: 6172715188023512812}
+  m_Layer: 0
+  m_Name: WhyAmITheOnlyOneToHurt
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7115289244826141822
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372994937784876621}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6172715188023512812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1372994937784876621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0533510f236fb743985277e85afb09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardEntity
+  data: {fileID: 11400000, guid: 304b1a5a384a9024ab99682c536ef89c, type: 2}
+  battleBehaviour:
+    rid: 2642317808700490031
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317808700490031
+      type: {class: WhyAmITheOnlyOneToHurt, ns: Battle.Cards.Behaviours, asm: Assembly-CSharp}
+      data:
+        targetType:
+          rid: 2642317808700490033
+        reflectionTargetType:
+          rid: 2642317808700490032
+        holyShieldEntity: {fileID: 7845713386699510644, guid: 5f2fab588e7fe21498ce7def6aa6acd5, type: 3}
+        nanoMachineEntity: {fileID: 1528043196149843826, guid: ffd1ffc8d6938ab409ebee8f381b5eee, type: 3}
+    - rid: 2642317808700490032
+      type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317808700490033
+      type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 

@@ -12,19 +12,19 @@ namespace Battle.Enemies.Behaviours
         private const string FIRST_ACTION = "first";
         private const string SECOND_ACTION = "second";
 
-        [SerializeField] private BattleStatusEffectData heavyBodyData;
+        [SerializeField] private BattleStatusEffectEntity heavyBodyEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public StreetEvangelist() {}
         private StreetEvangelist(StreetEvangelist template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            heavyBodyData = template.heavyBodyData;
+            heavyBodyEntity = template.heavyBodyEntity;
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
                 { FIRST_ACTION, new HurtPlayer(owner, 20) },
-                { SECOND_ACTION, new ApplyPlayerStatusEffect(owner, heavyBodyData, 1, 2) }
+                { SECOND_ACTION, new ApplyPlayerStatusEffect(owner, heavyBodyEntity, 1, 2) }
             };
 
             availablePatterns = new List<Pattern>

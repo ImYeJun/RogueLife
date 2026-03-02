@@ -9,6 +9,22 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
     private Dictionary<CardData, List<Card>> mainDeck = new Dictionary<CardData, List<Card>>();
     private Dictionary<CardData, List<Card>> sideDeck = new Dictionary<CardData, List<Card>>();
     
+    public PlayerDeck(StartDeck startDeck, CardDatabase cardDatabase)
+    {
+        foreach (var pair in startDeck.StartCards)
+        {
+            var data = pair.entity;
+            var count = pair.count;
+
+            for (int i = 0; i < count; i++)
+            {
+                var materializedCard = cardDatabase.Materialize(data);
+                TryObtainCard(materializedCard);
+                TryMoveCard(materializedCard, DeckType.SIDE_DECK, DeckType.MAIN_DECK);
+            }
+        }
+    }
+    
     public Dictionary<CardData, List<Card>> GetClonedMainDeck(bool isBattle = false) { 
         var result = new Dictionary<CardData, List<Card>>();
         foreach (var pair in mainDeck)
@@ -79,21 +95,6 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
 
     HashSet<IDeckObserver> deckObservers = new HashSet<IDeckObserver>();
 
-    public PlayerDeck(StartDeck startDeck, CardDatabase cardDatabase)
-    {
-        foreach (var pair in startDeck.StartCards)
-        {
-            var data = pair.data;
-            var count = pair.count;
-
-            for (int i = 0; i < count; i++)
-            {
-                var materializedCard = cardDatabase.Materialize(data);
-                TryObtainCard(materializedCard);
-                TryMoveCard(materializedCard, DeckType.SIDE_DECK, DeckType.MAIN_DECK);
-            }
-        }
-    }
 
     public event Action<IReadOnlyDictionary<CardData, List<Card>>> OnMainDeckChanged;
     public event Action<IReadOnlyDictionary<CardData, List<Card>>> OnSideDeckChanged;

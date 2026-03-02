@@ -8,24 +8,24 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class WalkingFortress : CardBattleBehaviour<PlayerCardTarget, PlayerCardTarget>
     {
-        [SerializeField] BattleStatusEffectData defensiveStanceData;
-        [SerializeField] BattleStatusEffectData weakenMuscleData;
-        [SerializeField] BattleStatusEffectData counterAttackData;
+        [SerializeField] BattleStatusEffectEntity defensiveStanceEntity;
+        [SerializeField] BattleStatusEffectEntity weakenMuscleEntity;
+        [SerializeField] BattleStatusEffectEntity counterAttackEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WalkingFortress() {}
-        private WalkingFortress(ICardBehaviourOwner owner, BattleStatusEffectData defensiveStanceData, BattleStatusEffectData weakenMuscleData, BattleStatusEffectData counterAttackData)
+        private WalkingFortress(ICardBehaviourOwner owner, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity weakenMuscleEntity, BattleStatusEffectEntity counterAttackEntity)
         : base(owner)
         {
-            this.defensiveStanceData = defensiveStanceData;
-            this.weakenMuscleData = weakenMuscleData;
-            this.counterAttackData = counterAttackData;
+            this.defensiveStanceEntity = defensiveStanceEntity;
+            this.weakenMuscleEntity = weakenMuscleEntity;
+            this.counterAttackEntity = counterAttackEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new WalkingFortress(owner, defensiveStanceData, weakenMuscleData, counterAttackData);
+            return new WalkingFortress(owner, defensiveStanceEntity, weakenMuscleEntity, counterAttackEntity);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
@@ -44,7 +44,7 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            var weakenMuscle = new BattleStatusEffect(weakenMuscleData, 1);
+            var weakenMuscle = new BattleStatusEffect(weakenMuscleEntity, 1);
             var applyWeakenMuscle = new ApplyEntityStatusEffectBattleAction(target.Player, weakenMuscle);
             context.ActionScheduler.Enqueue(applyWeakenMuscle);
 
@@ -52,7 +52,7 @@ namespace Battle.Cards.Behaviours
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            var counterAttack = new BattleStatusEffect(counterAttackData, 2);
+            var counterAttack = new BattleStatusEffect(counterAttackEntity, 2);
             var applyCounterAttack = new ApplyEntityStatusEffectBattleAction(target.Player, counterAttack);
             context.ActionScheduler.Enqueue(applyCounterAttack);
 
@@ -60,7 +60,7 @@ namespace Battle.Cards.Behaviours
         }
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target)
         {
-            var defensiveStance = new BattleStatusEffect(defensiveStanceData, 6);
+            var defensiveStance = new BattleStatusEffect(defensiveStanceEntity, 6);
             var applyDefensiveStance = new ApplyEntityStatusEffectBattleAction(target.Player, defensiveStance);
             context.ActionScheduler.Enqueue(applyDefensiveStance);
         }
