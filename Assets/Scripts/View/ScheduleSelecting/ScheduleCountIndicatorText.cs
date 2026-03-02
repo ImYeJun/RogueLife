@@ -24,7 +24,7 @@ namespace View.ScheduleSelecting
         {
             int scheduleCount = payload.CurrentStartCount;
 
-            text.text = $"Starting {scheduleCount} Schedule";
+            text.text = $"오늘 {scheduleCount}번째 일정은...";
         }
     }
 }

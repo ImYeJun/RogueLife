@@ -31,7 +31,7 @@ namespace View.ScheduleSelecting
             this.data = data;
 
             scheduleIcon.sprite = data.ChoiceSprite;
-            text.text = data.Id;
+            text.text = data.ScheduleName;
         }
 
         public void OnPressed()

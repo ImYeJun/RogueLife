@@ -10,7 +10,7 @@ public class StartDeck : ScriptableObject {
     }
 
     [SerializeField] private Color32 uniqueColor;
-    [SerializeField] private string description;
+    [SerializeField, TextArea] private string description;
     [SerializeField] private CardAttribute typicalAttribute;
     [SerializeField] private List<CardCountPair> startCards;
     

@@ -37,7 +37,13 @@ namespace View.StartMenu
 
             background.color = startDeck.UniqueColor;
             startDeckDescriptionText.text = startDeck.Description;
-            startDeckTypicalAttributeText.text = startDeck.TypicalAttribute.ToString();
+            startDeckTypicalAttributeText.text = startDeck.TypicalAttribute switch
+            {
+                CardAttribute.PHYSICAL => "(물리)",
+                CardAttribute.MAGIC => "(마법)",
+                CardAttribute.LUCK => "(행운)",
+                _ => "( )"
+            };
         }
     }
 }

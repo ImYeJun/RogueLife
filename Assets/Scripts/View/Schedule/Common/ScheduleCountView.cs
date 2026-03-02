@@ -24,7 +24,7 @@ namespace View.ScheduleView
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
-            text.text = $"{payload.CurrentScheduleCount} Schedule : {payload.CurrentScheduleData.Id}";
+            text.text = $"오늘의 {payload.CurrentScheduleCount}번째 일정 : {payload.CurrentScheduleData.ScheduleName}";
         }
     }
 }
