@@ -30,12 +30,12 @@ MonoBehaviour:
   usualSprite: {fileID: 0}
   battleSprite: {fileID: 0}
   battleBehaviour:
-    rid: 7557520098351382612
+    rid: 2642317808700490043
   references:
     version: 2
     RefIds:
-    - rid: 7557520098351382612
-      type: {class: BlockingTrafficLight, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+    - rid: 2642317808700490043
+      type: {class: BlockingTrafficLight, ns: Battle.Enemies.Behaviours, asm: Assembly-CSharp}
       data:
-        nanoMachineData: {fileID: 11400000, guid: 9665bfa4c5221554dbbc791e9daeb476, type: 2}
-        heavyBodyData: {fileID: 11400000, guid: 5f286f1994735a9478b0da440ca1c440, type: 2}
+        nanoMachineEntity: {fileID: 0}
+        heavyBodyEntity: {fileID: 0}

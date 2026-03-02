@@ -31,15 +31,15 @@ MonoBehaviour:
   usualSprite: {fileID: 0}
   battleSprite: {fileID: 0}
   battleBehaviour:
-    rid: 7557520117406892113
+    rid: 2642317808700490041
   references:
     version: 2
     RefIds:
-    - rid: 7557520117406892113
-      type: {class: AdvisorProfessor, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
+    - rid: 2642317808700490041
+      type: {class: AdvisorProfessor, ns: Battle.Enemies.Behaviours, asm: Assembly-CSharp}
       data:
-        defensiveStanceData: {fileID: 11400000, guid: 30f236735daa9264280e404db68d49e1, type: 2}
-        iWillKillYouData: {fileID: 11400000, guid: 3181f164645fbda429d4e14a080ac1be, type: 2}
-        heavyBodyData: {fileID: 11400000, guid: 5f286f1994735a9478b0da440ca1c440, type: 2}
-        ohMyData: {fileID: 11400000, guid: 48b8906e8b2fa67448ac048224d44f3d, type: 2}
-        labSlaveData: {fileID: 11400000, guid: fee53460c14cf92439671278f9aba2cc, type: 2}
+        defensiveStanceEntity: {fileID: 0}
+        iWillKillYouEntity: {fileID: 0}
+        heavyBodyEntity: {fileID: 0}
+        ohMyEntity: {fileID: 0}
+        labSlaveData: {fileID: 0}

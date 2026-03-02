@@ -5,7 +5,7 @@ using ViewEvent.ScheduleSelecting;
 
 namespace Controller.SelectingSchedule
 {
-    public class SelectingScheduleRootController : SceneRootController
+    public class SelectingScheduleRootController : InGameRootController
     {
         private ISelectingScheduleViewCommander viewCommander;
         private ScheduleSelectingViewEventBus viewEventBus;

@@ -5,26 +5,30 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class BattleStatusEffectDatabase : MonoBehaviour, IBattleBattleStatusEffectDatabase, ISerializationCallbackReceiver 
+public class BattleStatusEffectDatabase : MonoBehaviour, IBattleBattleStatusEffectDatabase 
 {
     [SerializeField] private List<BattleStatusEffectEntity> buffEntities = new List<BattleStatusEffectEntity>();
     [SerializeField] private List<BattleStatusEffectEntity> debuffEntities = new List<BattleStatusEffectEntity>();
     
     private Dictionary<string, BattleStatusEffectEntity> idLookUp = new Dictionary<string, BattleStatusEffectEntity>();
+    
+    private void Awake()
+    {
+        InitializeDictionary();
+    }
 
-    public void OnBeforeSerialize() { }
-
-    public void OnAfterDeserialize()
+    private void InitializeDictionary()
     {
         idLookUp.Clear();
 
-        ProcessListForDeserialize(buffEntities);
-        ProcessListForDeserialize(debuffEntities);
+        ProcessList(buffEntities);
+        ProcessList(debuffEntities);
     }
 
-    private void ProcessListForDeserialize(List<BattleStatusEffectEntity>? list)
+    private void ProcessList(List<BattleStatusEffectEntity>? list)
     {
         if (list == null) return;
+        
 
         foreach (var effectEntity in list)
         {
@@ -80,7 +84,9 @@ public class BattleStatusEffectDatabase : MonoBehaviour, IBattleBattleStatusEffe
         {
             if (entity == null) continue;
 
-            var data = entity.Data;
+            var data = entity?.Data;
+
+            if (data == null) continue;
 
             if (string.IsNullOrEmpty(data.Id))
             {

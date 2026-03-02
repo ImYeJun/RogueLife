@@ -8,7 +8,7 @@ using ViewEvent.ScheduleView;
 
 namespace Controller.Schedule
 {
-    public class ScheduleRootController : SceneRootController
+    public class ScheduleRootController : InGameRootController
     {
         private ScheduleViewEventBus viewEventBus;
         private IScheduleViewCommander viewCommander;

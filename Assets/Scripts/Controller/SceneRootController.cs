@@ -6,9 +6,7 @@ using UnityEngine.SceneManagement;
 namespace Controller
 {
     public abstract class SceneRootController : MonoBehaviour {
-        protected GameRun currentRun;
-
-        private void Start()
+        protected virtual void Start()
         {
 #if UNITY_EDITOR
             if (GameRunManager.Instance is null)
@@ -21,6 +19,13 @@ namespace Controller
             OnStart();
         }
 
+        protected virtual void OnStart()
+        {
+            OnInitialize();
+        }
+
+        protected abstract void OnInitialize();
+        
 #if UNITY_EDITOR
         private IEnumerator StartWithCoreSceneLoad()
         {
@@ -46,21 +51,5 @@ namespace Controller
             SceneManager.LoadScene("Core", LoadSceneMode.Additive);
         }
 #endif
-
-        private void OnStart()
-        {
-            currentRun = GameRunManager.Instance?.CurrentRun;
-
-            if (currentRun is null)
-            {
-                Debug.LogError("[SceneRootController] There's no GameRunManager or GameRun.");
-
-                // return;
-            }
-
-            OnInitialize();
-        }
-
-        protected abstract void OnInitialize();
     }
 }

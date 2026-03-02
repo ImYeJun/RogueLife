@@ -65,11 +65,11 @@ public class CardDatabase : MonoBehaviour, IFieldCardDatabase, ISerializationCal
     {
         idLookUp.Clear();
 
-        foreach (var cardData in availableCardEntities)
+        foreach (var cardEntity in availableCardEntities)
         {
-            if (cardData == null) { continue; }
+            if (cardEntity == null) { continue; }
 
-            string id = cardData.Data.Id;
+            string id = cardEntity.Data?.Id;
             
             if (id == null) { continue; }
             if (idLookUp.ContainsKey(id))
@@ -77,7 +77,7 @@ public class CardDatabase : MonoBehaviour, IFieldCardDatabase, ISerializationCal
                 Debug.LogWarning($"[CardDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
             }
 
-            idLookUp[id] = cardData;
+            idLookUp[id] = cardEntity;
         }
     }
 
