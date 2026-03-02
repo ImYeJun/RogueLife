@@ -1,11 +1,12 @@
-﻿using UnityEngine;
+﻿using UI.Global;
+using UnityEngine;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
 
 namespace View.ScheduleView
 {
-    public class DeckButton : ViewBehaviour<IScheduleViewEvent>
+    public class SettingsButton : ViewBehaviour<IScheduleViewEvent>
     {
         public override void OnInitialized()
         {
@@ -17,7 +18,7 @@ namespace View.ScheduleView
 
         public void OnPressed()
         {
-            UnityEngine.Debug.Log("덱 버튼 누름!");
+            GlobalUIManager.Instance.OpenSettingUI();
         }
     }
 }

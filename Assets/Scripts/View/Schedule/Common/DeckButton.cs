@@ -5,21 +5,21 @@ using ViewEvent.ScheduleView;
 
 namespace View.ScheduleView
 {
-    public class SettingsButton : ViewBehaviour<IScheduleViewEvent>
+    public class DeckButton : ViewBehaviour<IScheduleViewEvent>
     {
+        [SerializeField] private GameObject deckView;
+
         public override void OnInitialized()
         {
-            // TODO: 이벤트 구독 (예: eventBus.Subscribe<T>(Method);)
         }
 
         public override void OnDestroy()
         {
-            // TODO: 이벤트 구독 해제 (예: eventBus.Unsubscribe<T>(Method);)
         }
 
         public void OnPressed()
         {
-            UnityEngine.Debug.Log("설정 버튼 누름");
+            deckView.SetActive(true);
         }
     }
 }
