@@ -23,6 +23,8 @@ public class Card : ICardBehaviourOwner
     public CardData Data { get => data; }
     public string CurrentName { get => currentName; }
     public string CurrentDescription { get => currentDescription; }
+    public string NormalEffectDescription { get => data.Description; }
+    public string ReflectionEffectDescription { get => data.RelfectionActivatedDescription; }
     public CardType CurrentType { get => currentType; }
     public CardAttribute CurrentAttribute { get => currentAttribute; }
     public CardRarity CurrentRarity { get => currentRarity; }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
@@ -8,6 +9,7 @@ namespace View.ScheduleView
     public class DeckViewCloseButton : ViewBehaviour<IScheduleViewEvent>
     {
         [SerializeField] private GameObject deckView;
+        [SerializeField] private UnityEvent<bool> SetCardInspectorActive;
 
         public override void OnInitialized()
         {
@@ -20,6 +22,7 @@ namespace View.ScheduleView
         public void OnPressed()
         {
             deckView.SetActive(false);
+            SetCardInspectorActive.Invoke(false);
         }
     }
 }
