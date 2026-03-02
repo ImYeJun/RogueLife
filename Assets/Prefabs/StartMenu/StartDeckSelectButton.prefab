@@ -148,8 +148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.StartMenu.StartDeckSelectButton
   background: {fileID: 3079716593348090719}
-  startDeckDescriptionText: {fileID: 315137410794798549}
-  startDeckTypicalAttributeText: {fileID: 2951161548464489919}
+  startDeckDescriptionText: {fileID: 2951161548464489919}
+  startDeckTypicalAttributeText: {fileID: 315137410794798549}
 --- !u!1 &5473948071838715270
 GameObject:
   m_ObjectHideFlags: 0
