@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Pool;
+using UnityEngine.Serialization;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
@@ -15,6 +16,8 @@ namespace View.ScheduleView.Deck
     public class DeckInventoryView : InteractableViewBehaviour<IScheduleViewEvent, IScheduleViewCommander>
     {
         private IReadOnlyDeck playerDeck;
+        private CardSlotView focusedSlot;
+        private Card focusedCard; 
         
         private DeckInventorySorter deckSorter = new DeckInventorySorter();
         [SerializeField] private SortingSettingView sortingSettingView;
@@ -22,7 +25,8 @@ namespace View.ScheduleView.Deck
 
         [SerializeField] private UnityEvent<Card> OnSlotClicked;
 
-        [SerializeField] private GameObject cardSlotPrefab;
+        [SerializeField] private GameObject mainCardSlotPrefab;
+        [SerializeField] private GameObject sideCardSlotPrefab;
         [SerializeField] private Transform mainDeckInventory;
         [SerializeField] private Transform sideDeckInventory;
 
@@ -54,19 +58,26 @@ namespace View.ScheduleView.Deck
             );
 
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus.Subscribe<DeckChanged>(OnDeckChanged);
 
             sortingSettingView.SetOnButtonPressed(ChangeSortingState);
             filteringSettingView.SetOnButtonPressed(ToggleAttributeFilteringState, ToggleTypeFilteringState, ToggleCostFilteringState);
         }
 
+        public void OnDeckChanged(DeckChanged payload)
+        {
+            playerDeck = payload.Deck;
+            DrawView();
+        }
+
         private CardSlotView CreateMainCardSlot()
         {
-            var cardSlotView = Instantiate(cardSlotPrefab, mainDeckInventory);
+            var cardSlotView = Instantiate(mainCardSlotPrefab, mainDeckInventory);
             return cardSlotView.GetComponent<CardSlotView>();
         }
         private CardSlotView CreateSideCardSlot()
         {
-            var cardSlotView = Instantiate(cardSlotPrefab, sideDeckInventory);
+            var cardSlotView = Instantiate(sideCardSlotPrefab, sideDeckInventory);
             return cardSlotView.GetComponent<CardSlotView>();
         }
         private void GetDeckCardSlot(CardSlotView view)
@@ -75,6 +86,7 @@ namespace View.ScheduleView.Deck
         }
         private void ReturnDeckCardSlot(CardSlotView view)
         {
+            view.OnUnfocus(); 
             view.gameObject.SetActive(false);
         }
         private void DestroyDeckCardSlot(CardSlotView view)
@@ -99,6 +111,9 @@ namespace View.ScheduleView.Deck
             sortingSettingView.Initialize();
             filteringSettingView.Initialize();
 
+            focusedSlot = null;
+            focusedCard = null;
+
             ClearActiveSlots();
         }
 
@@ -111,6 +126,7 @@ namespace View.ScheduleView.Deck
         private void DrawView()
         {
             ClearActiveSlots();
+            focusedSlot = null;
 
             sortingSettingView.SetState(deckSorter.SortingState);
             filteringSettingView.SetState((deckSorter.FilteringAttributes, deckSorter.FilteringType, deckSorter.FilteringCost));
@@ -133,8 +149,14 @@ namespace View.ScheduleView.Deck
             foreach (var card in processedDeck)
             {
                 var slot = pool.Get();
-                slot.Activate(card, OnSlotClicked);
+                slot.Activate(card, NotifySlotClicked, commander);
                 slot.transform.SetAsLastSibling();
+
+                if (focusedCard != null && card == focusedCard)
+                {
+                    focusedSlot = slot;
+                    focusedSlot.OnFocused();
+                }
 
                 if (type == DeckType.MAIN_DECK) { activeMainDeckSlots.Add(slot); }
                 else if (type == DeckType.SIDE_DECK) { activeSideDeckSlots.Add(slot); }
@@ -152,6 +174,19 @@ namespace View.ScheduleView.Deck
                     throw new InvalidCastException($"[DeckInventoryView] {type} is not valid.");
             }
         }
+        
+        public void NotifySlotClicked(CardSlotView slotView)
+        {
+            focusedSlot?.OnUnfocus();
+            
+            focusedSlot = slotView;
+            focusedCard = slotView.CurrentCard; 
+            
+            focusedSlot.OnFocused();
+
+            OnSlotClicked.Invoke(slotView.CurrentCard);
+        }
+
         private void ClearActiveSlots()
         {
             foreach (var slot in activeMainDeckSlots)

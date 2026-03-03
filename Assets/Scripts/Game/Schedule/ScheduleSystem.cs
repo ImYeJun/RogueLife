@@ -98,4 +98,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         scheduleViewEventBus.Publish(new NodeMoved(currentNode));
     }
+
+    public void MoveCard(Card card, DeckType from, DeckType to)
+    {
+        context.Deck.TryMoveCard(card, from, to);
+        scheduleViewEventBus.Publish(new DeckChanged(context.Deck));
+    }
 }

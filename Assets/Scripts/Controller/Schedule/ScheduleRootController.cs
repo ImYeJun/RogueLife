@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.Diagnostics;
-using Controller.StartMenu;
 using UnityEngine;
 using View.Core;
-using ViewEvent.ScheduleSelecting;
 using ViewEvent.ScheduleView;
 
 namespace Controller.Schedule

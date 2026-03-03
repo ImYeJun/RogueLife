@@ -12,4 +12,5 @@ public interface IFieldDeck : IBattleEntryDeck, IReadOnlyDeck {
     public bool TryRemoveCardByData(CardData data, int amount);
     public void IncreaseMaxCardVariety(int amount);
     public void DecreaseMaxCardVariety(int amount);
+    public bool TryMoveCard(Card card, DeckType from, DeckType to);
 }
