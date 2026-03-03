@@ -22,6 +22,7 @@ public class Card : ICardBehaviourOwner
     private HashSet<CardCostModifier> costModifiers;
 
     public CardData Data { get => data; }
+    public Sprite Background { get => data.Background; }
     public string CurrentName { get => currentName; }
     public string CurrentDescription { get => currentDescription; }
     public string NormalEffectDescription { get => data.Description; }

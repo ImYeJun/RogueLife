@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_TaeKwonDo
   cardName: "\uD0DC! \uAD8C! \uB3C4!"
+  background: {fileID: 4299399653739545917, guid: 748a70a433703264da5b181417797c72, type: 3}
   description: "\uC0C1\uB300\uBC29\uC5D0\uAC8C 10\uC758 \uD53C\uD574\uB97C 3\uBC88
     \uC785\uD799\uB2C8\uB2E4"
   relfectionAppliedDescription: "\uC0C1\uB300\uBC29\uC5D0\uAC8C 10\uC758 \uD53C\uD574\uB97C
@@ -22,21 +23,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 1
   actionCost: 3
-  battleBehaviour:
-    rid: 1582000878922236051
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236051
-      type: {class: TaeKwonDo, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236052
-        reflectionTargetType:
-          rid: 1582000878922236053
-    - rid: 1582000878922236052
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236053
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}

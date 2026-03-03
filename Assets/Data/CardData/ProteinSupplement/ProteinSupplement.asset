@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_ProteinSupplement
   cardName: "\uD504\uB85C\uD2F4 \uBCF4\uCDA9"
+  background: {fileID: -7804570087867069310, guid: 7dfd39cbc4d9848488e98cadb6998c75, type: 3}
   description: "\uB371\uC5D0\uC11C \uBB3C\uB9AC \uC18D\uC131 \uCE74\uB4DC \uD55C
     \uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
   relfectionAppliedDescription: "\uB371\uC5D0\uC11C \uBB3C\uB9AC \uC18D\uC131 \uCE74\uB4DC
@@ -22,21 +23,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 1
   actionCost: 3
-  battleBehaviour:
-    rid: 1582000865578844258
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000865578844258
-      type: {class: ProteinSupplement, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000865578844259
-        reflectionTargetType:
-          rid: 1582000865578844260
-    - rid: 1582000865578844259
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000865578844260
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}

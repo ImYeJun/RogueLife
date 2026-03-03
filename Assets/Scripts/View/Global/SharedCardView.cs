@@ -38,7 +38,7 @@ public class SharedCardView : MonoBehaviour
         var asset = assets.First(asset => asset.Attribute == attribute);
 
         frame.sprite = asset.Frame;
-        background.sprite = asset.DefaultBackground;
+        background.sprite = card.Data.Background ?? asset.DefaultBackground;
 
         cost.text = card.CurrentActionCost.ToString();
         cardName.text = card.CurrentName;

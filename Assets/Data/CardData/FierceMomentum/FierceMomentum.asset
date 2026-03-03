@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_FierceMomentum
   cardName: "\uC5C4\uCCAD\uB09C \uAE30\uC138"
+  background: {fileID: 3079341368832637424, guid: b9d4015159735d34dac7b18afb530b53, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uD558\uB294
     \uADFC\uB825 \uAC15\uD654 3\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uD558\uB294
@@ -22,23 +23,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 1
   actionCost: 3
-  battleBehaviour:
-    rid: 7557519997968318558
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236054
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 7557519997968318558
-      type: {class: FierceMomentum, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 7557519997968318559
-        reflectionTargetType:
-          rid: 1582000878922236054
-        strengthenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
-        iWillKillYouData: {fileID: 11400000, guid: 3181f164645fbda429d4e14a080ac1be, type: 2}
-    - rid: 7557519997968318559
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}

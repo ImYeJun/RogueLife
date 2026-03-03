@@ -5,6 +5,7 @@ public class CardData : ScriptableObject
 {
     [SerializeField] private string id;
     [SerializeField] private string cardName;
+    [SerializeField] private Sprite background;
     [SerializeField, TextArea] private string description;
     [SerializeField, TextArea] private string relfectionAppliedDescription;
     [SerializeField] private CardType type;
@@ -20,4 +21,5 @@ public class CardData : ScriptableObject
     public CardAttribute Attribute { get => attribute; }
     public CardRarity Rarity { get => rarity; }
     public int ActionCost { get => actionCost; }
+    public Sprite Background { get => background; }
 }

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_HealingFactor
   cardName: "\uD790\uB9C1 \uD329\uD130"
+  background: {fileID: -6680952607760547131, guid: 9b5d04695ce54e24daa86659ffecfb0e, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uCD08\uC7AC\uC0DD 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uC138 \uD134\uB3D9\uC548
@@ -22,22 +23,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 1
   actionCost: 2
-  battleBehaviour:
-    rid: 1582000865578844235
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000865578844235
-      type: {class: HealingFactor, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000865578844236
-        reflectionTargetType:
-          rid: 1582000865578844237
-        superHealData: {fileID: 11400000, guid: 392afa61ada5cb74d82909fa5ae3c786, type: 2}
-    - rid: 1582000865578844236
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000865578844237
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}

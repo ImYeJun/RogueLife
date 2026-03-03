@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_ICanDoThisAllDay
   cardName: "\uD558\uB8E8 \uC885\uC77C \uD560 \uC218 \uC788\uC5B4"
+  background: {fileID: -661645622872832872, guid: 87f737d2120f4c54fb5d531f122e79ba, type: 3}
   description: "\uCD5C\uADFC \uBB18\uC9C0\uC5D0 \uAC04 \uCE74\uB4DC 3\uC7A5\uC744
     \uB371\uC73C\uB85C \uB418\uB3CC\uB9AC\uACE0, \uCE74\uB4DC \uD55C \uC7A5\uC744
     \uB371\uC5D0\uC11C \uBF51\uB294\uB2E4"
@@ -25,21 +26,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 2
   actionCost: 5
-  battleBehaviour:
-    rid: 1582000865578844247
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000865578844247
-      type: {class: ICanDoThisAllDay, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000865578844248
-        reflectionTargetType:
-          rid: 1582000865578844249
-    - rid: 1582000865578844248
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000865578844249
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

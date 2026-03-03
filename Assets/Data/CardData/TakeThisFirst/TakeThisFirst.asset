@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_TakeThisFirst
   cardName: "\uC77C\uB2E8 \uD55C\uB300 \uB9DE\uC544"
+  background: {fileID: 447810410685197642, guid: 7243fb8bd50ba434392af147187b34f9, type: 3}
   description: "\uD558\uB098\uC758 \uC801\uC5D0\uAC8C 20 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C
     \uC900\uB2E4."
   relfectionAppliedDescription: "\uD558\uB098\uC758 \uC801\uC5D0\uAC8C 30 \uB9CC\uD07C\uC758
@@ -22,21 +23,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 1
   actionCost: 2
-  battleBehaviour:
-    rid: 7557519997968318549
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519997968318549
-      type: {class: TakeThisFirst, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 7557519997968318550
-        reflectionTargetType:
-          rid: 7557519997968318551
-    - rid: 7557519997968318550
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-    - rid: 7557519997968318551
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}

@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_Ryujia108Stairs40Combo
   cardName: "\uB958\uC9C0\uC544 108\uACC4\uB2E8 40\uB2E8 \uCF64\uBCF4"
+  background: {fileID: 5481847652850057485, guid: c5cb8b0159dfedd419b639c13c7ef834, type: 3}
   description: "\uC190 \uD328\uC5D0 \uC788\uB294 \uBB3C\uB9AC \uC18D\uC131 \uCE74\uB4DC\uB4E4\uC744
     \uCF54\uC2A4\uD2B8\uB97C \uC18C\uBAA8\uD558\uC9C0 \uC54A\uACE0 \uC804\uBD80 \uBC1C\uB3D9\uD569\uB2C8\uB2E4\r\n"
   relfectionAppliedDescription: "\uC190 \uD328\uC5D0 \uC788\uB294 \uCE74\uB4DC\uB4E4\uC744
@@ -22,21 +23,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 3
   actionCost: 10
-  battleBehaviour:
-    rid: 1582000878922235973
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922235973
-      type: {class: Ryujia108Stairs40Combo, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922235974
-        reflectionTargetType:
-          rid: 7557520067223355465
-    - rid: 1582000878922235974
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 7557520067223355465
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
