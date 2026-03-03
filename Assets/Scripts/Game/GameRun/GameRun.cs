@@ -114,4 +114,13 @@ public class GameRun
                     OnScheduleUnsettled: OnScheduleDataUnsettled
                 );
     }
+
+//* Test Codes
+#if UNITY_EDITOR
+    public void TestAddBelongigns(BelongingsData data)
+    {
+        var newBelongings = belongingsDatabase.Materialize(data);
+        player.BelongingsBag.TryObtainBelongings(newBelongings);
+    }
+#endif
 }

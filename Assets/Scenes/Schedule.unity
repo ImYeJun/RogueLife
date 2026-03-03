@@ -4927,6 +4927,7 @@ GameObject:
   - component: {fileID: 943483332}
   - component: {fileID: 943483334}
   - component: {fileID: 943483333}
+  - component: {fileID: 943483335}
   m_Layer: 5
   m_Name: BelongingsBagView
   m_TagString: Untagged
@@ -4996,6 +4997,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943483331}
   m_CullTransparentMesh: 1
+--- !u!114 &943483335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943483331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd7b546b24d29f42818e3fba11acbc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBagView
 --- !u!1 &945266529
 GameObject:
   m_ObjectHideFlags: 0
@@ -7417,6 +7430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0dde6dc31018d46ba07b4d5085c05c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBagButton
+  belongingsBagView: {fileID: 943483335}
 --- !u!1 &1246203085
 GameObject:
   m_ObjectHideFlags: 0
@@ -8720,6 +8734,7 @@ GameObject:
   - component: {fileID: 1441922524}
   - component: {fileID: 1441922523}
   - component: {fileID: 1441922522}
+  - component: {fileID: 1441922525}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -8790,7 +8805,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1441922523}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1441922525}
+        m_TargetAssemblyTypeName: View.ScheduleView.BelongingsBag.BelongingsViewCloseButton,
+          Assembly-CSharp
+        m_MethodName: OnPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1441922523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8829,6 +8857,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441922520}
   m_CullTransparentMesh: 1
+--- !u!114 &1441922525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441922520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82d5f016f3dfcca48bdfd9a402d220b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBag.BelongingsViewCloseButton
+  belongingsView: {fileID: 943483331}
 --- !u!1 &1463880944
 GameObject:
   m_ObjectHideFlags: 0
@@ -8883,6 +8924,7 @@ MonoBehaviour:
   - {fileID: 1737347697}
   interacatbleViews:
   - {fileID: 1737347696}
+  - {fileID: 943483335}
 --- !u!1 &1465191766
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using View.Core;
+using View.ScheduleView.BelongingsBag;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
 
@@ -7,6 +8,8 @@ namespace View.ScheduleView
 {
     public class BelongingsBagButton : ViewBehaviour<IScheduleViewEvent>
     {
+        [SerializeField] private BelongingsBagView belongingsBagView;
+
         public override void OnInitialized()
         {
             // TODO: 이벤트 구독 (예: eventBus.Subscribe<T>(Method);)
@@ -19,7 +22,7 @@ namespace View.ScheduleView
 
         public void OnPressed()
         {
-            UnityEngine.Debug.Log("소지품 버튼 누름!");
+            belongingsBagView.OnViewOpened();
         }
     }
 }

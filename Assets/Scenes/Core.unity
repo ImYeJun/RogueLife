@@ -4018,6 +4018,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::GameRunManager
   databaseManager: {fileID: 20736402}
   skeletonGenerateRuleManager: {fileID: 83840618}
+  belongingsData:
+  - {fileID: 11400000, guid: 4f922541e07b3554093064936ff18318, type: 2}
+  - {fileID: 11400000, guid: d9a43aed20362824e8741703a397e06b, type: 2}
 --- !u!4 &2117917723
 Transform:
   m_ObjectHideFlags: 0
