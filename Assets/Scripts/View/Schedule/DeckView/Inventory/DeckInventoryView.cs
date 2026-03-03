@@ -53,7 +53,7 @@ namespace View.ScheduleView.Deck
                 actionOnGet : GetDeckCardSlot,
                 actionOnRelease : ReturnDeckCardSlot,
                 actionOnDestroy : DestroyDeckCardSlot,
-                defaultCapacity : Constant.MAX_SIDE_DECK_CARD_TYPE_COUNT * Constant.BASE_MAX_COPIES_PER_CARD,
+                defaultCapacity : Constant.BASE_MAX_DECK_CARD_TYPE_COUNT * Constant.BASE_MAX_COPIES_PER_CARD,
                 maxSize : 100
             );
 
@@ -165,10 +165,10 @@ namespace View.ScheduleView.Deck
             switch (type)
             {
                 case DeckType.MAIN_DECK:
-                    mainDeckIndicator.text = $"전투 덱 (전투 덱 카드 종류 : {deck.Count}/{Constant.MAX_MAIN_DECK_CARD_TYPE_COUNT})";
+                    mainDeckIndicator.text = $"<style=\"DeckName\">전투 덱</style> <style=\"DeckSubscription\">(전투 덱 카드 종류 : {deck.Count}/{Constant.MAX_MAIN_DECK_CARD_TYPE_COUNT})</style>";
                     break;
                 case DeckType.SIDE_DECK:
-                    sideDeckIndicator.text = $"보조 덱 (보조 덱 카드 종류 : {deck.Count}/{Constant.MAX_SIDE_DECK_CARD_TYPE_COUNT})";
+                    sideDeckIndicator.text = $"<style=\"DeckName\">보조 덱</style> <style=\"DeckSubscription\">(보조 덱 카드 종류 : {deck.Count}/{playerDeck.MaxCardVariety})</style>";
                     break;
                 default:
                     throw new InvalidCastException($"[DeckInventoryView] {type} is not valid.");

@@ -18,4 +18,15 @@ public static class CardAttributeExtensions
             _                      => attribute.ToString()
         };
     }
+
+    public static int GetTextIconIndex(CardAttribute attribute)
+    {
+        return attribute switch
+        {
+            CardAttribute.PHYSICAL => 0,
+            CardAttribute.MAGIC    => 1,
+            CardAttribute.LUCK     => 2,
+            _                      => -1
+        };
+    }
 }

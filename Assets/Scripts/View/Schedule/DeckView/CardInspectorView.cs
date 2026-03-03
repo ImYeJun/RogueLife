@@ -42,8 +42,8 @@ namespace View.ScheduleView.Deck
             cardView.SetCard(card);
 
             cardName.text = card.CurrentName;
-            cardAttribute.text = $"속성 : ㅁㅁ ({CardAttributeExtensions.ToKorean(card.CurrentAttribute)})";
-            cardType.text = $"유형 : {CardTypeExtensions.ToKorean(card.CurrentType)}";
+            cardAttribute.text = $"속성 : <sprite index={CardAttributeExtensions.GetTextIconIndex(card.CurrentAttribute)}> ({CardAttributeExtensions.ToKorean(card.CurrentAttribute)})";
+            cardType.text = $", 유형 : {CardTypeExtensions.ToKorean(card.CurrentType)}";
             ShowNormalDescription();
 
             SetViewActive(true);
