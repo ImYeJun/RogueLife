@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: 4446c2d049f12314cba66bd85ae15f8b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6619779184428066721
+    second: DottedCircle_0
+  - first:
+      213: -2743691585770056557
+    second: DottedCircle_1
+  - first:
+      213: 907238571948085165
+    second: DottedCircle_2
+  - first:
+      213: 4749730567633253279
+    second: DottedCircle_3
+  - first:
+      213: -362084739847591959
+    second: DottedCircle_4
+  - first:
+      213: -2200118363861525561
+    second: DottedCircle_5
+  - first:
+      213: -2741420544284944272
+    second: DottedCircle_6
+  - first:
+      213: -1920585155054459264
+    second: DottedCircle_7
+  - first:
+      213: -9174376526484160828
+    second: DottedCircle_8
+  - first:
+      213: -6139445756297362669
+    second: DottedCircle_9
+  - first:
+      213: 1587966810240997285
+    second: DottedCircle_10
+  - first:
+      213: 1636618736470026200
+    second: DottedCircle_11
+  - first:
+      213: 432961957367988302
+    second: DottedCircle_12
+  - first:
+      213: -6558327196048314431
+    second: DottedCircle_13
+  - first:
+      213: 8704116849161612096
+    second: DottedCircle_14
+  - first:
+      213: -2062140043046833929
+    second: DottedCircle_15
+  - first:
+      213: 3572067247378642119
+    second: DottedCircle_16
+  - first:
+      213: 1510737825157086008
+    second: DottedCircle_17
+  - first:
+      213: 6705897982630618050
+    second: DottedCircle_18
+  - first:
+      213: -8950269046386978468
+    second: DottedCircle_19
+  - first:
+      213: 6531703757246545319
+    second: DottedCircle_20
+  - first:
+      213: -8176118871446288656
+    second: DottedCircle_21
+  - first:
+      213: 7056438123926458763
+    second: DottedCircle_22
+  - first:
+      213: -715478780768110278
+    second: DottedCircle_23
+  - first:
+      213: -7939688773210404952
+    second: DottedCircle_24
+  - first:
+      213: 1382095396361662462
+    second: DottedCircle_25
+  - first:
+      213: -2704493203193503320
+    second: DottedCircle_26
+  - first:
+      213: -4565189007223820391
+    second: DottedCircle_27
+  - first:
+      213: 6092512548061720827
+    second: DottedCircle_28
+  - first:
+      213: -4548589539974784232
+    second: DottedCircle_29
+  - first:
+      213: -7569186241765774437
+    second: DottedCircle_30
+  - first:
+      213: 6271888874233074163
+    second: DottedCircle_31
+  - first:
+      213: 2375236308773938542
+    second: DottedCircle_32
+  - first:
+      213: 5967682030586627552
+    second: DottedCircle_33
+  - first:
+      213: -2437316644798325293
+    second: DottedCircle_34
+  - first:
+      213: -7214133951842421609
+    second: DottedCircle_35
+  - first:
+      213: 7702833763290948302
+    second: DottedCircle_36
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DottedCircle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 300
+        height: 300
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1a72c5b581e2edb50800000000000000
+      internalID: 6619779184428066721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f9046f0f5b7f0d940be787bc84d2c5ad
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":300.0,"y":300.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      DottedCircle_0: 6619779184428066721
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
