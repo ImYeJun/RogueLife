@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class CardSaveData
 {
+    public string obtainDate;
     public string cardId;
     public string cardName;
     public string description;
@@ -17,6 +18,7 @@ public class CardSaveData
 
     public CardSaveData(Card origin)
     {
+        obtainDate = origin.ObtainData.ToString("o");
         cardId = origin.Data.Id;
         description = origin.CurrentName;
         type = origin.CurrentType;

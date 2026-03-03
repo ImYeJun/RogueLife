@@ -6,7 +6,7 @@ using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
 
-namespace View.ScheduleView
+namespace View.ScheduleView.Deck
 {
     public class CardSlotView : ViewBehaviour<IScheduleViewEvent>, IPointerClickHandler
     {

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,10 +10,16 @@ using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
 
-namespace View.ScheduleView
+namespace View.ScheduleView.Deck
 {
     public class DeckInventoryView : InteractableViewBehaviour<IScheduleViewEvent, IScheduleViewCommander>
     {
+        private IReadOnlyDeck playerDeck;
+        
+        private DeckInventorySorter deckSorter = new DeckInventorySorter();
+        [SerializeField] private SortingSettingView sortingSettingView;
+        [SerializeField] private FilteringSettingView filteringSettingView;
+
         [SerializeField] private UnityEvent<Card> OnSlotClicked;
 
         [SerializeField] private GameObject cardSlotPrefab;
@@ -23,6 +31,8 @@ namespace View.ScheduleView
 
         private IObjectPool<CardSlotView> mainDeckPool;
         private IObjectPool<CardSlotView> sideDeckPool;
+        private List<CardSlotView> activeMainDeckSlots = new List<CardSlotView>();
+        private List<CardSlotView> activeSideDeckSlots = new List<CardSlotView>();
 
         public override void OnInitialized()
         {
@@ -44,20 +54,19 @@ namespace View.ScheduleView
             );
 
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+
+            sortingSettingView.SetOnButtonPressed(ChangeSortingState);
+            filteringSettingView.SetOnButtonPressed(ToggleAttributeFilteringState, ToggleTypeFilteringState, ToggleCostFilteringState);
         }
 
         private CardSlotView CreateMainCardSlot()
         {
-            var cardSlotView = Instantiate(cardSlotPrefab);
-            cardSlotView.transform.SetParent(mainDeckInventory);
-
+            var cardSlotView = Instantiate(cardSlotPrefab, mainDeckInventory);
             return cardSlotView.GetComponent<CardSlotView>();
         }
         private CardSlotView CreateSideCardSlot()
         {
-            var cardSlotView = Instantiate(cardSlotPrefab);
-            cardSlotView.transform.SetParent(sideDeckInventory);
-
+            var cardSlotView = Instantiate(cardSlotPrefab, sideDeckInventory);
             return cardSlotView.GetComponent<CardSlotView>();
         }
         private void GetDeckCardSlot(CardSlotView view)
@@ -72,6 +81,7 @@ namespace View.ScheduleView
         {
             Destroy(view.gameObject);
         }
+
         public override void OnDestroy()
         {
             eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
@@ -79,9 +89,36 @@ namespace View.ScheduleView
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
-            DrawInventory(payload.Deck.MainDeck, DeckType.MAIN_DECK);
-            DrawInventory(payload.Deck.SideDeck, DeckType.SIDE_DECK);
+            InitializeView();
+            playerDeck = payload.Deck;
         }
+
+        public void InitializeView()
+        {
+            deckSorter.Initialize();
+            sortingSettingView.Initialize();
+            filteringSettingView.Initialize();
+
+            ClearActiveSlots();
+        }
+
+        public void OnViewOpened()
+        {
+            gameObject.SetActive(true);
+            DrawView();
+        }
+
+        private void DrawView()
+        {
+            ClearActiveSlots();
+
+            sortingSettingView.SetState(deckSorter.SortingState);
+            filteringSettingView.SetState((deckSorter.FilteringAttributes, deckSorter.FilteringType, deckSorter.FilteringCost));
+
+            DrawInventory(playerDeck.MainDeck, DeckType.MAIN_DECK);
+            DrawInventory(playerDeck.SideDeck, DeckType.SIDE_DECK);
+        }
+
         private void DrawInventory(IReadOnlyDictionary<CardData, List<Card>> deck, DeckType type)
         {
             IObjectPool<CardSlotView> pool = type switch
@@ -90,14 +127,17 @@ namespace View.ScheduleView
                 DeckType.SIDE_DECK => sideDeckPool,
                 _ => throw new InvalidCastException($"[DeckInventoryView] {type} is not valid.")
             };
-            foreach (var pair in deck)
-            {
-                foreach (var card in pair.Value)
-                {
-                    var slot = pool.Get();
+            
+            List<Card> processedDeck = deckSorter.ProcessDeck(deck);
 
-                    slot.Activate(card, OnSlotClicked);
-                }
+            foreach (var card in processedDeck)
+            {
+                var slot = pool.Get();
+                slot.Activate(card, OnSlotClicked);
+                slot.transform.SetAsLastSibling();
+
+                if (type == DeckType.MAIN_DECK) { activeMainDeckSlots.Add(slot); }
+                else if (type == DeckType.SIDE_DECK) { activeSideDeckSlots.Add(slot); }
             }
 
             switch (type)
@@ -111,6 +151,41 @@ namespace View.ScheduleView
                 default:
                     throw new InvalidCastException($"[DeckInventoryView] {type} is not valid.");
             }
+        }
+        private void ClearActiveSlots()
+        {
+            foreach (var slot in activeMainDeckSlots)
+            {
+                mainDeckPool.Release(slot);
+            }
+            foreach (var slot in activeSideDeckSlots)
+            {
+                sideDeckPool.Release(slot);
+            }
+            activeMainDeckSlots.Clear();
+            activeSideDeckSlots.Clear();
+        }
+
+        public void ChangeSortingState(SortingType type) 
+        { 
+            deckSorter.ChangeSortingState(type);
+            DrawView();
+        }
+
+        public void ToggleAttributeFilteringState(CardAttribute attribute) 
+        { 
+            deckSorter.ToggleAttributeFilter(attribute);
+            DrawView();
+        }
+        public void ToggleTypeFilteringState(CardType type) 
+        { 
+            deckSorter.ToggleTypeFilter(type);
+            DrawView();
+        }
+        public void ToggleCostFilteringState(int cost) 
+        { 
+            deckSorter.ToggleCostFilter(cost);
+            DrawView();
         }
     }
 }

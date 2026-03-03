@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using View.Core;
+using View.ScheduleView.Deck;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
 
@@ -7,7 +8,7 @@ namespace View.ScheduleView
 {
     public class DeckButton : ViewBehaviour<IScheduleViewEvent>
     {
-        [SerializeField] private GameObject deckView;
+        [SerializeField] private DeckInventoryView deckView;
 
         public override void OnInitialized()
         {
@@ -19,7 +20,7 @@ namespace View.ScheduleView
 
         public void OnPressed()
         {
-            deckView.SetActive(true);
+            deckView.OnViewOpened();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace Controller.Schedule
             {
                 foreach (var deck in payload.Deck.MainDeck)
                 {
-                    UnityEngine.Debug.Log($"{deck.Key.Id} : {deck.Value.Count}");
+                    // UnityEngine.Debug.Log($"{deck.Key.Id} : {deck.Value.Count}");
                 }
             });
 

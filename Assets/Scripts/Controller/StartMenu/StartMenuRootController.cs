@@ -53,12 +53,11 @@ namespace Controller.StartMenu
         {
             foreach (var startDeck in payload.StartDecks)
             {
-                var button = Instantiate(startDeckSelectButtonPrefab);
+                var button = Instantiate(startDeckSelectButtonPrefab, startDeckSelectView);
                 
                 var startDeckSelectButton = button.GetComponent<StartDeckSelectButton>();
 
                 startDeckSelectButton.SetStartDeck(startDeck);
-                button.transform.SetParent(startDeckSelectView);
 
                 startDeckSelectButton.Initialize(viewEventBus, viewCommander);
             }

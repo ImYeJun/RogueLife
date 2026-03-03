@@ -8,6 +8,7 @@ using UnityEngine;
 
 public class Card : ICardBehaviourOwner
 {
+    private DateTime obatinDate;
     private CardData data;
     private CardBattleBehaviour behaviourInstance;
     private string currentName;
@@ -44,9 +45,12 @@ public class Card : ICardBehaviourOwner
             return Mathf.Max(result, 0);
         }
     }
+    public DateTime ObtainData { get => obatinDate; }
 
     public Card(CardEntity entity)
     {
+        obatinDate = new DateTime();
+
         data = entity.Data;
         behaviourInstance = entity.CloneBattleBehaviour(this);
 
@@ -63,6 +67,8 @@ public class Card : ICardBehaviourOwner
     
     public Card(Card card, bool isForBattleStart = false)
     {
+        obatinDate = card.obatinDate;
+
         data = card.Data;
         behaviourInstance = card.CloneBattleBehaviour(this);
 
@@ -81,6 +87,12 @@ public class Card : ICardBehaviourOwner
     public Card(CardEntity entity, CardSaveData cardSaveData)
     {
         if (entity.Data.Id != cardSaveData.cardId) { throw new InvalidOperationException("[Card] the given arguments' id are not matched"); }
+        DateTime date;
+        if (!DateTime.TryParse(cardSaveData.obtainDate, out date))
+        {
+            throw new InvalidOperationException("[Card] The given date format is not valid.");
+        }
+        obatinDate = date;
 
         data = entity.Data;
         behaviourInstance = entity.CloneBattleBehaviour(this);
