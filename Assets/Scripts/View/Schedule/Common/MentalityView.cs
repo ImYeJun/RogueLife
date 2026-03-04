@@ -17,7 +17,6 @@ namespace View.ScheduleView
         {
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
             eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
-            // 💡 힐 이벤트 구독 추가
             eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
         }
         

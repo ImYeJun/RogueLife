@@ -19,16 +19,16 @@ namespace ViewEvent.ScheduleView
 
     public readonly struct ScheduleStateSynced : IScheduleViewEvent
     {
-        private readonly ScheduleData currentScheduleData;
         private readonly int currentScheduleCount;
+        private readonly IReadOnlySchedule schedule;
         private readonly IReadOnlyHealth health;
         private readonly IReadOnlyActionCost actionCost;
         private readonly IReadOnlyDeck deck;
         private readonly IReadOnlyBelongingsBag belongingsBag;
 
-        public ScheduleStateSynced(ScheduleData currentScheduleData, int currentScheduleCount, IReadOnlyHealth health, IReadOnlyActionCost actionCost, IReadOnlyDeck deck, IReadOnlyBelongingsBag belongingsBag)
+        public ScheduleStateSynced(IReadOnlySchedule schedule, int currentScheduleCount, IReadOnlyHealth health, IReadOnlyActionCost actionCost, IReadOnlyDeck deck, IReadOnlyBelongingsBag belongingsBag)
         {
-            this.currentScheduleData = currentScheduleData;
+            this.schedule = schedule;
             this.currentScheduleCount = currentScheduleCount;
             this.health = health;
             this.actionCost = actionCost;
@@ -36,7 +36,7 @@ namespace ViewEvent.ScheduleView
             this.belongingsBag = belongingsBag;
         }
 
-        public ScheduleData CurrentScheduleData => currentScheduleData;
+        public IReadOnlySchedule Schedule => schedule;
         public int CurrentScheduleCount => currentScheduleCount;
         public IReadOnlyHealth Health => health;
         public IReadOnlyActionCost ActionCost => actionCost;

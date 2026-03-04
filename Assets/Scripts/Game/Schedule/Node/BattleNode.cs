@@ -16,6 +16,9 @@ public class BattleNode : Node
         this.battleSystem = battleSystem;
         this.engagingEnemiesDataSlot = engagingEnemiesDataSlot;
     }
+
+    public bool IsBossNode => engagingEnemiesDataSlot.Any(slot => slot.Data.Tier == EnemyTier.BOSS);
+
     public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
     {
         //TODO : engagingEnemiesData에 따라 적 일상 UI 띄우기
