@@ -20,6 +20,7 @@ public class PlayerHealth : IFieldHealth
 
     public event Action OnMentalBreakDown;
     public event Action<PlayerHurt> OnPlayerHurt;
+    public event Action<PlayerHealed> OnPlayerHealed;
 
     public bool IsFullHealth => currentBattleHealth >= maxBattleHealth && currentMentality >= maxMentality;
     public int CurrentBattleHealth { get => currentBattleHealth; }
@@ -82,30 +83,45 @@ public class PlayerHealth : IFieldHealth
 
     public bool IsMentalBrokenDown() => currentMentality <= 0;
 
+
+    private int ProcessBattleHealthHeal(int amount)
+    {
+        int actualHeal = Mathf.Min(amount, maxBattleHealth - currentBattleHealth);
+        currentBattleHealth += actualHeal;
+        return actualHeal;
+    }
     public void HealBattleHealth(int amount)
     {
-        if (amount < 0) return;
-        currentBattleHealth = Mathf.Min(currentBattleHealth + amount, maxBattleHealth);
+        if (amount <= 0) return;
+        
+        int actualHeal = ProcessBattleHealthHeal(amount);
+        
+        OnPlayerHealed?.Invoke(new PlayerHealed(this, false, actualHeal, 0));
     }
-
     public void HealMentality(int amount, bool isOverflowable)
     {
-        if (amount < 0) return;
+        if (amount <= 0) return;
 
         int overflowAmount = 0;
+        int actualMentalityHeal = amount;
         
         if (currentMentality + amount > maxMentality)
         {
             overflowAmount = (currentMentality + amount) - maxMentality;
-            amount -= overflowAmount; 
+            actualMentalityHeal = maxMentality - currentMentality;
         }
 
-        currentMentality += amount;
+        currentMentality += actualMentalityHeal;
 
-        if (overflowAmount > 0 && isOverflowable)
+        int actualBattleHealthHeal = 0;
+        bool isOverflowed = overflowAmount > 0 && isOverflowable;
+
+        if (isOverflowed)
         {
-            HealBattleHealth(overflowAmount);
+            actualBattleHealthHeal = ProcessBattleHealthHeal(overflowAmount);
         }
+
+        OnPlayerHealed?.Invoke(new PlayerHealed(this, isOverflowed, actualBattleHealthHeal, actualMentalityHeal));
     }
 
     public void IncreaseMaxBattleHealth(int amount)

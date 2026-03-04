@@ -15,10 +15,19 @@ public partial class GameRun
         player.Deck.TryObtainCard(newCard);
     }
 
-    
     public void TestHurtPlayer(int testHurtDamage, bool isOverflowable)
     {
         player.Health.HurtBattleHealth(testHurtDamage, isOverflowable);
+    }
+
+    public void TestHealMentality(int testHealAmount, bool isOverflowable)
+    {
+        player.Health.HealMentality(testHealAmount, isOverflowable);
+    }
+
+    public void TestHealBattleHealth(int testHealAmount)
+    {
+        player.Health.HealBattleHealth(testHealAmount);
     }
 #endif
 }

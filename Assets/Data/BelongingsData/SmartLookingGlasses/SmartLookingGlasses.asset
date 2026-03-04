@@ -15,36 +15,6 @@ MonoBehaviour:
   id: Belongings_SmartLookingGlasses
   belongingsName: "\uBB54\uAC00 \uB611\uB611\uD574 \uBCF4\uC774\uB294 \uC548\uACBD"
   image: {fileID: 155974809893174759, guid: 914565e7b408366469ddda92d347a3aa, type: 3}
-  description: "\uD589\uB3D9\uB825 0,1,2 \uCE74\uB4DC\uB4E4\uC758 \uD589\uB3D9\uB825\uC774
-    1\uC529 \uC99D\uAC00\uD558\uACE0, \uD589\uB3D9\uB825 8,9,10 \uCE74\uB4DC\uB4E4\uC758
+  description: "\uAE30\uBCF8 \uD589\uB3D9\uB825 0,1,2 \uCE74\uB4DC\uB4E4\uC758 \uD589\uB3D9\uB825\uC774
+    1\uC529 \uC99D\uAC00\uD558\uACE0, \uAE30\uBCF8 \uD589\uB3D9\uB825 8,9,10 \uCE74\uB4DC\uB4E4\uC758
     \uD589\uB3D9\uB825\uC774 1\uC529 \uAC10\uC18C\uD55C\uB2E4."
-  fieldBehaviour:
-    rid: 7557520071594606697
-  battleBehaviour:
-    rid: 7557520071594606698
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557520071594606697
-      type: {class: FieldSmartLookingGlasses, ns: Belongingses.Behaviour, asm: GameAssembly}
-      data:
-        decreaseCardActionCost:
-          minRarity: 0
-          maxRarity: 0
-          type: 0
-          cardAttribute: 0
-          isCheckBaseCost: 1
-          baseCosts: 000000000100000002000000
-          amount: 1
-        increaseCardActionCost:
-          minRarity: 0
-          maxRarity: 0
-          type: 0
-          cardAttribute: 0
-          isCheckBaseCost: 1
-          baseCosts: 08000000090000000a000000
-          amount: 1
-    - rid: 7557520071594606698
-      type: {class: BattleSmartLookingGlasses, ns: Belongingses.Behaviour, asm: GameAssembly}

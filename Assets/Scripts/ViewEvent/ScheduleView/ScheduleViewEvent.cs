@@ -88,4 +88,25 @@ namespace ViewEvent.ScheduleView
         public int BattleHealthDamage { get => battleHealthDamage; set => battleHealthDamage = value; }
         public int MentalityDamage { get => mentalityDamage; set => mentalityDamage = value; }
     }
+
+    public struct PlayerHealed : IScheduleViewEvent
+    {
+        private readonly IReadOnlyHealth health;
+        private bool isOverflowed;
+        private int battleHealtHeal;
+        private int mentalityHeal;
+
+        public PlayerHealed(IReadOnlyHealth health, bool isOverflowed, int battleHealtHeal, int mentalityHeal)
+        {
+            this.health = health;
+            this.isOverflowed = isOverflowed;
+            this.battleHealtHeal = battleHealtHeal;
+            this.mentalityHeal = mentalityHeal;
+        }
+
+        public IReadOnlyHealth Health => health;
+        public bool IsOverflowed { get => isOverflowed; set => isOverflowed = value; }
+        public int BattleHealtHeal { get => battleHealtHeal; set => battleHealtHeal = value; }
+        public int MentalityHeal { get => mentalityHeal; set => mentalityHeal = value; }
+    }
 }

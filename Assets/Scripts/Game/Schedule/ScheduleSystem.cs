@@ -39,7 +39,8 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         this.context = context;
 
-        context.Health.OnPlayerHurt += OnHealthChanged;
+        context.Health.OnPlayerHurt += OnHealthHurt;
+        context.Health.OnPlayerHealed += OnHealthHealed;
     }
 
     public void StartSchedule(int currentStartCount, Action OnScheduleUnsettled)
@@ -56,8 +57,6 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         currentSchedule = scheduleGenerator.GenerateSchedule(random, data);
         currentSchedule.OnEnd += EndSchedule;
         currentSchedule.OnNodeMoved += OnNodeMoved;
-
-        // onScheduleUnsettled?.Invoke();
         
         scheduleSelectingViewEventBus.Publish(new ScheduleSettled());
     }
@@ -111,7 +110,11 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
             scheduleViewEventBus.Publish(new BelongingsBagChanged(context.BelongingsBag));
         }
     }
-    public void OnHealthChanged(PlayerHurt payload)
+    public void OnHealthHurt(PlayerHurt payload)
+    {
+        scheduleViewEventBus.Publish(payload);
+    }
+    public void OnHealthHealed(PlayerHealed payload)
     {
         scheduleViewEventBus.Publish(payload);
     }

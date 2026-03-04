@@ -9,8 +9,14 @@ public partial class GameRunManager
     [HideInInspector] 
     [SerializeField] private List<BelongingsEntity> testBelongingsEntities = new List<BelongingsEntity>();
     [SerializeField] private List<CardEntity> testCardEntities = new List<CardEntity>();
+    
+    [Header("Hurt Test Settings")]
     [SerializeField] private int testHurtDamage;
     [SerializeField] private bool isOverflowable;
+
+    [Header("Heal Test Settings")]
+    [SerializeField] private int testHealAmount;
+    [SerializeField] private bool isHealOverflowable;
 
     public void TestAddBelongings()
     {
@@ -42,7 +48,23 @@ public partial class GameRunManager
         
         CurrentRun.TestHurtPlayer(testHurtDamage, isOverflowable);
 
-        Debug.Log($"플레이어에게 \"{testHurtDamage}\" 만큼의 데미지 가격");
+        Debug.Log($"플레이어에게 \"{testHurtDamage}\" 만큼의 데미지 가격 (초과 데미지 적용: {isOverflowable})");
+    }
+
+    public void TestHealMentality()
+    {
+        if (!CheckGameRunExsited()) { return; }
+
+        CurrentRun.TestHealMentality(testHealAmount, isHealOverflowable);
+        Debug.Log($"플레이어의 멘탈을 \"{testHealAmount}\" 만큼 회복 (초과 회복 적용: {isHealOverflowable})");
+    }
+
+    public void TestHealBattleHealth()
+    {
+        if (!CheckGameRunExsited()) { return; }
+
+        CurrentRun.TestHealBattleHealth(testHealAmount);
+        Debug.Log($"플레이어의 전투 체력을 \"{testHealAmount}\" 만큼 회복");
     }
 
     private bool CheckGameRunExsited()

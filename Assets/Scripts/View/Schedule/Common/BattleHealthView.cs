@@ -17,19 +17,27 @@ namespace View.ScheduleView
         {
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
             eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
+            eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
         }
 
         public override void OnDestroy()
         {
-            eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus.Unsubscribe<PlayerHurt>(OnPlayerHurt);
+            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
+            eventBus?.Unsubscribe<PlayerHealed>(OnPlayerHealed);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
             DrawView(payload.Health);
         }
+        
         public void OnPlayerHurt(PlayerHurt payload)
+        {
+            DrawView(payload.Health);
+        }
+
+        public void OnPlayerHealed(PlayerHealed payload)
         {
             DrawView(payload.Health);
         }
