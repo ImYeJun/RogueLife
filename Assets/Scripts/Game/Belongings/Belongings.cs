@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public class Belongings
 {
@@ -24,6 +25,7 @@ public class Belongings
     public string Description => data.Description;
     public BelongingsData Data => data;
     public BelongingsEntity Entity { get => entity; }
+    public Sprite Image { get => data.Image; }
 
     public void OnEquipped(FieldContext context) { behaviourInstance.OnEquipped(context); }
     public void OnUnequipped(FieldContext context) { behaviourInstance.OnUnqeuipped(context); }

@@ -56,7 +56,24 @@ public class GameRun
         scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase);
 
         viewEventBus = new GameRunViewEventBus();
+
+        FieldContext fieldContext = new FieldContext(
+            random : random,
+            transactionChoiceDatabase : transactionChoiceDatabase,
+            cardDatabase : cardDatabase,
+            belongingsDatabase : belongingsDatabase,
+            scheduleSystem : scheduleSystem,
+            battleSystem : battleSystem,
+            health : player.Health,
+            actionCost : player.ActionCost,
+            deck : player.Deck,
+            belongingsBag : player.BelongingsBag
+        );
+
+        scheduleSystem.InitializeContext(fieldContext);
+        player.BelongingsBag.InitializeContext(fieldContext);
     }
+
     public GameRun(
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
         (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases,
@@ -105,17 +122,11 @@ public class GameRun
     public void StartSchedule()
     {
         scheduleSystem.StartSchedule(
-                    currentStartCount : finishedSchedulesCount + 1,
-                    transactionChoiceDatabase: transactionChoiceDatabase,
-                    cardDatabase: cardDatabase,
-                    belongingsDatabase: belongingsDatabase,
-                    battleSystem: battleSystem,
-                    player: player,
-                    OnScheduleUnsettled: OnScheduleDataUnsettled
-                );
+            currentStartCount : finishedSchedulesCount + 1,
+            OnScheduleUnsettled : OnScheduleDataUnsettled
+        );
     }
 
-//* Test Codes
 #if UNITY_EDITOR
     public bool isTest = false;
 

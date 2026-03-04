@@ -4027,6 +4027,8 @@ MonoBehaviour:
   testBelongingsEntities:
   - {fileID: 700230399205963231, guid: 6845265ef4d03f54bb0b6cbd14776f42, type: 3}
   - {fileID: 7036215186716217664, guid: c68492cf54ff4794a99f384fed6a0bf2, type: 3}
+  - {fileID: 7307215356052559845, guid: 7977bce85b9d0924eae1ca4b6e09a749, type: 3}
+  - {fileID: 3157649277395767657, guid: 5d2bc43d2ea087449a5399c45b7ab556, type: 3}
 --- !u!4 &2117917723
 Transform:
   m_ObjectHideFlags: 0

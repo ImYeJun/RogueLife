@@ -20,10 +20,6 @@ namespace View.ScheduleView.Deck
 
         private bool isFocused = false;
 
-        private void Awake() {
-            sharedCardView = GetComponent<SharedCardView>();
-        }
-
         public override void OnInitialized()
         {
         }
@@ -33,6 +29,8 @@ namespace View.ScheduleView.Deck
 
         public void Activate(Card card, Action<CardSlotView> onSlotClicked, IScheduleViewCommander commander)
         {
+            sharedCardView = GetComponent<SharedCardView>();
+
             OnUnfocus();
             sharedCardView.SetCard(card);
             OnSlotClicked = onSlotClicked;

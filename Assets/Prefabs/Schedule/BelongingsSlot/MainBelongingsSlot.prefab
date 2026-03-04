@@ -10,8 +10,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
       propertyPath: m_Name
-      value: MainBelongingsSlot Variant
+      value: MainBelongingsSlot
       objectReference: {fileID: 0}
+    - target: {fileID: 5776190475678689119, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7295256173739767297, guid: 8106f9f6b3d08904f9e2edec57dfefd2, type: 3}
     - target: {fileID: 6909408029903333312, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -95,5 +99,43 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8519701459563316370}
   m_SourcePrefab: {fileID: 100100000, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+--- !u!114 &3193730814578099799 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6319124433719799532, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+  m_PrefabInstance: {fileID: 8926243794345109691}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &7209532738951265357 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2300500087106999542, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+  m_PrefabInstance: {fileID: 8926243794345109691}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8683379616713267674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+  m_PrefabInstance: {fileID: 8926243794345109691}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8519701459563316370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8683379616713267674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4fac7f9d965c514f99b6abfce0957da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBag.MainBelongingsSlotView
+  overlap: {fileID: 7209532738951265357}
+  icon: {fileID: 3193730814578099799}

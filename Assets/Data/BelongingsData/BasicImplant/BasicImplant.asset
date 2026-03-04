@@ -17,32 +17,10 @@ MonoBehaviour:
   image: {fileID: 1770436027988320099, guid: 80d07a28b3bc33e4899c6796ba4aece8, type: 3}
   description: "\uBAA8\uB4E0 \uCE74\uB4DC\uC758 \uCF54\uC2A4\uD2B8\uAC00 1 \uAC10\uC18C\uD558\uB294
     \uB300\uC2E0, \uCE74\uB4DC\uB97C \uC0AC\uC6A9\uD560 \uB54C\uB9C8\uB2E4, \uD55C\uD134\uB3D9\uC548
-    \uC9C0\uC18D\uB418\uB294 \uD589\uB3D9 \uBD881\uC2A4\uD0DD\uC774 \uAC78\uB9B4
+    \uC9C0\uC18D\uB418\uB294 \uD589\uB3D9 \uBD88\uAC00 1\uC2A4\uD0DD\uC774 \uAC78\uB9B4
     \uD655\uB960\uC774 \uC99D\uAC00\uD558\uACE0 \uD574\uB2F9 \uD655\uB960\uC5D0 \uB530\uB77C
     \uB514\uBC84\uD504\uAC00 \uAC78\uB9B0\uB2E4. (\uD574\uB2F9 \uD655\uB960\uC740
     \uB2E4\uC74C \uC804\uD22C\uB178\uB4DC\uB85C \uC774\uB3D9\uD558\uBA74 \uCD08\uAE30\uD654
     \uB41C\uB2E4.)     [ \uD655\uB960 : \uCE74\uB4DC 0\uD68C \uC0AC\uC6A9 \uC2DC
     5%, \uC774\uD6C4 \uAC01 \uCE74\uB4DC \uC0AC\uC6A9\uC2DC \uB9C8\uB2E4 4%\uC529
     \uC99D\uAC00 ]"
-  fieldBehaviour:
-    rid: 7557520206837317754
-  battleBehaviour:
-    rid: 7557520206837317755
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520206837317754
-      type: {class: FieldBasicImplant, ns: Belongingses.Behaviour, asm: Assembly-CSharp}
-      data:
-        decreaseCardActionCost:
-          minRarity: 0
-          maxRarity: 0
-          type: 0
-          cardAttribute: 0
-          isCheckBaseCost: 0
-          baseCosts: 
-          amount: 1
-    - rid: 7557520206837317755
-      type: {class: BattleBasicImplant, ns: Belongingses.Behaviour, asm: Assembly-CSharp}
-      data:
-        stunnedData: {fileID: 11400000, guid: 1c164a0f2316f7542a63f360023e5cc7, type: 2}

@@ -24,9 +24,9 @@ namespace View.ScheduleSelecting
         {
             var availableScheduleData = payload.AvailableScheduleData;
 
-            if (availableScheduleData.Count != Constant.SELECING_SCHEUDLE_COUNT)
+            if (availableScheduleData.Count != Constant.SELECTING_SCHEDULE_COUNT)
             {
-                UnityEngine.Debug.LogWarning($"[ScheduleSelectView] availableScheduleData does not has {Constant.SELECING_SCHEUDLE_COUNT} schedule data. It has {availableScheduleData.Count}.");
+                UnityEngine.Debug.LogWarning($"[ScheduleSelectView] availableScheduleData does not has {Constant.SELECTING_SCHEDULE_COUNT} schedule data. It has {availableScheduleData.Count}.");
             }
 
             for (int i = 0 ; i < buttons.Count; i++)

@@ -7,6 +7,7 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
 {
     Dictionary<BelongingsData, Belongings> mainBelongingsBag = new Dictionary<BelongingsData, Belongings>();
     Dictionary<BelongingsData, Belongings> sideBelongingsBag = new Dictionary<BelongingsData, Belongings>();
+    private FieldContext context;
 
     public event Action<IReadOnlyDictionary<BelongingsData, Belongings>> OnMainBagChanged;
     public event Action<IReadOnlyDictionary<BelongingsData, Belongings>> OnSideBagChanged;
@@ -38,6 +39,11 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
         return result;
     }
 
+    public void InitializeContext(FieldContext context)
+    {
+        this.context = context;
+    }
+
     public List<BattleBelongings> GetBattleBelongings(IBattleBelongingsOwner owner)
     {
         var result = new List<BattleBelongings>();
@@ -54,40 +60,48 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
     {
         if (HasBelongings(belongings))
         {
-            Debug.Log($"Player already has {belongings.Name}");
+            Debug.Log($"[PlayerBelongingsBag] Player already has {belongings.Name}");
             return false;
         }
 
         sideBelongingsBag[belongings.Data] = belongings;
-        OnBagChanged(BelongingsBagType.SIDE_BELONGINGS_BAG);
         return true;
     }
-
 
     public bool TryMoveBelongings(Belongings belongings, BelongingsBagType from, BelongingsBagType to)
     {
         if (from == to)
         {
-            Debug.Log($"The arguments 'from' and 'to' cannot be the same.");
+            Debug.Log($"[PlayerBelongingsBag] The arguments 'from' and 'to' cannot be the same.");
             return false;
         }
 
         if (!HasBelongings(belongings, from))
         {
-            Debug.Log($"There is no {belongings.Name} Belongings in {from}");
+            Debug.Log($"[PlayerBelongingsBag] There is no {belongings.Name} Belongings in {from}");
             return false;
         }
         if (HasBelongings(belongings, to))
         {
-            Debug.Log($"{to} already has {belongings.Name}");
+            Debug.Log($"[PlayerBelongingsBag] {to} already has {belongings.Name}");
             return false;
         }  
+        if (to == BelongingsBagType.MAIN_BELONGINGS_BAG && mainBelongingsBag.Count >= Constant.MAX_MAIN_BELONINGS_COUNT)
+        {
+            Debug.Log("[PlayerBelongingsBag] Main Belongings Bag is full");
+            return false;
+        }
+
+        if (context is null)
+        {
+            throw new InvalidOperationException("[PlayerBelongingsBag] context hasn't been initalized");
+        }
+
+        if (from == BelongingsBagType.MAIN_BELONGINGS_BAG) belongings.OnUnequipped(context);
+        if (to == BelongingsBagType.MAIN_BELONGINGS_BAG) belongings.OnEquipped(context);
 
         GetBag(from).Remove(belongings.Data);
-        OnBagChanged(from);
-
         GetBag(to)[belongings.Data] = belongings;
-        OnBagChanged(to);
 
         return true;
     }
@@ -112,19 +126,5 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
             BelongingsBagType.SIDE_BELONGINGS_BAG => sideBelongingsBag,
             _ => throw new ArgumentOutOfRangeException($"[PlayerBelongingsBag] {bagType} is not valid.")
         };
-    }
-    private void OnBagChanged(BelongingsBagType type)
-    {
-        switch (type)
-        {
-            case BelongingsBagType.MAIN_BELONGINGS_BAG:
-                OnMainBagChanged?.Invoke(GetBag(type));
-                break;
-            case BelongingsBagType.SIDE_BELONGINGS_BAG:
-                OnSideBagChanged?.Invoke(GetBag(type));
-                break;
-            default:
-                throw new ArgumentOutOfRangeException($"[PlayerBelongingsBag] {type} is not valid.");
-        }
     }
 }

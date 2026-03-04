@@ -55,4 +55,16 @@ namespace ViewEvent.ScheduleView
 
         public IReadOnlyDeck Deck => deck;
     }
+
+    public readonly struct BelongingsBagChanged : IScheduleViewEvent
+    {
+        private readonly IReadOnlyBelongingsBag belongingsBag;
+
+        public BelongingsBagChanged(IReadOnlyBelongingsBag belongingsBag)
+        {
+            this.belongingsBag = belongingsBag;
+        }
+
+        public IReadOnlyBelongingsBag BelongingsBag => belongingsBag;
+    }
 }

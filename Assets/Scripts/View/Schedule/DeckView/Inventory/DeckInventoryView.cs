@@ -63,7 +63,16 @@ namespace View.ScheduleView.Deck
             sortingSettingView.SetOnButtonPressed(ChangeSortingState);
             filteringSettingView.SetOnButtonPressed(ToggleAttributeFilteringState, ToggleTypeFilteringState, ToggleCostFilteringState);
         }
+        public override void OnDestroy()
+        {
+            eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+        }
 
+        public void OnScheduleStateSynced(ScheduleStateSynced payload)
+        {
+            InitializeView();
+            playerDeck = payload.Deck;
+        }
         public void OnDeckChanged(DeckChanged payload)
         {
             playerDeck = payload.Deck;
@@ -73,6 +82,7 @@ namespace View.ScheduleView.Deck
         private CardSlotView CreateMainCardSlot()
         {
             var cardSlotView = Instantiate(mainCardSlotPrefab, mainDeckInventory);
+            cardSlotView.SetActive(false);
             return cardSlotView.GetComponent<CardSlotView>();
         }
         private CardSlotView CreateSideCardSlot()
@@ -94,17 +104,6 @@ namespace View.ScheduleView.Deck
             Destroy(view.gameObject);
         }
 
-        public override void OnDestroy()
-        {
-            eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-        }
-
-        public void OnScheduleStateSynced(ScheduleStateSynced payload)
-        {
-            InitializeView();
-            playerDeck = payload.Deck;
-        }
-
         public void InitializeView()
         {
             deckSorter.Initialize();
@@ -119,8 +118,8 @@ namespace View.ScheduleView.Deck
 
         public void OnViewOpened()
         {
-            gameObject.SetActive(true);
             DrawView();
+            gameObject.SetActive(true);
         }
 
         private void DrawView()

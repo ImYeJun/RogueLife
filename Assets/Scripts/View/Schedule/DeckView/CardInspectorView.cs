@@ -35,6 +35,7 @@ namespace View.ScheduleView.Deck
         {
         }
 
+        //* Referenced by DeckInventoryView in UnityEvent 
         public void VisualizeSelectedSlot(Card card)
         {
             currentCard = card;
