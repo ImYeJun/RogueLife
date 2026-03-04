@@ -17,7 +17,12 @@ public partial class GameRunManager : SingletonManager<GameRunManager>
         var databases = databaseManager.Databaes;
         var rules = skeletonGenerateRuleManager.Rules;
 
-        CurrentRun = new GameRun(rules, databases, startDeck);
+        CurrentRun = new GameRun(rules, databases, startDeck, OnRunEnded);
         CurrentRun.StartGame();
+    }
+
+    public void OnRunEnded()
+    {
+        CurrentRun = null;
     }
 }

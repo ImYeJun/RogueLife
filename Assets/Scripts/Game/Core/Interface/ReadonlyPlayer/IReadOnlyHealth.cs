@@ -8,7 +8,4 @@ public interface IReadOnlyHealth
     public int MaxMentality { get; }
     public float NormalizedBattleHealth { get; }
     public float NomarlizedMentality { get; }
-
-    public event Action<int> OnBattleHealthChanged;
-    public event Action<int> OnMentalityChanged;
 }

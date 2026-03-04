@@ -60,7 +60,7 @@ MonoBehaviour:
           maxRarity: 0
           type: 0
           cardAttribute: 0
-          isCheckBaseCost: 0
+          isCheckBaseCost: 1
           baseCosts: 08000000090000000a000000
           amount: 1
         increaseCardActionCost:
@@ -68,7 +68,7 @@ MonoBehaviour:
           maxRarity: 0
           type: 0
           cardAttribute: 0
-          isCheckBaseCost: 0
+          isCheckBaseCost: 1
           baseCosts: 000000000100000002000000
           amount: 1
     - rid: 2642317852726526050

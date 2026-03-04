@@ -14,16 +14,26 @@ namespace View.ScheduleView
         public override void OnInitialized()
         {
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
         }
 
         public override void OnDestroy()
         {
-            eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
-            mentalitySlider.fillAmount = payload.Health.NomarlizedMentality;
+            DrawView(payload.Health);
+        }
+        public void OnPlayerHurt(PlayerHurt payload)
+        {
+            DrawView(payload.Health);
+        }
+        private void DrawView(IReadOnlyHealth health)
+        {
+            mentalitySlider.fillAmount = health.NomarlizedMentality;
         }
     }
 }

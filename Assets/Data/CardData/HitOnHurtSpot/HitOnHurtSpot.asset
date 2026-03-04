@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_HitOnHurtSpot
   cardName: "\uB54C\uB9B0 \uACF3 \uB610 \uB54C\uB9AC\uAE30"
+  background: {fileID: 6358316933408920745, guid: 1d3ea2f57455cdb4c80211643e91cd5f, type: 3}
   description: "\uC0C1\uB300\uC5D0\uAC8C 20\uC758 \uD53C\uD574\uB97C \uC900\uB2E4.
     \uB9CC\uC57D \uC0C1\uB300\uC758 \uCCB4\uB825\uC774 \uCD5C\uB300 \uCCB4\uB825\uBCF4\uB2E4
     \uC801\uB2E4\uBA74, \uC774 \uCE74\uB4DC\uB85C \uC8FC\uB294 \uD53C\uD574\uB97C
@@ -26,21 +27,3 @@ MonoBehaviour:
   attribute: 1
   rarity: 1
   actionCost: 5
-  battleBehaviour:
-    rid: 1582000878922236002
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236002
-      type: {class: HitOnHurtSpot, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236003
-        reflectionTargetType:
-          rid: 1582000878922236004
-    - rid: 1582000878922236003
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236004
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}

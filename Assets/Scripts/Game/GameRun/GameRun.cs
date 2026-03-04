@@ -7,6 +7,7 @@ public partial class GameRun
 {
     private Random random;
     private int seed;
+    private readonly Action onRunEnded;
     private int finishedSchedulesCount;
 
     private Player player;
@@ -30,15 +31,17 @@ public partial class GameRun
 
     public IScheduleViewCommander ScheduleViewCommander { get => scheduleSystem; }
     public ScheduleViewEventBus ScheduleViewEventBus { get => scheduleSystem.ScheduleViewEventBus; }
+    public GameRunViewEventBus ViewEventBus { get => viewEventBus; }
 
     public GameRun(
         int seed, 
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
         (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases,
-        StartDeck startDeck
-    )
+        StartDeck startDeck,
+        Action onRunEnded)
     {
         this.seed = seed;
+        this.onRunEnded = onRunEnded;
         random = new Random(this.seed);
 
         specialDiaryDatabase = databases.specialDiaryDatabase;
@@ -77,9 +80,9 @@ public partial class GameRun
     public GameRun(
         (ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule typeResolveRule) rules,
         (BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, ScheduleDatabase scheduleDatabase, SpecialDiaryDatabase specialDiaryDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase) databases,
-        StartDeck startDeck
-        ) 
-        : this(new Random().Next(), rules, databases, startDeck){}
+        StartDeck startDeck,
+        Action onRunEnded) 
+        : this(new Random().Next(), rules, databases, startDeck, onRunEnded){}
 
     public void StartGame()
     {
@@ -105,13 +108,17 @@ public partial class GameRun
         //TODO Diary 용도의 Player interface 만들기
         if (history.HasMentalBroken)
         {
-            runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
+            onRunEnded?.Invoke();
+            viewEventBus.Publish(new RunEnded());
+            // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
             return;
         }
 
         if (finishedSchedulesCount >= Constant.MAX_SCHEDULE_REPETITION)
         {
-            runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, true);
+            onRunEnded?.Invoke();
+            viewEventBus.Publish(new RunEnded());
+            // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, true);
         }
         else
         {

@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using View.Core;
@@ -15,17 +16,28 @@ namespace View.ScheduleView
         public override void OnInitialized()
         {
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
         }
 
         public override void OnDestroy()
         {
             eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus.Unsubscribe<PlayerHurt>(OnPlayerHurt);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
-            battleHealthSlider.fillAmount = payload.Health.NormalizedBattleHealth;
-            battleHealthText.text = $"{payload.Health.CurrentBattleHealth}/{payload.Health.MaxBattleHealth}";
+            DrawView(payload.Health);
+        }
+        public void OnPlayerHurt(PlayerHurt payload)
+        {
+            DrawView(payload.Health);
+        }
+        
+        private void DrawView(IReadOnlyHealth health)
+        {
+            battleHealthSlider.fillAmount = health.NormalizedBattleHealth;
+            battleHealthText.text = $"{health.CurrentBattleHealth}/{health.MaxBattleHealth}";
         }
     }
 }

@@ -14,5 +14,11 @@ public partial class GameRun
         var newCard = cardDatabase.Materialize(entity);
         player.Deck.TryObtainCard(newCard);
     }
+
+    
+    public void TestHurtPlayer(int testHurtDamage, bool isOverflowable)
+    {
+        player.Health.HurtBattleHealth(testHurtDamage, isOverflowable);
+    }
 #endif
 }

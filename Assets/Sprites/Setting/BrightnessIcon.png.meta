@@ -1,0 +1,191 @@
+fileFormatVersion: 2
+guid: 450e21e2cf005204eb1e9afe71f29f44
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6831704662108378877
+    second: BrightnessIcon_0
+  - first:
+      213: -7206466780030043618
+    second: BrightnessIcon_1
+  - first:
+      213: -5270552871002418469
+    second: BrightnessIcon_2
+  - first:
+      213: -1099655913834242768
+    second: BrightnessIcon_3
+  - first:
+      213: 7355290223424177156
+    second: BrightnessIcon_4
+  - first:
+      213: 7050764917625986071
+    second: BrightnessIcon_5
+  - first:
+      213: 5509291114353804978
+    second: BrightnessIcon_6
+  - first:
+      213: 4527783390799229185
+    second: BrightnessIcon_7
+  - first:
+      213: 8710099044248021550
+    second: BrightnessIcon_8
+  - first:
+      213: -5328078330331004664
+    second: BrightnessIcon_9
+  - first:
+      213: -1028539027538653960
+    second: BrightnessIcon_10
+  - first:
+      213: -1757160789317263752
+    second: BrightnessIcon_11
+  - first:
+      213: 8981805338871146781
+    second: BrightnessIcon_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BrightnessIcon_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1080
+        height: 1080
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4040a1bfc7d331660800000000000000
+      internalID: 7355290223424177156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 48b6d22ac06e4d346a2fff4386e1c006
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      BrightnessIcon_0: -6831704662108378877
+      BrightnessIcon_1: -7206466780030043618
+      BrightnessIcon_10: -1028539027538653960
+      BrightnessIcon_11: -1757160789317263752
+      BrightnessIcon_12: 8981805338871146781
+      BrightnessIcon_2: -5270552871002418469
+      BrightnessIcon_3: -1099655913834242768
+      BrightnessIcon_4: 7355290223424177156
+      BrightnessIcon_5: 7050764917625986071
+      BrightnessIcon_6: 5509291114353804978
+      BrightnessIcon_7: 4527783390799229185
+      BrightnessIcon_8: 8710099044248021550
+      BrightnessIcon_9: -5328078330331004664
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

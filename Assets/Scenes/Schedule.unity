@@ -7582,6 +7582,7 @@ GameObject:
   - component: {fileID: 1275263197}
   - component: {fileID: 1275263199}
   - component: {fileID: 1275263198}
+  - component: {fileID: 1275263200}
   m_Layer: 5
   m_Name: PlayerImage
   m_TagString: Untagged
@@ -7603,11 +7604,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1229625917}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.26351935, y: 0.08225332}
-  m_AnchorMax: {x: 0.7432404, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1.9952, y: -6.4487}
-  m_Pivot: {x: 0.5, y: 1}
+  m_AnchorMin: {x: 0.10863949, y: 0.08225332}
+  m_AnchorMax: {x: 0.9473198, y: 0.9158821}
+  m_AnchoredPosition: {x: 0.5, y: 0.5}
+  m_SizeDelta: {x: -0.7000122, y: -1.2470093}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1275263198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7628,7 +7629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5845660417261373779, guid: daad6deb10e8bce40aed4e32dacecb05, type: 3}
+  m_Sprite: {fileID: 957954011585455781, guid: 8e9ccf4163a03fc40867c4e7a5169295, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -7646,6 +7647,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1275263196}
   m_CullTransparentMesh: 1
+--- !u!114 &1275263200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1275263196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f486860c30a5d5429f262bf8f4b33b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.PlayerImageView
+  idleImage: {fileID: 957954011585455781, guid: 8e9ccf4163a03fc40867c4e7a5169295, type: 3}
+  hurtImage: {fileID: 923401773693706214, guid: fbbdfcc8aba596443b1f9cf11cdf7c51, type: 3}
+  walkImage: {fileID: -472954648174649577, guid: 852d6b65db3f0804b907a8338ae80bef, type: 3}
+  hurtEffectDuration: 0.5
 --- !u!1 &1277017319
 GameObject:
   m_ObjectHideFlags: 0
@@ -8793,6 +8810,7 @@ MonoBehaviour:
   - {fileID: 404647510}
   - {fileID: 1737347697}
   - {fileID: 943483336}
+  - {fileID: 1275263200}
   interacatbleViews:
   - {fileID: 1737347696}
   - {fileID: 943483335}

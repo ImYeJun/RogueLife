@@ -1,4 +1,5 @@
-﻿using TMPro;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using View.Core;
@@ -15,17 +16,27 @@ namespace View.ScheduleView
         public override void OnInitialized()
         {
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
         }
-
         public override void OnDestroy()
         {
-            eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
-            mentalitySlider.fillAmount = payload.Health.NomarlizedMentality;
-            mentalityText.text = $"{payload.Health.CurrentMentality}/{payload.Health.MaxMentality}";
+            DrawView(payload.Health);
+        }
+        public void OnPlayerHurt(PlayerHurt payload)
+        {
+            DrawView(payload.Health);
+        }
+        
+        private void DrawView(IReadOnlyHealth health)
+        {
+            mentalitySlider.fillAmount = health.NomarlizedMentality;
+            mentalityText.text = $"{health.CurrentMentality}/{health.MaxMentality}";
         }
     }
 }

@@ -7,6 +7,9 @@ public class GameRunManagerEditor : Editor
 {
     private SerializedProperty testBelongingsEntitiesProp;
     private SerializedProperty testCardEntitiesProp;
+    private SerializedProperty testHurtDamage;
+    private SerializedProperty isOverflowable;
+
     private bool showDebugTools = false; // 폴드아웃(열고 닫기) 상태 저장
 
     private void OnEnable()
@@ -14,6 +17,8 @@ public class GameRunManagerEditor : Editor
         // Debug 파트의 리스트 프로퍼티를 찾아옵니다.
         testBelongingsEntitiesProp = serializedObject.FindProperty("testBelongingsEntities");
         testCardEntitiesProp = serializedObject.FindProperty("testCardEntities");
+        testHurtDamage = serializedObject.FindProperty("testHurtDamage");
+        isOverflowable = serializedObject.FindProperty("isOverflowable");
     }
 
     public override void OnInspectorGUI()
@@ -22,7 +27,7 @@ public class GameRunManagerEditor : Editor
 
         // 1. 메인 로직의 변수들을 기본적으로 그려줍니다.
         // ("m_Script"를 제외하여 스크립트 참조 필드 중복을 막고, testBelongingsEntities는 아래에서 따로 그립니다.)
-        DrawPropertiesExcluding(serializedObject, "m_Script", "testBelongingsEntities", "testCardEntities");
+        DrawPropertiesExcluding(serializedObject, "m_Script", "testBelongingsEntities", "testCardEntities", "testHurtDamage", "isOverflowable");
 
         EditorGUILayout.Space(10);
 
@@ -43,6 +48,8 @@ public class GameRunManagerEditor : Editor
             // 리스트 그리기
             EditorGUILayout.PropertyField(testBelongingsEntitiesProp, true);
             EditorGUILayout.PropertyField(testCardEntitiesProp, true);
+            EditorGUILayout.PropertyField(testHurtDamage, true);
+            EditorGUILayout.PropertyField(isOverflowable, true);
 
             EditorGUILayout.Space(5);
 
@@ -58,6 +65,13 @@ public class GameRunManagerEditor : Editor
             if (GUILayout.Button("Add Card", GUILayout.Height(30)))
             {
                 manager.TestAddCard();
+            }
+
+            EditorGUILayout.Space(5);
+
+            if (GUILayout.Button("Hurt Player", GUILayout.Height(30)))
+            {
+                manager.TestHurtPlayer();
             }
 
             EditorGUI.indentLevel--;

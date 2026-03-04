@@ -38,6 +38,8 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void InitializeContext(FieldContext context)
     {
         this.context = context;
+
+        context.Health.OnPlayerHurt += OnHealthChanged;
     }
 
     public void StartSchedule(int currentStartCount, Action OnScheduleUnsettled)
@@ -95,7 +97,6 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         scheduleViewEventBus.Publish(new NodeMoved(currentNode));
     }
-
     public void MoveCard(Card card, DeckType from, DeckType to)
     {
         if(context.Deck.TryMoveCard(card, from, to))
@@ -103,12 +104,15 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
             scheduleViewEventBus.Publish(new DeckChanged(context.Deck));
         }
     }
-
     public void MoveBelonings(Belongings belongings, BelongingsBagType from, BelongingsBagType to)
     {
         if(context.BelongingsBag.TryMoveBelongings(belongings, from, to))
         {
             scheduleViewEventBus.Publish(new BelongingsBagChanged(context.BelongingsBag));
         }
+    }
+    public void OnHealthChanged(PlayerHurt payload)
+    {
+        scheduleViewEventBus.Publish(payload);
     }
 }

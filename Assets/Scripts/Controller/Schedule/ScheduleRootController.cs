@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using View.Core;
+using ViewEvent.GameRunView;
 using ViewEvent.ScheduleView;
 
 namespace Controller.Schedule
@@ -27,16 +29,19 @@ namespace Controller.Schedule
                 interactabelView.Initialize(viewEventBus, viewCommander);
             }
 
-            viewEventBus.Subscribe((ScheduleStateSynced payload) =>
-            {
-                foreach (var deck in payload.Deck.MainDeck)
-                {
-                    // UnityEngine.Debug.Log($"{deck.Key.Id} : {deck.Value.Count}");
-                }
-            });
-
             viewCommander.BroadcastCurrentState();
             viewCommander.EnterStartNodeIfNeeded();
+
+            currentRun.ViewEventBus.Subscribe<RunEnded>(OnRunEnded);
+        }
+        private void OnDestroy()
+        {
+            currentRun?.ViewEventBus?.Unsubscribe<RunEnded>(OnRunEnded);
+        }
+
+        public void OnRunEnded(RunEnded payload)
+        {
+            GameSceneManager.Instance.LoadScene(SceneName.MAIN_MENU);
         }
     }
 }

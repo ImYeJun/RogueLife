@@ -67,4 +67,25 @@ namespace ViewEvent.ScheduleView
 
         public IReadOnlyBelongingsBag BelongingsBag => belongingsBag;
     }
+
+    public struct PlayerHurt : IScheduleViewEvent
+    {
+        private readonly IReadOnlyHealth health;
+        private bool isOverflowed;
+        private int battleHealthDamage;
+        private int mentalityDamage;
+
+        public PlayerHurt(IReadOnlyHealth health, int battleHealthDamage, int mentalityDamage, bool isOverflowed)
+        {
+            this.health = health;
+            this.battleHealthDamage = battleHealthDamage;
+            this.mentalityDamage = mentalityDamage;
+            this.isOverflowed = isOverflowed;
+        }
+
+        public IReadOnlyHealth Health { get => health; }
+        public bool IsOverflowed { get => isOverflowed; set => isOverflowed = value; }
+        public int BattleHealthDamage { get => battleHealthDamage; set => battleHealthDamage = value; }
+        public int MentalityDamage { get => mentalityDamage; set => mentalityDamage = value; }
+    }
 }
