@@ -5,26 +5,51 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-[CreateAssetMenu(fileName = "BelongingsDatabase", menuName = "Scriptable Objects/Database/BelongingsDatabase")]
-public class BelongingsDatabase : ScriptableObject, IFieldBelongingsDatabase, ISerializationCallbackReceiver {
-    [SerializeField] private List<BelongingsData> availableBelongingsData = new List<BelongingsData>();
-    private Dictionary<string, BelongingsData> idLookUp = new Dictionary<string, BelongingsData>();
+public class BelongingsDatabase : MonoBehaviour, IFieldBelongingsDatabase {
+    [SerializeField] private List<BelongingsEntity> availableBelongingsEntities = new List<BelongingsEntity>();
+    private Dictionary<string, BelongingsEntity> idLookUp;
 
-    public BelongingsData? GetData(string id)
+    private void Awake()
     {
-        if (idLookUp.TryGetValue(id, out BelongingsData data)) { return data; }
+        InitializeDictionary();
+    }
+
+    private void InitializeDictionary()
+    {
+        idLookUp = new Dictionary<string, BelongingsEntity>();
+        
+        foreach(var belongingsEntity in availableBelongingsEntities)
+        {
+            if (belongingsEntity == null) continue;
+
+            string id = belongingsEntity.Data.Id;
+
+            if (id is null) { continue; }
+            if (idLookUp.ContainsKey(id))
+            {
+                Debug.LogWarning($"[BelongingsDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
+            }
+
+            idLookUp[id] = belongingsEntity;
+        }
+    }
+
+    public BelongingsEntity? GetEntity(string id)
+    {
+        if (idLookUp.TryGetValue(id, out BelongingsEntity entity)) { return entity; }
         
         Debug.LogWarning($"[BelongingsDatabase] There's no BelongingsData for {id}");
         return null;
     }
 
-    public Belongings? GetRandomBelongings(System.Random random, List<BelongingsData>? ignoring = null)
+    public Belongings? GetRandomBelongings(System.Random random, List<Belongings>? ignoring = null)
     {
-        var availableData = availableBelongingsData;
+        var availableData = availableBelongingsEntities;
 
         if (ignoring is not null)
         {
-            availableData = availableData.Where(data => !ignoring.Contains(data)).ToList();
+            var ignoringEntities = ignoring.Select(belongings => belongings.Entity);
+            availableData = availableData.Where(entity => !ignoringEntities.Contains(entity)).ToList();
         }
 
         if (availableData.Count == 0) { return null; }
@@ -33,60 +58,38 @@ public class BelongingsDatabase : ScriptableObject, IFieldBelongingsDatabase, IS
         return Materialize(selecetdData);
     }
 
-    public Belongings? Materialize(BelongingsData belongingsData) { return Materialize(belongingsData.Id); } 
+    public Belongings? Materialize(BelongingsEntity entity) { return Materialize(entity.Data.Id); } 
     public Belongings? Materialize(string id)
     {
-        if (idLookUp.TryGetValue(id, out BelongingsData data)) { return new Belongings(data); }
+        if (idLookUp.TryGetValue(id, out BelongingsEntity entity)) { return new Belongings(entity); }
 
         Debug.LogWarning($"[BelongingsDatabase] There's no BelongingsData for {id}");
         return null;
     }
 
-    public void OnAfterDeserialize()
-    {
-        idLookUp.Clear();
-        
-        foreach(var belongingsData in availableBelongingsData)
-        {
-            if (belongingsData == null) continue;
-
-            string id = belongingsData.Id;
-
-            if (id is null) { continue; }
-            if (idLookUp.ContainsKey(id))
-            {
-                Debug.LogWarning($"[BelongingsDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
-            }
-
-            idLookUp[id] = belongingsData;
-        }
-    }
-
-    public void OnBeforeSerialize() { }
-
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        if (availableBelongingsData == null) { return; }
+        if (availableBelongingsEntities == null) { return; }
         HashSet<string> checkSet = new HashSet<string>();
 
-        foreach (var data in availableBelongingsData)
+        foreach (var entity in availableBelongingsEntities)
         {
-            if (data == null) continue;
+            if (entity == null) continue;
 
-            if (string.IsNullOrEmpty(data.Id))
+            if (string.IsNullOrEmpty(entity.Data.Id))
             {
                 Debug.LogError($"[BelongingsDatabase] 데이터 리스트에 ID가 비어있는 항목이 있습니다!", this);
                 continue;
             }
 
-            if (checkSet.Contains(data.Id))
+            if (checkSet.Contains(entity.Data.Id))
             {
-                Debug.LogError($"[BelongingsDatabase] 치명적 오류: ID '{data.Id}'가 중복되었습니다! 수정해주세요.", this);
+                Debug.LogError($"[BelongingsDatabase] 치명적 오류: ID '{entity.Data.Id}'가 중복되었습니다! 수정해주세요.", this);
             }
             else
             {
-                checkSet.Add(data.Id);
+                checkSet.Add(entity.Data.Id);
             }
         }
     }

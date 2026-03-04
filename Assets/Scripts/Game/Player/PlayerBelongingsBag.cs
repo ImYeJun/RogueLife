@@ -14,7 +14,7 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
     public IReadOnlyDictionary<BelongingsData, Belongings> MainBelongingsBag { get => mainBelongingsBag; }
     public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
 
-    public List<BelongingsData> EquippingBelongings => mainBelongingsBag.Keys.Concat(sideBelongingsBag.Keys).ToList();
+    public List<Belongings> EquippingBelongings => mainBelongingsBag.Values.Concat(sideBelongingsBag.Values).ToList();
 
     public List<BelongingsData> GetClonedMainBag() { 
         var result = new List<BelongingsData>();
@@ -95,10 +95,8 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
     public bool HasBelongings(Belongings belongings, BelongingsBagType bagType)
     {
         Dictionary<BelongingsData, Belongings> bag = GetBag(bagType);
-
-        if (!bag.ContainsKey(belongings.Data)) { return false; }
-
-        return bag[belongings.Data] == belongings;
+        
+        return bag.ContainsKey(belongings.Data);
     }
 
     public bool HasBelongings(Belongings belongings)
@@ -120,10 +118,10 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
         switch (type)
         {
             case BelongingsBagType.MAIN_BELONGINGS_BAG:
-                OnMainBagChanged.Invoke(GetBag(type));
+                OnMainBagChanged?.Invoke(GetBag(type));
                 break;
             case BelongingsBagType.SIDE_BELONGINGS_BAG:
-                OnSideBagChanged.Invoke(GetBag(type));
+                OnSideBagChanged?.Invoke(GetBag(type));
                 break;
             default:
                 throw new ArgumentOutOfRangeException($"[PlayerBelongingsBag] {type} is not valid.");

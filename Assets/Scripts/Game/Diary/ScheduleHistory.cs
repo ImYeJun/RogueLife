@@ -38,10 +38,10 @@ public class ScheduleHistory
 
         foreach (var pair in saveData.equippedBelongingsNodeCount)
         {
-            var data = belongingsDatabase.GetData(pair.Key);
-            if (data == null) { throw new InvalidOperationException($"[ScheduleHistory] Failed to get belongings data, Id : {pair.Key}"); }
+            var entity = belongingsDatabase.GetEntity(pair.Key);
+            if (entity == null) { throw new InvalidOperationException($"[ScheduleHistory] Failed to get belongings data, Id : {pair.Key}"); }
 
-            equippedBelongingsNodeCounts[data] = pair.Value;
+            equippedBelongingsNodeCounts[entity.Data] = pair.Value;
         }
 
         hasMetBoss = saveData.hasMetBoss;

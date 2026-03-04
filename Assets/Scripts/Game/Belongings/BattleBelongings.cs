@@ -1,13 +1,15 @@
 public class BattleBelongings
 {
+    private BelongingsEntity entity;
     private BelongingsData data;
     private BattleBelongingsBehaviour behaviourInstance;
     private IBattleBelongingsOwner owner;
 
-    public BattleBelongings(BelongingsData data, IBattleBelongingsOwner owner)
+    public BattleBelongings(BelongingsEntity entity, IBattleBelongingsOwner owner)
     {
-        this.data = data;
-        behaviourInstance = this.data.CloneBattleBehaviour();
+        this.entity = entity;
+        data = entity.Data;
+        behaviourInstance = entity.CloneBattleBehaviour();
         this.owner = owner;
     }
 

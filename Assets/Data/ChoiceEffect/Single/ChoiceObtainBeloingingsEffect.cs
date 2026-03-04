@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class ChoiceObtainBeloingingsEffect : IChoiceEffect
 {
-    [SerializeField] private BelongingsData obtainingBelongingsData;
+    [SerializeField] private BelongingsEntity obtainingBelongingsEntity;
 
     public ChoiceObtainBeloingingsEffect() {}
 
@@ -12,7 +12,7 @@ public class ChoiceObtainBeloingingsEffect : IChoiceEffect
 
     public void Execute(FieldContext context, Node currentNode)
     {   
-        Belongings belongings = context.BelongingsDatabase.Materialize(obtainingBelongingsData);
+        Belongings belongings = context.BelongingsDatabase.Materialize(obtainingBelongingsEntity);
         context.BelongingsBag.TryObtainBelongings(belongings);
     }
 }

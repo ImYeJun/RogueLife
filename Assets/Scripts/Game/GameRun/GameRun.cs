@@ -117,9 +117,11 @@ public class GameRun
 
 //* Test Codes
 #if UNITY_EDITOR
-    public void TestAddBelongigns(BelongingsData data)
+    public bool isTest = false;
+
+    public void TestAddBelongings(BelongingsEntity entity)
     {
-        var newBelongings = belongingsDatabase.Materialize(data);
+        var newBelongings = belongingsDatabase.Materialize(entity);
         player.BelongingsBag.TryObtainBelongings(newBelongings);
     }
 #endif

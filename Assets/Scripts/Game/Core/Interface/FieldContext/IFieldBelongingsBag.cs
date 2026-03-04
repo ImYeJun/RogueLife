@@ -5,5 +5,5 @@ using System.Text;
 
 public interface IFieldBelongingsBag : IBattleEntryBelongingsBag, IReadOnlyBelongingsBag {
     public bool TryObtainBelongings(Belongings belongings);
-    public List<BelongingsData> EquippingBelongings { get; }
+    public List<Belongings> EquippingBelongings { get; }
 }

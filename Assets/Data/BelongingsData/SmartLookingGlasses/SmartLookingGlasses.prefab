@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2554871712065187279
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7489996753906853980}
+  - component: {fileID: 3157649277395767657}
+  m_Layer: 0
+  m_Name: SmartLookingGlasses
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7489996753906853980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2554871712065187279}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3157649277395767657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2554871712065187279}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f96f6953e897444ca30c627a326366c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BelongingsEntity
+  data: {fileID: 11400000, guid: f6592c79bf1757944ad601b13ff9ec12, type: 2}
+  fieldBehaviour:
+    rid: 2642317852726526049
+  battleBehaviour:
+    rid: 2642317852726526050
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317852726526049
+      type: {class: FieldSmartLookingGlasses, ns: Belongingses.Behaviour, asm: Assembly-CSharp}
+      data:
+        decreaseCardActionCost:
+          minRarity: 0
+          maxRarity: 0
+          type: 0
+          cardAttribute: 0
+          isCheckBaseCost: 0
+          baseCosts: 08000000090000000a000000
+          amount: 1
+        increaseCardActionCost:
+          minRarity: 0
+          maxRarity: 0
+          type: 0
+          cardAttribute: 0
+          isCheckBaseCost: 0
+          baseCosts: 000000000100000002000000
+          amount: 1
+    - rid: 2642317852726526050
+      type: {class: BattleSmartLookingGlasses, ns: Belongingses.Behaviour, asm: Assembly-CSharp}
+      data: 

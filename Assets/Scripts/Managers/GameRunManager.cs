@@ -23,15 +23,22 @@ public class GameRunManager : SingletonManager<GameRunManager>
 
 //* Test Code
 #if UNITY_EDITOR
-    [Header("Test")]
-    [SerializeField] private List<BelongingsData> belongingsData;
+    [Space(20)]
+    [Header("=== DEBUG / TEST TOOLS ===")]
+    [Tooltip("테스트 시에만 사용하는 데이터 리스트입니다.")]
+    [SerializeField] private List<BelongingsEntity> testBelongingsEntities;
 
-    [ContextMenu("AddTestBelongings")]
+    [ContextMenu("DEBUG: Add Test Belongings")] // 이름을 명확히 변경
     public void AddTestBelongings()
     {
-        foreach (var data in belongingsData)
+        if (CurrentRun == null) {
+            Debug.LogWarning("게임이 실행 중이 아닙니다.");
+            return;
+        }
+
+        foreach (var data in testBelongingsEntities)
         {
-            CurrentRun?.TestAddBelongigns(data);
+            CurrentRun.TestAddBelongings(data);
         }
     }
 #endif

@@ -46,18 +46,18 @@ public class FinalEquipment
 
         foreach (var belongingsId in saveData.finalMainBelongings)
         {
-            var data = belongingsDatabase.GetData(belongingsId);
-            if (data == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get belongings data, Id : {belongingsId}"); }
+            var entity = belongingsDatabase.GetEntity(belongingsId);
+            if (entity == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get belongings data, Id : {belongingsId}"); }
 
-            finalMainBelongings.Add(data);
+            finalMainBelongings.Add(entity.Data);
         }
 
         foreach (var belongingsId in saveData.finalSideBelongings)
         {
-            var data = belongingsDatabase.GetData(belongingsId);
-            if (data == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get belongings data, Id : {belongingsId}"); }
+            var entity = belongingsDatabase.GetEntity(belongingsId);
+            if (entity == null) { throw new InvalidOperationException($"[FinalEquipment] Failed to get belongings data, Id : {belongingsId}"); }
 
-            finalSideBelongings.Add(data);
+            finalSideBelongings.Add(entity.Data);
         }
     }
 
