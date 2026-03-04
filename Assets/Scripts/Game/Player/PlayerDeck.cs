@@ -149,11 +149,17 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
     public bool TryObtainCard(Card card)
     {
         if (!sideDeck.ContainsKey(card.Data)) { 
-            if (OwingCardVariety >= maxCardVariety) { return false; }
+            if (OwingCardVariety >= maxCardVariety) { 
+                Debug.Log($"[PlayerDeck] Cannot add new card type. Maximum card variety ({maxCardVariety}) reached.");
+                return false;
+            }
             sideDeck.Add(card.Data, new List<Card>());
         }
 
-        if (GetCardDataCount(card) >= Constant.BASE_MAX_COPIES_PER_CARD) { return false; }
+        if (GetCardDataCount(card) >= Constant.BASE_MAX_COPIES_PER_CARD) { 
+            Debug.Log($"[PlayerDeck] Cannot add card '{card.Data.Id}'. Maximum copies per card ({Constant.BASE_MAX_COPIES_PER_CARD}) exceeded.");
+            return false;
+        }
 
         sideDeck[card.Data].Add(card);
 
@@ -237,19 +243,19 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
     {
         if (!HasCard(card, from))
         {
-            Debug.Log($"{from} doesn't contain the given card");
+            Debug.Log($"[PlayerDeck] {from} doesn't contain the given card");
             return false;
         }
         if (HasCard(card, to))
         {
-            Debug.Log($"{to} already contains the given card");
+            Debug.Log($"[PlayerDeck] {to} already contains the given card");
             return false;
         }
         if (to == DeckType.MAIN_DECK)
         {
             if (!HasCardData(card, DeckType.MAIN_DECK) && mainDeck.Count() >= Constant.MAX_MAIN_DECK_CARD_TYPE_COUNT)
             {
-                Debug.Log($"{DeckType.MAIN_DECK} is full.");
+                Debug.Log($"[PlayerDeck] {DeckType.MAIN_DECK} is full.");
                 return false;
             }
         }

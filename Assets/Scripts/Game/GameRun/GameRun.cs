@@ -3,7 +3,7 @@ using ViewEvent.GameRunView;
 using ViewEvent.ScheduleSelecting;
 using ViewEvent.ScheduleView;
 
-public class GameRun
+public partial class GameRun
 {
     private Random random;
     private int seed;
@@ -126,14 +126,4 @@ public class GameRun
             OnScheduleUnsettled : OnScheduleDataUnsettled
         );
     }
-
-#if UNITY_EDITOR
-    public bool isTest = false;
-
-    public void TestAddBelongings(BelongingsEntity entity)
-    {
-        var newBelongings = belongingsDatabase.Materialize(entity);
-        player.BelongingsBag.TryObtainBelongings(newBelongings);
-    }
-#endif
 }
