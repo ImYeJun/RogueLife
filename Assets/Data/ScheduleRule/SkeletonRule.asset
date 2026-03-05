@@ -17,4 +17,4 @@ MonoBehaviour:
   minNodePerLayer: 2
   maxNodePerLayer: 5
   maxNodeLinkCount: 3
-  additionalLinkMultiplierChance: 0.5
+  additionalLinkMultiplierChance: 0.2

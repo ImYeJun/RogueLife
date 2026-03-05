@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 using View.Core;
 using ViewEvent.ScheduleView;
 
@@ -12,32 +13,110 @@ namespace View.ScheduleView.Map
         private IReadOnlyDictionary<int, List<Node>> map;
         
         private Dictionary<int, List<MapNodeIcon>> instantiatedNodesByLayer = new Dictionary<int, List<MapNodeIcon>>();
+        private Dictionary<Node, MapNodeIcon> nodeIconMap = new Dictionary<Node, MapNodeIcon>();
+        
+        private MapNodeIcon currentIconView;
+        private Node targetNode;
+        
         private List<GameObject> instantiatedLayerObjects = new List<GameObject>(); 
 
         [SerializeField] private Transform scrollContent;
         [SerializeField] private GameObject mapLayerViewPrefab;
         [SerializeField] private GameObject mapNodeIconViewPrefab;
+        [SerializeField] private Scrollbar scrollbar;
         [SerializeField] private MapLineGenerator lineGenerator;
+
+        private bool isMapDirty = false;
 
         public override void OnInitialized()
         {
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus.Subscribe<NodeMoved>(OnNodeMoved);
         }
         
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<NodeMoved>(OnNodeMoved);
         }
 
         private void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
             map = payload.Schedule.Map;
-            DrawMap();
+            
+            isMapDirty = true;
+            if (gameObject.activeInHierarchy)
+            {
+                DrawMap();
+            }
         }
         
+        private void OnNodeMoved(NodeMoved payload)
+        {
+            targetNode = payload.CurrentNode;
+
+            ApplyNodeFocus();   
+        }
+
+        private void ApplyNodeFocus()
+        {
+            if (targetNode == null) return;
+
+            if (nodeIconMap.TryGetValue(targetNode, out MapNodeIcon iconView))
+            {
+                currentIconView?.OnUnfocused();
+                currentIconView = iconView;
+                currentIconView.OnFocused();
+            }
+            else
+            {
+                Debug.LogWarning("[MapView] Model map and View map are not matched.");
+            }
+        }
+
         public void OnViewOpened()
         {
             gameObject.SetActive(true);
+            
+            if (isMapDirty)
+            {
+                DrawMap();
+            }
+
+            FocusOnCurrentNode();
+        }
+
+        private void FocusOnCurrentNode()
+        {
+            if (currentIconView == null || scrollbar == null || map == null || map.Count == 0) return;
+
+            int currentLayer = -1;
+            foreach (var pair in map)
+            {
+                if (pair.Value.Contains(currentIconView.CurrentNode))
+                {
+                    currentLayer = pair.Key;
+                    break;
+                }
+            }
+
+            if (currentLayer == -1) return;
+
+            int minLayer = map.Keys.Min();
+            int maxLayer = map.Keys.Max();
+
+            float normalizedValue = 0f;
+            if (maxLayer > minLayer)
+            {
+                normalizedValue = (float)(currentLayer - minLayer) / (maxLayer - minLayer);
+            }
+
+            if (scrollbar.direction == Scrollbar.Direction.TopToBottom || scrollbar.direction == Scrollbar.Direction.RightToLeft)
+            {
+                normalizedValue = 1f - normalizedValue;
+            }
+
+            scrollbar.value = Mathf.Clamp01(normalizedValue);
         }
 
         private void DrawMap()
@@ -45,12 +124,12 @@ namespace View.ScheduleView.Map
             ClearMap();
 
             DrawNodeIcon();
-            
-            // 💡 [매우 중요] UI 오브젝트들을 Instantiate한 직후에는 Layout 좌표가 아직 계산되지 않은 상태입니다.
-            // 선을 긋기 전에 유니티에게 "지금 당장 UI 좌표들을 전부 계산해서 배치해!" 라고 명령해야 선이 예쁘게 이어집니다.
             Canvas.ForceUpdateCanvases();
-
             LinkNodeIcon();
+
+            isMapDirty = false;
+
+            ApplyNodeFocus();
         }
 
         private void ClearMap()
@@ -62,6 +141,8 @@ namespace View.ScheduleView.Map
             
             instantiatedLayerObjects.Clear();
             instantiatedNodesByLayer.Clear();
+            
+            nodeIconMap.Clear(); 
             lineGenerator.ClearLines(); 
         }
 
@@ -88,6 +169,8 @@ namespace View.ScheduleView.Map
                     
                     nodeIcon.Initiate(node);
                     nodeList.Add(nodeIcon);
+
+                    nodeIconMap.Add(node, nodeIcon);
                 }
 
                 instantiatedNodesByLayer[layerIndex] = nodeList;

@@ -3,7 +3,8 @@ using UnityEngine.UI;
 
 namespace View.ScheduleView.Map
 {
-    public class MapNodeIcon : MonoBehaviour {
+    public class MapNodeIcon : MonoBehaviour 
+    {
         [Header("Node Icons")]
         [SerializeField] private Sprite entryIconSprite;
         [SerializeField] private Sprite battleIconSprite;
@@ -15,16 +16,16 @@ namespace View.ScheduleView.Map
         [SerializeField] private Image background;
         [SerializeField] private Image icon;
         
-        private Node currnetNode;
+        private Node currentNode;
         private Sprite selectedSprite;
 
-        public Node CurrentNode { get => currnetNode; }
+        public Node CurrentNode { get => currentNode; }
 
         public void Initiate(Node node)
         {
-            currnetNode = node;
+            currentNode = node;
 
-            selectedSprite = currnetNode switch{
+            selectedSprite = currentNode switch {
                 ScheduleEntryNode => entryIconSprite,
                 BattleNode battleNode => battleNode.IsBossNode ? bossIconSprite : battleIconSprite,
                 IncidentNode => incidentIconSprite,
@@ -33,6 +34,17 @@ namespace View.ScheduleView.Map
             };
 
             icon.sprite = selectedSprite;
+            OnUnfocused();
+        }
+
+        public void OnFocused()
+        {
+            background.color = Color.yellow;
+        }
+        
+        public void OnUnfocused()
+        {
+            background.color = Color.white;
         }
     }
 }
