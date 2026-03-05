@@ -7,4 +7,6 @@ namespace ViewEvent.GameRunView
     public readonly struct ScehduleSettled : IGameRunViewEvent {}
 
     public readonly struct RunEnded : IGameRunViewEvent {}
+
+    public readonly struct ScheduleEnded : IGameRunViewEvent {}
 }

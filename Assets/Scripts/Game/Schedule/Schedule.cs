@@ -4,7 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using ViewEvent.ScheduleView;
 
-public class Schedule : IReadOnlySchedule
+public class Schedule : IReadOnlySchedule, INodeFlowHandler
 {
     private ScheduleHistory history = new ScheduleHistory();
     private ScheduleData data;
@@ -36,14 +36,16 @@ public class Schedule : IReadOnlySchedule
     }
 
     public event Action<ScheduleHistory> OnEnd; 
-    public event Action<Node> OnNodeMoved;
+    public event Action<Node> OnNodeEnter;
+    public event Action<Node> OnNodeExit;
+    public event Action<List<Node>> OnRequestNextNodeSelection;
 
     public void EnterStartNode(FieldContext context) { 
         currentNode = null;
         hasStarted = true;
-        MoveNode(startNode, context);
+        MoveNode(startNode, context, this, history);
     }
-    public void MoveNode(Node nextNode, FieldContext context)
+    public void MoveNode(Node nextNode, FieldContext context, INodeFlowHandler nodeFlowHandler, ScheduleHistory scheduleHistory)
     {
         if (currentNode != null && !currentNode.NextNodes.Contains(nextNode) && nextNode != exitNode) 
         { 
@@ -52,8 +54,8 @@ public class Schedule : IReadOnlySchedule
 
         currentNode = nextNode;
         
-        OnNodeMoved?.Invoke(currentNode);
-        nextNode.OnEnter(context, history);
+        OnNodeEnter?.Invoke(currentNode);
+        nextNode.OnEnter(context, nodeFlowHandler, scheduleHistory);
     }
 
     public void SetBossData(EnemyData bossData)
@@ -64,5 +66,18 @@ public class Schedule : IReadOnlySchedule
     public void EndSchedule()
     {
         OnEnd?.Invoke(history);
+    }
+
+    public void RequestNextNodeSelection(List<Node> nextNodes)
+    {
+        OnRequestNextNodeSelection?.Invoke(nextNodes);
+    }
+
+    public void SettleNextNode(Node nextNode)
+    {
+        if (currentNode is null) { return; }
+
+        OnNodeExit?.Invoke(currentNode);
+        currentNode.OnExit(nextNode);
     }
 }

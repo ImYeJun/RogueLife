@@ -19,6 +19,8 @@ namespace View.ScheduleView.Deck
         private CardSlotView focusedSlot;
         private Card focusedCard; 
         
+        [SerializeField] private GameObject uiRoot;
+
         private DeckInventorySorter deckSorter = new DeckInventorySorter();
         [SerializeField] private SortingSettingView sortingSettingView;
         [SerializeField] private FilteringSettingView filteringSettingView;
@@ -40,6 +42,8 @@ namespace View.ScheduleView.Deck
 
         public override void OnInitialized()
         {
+            uiRoot.SetActive(false);
+
             mainDeckPool = new ObjectPool<CardSlotView>(
                 createFunc : CreateMainCardSlot,
                 actionOnGet : GetDeckCardSlot,
@@ -63,9 +67,11 @@ namespace View.ScheduleView.Deck
             sortingSettingView.SetOnButtonPressed(ChangeSortingState);
             filteringSettingView.SetOnButtonPressed(ToggleAttributeFilteringState, ToggleTypeFilteringState, ToggleCostFilteringState);
         }
+
         public override void OnDestroy()
         {
-            eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<DeckChanged>(OnDeckChanged);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
@@ -119,7 +125,7 @@ namespace View.ScheduleView.Deck
         public void OnViewOpened()
         {
             DrawView();
-            gameObject.SetActive(true);
+            uiRoot.SetActive(true);
         }
 
         private void DrawView()

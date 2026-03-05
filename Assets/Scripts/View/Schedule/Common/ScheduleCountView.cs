@@ -19,7 +19,7 @@ namespace View.ScheduleView
 
         public override void OnDestroy()
         {
-            eventBus.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
+            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)

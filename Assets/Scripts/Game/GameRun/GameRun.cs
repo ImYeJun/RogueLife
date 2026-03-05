@@ -122,7 +122,7 @@ public partial class GameRun
         }
         else
         {
-            StartSchedule();
+            viewEventBus.Publish(new ScheduleEnded());
         }
     }
 

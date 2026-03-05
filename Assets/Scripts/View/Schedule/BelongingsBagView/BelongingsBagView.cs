@@ -17,6 +17,9 @@ namespace View.ScheduleView.BelongingsBag
         private BelongingsSlotView focusedSlot;
         private Belongings focusedBelongings;
 
+        // 💡 UI 분리 객체
+        [SerializeField] private GameObject uiRoot;
+
         [SerializeField] private UnityEvent<Belongings> OnSlotClicked;
         [SerializeField] private List<MainBelongingsSlotView> mainSlots;
         [SerializeField] private GameObject sideSlotPrefab;
@@ -26,6 +29,8 @@ namespace View.ScheduleView.BelongingsBag
 
         public override void OnInitialized()
         {  
+            uiRoot.SetActive(false);
+            
             sideSlotPool = new ObjectPool<SideBelongingsSlotView>(
                 createFunc : () =>
                 {
@@ -52,6 +57,7 @@ namespace View.ScheduleView.BelongingsBag
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
             eventBus.Subscribe<BelongingsBagChanged>(OnBelongingsBagChanged);
         }
+
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
@@ -72,7 +78,7 @@ namespace View.ScheduleView.BelongingsBag
         public void OnViewOpened()
         {
             DrawView();
-            gameObject.SetActive(true);
+            uiRoot.SetActive(true);
         }
 
         private void InitializeView()

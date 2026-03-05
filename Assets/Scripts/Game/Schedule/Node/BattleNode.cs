@@ -11,7 +11,7 @@ public class BattleNode : Node
     private List<EnemyDataSlot> engagingEnemiesDataSlot;
     private bool hasResolved;
 
-    public BattleNode(Guid skeletonId, Action<Node, FieldContext> OnMoveRequest, IEngageBattle battleSystem, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(OnMoveRequest, skeletonId)
+    public BattleNode(Guid skeletonId, IEngageBattle battleSystem, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(skeletonId)
     {
         this.battleSystem = battleSystem;
         this.engagingEnemiesDataSlot = engagingEnemiesDataSlot;
@@ -19,13 +19,13 @@ public class BattleNode : Node
 
     public bool IsBossNode => engagingEnemiesDataSlot.Any(slot => slot.Data.Tier == EnemyTier.BOSS);
 
-    public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, INodeFlowHandler flowHandler, ScheduleHistory scheduleHistory)
     {
-        //TODO : engagingEnemiesData에 따라 적 일상 UI 띄우기
-        base.OnEnter(context, scheduleHistory);
+        base.OnEnter(context, flowHandler, scheduleHistory);
 
-        //TODO : engagingEnemiesData에 따라 encounterLine 연출 띄우기
-
+        RequestNextNodeSelection();
+        return;
+        
         battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, OnBattleExit);
     }
 

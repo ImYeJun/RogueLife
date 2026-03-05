@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class ScheduleEntryNode : Node
 {
-    public ScheduleEntryNode(Guid skeletonId, Action<Node, FieldContext> OnMoveRequest) : base(OnMoveRequest, skeletonId)
+    public ScheduleEntryNode(Guid skeletonId) : base(skeletonId)
     {
     }
-    public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
+    
+    public override void OnEnter(FieldContext context, INodeFlowHandler flowHandler, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(context, scheduleHistory);
+        base.OnEnter(context, flowHandler, scheduleHistory);
 
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken; //! Test
 

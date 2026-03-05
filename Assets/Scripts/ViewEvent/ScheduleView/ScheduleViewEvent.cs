@@ -5,16 +5,28 @@ namespace ViewEvent.ScheduleView
 {
     public interface IScheduleViewEvent : IViewEvent { }
 
-    public readonly struct NodeMoved : IScheduleViewEvent
+    public readonly struct NodeEntered : IScheduleViewEvent
     {
-        private readonly Node currentNode;
+        private readonly Node enteringNode;
 
-        public NodeMoved(Node currentNode)
+        public NodeEntered(Node enteringNode)
         {
-            this.currentNode = currentNode;
+            this.enteringNode = enteringNode;
         }
 
-        public Node CurrentNode => currentNode;
+        public Node EnteringNode => enteringNode;
+    }
+
+    public readonly struct NodeExited : IScheduleViewEvent
+    {
+        private readonly Node exitingNode;
+
+        public NodeExited(Node exitingNode)
+        {
+            this.exitingNode = exitingNode;
+        }
+
+        public Node ExitingNode => exitingNode;
     }
 
     public readonly struct ScheduleStateSynced : IScheduleViewEvent
@@ -108,5 +120,17 @@ namespace ViewEvent.ScheduleView
         public bool IsOverflowed { get => isOverflowed; set => isOverflowed = value; }
         public int BattleHealtHeal { get => battleHealtHeal; set => battleHealtHeal = value; }
         public int MentalityHeal { get => mentalityHeal; set => mentalityHeal = value; }
+    }
+
+    public readonly struct NextNodeSelectRequested : IScheduleViewEvent
+    {
+        private readonly List<Node> nextNodes;
+
+        public NextNodeSelectRequested(List<Node> nextNodes)
+        {
+            this.nextNodes = nextNodes;
+        }
+
+        public List<Node> NextNodes => nextNodes;
     }
 }

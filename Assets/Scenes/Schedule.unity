@@ -2230,7 +2230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f4dd2edef974dc49b2e510724575076, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.ScheduleButton
-  mapView: {fileID: 1476495246}
+  mapView: {fileID: 1485452801}
 --- !u!1 &404647508
 GameObject:
   m_ObjectHideFlags: 0
@@ -2287,10 +2287,10 @@ MonoBehaviour:
   SetCardInspectorActive:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1737347697}
-        m_TargetAssemblyTypeName: View.ScheduleView.CardInspectorView, Assembly-CSharp
+      - m_Target: {fileID: 1031923497}
+        m_TargetAssemblyTypeName: View.ScheduleView.Deck.CardInspectorView, Assembly-CSharp
         m_MethodName: SetViewActive
-        m_Mode: 6
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2355,9 +2355,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1737347696}
-        m_TargetAssemblyTypeName: View.ScheduleView.Deck.DeckInventoryView, Assembly-CSharp
-        m_MethodName: InitializeView
+      - m_Target: {fileID: 404647510}
+        m_TargetAssemblyTypeName: View.ScheduleView.Deck.DeckViewCloseButton, Assembly-CSharp
+        m_MethodName: OnPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2547,7 +2547,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1737347697}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: View.ScheduleView.CardInspectorView, Assembly-CSharp
         m_MethodName: ShowReflectionDescription
         m_Mode: 1
@@ -2734,6 +2734,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 470016300}
   m_CullTransparentMesh: 1
+--- !u!1 &471653959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 471653960}
+  - component: {fileID: 471653961}
+  m_Layer: 0
+  m_Name: NextNodeSelectView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &471653960
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471653959}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1227459333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &471653961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471653959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97a3610184bcf3647ac66ce3bb3a3eab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.NextNodeSelectView
+  uiRoot: {fileID: 874367751}
+  nextNodeButtonsContainer: {fileID: 1584128381}
+  nextNodeButtonPrefab: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
 --- !u!1001 &473893459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4550,6 +4597,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65b3258e6721e854ba3feb1e6e9ef4b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.CostFilterListButton
+--- !u!1 &874367751
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 874367752}
+  - component: {fileID: 874367754}
+  - component: {fileID: 874367753}
+  m_Layer: 5
+  m_Name: NextNodeSelectView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &874367752
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874367751}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1584128381}
+  m_Father: {fileID: 2025535951}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &874367753
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874367751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.16470589, g: 0.16470589, b: 0.16470589, a: 0.68235296}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &874367754
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 874367751}
+  m_CullTransparentMesh: 1
 --- !u!1 &901061849
 GameObject:
   m_ObjectHideFlags: 0
@@ -5065,8 +5188,6 @@ GameObject:
   - component: {fileID: 943483332}
   - component: {fileID: 943483334}
   - component: {fileID: 943483333}
-  - component: {fileID: 943483335}
-  - component: {fileID: 943483336}
   m_Layer: 5
   m_Name: BelongingsBagView
   m_TagString: Untagged
@@ -5136,55 +5257,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943483331}
   m_CullTransparentMesh: 1
---- !u!114 &943483335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 943483331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bd7b546b24d29f42818e3fba11acbc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBagView
-  OnSlotClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 943483336}
-        m_TargetAssemblyTypeName: View.ScheduleView.BelongingsBag.BelongingsInspectorView,
-          Assembly-CSharp
-        m_MethodName: VisualizeSelectedSlot
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  mainSlots:
-  - {fileID: 1150633037}
-  - {fileID: 244070321}
-  - {fileID: 379320232}
-  sideSlotPrefab: {fileID: 3396575760865764430, guid: 2e5e18863bd98934bbce4f0b7b3ca7f0, type: 3}
-  sideSlotInventory: {fileID: 237502060}
---- !u!114 &943483336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 943483331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f5e71fc22f2d4e45adc5c6a8a97cfa0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBag.BelongingsInspectorView
-  belongingsIcon: {fileID: 634629663}
-  belongingsName: {fileID: 283907490}
-  belongingsEffectDescription: {fileID: 1772127019}
 --- !u!1 &945266529
 GameObject:
   m_ObjectHideFlags: 0
@@ -5682,7 +5754,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1737347697}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: View.ScheduleView.CardInspectorView, Assembly-CSharp
         m_MethodName: ShowNormalDescription
         m_Mode: 1
@@ -6081,6 +6153,176 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1021135450}
   m_CullTransparentMesh: 1
+--- !u!1 &1024027833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1024027834}
+  - component: {fileID: 1024027836}
+  - component: {fileID: 1024027835}
+  m_Layer: 0
+  m_Name: BelongingsBagView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1024027834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024027833}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1227459333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1024027835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024027833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f5e71fc22f2d4e45adc5c6a8a97cfa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBag.BelongingsInspectorView
+  belongingsIcon: {fileID: 634629663}
+  belongingsName: {fileID: 283907490}
+  belongingsEffectDescription: {fileID: 1772127019}
+--- !u!114 &1024027836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024027833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7bd7b546b24d29f42818e3fba11acbc0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBagView
+  uiRoot: {fileID: 943483331}
+  OnSlotClicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1024027835}
+        m_TargetAssemblyTypeName: View.ScheduleView.BelongingsBag.BelongingsInspectorView,
+          Assembly-CSharp
+        m_MethodName: VisualizeSelectedSlot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  mainSlots:
+  - {fileID: 1150633037}
+  - {fileID: 244070321}
+  - {fileID: 379320232}
+  sideSlotPrefab: {fileID: 3396575760865764430, guid: 2e5e18863bd98934bbce4f0b7b3ca7f0, type: 3}
+  sideSlotInventory: {fileID: 237502060}
+--- !u!1 &1031923495
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1031923496}
+  - component: {fileID: 1031923498}
+  - component: {fileID: 1031923497}
+  m_Layer: 0
+  m_Name: DeckView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1031923496
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031923495}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1227459333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1031923497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031923495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6e832e39b2eb274fa2fda9e9daa41e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.CardInspectorView
+  cardView: {fileID: 1416015160}
+  cardName: {fileID: 1059188887}
+  cardAttribute: {fileID: 1665490431}
+  cardType: {fileID: 2127462196}
+  cardEffectDescription: {fileID: 811761688}
+  effectTypeButtonsView: {fileID: 1716746853}
+--- !u!114 &1031923498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1031923495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f64d6710e64aaa4390e0db2da60cd9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.DeckInventoryView
+  uiRoot: {fileID: 1737347692}
+  sortingSettingView: {fileID: 409982441}
+  filteringSettingView: {fileID: 1128453833}
+  OnSlotClicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1031923497}
+        m_TargetAssemblyTypeName: View.ScheduleView.Deck.CardInspectorView, Assembly-CSharp
+        m_MethodName: VisualizeSelectedSlot
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  mainCardSlotPrefab: {fileID: 6498705381639438029, guid: a2fcf816b30589f45bb4befd7eb7cc77, type: 3}
+  sideCardSlotPrefab: {fileID: 6439422349983314710, guid: 1e48eaed06098334f86283876a842e4a, type: 3}
+  mainDeckInventory: {fileID: 1194030975}
+  sideDeckInventory: {fileID: 1386547010}
+  mainDeckIndicator: {fileID: 604958538}
+  sideDeckIndicator: {fileID: 1899753880}
 --- !u!1 &1056108816
 GameObject:
   m_ObjectHideFlags: 0
@@ -7537,6 +7779,41 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 293.461, y: 293.456}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1227459331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1227459333}
+  m_Layer: 0
+  m_Name: InteractableViews
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1227459333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227459331}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1031923496}
+  - {fileID: 1024027834}
+  - {fileID: 1485452799}
+  - {fileID: 471653960}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1229625916
 GameObject:
   m_ObjectHideFlags: 0
@@ -7719,7 +7996,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad0dde6dc31018d46ba07b4d5085c05c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBagButton
-  belongingsBagView: {fileID: 943483335}
+  belongingsBagView: {fileID: 1024027836}
 --- !u!1 &1246203085
 GameObject:
   m_ObjectHideFlags: 0
@@ -9166,7 +9443,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0007324219, y: 0.000061035156}
-  m_SizeDelta: {x: -1580.8821, y: 0}
+  m_SizeDelta: {x: -1579.877, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1463804728
 MonoBehaviour:
@@ -9259,14 +9536,15 @@ MonoBehaviour:
   - {fileID: 2120220270}
   - {fileID: 1881075775}
   - {fileID: 404647510}
-  - {fileID: 1737347697}
-  - {fileID: 943483336}
+  - {fileID: 1031923497}
+  - {fileID: 1024027835}
   - {fileID: 1275263200}
-  - {fileID: 1476495246}
+  - {fileID: 1485452801}
   - {fileID: 775800474}
   interacatbleViews:
-  - {fileID: 1737347696}
-  - {fileID: 943483335}
+  - {fileID: 1031923498}
+  - {fileID: 1024027836}
+  - {fileID: 471653961}
 --- !u!1 &1465191766
 GameObject:
   m_ObjectHideFlags: 0
@@ -9415,8 +9693,6 @@ GameObject:
   - component: {fileID: 1476495243}
   - component: {fileID: 1476495245}
   - component: {fileID: 1476495244}
-  - component: {fileID: 1476495246}
-  - component: {fileID: 1476495247}
   m_Layer: 5
   m_Name: ScheduleMapView
   m_TagString: Untagged
@@ -9483,30 +9759,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476495242}
   m_CullTransparentMesh: 1
---- !u!114 &1476495246
+--- !u!1 &1485452798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1485452799}
+  - component: {fileID: 1485452801}
+  - component: {fileID: 1485452800}
+  m_Layer: 0
+  m_Name: ScheduleMapView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1485452799
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485452798}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1227459333}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1485452800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476495242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b56fbbab15789499a53625dcf4a2b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Map.MapView
-  scrollContent: {fileID: 1463804727}
-  mapLayerViewPrefab: {fileID: 6097870401281035313, guid: 9f78d3559f142654386f7cd6313b7760, type: 3}
-  mapNodeIconViewPrefab: {fileID: 2942843916577291590, guid: c40130499d0c321419a1ba449e644db2, type: 3}
-  scrollbar: {fileID: 1826439822}
-  lineGenerator: {fileID: 1476495247}
---- !u!114 &1476495247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1476495242}
+  m_GameObject: {fileID: 1485452798}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 72ed02a55232bbb4d8d7c27bb31c6cad, type: 3}
@@ -9515,6 +9807,24 @@ MonoBehaviour:
   linePrefab: {fileID: 7922082072951076288, guid: 2ddbff462a5b689428c6daf7414f0f84, type: 3}
   linesParent: {fileID: 1585775061}
   lineWidth: 3
+--- !u!114 &1485452801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1485452798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b56fbbab15789499a53625dcf4a2b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Map.MapView
+  uiRoot: {fileID: 1476495242}
+  scrollContent: {fileID: 1463804727}
+  mapLayerViewPrefab: {fileID: 6097870401281035313, guid: 9f78d3559f142654386f7cd6313b7760, type: 3}
+  mapNodeIconViewPrefab: {fileID: 2942843916577291590, guid: c40130499d0c321419a1ba449e644db2, type: 3}
+  scrollbar: {fileID: 1826439822}
+  lineGenerator: {fileID: 1485452800}
 --- !u!1 &1500993700
 GameObject:
   m_ObjectHideFlags: 0
@@ -9805,6 +10115,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1554477187}
   m_CullTransparentMesh: 1
+--- !u!1 &1584128380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584128381}
+  - component: {fileID: 1584128382}
+  m_Layer: 5
+  m_Name: NextNodeButtonsContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1584128381
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584128380}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 874367752}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -118, y: 0}
+  m_SizeDelta: {x: 464.3416, y: 0}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!114 &1584128382
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584128380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: -300
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1585775060
 GameObject:
   m_ObjectHideFlags: 0
@@ -10432,8 +10804,6 @@ GameObject:
   - component: {fileID: 1737347693}
   - component: {fileID: 1737347695}
   - component: {fileID: 1737347694}
-  - component: {fileID: 1737347696}
-  - component: {fileID: 1737347697}
   m_Layer: 5
   m_Name: DeckView
   m_TagString: Untagged
@@ -10505,59 +10875,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1737347692}
   m_CullTransparentMesh: 1
---- !u!114 &1737347696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737347692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f64d6710e64aaa4390e0db2da60cd9d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.DeckInventoryView
-  sortingSettingView: {fileID: 409982441}
-  filteringSettingView: {fileID: 1128453833}
-  OnSlotClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1737347697}
-        m_TargetAssemblyTypeName: View.ScheduleView.CardInspectorView, Assembly-CSharp
-        m_MethodName: VisualizeSelectedSlot
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  mainCardSlotPrefab: {fileID: 6498705381639438029, guid: a2fcf816b30589f45bb4befd7eb7cc77, type: 3}
-  sideCardSlotPrefab: {fileID: 6439422349983314710, guid: 1e48eaed06098334f86283876a842e4a, type: 3}
-  mainDeckInventory: {fileID: 1194030975}
-  sideDeckInventory: {fileID: 1386547010}
-  mainDeckIndicator: {fileID: 604958538}
-  sideDeckIndicator: {fileID: 1899753880}
---- !u!114 &1737347697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1737347692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e832e39b2eb274fa2fda9e9daa41e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.CardInspectorView
-  cardView: {fileID: 1416015160}
-  cardName: {fileID: 1059188887}
-  cardAttribute: {fileID: 1665490431}
-  cardType: {fileID: 2127462196}
-  cardEffectDescription: {fileID: 811761688}
-  effectTypeButtonsView: {fileID: 1716746853}
 --- !u!1 &1743096926
 GameObject:
   m_ObjectHideFlags: 0
@@ -11696,7 +12013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e86ba6e442f940b4ab361dda8cb41e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.DeckButton
-  deckView: {fileID: 1737347696}
+  deckView: {fileID: 1031923498}
 --- !u!1 &1890604183
 GameObject:
   m_ObjectHideFlags: 0
@@ -12829,8 +13146,9 @@ RectTransform:
   m_Children:
   - {fileID: 1229625917}
   - {fileID: 1216537158}
-  - {fileID: 1268403894}
   - {fileID: 2091703560}
+  - {fileID: 874367752}
+  - {fileID: 1268403894}
   - {fileID: 1737347693}
   - {fileID: 943483332}
   - {fileID: 1476495243}
@@ -14291,3 +14609,4 @@ SceneRoots:
   - {fileID: 2088051532}
   - {fileID: 2025535951}
   - {fileID: 1546862201}
+  - {fileID: 1227459333}

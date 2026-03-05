@@ -61,7 +61,7 @@ public class ScheduleGenerator
             layered[layer] = new List<Node>();
             foreach (NodeSkeleton nodeSkeleton in layerSkeletonNodes)
             {
-                Node node = nodeGenerator.Generate(random, nodeSkeleton.Id, nodeSkeleton, data, schedule.MoveNode, schedule.EndSchedule);
+                Node node = nodeGenerator.Generate(random, nodeSkeleton.Id, nodeSkeleton, data, schedule.EndSchedule);
 
                 layered[layer].Add(node);
             }

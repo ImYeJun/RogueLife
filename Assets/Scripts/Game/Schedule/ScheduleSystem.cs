@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using ViewEvent.ScheduleSelecting;
 using ViewEvent.ScheduleView;
@@ -55,10 +56,18 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void SettleCurrentScheduleData(ScheduleData data)
     {
         currentSchedule = scheduleGenerator.GenerateSchedule(random, data);
+
+        currentSchedule.OnNodeEnter += OnEnterNode;
+        currentSchedule.OnRequestNextNodeSelection += OnRequestNextNodeSelection;
+        currentSchedule.OnNodeExit += OnExitNode;
         currentSchedule.OnEnd += EndSchedule;
-        currentSchedule.OnNodeMoved += OnNodeMoved;
         
         scheduleSelectingViewEventBus.Publish(new ScheduleSettled());
+    }
+    public void SetBossData(EnemyData bossData)
+    {
+        if (currentSchedule == null) { throw new InvalidOperationException("[ScheduleSystem] Schedule is not settled."); }
+        currentSchedule.SetBossData(bossData);
     }
 
     public void BroadcastCurrentState()
@@ -73,6 +82,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         ));
     }
 
+
     public void EnterStartNodeIfNeeded()
     {
         if (currentSchedule.HasStarted) { return; } 
@@ -81,21 +91,23 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
     public void EndSchedule(ScheduleHistory history)
     {
-        currentSchedule.OnNodeMoved -= OnNodeMoved; 
+        currentSchedule.OnNodeEnter -= OnEnterNode; 
+        currentSchedule.OnRequestNextNodeSelection -= OnRequestNextNodeSelection;
+        currentSchedule.OnNodeExit -= OnExitNode;
         currentSchedule.OnEnd -= EndSchedule;
+
         onScheduleEnd?.Invoke(history);
     }
 
-    public void SetBossData(EnemyData bossData)
+    public void OnEnterNode(Node enteringNode)
     {
-        if (currentSchedule == null) { throw new InvalidOperationException("[ScheduleSystem] Schedule is not settled."); }
-        currentSchedule.SetBossData(bossData);
+        scheduleViewEventBus.Publish(new NodeEntered(enteringNode));
+    }
+    public void OnExitNode(Node exitingNode)
+    {
+        scheduleViewEventBus.Publish(new NodeExited(exitingNode));
     }
 
-    public void OnNodeMoved(Node currentNode)
-    {
-        scheduleViewEventBus.Publish(new NodeMoved(currentNode));
-    }
     public void MoveCard(Card card, DeckType from, DeckType to)
     {
         if(context.Deck.TryMoveCard(card, from, to))
@@ -117,5 +129,14 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void OnHealthHealed(PlayerHealed payload)
     {
         scheduleViewEventBus.Publish(payload);
+    }
+
+    public void OnRequestNextNodeSelection(List<Node> nextNodes)
+    {
+        scheduleViewEventBus.Publish(new NextNodeSelectRequested(nextNodes));
+    }
+    public void SettleNextNode(Node nextNode)
+    {
+        currentSchedule.SettleNextNode(nextNode);
     }
 }

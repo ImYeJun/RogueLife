@@ -6,14 +6,17 @@ public class IncidentNode : Node
 {    
     private IncidentData data;
 
-    public IncidentNode(Guid skeletonId, Action<Node, FieldContext> OnMoveRequest, IncidentData data) : base(OnMoveRequest, skeletonId)
+    public IncidentNode(Guid skeletonId, IncidentData data) : base(skeletonId)
     {
         this.data = data;
     }
 
-    public override void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, INodeFlowHandler flowHandler, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(context, scheduleHistory);
+        base.OnEnter(context, flowHandler, scheduleHistory);
+
+        RequestNextNodeSelection();
+        return;
 
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
 

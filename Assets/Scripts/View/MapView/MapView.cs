@@ -20,6 +20,8 @@ namespace View.ScheduleView.Map
         
         private List<GameObject> instantiatedLayerObjects = new List<GameObject>(); 
 
+        [SerializeField] private GameObject uiRoot;
+
         [SerializeField] private Transform scrollContent;
         [SerializeField] private GameObject mapLayerViewPrefab;
         [SerializeField] private GameObject mapNodeIconViewPrefab;
@@ -30,14 +32,15 @@ namespace View.ScheduleView.Map
 
         public override void OnInitialized()
         {
+            uiRoot.SetActive(false);
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus.Subscribe<NodeMoved>(OnNodeMoved);
+            eventBus.Subscribe<NodeEntered>(OnNodeEntered);
         }
         
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus?.Unsubscribe<NodeMoved>(OnNodeMoved);
+            eventBus?.Unsubscribe<NodeEntered>(OnNodeEntered);
         }
 
         private void OnScheduleStateSynced(ScheduleStateSynced payload)
@@ -45,17 +48,20 @@ namespace View.ScheduleView.Map
             map = payload.Schedule.Map;
             
             isMapDirty = true;
-            if (gameObject.activeInHierarchy)
+            if (uiRoot.activeInHierarchy)
             {
                 DrawMap();
             }
         }
         
-        private void OnNodeMoved(NodeMoved payload)
+        private void OnNodeEntered(NodeEntered payload)
         {
-            targetNode = payload.CurrentNode;
+            targetNode = payload.EnteringNode;
 
-            ApplyNodeFocus();   
+            if (!isMapDirty)
+            {
+                ApplyNodeFocus();   
+            }
         }
 
         private void ApplyNodeFocus()
@@ -76,7 +82,7 @@ namespace View.ScheduleView.Map
 
         public void OnViewOpened()
         {
-            gameObject.SetActive(true);
+            uiRoot.SetActive(true);
             
             if (isMapDirty)
             {

@@ -33,15 +33,21 @@ namespace Controller.Schedule
             viewCommander.EnterStartNodeIfNeeded();
 
             currentRun.ViewEventBus.Subscribe<RunEnded>(OnRunEnded);
+            currentRun.ViewEventBus.Subscribe<ScheduleEnded>(OnScheduleEnded);
         }
         private void OnDestroy()
         {
             currentRun?.ViewEventBus?.Unsubscribe<RunEnded>(OnRunEnded);
+            currentRun?.ViewEventBus?.Unsubscribe<ScheduleEnded>(OnScheduleEnded);
         }
 
         public void OnRunEnded(RunEnded payload)
         {
             GameSceneManager.Instance.LoadScene(SceneName.MAIN_MENU);
+        }
+        private void OnScheduleEnded(ScheduleEnded ended)
+        {
+            GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE_SELECTING);
         }
     }
 }

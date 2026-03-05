@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public abstract class Node
 {
     protected FieldContext context;
+    protected INodeFlowHandler nodeFlowHandler;
     protected ScheduleHistory scheduleHistory;
 
     Guid skeletonId;
@@ -20,20 +21,17 @@ public abstract class Node
     public void LinkPreviousNode(Node previousNode) { previousNodes.Add(previousNode); }
     public void FixExitNode(Node exitNode) { this.exitNode = exitNode; }
 
-    public Action<Node, FieldContext> OnMoveRequest;
 
-    public Node(Action<Node, FieldContext> OnMoveRequest, Guid skeletonId)
+    public Node(Guid skeletonId)
     {
-        this.OnMoveRequest = OnMoveRequest;
         this.skeletonId = skeletonId;
     }
 
-    public virtual void OnEnter(FieldContext context, ScheduleHistory scheduleHistory)
+    public virtual void OnEnter(FieldContext context, INodeFlowHandler nodeFlowHandler, ScheduleHistory scheduleHistory)
     {
         this.context = context;
+        this.nodeFlowHandler = nodeFlowHandler;
         this.scheduleHistory = scheduleHistory;
-
-        //TODO : 노드 진입 연출 실행
     }
 
     protected void RecordBelongingsEquipping()
@@ -48,15 +46,15 @@ public abstract class Node
 
     public void RequestNextNodeSelection()
     {
-        //TODO : nextNodes에 따라 UI 띄우기 + 선택지 UI에 옵저버로 OnExit() 집어 넣기
+        nodeFlowHandler.RequestNextNodeSelection(nextNodes);
     }
 
     public virtual void OnExit(Node nextNode)
     {
-        //TODO : 노드 퇴장 연출 실행
-        OnMoveRequest.Invoke(nextNode, context);
-        
+        nodeFlowHandler.MoveNode(nextNode, context, nodeFlowHandler, scheduleHistory);
+
         context = null;
+        nodeFlowHandler = null;
         scheduleHistory = null;
     }
 
