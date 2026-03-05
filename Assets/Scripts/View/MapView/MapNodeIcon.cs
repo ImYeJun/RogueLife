@@ -15,11 +15,16 @@ namespace View.ScheduleView.Map
         [SerializeField] private Image background;
         [SerializeField] private Image icon;
         
+        private Node currnetNode;
         private Sprite selectedSprite;
+
+        public Node CurrentNode { get => currnetNode; }
 
         public void Initiate(Node node)
         {
-            selectedSprite = node switch{
+            currnetNode = node;
+
+            selectedSprite = currnetNode switch{
                 ScheduleEntryNode => entryIconSprite,
                 BattleNode battleNode => battleNode.IsBossNode ? bossIconSprite : battleIconSprite,
                 IncidentNode => incidentIconSprite,

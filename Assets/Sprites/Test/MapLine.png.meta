@@ -1,0 +1,222 @@
+fileFormatVersion: 2
+guid: e2d5e7642aeaef641af31d9d3f0c77c4
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4860915852988284897
+    second: MapLine_0
+  - first:
+      213: 5059168044796287362
+    second: MapLine_1
+  - first:
+      213: -546295629807476757
+    second: MapLine_2
+  - first:
+      213: -6282920970194039661
+    second: MapLine_3
+  - first:
+      213: 4162065526733933107
+    second: MapLine_4
+  - first:
+      213: 5275121328374496119
+    second: MapLine_5
+  - first:
+      213: 1842983894134193028
+    second: MapLine_6
+  - first:
+      213: -1981065621296804617
+    second: MapLine_7
+  - first:
+      213: 1075816858586875656
+    second: MapLine_8
+  - first:
+      213: 2298559881640703099
+    second: MapLine_9
+  - first:
+      213: -864670730054378918
+    second: MapLine_10
+  - first:
+      213: -3346076103378091075
+    second: MapLine_11
+  - first:
+      213: 6643376796031963463
+    second: MapLine_12
+  - first:
+      213: 8730743568851493658
+    second: MapLine_13
+  - first:
+      213: -4148297254922228551
+    second: MapLine_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MapLine_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 611
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f10819339ce8a8cb0800000000000000
+      internalID: -4860915852988284897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MapLine_
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 0
+        width: 567
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fedcbf58135401469d76ce815a23140
+      internalID: 1395900893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b786ed6201dc9dd46bfcae05bf8aa43d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      MapLine_: 1395900893
+      MapLine_0: -4860915852988284897
+      MapLine_1: 5059168044796287362
+      MapLine_10: -864670730054378918
+      MapLine_11: -3346076103378091075
+      MapLine_12: 6643376796031963463
+      MapLine_13: 8730743568851493658
+      MapLine_14: -4148297254922228551
+      MapLine_2: -546295629807476757
+      MapLine_3: -6282920970194039661
+      MapLine_4: 4162065526733933107
+      MapLine_5: 5275121328374496119
+      MapLine_6: 1842983894134193028
+      MapLine_7: -1981065621296804617
+      MapLine_8: 1075816858586875656
+      MapLine_9: 2298559881640703099
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
