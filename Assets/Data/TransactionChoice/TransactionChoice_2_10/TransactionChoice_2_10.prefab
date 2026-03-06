@@ -48,7 +48,7 @@ MonoBehaviour:
   condition:
     rid: 2642317900041420924
   effect:
-    rid: 2642317900041420925
+    rid: 2642317903642755221
   references:
     version: 2
     RefIds:
@@ -57,7 +57,18 @@ MonoBehaviour:
       data:
         cardData: {fileID: 11400000, guid: 4735429a550915e4384dfe6cc44a7044, type: 2}
         amount: 1
-    - rid: 2642317900041420925
+    - rid: 2642317903642755221
+      type: {class: ChoiceSequenceCompositeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        choiceEffects:
+        - rid: 2642317903642755222
+        - rid: 2642317903642755223
+    - rid: 2642317903642755222
+      type: {class: ChoiceRemoveSpecificCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        removingCardData: {fileID: 11400000, guid: 4735429a550915e4384dfe6cc44a7044, type: 2}
+        amount: 1
+    - rid: 2642317903642755223
       type: {class: ChoiceObtainSpecificCardEffect, ns: , asm: Assembly-CSharp}
       data:
         obtainingCardData: {fileID: 11400000, guid: a36604a5ad3421145b90359e3e2b4ac5, type: 2}
