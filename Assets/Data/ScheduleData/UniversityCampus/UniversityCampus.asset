@@ -32,10 +32,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c6584c2bc52357e42847e3698a2f419a, type: 2}
   - {fileID: 11400000, guid: 12d25e6e68b369a458ede37f59da5b2e, type: 2}
   - {fileID: 11400000, guid: 261c0a280922eff4386cda9dbcbaa477, type: 2}
-  availableIncidentData:
-  - {fileID: 11400000, guid: a02464fd0e7f0da40a80be80cf9bdf5c, type: 2}
-  - {fileID: 11400000, guid: 6e0f8ada28c30ba4082667d08083028d, type: 2}
-  - {fileID: 11400000, guid: 602895ed1d2b05843b6bc32bd33d77dd, type: 2}
-  - {fileID: 11400000, guid: 54337673a085cc5478590921fb6ac840, type: 2}
-  - {fileID: 11400000, guid: fcc0fe792f9881f4d992bcf9c00609db, type: 2}
-  - {fileID: 11400000, guid: 85571bfb596b3c74c92c0c8f25f00e70, type: 2}
+  availableIncidentEntities:
+  - {fileID: 4571583354599400172, guid: 6a90f20b1337d8c4097b7f56a373148c, type: 3}
+  - {fileID: 9120154305697895350, guid: 8563d0178fbe46b4689f3a5a8979f276, type: 3}
+  - {fileID: 6178848484444200270, guid: 77ac49a8edd601849bcba5703f47ad94, type: 3}
+  - {fileID: 2479316511865074352, guid: 8462b80e56a6b1d419df73c99903cc3c, type: 3}
+  - {fileID: 4134429387665919870, guid: ae736ccf4606fcf41ad481b6a16282a1, type: 3}
+  - {fileID: 185515938304214776, guid: 8ac011ddfb30b944695fb12c575611d2, type: 3}

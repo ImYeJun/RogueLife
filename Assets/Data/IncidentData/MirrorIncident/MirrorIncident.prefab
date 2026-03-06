@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8432640848578360946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2025679846447070428}
+  - component: {fileID: 4571583354599400172}
+  m_Layer: 0
+  m_Name: MirrorIncident
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2025679846447070428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8432640848578360946}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4571583354599400172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8432640848578360946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ed175ad9f95cb469bd7f4948637982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IncidentEntity
+  data: {fileID: 11400000, guid: a02464fd0e7f0da40a80be80cf9bdf5c, type: 2}
+  choices:
+  - rid: 2642317903642755284
+  - rid: 2642317903642755285
+  - rid: 2642317903642755286
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317903642755284
+      type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
+      data:
+        description: "\uC624\uB298\uB530\uB77C \uD798\uC774 \uB118\uCCD0\uB0AC\uC9C0.."
+        effect:
+          rid: 2642317903642755287
+    - rid: 2642317903642755285
+      type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
+      data:
+        description: "\uC624\uB298\uB530\uB77C \uBA38\uB9AC\uAC00 \uC798\uB3CC\uC544\uAC14\uC5B4.."
+        effect:
+          rid: 2642317903642755288
+    - rid: 2642317903642755286
+      type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
+      data:
+        description: "\uC624\uB298\uB530\uB77C \uC6B4\uC774 \uC5C4\uCCAD \uC88B\uC558\uC5B4.."
+        effect:
+          rid: 2642317903642755289
+    - rid: 2642317903642755287
+      type: {class: ChoiceRandomCompositeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        candidates:
+        - effect:
+            rid: 2642317903642755294
+          weight: 40
+        - effect:
+            rid: 2642317903642755295
+          weight: 50
+        - effect:
+            rid: 2642317903642755296
+          weight: 10
+        pickCount: 1
+    - rid: 2642317903642755288
+      type: {class: ChoiceRandomCompositeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        candidates:
+        - effect:
+            rid: 2642317903642755297
+          weight: 40
+        - effect:
+            rid: 2642317903642755298
+          weight: 50
+        - effect:
+            rid: 2642317903642755299
+          weight: 10
+        pickCount: 1
+    - rid: 2642317903642755289
+      type: {class: ChoiceRandomCompositeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        candidates:
+        - effect:
+            rid: 2642317903642755300
+          weight: 40
+        - effect:
+            rid: 2642317903642755301
+          weight: 50
+        - effect:
+            rid: 2642317903642755302
+          weight: 10
+        pickCount: 1
+    - rid: 2642317903642755294
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 1
+        type: 0
+        attribute: 1
+    - rid: 2642317903642755295
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 2
+        type: 0
+        attribute: 1
+    - rid: 2642317903642755296
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 3
+        type: 0
+        attribute: 1
+    - rid: 2642317903642755297
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 1
+        type: 0
+        attribute: 2
+    - rid: 2642317903642755298
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 2
+        type: 0
+        attribute: 2
+    - rid: 2642317903642755299
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 3
+        type: 0
+        attribute: 2
+    - rid: 2642317903642755300
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 1
+        type: 0
+        attribute: 3
+    - rid: 2642317903642755301
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 2
+        type: 0
+        attribute: 3
+    - rid: 2642317903642755302
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 3
+        type: 0
+        attribute: 3

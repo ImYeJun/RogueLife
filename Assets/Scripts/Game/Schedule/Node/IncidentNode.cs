@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class IncidentNode : Node
 {    
-    private IncidentData data;
+    private IncidentEntity entity;
 
-    public IncidentNode(Guid skeletonId, IncidentData data) : base(skeletonId)
+    public IncidentNode(Guid skeletonId, IncidentEntity entity) : base(skeletonId)
     {
-        this.data = data;
+        this.entity = entity;
     }
 
     public override void OnEnter(FieldContext context, INodeFlowHandler flowHandler, ScheduleHistory scheduleHistory)
@@ -21,7 +21,7 @@ public class IncidentNode : Node
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
 
         //TODO : choices에 따라 선택지 UI 띄우기
-        var determiendChoices = data.DetermineEffect(context);
+        var determiendChoices = entity.DetermineEffect(context);
     }
 
     public void OnChoiceSettled(DeterminedIncidentChoiceData selectedChoice)
@@ -36,7 +36,7 @@ public class IncidentNode : Node
 
     public override void OnExit(Node nextNode)
     {
-        scheduleHistory.RecordEncounterIncident(data);
+        scheduleHistory.RecordEncounterIncident(entity.Data);
         RecordBelongingsEquipping();
 
         context.Health.OnMentalBreakDown -= OnPlayerMentalBroken;

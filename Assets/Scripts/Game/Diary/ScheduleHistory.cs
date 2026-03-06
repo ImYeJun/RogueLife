@@ -92,4 +92,9 @@ public class ScheduleHistory
 
         equippedBelongingsNodeCounts[data]++;
     }
+
+    internal void RecordEncounterIncident(object data)
+    {
+        throw new NotImplementedException();
+    }
 }

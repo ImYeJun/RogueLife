@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6367041329755933618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7807767719881210375}
+  - component: {fileID: 185515938304214776}
+  m_Layer: 0
+  m_Name: GameConsoleIncident
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7807767719881210375
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6367041329755933618}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &185515938304214776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6367041329755933618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3ed175ad9f95cb469bd7f4948637982, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IncidentEntity
+  data: {fileID: 11400000, guid: 85571bfb596b3c74c92c0c8f25f00e70, type: 2}
+  choices:
+  - rid: 2642317903642755275
+  - rid: 2642317903642755274
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317903642755274
+      type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
+      data:
+        description: "\uC544\uBB34\uAC70\uB098 \uC8FC\uC6B0\uBA74 \uBD80\uC815\uD0C4\uB2E4\uD588\uC5B4"
+        effect:
+          rid: 2642317903642755276
+    - rid: 2642317903642755275
+      type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
+      data:
+        description: "\uC7AC\uBC0C\uC5B4\uBCF4\uC778\uB2E4\u2026. \uC9D1\uAC00\uC11C
+          \uD574\uBD10\uC57C\uACA0\uC5B4"
+        effect:
+          rid: 2642317903642755277
+    - rid: 2642317903642755276
+      type: {class: ChoiceNoneEffect, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642317903642755277
+      type: {class: ChoiceSetBossEffect, ns: , asm: Assembly-CSharp}
+      data:
+        bossData: {fileID: 0}

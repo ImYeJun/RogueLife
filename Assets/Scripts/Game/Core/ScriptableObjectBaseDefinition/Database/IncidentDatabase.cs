@@ -2,24 +2,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "IncidentDatabase", menuName = "Scriptable Objects/Database/IncidentDatabase")]
-public class IncidentDatabase : ScriptableObject, IRunDiaryIncidentDatabaseContext, ISerializationCallbackReceiver {
-    [SerializeField] private List<IncidentData> availableIncidents;
-    private Dictionary<string, IncidentData> idLookUp = new Dictionary<string, IncidentData>();
+public class IncidentDatabase : MonoBehaviour, IRunDiaryIncidentDatabaseContext 
+{
+    [SerializeField] private List<IncidentEntity> availableIncidents;
+    private Dictionary<string, IncidentEntity> idLookUp = new Dictionary<string, IncidentEntity>();
 
     public IncidentData GetData(string id)
     {
-        if (idLookUp.TryGetValue(id, out IncidentData data)) { return data; }
+        if (idLookUp.TryGetValue(id, out IncidentEntity entity)) { return entity.Data; }
         
         Debug.LogWarning($"[IncidentDatabase] There's no IncidentData for {id}");
         return null;
     }
 
-    public List<IncidentData> AvailableIncidents => idLookUp.Values.ToList();
+    public List<IncidentData> AvailableIncidents => idLookUp.Values.Select(entity => entity.Data).ToList();
     
-    public void OnBeforeSerialize() { }
-
-    public void OnAfterDeserialize()
+    private void Awake()
     {
         idLookUp.Clear();
         
@@ -29,7 +27,8 @@ public class IncidentDatabase : ScriptableObject, IRunDiaryIncidentDatabaseConte
 
             string id = incidentData.Id;
             
-            if (id == null) { continue; }
+            if (string.IsNullOrEmpty(id)) { continue; } 
+            
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[IncidentDatabase] Duplicate data detected: {id}. the previous data was overwritten.");

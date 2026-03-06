@@ -44,18 +44,18 @@ public class BelongingsDatabase : MonoBehaviour, IFieldBelongingsDatabase {
 
     public Belongings? GetRandomBelongings(System.Random random, List<Belongings>? ignoring = null)
     {
-        var availableData = availableBelongingsEntities;
+        var availableEntities = availableBelongingsEntities;
 
         if (ignoring is not null)
         {
             var ignoringEntities = ignoring.Select(belongings => belongings.Entity);
-            availableData = availableData.Where(entity => !ignoringEntities.Contains(entity)).ToList();
+            availableEntities = availableEntities.Where(entity => !ignoringEntities.Contains(entity)).ToList();
         }
 
-        if (availableData.Count == 0) { return null; }
+        if (availableEntities.Count == 0) { return null; }
 
-        var selecetdData = availableData[random.Next(availableData.Count)];
-        return Materialize(selecetdData);
+        var selecetdEntity = availableEntities[random.Next(availableEntities.Count)];
+        return Materialize(selecetdEntity);
     }
 
     public Belongings? Materialize(BelongingsEntity entity) { return Materialize(entity.Data.Id); } 

@@ -61,11 +61,11 @@ public class NodeGenerator
 
     private IncidentNode MaterializeIncidentNode(Random random, ScheduleData data, Guid skeletonId)
     {
-        var availableIncidentData = data.AvailableIncidentData;
+        var availableIncidentData = data.AvailableIncidentEntities;
         if (availableIncidentData.Count == 0) { throw new InvalidOperationException("[NodeGenerator] availableIncidentData is empty"); }
 
-        var selecetData = availableIncidentData[random.Next(availableIncidentData.Count)];
+        var selecetEntity = availableIncidentData[random.Next(availableIncidentData.Count)];
 
-        return new IncidentNode(skeletonId, selecetData);
+        return new IncidentNode(skeletonId, selecetEntity);
     }
 }

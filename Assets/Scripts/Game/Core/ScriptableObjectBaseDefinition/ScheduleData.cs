@@ -16,7 +16,7 @@ public class ScheduleData : ScriptableObject
     [SerializeField] private EnemyData bossData;
     [SerializeField] private List<EnemyData> availableEliteEnemyData;
     [SerializeField] private List<EnemyData> availableNormalEnemyData;
-    [SerializeField] private List<IncidentData> availableIncidentData;
+    [SerializeField] private List<IncidentEntity> availableIncidentEntities;
 
     public string Id { get => id; }
     public string ScheduleName { get => scheduleName; }
@@ -29,7 +29,7 @@ public class ScheduleData : ScriptableObject
     public List<EnemyData> AvailableNormalEnemyData { get => availableNormalEnemyData; }
     public List<EnemyData> AvailableEliteEnemyData { get => availableEliteEnemyData; }
     public EnemyData BossData { get => bossData; }
-    public List<IncidentData> AvailableIncidentData { get => availableIncidentData; }
+    public List<IncidentEntity> AvailableIncidentEntities { get => availableIncidentEntities; }
 
 #if UNITY_EDITOR
     private void OnValidate()
@@ -86,11 +86,11 @@ public class ScheduleData : ScriptableObject
         }
 
         // 4. Incident Data 검증 (비어있는 항목 체크)
-        if (availableIncidentData != null)
+        if (availableIncidentEntities != null)
         {
-            for (int i = 0; i < availableIncidentData.Count; i++)
+            for (int i = 0; i < availableIncidentEntities.Count; i++)
             {
-                if (availableIncidentData[i] == null)
+                if (availableIncidentEntities[i] == null)
                 {
                     Debug.LogError($"[ScheduleData: {name}] Incident 리스트의 {i}번 항목이 비어있습니다 (Null)!", this);
                 }
