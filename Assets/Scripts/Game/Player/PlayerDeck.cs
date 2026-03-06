@@ -114,9 +114,9 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
         {
             foreach (var card in cardList)
             {
-                if (card.CurrentRarity == rarity &&
-                    card.CurrentAttribute == attribute &&
-                    card.CurrentType == type
+                if ((rarity == CardRarity.ANY ||  card.CurrentRarity == rarity) &&
+                    (attribute == CardAttribute.ANY || card.CurrentAttribute == attribute) &&
+                    (type == CardType.ANY || card.CurrentType == type)
                 ) { matchingCardCount++; }
             }
         }
@@ -124,9 +124,9 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
         {
             foreach (var card in cardList)
             {
-                if (card.CurrentRarity == rarity &&
-                    card.CurrentAttribute == attribute &&
-                    card.CurrentType == type
+                if ((rarity == CardRarity.ANY ||  card.CurrentRarity == rarity) &&
+                    (attribute == CardAttribute.ANY || card.CurrentAttribute == attribute) &&
+                    (type == CardType.ANY || card.CurrentType == type)
                 ) { matchingCardCount++; }
             }
         }
@@ -192,47 +192,44 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
     public bool TryRemoveCard(Card card) { return TryRemoveCard(card, DeckType.SIDE_DECK) || TryRemoveCard(card, DeckType.MAIN_DECK); }
     public bool TryRemoveCardByData(CardData data, int amount)
     {
-        if (!HasCardData(data)) { return false; }
-        
-        int overflowCount = 0;
+        if (amount <= 0) return true;
+        if (!HasCardData(data)) return false;
+
+        int remainingAmount = amount;
+
         if (HasCardData(data, DeckType.SIDE_DECK))
         {
-            var cardList = sideDeck[data].ToList();
+            var sideCards = sideDeck[data].ToList(); 
+            int removeCount = Mathf.Min(remainingAmount, sideCards.Count);
 
-            if (amount > cardList.Count)
+            for (int i = 0; i < removeCount; i++)
             {
-                overflowCount = amount - cardList.Count;
-                amount -= overflowCount;
+                if (!TryRemoveCard(sideCards[i], DeckType.SIDE_DECK)) return false;
             }
-
-            for (int i = 0; i < amount ; i++)
-            {
-                bool check = TryRemoveCard(cardList[i], DeckType.SIDE_DECK);
-
-                if (check == false) { return check; }
-            }
+            
+            remainingAmount -= removeCount;
         }
 
-        if (overflowCount > 0)
+        if (remainingAmount > 0 && HasCardData(data, DeckType.MAIN_DECK))
         {
-            if (HasCardData(data, DeckType.MAIN_DECK))
-            {
-                var cardList = mainDeck[data].ToList();
+            var mainCards = mainDeck[data].ToList();
+            int removeCount = Mathf.Min(remainingAmount, mainCards.Count);
 
-                overflowCount = Mathf.Min(overflowCount, cardList.Count);
-                for (int i = 0; i < overflowCount; i++)
-                {
-                    bool check = TryRemoveCard(cardList[i], DeckType.MAIN_DECK);
-                    if (check == false) { return check; }
-                }
+            for (int i = 0; i < removeCount; i++)
+            {
+                if (!TryRemoveCard(mainCards[i], DeckType.MAIN_DECK)) return false;
             }
+            
+            remainingAmount -= removeCount;
         }
 
         return true;
     }
     public bool TryRemoveRandomCard(System.Random random, CardType type, CardAttribute attribute)
     {
-        var matchedCards = OwingCards.FindAll(card => card.CurrentType == type && card.CurrentAttribute == attribute);
+        var matchedCards = OwingCards.FindAll(card => 
+                                                (type == CardType.ANY || card.CurrentType == type) &&
+                                                (attribute == CardAttribute.ANY || card.CurrentAttribute == attribute));
 
         int removingCardIndex = random.Next(matchedCards.Count);
 

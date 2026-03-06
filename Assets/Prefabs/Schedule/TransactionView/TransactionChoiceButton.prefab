@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &6912069320383724693
+--- !u!1001 &5539124335197476799
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -8,9 +8,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -103.0147
+      objectReference: {fileID: 0}
+    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -102.9302
+      objectReference: {fileID: 0}
+    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 12.8562
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597987025060391471, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -99.0918
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597987025060391471, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 29.6918
+      objectReference: {fileID: 0}
     - target: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Name
-      value: NextNodeSelectButton
+      value: TransactionChoiceButton
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Pivot.x
@@ -74,11 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: -78.3
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -23.5
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -98,15 +118,15 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7747863510895533872}
+      addedObject: {fileID: 2333099190873531908}
     - targetCorrespondingSourceObject: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7803814031191535299}
+      addedObject: {fileID: -6791232191048524218}
   m_SourcePrefab: {fileID: 100100000, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
---- !u!114 &5401099215311815177 stripped
+--- !u!114 &6469132029697943843 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1519988455303921308, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 6912069320383724693}
+  m_PrefabInstance: {fileID: 5539124335197476799}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -114,43 +134,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!114 &7652455370103287751 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 6912069320383724693}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &8452298603301634047 stripped
+--- !u!1 &7385602796191536341 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 6912069320383724693}
+  m_PrefabInstance: {fileID: 5539124335197476799}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7747863510895533872
+--- !u!114 &2333099190873531908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452298603301634047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1d56318ce57fe94d9a36b0f91dfbaa6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.NextNodeSelectView.NextNodeButton
-  mainText: {fileID: 7652455370103287751}
-  subText: {fileID: 5401099215311815177}
---- !u!114 &7803814031191535299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8452298603301634047}
+  m_GameObject: {fileID: 7385602796191536341}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -184,12 +179,12 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 8831036991398364863}
+  m_TargetGraphic: {fileID: 7619055972837780885}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7747863510895533872}
-        m_TargetAssemblyTypeName: View.ScheduleView.NextNodeSelectView.NextNodeButton,
+      - m_Target: {fileID: -6791232191048524218}
+        m_TargetAssemblyTypeName: View.ScheduleView.TransactionSelectView.TransactionChoiceButton,
           Assembly-CSharp
         m_MethodName: OnPressed
         m_Mode: 1
@@ -201,10 +196,24 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8831036991398364863 stripped
+--- !u!114 &-6791232191048524218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385602796191536341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e83621a0228f8354f8ce2d503c8a91b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.TransactionSelectView.TransactionChoiceButton
+  mainText: {fileID: 8719124793367676141}
+  subText: {fileID: 6469132029697943843}
+--- !u!114 &7619055972837780885 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2693925766021429802, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 6912069320383724693}
+  m_PrefabInstance: {fileID: 5539124335197476799}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -212,3 +221,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &8719124793367676141 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+  m_PrefabInstance: {fileID: 5539124335197476799}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
