@@ -59,6 +59,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
         currentSchedule.OnNodeEnter += OnEnterNode;
         currentSchedule.OnRequestNextNodeSelection += OnRequestNextNodeSelection;
+        currentSchedule.OnRequestIncidentSelection += OnRequestIncidentSelection;
         currentSchedule.OnRequestTransactionSelection += OnRequestTransactionSelection;
         currentSchedule.OnNodeExit += OnExitNode;
         currentSchedule.OnEnd += EndSchedule;
@@ -95,6 +96,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         currentSchedule.OnNodeEnter -= OnEnterNode; 
         currentSchedule.OnRequestNextNodeSelection -= OnRequestNextNodeSelection;
+        currentSchedule.OnRequestIncidentSelection -= OnRequestIncidentSelection;
         currentSchedule.OnRequestTransactionSelection -= OnRequestTransactionSelection;
         currentSchedule.OnNodeExit -= OnExitNode;
         currentSchedule.OnEnd -= EndSchedule;
@@ -146,8 +148,17 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         currentSchedule.SettleTransactionChoice(order);
     }
+    public void SettleIncidentChoice(DeterminedIncidentChoice choice)
+    {
+        currentSchedule.SettleIncidentChoice(choice);
+    }
+
     public void OnRequestTransactionSelection(Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices)
     {
         scheduleViewEventBus.Publish(new TransactionSelectRequested(choices));
+    }
+    public void OnRequestIncidentSelection(List<DeterminedIncidentChoice> choices)
+    {
+        scheduleViewEventBus.Publish(new IncidentSelectRequested(choices));
     }
 }

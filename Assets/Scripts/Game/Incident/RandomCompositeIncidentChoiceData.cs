@@ -8,17 +8,17 @@ public class RandomCompositeIncidentChoiceData : IIncidentChoiceData
     [SerializeField] private List<RandomIncidentChoiceCandidate> candidates;
     [SerializeField] private int pickCount;
 
-    public List<DeterminedIncidentChoiceData> DetermineEffect(FieldContext context)
+    public List<DeterminedIncidentChoice> DetermineEffect(FieldContext context)
     {
         if (candidates.Count < pickCount) { throw new InvalidOperationException("[RandomCompositeIncidentChoiceData] the amount exceed candidates' element count"); }
 
-        var selectedCandidates = new List<DeterminedIncidentChoiceData>();
+        var selectedCandidates = new List<DeterminedIncidentChoice>();
 
         var remainPool = new List<RandomIncidentChoiceCandidate>(candidates);
         for (int i = 0; i < pickCount; i++)
         {
             var selected = SelectCandidate(context, remainPool);
-            selectedCandidates.Add(new DeterminedIncidentChoiceData(selected.Description, selected.Effect));
+            selectedCandidates.Add(new DeterminedIncidentChoice(selected.Description, selected.Effect));
             remainPool.Remove(selected);
         }
 

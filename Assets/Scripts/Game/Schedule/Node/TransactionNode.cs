@@ -10,7 +10,7 @@ public class TransactionNode : Node
     {
     }
 
-    public override void OnEnter(FieldContext context, INodeFlowHandler flowHandler, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, IScheduleRouter flowHandler, ScheduleHistory scheduleHistory)
     {
         base.OnEnter(context, flowHandler, scheduleHistory);
 

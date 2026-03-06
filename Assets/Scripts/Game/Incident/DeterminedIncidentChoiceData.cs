@@ -1,9 +1,9 @@
-public class DeterminedIncidentChoiceData
+public class DeterminedIncidentChoice
 {
     private string description;
     private IChoiceEffect effect;
 
-    public DeterminedIncidentChoiceData(string description, IChoiceEffect effect)
+    public DeterminedIncidentChoice(string description, IChoiceEffect effect)
     {
         this.description = description;
         this.effect = effect;

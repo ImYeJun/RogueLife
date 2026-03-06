@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4186946f659f2f49991cfc8a01542d7, type: 3}
-  m_Name: TransactionTestNodeTypeResolveRule
+  m_Name: IncidentTestNodeTypeResolveRule
   m_EditorClassIdentifier: GameAssembly::ScheduleNodeTypeResolveRule
   maxBattleSequence: 0
-  maxIncidentSequence: 0
-  maxTransactionSequence: 100
-  earlyLayerZoneRule: {fileID: 11400000, guid: 644d5ddbff531ad47b7e527a70707d3e, type: 2}
-  middleLayerZoneRule: {fileID: 11400000, guid: 8d5e5899c607f214798e063bfd84d35e, type: 2}
-  lateLayerZoneRule: {fileID: 11400000, guid: faf1a69e22a7a1a4c8c1892f13ba18bf, type: 2}
+  maxIncidentSequence: 100
+  maxTransactionSequence: 0
+  earlyLayerZoneRule: {fileID: 11400000, guid: 05af3ec7270346849a3f228318cf5c09, type: 2}
+  middleLayerZoneRule: {fileID: 11400000, guid: b7f0ff1efbe86b6408d5621dea8627a7, type: 2}
+  lateLayerZoneRule: {fileID: 11400000, guid: a7a7fa64ab7efb841866f3d82313140b, type: 2}

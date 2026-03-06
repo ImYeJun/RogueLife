@@ -4,7 +4,7 @@ using System.Linq;
 using NUnit.Framework;
 using ViewEvent.ScheduleView;
 
-public class Schedule : IReadOnlySchedule, INodeFlowHandler
+public class Schedule : IReadOnlySchedule, IScheduleRouter
 {
     private ScheduleHistory history = new ScheduleHistory();
     private ScheduleData data;
@@ -41,6 +41,7 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
     public event Action<Node> OnNodeExit;
     public event Action<List<Node>> OnRequestNextNodeSelection;
     public event Action<Dictionary<TransactionChoiceOrder, TransactionChoiceData>> OnRequestTransactionSelection;
+    public event Action<List<DeterminedIncidentChoice>> OnRequestIncidentSelection;
 
 
     public void EnterStartNode(FieldContext context) { 
@@ -48,7 +49,7 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
         hasStarted = true;
         MoveNode(startNode, context, this, history);
     }
-    public void MoveNode(Node nextNode, FieldContext context, INodeFlowHandler nodeFlowHandler, ScheduleHistory scheduleHistory)
+    public void MoveNode(Node nextNode, FieldContext context, IScheduleRouter nodeFlowHandler, ScheduleHistory scheduleHistory)
     {
         if (currentNode != null && !currentNode.NextNodes.Contains(nextNode) && nextNode != exitNode) 
         { 
@@ -79,6 +80,10 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
     {
         OnRequestTransactionSelection?.Invoke(choices);
     }
+    public void RequestIncidentSelection(List<DeterminedIncidentChoice> choices)
+    {
+        OnRequestIncidentSelection?.Invoke(choices);
+    }
 
     public void SettleNextNode(Node nextNode)
     {
@@ -98,5 +103,17 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
         }
 
         transactionNode.OnChoiceSettled(order);
+    }
+
+    public void SettleIncidentChoice(DeterminedIncidentChoice choice)
+    {
+        if (currentNode is not IncidentNode incidentNode)
+        {
+            UnityEngine.Debug.LogWarning($"[Schedule] Current node is not a IncidentNode, but a incident choice was settled.");
+
+            return;
+        }
+
+        incidentNode.OnChoiceSettled(choice);
     }
 }

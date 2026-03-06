@@ -145,4 +145,16 @@ namespace ViewEvent.ScheduleView
 
         public Dictionary<TransactionChoiceOrder, TransactionChoiceData> Choices => choices;
     }
+
+    public readonly struct IncidentSelectRequested : IScheduleViewEvent
+    {
+        private readonly List<DeterminedIncidentChoice> choices;
+
+        public IncidentSelectRequested(List<DeterminedIncidentChoice> choices)
+        {
+            this.choices = choices;
+        }
+
+        public List<DeterminedIncidentChoice> Choices => choices;
+    }
 }

@@ -11,20 +11,18 @@ public class IncidentNode : Node
         this.entity = entity;
     }
 
-    public override void OnEnter(FieldContext context, INodeFlowHandler flowHandler, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, IScheduleRouter router, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(context, flowHandler, scheduleHistory);
-
-        RequestNextNodeSelection();
-        return;
+        base.OnEnter(context, router, scheduleHistory);
 
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
 
-        //TODO : choices에 따라 선택지 UI 띄우기
         var determiendChoices = entity.DetermineEffect(context);
+
+        router.RequestIncidentSelection(determiendChoices);
     }
 
-    public void OnChoiceSettled(DeterminedIncidentChoiceData selectedChoice)
+    public void OnChoiceSettled(DeterminedIncidentChoice selectedChoice)
     {  
         selectedChoice.OnSelected(context, this);
         

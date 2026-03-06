@@ -9,9 +9,9 @@ public class IncidentEntity : MonoBehaviour {
     public string IncidentName { get => data.IncidentName; }
     public IncidentData Data => data;
     
-    public List<DeterminedIncidentChoiceData> DetermineEffect(FieldContext context)
+    public List<DeterminedIncidentChoice> DetermineEffect(FieldContext context)
     {
-        var result = new List<DeterminedIncidentChoiceData>();
+        var result = new List<DeterminedIncidentChoice>();
 
         foreach (var choice in choices)
         {

@@ -19,7 +19,7 @@ public class BattleNode : Node
 
     public bool IsBossNode => engagingEnemiesDataSlot.Any(slot => slot.Data.Tier == EnemyTier.BOSS);
 
-    public override void OnEnter(FieldContext context, INodeFlowHandler flowHandler, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, IScheduleRouter flowHandler, ScheduleHistory scheduleHistory)
     {
         base.OnEnter(context, flowHandler, scheduleHistory);
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public abstract class Node
 {
     protected FieldContext context;
-    protected INodeFlowHandler nodeFlowHandler;
+    protected IScheduleRouter nodeFlowHandler;
     protected ScheduleHistory scheduleHistory;
 
     Guid skeletonId;
@@ -27,7 +27,7 @@ public abstract class Node
         this.skeletonId = skeletonId;
     }
 
-    public virtual void OnEnter(FieldContext context, INodeFlowHandler nodeFlowHandler, ScheduleHistory scheduleHistory)
+    public virtual void OnEnter(FieldContext context, IScheduleRouter nodeFlowHandler, ScheduleHistory scheduleHistory)
     {
         this.context = context;
         this.nodeFlowHandler = nodeFlowHandler;

@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface IIncidentChoiceData
 {
-    public List<DeterminedIncidentChoiceData> DetermineEffect(FieldContext context);
+    public List<DeterminedIncidentChoice> DetermineEffect(FieldContext context);
 }
