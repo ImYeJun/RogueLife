@@ -59,11 +59,13 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
         currentSchedule.OnNodeEnter += OnEnterNode;
         currentSchedule.OnRequestNextNodeSelection += OnRequestNextNodeSelection;
+        currentSchedule.OnRequestTransactionSelection += OnRequestTransactionSelection;
         currentSchedule.OnNodeExit += OnExitNode;
         currentSchedule.OnEnd += EndSchedule;
         
         scheduleSelectingViewEventBus.Publish(new ScheduleSettled());
     }
+
     public void SetBossData(EnemyData bossData)
     {
         if (currentSchedule == null) { throw new InvalidOperationException("[ScheduleSystem] Schedule is not settled."); }
@@ -93,6 +95,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         currentSchedule.OnNodeEnter -= OnEnterNode; 
         currentSchedule.OnRequestNextNodeSelection -= OnRequestNextNodeSelection;
+        currentSchedule.OnRequestTransactionSelection -= OnRequestTransactionSelection;
         currentSchedule.OnNodeExit -= OnExitNode;
         currentSchedule.OnEnd -= EndSchedule;
 
@@ -138,5 +141,13 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void SettleNextNode(Node nextNode)
     {
         currentSchedule.SettleNextNode(nextNode);
+    }
+    public void SettleTransactionChoice(TransactionChoiceOrder order)
+    {
+        currentSchedule.SettleTransactionChoice(order);
+    }
+    public void OnRequestTransactionSelection(Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices)
+    {
+        scheduleViewEventBus.Publish(new TransactionSelectRequested(choices));
     }
 }

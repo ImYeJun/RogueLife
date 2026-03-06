@@ -133,4 +133,16 @@ namespace ViewEvent.ScheduleView
 
         public List<Node> NextNodes => nextNodes;
     }
+
+    public readonly struct TransactionSelectRequested : IScheduleViewEvent
+    {
+        private readonly Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices;
+
+        public TransactionSelectRequested(Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices)
+        {
+            this.choices = choices;
+        }
+
+        public Dictionary<TransactionChoiceOrder, TransactionChoiceData> Choices => choices;
+    }
 }

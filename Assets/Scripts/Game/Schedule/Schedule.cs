@@ -15,6 +15,7 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
     private Dictionary<int, List<Node>> map;
 
     private bool hasStarted = false;
+
     public bool HasStarted => hasStarted;
     public ScheduleData Data { get => data; }
     public IReadOnlyDictionary<int, List<Node>> Map => map;
@@ -39,6 +40,8 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
     public event Action<Node> OnNodeEnter;
     public event Action<Node> OnNodeExit;
     public event Action<List<Node>> OnRequestNextNodeSelection;
+    public event Action<Dictionary<TransactionChoiceOrder, TransactionChoiceData>> OnRequestTransactionSelection;
+
 
     public void EnterStartNode(FieldContext context) { 
         currentNode = null;
@@ -72,6 +75,10 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
     {
         OnRequestNextNodeSelection?.Invoke(nextNodes);
     }
+    public void RequestTransactionSelection(Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices)
+    {
+        OnRequestTransactionSelection?.Invoke(choices);
+    }
 
     public void SettleNextNode(Node nextNode)
     {
@@ -79,5 +86,17 @@ public class Schedule : IReadOnlySchedule, INodeFlowHandler
 
         OnNodeExit?.Invoke(currentNode);
         currentNode.OnExit(nextNode);
+    }
+
+    public void SettleTransactionChoice(TransactionChoiceOrder order)
+    {
+        if (currentNode is not TransactionNode transactionNode)
+        {
+            UnityEngine.Debug.LogWarning($"[Schedule] Current node is not a TransactionNode, but a transaction choice was settled.");
+
+            return;
+        }
+
+        transactionNode.OnChoiceSettled(order);
     }
 }

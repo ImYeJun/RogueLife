@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 public class TransactionNode : Node
 {
@@ -13,11 +14,9 @@ public class TransactionNode : Node
     {
         base.OnEnter(context, flowHandler, scheduleHistory);
 
-        RequestNextNodeSelection();
-        return;
-        
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
         
+        choices.Clear();
         foreach (TransactionChoiceOrder order in Enum.GetValues(typeof(TransactionChoiceOrder)))
         {
             if (context.TransactionChoiceDatabase.TryGetRandomData(context, order, out var choiceData))
@@ -26,7 +25,7 @@ public class TransactionNode : Node
             }
         }
 
-        //TODO choices을 OnChoiceSettled와 함께 UI로 보내기
+        flowHandler.RequestTransactionSelection(choices.ToDictionary((e) => e.Key, (e) => e.Value.Data));
     }
 
     public void OnChoiceSettled(TransactionChoiceOrder order)

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class TransactionChoiceDatabase : MonoBehaviour, IFieldTransactionChoiceDatabase, ISerializationCallbackReceiver
+public class TransactionChoiceDatabase : MonoBehaviour, IFieldTransactionChoiceDatabase
 {
     [Header("Choices by Order")]
     [SerializeField] private List<TransactionChoiceEntity> firstChoices;
@@ -11,6 +11,15 @@ public class TransactionChoiceDatabase : MonoBehaviour, IFieldTransactionChoiceD
 
     private Dictionary<TransactionChoiceOrder, Dictionary<string, TransactionChoiceEntity>> lookupTable 
         = new Dictionary<TransactionChoiceOrder, Dictionary<string, TransactionChoiceEntity>>();
+
+    private void Awake()
+    {
+        lookupTable.Clear();
+
+        InitializeLookup(TransactionChoiceOrder.FIRST, firstChoices);
+        InitializeLookup(TransactionChoiceOrder.SECOND, secondChoices);
+        InitializeLookup(TransactionChoiceOrder.THIRD, thirdChoices);
+    }
 
     public TransactionChoiceEntity GetEntity(TransactionChoiceOrder order, string id)
     {
@@ -62,19 +71,10 @@ public class TransactionChoiceDatabase : MonoBehaviour, IFieldTransactionChoiceD
         };
     }
 
-    public void OnAfterDeserialize()
-    {
-        lookupTable.Clear();
-
-        InitializeLookup(TransactionChoiceOrder.FIRST, firstChoices);
-        InitializeLookup(TransactionChoiceOrder.SECOND, secondChoices);
-        InitializeLookup(TransactionChoiceOrder.THIRD, thirdChoices);
-    }
-
     private void InitializeLookup(TransactionChoiceOrder order, List<TransactionChoiceEntity> list)
     {
         var orderDict = new Dictionary<string, TransactionChoiceEntity>();
-        lookupTable[order] = orderDict; // 딕셔너리 등록
+        lookupTable[order] = orderDict;
 
         if (list == null) return;
 
@@ -82,7 +82,7 @@ public class TransactionChoiceDatabase : MonoBehaviour, IFieldTransactionChoiceD
         {
             if (data == null) continue;
             
-            if (data.Id == null) { continue; }
+            if (string.IsNullOrEmpty(data.Id)) { continue; }
             if (orderDict.ContainsKey(data.Id))
             {
                 Debug.LogWarning($"[TransactionChoiceDatabase] Duplicate ID '{data.Id}' in {order}. Overwritten.");
@@ -91,12 +91,9 @@ public class TransactionChoiceDatabase : MonoBehaviour, IFieldTransactionChoiceD
         }
     }
 
-    public void OnBeforeSerialize() { }
-
 #if UNITY_EDITOR
     private void OnValidate()
     {
-        // 전체 리스트 통합 검사를 위한 Set
         HashSet<string> globalCheckSet = new HashSet<string>();
 
         ValidateList(firstChoices, globalCheckSet, TransactionChoiceOrder.FIRST);

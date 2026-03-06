@@ -6,11 +6,13 @@ public class TransactionChoiceEntity : MonoBehaviour {
     [SerializeReference, SubclassSelector] private IChoiceEffect effect;
 
     
+    public TransactionChoiceData Data { get => data;}
     public string Id { get => data.Id; }
     public string Description { get => data.Description; }
     public string SubDescription { get => data.SubDescription; }
 
     public bool IsInstantEffect => effect.IsInstant;
+
 
     public bool IsFulfilled(FieldContext context)
     {
