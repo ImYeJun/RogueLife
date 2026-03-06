@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class TransactionNode : Node
 {
-    private Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices = new Dictionary<TransactionChoiceOrder, TransactionChoiceData>();
+    private Dictionary<TransactionChoiceOrder, TransactionChoiceEntity> choices = new Dictionary<TransactionChoiceOrder, TransactionChoiceEntity>();
 
     public TransactionNode(Guid skeletonId) : base(skeletonId)
     {

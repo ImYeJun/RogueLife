@@ -2,18 +2,17 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "TransactionChoiceDatabase", menuName = "Scriptable Objects/Database/TransactionChoiceDatabase")]
-public class TransactionChoiceDatabase : ScriptableObject, IFieldTransactionChoiceDatabase, ISerializationCallbackReceiver
+public class TransactionChoiceDatabase : MonoBehaviour, IFieldTransactionChoiceDatabase, ISerializationCallbackReceiver
 {
     [Header("Choices by Order")]
-    [SerializeField] private List<TransactionChoiceData> firstChoices;
-    [SerializeField] private List<TransactionChoiceData> secondChoices;
-    [SerializeField] private List<TransactionChoiceData> thirdChoices;
+    [SerializeField] private List<TransactionChoiceEntity> firstChoices;
+    [SerializeField] private List<TransactionChoiceEntity> secondChoices;
+    [SerializeField] private List<TransactionChoiceEntity> thirdChoices;
 
-    private Dictionary<TransactionChoiceOrder, Dictionary<string, TransactionChoiceData>> lookupTable 
-        = new Dictionary<TransactionChoiceOrder, Dictionary<string, TransactionChoiceData>>();
+    private Dictionary<TransactionChoiceOrder, Dictionary<string, TransactionChoiceEntity>> lookupTable 
+        = new Dictionary<TransactionChoiceOrder, Dictionary<string, TransactionChoiceEntity>>();
 
-    public TransactionChoiceData GetData(TransactionChoiceOrder order, string id)
+    public TransactionChoiceEntity GetEntity(TransactionChoiceOrder order, string id)
     {
         if (lookupTable.TryGetValue(order, out var orderLookup))
         {
@@ -27,7 +26,7 @@ public class TransactionChoiceDatabase : ScriptableObject, IFieldTransactionChoi
         return null;
     }
 
-    public TransactionChoiceData GetDataAnywhere(string id)
+    public TransactionChoiceEntity GetEntityAnywhere(string id)
     {
         foreach(var orderLookup in lookupTable.Values)
         {
@@ -38,7 +37,7 @@ public class TransactionChoiceDatabase : ScriptableObject, IFieldTransactionChoi
         return null;
     }
 
-    public bool TryGetRandomData(FieldContext context, TransactionChoiceOrder order, out TransactionChoiceData choiceData)
+    public bool TryGetRandomData(FieldContext context, TransactionChoiceOrder order, out TransactionChoiceEntity choiceData)
     {
         var list = GetList(order);
         var filteredList = list.Where(element => element.IsFulfilled(context)).ToList();
@@ -52,7 +51,7 @@ public class TransactionChoiceDatabase : ScriptableObject, IFieldTransactionChoi
         return true;
     }
 
-    public List<TransactionChoiceData> GetList(TransactionChoiceOrder order)
+    public List<TransactionChoiceEntity> GetList(TransactionChoiceOrder order)
     {
         return order switch
         {
@@ -72,9 +71,9 @@ public class TransactionChoiceDatabase : ScriptableObject, IFieldTransactionChoi
         InitializeLookup(TransactionChoiceOrder.THIRD, thirdChoices);
     }
 
-    private void InitializeLookup(TransactionChoiceOrder order, List<TransactionChoiceData> list)
+    private void InitializeLookup(TransactionChoiceOrder order, List<TransactionChoiceEntity> list)
     {
-        var orderDict = new Dictionary<string, TransactionChoiceData>();
+        var orderDict = new Dictionary<string, TransactionChoiceEntity>();
         lookupTable[order] = orderDict; // 딕셔너리 등록
 
         if (list == null) return;
@@ -105,7 +104,7 @@ public class TransactionChoiceDatabase : ScriptableObject, IFieldTransactionChoi
         ValidateList(thirdChoices, globalCheckSet, TransactionChoiceOrder.THIRD);
     }
 
-    private void ValidateList(List<TransactionChoiceData> list, HashSet<string> checkSet, TransactionChoiceOrder order)
+    private void ValidateList(List<TransactionChoiceEntity> list, HashSet<string> checkSet, TransactionChoiceOrder order)
     {
         if (list == null) return;
 

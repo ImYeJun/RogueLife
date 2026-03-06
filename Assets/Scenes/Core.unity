@@ -204,7 +204,7 @@ MonoBehaviour:
   enemyDatabase: {fileID: 11400000, guid: a674767037feec14c81e5796ac0b64f7, type: 2}
   battleStatusEffectDatabase: {fileID: 696213865}
   incidentDatabase: {fileID: 11400000, guid: df7da950b365a2649990454a570180fc, type: 2}
-  transactionChoiceDatabase: {fileID: 11400000, guid: e1009b8093c0cf84395c15370a6f85bc, type: 2}
+  transactionChoiceDatabase: {fileID: 1612488775}
 --- !u!4 &20736403
 Transform:
   m_ObjectHideFlags: 0
@@ -221,6 +221,7 @@ Transform:
   - {fileID: 1246026314}
   - {fileID: 65812097}
   - {fileID: 696213866}
+  - {fileID: 1612488776}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &21991518
@@ -2833,6 +2834,79 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GlobalUIManager
   settingUI: {fileID: 899616458}
+--- !u!1001 &1612488774
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 20736403}
+    m_Modifications:
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7188660701004422129, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+      propertyPath: m_Name
+      value: TransactionChoiceDatabase
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+--- !u!114 &1612488775 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1734340137116712842, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+  m_PrefabInstance: {fileID: 1612488774}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64fa19e08a7040849b896cd9c840b601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TransactionChoiceDatabase
+--- !u!4 &1612488776 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6891307259644449805, guid: 302cc0fd5e0c8db4b868a267caebd835, type: 3}
+  m_PrefabInstance: {fileID: 1612488774}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1628282551
 GameObject:
   m_ObjectHideFlags: 0
@@ -4030,6 +4104,8 @@ MonoBehaviour:
   testCardEntities: []
   testHurtDamage: 0
   isOverflowable: 0
+  testHealAmount: 0
+  isHealOverflowable: 0
   databaseManager: {fileID: 20736402}
   skeletonGenerateRuleManager: {fileID: 83840618}
 --- !u!4 &2117917723

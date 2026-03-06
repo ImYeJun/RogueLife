@@ -1,0 +1,79 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6551524317912135722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8525952283767836059}
+  - component: {fileID: 8791154055763521099}
+  m_Layer: 0
+  m_Name: TransactionChoice_1_3_2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8525952283767836059
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551524317912135722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8791154055763521099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6551524317912135722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9eaee74c62f72140a3a396d83518e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TransactionChoiceEntity
+  data: {fileID: 11400000, guid: 5a3c5629e86d26e43a6750d23335d186, type: 2}
+  condition:
+    rid: 2642317900041420898
+  effect:
+    rid: 2642317900041420899
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317900041420898
+      type: {class: HasMatchingCardsChoiceCondition, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 2
+        type: 0
+        attribute: 0
+        amount: 1
+    - rid: 2642317900041420899
+      type: {class: ChoiceSequenceCompositeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        choiceEffects:
+        - rid: 2642317900041420900
+        - rid: 2642317900041420901
+    - rid: 2642317900041420900
+      type: {class: ChoiceRemoveRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 2
+        type: 0
+        attribute: 0
+    - rid: 2642317900041420901
+      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
+      data:
+        rarity: 2
+        type: 0
+        attribute: 3
