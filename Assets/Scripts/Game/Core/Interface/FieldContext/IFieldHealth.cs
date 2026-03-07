@@ -11,6 +11,6 @@ public interface IFieldHealth : IBattleHealth {
     public void IncreaseMaxMentality(int amount);
     public void DecreaseMaxMentality(int amount);
 
-    public event Action<PlayerHurt> OnPlayerHurt;
-    public event Action<PlayerHealed> OnPlayerHealed;
+    public event Action<int, int, bool> OnHurt; 
+    public event Action<bool, int, int> OnHealed;
 }

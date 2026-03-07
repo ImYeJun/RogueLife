@@ -5,7 +5,10 @@ namespace ViewEvent.StartMenu
 {
     public interface IStartMenuViewEvent : IViewEvent {}
 
-    public readonly struct ReadyToStartGame : IStartMenuViewEvent {}
+    public readonly struct ReadyToStartGame : IStartMenuViewEvent
+    {
+        public int SequenceId => throw new System.NotImplementedException();
+    }
 
     public readonly struct StartDeckLoaded : IStartMenuViewEvent
     {
@@ -17,5 +20,7 @@ namespace ViewEvent.StartMenu
         }
 
         public List<StartDeck> StartDecks => startDecks;
+
+        public int SequenceId => throw new System.NotImplementedException();
     }
 }

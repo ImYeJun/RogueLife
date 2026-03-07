@@ -27,11 +27,11 @@ namespace Controller.StartMenu
 
             foreach (var view in views)
             {
-                view.Initialize(viewEventBus);
+                view.Initialize(viewEventBus, PresentationManager.Instance);
             }
             foreach (var interactabelView in interacatbleViews)
             {
-                interactabelView.Initialize(viewEventBus, viewCommander);
+                interactabelView.Initialize(viewEventBus,  PresentationManager.Instance, viewCommander);
             }
 
             viewEventBus.Subscribe<ReadyToStartGame>(OnReadyToStartGame);
@@ -59,7 +59,7 @@ namespace Controller.StartMenu
 
                 startDeckSelectButton.SetStartDeck(startDeck);
 
-                startDeckSelectButton.Initialize(viewEventBus, viewCommander);
+                startDeckSelectButton.Initialize(viewEventBus, PresentationManager.Instance, viewCommander);
             }
         }
     }

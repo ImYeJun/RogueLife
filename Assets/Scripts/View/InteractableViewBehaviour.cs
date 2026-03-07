@@ -8,9 +8,9 @@ namespace View.Core
     {
         protected TCommander commander;
 
-        public void Initialize(ViewEventBus<TEvent> eventBus, TCommander commander)
+        public void Initialize(ViewEventBus<TEvent> eventBus, PresentationManager presentationManager, TCommander commander)
         {
-            Initialize(eventBus);
+            Initialize(eventBus, presentationManager);
 
             this.commander = commander;
         }

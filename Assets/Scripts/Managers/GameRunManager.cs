@@ -11,6 +11,7 @@ public partial class GameRunManager : SingletonManager<GameRunManager>
     
     [SerializeField] private DatabaseManager databaseManager;
     [SerializeField] private SkeletonGenerateRuleManager skeletonGenerateRuleManager;
+    
 
     public void StartNewRun(StartDeck startDeck)
     {

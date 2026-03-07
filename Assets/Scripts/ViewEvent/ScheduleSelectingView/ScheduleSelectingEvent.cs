@@ -20,7 +20,12 @@ namespace ViewEvent.ScheduleSelecting
 
         public List<ScheduleData> AvailableScheduleData => availableScheduleData;
         public int CurrentStartCount => currentStartCount;
+
+        public int SequenceId => throw new NotImplementedException();
     }
 
-    public readonly struct ScheduleSettled : IScheduleSelectingEvent {}
+    public readonly struct ScheduleSettled : IScheduleSelectingEvent
+    {
+        public int SequenceId => throw new NotImplementedException();
+    }
 }

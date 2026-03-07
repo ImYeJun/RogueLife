@@ -1,4 +1,7 @@
 namespace ViewEvent.Core
 {
-    public interface IViewEvent {} 
+    public interface IViewEvent
+    {
+        public int SequenceId { get; }
+    } 
 }
