@@ -3209,8 +3209,9 @@ MonoBehaviour:
   uiRoot: {fileID: 874367751}
   nextNodeButtonsContainer: {fileID: 1584128381}
   nextNodeButtonPrefab: {fileID: 8452298603301634047, guid: 03ca68685e68f1548b0f183b1939d453, type: 3}
-  durarion: 1
+  durarion: 0.5
   panelCanvasGroup: {fileID: 874367753}
+  panelEasingType: 16
 --- !u!1001 &473893459
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15177,7 +15178,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3086725529269195632, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6747096143356705734, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
       propertyPath: m_Pivot.x

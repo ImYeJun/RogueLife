@@ -8,6 +8,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 464
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 242
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.32775
+      objectReference: {fileID: 0}
     - target: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Name
       value: NextNodeSelectButton
@@ -114,6 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!224 &6915348176097127825 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+  m_PrefabInstance: {fileID: 6912069320383724693}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7652455370103287751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
@@ -144,6 +181,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.NextNodeSelectView.NextNodeButton
   mainText: {fileID: 7652455370103287751}
   subText: {fileID: 5401099215311815177}
+  itemsContainer: {fileID: 6915348176097127825}
+  initiateDuration: 0.5
+  initiateEasingType: 30
 --- !u!114 &7803814031191535299
 MonoBehaviour:
   m_ObjectHideFlags: 0
