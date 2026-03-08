@@ -96,7 +96,6 @@ namespace View.ScheduleView.NextNodeSelectView
 
         public void OnNextNodeSelected(Node nextNode)
         {
-            panelCanvasGroup.interactable = false; 
             commander.SettleNextNode(nextNode);
         }
 
@@ -115,24 +114,21 @@ namespace View.ScheduleView.NextNodeSelectView
         {
             panelTween?.Kill();
 
-            panelCanvasGroup.interactable = false;
             panelCanvasGroup.alpha = 0;
             uiRoot.SetActive(true);
 
             panelTween = panelCanvasGroup.DOFade(1.0f, duration).SetEase(panelEasingType);
             yield return panelTween.WaitForCompletion();
-
-            panelCanvasGroup.interactable = true;
         }
 
 #if UNITY_EDITOR
-        [ContextMenu("Test: 패널 열기 (버튼 없음)")]
+        [ContextMenu("Test: Open panel without button")]
         public void TestOpenPanelPresentation()
         {
             presentationManager.Enqueue(0, PresentationPrioirty.NodeSelect_OpenPanel, OpenPanelPresentation());
         }
 
-        [ContextMenu("Test: 패널 및 3개 버튼 전체 연출")]
+        [ContextMenu("Test: Open panel wtth 3 buttons")]
         public void TestFullPresentation()
         {
             foreach (var button in activeButtons)

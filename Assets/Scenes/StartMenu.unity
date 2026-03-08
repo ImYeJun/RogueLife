@@ -492,8 +492,9 @@ GameObject:
   - component: {fileID: 401970553}
   - component: {fileID: 401970555}
   - component: {fileID: 401970554}
+  - component: {fileID: 401970556}
   m_Layer: 5
-  m_Name: StartDeckSelectPanel
+  m_Name: StartDeckSelectView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -558,6 +559,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 401970552}
   m_CullTransparentMesh: 1
+--- !u!225 &401970556
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401970552}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!1 &434042277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 434042278}
+  - component: {fileID: 434042279}
+  m_Layer: 0
+  m_Name: StartDeckSelectView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &434042278
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434042277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2126597297}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &434042279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434042277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42dc2f281945114bac562a71fe2ddd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleSelecting.StartDeckSelectView
+  startDeckSelectView: {fileID: 401970552}
+  startDeckSelectItemsContainer: {fileID: 1255894477}
+  startDeckSelectButtonPrefab: {fileID: 4389433620573227032, guid: 8084a001655b9964fabdea0f35a5cffb, type: 3}
+  viewCanvasGroup: {fileID: 401970556}
+  viewAppearDuration: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,14 +992,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controller.StartMenu.RootConroller
   mainMenuManager: {fileID: 1489088071}
-  startDeckSelectView: {fileID: 1255894477}
-  startDeckSelectButtonPrefab: {fileID: 4389433620573227032, guid: 8084a001655b9964fabdea0f35a5cffb, type: 3}
   views: []
   interacatbleViews:
   - {fileID: 1448022095}
   - {fileID: 1108376474}
   - {fileID: 356904202}
   - {fileID: 947882360}
+  - {fileID: 434042279}
 --- !u!1 &947882355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,7 +1439,7 @@ GameObject:
   - component: {fileID: 1255894477}
   - component: {fileID: 1255894478}
   m_Layer: 5
-  m_Name: StartDeckSelectView
+  m_Name: StartDeckItemsContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1607,7 +1668,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2f08f9a8ffb6c84438f3121eca615331, type: 2}
   - {fileID: 11400000, guid: 010fcf4cd37a444418b67acab9fcbf5f, type: 2}
   - {fileID: 11400000, guid: 2637116d1721fb7409f11ccba70bb378, type: 2}
-  startDeckSelectPanel: {fileID: 401970552}
 --- !u!4 &1489088072
 Transform:
   m_ObjectHideFlags: 0
@@ -1929,6 +1989,38 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1736553694}
   m_CullTransparentMesh: 1
+--- !u!1 &2126597296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2126597297}
+  m_Layer: 0
+  m_Name: InteractableViewControllers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2126597297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2126597296}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 434042278}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1939,3 +2031,4 @@ SceneRoots:
   - {fileID: 1600530602}
   - {fileID: 655490967}
   - {fileID: 55020735}
+  - {fileID: 2126597297}

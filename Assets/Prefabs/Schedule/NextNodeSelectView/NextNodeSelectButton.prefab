@@ -134,6 +134,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7803814031191535299}
+    - targetCorrespondingSourceObject: {fileID: 3012097237747840522, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 42350125032323207}
   m_SourcePrefab: {fileID: 100100000, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
 --- !u!114 &5401099215311815177 stripped
 MonoBehaviour:
@@ -181,6 +184,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.NextNodeSelectView.NextNodeButton
   mainText: {fileID: 7652455370103287751}
   subText: {fileID: 5401099215311815177}
+  canvasGroup: {fileID: 42350125032323207}
   itemsContainer: {fileID: 6915348176097127825}
   initiateDuration: 0.5
   initiateEasingType: 30
@@ -241,6 +245,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &8512230001884383903 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3012097237747840522, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+  m_PrefabInstance: {fileID: 6912069320383724693}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &42350125032323207
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8512230001884383903}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &8831036991398364863 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2693925766021429802, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}

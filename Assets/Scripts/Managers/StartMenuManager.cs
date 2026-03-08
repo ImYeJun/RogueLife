@@ -6,8 +6,9 @@ using ViewEvent.StartMenu;
 
 public class StartMenuManager : MonoBehaviour, IStartMenuViewCommander
 {
+    private SequenceIdGenerator sequenceIdGenerator = new SequenceIdGenerator();
+
     [SerializeField] private List<StartDeck> startDecks;
-    [SerializeField] private GameObject startDeckSelectPanel;
     
     private StartMenuViewEventBus viewEventBus;
 
@@ -17,19 +18,16 @@ public class StartMenuManager : MonoBehaviour, IStartMenuViewCommander
     {
         GameRunManager.Instance.StartNewRun(startDeck);
 
-        viewEventBus.Publish(new ReadyToStartGame());
+        viewEventBus.Publish(new ReadyToStartGame(sequenceIdGenerator.GetNextId()));
     }
 
     public void RequestStartDeckSelect()
     {
-        viewEventBus.Publish(new StartDeckLoaded(startDecks));
-
-        startDeckSelectPanel.SetActive(true);
+        viewEventBus.Publish(new StartDeckLoaded(sequenceIdGenerator.GetNextId(), startDecks));
     }
 
     private void Awake()
     {
-        startDeckSelectPanel.SetActive(false);
         viewEventBus = new StartMenuViewEventBus();
     }
 }

@@ -6,7 +6,7 @@ using ViewEvent.ScheduleView;
 
 public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewCommander, IScheduleViewCommander
 {
-    private int currentActionSequenceId = 0;
+    private SequenceIdGenerator sequenceIdGenerator;
 
     private System.Random random;
     private FieldContext context;
@@ -33,7 +33,8 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         this.random = random;
         this.onScheduleEnd = onScheduleEnd;
         this.scheduleDatabase = scheduleDatabase;
-
+        
+        sequenceIdGenerator = new SequenceIdGenerator();
         scheduleSelectingViewEventBus = new ScheduleSelectingViewEventBus();
         scheduleViewEventBus = new ScheduleViewEventBus();
         scheduleGenerator = new ScheduleGenerator(skeletonRule, nodeTypeResolveRule, battleSystem);
@@ -80,7 +81,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void BroadcastCurrentState()
     {
         scheduleViewEventBus.Publish(new ScheduleStateSynced(
-            sequenceId : GetNextId(), 
+            sequenceId : sequenceIdGenerator.GetNextId(), 
             schedule : currentSchedule,
             currentScheduleCount : currentStartCount,
             health : context.Health,
@@ -97,7 +98,6 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         currentSchedule.EnterStartNode(context);
     }
 
-    private int GetNextId() { return currentActionSequenceId++; }
 
     public void EndSchedule(ScheduleHistory history)
     {
@@ -113,40 +113,40 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
     public void OnEnterNode(Node enteringNode)
     {
-        scheduleViewEventBus.Publish(new NodeEntered(GetNextId(), enteringNode));
+        scheduleViewEventBus.Publish(new NodeEntered(sequenceIdGenerator.GetNextId(), enteringNode));
     }
     public void OnExitNode(Node exitingNode)
     {
-        scheduleViewEventBus.Publish(new NodeExited(GetNextId(), exitingNode));
+        scheduleViewEventBus.Publish(new NodeExited(sequenceIdGenerator.GetNextId(), exitingNode));
     }
 
     public void MoveCard(Card card, DeckType from, DeckType to)
     {
         if(context.Deck.TryMoveCard(card, from, to))
         {
-            scheduleViewEventBus.Publish(new DeckChanged(GetNextId(), context.Deck));
+            scheduleViewEventBus.Publish(new DeckChanged(sequenceIdGenerator.GetNextId(), context.Deck));
         }
     }
     public void MoveBelonings(Belongings belongings, BelongingsBagType from, BelongingsBagType to)
     {
         if(context.BelongingsBag.TryMoveBelongings(belongings, from, to))
         {
-            scheduleViewEventBus.Publish(new BelongingsBagChanged(GetNextId(), context.BelongingsBag));
+            scheduleViewEventBus.Publish(new BelongingsBagChanged(sequenceIdGenerator.GetNextId(), context.BelongingsBag));
         }
     }
 
     private void OnHealthHurt(int actualDamage, int actualMentalityDamage, bool isOverflowed)
     {
-        scheduleViewEventBus.Publish(new PlayerHurt(GetNextId(), context.Health, actualDamage, actualMentalityDamage, isOverflowed));
+        scheduleViewEventBus.Publish(new PlayerHurt(sequenceIdGenerator.GetNextId(), context.Health, actualDamage, actualMentalityDamage, isOverflowed));
     }
     private void OnHealthHealed(bool isOverflowed, int actualBattleHealthHeal, int actualMentalityHeal)
     {
-        scheduleViewEventBus.Publish(new PlayerHealed(GetNextId(), context.Health, isOverflowed, actualBattleHealthHeal, actualMentalityHeal));
+        scheduleViewEventBus.Publish(new PlayerHealed(sequenceIdGenerator.GetNextId(), context.Health, isOverflowed, actualBattleHealthHeal, actualMentalityHeal));
     }
 
     public void OnRequestNextNodeSelection(List<Node> nextNodes)
     {
-        scheduleViewEventBus.Publish(new NextNodeSelectRequested(GetNextId(), nextNodes));
+        scheduleViewEventBus.Publish(new NextNodeSelectRequested(sequenceIdGenerator.GetNextId(), nextNodes));
     }
     public void SettleNextNode(Node nextNode)
     {
@@ -163,10 +163,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
     public void OnRequestTransactionSelection(Dictionary<TransactionChoiceOrder, TransactionChoiceData> choices)
     {
-        scheduleViewEventBus.Publish(new TransactionSelectRequested(GetNextId(), choices));
+        scheduleViewEventBus.Publish(new TransactionSelectRequested(sequenceIdGenerator.GetNextId(), choices));
     }
     public void OnRequestIncidentSelection(List<DeterminedIncidentChoice> choices)
     {
-        scheduleViewEventBus.Publish(new IncidentSelectRequested(GetNextId(), choices));
+        scheduleViewEventBus.Publish(new IncidentSelectRequested(sequenceIdGenerator.GetNextId(), choices));
     }
 }

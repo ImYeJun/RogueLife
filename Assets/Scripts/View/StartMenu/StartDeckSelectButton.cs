@@ -1,4 +1,7 @@
-﻿using TMPro;
+﻿using System;
+using System.Collections;
+using DG.Tweening;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,32 +11,34 @@ using ViewEvent.StartMenu;
 
 namespace View.StartMenu
 {
-    public class StartDeckSelectButton : InteractableViewBehaviour<IStartMenuViewEvent, IStartMenuViewCommander>
+    public class StartDeckSelectButton : MonoBehaviour
     {
+        [Header("Behaviour")]
         [SerializeField] private Image background;
         [SerializeField] private TextMeshProUGUI startDeckDescriptionText;
         [SerializeField] private TextMeshProUGUI startDeckTypicalAttributeText;
+        private Action onPressed;
 
-        private StartDeck startDeck;
+        [Header("Presentation")]
+        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private RectTransform items;
+        [SerializeField] private float popUpDuration;
+        [SerializeField] private float popUpDistance;
+        [SerializeField] private Ease popUpEasingType;
 
-        public override void OnInitialized()
-        {
-            // TODO: 이벤트 구독 (예: eventBus.Subscribe<T>(Method);)
-        }
-
-        public override void OnDestroy()
-        {
-            // TODO: 이벤트 구독 해제 (예: eventBus.Unsubscribe<T>(Method);)
-        }
+        private Tween currentTween;
 
         public void OnPressed()
         {
-            commander.FixStartDeck(startDeck);
+            onPressed?.Invoke();
+            onPressed = null;
         }
 
-        public void SetStartDeck(StartDeck startDeck)
+        public void Initialize(int sequenceId, PresentationManager presentationManager, int index, StartDeck startDeck, Action onPressed)
         {
-            this.startDeck = startDeck;
+            items.gameObject.SetActive(false);
+
+            this.onPressed = onPressed;
 
             background.color = startDeck.UniqueColor;
             startDeckDescriptionText.text = startDeck.Description;
@@ -44,6 +49,26 @@ namespace View.StartMenu
                 CardAttribute.LUCK => "(행운)",
                 _ => "( )"
             };
+
+            presentationManager.Enqueue(sequenceId, PresentationPrioirty.StartDeckLoaded_BaseDeckPopUp + index, PopUpPresentation());
+        }
+
+        public IEnumerator PopUpPresentation()
+        {
+            currentTween?.Kill();
+            items.gameObject.SetActive(true);
+            
+            items.offsetMin = new Vector2(0, -popUpDistance);
+            items.offsetMax = new Vector2(0, -popUpDistance);
+
+            var sequence = DOTween.Sequence();
+            
+            sequence.Join(DOTween.To(() => items.offsetMin, x => items.offsetMin = x, Vector2.zero, popUpDuration).SetEase(popUpEasingType));
+            sequence.Join(DOTween.To(() => items.offsetMax, x => items.offsetMax = x, Vector2.zero, popUpDuration).SetEase(popUpEasingType));
+
+            currentTween = sequence;
+
+            yield return currentTween.WaitForCompletion();
         }
     }
 }

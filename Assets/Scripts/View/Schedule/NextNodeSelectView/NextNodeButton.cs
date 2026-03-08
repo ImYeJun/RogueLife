@@ -19,9 +19,11 @@ namespace View.ScheduleView.NextNodeSelectView
         [SerializeField] private TextMeshProUGUI subText;
 
         [Header("Presentation")]
+        [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private RectTransform itemsContainer;
         [SerializeField] private float initiateDuration;
         [SerializeField] private Ease initiateEasingType;
+
         private Node node;
         private Action<Node> OnNextNodeSelected;
         private Tween initiateTween;
@@ -74,6 +76,7 @@ namespace View.ScheduleView.NextNodeSelectView
         public IEnumerator InitiatePresentation()
         {
             initiateTween?.Kill();
+            canvasGroup.interactable = false;
 
             var startPosition = itemsContainer.sizeDelta;
             itemsContainer.anchoredPosition = new Vector2(startPosition.x, itemsContainer.anchoredPosition.y);
@@ -85,6 +88,7 @@ namespace View.ScheduleView.NextNodeSelectView
             yield return initiateTween.WaitForCompletion();
 
             itemsContainer.anchoredPosition = targetPosition;
+            canvasGroup.interactable = true;
         }
     }
 }

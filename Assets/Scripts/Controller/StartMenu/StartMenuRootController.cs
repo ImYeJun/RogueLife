@@ -11,8 +11,6 @@ namespace Controller.StartMenu
     public class StartMenuRootConroller : SceneRootController
     {
         [SerializeField] private StartMenuManager mainMenuManager;
-        [SerializeField] private Transform startDeckSelectView;
-        [SerializeField] private GameObject startDeckSelectButtonPrefab;
 
         private IStartMenuViewCommander viewCommander;
         private StartMenuViewEventBus viewEventBus;
@@ -35,32 +33,16 @@ namespace Controller.StartMenu
             }
 
             viewEventBus.Subscribe<ReadyToStartGame>(OnReadyToStartGame);
-            viewEventBus.Subscribe<StartDeckLoaded>(OnStartDeckLoaded);
         }
 
         private void OnDestroy()
         {
             viewEventBus?.Unsubscribe<ReadyToStartGame>(OnReadyToStartGame);
-            viewEventBus?.Unsubscribe<StartDeckLoaded>(OnStartDeckLoaded);
         }
 
         public void OnReadyToStartGame(ReadyToStartGame payload)
         {
             GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE_SELECTING);
-        }
-
-        private void OnStartDeckLoaded(StartDeckLoaded payload)
-        {
-            foreach (var startDeck in payload.StartDecks)
-            {
-                var button = Instantiate(startDeckSelectButtonPrefab, startDeckSelectView);
-                
-                var startDeckSelectButton = button.GetComponent<StartDeckSelectButton>();
-
-                startDeckSelectButton.SetStartDeck(startDeck);
-
-                startDeckSelectButton.Initialize(viewEventBus, PresentationManager.Instance, viewCommander);
-            }
         }
     }
 }
