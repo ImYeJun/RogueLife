@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Unity.Mathematics;
+using UnityEngine;
 using ViewEvent.Core;
 
 namespace ViewEvent.ScheduleSelecting
@@ -9,23 +10,33 @@ namespace ViewEvent.ScheduleSelecting
 
     public readonly struct ReadyToSelectSchedule : IScheduleSelectingEvent
     {
+        private readonly int sequenceId;
         private readonly List<ScheduleData> availableScheduleData;
         private readonly int currentStartCount;
 
-        public ReadyToSelectSchedule(List<ScheduleData> availableScheduleData, int currentStartCount)
+        public ReadyToSelectSchedule(int sequenceId, List<ScheduleData> availableScheduleData, int currentStartCount)
         {
+            this.sequenceId = sequenceId;
             this.availableScheduleData = availableScheduleData;
             this.currentStartCount = currentStartCount;
         }
+        public int SequenceId => sequenceId;
 
         public List<ScheduleData> AvailableScheduleData => availableScheduleData;
         public int CurrentStartCount => currentStartCount;
-
-        public int SequenceId => throw new NotImplementedException();
     }
 
     public readonly struct ScheduleSettled : IScheduleSelectingEvent
     {
-        public int SequenceId => throw new NotImplementedException();
+        private readonly int sequenceId;
+        private readonly Vector2 selectPos;
+
+        public ScheduleSettled(int sequenceId, Vector2 selectPos)
+        {
+            this.sequenceId = sequenceId;
+            this.selectPos = selectPos;
+        }
+        public int SequenceId => sequenceId;
+        public Vector2 SelectPos => selectPos;
     }
 }

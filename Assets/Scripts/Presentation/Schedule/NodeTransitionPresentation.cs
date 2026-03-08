@@ -45,7 +45,7 @@ namespace View.ScheduleView
 
         public void OnNodeEntered(NodeEntered payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPrioirty.NodeEnter_MovePlayer, EnterNodePresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_MovePlayer, EnterNodePresentation());
         }
         public IEnumerator EnterNodePresentation()
         {
@@ -81,7 +81,7 @@ namespace View.ScheduleView
 
         public void OnNodeExited(NodeExited payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPrioirty.NodeExit_MovePlayer, ExitNodePresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeExit_MovePlayer, ExitNodePresentation());
         }
         public IEnumerator ExitNodePresentation()
         {
@@ -119,13 +119,13 @@ namespace View.ScheduleView
         [ContextMenu("Play Node Enter Presentation")]
         public void TestOnNodeEntered()
         {
-            presentationManager.Enqueue(0, PresentationPrioirty.NodeEnter_MovePlayer, EnterNodePresentation());
+            presentationManager.Enqueue(0, PresentationPriority.NodeEnter_MovePlayer, EnterNodePresentation());
         }
 
         [ContextMenu("Play Node Exit Presentation")]
         public void TestOnNodeExited()
         {
-            presentationManager.Enqueue(0, PresentationPrioirty.NodeExit_MovePlayer, ExitNodePresentation());
+            presentationManager.Enqueue(0, PresentationPriority.NodeExit_MovePlayer, ExitNodePresentation());
         }
 #endif
     }

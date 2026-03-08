@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using View.Core;
@@ -34,7 +35,16 @@ namespace Controller.SelectingSchedule
 
         public void OnScheduleSettled(ScheduleSettled payload)
         {
+            var presentationManager = PresentationManager.Instance;
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.ScheduleSettled_SceneTransition, LoadSceneRoutine());
+        }
+
+        public IEnumerator LoadSceneRoutine()
+        {
             GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE);
+
+            yield return null;
         }
 
         public void OnDestroy()

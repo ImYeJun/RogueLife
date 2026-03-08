@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using ViewEvent.ScheduleSelecting;
 using ViewEvent.ScheduleView;
 
@@ -44,7 +45,6 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         this.context = context;
 
-        // PlayerHealth의 데이터 전달 이벤트를 구독
         context.Health.OnHurt += OnHealthHurt;
         context.Health.OnHealed += OnHealthHealed;
     }
@@ -55,10 +55,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         this.onScheduleUnsettled = OnScheduleUnsettled;
 
         var availableData = scheduleDatabase.AvailableScheduleData.OrderBy(data => random.Next()).Take(Constant.SELECTING_SCHEDULE_COUNT).ToList();
-        scheduleSelectingViewEventBus.Publish(new ReadyToSelectSchedule(availableData, currentStartCount));
+        scheduleSelectingViewEventBus.Publish(new ReadyToSelectSchedule(sequenceIdGenerator.GetNextId(), availableData, currentStartCount));
     }
 
-    public void SettleCurrentScheduleData(ScheduleData data)
+    public void SettleCurrentScheduleData(ScheduleData data, Vector2 selectPos)
     {
         currentSchedule = scheduleGenerator.GenerateSchedule(random, data);
 
@@ -69,7 +69,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         currentSchedule.OnNodeExit += OnExitNode;
         currentSchedule.OnEnd += EndSchedule;
         
-        scheduleSelectingViewEventBus.Publish(new ScheduleSettled());
+        scheduleSelectingViewEventBus.Publish(new ScheduleSettled(sequenceIdGenerator.GetNextId(), selectPos));
     }
 
     public void SetBossData(EnemyData bossData)

@@ -50,7 +50,7 @@ namespace View.StartMenu
                 startDeckSelectButton.Initialize(payload.SequenceId, presentationManager, i, startDeck, () => OnDeckSelected(startDeck));
             }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPrioirty.StartDeckLoaded_ViewAppear, ViewAppearPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.StartDeckLoaded_ViewAppear, ViewAppearPresentation());
         }
 
         public IEnumerator ViewAppearPresentation()
@@ -90,7 +90,7 @@ namespace View.StartMenu
                 startDeckSelectButton.Initialize(0, presentationManager, i, startDeck, () => Debug.Log($"[Test] Dummy Deck {i} Selected!"));
             }
 
-            presentationManager.Enqueue(0, PresentationPrioirty.StartDeckLoaded_ViewAppear, ViewAppearPresentation());
+            presentationManager.Enqueue(0, PresentationPriority.StartDeckLoaded_ViewAppear, ViewAppearPresentation());
         }
 #endif
     }

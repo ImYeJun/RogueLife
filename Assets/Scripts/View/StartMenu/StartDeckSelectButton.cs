@@ -36,6 +36,7 @@ namespace View.StartMenu
 
         public void Initialize(int sequenceId, PresentationManager presentationManager, int index, StartDeck startDeck, Action onPressed)
         {
+            canvasGroup.interactable = false;
             items.gameObject.SetActive(false);
 
             this.onPressed = onPressed;
@@ -50,7 +51,7 @@ namespace View.StartMenu
                 _ => "( )"
             };
 
-            presentationManager.Enqueue(sequenceId, PresentationPrioirty.StartDeckLoaded_BaseDeckPopUp + index, PopUpPresentation());
+            presentationManager.Enqueue(sequenceId, PresentationPriority.StartDeckLoaded_BaseDeckPopUp + index, PopUpPresentation());
         }
 
         public IEnumerator PopUpPresentation()
@@ -69,6 +70,8 @@ namespace View.StartMenu
             currentTween = sequence;
 
             yield return currentTween.WaitForCompletion();
+
+            canvasGroup.interactable = true;
         }
     }
 }

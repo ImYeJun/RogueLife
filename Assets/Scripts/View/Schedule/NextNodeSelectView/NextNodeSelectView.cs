@@ -91,7 +91,7 @@ namespace View.ScheduleView.NextNodeSelectView
                 activeButtons.Add(button);
             }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPrioirty.NodeSelect_OpenPanel, OpenPanelPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeSelect_OpenPanel, OpenPanelPresentation());
         }
 
         public void OnNextNodeSelected(Node nextNode)
@@ -125,7 +125,7 @@ namespace View.ScheduleView.NextNodeSelectView
         [ContextMenu("Test: Open panel without button")]
         public void TestOpenPanelPresentation()
         {
-            presentationManager.Enqueue(0, PresentationPrioirty.NodeSelect_OpenPanel, OpenPanelPresentation());
+            presentationManager.Enqueue(0, PresentationPriority.NodeSelect_OpenPanel, OpenPanelPresentation());
         }
 
         [ContextMenu("Test: Open panel wtth 3 buttons")]
@@ -156,7 +156,7 @@ namespace View.ScheduleView.NextNodeSelectView
                 activeButtons.Add(button);
             }
 
-            presentationManager.Enqueue(0, PresentationPrioirty.NodeSelect_OpenPanel, OpenPanelPresentation());
+            presentationManager.Enqueue(0, PresentationPriority.NodeSelect_OpenPanel, OpenPanelPresentation());
         }
 #endif
     }

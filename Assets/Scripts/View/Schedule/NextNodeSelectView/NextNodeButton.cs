@@ -40,7 +40,7 @@ namespace View.ScheduleView.NextNodeSelectView
             
             int index = GetIndex(direction);
             
-            presentationManager.Enqueue(sequenceId, PresentationPrioirty.NodeSelect_NodeButtonBasePriority + index, InitiatePresentation());
+            presentationManager.Enqueue(sequenceId, PresentationPriority.NodeSelect_NodeButtonBasePriority + index, InitiatePresentation());
         }
 
         private string GetMainText(NodeDirection direction) => direction switch

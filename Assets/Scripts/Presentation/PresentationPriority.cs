@@ -1,4 +1,4 @@
-public static class PresentationPrioirty
+public static class PresentationPriority
 {
 
     ///* -------------------------
@@ -8,6 +8,14 @@ public static class PresentationPrioirty
     // Start Deck Loaded
     public const int StartDeckLoaded_ViewAppear = 10;
     public const int StartDeckLoaded_BaseDeckPopUp = 20;
+
+    ///* -------------------------
+    ///* Schedule Selecting
+    ///* -------------------------
+    
+    //  Schedule Settled
+    public const int ScheduleSettled_FadeIn = 10;
+    public const int ScheduleSettled_SceneTransition = 20;
 
 
     ///* -------------------------

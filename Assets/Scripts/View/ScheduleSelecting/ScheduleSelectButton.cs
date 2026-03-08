@@ -36,7 +36,10 @@ namespace View.ScheduleSelecting
 
         public void OnPressed()
         {
-            commander.SettleCurrentScheduleData(data);
+            Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(null, transform.position);
+            Vector2 selectPos = new Vector2(screenPos.x / Screen.width, screenPos.y / Screen.height);
+
+            commander.SettleCurrentScheduleData(data, selectPos);
         }
 
         public override void OnDestroy()

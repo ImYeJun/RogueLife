@@ -187,7 +187,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 42350125032323207}
   itemsContainer: {fileID: 6915348176097127825}
   initiateDuration: 0.5
-  initiateEasingType: 30
+  initiateEasingType: 21
 --- !u!114 &7803814031191535299
 MonoBehaviour:
   m_ObjectHideFlags: 0
