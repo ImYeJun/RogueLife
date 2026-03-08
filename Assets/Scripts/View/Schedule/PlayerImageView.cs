@@ -40,11 +40,15 @@ namespace View.ScheduleView
 
         private IEnumerator HurtEffect()
         {
-            image.sprite = hurtImage;
+            SetHurtView();
             yield return new WaitForSeconds(hurtEffectDuration);
-            image.sprite = idleImage;
+            SetIdleView();
 
             hurtEffectCoroutine = null;
         }
+
+        public void SetIdleView() { image.sprite = idleImage; }
+        public void SetHurtView() { image.sprite = hurtImage; }
+        public void SetWalkView() { image.sprite = walkImage; }
     }
 }

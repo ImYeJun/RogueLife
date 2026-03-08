@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Battle.BattleResultCommands;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Pool;
 using View.Core;
@@ -15,12 +17,17 @@ namespace View.ScheduleView.NextNodeSelectView
         private const string MIDDLE_NODE_MAIN_DESCRIPTION = "직진하기";
         private const string RIGHT_NODE_MAIN_DESCRIPTION = "오른쪽으로 가기";
 
+        [Header("Behaviour")]
         [SerializeField] private GameObject uiRoot;
 
         [SerializeField] private Transform nextNodeButtonsContainer;
         [SerializeField] private GameObject nextNodeButtonPrefab;
         private IObjectPool<NextNodeButton> buttonPool;
         private List<NextNodeButton> activeButtons = new List<NextNodeButton>();
+
+        [Header("Presentation")]
+        [SerializeField] private float durarion;
+        [SerializeField] private CanvasGroup panelCanvasGroup;
 
         public override void OnInitialized()
         {
@@ -60,7 +67,7 @@ namespace View.ScheduleView.NextNodeSelectView
 
         public void OnNextNodeSelectRequested(NextNodeSelectRequested payload)
         {
-            uiRoot.SetActive(true);
+            uiRoot.SetActive(false);
 
             var nextNodes = payload.NextNodes;
 
@@ -78,8 +85,9 @@ namespace View.ScheduleView.NextNodeSelectView
                 default:
                     throw new InvalidOperationException("[NextNodeSelectView] Expecting next nodes count is either 1, 2, 3");
             }
-        }
 
+            presentationManager.Enqueue(payload.SequenceId, PresentationPrioirty.NodeSelect_OpenPanel, OpenPanelPresentation());
+        }
         private void OnSingleNode(Node node)
         {
             var button = buttonPool.Get();
@@ -117,7 +125,6 @@ namespace View.ScheduleView.NextNodeSelectView
         {
             commander.SettleNextNode(nextNode);
         }
-
         public void OnNodeExited(NodeExited payload)
         {
             foreach (var button in activeButtons)
@@ -128,6 +135,20 @@ namespace View.ScheduleView.NextNodeSelectView
             activeButtons.Clear();
             
             uiRoot.SetActive(false); 
+        }
+
+        public IEnumerator OpenPanelPresentation()
+        {
+            panelCanvasGroup.interactable = false;
+            panelCanvasGroup.alpha = 0;
+
+            uiRoot.SetActive(true);
+
+            var tween = panelCanvasGroup.DOFade(1.0f, durarion);
+            yield return tween.WaitForCompletion();
+
+            panelCanvasGroup.interactable = true;
+            panelCanvasGroup.alpha = 1;
         }
     }
 }
