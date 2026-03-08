@@ -62,9 +62,9 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
         nextNode.OnEnter(context, nodeFlowHandler, scheduleHistory);
     }
 
-    public void SetBossData(EnemyData bossData)
+    public void SetBossData(EnemyEntity bossEntity)
     {
-        bossDataSlot.Data = bossData;
+        bossDataSlot.Entity = bossEntity;
     }
 
     public void EndSchedule()

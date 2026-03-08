@@ -8,7 +8,7 @@ using UnityEngine;
 [Serializable]
 public class ChoiceEngageBattleEffect : IChoiceEffect
 {
-    [SerializeField] private List<EnemyData> engaingEnemyData;
+    [SerializeField] private List<EnemyEntity> engaingEnemyData;
 
     public ChoiceEngageBattleEffect() {}
     private FieldContext context;
@@ -28,7 +28,7 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
             actionCost : context.ActionCost,
             deck : context.Deck,
             belongingsBag : context.BelongingsBag,
-            engagingEnemiesDataSlot : engaingEnemyData.Select(data => new EnemyDataSlot(data)).ToList(),
+            engagingEnemiesDataSlot : engaingEnemyData.Select(entity => new EnemyDataSlot(entity)).ToList(),
             battleExit : OnBattleExit
         );
     }

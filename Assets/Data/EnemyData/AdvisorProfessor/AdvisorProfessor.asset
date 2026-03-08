@@ -29,17 +29,4 @@ MonoBehaviour:
   - "\uC5ED\uC2DC\u2026 \uB2E4\uC74C\uC5D4 \uAF2D \uB300\uD559\uC6D0\uC73C\uB85C
     \uB0A9\uCE58 \uD558\uACA0\uC5B4\u2026"
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 2642317808700490041
-  references:
-    version: 2
-    RefIds:
-    - rid: 2642317808700490041
-      type: {class: AdvisorProfessor, ns: Battle.Enemies.Behaviours, asm: Assembly-CSharp}
-      data:
-        defensiveStanceEntity: {fileID: 0}
-        iWillKillYouEntity: {fileID: 0}
-        heavyBodyEntity: {fileID: 0}
-        ohMyEntity: {fileID: 0}
-        labSlaveData: {fileID: 0}
+  battleSprites: []

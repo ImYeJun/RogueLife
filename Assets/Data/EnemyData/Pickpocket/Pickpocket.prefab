@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4714028590496088145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4987270611041979939}
+  - component: {fileID: 7805023692001381090}
+  m_Layer: 0
+  m_Name: Pickpocket
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4987270611041979939
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4714028590496088145}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7805023692001381090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4714028590496088145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e78d66c638b99642a8132c8780829bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyEntity
+  data: {fileID: 11400000, guid: 33999fd26b7b42f4d80c018bb3b6c69d, type: 2}
+  battleBehaviour:
+    rid: 2642317948091891952
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317948091891952
+      type: {class: Pickpocket, ns: Battle.Enemies.Behaviours, asm: Assembly-CSharp}
+      data:
+        dontTouchEntity: {fileID: 7230161176750448165, guid: a880b8684c5598940b3c7da8d5743e5d, type: 3}
+        quickEscapeEntity: {fileID: 5454865058051319498, guid: 6557d6524b6f44548b28181847a3f1e8, type: 3}
+        obstacleForFleeingEntity: {fileID: 8944545909577007198, guid: cf4415ce585e38a489d0e0dce8d879a3, type: 3}

@@ -29,7 +29,7 @@ public class SpecialDiaryRequirementResolveAllEnemies : SpecialDiaryRequirement
             }
         }
         
-        var originEnemies = context.EnemyDatabase.AvailableEnemies;
+        var originEnemies = context.EnemyDatabase.AvailableEnemies.Select(entity => entity.Data);
         var filteredEnemies = originEnemies.Where(enemy => enemy.Tier == filteringTier);
         foreach (var enemyData in filteredEnemies)
         {

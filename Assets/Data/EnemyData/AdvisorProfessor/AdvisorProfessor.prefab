@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7881649302417161164
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4638821876666794460}
+  - component: {fileID: 3710656080812454515}
+  m_Layer: 0
+  m_Name: AdvisorProfessor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4638821876666794460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7881649302417161164}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3710656080812454515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7881649302417161164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e78d66c638b99642a8132c8780829bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyEntity
+  data: {fileID: 11400000, guid: 5ad222229b8ffe14db6eebcaf73418e4, type: 2}
+  battleBehaviour:
+    rid: 2642317948091891939
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642317948091891939
+      type: {class: AdvisorProfessor, ns: Battle.Enemies.Behaviours, asm: Assembly-CSharp}
+      data:
+        defensiveStanceEntity: {fileID: 3444761750699771790, guid: 9aff4d163c7176a47a5f8bd7d653738c, type: 3}
+        iWillKillYouEntity: {fileID: 692099163767706470, guid: e9acdca6363a8da48917512ede4cfa79, type: 3}
+        heavyBodyEntity: {fileID: 5683683562752445561, guid: 296ec2950b9d60246bf2bc8c9983b4c0, type: 3}
+        ohMyEntity: {fileID: 1139658005740229312, guid: f8dba1daade89f1459f74f121b7e81d8, type: 3}
+        labSlaveEntity: {fileID: 294033332078328281, guid: 55be13fa41b1a2847bf955d637dedd50, type: 3}

@@ -18,7 +18,7 @@ namespace Battle.Enemies.Behaviours
 
         [SerializeField] private BattleStatusEffectEntity dontTouchEntity;
         [SerializeField] private BattleStatusEffectEntity quickEscapeEntity;
-        [SerializeField] private EnemyData obstacleForFleeingData;
+        [SerializeField] private EnemyEntity obstacleForFleeingEntity;
 
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -31,7 +31,7 @@ namespace Battle.Enemies.Behaviours
             availableActions = new Dictionary<string, EnemyAction>
             {
                 { FIRST_ACTION, new ApplySelfStatusEffect(owner, dontTouchEntity, 1, 2) },
-                { SECOND_ACTION, new SpawnEnemy(owner, obstacleForFleeingData, 3) },
+                { SECOND_ACTION, new SpawnEnemy(owner, obstacleForFleeingEntity, 3) },
                 { THIRD_ACTION, new ApplySelfStatusEffect(owner, quickEscapeEntity, 1, isLastAction : false, isOncePerTurn : true) },
                 { FOURTH_ACTION, new HealSelf(owner, 20)},
                 { FIFTH_ACTION, new DecreasePhaseCount(owner, 2) }
@@ -45,11 +45,11 @@ namespace Battle.Enemies.Behaviours
                 ),
                 new Pattern(
                     preset : new List<string>{ SECOND_ACTION, FIRST_ACTION, FOURTH_ACTION  },
-                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(obstacleForFleeingData) <= 2
+                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(obstacleForFleeingEntity.Data) <= 2
                 ),
                 new Pattern(
                     preset : new List<string>{ FIFTH_ACTION, FOURTH_ACTION, FIRST_ACTION  },
-                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(obstacleForFleeingData) >= 3
+                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(obstacleForFleeingEntity.Data) >= 3
                 )
             };
         }

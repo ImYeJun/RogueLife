@@ -36,7 +36,7 @@ public class NodeGenerator
                 return new TransactionNode(skeletonId);
             case NodeType.BOSS:
                 if (bossDataSlot != null) { throw new InvalidOperationException("More than two boss nodes cannot be existed in a schedule."); }
-                bossDataSlot = new EnemyDataSlot(data.BossData);
+                bossDataSlot = new EnemyDataSlot(data.BossEntity);
                 return new BattleNode(skeletonId, battleSystem, new List<EnemyDataSlot>{ bossDataSlot });
             case NodeType.EXIT:
                 if (exitNode != null) { throw new InvalidOperationException("More than two exit nodes cannot be existed in a schedule."); }

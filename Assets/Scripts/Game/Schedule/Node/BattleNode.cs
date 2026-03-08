@@ -17,7 +17,7 @@ public class BattleNode : Node
         this.engagingEnemiesDataSlot = engagingEnemiesDataSlot;
     }
 
-    public bool IsBossNode => engagingEnemiesDataSlot.Any(slot => slot.Data.Tier == EnemyTier.BOSS);
+    public bool IsBossNode => engagingEnemiesDataSlot.Any(slot => slot.Entity.Tier == EnemyTier.BOSS);
 
     public override void OnEnter(FieldContext context, IScheduleRouter flowHandler, ScheduleHistory scheduleHistory)
     {
@@ -40,10 +40,10 @@ public class BattleNode : Node
     {
         foreach (var enemyDataSlot in engagingEnemiesDataSlot)
         {
-            var enemyData = enemyDataSlot.Data;
+            var enemyEntity = enemyDataSlot.Entity;
 
-            if (enemyData.Tier == EnemyTier.BOSS) { scheduleHistory.RecordEncounterBoss(enemyData, hasResolved); }
-            else { scheduleHistory.RecordEncounterEnemy(enemyData, hasResolved); }
+            if (enemyEntity.Tier == EnemyTier.BOSS) { scheduleHistory.RecordEncounterBoss(enemyEntity.Data, hasResolved); }
+            else { scheduleHistory.RecordEncounterEnemy(enemyEntity.Data, hasResolved); }
         }
         RecordBelongingsEquipping();
 

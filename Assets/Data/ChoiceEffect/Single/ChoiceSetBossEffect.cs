@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class ChoiceSetBossEffect : IChoiceEffect
 {
-    [SerializeField] private EnemyData bossData;
+    [SerializeField] private EnemyEntity bossEntity;
 
     public ChoiceSetBossEffect(){}
 
@@ -12,6 +12,6 @@ public class ChoiceSetBossEffect : IChoiceEffect
 
     public void Execute(FieldContext context, Node currentNode)
     {
-        context.ScheduleSystem.SetBossData(bossData);
+        context.ScheduleSystem.SetBossData(bossEntity);
     }
 }

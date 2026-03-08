@@ -80,7 +80,7 @@ public class BattleSystem : IFieldBattleSystem
 
     public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResultCommand> battleExit)
     {
-        var mainEnemyData = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Data.Tier).First().Data;
+        var mainEnemyData = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Entity.Tier).First().Entity;
         mainEnemyTier = mainEnemyData.Tier;
 
         OnBattleExit = battleExit;
@@ -108,7 +108,7 @@ public class BattleSystem : IFieldBattleSystem
         List<BattleEnemy> enemies = new List<BattleEnemy>();
         foreach (var dataSlot in engagingEnemiesDataSlot)
         {
-            enemies.Add(new BattleEnemy(context, dataSlot.Data));
+            enemies.Add(new BattleEnemy(context, dataSlot.Entity));
         }
 
         scheduler.StartBattle(startPhaseCount, maxActionCost, fisrtTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies);

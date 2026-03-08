@@ -72,10 +72,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         scheduleSelectingViewEventBus.Publish(new ScheduleSettled(sequenceIdGenerator.GetNextId(), selectPos));
     }
 
-    public void SetBossData(EnemyData bossData)
+    public void SetBossData(EnemyEntity bossEntity)
     {
         if (currentSchedule == null) { throw new InvalidOperationException("[ScheduleSystem] Schedule is not settled."); }
-        currentSchedule.SetBossData(bossData);
+        currentSchedule.SetBossData(bossEntity);
     }
 
     public void BroadcastCurrentState()

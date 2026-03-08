@@ -17,7 +17,6 @@ namespace View.ScheduleView.BelongingsBag
         private BelongingsSlotView focusedSlot;
         private Belongings focusedBelongings;
 
-        // 💡 UI 분리 객체
         [SerializeField] private GameObject uiRoot;
 
         [SerializeField] private UnityEvent<Belongings> OnSlotClicked;

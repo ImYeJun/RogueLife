@@ -1,11 +1,11 @@
 public class EnemyDataSlot
 {
-    private EnemyData data;
+    private EnemyEntity entity;
 
-    public EnemyDataSlot(EnemyData data)
+    public EnemyDataSlot(EnemyEntity entity)
     {
-        this.data = data;
+        this.entity = entity;
     }
 
-    public EnemyData Data { get => data; set => data = value; }
+    public EnemyEntity Entity { get => entity; set => entity = value; }
 }

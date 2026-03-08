@@ -2,5 +2,5 @@ using System.Collections.Generic;
 
 public interface IRunDiaryEnemyDatabaseContext
 {
-    public List<EnemyData> AvailableEnemies { get; }
+    public List<EnemyEntity> AvailableEnemies { get; }
 }

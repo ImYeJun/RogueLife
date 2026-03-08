@@ -3,24 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "EnemyDatabase", menuName = "Scriptable Objects/Database/EnemyDatabase")]
-public class EnemyDatabase : ScriptableObject, IRunDiaryEnemyDatabaseContext, ISerializationCallbackReceiver {
-    [SerializeField] List<EnemyData> availableEnemies;
-    private Dictionary<string, EnemyData> idLookUp = new Dictionary<string, EnemyData>();
+public class EnemyDatabase : MonoBehaviour, IRunDiaryEnemyDatabaseContext 
+{
+    [SerializeField] List<EnemyEntity> availableEnemies;
+    private Dictionary<string, EnemyEntity> idLookUp = new Dictionary<string, EnemyEntity>();
 
-    public List<EnemyData> AvailableEnemies => idLookUp.Values.ToList();
+    public List<EnemyEntity> AvailableEnemies => idLookUp.Values.ToList();
 
-    public EnemyData GetData(string id)
+    private void Awake()
     {
-        if (idLookUp.TryGetValue(id, out EnemyData data)) { return data; }
-
-        Debug.LogWarning($"[EnemyDatabase] There's no EnemyData for {id}");
-        return null;
+        InitializeLookUp();
     }
 
-    public void OnBeforeSerialize() { }
-
-    public void OnAfterDeserialize()
+    private void InitializeLookUp()
     {
         idLookUp.Clear();
 
@@ -30,7 +25,8 @@ public class EnemyDatabase : ScriptableObject, IRunDiaryEnemyDatabaseContext, IS
 
             string id = enemyData.Id;
             
-            if (id == null) { continue; }
+            if (string.IsNullOrEmpty(id)) { continue; } 
+            
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[EnemyDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
@@ -38,6 +34,14 @@ public class EnemyDatabase : ScriptableObject, IRunDiaryEnemyDatabaseContext, IS
 
             idLookUp[id] = enemyData;
         }
+    }
+
+    public EnemyData GetData(string id)
+    {
+        if (idLookUp.TryGetValue(id, out EnemyEntity entity)) { return entity.Data; }
+
+        Debug.LogWarning($"[EnemyDatabase] There's no EnemyData for {id}");
+        return null;
     }
 
 #if UNITY_EDITOR

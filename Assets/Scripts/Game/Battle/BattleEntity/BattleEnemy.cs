@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleEntity
 {    
-    private EnemyData data;
+    private EnemyEntity entity;
     private List<EnemyAction> plannedActions = new List<EnemyAction>();
     private BattleEnemyBehaviour behaviourInstance;
     private bool isFirstAction;
@@ -20,20 +20,22 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     public override bool IsFullHealth => currentHealth >= currentMaxHealth;
     public IReadOnlyList<EnemyAction> PlannedActions { get => plannedActions; }
     public BattleEnemyBehaviour BehaviourInstance { get => behaviourInstance;  }
-    public EnemyData Data { get => data; }
+    public EnemyData Data { get => entity.Data; }
     public bool IsFirstAction => isFirstAction;
     public int PreviousActionCount => previousActionCount;
     public BattleEntity AsEntity => this;
     public BattleHurtSource AsHurtSource => new EntitySource(this);
     public override int MaxHealth => currentMaxHealth;
 
-    public BattleEnemy(BattleContext context, EnemyData enemyData) : base(context, BattleEntityTrait.ENEMY)
+    public BattleEnemy(BattleContext context, EnemyEntity enemyEntity) : base(context, BattleEntityTrait.ENEMY)
     {
-        data = enemyData;
+        entity = enemyEntity;
+
+        var data = entity.Data;
         currentMaxHealth = data.MaxBaseHealth;
         currentHealth = currentMaxHealth;
 
-        behaviourInstance = data.CloneBehaviour(this);
+        behaviourInstance = entity.CloneBehaviour(this);
         isFirstAction = true;
         previousActionCount = 0;
     }
@@ -89,7 +91,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
 
     public void Clone(float maxHealthMultiplier = 1.0f)
     {
-        var clone = new BattleEnemy(context, data);
+        var clone = new BattleEnemy(context, entity);
         
         int newMaxHealth = Mathf.Max(1, Mathf.RoundToInt(currentMaxHealth * maxHealthMultiplier));
 

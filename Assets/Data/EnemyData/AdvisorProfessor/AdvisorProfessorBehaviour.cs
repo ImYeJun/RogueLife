@@ -20,20 +20,20 @@ namespace Battle.Enemies.Behaviours
         [SerializeField] private BattleStatusEffectEntity iWillKillYouEntity;
         [SerializeField] private BattleStatusEffectEntity heavyBodyEntity;
         [SerializeField] private BattleStatusEffectEntity ohMyEntity;
-        [SerializeField] private EnemyData labSlaveData;
+        [SerializeField] private EnemyEntity labSlaveEntity;
 
         private class LabReorganization : EnemyAction
         {
-            private EnemyData labSlaveData;
+            private EnemyEntity labSlaveEntity;
 
-            public LabReorganization(IEnemyBehaviourOwner owner, EnemyData labSlaveData) : base(owner)
+            public LabReorganization(IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity) : base(owner)
             {
-                this.labSlaveData = labSlaveData;
+                this.labSlaveEntity = labSlaveEntity;
             }
 
             public override void Execute(BattleContext context)
             {
-                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveData);
+                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveEntity.Data);
 
                 foreach (var graduate in labSlaves)
                 {
@@ -44,7 +44,7 @@ namespace Battle.Enemies.Behaviours
 
                 for (int i = 0; i < 4; i++)
                 {
-                    var spawnedGraduate = new BattleEnemy(context, labSlaveData);
+                    var spawnedGraduate = new BattleEnemy(context, labSlaveEntity);
                     var spawnAction = new SpawnEnemyBattleAction(spawnedGraduate);
 
                     context.ActionScheduler.Enqueue(spawnAction);
@@ -54,16 +54,16 @@ namespace Battle.Enemies.Behaviours
 
         private class ForcedLabor : EnemyAction
         {
-            private EnemyData labSlaveData;
+            private EnemyEntity labSlaveEntity;
 
-            public ForcedLabor(IEnemyBehaviourOwner owner, EnemyData labSlaveData, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
+            public ForcedLabor(IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
             {
-                this.labSlaveData = labSlaveData;
+                this.labSlaveEntity = labSlaveEntity;
             }
 
             public override void Execute(BattleContext context)
             {
-                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveData);
+                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveEntity.Data);
 
                 foreach (var graduate in labSlaves)
                 {
@@ -75,15 +75,15 @@ namespace Battle.Enemies.Behaviours
 
         public class TakeCredit : EnemyAction
         {
-            private EnemyData labSlaveData;
+            private EnemyEntity labSlaveEntity;
 
-            public TakeCredit(IEnemyBehaviourOwner owner, EnemyData labSlaveData, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
+            public TakeCredit(IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
             {
-                this.labSlaveData = labSlaveData;
+                this.labSlaveEntity = labSlaveEntity;
             }
             public override void Execute(BattleContext context)
             {
-                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveData);
+                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveEntity.Data);
 
                 foreach (var graduate in labSlaves)
                 {
@@ -100,15 +100,15 @@ namespace Battle.Enemies.Behaviours
 
         private class PerformanceReview : EnemyAction
         {
-            private EnemyData labSlaveData;
+            private EnemyEntity labSlaveEntity;
             private BattleStatusEffectEntity defensiveStanceData;
             private BattleStatusEffectEntity iWillKillYouData;
             private BattleStatusEffectEntity heavyBodyData;
             private BattleStatusEffectEntity ohMyData;
 
-            public PerformanceReview(IEnemyBehaviourOwner owner, EnemyData labSlaveData, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity iWillKillYouEntity, BattleStatusEffectEntity heavyBodyEntity, BattleStatusEffectEntity ohMyEntity) : base(owner)
+            public PerformanceReview(IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity iWillKillYouEntity, BattleStatusEffectEntity heavyBodyEntity, BattleStatusEffectEntity ohMyEntity) : base(owner)
             {
-                this.labSlaveData = labSlaveData;
+                this.labSlaveEntity = labSlaveEntity;
                 this.defensiveStanceData = defensiveStanceEntity;
                 this.iWillKillYouData = iWillKillYouEntity;
                 this.heavyBodyData = heavyBodyEntity;
@@ -117,7 +117,7 @@ namespace Battle.Enemies.Behaviours
 
             public override void Execute(BattleContext context)
             {
-                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveData);
+                var labSlaves = context.EnemySystem.GetBattleEnemies(labSlaveEntity.Data);
 
                 BattleStatusEffect determinedStatusEffect;
                 BattleEntity determinedTarget;
@@ -157,15 +157,15 @@ namespace Battle.Enemies.Behaviours
             iWillKillYouEntity = template.iWillKillYouEntity;
             heavyBodyEntity = template.heavyBodyEntity;
             ohMyEntity = template.ohMyEntity;
-            labSlaveData = template.labSlaveData;
+            labSlaveEntity = template.labSlaveEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
                 { FIRST_ACTION, new HurtPlayer(owner, 30) },
-                { SECOND_ACTION, new LabReorganization(owner, labSlaveData) },
-                { THIRD_ACTION, new ForcedLabor(owner, labSlaveData) },
-                { FOURTH_ACTION, new TakeCredit(owner, labSlaveData)},
-                { FIFTH_ACTION, new PerformanceReview(owner, labSlaveData, defensiveStanceEntity, iWillKillYouEntity, heavyBodyEntity, ohMyEntity) }
+                { SECOND_ACTION, new LabReorganization(owner, labSlaveEntity) },
+                { THIRD_ACTION, new ForcedLabor(owner, labSlaveEntity) },
+                { FOURTH_ACTION, new TakeCredit(owner, labSlaveEntity)},
+                { FIFTH_ACTION, new PerformanceReview(owner, labSlaveEntity, defensiveStanceEntity, iWillKillYouEntity, heavyBodyEntity, ohMyEntity) }
             };
 
             availablePatterns = new List<Pattern>
@@ -176,11 +176,11 @@ namespace Battle.Enemies.Behaviours
                 ),
                 new Pattern(
                     preset : new List<string>{ FIRST_ACTION, THIRD_ACTION, FIFTH_ACTION },
-                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(labSlaveData) >= 3
+                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(labSlaveEntity.Data) >= 3
                 ),
                 new Pattern(
                     preset : new List<string>{ SECOND_ACTION, FIFTH_ACTION, THIRD_ACTION  },
-                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(labSlaveData) <= 1
+                    condition : (context, remainActionCount) => context.EnemySystem.GetEnemyCountByData(labSlaveEntity.Data) <= 1
                 )
             };
         }

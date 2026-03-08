@@ -13,9 +13,9 @@ public class ScheduleData : ScriptableObject
     [SerializeField] private AudioClip usualBGM;
     [SerializeField] private AudioClip battleBGM;
     [SerializeField] private Sprite choiceSprite;
-    [SerializeField] private EnemyData bossData;
-    [SerializeField] private List<EnemyData> availableEliteEnemyData;
-    [SerializeField] private List<EnemyData> availableNormalEnemyData;
+    [SerializeField] private EnemyEntity bossEntity;
+    [SerializeField] private List<EnemyEntity> availableEliteEnemyEntities;
+    [SerializeField] private List<EnemyEntity> availableNormalEnemyEntities;
     [SerializeField] private List<IncidentEntity> availableIncidentEntities;
 
     public string Id { get => id; }
@@ -26,20 +26,20 @@ public class ScheduleData : ScriptableObject
     public AudioClip UsualBGM { get => usualBGM; }
     public AudioClip BattleBGM { get => battleBGM; }
     public Sprite ChoiceSprite { get => choiceSprite; }
-    public List<EnemyData> AvailableNormalEnemyData { get => availableNormalEnemyData; }
-    public List<EnemyData> AvailableEliteEnemyData { get => availableEliteEnemyData; }
-    public EnemyData BossData { get => bossData; }
+    public List<EnemyEntity> AvailableNormalEnemyData { get => availableNormalEnemyEntities; }
+    public List<EnemyEntity> AvailableEliteEnemyData { get => availableEliteEnemyEntities; }
+    public EnemyEntity BossEntity { get => bossEntity; }
     public List<IncidentEntity> AvailableIncidentEntities { get => availableIncidentEntities; }
 
 #if UNITY_EDITOR
     private void OnValidate()
     {
         // 1. Normal Enemy 검증
-        if (availableNormalEnemyData != null)
+        if (availableNormalEnemyEntities != null)
         {
-            for (int i = 0; i < availableNormalEnemyData.Count; i++)
+            for (int i = 0; i < availableNormalEnemyEntities.Count; i++)
             {
-                var enemy = availableNormalEnemyData[i];
+                var enemy = availableNormalEnemyEntities[i];
                 if (enemy == null)
                 {
                     Debug.LogError($"[ScheduleData: {name}] Normal Enemy 리스트의 {i}번 항목이 비어있습니다!", this);
@@ -54,11 +54,11 @@ public class ScheduleData : ScriptableObject
         }
 
         // 2. Elite Enemy 검증
-        if (availableEliteEnemyData != null)
+        if (availableEliteEnemyEntities != null)
         {
-            for (int i = 0; i < availableEliteEnemyData.Count; i++)
+            for (int i = 0; i < availableEliteEnemyEntities.Count; i++)
             {
-                var enemy = availableEliteEnemyData[i];
+                var enemy = availableEliteEnemyEntities[i];
                 if (enemy == null)
                 {
                     Debug.LogError($"[ScheduleData: {name}] Elite Enemy 리스트의 {i}번 항목이 비어있습니다!", this);
@@ -73,11 +73,11 @@ public class ScheduleData : ScriptableObject
         }
 
         // 3. Boss Data 검증
-        if (bossData != null)
+        if (bossEntity != null)
         {
-            if (bossData.Tier != EnemyTier.BOSS)
+            if (bossEntity.Tier != EnemyTier.BOSS)
             {
-                Debug.LogError($"[ScheduleData: {name}] 설정된 Boss Data가 보스 티어가 아닙니다: {bossData.name} (Tier: {bossData.Tier})", this);
+                Debug.LogError($"[ScheduleData: {name}] 설정된 Boss Data가 보스 티어가 아닙니다: {bossEntity.name} (Tier: {bossEntity.Tier})", this);
             }
         }
         else
