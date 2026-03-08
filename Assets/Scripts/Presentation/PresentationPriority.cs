@@ -8,11 +8,18 @@ public static class PresentationPriority
     // Start Deck Loaded
     public const int StartDeckLoaded_ViewAppear = 10;
     public const int StartDeckLoaded_BaseDeckPopUp = 20;
+    
+    // Ready To Start Game
+    public const int ReadyToStartGame_FadeIn = 10;
+    public const int ReadyToStartGame_SceneTransition = 20;
 
     ///* -------------------------
     ///* Schedule Selecting
     ///* -------------------------
     
+    // Ready To Select Schedule
+    public const int ReadyToSelectSchedule_FadeOut = 10;
+
     //  Schedule Settled
     public const int ScheduleSettled_FadeIn = 10;
     public const int ScheduleSettled_SceneTransition = 20;

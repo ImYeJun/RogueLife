@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
@@ -24,11 +25,13 @@ namespace View.StartMenu
             startDeckSelectView.SetActive(false);
 
             eventBus.Subscribe<StartDeckLoaded>(OnStartDeckLoaded);
+            eventBus.Subscribe<ReadyToStartGame>(OnReadyToStartGame);
         }
 
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<StartDeckLoaded>(OnStartDeckLoaded);
+            eventBus?.Unsubscribe<ReadyToStartGame>(OnReadyToStartGame);
         }
 
         public void OnDeckSelected(StartDeck startDeck)
@@ -51,6 +54,11 @@ namespace View.StartMenu
             }
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.StartDeckLoaded_ViewAppear, ViewAppearPresentation());
+        }
+
+        public void OnReadyToStartGame(ReadyToStartGame game)
+        {
+            startDeckSelectView.SetActive(false);
         }
 
         public IEnumerator ViewAppearPresentation()

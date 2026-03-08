@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using View.Core;
@@ -29,7 +30,7 @@ namespace Controller.StartMenu
             }
             foreach (var interactabelView in interacatbleViews)
             {
-                interactabelView.Initialize(viewEventBus,  PresentationManager.Instance, viewCommander);
+                interactabelView.Initialize(viewEventBus, PresentationManager.Instance, viewCommander);
             }
 
             viewEventBus.Subscribe<ReadyToStartGame>(OnReadyToStartGame);
@@ -42,7 +43,16 @@ namespace Controller.StartMenu
 
         public void OnReadyToStartGame(ReadyToStartGame payload)
         {
-            GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE_SELECTING);
+
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.ReadyToStartGame_SceneTransition, SceneTransitionPresentation(), () =>
+            {
+                GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE_SELECTING);
+            });
+        }
+
+        public IEnumerator SceneTransitionPresentation()
+        {
+            yield return null;
         }
     }
 }
