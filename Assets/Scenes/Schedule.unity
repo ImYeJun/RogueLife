@@ -3209,7 +3209,7 @@ MonoBehaviour:
   uiRoot: {fileID: 874367751}
   nextNodeButtonsContainer: {fileID: 1584128381}
   nextNodeButtonPrefab: {fileID: 8452298603301634047, guid: 03ca68685e68f1548b0f183b1939d453, type: 3}
-  durarion: 0.5
+  duration: 0
   panelCanvasGroup: {fileID: 874367753}
   panelEasingType: 16
 --- !u!1001 &473893459

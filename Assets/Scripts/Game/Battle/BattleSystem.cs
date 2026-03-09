@@ -5,7 +5,7 @@ using Battle.BattleResultCommands;
 using Battle.StartEffects;
 using UnityEditor.Experimental.GraphView;
 
-public class BattleSystem : IFieldBattleSystem
+public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
 {
     private BattleContext context;
     private BattleEventBus eventBus;

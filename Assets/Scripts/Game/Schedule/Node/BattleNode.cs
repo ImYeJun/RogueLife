@@ -23,9 +23,6 @@ public class BattleNode : Node
     {
         base.OnEnter(context, flowHandler, scheduleHistory);
 
-        RequestNextNodeSelection();
-        return;
-        
         battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, OnBattleExit);
     }
 

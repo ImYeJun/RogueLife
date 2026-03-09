@@ -23,16 +23,16 @@ MonoBehaviour:
   usualBGM: {fileID: 0}
   battleBGM: {fileID: 0}
   choiceSprite: {fileID: 881676806763669821, guid: 31b3ccbd5a4593c4c8a5d3ff8c088670, type: 3}
-  bossData: {fileID: 11400000, guid: e15c866e2f846f44c8e0ee0d09518ffd, type: 2}
-  availableEliteEnemyData:
-  - {fileID: 11400000, guid: c7a1e940f3d6efe438055017817cf520, type: 2}
-  - {fileID: 11400000, guid: 19dd2c1aaee5b2a41b8456f267d1e5bd, type: 2}
-  - {fileID: 11400000, guid: afba649c94f0f6840bc9ff1d9d5ede43, type: 2}
-  availableNormalEnemyData:
-  - {fileID: 11400000, guid: c6584c2bc52357e42847e3698a2f419a, type: 2}
-  - {fileID: 11400000, guid: 33be83513ba127c4498a8b61081b1700, type: 2}
-  - {fileID: 11400000, guid: c6584c2bc52357e42847e3698a2f419a, type: 2}
-  - {fileID: 11400000, guid: 261c0a280922eff4386cda9dbcbaa477, type: 2}
+  bossEntity: {fileID: 8311031345063822475, guid: 7ea9a81620170a04ab22e69c0a76ad91, type: 3}
+  availableEliteEnemyEntities:
+  - {fileID: 1461469586826816626, guid: 0a9162f8c1a822642954a6014890f9ff, type: 3}
+  - {fileID: 5384823109988222302, guid: 0b1309531b609ab4bbd442c3b5169c4a, type: 3}
+  - {fileID: 507929982975961712, guid: 58466bd58a8d4454faeceb92c447275e, type: 3}
+  availableNormalEnemyEntities:
+  - {fileID: 2446134916560391290, guid: 284e108e03063d24fa7d6a54cb3d84fc, type: 3}
+  - {fileID: 4283409445508812719, guid: ab1f767340d81c54a9a142994dff67d3, type: 3}
+  - {fileID: 9201850583577724315, guid: 795b3238a8744f147bbfacb89c811c13, type: 3}
+  - {fileID: 366846554493220610, guid: b2cb8b555a76ca445a36631c134c8e3e, type: 3}
   availableIncidentEntities:
   - {fileID: 5056276252603357563, guid: 73719809b5100be48be23d6d581bc4ef, type: 3}
   - {fileID: 6178848484444200270, guid: 77ac49a8edd601849bcba5703f47ad94, type: 3}
