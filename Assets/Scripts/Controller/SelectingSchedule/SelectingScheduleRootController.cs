@@ -21,11 +21,11 @@ namespace Controller.SelectingSchedule
 
             foreach (var view in views)
             {
-                view.Initialize(viewEventBus, PresentationManager.Instance);
+                view.Initialize(random, viewEventBus, PresentationManager.Instance);
             }
             foreach (var interactabelView in interacatbleViews)
             {
-                interactabelView.Initialize(viewEventBus, PresentationManager.Instance ,viewCommander);
+                interactabelView.Initialize(random, viewEventBus, PresentationManager.Instance ,viewCommander);
             }
 
             viewEventBus.Subscribe<ScheduleSettled>(OnScheduleSettled);

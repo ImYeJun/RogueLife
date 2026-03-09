@@ -7,7 +7,7 @@ using DG.Tweening;
 using System.Collections;
 using UnityEngine.UI;
 
-namespace View.ScheduleView
+namespace View.ScheduleView.Presentation
 {
     public class NodeTransitionPresentation : ViewBehaviour<IScheduleViewEvent>
     {

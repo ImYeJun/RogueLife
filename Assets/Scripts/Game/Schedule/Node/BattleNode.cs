@@ -18,12 +18,13 @@ public class BattleNode : Node
     }
 
     public bool IsBossNode => engagingEnemiesDataSlot.Any(slot => slot.Entity.Tier == EnemyTier.BOSS);
+    public EnemyData MainEnemyData => engagingEnemiesDataSlot.OrderByDescending(slot => slot.Entity.Tier).First().Entity.Data;
 
-    public override void OnEnter(FieldContext context, IScheduleRouter flowHandler, ScheduleHistory scheduleHistory)
+    public override void OnEnter(FieldContext context, IScheduleRouter scheduleRouter, ScheduleHistory scheduleHistory)
     {
-        base.OnEnter(context, flowHandler, scheduleHistory);
+        base.OnEnter(context, scheduleRouter, scheduleHistory);
 
-        battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, OnBattleExit);
+        battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, OnBattleExit, scheduleRouter.RequestBattleTransition);
     }
 
     public void OnBattleExit(BattleResultCommand resultCommand)

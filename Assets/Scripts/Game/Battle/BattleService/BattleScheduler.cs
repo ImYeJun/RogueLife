@@ -13,9 +13,17 @@ public class BattleScheduler : IBattleScheduler
 
     public void SetContext(BattleContext context) { this.context = context; }
     
-    public void StartBattle(int startPhaseCount, int maxActionCost, int fisrtTurnDrawCount, int turnStartDrawCount, List<Card> startDrawDeck, BattlePlayer battlePlayer, List<BattleEnemy> enemies)
+    public void StartBattle(BattleStartData data)
     {
-        context.EventBus.Publish(new BattleStartEvent(startPhaseCount, maxActionCost, fisrtTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies));
+        context.EventBus.Publish(new BattleStartEvent(
+            data.StartPhaseCount, 
+            data.MaxActionCost, 
+            data.FirstTurnDrawCount, 
+            data.TurnStartDrawCount, 
+            data.StartDrawDeck, 
+            data.BattlePlayer, 
+            data.Enemies
+        ));
     }
 
     public void StartPhase()

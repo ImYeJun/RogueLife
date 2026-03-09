@@ -15,6 +15,7 @@ namespace Controller.StartMenu
 
         private IStartMenuViewCommander viewCommander;
         private StartMenuViewEventBus viewEventBus;
+        private System.Random random;
 
         [SerializeField] private List<ViewBehaviour<IStartMenuViewEvent>> views;
         [SerializeField] private List<InteractableViewBehaviour<IStartMenuViewEvent, IStartMenuViewCommander>> interacatbleViews;

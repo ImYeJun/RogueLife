@@ -26,6 +26,8 @@ public partial class GameRun
 
     private GameRunViewEventBus viewEventBus;
 
+    public Random Random => random;
+
     public ISelectingScheduleViewCommander SelectingScheduleViewCommander { get => scheduleSystem;  }
     public ScheduleSelectingViewEventBus SelectingScheudleViewEventBus { get => scheduleSystem.SelectingScheduleViewEventBus; }
 

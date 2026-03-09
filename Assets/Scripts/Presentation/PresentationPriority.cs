@@ -31,6 +31,7 @@ public static class PresentationPriority
 
     // Node Entered
     public const int NodeEnter_MovePlayer = 10;
+    public const int NodeEnter_Specific = 20;
 
     // Node Exited
     public const int NodeExit_MovePlayer = 10;
@@ -38,4 +39,7 @@ public static class PresentationPriority
     // Next Node Select Requested
     public const int NodeSelect_OpenPanel = 10;
     public const int NodeSelect_NodeButtonBasePriority = 20;
+
+    // Battle Engaged
+    public const int BattleEngaged_SceneTransition = 10;
 }

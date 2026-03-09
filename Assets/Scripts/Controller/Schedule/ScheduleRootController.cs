@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using View.Core;
@@ -22,11 +23,11 @@ namespace Controller.Schedule
 
             foreach (var view in views)
             {
-                view.Initialize(viewEventBus, PresentationManager.Instance);
+                view.Initialize(random, viewEventBus, PresentationManager.Instance);
             }
             foreach (var interactabelView in interacatbleViews)
             {
-                interactabelView.Initialize(viewEventBus, PresentationManager.Instance ,viewCommander);
+                interactabelView.Initialize(random, viewEventBus, PresentationManager.Instance ,viewCommander);
             }
 
             viewCommander.BroadcastCurrentState();
@@ -34,20 +35,32 @@ namespace Controller.Schedule
 
             currentRun.ViewEventBus.Subscribe<RunEnded>(OnRunEnded);
             currentRun.ViewEventBus.Subscribe<ScheduleCleared>(OnScheduleCleared);
+            viewEventBus.Subscribe<BattleEngaged>(OnBattleEngaged);
         }
         private void OnDestroy()
         {
             currentRun?.ViewEventBus?.Unsubscribe<RunEnded>(OnRunEnded);
             currentRun?.ViewEventBus?.Unsubscribe<ScheduleCleared>(OnScheduleCleared);
+            viewEventBus?.Unsubscribe<BattleEngaged>(OnBattleEngaged);
         }
 
         public void OnRunEnded(RunEnded payload)
         {
             GameSceneManager.Instance.LoadScene(SceneName.MAIN_MENU);
         }
-        private void OnScheduleCleared(ScheduleCleared ended)
+        public void OnScheduleCleared(ScheduleCleared payloaed)
         {
             GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE_SELECTING);
+        }
+        public void OnBattleEngaged(BattleEngaged payload)
+        {
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleEngaged_SceneTransition, BattleSceneTransitionPresentation());
+        }
+
+        public IEnumerator BattleSceneTransitionPresentation()
+        {
+            yield return null;
+            GameSceneManager.Instance.LoadScene(SceneName.BATTLE);
         }
     }
 }

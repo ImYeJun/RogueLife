@@ -66,6 +66,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         currentSchedule.OnRequestNextNodeSelection += OnRequestNextNodeSelection;
         currentSchedule.OnRequestIncidentSelection += OnRequestIncidentSelection;
         currentSchedule.OnRequestTransactionSelection += OnRequestTransactionSelection;
+        currentSchedule.OnRequestBattleTransition += OnRequestBattleTransition;
         currentSchedule.OnNodeExit += OnExitNode;
         currentSchedule.OnEnd += EndSchedule;
         
@@ -105,6 +106,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         currentSchedule.OnRequestNextNodeSelection -= OnRequestNextNodeSelection;
         currentSchedule.OnRequestIncidentSelection -= OnRequestIncidentSelection;
         currentSchedule.OnRequestTransactionSelection -= OnRequestTransactionSelection;
+        currentSchedule.OnRequestBattleTransition -= OnRequestBattleTransition;
         currentSchedule.OnNodeExit -= OnExitNode;
         currentSchedule.OnEnd -= EndSchedule;
 
@@ -168,5 +170,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void OnRequestIncidentSelection(List<DeterminedIncidentChoice> choices)
     {
         scheduleViewEventBus.Publish(new IncidentSelectRequested(sequenceIdGenerator.GetNextId(), choices));
+    }
+
+    public void OnRequestBattleTransition()
+    {
+        scheduleViewEventBus.Publish(new BattleEngaged(sequenceIdGenerator.GetNextId()));
     }
 }

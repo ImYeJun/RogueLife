@@ -29,7 +29,8 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
             deck : context.Deck,
             belongingsBag : context.BelongingsBag,
             engagingEnemiesDataSlot : engaingEnemyData.Select(entity => new EnemyDataSlot(entity)).ToList(),
-            battleExit : OnBattleExit
+            battleExit : OnBattleExit,
+            onEngage : null //TODO Refactor Schedule System
         );
     }
 

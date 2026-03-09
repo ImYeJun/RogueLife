@@ -40,10 +40,10 @@ public abstract class EnemyData : ScriptableObject
     public int MaxBaseHealth => maxBaseHealth;
     public EnemyTier Tier => tier;
     
-    protected IReadOnlyList<string> EncounterLines => encounterLines;
-    protected IReadOnlyList<string> ActionLines => actionLines;
-    protected IReadOnlyList<string> VictoryLines => victoryLines;
-    protected IReadOnlyList<string> DefeatLines => defeatLines;
+    public IReadOnlyList<string> EncounterLines => encounterLines;
+    public IReadOnlyList<string> ActionLines => actionLines;
+    public IReadOnlyList<string> VictoryLines => victoryLines;
+    public IReadOnlyList<string> DefeatLines => defeatLines;
 
     public Sprite UsualSprite => usualSprite;
 

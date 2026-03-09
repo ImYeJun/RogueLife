@@ -5,17 +5,21 @@ using UnityEngine.SceneManagement;
 
 public abstract class InGameRootController : SceneRootController{
     protected GameRun currentRun;
-        protected override void OnStart()
+    protected System.Random random;
+
+    protected override void OnStart()
+    {
+        currentRun = GameRunManager.Instance?.CurrentRun;
+
+        if (currentRun is null)
         {
-            currentRun = GameRunManager.Instance?.CurrentRun;
+            Debug.LogError("[SceneRootController] There's no GameRunManager or GameRun.");
 
-            if (currentRun is null)
-            {
-                Debug.LogError("[SceneRootController] There's no GameRunManager or GameRun.");
-
-                return;
-            }
-
-            OnInitialize();
+            return;
         }
+
+        random = currentRun.Random;
+
+        OnInitialize();
+    }
 }

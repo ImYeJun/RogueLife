@@ -186,4 +186,16 @@ namespace ViewEvent.ScheduleView
         public int SequenceId => sequenceId;
         public List<DeterminedIncidentChoice> Choices => choices;
     }
+
+    public readonly struct BattleEngaged : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+
+        public BattleEngaged(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId => sequenceId;
+    }
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.BattleResultCommands;
 using Battle.StartEffects;
-using UnityEditor.Experimental.GraphView;
 
 public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
 {
@@ -73,29 +72,29 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         enemySystem.History.SubscribeEventBus(eventBus);
     }
 
-    //TODO Refactor this nullalbe attributes
     public event Action<BattleResultCommand> OnBattleExit;
     private EnemyTier mainEnemyTier;
     private IBattleEntryActionCost fieldActionCost;
+    private BattleStartData? preparedStartData;
 
-    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot,  Action<BattleResultCommand> battleExit)
+    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot, Action<BattleResultCommand> battleExit, Action onEngage)
     {
-        var mainEnemyData = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Entity.Tier).First().Entity;
-        mainEnemyTier = mainEnemyData.Tier;
+        var mainEnemyEntity = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Entity.Tier).First().Entity;
+        mainEnemyTier = mainEnemyEntity.Tier;
 
         OnBattleExit = battleExit;
-        fieldActionCost = actionCost;
+        this.fieldActionCost = actionCost;
 
-        int startPhaseCount = mainEnemyData.Tier switch
+        int startPhaseCount = mainEnemyEntity.Tier switch
         {
             EnemyTier.NORMAL => Constant.NORMAL_ENEMY_START_PHASE_COUNT,
             EnemyTier.ELITE => Constant.ELITE_ENEMY_START_PHASE_COUNT,
             EnemyTier.BOSS => Constant.BOSS_ENEMY_START_PHASE_COUNT,
-            _ => throw new InvalidOperationException($"[BattleSystem] {mainEnemyData.Tier} is not supported for determining start phase count.")
+            _ => throw new InvalidOperationException($"[BattleSystem] {mainEnemyEntity.Tier} is not supported for determining start phase count.")
         };
 
         int maxActionCost = actionCost.CurrentMaxActionCost;
-        int fisrtTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
+        int firstTurnDrawCount = Constant.BASE_FIRST_TURN_DRAW_COUNT;
         int turnStartDrawCount = Constant.BASE_START_TURN_DRAW_COUNT;
         List<Card> startDrawDeck = deck.GetClonedMainDeck(isForBattleStart : true).Values.SelectMany(sel => sel).ToList();
 
@@ -111,7 +110,22 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
             enemies.Add(new BattleEnemy(context, dataSlot.Entity));
         }
 
-        scheduler.StartBattle(startPhaseCount, maxActionCost, fisrtTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies);
+        preparedStartData = new BattleStartData(
+            startPhaseCount, maxActionCost, firstTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies
+        );
+
+        onEngage?.Invoke();
+    }
+
+    public void StartBattle()
+    {
+        if (preparedStartData is null)
+        {
+            UnityEngine.Debug.LogError("[BattleSystem] battle data is not prepared");
+            return;
+        }
+
+        scheduler.StartBattle(preparedStartData.Value);
     }
 
     public void ExitBattle(BattleResult result)
@@ -143,6 +157,7 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         OnBattleExit?.Invoke(resultCommand);
         OnBattleExit = null;
         fieldActionCost = null;
+        preparedStartData = null;
     }
 
     public void AddBattleStartEffect(BattleStartEffect effect)

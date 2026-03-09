@@ -8,11 +8,16 @@ namespace View.Core
     {
         protected TCommander commander;
 
-        public void Initialize(ViewEventBus<TEvent> eventBus, PresentationManager presentationManager, TCommander commander)
+        public void Initialize(System.Random random, ViewEventBus<TEvent> eventBus, PresentationManager presentationManager, TCommander commander)
         {
-            Initialize(eventBus, presentationManager);
+            Initialize(random, eventBus, presentationManager);
 
             this.commander = commander;
+        }
+
+        public void Initialize(ViewEventBus<TEvent> eventBus, PresentationManager presentationManager, TCommander commander)
+        {
+            Initialize(new System.Random(), eventBus, presentationManager, commander);
         }
     }
 }
