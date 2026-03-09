@@ -8,9 +8,10 @@ public readonly struct BattleStartData
     public readonly int TurnStartDrawCount;
     public readonly List<Card> StartDrawDeck;
     public readonly BattlePlayer BattlePlayer;
+    public readonly List<BattleBelongings> BattleBelongings; 
     public readonly List<BattleEnemy> Enemies;
 
-    public BattleStartData(int startPhaseCount, int maxActionCost, int firstTurnDrawCount, int turnStartDrawCount, List<Card> startDrawDeck, BattlePlayer battlePlayer, List<BattleEnemy> enemies)
+    public BattleStartData(int startPhaseCount, int maxActionCost, int firstTurnDrawCount, int turnStartDrawCount, List<Card> startDrawDeck, BattlePlayer battlePlayer, List<BattleBelongings> battleBelongings, List<BattleEnemy> enemies)
     {
         StartPhaseCount = startPhaseCount;
         MaxActionCost = maxActionCost;
@@ -18,6 +19,7 @@ public readonly struct BattleStartData
         TurnStartDrawCount = turnStartDrawCount;
         StartDrawDeck = startDrawDeck;
         BattlePlayer = battlePlayer;
+        BattleBelongings = battleBelongings;
         Enemies = enemies;
     }
 }

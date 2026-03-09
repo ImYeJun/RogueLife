@@ -6,6 +6,7 @@ using UnityEngine;
 
 public abstract class BattleEntity : IBattleStatusEffectOwner
 {
+    protected IBattleViewEventPublisher viewEventPublisher;
     protected BattleContext context;
     private BattleEntityTrait trait;
     private BattleEntityCondition currentCondition;
@@ -37,6 +38,8 @@ public abstract class BattleEntity : IBattleStatusEffectOwner
         context.EventBus.Subscribe<PlayerTurnEndBattleEvent>(OnPlayerTurnEnded);
         context.EventBus.Subscribe<EnemyTurnEndBattleEvent>(OnEnemyTurnEnded);
     }
+
+    public void SetViewEventPublisher(IBattleViewEventPublisher viewEventPublisher) { this.viewEventPublisher = viewEventPublisher; }
 
     public abstract bool IsFullHealth { get; }
     public bool IsDead { get => isDead; }

@@ -32,7 +32,6 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
 
         playerHealth.HurtBattleHealth(hurtContext.BattleHealthDamage, false);
         HurtMentality(hurtContext.MentalityDamage);
-        // playerHealth.HurtMentality(hurtContext.MentalityDamage);
 
         context.EventBus.Publish(new EntityHurtBattleEvent(hurtContext.TotalDamage, this, source));
     }

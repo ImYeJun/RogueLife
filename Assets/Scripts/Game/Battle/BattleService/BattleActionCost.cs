@@ -1,15 +1,17 @@
 using System;
 using UnityEngine;
+using ViewEvent.BattleView;
 
 public class BattleActionCost : IBattleActionCost, IBattleEventObserveService
 {
     private int currentActionCost;
     private int maxActionCost;
-
+    private IBattleViewEventPublisher viewEventPublisher;
     private BattleActionCostHistory history;
 
-    public BattleActionCost()
+    public BattleActionCost(IBattleViewEventPublisher viewEventPublisher)
     {
+        this.viewEventPublisher = viewEventPublisher;
         history = new BattleActionCostHistory();
     }
 
@@ -52,6 +54,10 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserveService
         eventBus.Subscribe<BattleStartEvent>(InitiateCost);
         eventBus.Subscribe<PlayerTurnStartBattleEvent>(FullfillOnTurnState);
     }
-    public void InitiateCost(BattleStartEvent payload) { maxActionCost = payload.MaxActionCost; }
+    public void InitiateCost(BattleStartEvent payload) { 
+        maxActionCost = payload.MaxActionCost;
+
+        viewEventPublisher.Publish(new InitialActionCostSettled(viewEventPublisher.GetNextSequenceId(), this));
+    }
     public void FullfillOnTurnState(PlayerTurnStartBattleEvent payload) { Fullfill(); }    
 }

@@ -1,18 +1,38 @@
 using System.Collections.Generic;
+using ViewEvent.BattleView;
 
-public class BattleBelongingsBag : IBattleBelongingsBag
+public class BattleBelongingsBag : IBattleBelongingsBag, IBattleEventObserveService
 {
-    private List<BattleBelongings> belongingsBag = new List<BattleBelongings>(); 
+    private BattleContext context;
+    private List<BattleBelongings> belongingsBag = new List<BattleBelongings>();
+    private IBattleViewEventPublisher viewEventPublisher;
 
-    public List<BattleBelongings> BelongingsBag => belongingsBag;
-
-    public void OnEngageBattle(List<BattleBelongings> belongingsBag, BattleContext context)
+    public BattleBelongingsBag(IBattleViewEventPublisher viewEventPublisher)
     {
-        this.belongingsBag = belongingsBag;
+        this.viewEventPublisher = viewEventPublisher;
+    }
+
+    public List<BattleBelongings> Belongings => belongingsBag;
+
+    public void SetContext(BattleContext context) 
+    { 
+        this.context = context; 
+    }
+
+    public void SubscribeEventBus(IBattleEventBus eventBus)
+    {
+        eventBus.Subscribe<BattleStartEvent>(Initiate);
+    }
+
+    public void Initiate(BattleStartEvent payload)
+    {
+        this.belongingsBag = payload.BattleBelongings;
 
         foreach (var belongings in belongingsBag)
         {
             belongings.OnEngageBattle(context);
         }
+
+        viewEventPublisher.Publish(new BelongingsSettled(viewEventPublisher.GetNextSequenceId(), this));
     }
 }

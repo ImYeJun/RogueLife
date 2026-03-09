@@ -1,13 +1,22 @@
 using UnityEngine;
+using ViewEvent.BattleView;
 
 public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
 {
     private BattleContext context;
     private int remainPhase;
+    private IBattleViewEventPublisher viewEventPublisher;
+
+    public BattlePhase(IBattleViewEventPublisher viewEventPublisher)
+    {
+        this.viewEventPublisher = viewEventPublisher;
+    }
 
     public bool IsAllPhasedEnd => remainPhase <= 0;
-    public void SetContext(BattleContext context) { this.context = context; }
+    public int ReaminPhase => remainPhase;
 
+    public void SetContext(BattleContext context) { this.context = context; }
+    
     public void Increase(int amount)
     {
         remainPhase += amount;
@@ -29,6 +38,10 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
         eventBus.Subscribe<PhaseEndBattleEvent>(OnPhaseEnd);
     }
 
-    public void InitiatePhase(BattleStartEvent payload) { remainPhase = payload.StartPhaseCount; }
+    public void InitiatePhase(BattleStartEvent payload) { 
+        remainPhase = payload.StartPhaseCount;
+
+        viewEventPublisher.Publish(new InitialPhaseSettled(viewEventPublisher.GetNextSequenceId(), this));
+    }
     public void OnPhaseEnd(PhaseEndBattleEvent payload) { Decrease(); }
 }

@@ -5,11 +5,13 @@ using System.Linq;
 public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveService
 {
     private BattleContext context;
+    private IBattleViewEventPublisher viewEventPublisher;
     private BattleEnemyHistory history;
     private Dictionary<EnemyData, List<BattleEnemy>> currentEnemies = new Dictionary<EnemyData, List<BattleEnemy>>();
 
-    public BattleEnemySystem()
+    public BattleEnemySystem(IBattleViewEventPublisher viewEventPublisher)
     {
+        this.viewEventPublisher = viewEventPublisher;
         history = new BattleEnemyHistory();
     }
 
@@ -24,6 +26,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
 
         if (currentEnemies.Values.Sum(list => list.Count) >= Constant.MAX_SPAWNED_ENEMY_COUNT) { return; }
 
+        enemy.SetViewEventPublisher(viewEventPublisher);
         if (!currentEnemies.ContainsKey(data)) { currentEnemies.Add(data, new List<BattleEnemy>()); }
 
         currentEnemies[data].Insert(0, enemy);

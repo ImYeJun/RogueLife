@@ -1,4 +1,5 @@
 using System;
+using ViewEvent.BattleView;
 using ViewEvent.GameRunView;
 using ViewEvent.ScheduleSelecting;
 using ViewEvent.ScheduleView;
@@ -33,6 +34,10 @@ public partial class GameRun
 
     public IScheduleViewCommander ScheduleViewCommander { get => scheduleSystem; }
     public ScheduleViewEventBus ScheduleViewEventBus { get => scheduleSystem.ScheduleViewEventBus; }
+
+    public IBattleViewCommander BattleViewCommander => battleSystem;
+    public BattleViewEventBus BattleViewEventBus => battleSystem.ViewEventBus;
+
     public GameRunViewEventBus ViewEventBus { get => viewEventBus; }
 
     public GameRun(

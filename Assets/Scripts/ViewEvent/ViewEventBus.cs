@@ -50,5 +50,10 @@ namespace ViewEvent.Core
 
             list.Remove(observer);
         }
+
+        internal void Publish<T>(object onInitialDeckSettled)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

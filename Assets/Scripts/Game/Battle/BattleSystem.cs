@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.BattleResultCommands;
 using Battle.StartEffects;
+using ViewEvent.BattleView;
 
 public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
 {
+    private BattleViewEventBus viewEventBus;
+
     private BattleContext context;
     private BattleEventBus eventBus;
     private BattleScheduler scheduler;
@@ -20,16 +23,18 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
 
     public BattleSystem(Random random, IBattleCardDatabase cardDatabase, IBattleBattleStatusEffectDatabase battleStatusEffectDatabase)
     {
+        viewEventBus = new BattleViewEventBus();
+
         eventBus = new BattleEventBus();
-        scheduler = new BattleScheduler(ExitBattle);
+        scheduler = new BattleScheduler(ExitBattle, viewEventBus);
         startEffectSystem = new BattleStartEffectSystem();
         pipeline = new BattleActionPipeline();
-        phase = new BattlePhase();
-        playerContainer = new BattlePlayerContainer();
-        belongingsBag = new BattleBelongingsBag();
-        actionCost = new BattleActionCost();
-        deckSystem = new BattleDeckSystem();
-        enemySystem = new BattleEnemySystem();
+        phase = new BattlePhase(viewEventBus);
+        playerContainer = new BattlePlayerContainer(viewEventBus);
+        belongingsBag = new BattleBelongingsBag(viewEventBus);
+        actionCost = new BattleActionCost(viewEventBus);
+        deckSystem = new BattleDeckSystem(viewEventBus);
+        enemySystem = new BattleEnemySystem(viewEventBus);
 
         context = new BattleContext(
             random : random,
@@ -59,6 +64,7 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         phase.SetContext(context);
         deckSystem.SetContext(context);
         enemySystem.SetContext(context);
+        belongingsBag.SetContext(context);
 
         startEffectSystem.SubscribeEventBus(eventBus);
         pipeline.SubscribeEventBus(eventBus);
@@ -68,6 +74,7 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         deckSystem.SubscribeEventBus(eventBus);
         deckSystem.History.SubscribeEventBus(eventBus);
         playerContainer.SubscribeEventBus(eventBus);
+        belongingsBag.SubscribeEventBus(eventBus);
         enemySystem.SubscribeEventBus(eventBus);
         enemySystem.History.SubscribeEventBus(eventBus);
     }
@@ -76,6 +83,8 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
     private EnemyTier mainEnemyTier;
     private IBattleEntryActionCost fieldActionCost;
     private BattleStartData? preparedStartData;
+
+    public BattleViewEventBus ViewEventBus { get => viewEventBus; }
 
     public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot, Action<BattleResultCommand> battleExit, Action onEngage)
     {
@@ -99,10 +108,7 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         List<Card> startDrawDeck = deck.GetClonedMainDeck(isForBattleStart : true).Values.SelectMany(sel => sel).ToList();
 
         BattlePlayer battlePlayer = new BattlePlayer(context, battleHealth);
-        playerContainer.OnEngageBattle(battlePlayer);
-
         List<BattleBelongings> battleBelongings = entrybelongingsBag.GetBattleBelongings(battlePlayer);
-        belongingsBag.OnEngageBattle(battleBelongings, context);
 
         List<BattleEnemy> enemies = new List<BattleEnemy>();
         foreach (var dataSlot in engagingEnemiesDataSlot)
@@ -111,7 +117,7 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         }
 
         preparedStartData = new BattleStartData(
-            startPhaseCount, maxActionCost, firstTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, enemies
+            startPhaseCount, maxActionCost, firstTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, battleBelongings, enemies
         );
 
         onEngage?.Invoke();

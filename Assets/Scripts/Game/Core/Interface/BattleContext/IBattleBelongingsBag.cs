@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 
-public interface IBattleBelongingsBag
+public interface IBattleBelongingsBag : IReadOnlyBattleBeloningsBag
 {
-    public List<BattleBelongings> BelongingsBag { get; }
 }

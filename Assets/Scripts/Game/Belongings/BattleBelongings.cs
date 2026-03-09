@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public class BattleBelongings
 {
     private BelongingsEntity entity;
@@ -12,6 +14,8 @@ public class BattleBelongings
         behaviourInstance = entity.CloneBattleBehaviour();
         this.owner = owner;
     }
+
+    public Sprite Image => data.Image;
 
     public void OnEngageBattle(BattleContext context)
     {

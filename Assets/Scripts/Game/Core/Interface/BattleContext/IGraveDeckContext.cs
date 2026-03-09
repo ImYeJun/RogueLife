@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 
 public interface IGraveDeckContext {
+    public int Count { get; }
     public bool HasCard(Card card);
     public List<Card> GetCards();
     public Card? GetRandomCard(Random random, ICardBehaviourOwner? ignoringCardBehaviourOwner = null);

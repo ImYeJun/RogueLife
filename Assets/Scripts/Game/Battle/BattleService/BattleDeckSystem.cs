@@ -4,10 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using ViewEvent.BattleView;
 
 public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveService
 {
     private BattleContext context;
+    private IBattleViewEventPublisher viewEventPublisher;
     private BattleDeckHistory history;
     private bool isFirstTurn;
     private int firstTurnDrawCount;
@@ -19,8 +21,9 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         { BattleDeckType.GRAVE, new BattleDeck() }
     };
 
-    public BattleDeckSystem()
+    public BattleDeckSystem(IBattleViewEventPublisher viewEventPublisher)
     {
+        this.viewEventPublisher = viewEventPublisher;
         history = new BattleDeckHistory();
     }
 
@@ -87,7 +90,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     }
     public void Initiate(BattleStartEvent payload)
     {
-        firstTurnDrawCount = payload.FisrtTurnDrawCount;
+        firstTurnDrawCount = payload.FirstTurnDrawCount;
         turnStartDrawCount = payload.TurnStartDrawCount;
         isFirstTurn = true;
 
@@ -102,6 +105,13 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         }
 
         context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
+
+        viewEventPublisher.Publish(new InitialDeckSettled(
+            sequenceId : viewEventPublisher.GetNextSequenceId(),
+            handDeck : this[BattleDeckType.DRAW],
+            drawDeck : this[BattleDeckType.DRAW],
+            graveDeck : this[BattleDeckType.GRAVE]
+            ));
     }
     public void StartTurnDraw(PlayerTurnStartBattleEvent payload)
     {

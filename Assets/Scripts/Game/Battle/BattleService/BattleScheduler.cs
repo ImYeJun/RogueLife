@@ -4,10 +4,12 @@ using System.Collections.Generic;
 public class BattleScheduler : IBattleScheduler
 {
     private BattleContext context;
+    private IBattleViewEventPublisher viewEventPublisher;
     private Action<BattleResult> OnBattleEnd;
 
-    public BattleScheduler(Action<BattleResult> onBattleEnd)
+    public BattleScheduler(Action<BattleResult> onBattleEnd, IBattleViewEventPublisher viewEventPublisher)
     {
+        this.viewEventPublisher = viewEventPublisher;
         OnBattleEnd = onBattleEnd;
     }
 
@@ -22,6 +24,7 @@ public class BattleScheduler : IBattleScheduler
             data.TurnStartDrawCount, 
             data.StartDrawDeck, 
             data.BattlePlayer, 
+            data.BattleBelongings,
             data.Enemies
         ));
     }
@@ -59,9 +62,6 @@ public class BattleScheduler : IBattleScheduler
     public void EndBattle(BattleResult result)
     {
         context.EventBus.Publish(new BattleEndBattleEvent(result));
-
-        //TODO : Result에 따른 전투 상황 내의 연출 구현
-
         OnBattleEnd?.Invoke(result);
     }
 }
