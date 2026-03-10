@@ -4,7 +4,7 @@ using System.Linq;
 using Battle.HurtSources;
 using UnityEngine;
 
-public abstract class BattleEntity : IBattleStatusEffectOwner
+public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEntity
 {
     protected IBattleViewEventPublisher viewEventPublisher;
     protected BattleContext context;

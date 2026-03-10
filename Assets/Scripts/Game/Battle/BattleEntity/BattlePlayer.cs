@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Battle.HurtSources;
 using UnityEngine;
 
-public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
+public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattlePlayer
 {
     private IBattleHealth playerHealth;
 
@@ -16,6 +16,8 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner
     public override int CurrentHealth => playerHealth.CurrentBattleHealth + playerHealth.CurrentMentality;
 
     public override int MaxHealth => playerHealth.MaxBattleHealth + playerHealth.MaxMentality;
+
+    public IReadOnlyHealth Health => playerHealth;
 
     protected override void OnDead()
     {

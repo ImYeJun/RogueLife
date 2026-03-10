@@ -19,7 +19,9 @@ public class BattlePlayerContainer : IBattleEventObserveService, IBattlePlayerCo
 
     public void EnrollPlayer(BattleStartEvent payload)
     {
-        this.player = payload.BattlePlayer;
-        this.player.SetViewEventPublisher(viewEventPublisher);
+        player = payload.BattlePlayer;
+        player.SetViewEventPublisher(viewEventPublisher);
+
+        viewEventPublisher.Publish(new PlayerSettled(viewEventPublisher.GetNextSequenceId(), player));
     }
 }

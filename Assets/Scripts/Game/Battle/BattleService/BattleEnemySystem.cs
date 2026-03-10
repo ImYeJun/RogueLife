@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using ViewEvent.BattleView;
 
 public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveService
 {
@@ -20,19 +21,36 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
     
     public void SetContext(BattleContext context) { this.context = context; }
 
-    public void SpawnEnemy(BattleEnemy enemy)
+    // ⭐️ 공통 로직: 몬스터를 시스템(Dictionary)에 등록하고 이벤트를 연결하는 역할만 수행
+    private bool TryRegisterEnemy(BattleEnemy enemy)
     {
+        if (currentEnemies.Values.Sum(list => list.Count) >= Constant.MAX_SPAWNED_ENEMY_COUNT) 
+        { 
+            return false; 
+        }
+
         EnemyData data = enemy.Data;
-
-        if (currentEnemies.Values.Sum(list => list.Count) >= Constant.MAX_SPAWNED_ENEMY_COUNT) { return; }
-
         enemy.SetViewEventPublisher(viewEventPublisher);
-        if (!currentEnemies.ContainsKey(data)) { currentEnemies.Add(data, new List<BattleEnemy>()); }
+        
+        if (!currentEnemies.ContainsKey(data)) 
+        { 
+            currentEnemies.Add(data, new List<BattleEnemy>()); 
+        }
 
         currentEnemies[data].Insert(0, enemy);
         enemy.Died += RemoveEnemy;
 
-        enemy.OnSpawned();
+        return true;
+    }
+
+    public void SpawnEnemy(BattleEnemy enemy)
+    {
+        if (TryRegisterEnemy(enemy))
+        {
+            enemy.OnSpawned();
+
+            viewEventPublisher.Publish(new EnemySpawned(viewEventPublisher.GetNextSequenceId(), enemy));
+        }
     }
     
     public void RemoveEnemy(BattleEnemy enemy)
@@ -54,7 +72,6 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
         }
     }
 
-
     public List<BattleEnemy> GetBattleEnemies()
     {
         return currentEnemies.Values.SelectMany(set => set).ToList();
@@ -68,6 +85,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
     {
         return currentEnemies.ContainsKey(data) ? currentEnemies[data].Count : 0;
     }
+
     public void NullifyActionIfStunned(BattleEntityAction battleEntityAction, BattleContext context)
     {
         var actor = battleEntityAction.Actor;
@@ -88,16 +106,26 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
         eventBus.Subscribe<EnemyTurnStartBattleEvent>(ExecuteEnemyAction);
         eventBus.Subscribe<BattleEndBattleEvent>(OnBattleEnd);
     }
+
     public void Initiate(BattleStartEvent payload)
     {
         currentEnemies.Clear();
+        List<IReadOnlyBattleEnemy> initialEnemies = new List<IReadOnlyBattleEnemy>();
+
         foreach (var enemy in payload.Enemies)
         {
-            SpawnEnemy(enemy);
+            if (TryRegisterEnemy(enemy))
+            {
+                enemy.OnSpawned();
+                initialEnemies.Add(enemy);
+            }
         }
+
+        viewEventPublisher.Publish(new InitialEnemySettled(viewEventPublisher.GetNextSequenceId(), initialEnemies));
 
         context.ActionObserverHub.SubscribeActionModifier<BattleEntityAction>(NullifyActionIfStunned);
     }
+
     public void PlanNextEnemyAction(PhaseStartBattleEvent payload)
     {
         foreach (var enemyList in currentEnemies.Values)
@@ -108,6 +136,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
             }
         }
     }
+
     public void ExecuteEnemyAction(EnemyTurnStartBattleEvent payload)
     {
         foreach (var enemyGroup in currentEnemies.Values)
@@ -127,9 +156,9 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
 
         context.BattleScheduler.EndEnemyTurn();
     }
+
     public void OnBattleEnd(BattleEndBattleEvent payload)
     {
         context.ActionObserverHub.UnsubscribeActionModifier<BattleEntityAction>(NullifyActionIfStunned);
     }
 }
-

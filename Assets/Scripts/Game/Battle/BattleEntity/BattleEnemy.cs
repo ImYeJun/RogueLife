@@ -4,7 +4,7 @@ using Battle.Enemies.Actions;
 using Battle.HurtSources;
 using UnityEngine;
 
-public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleEntity
+public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleEntity, IReadOnlyBattleEnemy
 {    
     private EnemyEntity entity;
     private List<EnemyAction> plannedActions = new List<EnemyAction>();
@@ -26,6 +26,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     public BattleEntity AsEntity => this;
     public BattleHurtSource AsHurtSource => new EntitySource(this);
     public override int MaxHealth => currentMaxHealth;
+    public float NormalizedHealth { get => currentMaxHealth == 0 ? 0 : (float)currentHealth/currentMaxHealth; }
 
     public BattleEnemy(BattleContext context, EnemyEntity enemyEntity) : base(context, BattleEntityTrait.ENEMY)
     {
