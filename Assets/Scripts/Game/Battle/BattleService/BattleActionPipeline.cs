@@ -56,6 +56,7 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
             modifyPhase.Publish((dynamic)currentAction, context);
             preObservePhase.Publish((dynamic)currentAction, context);
             currentAction.Execute(context); 
+            UnityEngine.Debug.Log(currentAction);
             postObservePhase.Publish((dynamic)currentAction, context);
 
             CurrentScope?.Decrease();

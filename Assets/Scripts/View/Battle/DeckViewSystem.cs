@@ -10,6 +10,8 @@ namespace View.BattleView
     public class DeckViewSystem : InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>, IBackgroundClickDetector
     {
         [SerializeField] private GameObject battleCardView;
+        [SerializeField] private CardDescriptionView cardDescriptionView;
+        [SerializeField] private CardActivateSystem cardActivateSystem;
         [SerializeField] private Transform cardContainer;
         [SerializeField] private float handWidth = 5f;       
         [SerializeField] private float handHeight = 1f;      
@@ -21,6 +23,7 @@ namespace View.BattleView
 
         public override void OnInitialized()
         {
+            cardDescriptionView.Unfocus();
             cardViews = new List<BattleCardView>();
 
             eventBus.Subscribe<CardDrawed>(OnCardDrawed);
@@ -82,13 +85,14 @@ namespace View.BattleView
         {
             if (focusedCardView == cardView)
             {
-                Debug.Log($"{focusedCardView.Card.CurrentName} 실행!, CardType : {focusedCardView.Card.TargetType}");
+                cardActivateSystem.UseCard(cardView.Card);
             }
             else
             {
                 if (focusedCardView != null)
                 {
                     focusedCardView.Unfocus();
+                    cardDescriptionView.Unfocus();
                     focusedCardView.transform.SetSiblingIndex(focusedCardViewIndex);
                 }
 
@@ -97,6 +101,7 @@ namespace View.BattleView
                 focusedCardView.transform.SetAsLastSibling();
                 
                 focusedCardView.Focus();
+                cardDescriptionView.Focus(focusedCardView);
             }
         }
 
@@ -105,7 +110,7 @@ namespace View.BattleView
             if (focusedCardView is null) { return; }
 
             focusedCardView.Unfocus();
-            
+            cardDescriptionView.Unfocus();
             focusedCardView.transform.SetSiblingIndex(focusedCardViewIndex);
             
             focusedCardView = null;

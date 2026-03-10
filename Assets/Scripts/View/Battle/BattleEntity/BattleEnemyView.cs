@@ -8,13 +8,15 @@ using TMPro;
 
 namespace View.BattleView
 {
-    public class BattleEnemyView : InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>
+    public class BattleEnemyView : BattleEntityView<IReadOnlyBattleEnemy>
     {
         private IReadOnlyBattleEnemy enemy;
 
         [SerializeField] private SpriteRenderer image;
         [SerializeField] private Image healthBar;
         [SerializeField] private TextMeshProUGUI healthText;
+
+        public IReadOnlyBattleEnemy Enemy { get => enemy; }
 
         public override void OnInitialized()
         {
@@ -29,6 +31,8 @@ namespace View.BattleView
         public void Initialize(IReadOnlyBattleEnemy enemy, Vector3 spawnPos)
         {
             this.enemy = enemy;
+            entity = enemy;
+
             transform.position = spawnPos;
             image.sprite = enemy.Data.GetBattleSprite(EnemySpriteType.Idle);
 

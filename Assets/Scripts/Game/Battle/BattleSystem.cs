@@ -170,4 +170,14 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
     {
         startEffectSystem.AddEffect(effect);
     }
+
+    public bool IsAbleToUseCard(Card card, CardTarget cardTarget)
+    {
+        return card.IsAbleToUse(context, cardTarget);
+    }
+    public void UseCard(Card card, CardTarget cardTarget)
+    {
+        var cardUseAction = new TryUseCardBattleAction(card.CurrentActionCost, card, cardTarget);
+        pipeline.Enqueue(cardUseAction);
+    }
 }

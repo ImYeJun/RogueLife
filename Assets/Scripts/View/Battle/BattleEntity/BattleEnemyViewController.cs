@@ -24,6 +24,8 @@ namespace View.BattleView
         [SerializeField] private List<EnemyPosition> enemyPositionConfigs;
         private List<BattleEnemyView> spawnedEnemyViews = new List<BattleEnemyView>();
 
+        public IReadOnlyList<BattleEnemyView> SpawnedEnemyViews { get => spawnedEnemyViews; }
+
         public override void OnInitialized()
         {
             eventBus.Subscribe<InitialEnemySettled>(OnInitialEnemySettled);
@@ -62,7 +64,7 @@ namespace View.BattleView
                 BattleEnemyView enemyView = enemyObj.GetComponent<BattleEnemyView>();
                 if (enemyView != null)
                 {
-                    enemyView.Initialize(eventBus, presentationManager, commander);
+                    enemyView.Initialize(eventBus, presentationManager);
                     enemyView.Initialize(enemy, spawnPos);
 
                     spawnedEnemyViews.Add(enemyView);

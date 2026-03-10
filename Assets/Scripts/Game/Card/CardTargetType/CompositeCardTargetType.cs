@@ -7,6 +7,8 @@ public class CompositeCardTargetType : CardTargetType
 {
     [SerializeReference, SubclassSelector] private List<CardTargetType> requiredTypes;
 
+    public List<CardTargetType> RequiredTypes { get => requiredTypes; }
+
     public override bool IsValid(CardTarget target, BattleContext context)
     {
         if (target is not CompositeCardTarget compositeTarget)

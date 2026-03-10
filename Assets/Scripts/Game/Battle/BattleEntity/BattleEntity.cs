@@ -92,7 +92,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
     {
         if (IsDead) { return; }
 
-        if (!trait.HasFlag(newEffect.RequiredTraits))
+        if (newEffect.RequiredTraits == BattleEntityTrait.ANY || !trait.HasFlag(newEffect.RequiredTraits))
         {
             Debug.LogWarning($"[BattleEntity] The entity doesn't fulfilled the required trait. Required : {newEffect.RequiredTraits}, Entity Trait : {trait}");
             return;

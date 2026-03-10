@@ -8,7 +8,7 @@ using System;
 
 namespace View.BattleView
 {
-    public class BattlePlayerView : ViewBehaviour<IBattleViewEvent>
+    public class BattlePlayerView : BattleEntityView<IReadOnlyBattlePlayer>
     {
         private IReadOnlyBattlePlayer player;
 
@@ -17,6 +17,8 @@ namespace View.BattleView
         [SerializeField] private TextMeshProUGUI battleHeatlhText;
         [SerializeField] private Image mentalityBar;
         [SerializeField] private TextMeshProUGUI mentaltiyText;
+
+        public IReadOnlyBattlePlayer Player { get => player; }
 
         public override void OnInitialized()
         {
@@ -32,6 +34,7 @@ namespace View.BattleView
             transform.position = initialPos;
 
             player = payload.Player;
+            entity = player;
             
             DrawBattleHealthBar();
             DrawMentalityBar();

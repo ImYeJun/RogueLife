@@ -622,6 +622,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2204155370310336519}
+    - targetCorrespondingSourceObject: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6894954872006343217}
   m_SourcePrefab: {fileID: 100100000, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
 --- !u!1 &754717184939208493 stripped
 GameObject:
@@ -640,12 +643,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c63d3d304ed49140bf82d9aa94e0b53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattlePlayerView
+  spriteRenderer: {fileID: 1795996643286518164}
+  initialPos: {x: 0, y: 0}
   battleHeatlhBar: {fileID: 3288604834692385680}
   battleHeatlhText: {fileID: 886982744983495145}
   mentalityBar: {fileID: 3603141181732516152}
   mentaltiyText: {fileID: 8315150540768635071}
+--- !u!61 &6894954872006343217
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754717184939208493}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!224 &1487930226242013889 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+  m_PrefabInstance: {fileID: 8294740779905227799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1795996643286518164 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7777856902290052483, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
   m_PrefabInstance: {fileID: 8294740779905227799}
   m_PrefabAsset: {fileID: 0}
