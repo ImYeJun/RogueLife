@@ -13,12 +13,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public MatchBrokenClock() {}
-        private MatchBrokenClock(ICardBehaviourOwner owner)
-        : base(owner) { }
+        private MatchBrokenClock(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType) { }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new MatchBrokenClock(owner);
+            return new MatchBrokenClock(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)

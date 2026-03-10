@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ToxicBombShot() {}
-        private ToxicBombShot(ICardBehaviourOwner owner, BattleStatusEffectEntity deadlyPoisionEntity) 
-        : base(owner)
+        private ToxicBombShot(ICardBehaviourOwner owner, BattleStatusEffectEntity deadlyPoisionEntity, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType)
         {
             this.deadlyPoisionEntity = deadlyPoisionEntity;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new ToxicBombShot(owner, deadlyPoisionEntity);
+            return new ToxicBombShot(owner, deadlyPoisionEntity, targetType, reflectionTargetType);
         }
         
         public override bool OnIsAbleToUse(BattleContext context, AllEnemyCardTarget target)

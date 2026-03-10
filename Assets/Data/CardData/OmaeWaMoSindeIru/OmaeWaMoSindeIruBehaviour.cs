@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public OmaeWaMoSindeIru() {}
-        private OmaeWaMoSindeIru(ICardBehaviourOwner owner, BattleStatusEffectEntity omaeWaMoSindeIruEntity)
-        : base(owner)
+        private OmaeWaMoSindeIru(ICardBehaviourOwner owner, BattleStatusEffectEntity omaeWaMoSindeIruEntity, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.omaeWaMoSindeIruEntity = omaeWaMoSindeIruEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new OmaeWaMoSindeIru(owner, omaeWaMoSindeIruEntity);
+            return new OmaeWaMoSindeIru(owner, omaeWaMoSindeIruEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

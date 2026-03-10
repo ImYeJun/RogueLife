@@ -11,12 +11,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ICanDoThisAllDay() {}
-        private ICanDoThisAllDay(ICardBehaviourOwner owner) 
-        : base(owner) { }
+        private ICanDoThisAllDay(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new ICanDoThisAllDay(owner);
+            return new ICanDoThisAllDay(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)

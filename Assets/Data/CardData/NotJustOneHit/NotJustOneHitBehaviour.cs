@@ -10,12 +10,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public NotJustOneHit() {}
-        private NotJustOneHit(ICardBehaviourOwner owner) 
-        : base(owner) { }
+        private NotJustOneHit(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new NotJustOneHit(owner);
+            return new NotJustOneHit(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)

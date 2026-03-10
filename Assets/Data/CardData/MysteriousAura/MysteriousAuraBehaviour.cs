@@ -17,8 +17,8 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public MysteriousAura() {}
-        private MysteriousAura(ICardBehaviourOwner owner, BattleStatusEffectEntity strengthenMuscleEntity, BattleStatusEffectEntity thatsWeakSpotEntity, BattleStatusEffectEntity thatsFoulEntity, BattleStatusEffectEntity ohMyEntity)
-        : base(owner)
+        private MysteriousAura(ICardBehaviourOwner owner, BattleStatusEffectEntity strengthenMuscleEntity, BattleStatusEffectEntity thatsWeakSpotEntity, BattleStatusEffectEntity thatsFoulEntity, BattleStatusEffectEntity ohMyEntity, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.strengthenMuscleEntity = strengthenMuscleEntity;
             this.thatsWeakSpotEntity = thatsWeakSpotEntity;
@@ -28,7 +28,7 @@ namespace Battle.Cards.Behaviours
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new MysteriousAura(owner, strengthenMuscleEntity, thatsWeakSpotEntity, thatsFoulEntity, ohMyEntity);
+            return new MysteriousAura(owner, strengthenMuscleEntity, thatsWeakSpotEntity, thatsFoulEntity, ohMyEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, BattleEntityCardTarget target)

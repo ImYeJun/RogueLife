@@ -14,8 +14,8 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FierceMomentum() {}
-        private FierceMomentum(ICardBehaviourOwner owner, BattleStatusEffectEntity strengthenMuscleEntity, BattleStatusEffectEntity iWillKillYouEntity) 
-        : base(owner)
+        private FierceMomentum(ICardBehaviourOwner owner, BattleStatusEffectEntity strengthenMuscleEntity, BattleStatusEffectEntity iWillKillYouEntity, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType)
         {
             this.strengthenMuscleEntity = strengthenMuscleEntity;
             this.iWillKillYouEntity = iWillKillYouEntity;
@@ -23,7 +23,7 @@ namespace Battle.Cards.Behaviours
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new FierceMomentum(owner, strengthenMuscleEntity, iWillKillYouEntity);
+            return new FierceMomentum(owner, strengthenMuscleEntity, iWillKillYouEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

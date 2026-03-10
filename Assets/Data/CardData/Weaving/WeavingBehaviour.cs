@@ -14,8 +14,9 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Weaving() {}
-        private Weaving(ICardBehaviourOwner owner, BattleStatusEffectEntity tooSlowEntity, BattleStatusEffectEntity strengthenMuscleEntity)
-        : base(owner)
+        private Weaving(ICardBehaviourOwner owner, BattleStatusEffectEntity tooSlowEntity, BattleStatusEffectEntity strengthenMuscleEntity,CardTargetType targetType, CardTargetType reflectionTargetType
+)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.tooSlowEntity = tooSlowEntity;
             this.strengthenMuscleEntity = strengthenMuscleEntity;
@@ -23,7 +24,7 @@ namespace Battle.Cards.Behaviours
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new Weaving(owner, tooSlowEntity, strengthenMuscleEntity);
+            return new Weaving(owner, tooSlowEntity, strengthenMuscleEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

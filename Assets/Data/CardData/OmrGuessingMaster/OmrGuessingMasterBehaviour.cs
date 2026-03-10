@@ -65,11 +65,11 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public OmrGuessingMaster() {}
-        private OmrGuessingMaster(ICardBehaviourOwner owner) : base(owner) { }
+        private OmrGuessingMaster(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new OmrGuessingMaster(owner);
+            return new OmrGuessingMaster(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

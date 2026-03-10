@@ -48,14 +48,14 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public MentalTraining() {}
-        private MentalTraining(ICardBehaviourOwner owner, BattleStatusEffectEntity lightBodyEntity) : base(owner) 
+        private MentalTraining(ICardBehaviourOwner owner, BattleStatusEffectEntity lightBodyEntity, CardTargetType targetType, CardTargetType reflectionTargetType) : base(owner, targetType, reflectionTargetType) 
         { 
             this.lightBodyEntity = lightBodyEntity;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new MentalTraining(owner, this.lightBodyEntity);
+            return new MentalTraining(owner, this.lightBodyEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

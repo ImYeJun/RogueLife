@@ -13,12 +13,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ChainActivation() {}
-        private ChainActivation(ICardBehaviourOwner owner) 
-        : base(owner) { }
+        private ChainActivation(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new ChainActivation(owner);
+            return new ChainActivation(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)

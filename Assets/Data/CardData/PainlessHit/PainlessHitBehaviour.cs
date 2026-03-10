@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PainlessHit() {}
-        private PainlessHit(ICardBehaviourOwner owner, BattleStatusEffectEntity toughenEntity)
-        : base(owner)
+        private PainlessHit(ICardBehaviourOwner owner, BattleStatusEffectEntity toughenEntity, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.toughenEntity = toughenEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new PainlessHit(owner, toughenEntity);
+            return new PainlessHit(owner, toughenEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

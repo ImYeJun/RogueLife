@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public HealingFactor() {}
-        private HealingFactor(ICardBehaviourOwner owner, BattleStatusEffectEntity superHealData) 
-        : base(owner)
+        private HealingFactor(ICardBehaviourOwner owner, BattleStatusEffectEntity superHealData, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType)
         {
             this.superHealEntity = superHealData;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new HealingFactor(owner, superHealEntity);
+            return new HealingFactor(owner, superHealEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

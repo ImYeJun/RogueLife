@@ -12,12 +12,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DestinyDiceRoll() {}
-        private DestinyDiceRoll(ICardBehaviourOwner owner) 
-        : base(owner) { }
+        private DestinyDiceRoll(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new DestinyDiceRoll(owner);
+            return new DestinyDiceRoll(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, SingleEnemyCardTarget target)

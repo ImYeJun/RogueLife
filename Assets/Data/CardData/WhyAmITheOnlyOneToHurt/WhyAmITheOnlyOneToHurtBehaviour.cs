@@ -14,8 +14,9 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WhyAmITheOnlyOneToHurt() {}
-        private WhyAmITheOnlyOneToHurt(ICardBehaviourOwner owner, BattleStatusEffectEntity holyShieldEntity, BattleStatusEffectEntity nanoMachineEntity)
-        : base(owner)
+        private WhyAmITheOnlyOneToHurt(ICardBehaviourOwner owner, BattleStatusEffectEntity holyShieldEntity, BattleStatusEffectEntity nanoMachineEntity,CardTargetType targetType, CardTargetType reflectionTargetType
+)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.holyShieldEntity = holyShieldEntity;
             this.nanoMachineEntity = nanoMachineEntity;
@@ -23,7 +24,7 @@ namespace Battle.Cards.Behaviours
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new WhyAmITheOnlyOneToHurt(owner, holyShieldEntity, nanoMachineEntity);
+            return new WhyAmITheOnlyOneToHurt(owner, holyShieldEntity, nanoMachineEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

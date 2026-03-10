@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PerfectDisposableBarrier() {}
-        private PerfectDisposableBarrier(ICardBehaviourOwner owner, BattleStatusEffectEntity thatsFoulEntity) 
-        : base(owner)
+        private PerfectDisposableBarrier(ICardBehaviourOwner owner, BattleStatusEffectEntity thatsFoulEntity, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType)
         {
             this.thatsFoulEntity = thatsFoulEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new PerfectDisposableBarrier(owner, thatsFoulEntity);
+            return new PerfectDisposableBarrier(owner, thatsFoulEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

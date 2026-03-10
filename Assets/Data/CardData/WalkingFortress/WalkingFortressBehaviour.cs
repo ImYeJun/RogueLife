@@ -15,8 +15,8 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public WalkingFortress() {}
-        private WalkingFortress(ICardBehaviourOwner owner, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity weakenMuscleEntity, BattleStatusEffectEntity counterAttackEntity)
-        : base(owner)
+        private WalkingFortress(ICardBehaviourOwner owner, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity weakenMuscleEntity, BattleStatusEffectEntity counterAttackEntity, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.defensiveStanceEntity = defensiveStanceEntity;
             this.weakenMuscleEntity = weakenMuscleEntity;
@@ -25,7 +25,7 @@ namespace Battle.Cards.Behaviours
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new WalkingFortress(owner, defensiveStanceEntity, weakenMuscleEntity, counterAttackEntity);
+            return new WalkingFortress(owner, defensiveStanceEntity, weakenMuscleEntity, counterAttackEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

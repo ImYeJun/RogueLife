@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Fireball() {}
-        private Fireball(ICardBehaviourOwner owner, BattleStatusEffectEntity burningEntity) 
-        : base(owner)
+        private Fireball(ICardBehaviourOwner owner, BattleStatusEffectEntity burningEntity, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType)
         {
             this.burningEntity = burningEntity;
         }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new Fireball(owner, burningEntity);
+            return new Fireball(owner, burningEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, SingleEnemyCardTarget target)

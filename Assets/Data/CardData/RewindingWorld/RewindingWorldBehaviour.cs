@@ -56,12 +56,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public RewindingWorld() {}
-        private RewindingWorld(ICardBehaviourOwner owner) 
-        : base(owner) { }
+        private RewindingWorld(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new RewindingWorld(owner);
+            return new RewindingWorld(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)

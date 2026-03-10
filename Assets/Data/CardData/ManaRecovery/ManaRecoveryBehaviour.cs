@@ -12,12 +12,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ManaRecovery() {}
-        private ManaRecovery(ICardBehaviourOwner owner)
-        : base(owner) { }
+        private ManaRecovery(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType) { }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new ManaRecovery(owner);
+            return new ManaRecovery(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

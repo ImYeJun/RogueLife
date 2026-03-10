@@ -11,12 +11,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public UltimateExplosion() {}
-        private UltimateExplosion(ICardBehaviourOwner owner)
-        : base(owner) {}
+        private UltimateExplosion(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType) {}
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new UltimateExplosion(owner);
+            return new UltimateExplosion(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, AllEnemyCardTarget target)

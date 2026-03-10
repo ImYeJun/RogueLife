@@ -13,12 +13,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LifeRiskingBet() {}
-        private LifeRiskingBet(ICardBehaviourOwner owner) 
-        : base(owner) { }
+        private LifeRiskingBet(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new LifeRiskingBet(owner);
+            return new LifeRiskingBet(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, CompositeCardTarget target)

@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public DammMiss() {}
-        private DammMiss(ICardBehaviourOwner owner, BattleStatusEffectEntity tooSlowEntity)
-        : base(owner)
+        private DammMiss(ICardBehaviourOwner owner, BattleStatusEffectEntity tooSlowEntity, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.tooSlowEntity = tooSlowEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new DammMiss(owner, tooSlowEntity);
+            return new DammMiss(owner, tooSlowEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)

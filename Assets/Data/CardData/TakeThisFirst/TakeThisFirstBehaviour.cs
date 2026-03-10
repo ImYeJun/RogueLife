@@ -11,12 +11,12 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TakeThisFirst() {}
-        private TakeThisFirst(ICardBehaviourOwner owner) 
-        : base(owner) { }
+        private TakeThisFirst(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) 
+        : base(owner, targetType, reflectionTargetType) { }
 
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new TakeThisFirst(owner);
+            return new TakeThisFirst(owner, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, SingleEnemyCardTarget target)

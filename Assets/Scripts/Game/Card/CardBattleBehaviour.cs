@@ -49,8 +49,10 @@ public abstract class CardBattleBehaviour<T, Q> : CardBattleBehaviour
     [SerializeReference, SubclassSelector] protected CardTargetType reflectionTargetType;
 
     protected CardBattleBehaviour() {}
-    protected CardBattleBehaviour(ICardBehaviourOwner owner) : base(owner)
+    protected CardBattleBehaviour(ICardBehaviourOwner owner, CardTargetType targetType, CardTargetType reflectionTargetType) : base(owner)
     {
+        this.targetType = targetType;
+        this.reflectionTargetType = reflectionTargetType;
     }
         
     public override CardTargetType TargetType { get => targetType; }

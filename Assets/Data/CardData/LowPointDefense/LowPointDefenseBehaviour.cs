@@ -13,15 +13,15 @@ namespace Battle.Cards.Behaviours
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public LowPointDefense() {}
-        private LowPointDefense(ICardBehaviourOwner owner, BattleStatusEffectEntity defensiveStanceEntity)
-        : base(owner)
+        private LowPointDefense(ICardBehaviourOwner owner, BattleStatusEffectEntity defensiveStanceEntity, CardTargetType targetType, CardTargetType reflectionTargetType)
+        : base(owner, targetType, reflectionTargetType)
         {
             this.defensiveStanceEntity = defensiveStanceEntity;
         }
         
         public override CardBattleBehaviour Clone(ICardBehaviourOwner owner)
         {
-            return new LowPointDefense(owner, defensiveStanceEntity);
+            return new LowPointDefense(owner, defensiveStanceEntity, targetType, reflectionTargetType);
         }
 
         public override bool OnIsAbleToUse(BattleContext context, PlayerCardTarget target)
