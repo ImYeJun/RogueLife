@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Battle.Enemies.Actions;
 using Battle.HurtSources;
 using UnityEngine;
+using ViewEvent.BattleView;
 
 public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleEntity, IReadOnlyBattleEnemy
 {    
@@ -47,6 +48,8 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
 
         plannedActions = behaviourInstance.PlanAction(context);
         previousActionCount = plannedActions.Count;
+
+        viewEventPublisher.Publish(new EnemyActionPlanned(viewEventPublisher.GetNextSequenceId(), this));
 
         isFirstAction = false;
     }

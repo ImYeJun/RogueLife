@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d499978a5c6fd944a8adce19c728816, type: 3}
   m_Name: Luck
   m_EditorClassIdentifier: Assembly-CSharp::StartDeck
-  uniqueColor:
-    serializedVersion: 2
-    rgba: 4278255558
+  deckImage: {fileID: 4602275054108004025, guid: 2c2a315edfdb6b84980fa7684c7c81a5, type: 3}
   description: "\uBB58 \uD574\uB3C4 \uB420 \uAC83 \uAC19\uB2E4"
   typicalAttribute: 3
   startCards:

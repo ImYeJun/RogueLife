@@ -21,7 +21,6 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
     
     public void SetContext(BattleContext context) { this.context = context; }
 
-    // ⭐️ 공통 로직: 몬스터를 시스템(Dictionary)에 등록하고 이벤트를 연결하는 역할만 수행
     private bool TryRegisterEnemy(BattleEnemy enemy)
     {
         if (currentEnemies.Values.Sum(list => list.Count) >= Constant.MAX_SPAWNED_ENEMY_COUNT) 

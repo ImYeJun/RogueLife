@@ -9,12 +9,12 @@ public class StartDeck : ScriptableObject {
         public CardEntity entity;
     }
 
-    [SerializeField] private Color32 uniqueColor;
+    [SerializeField] private Sprite deckImage;
     [SerializeField, TextArea] private string description;
     [SerializeField] private CardAttribute typicalAttribute;
     [SerializeField] private List<CardCountPair> startCards;
     
-    public Color UniqueColor { get => uniqueColor; }
+    public Sprite DeckImage { get => deckImage; }
     public string Description { get => description; }
     public CardAttribute TypicalAttribute { get => typicalAttribute; }
     public List<CardCountPair> StartCards => startCards;

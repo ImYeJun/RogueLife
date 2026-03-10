@@ -41,7 +41,7 @@ namespace View.StartMenu
 
             this.onPressed = onPressed;
 
-            background.color = startDeck.UniqueColor;
+            background.sprite = startDeck.DeckImage;
             startDeckDescriptionText.text = startDeck.Description;
             startDeckTypicalAttributeText.text = startDeck.TypicalAttribute switch
             {

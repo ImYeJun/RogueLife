@@ -33,6 +33,8 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserveService
 
         currentActionCost -= actualAmount;
         history.RecordConsume(actualAmount);
+
+        viewEventPublisher.Publish(new CostConsumed(viewEventPublisher.GetNextSequenceId(), amount, currentActionCost));
     }
 
     public void Restore(int amount)
@@ -41,6 +43,8 @@ public class BattleActionCost : IBattleActionCost, IBattleEventObserveService
 
         currentActionCost += actualAmount;
         history.RecordRestore(actualAmount);
+
+        viewEventPublisher.Publish(new CostRestored(viewEventPublisher.GetNextSequenceId(), amount, currentActionCost));
     }
 
     public void Fullfill()

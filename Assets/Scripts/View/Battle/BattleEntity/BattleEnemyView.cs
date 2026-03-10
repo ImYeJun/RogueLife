@@ -18,12 +18,12 @@ namespace View.BattleView
 
         public override void OnInitialized()
         {
-            // eventBus.Subscribe<EnemyDamagedEvent>(OnDamaged);
+            eventBus.Subscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
         }
 
         public override void OnDestroy()
         {
-            // eventBus.Unsubscribe<EnemyDamagedEvent>(OnDamaged);
+            eventBus.Unsubscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
         }
 
         public void Initialize(IReadOnlyBattleEnemy enemy, Vector3 spawnPos)
@@ -33,6 +33,16 @@ namespace View.BattleView
             image.sprite = enemy.Data.GetBattleSprite(EnemySpriteType.Idle);
 
             DrawHealthBar();
+        }
+
+        public void OnEnemyActionPlanned(EnemyActionPlanned payload)
+        {
+            if (payload.Enemy != enemy) { return; }
+
+            foreach (var action in enemy.PlannedActions)
+            {
+                Debug.Log(action);
+            }
         }
 
         private void DrawHealthBar()

@@ -6,7 +6,7 @@ using Battle.Cards.Casters;
 using Battle.HurtSources;
 using UnityEngine;
 
-public class Card : ICardBehaviourOwner
+public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
 {
     private DateTime obatinDate;
     private CardData data;

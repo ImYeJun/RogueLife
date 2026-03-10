@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d499978a5c6fd944a8adce19c728816, type: 3}
   m_Name: Magic
   m_EditorClassIdentifier: Assembly-CSharp::StartDeck
-  uniqueColor:
-    serializedVersion: 2
-    rgba: 4292593190
+  deckImage: {fileID: 2376399797171476568, guid: f5e2adcbdf36876469c2fc4a582f761b, type: 3}
   description: "\uC815\uC2E0\uC774 \uB9D1\uB2E4"
   typicalAttribute: 2
   startCards:

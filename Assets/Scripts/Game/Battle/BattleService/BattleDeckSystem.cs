@@ -57,14 +57,17 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         if (sourceDeck == deckMap[BattleDeckType.DRAW] && destinationDeck == deckMap[BattleDeckType.HAND])
         {
             card.OnDraw(context);
+            viewEventPublisher.Publish(new CardDrawed(viewEventPublisher.GetNextSequenceId(), card));
         }
         if (sourceDeck == deckMap[BattleDeckType.HAND] && destinationDeck == deckMap[BattleDeckType.GRAVE])
         {
             history.RecordGravedCard(card);
+            viewEventPublisher.Publish(new CardDisCarded(viewEventPublisher.GetNextSequenceId(), card));
         }
         if (sourceDeck == deckMap[BattleDeckType.GRAVE] && destinationDeck == deckMap[BattleDeckType.DRAW])
         {
             context.ActionScheduler.Enqueue(new ApplyReflectEffectOnCard(card));
+            viewEventPublisher.Publish(new CardRestored(viewEventPublisher.GetNextSequenceId(), card));
         }
     }
 
