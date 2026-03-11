@@ -92,13 +92,11 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         ));
     }
 
-
     public void EnterStartNodeIfNeeded()
     {
         if (currentSchedule.HasStarted) { return; } 
         currentSchedule.EnterStartNode(context);
     }
-
 
     public void EndSchedule(ScheduleHistory history)
     {

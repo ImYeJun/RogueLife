@@ -22,12 +22,18 @@ namespace Battle.Cards.Behaviours
 
         public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)
         {
-            return true;
+            return CheckCommonCondition(context);
         }
-
         public override bool OnIsAbleToUseReflect(BattleContext context, NoneCardTarget target)
         {
-            return true;
+            return CheckCommonCondition(context);
+        }
+        private bool CheckCommonCondition(BattleContext context)
+        {
+            ExecuteCardEffectHistory? recentHistory = context.BattleDeckHistory.GetRecentlyPlayedHistory(owner);
+            if (recentHistory is null) { return true; }
+
+            return recentHistory.Value.UsedCard.Data != owner.GetAsData;
         }
 
         public override void OnDraw(BattleContext context) { }

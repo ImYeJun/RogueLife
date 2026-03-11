@@ -30,8 +30,7 @@ public class BattleNode : Node
     public void OnBattleExit(BattleResultCommand resultCommand)
     {
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
-        
-        resultCommand.Resolve(context, this);
+        resultCommand.Resolve(context, this); //TODO IoC
     }
 
     public override void OnExit(Node nextNode)

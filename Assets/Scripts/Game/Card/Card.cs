@@ -46,6 +46,8 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
     }
     public DateTime ObtainData { get => obatinDate; }
 
+    public CardData GetAsData => data;
+
     public event Action OnCostChanged;
     public event Action OnReflectionChanged;
 

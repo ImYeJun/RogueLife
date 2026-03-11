@@ -50,12 +50,12 @@ namespace View.BattleView
         {
             if (actionCost == null)
             {
-                throw new InvalidOperationException("[CardActivateSystem/UseCard] ActionCost is not initialized yet.");
+                throw new InvalidOperationException("[CardActivateSystem] ActionCost is not initialized yet.");
             }
 
             if (!actionCost.HasEnough(card.CurrentActionCost))
             {
-                Debug.Log($"[CardActivateSystem/UseCard] Not enough action cost. Required: {card.CurrentActionCost}");
+                Debug.Log($"[CardActivateSystem] Not enough action cost. Required: {card.CurrentActionCost}");
                 return;
             }
 
@@ -103,7 +103,7 @@ namespace View.BattleView
         {
             if (!commander.IsAbleToUseCard(card, cardTarget))
             {
-                Debug.Log($"[CardActivateSystem/ActivateCard] Cannot activate card: {card.CurrentName}");
+                Debug.Log($"[CardActivateSystem] Cannot activate card: {card.CurrentName}");
                 return;
             }
 

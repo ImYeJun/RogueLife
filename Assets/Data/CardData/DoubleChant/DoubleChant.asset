@@ -14,30 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_DoubleChant
   cardName: "\uC774\uC911 \uC601\uCC3D"
-  description: "\uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C
+  background: {fileID: 0}
+  description: "\uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uAC00 \uB2E4\uB978
+    \uC885\uB958\uC758 \uCE74\uB4DC\uC758 \uACBD\uC6B0 \uC0AC\uC6A9\uD560 \uC218
+    \uC788\uB2E4. \uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C
     \uBC1C\uB3D9\uD55C\uB2E4."
-  relfectionAppliedDescription: "\uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758
+  relfectionAppliedDescription: "\uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uAC00
+    \uB2E4\uB978 \uC885\uB958\uC758 \uCE74\uB4DC\uC758 \uACBD\uC6B0 \uC0AC\uC6A9\uD560
+    \uC218 \uC788\uB2E4. \uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758
     \uD6A8\uACFC\uB97C \uBC1C\uB3D9\uD55C \uD6C4, \uCF54\uC2A4\uD2B8\uB97C \uD558\uB098
     \uD68C\uBCF5\uD55C\uB2E4."
   type: 5
   attribute: 2
   rarity: 2
   actionCost: 3
-  battleBehaviour:
-    rid: 1582000878922236055
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236055
-      type: {class: DoubleChant, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236056
-        reflectionTargetType:
-          rid: 1582000878922236057
-    - rid: 1582000878922236056
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236057
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

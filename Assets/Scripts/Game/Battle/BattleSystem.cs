@@ -164,6 +164,8 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         OnBattleExit = null;
         fieldActionCost = null;
         preparedStartData = null;
+
+        //TODO Transition ViewEvent 발송
     }
 
     public void AddBattleStartEffect(BattleStartEffect effect)

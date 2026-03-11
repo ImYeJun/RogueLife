@@ -30,12 +30,12 @@ namespace Controller.Schedule
                 interactabelView.Initialize(random, viewEventBus, PresentationManager.Instance ,viewCommander);
             }
 
-            viewCommander.BroadcastCurrentState();
-            viewCommander.EnterStartNodeIfNeeded();
-
             currentRun.ViewEventBus.Subscribe<RunEnded>(OnRunEnded);
             currentRun.ViewEventBus.Subscribe<ScheduleCleared>(OnScheduleCleared);
             viewEventBus.Subscribe<BattleEngaged>(OnBattleEngaged);
+
+            viewCommander.BroadcastCurrentState();
+            viewCommander.EnterStartNodeIfNeeded();
         }
         private void OnDestroy()
         {
