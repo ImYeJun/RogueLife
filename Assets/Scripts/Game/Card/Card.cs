@@ -12,19 +12,17 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
     private CardData data;
     private CardBattleBehaviour behaviourInstance;
     private string currentName;
-    private string currentDescription;
     private CardType currentType;
     private CardAttribute currentAttribute;
     private CardRarity currentRarity;
     private bool isReflectionApplied;
-
     private int baseActionCost;
     private HashSet<CardCostModifier> costModifiers;
 
     public CardData Data { get => data; }
     public Sprite Background { get => data.Background; }
     public string CurrentName { get => currentName; }
-    public string CurrentDescription { get => currentDescription; }
+    public string CurrentDescription { get => isReflectionApplied ? data.RelfectionActivatedDescription : data.Description; }
     public string NormalEffectDescription { get => data.Description; }
     public string ReflectionEffectDescription { get => data.RelfectionActivatedDescription; }
     public CardType CurrentType { get => currentType; }
@@ -48,6 +46,9 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
     }
     public DateTime ObtainData { get => obatinDate; }
 
+    public event Action OnCostChanged;
+    public event Action OnReflectionChanged;
+
     public Card(CardEntity entity)
     {
         obatinDate = new DateTime();
@@ -56,7 +57,6 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
         behaviourInstance = entity.CloneBattleBehaviour(this);
 
         currentName = data.CardName;
-        currentDescription = data.Description;
         currentType = data.Type;
         currentAttribute = data.Attribute;
         currentRarity = data.Rarity;
@@ -74,7 +74,6 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
         behaviourInstance = card.CloneBattleBehaviour(this);
 
         currentName = card.CurrentName;
-        currentDescription = card.CurrentDescription;
         currentType = card.CurrentType;
         currentAttribute = card.CurrentAttribute;
         currentRarity = card.CurrentRarity;
@@ -99,7 +98,6 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
         behaviourInstance = entity.CloneBattleBehaviour(this);
 
         currentName = cardSaveData.cardName;
-        currentDescription = cardSaveData.description;
         currentType = cardSaveData.type;
         currentAttribute = cardSaveData.attribute;
         currentRarity = cardSaveData.rarity;
@@ -115,12 +113,18 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
         {
             UnityEngine.Debug.LogWarning("[Card] The given cost modifier is already exisiting");
         }
+        else{
+            OnCostChanged?.Invoke();
+        }
     }
     public void RemoveCostModifier(CardCostModifier modifier)
     {
         if (!costModifiers.Remove(modifier))
         {
             UnityEngine.Debug.LogWarning("[Card] The given cost modifier is not exisiting");
+        }
+        else{
+            OnCostChanged?.Invoke();
         }
     }
 
@@ -147,8 +151,14 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
         else { behaviourInstance.Execute(context, caster, targetEntity); }
     }
 
-    public void ApplyReflection() { isReflectionApplied = true; }
-    public void UnapplyReflection() { isReflectionApplied = false; }
+    public void ApplyReflection() { 
+        isReflectionApplied = true;
+        OnReflectionChanged?.Invoke();
+    }
+    public void UnapplyReflection() { 
+        isReflectionApplied = false;
+        OnReflectionChanged?.Invoke();
+    }
 
     public BattleHurtSource GetAsHurtSource(CardCaster cardCaster)
     {

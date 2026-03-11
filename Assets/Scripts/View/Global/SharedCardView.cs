@@ -27,21 +27,79 @@ public class SharedCardView : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI cost;
 
+    [Header("Action Cost View")]
+    [SerializeField] private Color32 normalCostTextColor;
+    [SerializeField] private Color32 increasedCostTextColor;
+    [SerializeField] private Color32 decreasedCostTextColor;
+    
     public Card Card { get => card; }
 
     public void SetCard(Card card)
     {
+        if (card == null)
+        {
+            throw new ArgumentNullException(nameof(card), "[SharedCardView/] The provided card is null.");
+        }
+
+        if (this.card != null)
+        {
+            this.card.OnCostChanged -= OnActionCostChanged;
+            this.card.OnReflectionChanged -= OnReflectionChanged;
+        }
+
         this.card = card;
+        this.card.OnCostChanged += OnActionCostChanged;
+        this.card.OnReflectionChanged += OnReflectionChanged;
+        
+        DrawSync();
+    }
 
+    private void OnDestroy()
+    {
+        if (card != null)
+        {
+            card.OnCostChanged -= OnActionCostChanged;
+            card.OnReflectionChanged -= OnReflectionChanged;
+        }
+    }
+
+    public void OnActionCostChanged()
+    {
+        DrawCost();
+    }
+    
+    public void OnReflectionChanged()
+    {
+        DrawDescription();
+    }
+
+    private void DrawSync()
+    {
         var attribute = card.CurrentAttribute;
-
         var asset = assets.First(asset => asset.Attribute == attribute);
 
         frame.sprite = asset.Frame;
         background.sprite = card.Data.Background ?? asset.DefaultBackground;
-
-        cost.text = card.CurrentActionCost.ToString();
+        
+        DrawCost();
         cardName.text = card.CurrentName;
+        DrawDescription();
+    }
+
+    private void DrawCost()
+    {
+        cost.text = card.CurrentActionCost.ToString();
+
+        cost.color = card.CurrentActionCost.CompareTo(card.BaseActionCost) switch
+        {
+            1 => increasedCostTextColor,  
+            -1 => decreasedCostTextColor,  
+            _ => normalCostTextColor      
+        };
+    }
+
+    private void DrawDescription()
+    {
         description.text = card.CurrentDescription;
     }
 }

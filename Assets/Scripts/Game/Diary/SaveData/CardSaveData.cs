@@ -20,7 +20,7 @@ public class CardSaveData
     {
         obtainDate = origin.ObtainData.ToString("o");
         cardId = origin.Data.Id;
-        description = origin.CurrentName;
+        description = origin.CurrentDescription;
         type = origin.CurrentType;
         attribute = origin.CurrentAttribute;
         rarity = origin.CurrentRarity;

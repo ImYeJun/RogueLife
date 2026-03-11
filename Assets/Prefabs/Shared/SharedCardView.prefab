@@ -417,6 +417,15 @@ MonoBehaviour:
   cardName: {fileID: 5985513952171809556}
   description: {fileID: 3903518039320139436}
   cost: {fileID: 5306426239839974760}
+  normalCostTextColor:
+    serializedVersion: 2
+    rgba: 4278190080
+  increasedCostTextColor:
+    serializedVersion: 2
+    rgba: 4282203647
+  decreasedCostTextColor:
+    serializedVersion: 2
+    rgba: 4282253199
 --- !u!1 &7909360199705943295
 GameObject:
   m_ObjectHideFlags: 0
