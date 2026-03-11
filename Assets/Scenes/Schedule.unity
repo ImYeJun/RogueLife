@@ -1166,8 +1166,8 @@ MonoBehaviour:
   exitPlayerEasingType: 11
   exitForegroundMoveDuration: 1.5
   exitForegroundEasingType: 22
-  engageFadeDuration: 1
-  engageFadeEasingType: 0
+  engageFadeDuration: 1.3
+  engageFadeEasingType: 17
   returnFadeDuration: 2
   returnFadeEasingType: 18
 --- !u!1 &237502059

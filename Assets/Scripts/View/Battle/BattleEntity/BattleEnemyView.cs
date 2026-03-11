@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.BattleView;
@@ -19,7 +19,8 @@ namespace View.BattleView
         [SerializeField] private Image healthBar;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private GameObject actionIconPrefab;
-        [SerializeField] private RectTransform iconsContainer;
+        [SerializeField] private RectTransform actionIconView;
+        [SerializeField] private RectTransform actionIconsContainer;
         private List<BattleEnemyActionIcon> actionIcons = new List<BattleEnemyActionIcon>();
 
         public IReadOnlyBattleEnemy Enemy { get => enemy; }
@@ -28,7 +29,7 @@ namespace View.BattleView
         {
             base.OnInitialized();
             actionIcons.Clear();
-            iconsContainer.sizeDelta = new Vector2(1, ICONS_CONAINTER_HEIGHT);
+            actionIconView.sizeDelta = new Vector2(1, ICONS_CONAINTER_HEIGHT);
 
             eventBus.Subscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
             eventBus.Subscribe<EnemyHurt>(OnEnemyHurt);
@@ -71,10 +72,10 @@ namespace View.BattleView
             }
             actionIcons.Clear();
 
-            iconsContainer.sizeDelta = new Vector2(enemy.PlannedActions.Count, ICONS_CONAINTER_HEIGHT);
+            actionIconsContainer.sizeDelta = new Vector2(enemy.PlannedActions.Count, ICONS_CONAINTER_HEIGHT);
             foreach (var action in enemy.PlannedActions)
             {
-                var iconObject = Instantiate(actionIconPrefab, iconsContainer);
+                var iconObject = Instantiate(actionIconPrefab, actionIconsContainer);
 
                 var actionIcon = iconObject.GetComponent<BattleEnemyActionIcon>();
                 actionIcon.Initialize(action);
