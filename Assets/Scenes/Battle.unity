@@ -2089,6 +2089,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -0.56
       objectReference: {fileID: 0}
+    - target: {fileID: 1487930226242013889, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1795996643286518164, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -2128,6 +2132,18 @@ PrefabInstance:
     - target: {fileID: 3450962954975021622, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4222962015077401670, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_CellSize.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894954872006343217, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894954872006343217, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7148459431454305097, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: m_AnchorMax.y

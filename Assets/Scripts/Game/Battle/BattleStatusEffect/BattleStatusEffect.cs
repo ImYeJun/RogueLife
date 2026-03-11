@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class BattleStatusEffect : IBattleStatusEffectState
+public class BattleStatusEffect : IBattleStatusEffectState, IReadOnlyBattleStatusEffect
 {
     private BattleStatusEffectEntity entity;
     private int stackCount;

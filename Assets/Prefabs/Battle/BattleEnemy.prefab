@@ -455,6 +455,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 3361711700148763728}
   m_SourcePrefab: {fileID: 100100000, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+--- !u!224 &2960287392695078974 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2610019311952558974, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+  m_PrefabInstance: {fileID: 949603178758744896}
+  m_PrefabAsset: {fileID: 0}
 --- !u!212 &7412314395271675587 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7777856902290052483, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
@@ -483,7 +488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleEnemyView
   spriteRenderer: {fileID: 7412314395271675587}
-  image: {fileID: 7412314395271675587}
+  battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
+  battleStatusEffectIconContainer: {fileID: 2960287392695078974}
   healthBar: {fileID: 1605041273057130787}
   healthText: {fileID: 1264867112611709670}
 --- !u!61 &3361711700148763728

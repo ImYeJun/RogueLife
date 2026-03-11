@@ -60,7 +60,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
 
         if (!enemyList.Remove(enemy))
         {
-            throw new InvalidOperationException("[BattleEnemySystem] There is no enemy for given the argument");
+            throw new InvalidOperationException("[BattleEnemySystem] There is no enemy for the given argument");
         }
         enemy.Died -= RemoveEnemy;
 

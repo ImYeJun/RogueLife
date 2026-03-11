@@ -12,6 +12,7 @@ namespace View.BattleView
     {
         private IReadOnlyBattlePlayer player;
 
+        [Header("BattlePlayerView")]
         [SerializeField] private Vector2 initialPos;
         [SerializeField] private Image battleHeatlhBar;
         [SerializeField] private TextMeshProUGUI battleHeatlhText;
@@ -22,10 +23,12 @@ namespace View.BattleView
 
         public override void OnInitialized()
         {
+            base.OnInitialized();
             eventBus.Subscribe<PlayerSettled>(OnPlayerSettled);
         }
         public override void OnDestroy()
         {
+            base.OnDestroy();
             eventBus?.Unsubscribe<PlayerSettled>(OnPlayerSettled);
         }
 

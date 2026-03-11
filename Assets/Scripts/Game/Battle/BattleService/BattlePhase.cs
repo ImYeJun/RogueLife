@@ -20,11 +20,14 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
     public void Increase(int amount)
     {
         remainPhase += amount;
+
+        viewEventPublisher.Publish(new PhaseIncreased(viewEventPublisher.GetNextSequenceId(), amount, remainPhase));
     }
 
     public void Decrease(int amount = 1)
     {
         remainPhase = Mathf.Max(remainPhase - amount, 0);
+        viewEventPublisher.Publish(new PhaseDecreased(viewEventPublisher.GetNextSequenceId(), amount, remainPhase));
 
         if (remainPhase <= 0) { 
             var action = new RequestBattleEndBattleAction(BattleResult.ALL_PHASE_END);

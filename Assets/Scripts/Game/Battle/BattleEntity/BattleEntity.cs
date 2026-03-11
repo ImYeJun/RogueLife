@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.HurtSources;
 using UnityEngine;
+using ViewEvent.BattleView;
 
 public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEntity
 {
@@ -92,7 +93,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
     {
         if (IsDead) { return; }
 
-        if (newEffect.RequiredTraits == BattleEntityTrait.ANY || !trait.HasFlag(newEffect.RequiredTraits))
+        if (newEffect.RequiredTraits != BattleEntityTrait.ANY && !trait.HasFlag(newEffect.RequiredTraits))
         {
             Debug.LogWarning($"[BattleEntity] The entity doesn't fulfilled the required trait. Required : {newEffect.RequiredTraits}, Entity Trait : {trait}");
             return;
@@ -109,11 +110,13 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         if (targetDict.TryGetValue(newEffect.Data, out var existingEffect))
         {
             existingEffect.MergeWith(newEffect);
+            viewEventPublisher.Publish(new BattleStatusEffectChanged(viewEventPublisher.GetNextSequenceId(), this, existingEffect, existingEffect.RemainTurn, existingEffect.StackCount));
         }
         else
         {
             targetDict[newEffect.Data] = newEffect;
             newEffect.OnApplied(context, this, RequestRemoveStatusEffect);
+            viewEventPublisher.Publish(new BattleStatusEffectApplied(viewEventPublisher.GetNextSequenceId(), this, newEffect));
         }
 
         UpdateCondition();
@@ -139,6 +142,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         {
             var buff = buffList[i];
             buff.DecreaseTurn();
+            viewEventPublisher.Publish(new BattleStatusEffectChanged(viewEventPublisher.GetNextSequenceId(), this, buff, buff.RemainTurn, buff.StackCount));
         }
 
         var debuffList = equippingDebuffs.Values.ToList();
@@ -146,6 +150,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         {
             var debuff = debuffList[i];
             debuff.DecreaseTurn();
+            viewEventPublisher.Publish(new BattleStatusEffectChanged(viewEventPublisher.GetNextSequenceId(), this, debuff, debuff.RemainTurn, debuff.StackCount));
         }
     }
 
@@ -168,6 +173,8 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
             targetDict.Remove(statusEffect.Data);
 
             UpdateCondition();
+
+            viewEventPublisher.Publish(new BattleStatusEffectRemoved(viewEventPublisher.GetNextSequenceId(), this, statusEffect));
         }
         else
         {

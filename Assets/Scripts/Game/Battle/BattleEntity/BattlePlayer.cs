@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Battle.HurtSources;
 using UnityEngine;
+using ViewEvent.BattleView;
 
 public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattlePlayer
 {
@@ -33,14 +34,16 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
         if (hurtContext.TotalDamage <= 0) { return; }
 
         playerHealth.HurtBattleHealth(hurtContext.BattleHealthDamage, false);
-        HurtMentality(hurtContext.MentalityDamage);
+        playerHealth.HurtMentality(hurtContext.MentalityDamage);
 
         context.EventBus.Publish(new EntityHurtBattleEvent(hurtContext.TotalDamage, this, source));
+        viewEventPublisher.Publish(new PlayerHurt(viewEventPublisher.GetNextSequenceId(), this, hurtContext.BattleHealthDamage, hurtContext.MentalityDamage, playerHealth.CurrentBattleHealth, playerHealth.CurrentMentality));
     }
 
     public void HurtMentality(int damage)
     {
         playerHealth.HurtMentality(damage);
+        viewEventPublisher.Publish(new PlayerHurt(viewEventPublisher.GetNextSequenceId(), this, 0, damage, playerHealth.CurrentBattleHealth, playerHealth.CurrentMentality));
     }
 
     public override void RequestHurt(int amount, BattleHurtSource source)
@@ -57,7 +60,10 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
         return new PlayerBattleHurtContext(battleHealthDamage, mentalityDamage, isOverflow);
     }
 
-    public override void Heal(int amount) { playerHealth.HealBattleHealth(amount); }
+    public override void Heal(int amount) { 
+        playerHealth.HealBattleHealth(amount);
+        viewEventPublisher.Publish(new PlayerHealed(viewEventPublisher.GetNextSequenceId(), this, amount, playerHealth.CurrentBattleHealth));
+    }
 
     public override BattleHurtSource GetAsHurtSource()
     {

@@ -12,7 +12,7 @@ namespace View.BattleView
     {
         private IReadOnlyBattleEnemy enemy;
 
-        [SerializeField] private SpriteRenderer image;
+        [Header("BattleEnemyView")]
         [SerializeField] private Image healthBar;
         [SerializeField] private TextMeshProUGUI healthText;
 
@@ -20,11 +20,13 @@ namespace View.BattleView
 
         public override void OnInitialized()
         {
+            base.OnInitialized();
             eventBus.Subscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
         }
 
         public override void OnDestroy()
         {
+            base.OnDestroy();
             eventBus.Unsubscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
         }
 
@@ -34,7 +36,7 @@ namespace View.BattleView
             entity = enemy;
 
             transform.position = spawnPos;
-            image.sprite = enemy.Data.GetBattleSprite(EnemySpriteType.Idle);
+            spriteRenderer.sprite = enemy.Data.GetBattleSprite(EnemySpriteType.Idle);
 
             DrawHealthBar();
         }

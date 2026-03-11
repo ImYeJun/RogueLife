@@ -644,6 +644,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattlePlayerView
   spriteRenderer: {fileID: 1795996643286518164}
+  battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
+  battleStatusEffectIconContainer: {fileID: 6279267436393260905}
   initialPos: {x: 0, y: 0}
   battleHeatlhBar: {fileID: 3288604834692385680}
   battleHeatlhText: {fileID: 886982744983495145}
@@ -703,5 +705,10 @@ RectTransform:
 --- !u!212 &1795996643286518164 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 7777856902290052483, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+  m_PrefabInstance: {fileID: 8294740779905227799}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6279267436393260905 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2610019311952558974, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
   m_PrefabInstance: {fileID: 8294740779905227799}
   m_PrefabAsset: {fileID: 0}

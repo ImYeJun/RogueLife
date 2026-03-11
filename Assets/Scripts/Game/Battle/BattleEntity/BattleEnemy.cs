@@ -59,6 +59,8 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         base.OnDead();
         
         behaviourInstance.OnOwnerDied(context);
+        viewEventPublisher.Publish(new EnemyDied(viewEventPublisher.GetNextSequenceId(), this));
+        
         Died?.Invoke(this);
     }
 
@@ -72,6 +74,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         if (IsDead) { return; }
 
         currentHealth = Mathf.Min(currentHealth + amount, currentMaxHealth);
+        viewEventPublisher.Publish(new EnemyHealed(viewEventPublisher.GetNextSequenceId(), this, amount, currentHealth));
     }
 
     public override void RequestHurt(int amount, BattleHurtSource source)
@@ -90,6 +93,8 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         currentHealth -= determinedAmount;
 
         context.EventBus.Publish(new EntityHurtBattleEvent(determinedAmount, this, source));
+        viewEventPublisher.Publish(new EnemyHurt(viewEventPublisher.GetNextSequenceId(), this, amount, currentHealth));
+
         if (currentHealth <= 0) { OnDead(); }
     }
 
