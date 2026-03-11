@@ -11,8 +11,7 @@ public class RequestTryUseCardBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        UnityEngine.Debug.LogError("[RequestTryUseCardBattleAction] RequestTryUseCardBattleAction is not implemented!");
-        // context.ActionScheduler.Pause();
-        // context.UIManamger.UseCard(card);
+        context.ActionScheduler.Pause();
+        context.DeckSystem.RequestUseCard(card, isFreeUse);
     }
 }

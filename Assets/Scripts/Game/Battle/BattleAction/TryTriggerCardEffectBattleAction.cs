@@ -5,7 +5,7 @@ public class TryTriggerCardEffectBattleAction : IBattleAction
     private int executeTimes;
     private bool isReflection;
 
-    public TryTriggerCardEffectBattleAction(Card card, CardTarget cardTarget, int executeTimes, bool isReflection = false)
+    public TryTriggerCardEffectBattleAction(Card card, CardTarget cardTarget, int executeTimes = 1, bool isReflection = false)
     {
         this.card = card;
         this.cardTarget = cardTarget;

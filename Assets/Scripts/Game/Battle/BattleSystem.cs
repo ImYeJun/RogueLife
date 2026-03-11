@@ -175,14 +175,22 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
     {
         return card.IsAbleToUse(context, cardTarget);
     }
-    public void UseCard(Card card, CardTarget cardTarget)
+    public void UseCard(Card card, CardTarget cardTarget, bool isFreeUse)
     {
-        var cardUseAction = new TryUseCardBattleAction(card.CurrentActionCost, card, cardTarget);
+        var cardUseAction = new TryUseCardBattleAction(isFreeUse ? 0 : card.CurrentActionCost, card, cardTarget);
         pipeline.Enqueue(cardUseAction);
+        pipeline.Resume();
+    }
+    public void TriggerCard(Card card, CardTarget cardTarget, bool isReflection)
+    {
+        var triggerCardAction = new TryTriggerCardEffectBattleAction(card, cardTarget, 1, isReflection);  
+        pipeline.Enqueue(triggerCardAction);
+        pipeline.Resume();
     }
 
     public void EndPlayerTurn()
     {
         scheduler.EndPlayerTurn();
     }
+
 }

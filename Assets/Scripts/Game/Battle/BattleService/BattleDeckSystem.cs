@@ -157,4 +157,14 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             }
         }
     }
+
+    public void RequestUseCard(Card card, bool isFreeUse)
+    {
+        viewEventPublisher.Publish(new UseCardRequested(viewEventPublisher.GetNextSequenceId(), card, isFreeUse));
+    }
+
+    public void RequestTriggerCard(Card card, bool isReflection)
+    {
+        viewEventPublisher.Publish(new TriggerCardRequested(viewEventPublisher.GetNextSequenceId(), card, isReflection));
+    }
 }

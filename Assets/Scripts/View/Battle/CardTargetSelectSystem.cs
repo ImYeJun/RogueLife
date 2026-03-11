@@ -99,7 +99,7 @@ namespace View.BattleView
             ProcessNextTargetInQueue();
         }
 
-        public void ClearAllTargetables()
+        private void ClearAllTargetables()
         {
             battlePlayerView.OnCardUntargetable();
             foreach (var view in battleEnemyViewController.SpawnedEnemyViews)

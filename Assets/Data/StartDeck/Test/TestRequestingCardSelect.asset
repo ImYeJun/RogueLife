@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d499978a5c6fd944a8adce19c728816, type: 3}
+  m_Name: TestRequestingCardSelect
+  m_EditorClassIdentifier: Assembly-CSharp::StartDeck
+  deckImage: {fileID: 4536698459460047806, guid: 9895240358e55ed4690e8f5657b55968, type: 3}
+  description: "\uCE74\uB4DC \uD6A8\uACFC \uC694\uCCAD \uD14C\uC2A4\uD2B8 \uC2DC\uC791\uB371"
+  typicalAttribute: 0
+  startCards:
+  - count: 3
+    entity: {fileID: 1811943510210894306, guid: 1f597c3770b9ddf418dab087b2171b8b, type: 3}
+  - count: 1
+    entity: {fileID: 8139908445059259664, guid: 3be70a2712827cf40b746d7e1fea9ad3, type: 3}
+  - count: 3
+    entity: {fileID: 8493253864904853895, guid: fb479d9f92aa0374eac87a6b79034b8e, type: 3}

@@ -26,19 +26,19 @@ namespace View.BattleView
             eventBus?.Unsubscribe<CostRestored>(OnCostRestored);
         }
 
-        public void OnInitialActionCostSettled(InitialActionCostSettled payload)
+        private void OnInitialActionCostSettled(InitialActionCostSettled payload)
         {
             actionCost = payload.ActionCost;
 
             SetCostText();
         }
 
-        public void OnCostConsumed(CostConsumed payload)
+        private void OnCostConsumed(CostConsumed payload)
         {
             SetCostText(payload.CurrentCost);
         }
 
-        public void OnCostRestored(CostRestored payload)
+        private void OnCostRestored(CostRestored payload)
         {
             SetCostText(payload.CurrentCost);
         }
