@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using Battle.BattleResultCommands;
 using NUnit.Framework.Constraints;
@@ -9,6 +10,7 @@ public class BattleNode : Node
 {
     private IEngageBattle battleSystem;
     private List<EnemyDataSlot> engagingEnemiesDataSlot;
+    private BattleResultCommand pendingBattleResultCommand;
     private bool hasResolved;
 
     public BattleNode(Guid skeletonId, IEngageBattle battleSystem, List<EnemyDataSlot> engagingEnemiesDataSlot) : base(skeletonId)
@@ -20,6 +22,8 @@ public class BattleNode : Node
     public bool IsBossNode => engagingEnemiesDataSlot.Any(slot => slot.Entity.Tier == EnemyTier.BOSS);
     public EnemyData MainEnemyData => engagingEnemiesDataSlot.OrderByDescending(slot => slot.Entity.Tier).First().Entity.Data;
 
+    public bool HasPendingBattleResult => pendingBattleResultCommand is not null;
+
     public override void OnEnter(FieldContext context, IScheduleRouter scheduleRouter, ScheduleHistory scheduleHistory)
     {
         base.OnEnter(context, scheduleRouter, scheduleHistory);
@@ -30,7 +34,20 @@ public class BattleNode : Node
     public void OnBattleExit(BattleResultCommand resultCommand)
     {
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
-        resultCommand.Resolve(context, this); //TODO IoC
+
+        pendingBattleResultCommand = resultCommand;
+    }
+
+    public void ResolvePendingResult()
+    {
+        if (pendingBattleResultCommand is null)
+        {
+            Debug.LogError("[BattleNode] pendingBattleResultCommand is null but try to resolve it");
+            return;
+        }
+
+        pendingBattleResultCommand.Resolve(context, this);
+        pendingBattleResultCommand = null;
     }
 
     public override void OnExit(Node nextNode)

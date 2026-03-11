@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using View.Core;
@@ -27,7 +28,25 @@ namespace Controller.Battle
                 interactabelView.Initialize(random, viewEventBus, PresentationManager.Instance ,viewCommander);
             }
 
+            viewEventBus.Subscribe<BattleExited>(OnBattleExited);
+
             viewCommander.StartBattle();
+        }
+
+        private void OnDestroy()
+        {
+            viewEventBus?.Unsubscribe<BattleExited>(OnBattleExited);
+        }
+
+        private void OnBattleExited(BattleExited payload)
+        {
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleExited_SceneTransition, SceneTransitionPresentation());
+        }
+
+        private IEnumerator SceneTransitionPresentation()
+        {
+            yield return null;
+            GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE);
         }
     }
 }

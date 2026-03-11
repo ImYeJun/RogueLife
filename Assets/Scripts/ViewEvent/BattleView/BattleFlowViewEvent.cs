@@ -94,4 +94,16 @@ namespace ViewEvent.BattleView
 
         public int SequenceId { get => sequenceId; }
     }
+
+    public readonly struct BattleExited : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+
+        public BattleExited(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId { get => sequenceId; }
+    }
 }

@@ -198,4 +198,16 @@ namespace ViewEvent.ScheduleView
 
         public int SequenceId => sequenceId;
     }
+
+    public readonly struct ReturnedFromBattle : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+
+        public ReturnedFromBattle(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId => sequenceId;
+    }
 }

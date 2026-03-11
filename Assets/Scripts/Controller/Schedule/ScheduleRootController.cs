@@ -35,7 +35,7 @@ namespace Controller.Schedule
             viewEventBus.Subscribe<BattleEngaged>(OnBattleEngaged);
 
             viewCommander.BroadcastCurrentState();
-            viewCommander.EnterStartNodeIfNeeded();
+            viewCommander.ResumeSchedule();
         }
         private void OnDestroy()
         {

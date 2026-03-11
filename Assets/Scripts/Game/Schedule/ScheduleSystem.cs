@@ -92,10 +92,27 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         ));
     }
 
-    public void EnterStartNodeIfNeeded()
+    public void ResumeSchedule()
     {
-        if (currentSchedule.HasStarted) { return; } 
-        currentSchedule.EnterStartNode(context);
+        if (currentSchedule == null)
+        {
+            throw new InvalidOperationException("[ScheduleSystem] Current schedule is not settled yet.");
+        }
+
+        if (!currentSchedule.HasStarted)
+        {
+            currentSchedule.EnterStartNode(context);
+            return;
+        }
+
+        if (currentSchedule.HasPendingBattleResult())
+        {
+            scheduleViewEventBus.Publish(new ReturnedFromBattle(sequenceIdGenerator.GetNextId()));
+            currentSchedule.ResolvePendingResult();
+            return;
+        }
+
+
     }
 
     public void EndSchedule(ScheduleHistory history)

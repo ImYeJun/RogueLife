@@ -45,8 +45,9 @@ namespace View.ScheduleView.Map
 
         private void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
+            targetNode = payload.Schedule.CurrentNode;
             map = payload.Schedule.Map;
-            
+
             isMapDirty = true;
             if (uiRoot.activeInHierarchy)
             {

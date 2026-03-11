@@ -27,6 +27,7 @@ namespace Battle.Enemies.Behaviours
         {
             dontTouchEntity = template.dontTouchEntity;
             quickEscapeEntity = template.quickEscapeEntity;
+            obstacleForFleeingEntity = template.obstacleForFleeingEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {

@@ -19,6 +19,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
     public bool HasStarted => hasStarted;
     public ScheduleData Data { get => data; }
     public IReadOnlyDictionary<int, List<Node>> Map => map;
+    public Node CurrentNode => currentNode;
 
     public void FixData(ScheduleData data) { this.data = data; }
     public void FixMap(Dictionary<int, List<Node>> map) { this.map = map; }
@@ -120,5 +121,23 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
         }
 
         incidentNode.OnChoiceSettled(choice);
+    }
+
+    public bool HasPendingBattleResult()
+    {
+        if (currentNode is not BattleNode battleNode) { return false; }
+
+        return battleNode.HasPendingBattleResult;
+    }
+
+    public void ResolvePendingResult()
+    {
+        if (currentNode is not BattleNode battleNode || !battleNode.HasPendingBattleResult) 
+        { 
+            UnityEngine.Debug.LogWarning($"[Schedule] Current node is not a BattleNode or has no pending result, but a battle result resolve was requested.");
+            return;
+        }
+
+        battleNode.ResolvePendingResult();
     }
 }

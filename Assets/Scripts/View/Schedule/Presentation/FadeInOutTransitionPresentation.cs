@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace View.ScheduleView.Presentation
 {
-    public class NodeTransitionPresentation : ViewBehaviour<IScheduleViewEvent>
+    public class FadeInOutTransitionPresentation : ViewBehaviour<IScheduleViewEvent>
     {
         [SerializeField] private RectTransform playerView;
         [SerializeField] private PlayerImageView playerImageView;
@@ -28,25 +28,63 @@ namespace View.ScheduleView.Presentation
         [SerializeField] private Ease exitPlayerEasingType;
         [SerializeField] private float exitForegroundMoveDuration;
         [SerializeField] private Ease exitForegroundEasingType;
-        
+
+        [Header("Returned From Battle")]
+        [SerializeField] private float returnFadeDuration;
+        [SerializeField] private Ease returnFadeEasingType;
+
         public override void OnInitialized()
         {
             foreground.gameObject.SetActive(true);
 
             eventBus.Subscribe<NodeEntered>(OnNodeEntered);
             eventBus.Subscribe<NodeExited>(OnNodeExited);
+            eventBus.Subscribe<ReturnedFromBattle>(OnReturnedFromBattle);
         }
         
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<NodeEntered>(OnNodeEntered);
             eventBus?.Unsubscribe<NodeExited>(OnNodeExited);
+            eventBus?.Unsubscribe<ReturnedFromBattle>(OnReturnedFromBattle);
+        }
+
+        private void OnReturnedFromBattle(ReturnedFromBattle payload)
+        {
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.ReturnedFromBattle_FadeOut, ReturnedFromBattlePresentation());
+        }
+
+        private IEnumerator ReturnedFromBattlePresentation()
+        {
+            playerView.anchoredPosition = new Vector2(enterMoveDistance, 0); 
+            playerImageView.SetIdleView();
+
+            foreground.gameObject.SetActive(true);
+            
+            Image foregroundImage = foreground.GetComponent<Image>();
+            if (foregroundImage != null)
+            {
+                foregroundImage.color = new Color(0, 0, 0, 1f);
+
+                var tween = foregroundImage.DOFade(0f, returnFadeDuration).SetEase(returnFadeEasingType);
+                
+                yield return tween.WaitForCompletion();
+            }
+            else
+            {
+                Debug.LogWarning("[FadeInOutTransitionPresentation] Foreground object does not have an Image component for fading.");
+                yield return null;
+            }
+
+            foreground.gameObject.SetActive(false);
+            foregroundImage.color = new Color(0, 0, 0, 1f);
         }
 
         public void OnNodeEntered(NodeEntered payload)
         {
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_MovePlayer, EnterNodePresentation());
         }
+        
         public IEnumerator EnterNodePresentation()
         {
             foreground.gameObject.SetActive(true);
@@ -83,6 +121,7 @@ namespace View.ScheduleView.Presentation
         {
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeExit_MovePlayer, ExitNodePresentation());
         }
+        
         public IEnumerator ExitNodePresentation()
         {
             foreground.gameObject.SetActive(true);
@@ -126,6 +165,12 @@ namespace View.ScheduleView.Presentation
         public void TestOnNodeExited()
         {
             presentationManager.Enqueue(0, PresentationPriority.NodeExit_MovePlayer, ExitNodePresentation());
+        }
+
+        [ContextMenu("Play Returned From Battle Presentation")]
+        public void TestOnReturnedFromBattle()
+        {
+            presentationManager.Enqueue(0, PresentationPriority.ReturnedFromBattle_FadeOut, ReturnedFromBattlePresentation());
         }
 #endif
     }

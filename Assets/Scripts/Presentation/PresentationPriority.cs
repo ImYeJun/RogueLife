@@ -42,4 +42,14 @@ public static class PresentationPriority
 
     // Battle Engaged
     public const int BattleEngaged_SceneTransition = 10;
+
+    //Returned From Battle
+    public const int ReturnedFromBattle_FadeOut = 10;
+
+    ///* -------------------------
+    ///* Battle
+    ///* -------------------------
+    
+    // Battle Exited
+    public const int BattleExited_SceneTransition = 10;
 }
