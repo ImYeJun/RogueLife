@@ -142,7 +142,11 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         {
             var buff = buffList[i];
             buff.DecreaseTurn();
-            viewEventPublisher.Publish(new BattleStatusEffectChanged(viewEventPublisher.GetNextSequenceId(), this, buff, buff.RemainTurn, buff.StackCount));
+
+            if (!buff.IsExpired)
+            {
+                viewEventPublisher.Publish(new BattleStatusEffectChanged(viewEventPublisher.GetNextSequenceId(), this, buff, buff.RemainTurn, buff.StackCount));
+            }
         }
 
         var debuffList = equippingDebuffs.Values.ToList();
@@ -150,7 +154,11 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         {
             var debuff = debuffList[i];
             debuff.DecreaseTurn();
-            viewEventPublisher.Publish(new BattleStatusEffectChanged(viewEventPublisher.GetNextSequenceId(), this, debuff, debuff.RemainTurn, debuff.StackCount));
+
+            if (!debuff.IsExpired)
+            {
+                viewEventPublisher.Publish(new BattleStatusEffectChanged(viewEventPublisher.GetNextSequenceId(), this, debuff, debuff.RemainTurn, debuff.StackCount));
+            }
         }
     }
 

@@ -18,7 +18,7 @@ public class RequestBattleEndBattleAction : IBattleAction
                 if (!context.PlayerContainer.Player.IsDead) { return; }
                 break;
             case BattleResult.ALL_PHASE_END:
-                if (!context.Phase.IsAllPhasedEnd) { return; }
+                if (!context.Phase.IsAllTurnEnd) { return; }
                 break;
         }
 

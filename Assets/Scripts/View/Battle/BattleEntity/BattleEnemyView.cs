@@ -22,12 +22,18 @@ namespace View.BattleView
         {
             base.OnInitialized();
             eventBus.Subscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
+            eventBus.Subscribe<EnemyHurt>(OnEnemyHurt);
+            eventBus.Subscribe<EnemyHealed>(OnEnemyHealed);
+            eventBus.Subscribe<EnemyDied>(OnEnemyDied);
         }
 
         public override void OnDestroy()
         {
             base.OnDestroy();
-            eventBus.Unsubscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
+            eventBus?.Unsubscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
+            eventBus?.Unsubscribe<EnemyHurt>(OnEnemyHurt);
+            eventBus?.Unsubscribe<EnemyHealed>(OnEnemyHealed);
+            eventBus?.Unsubscribe<EnemyDied>(OnEnemyDied);
         }
 
         public void Initialize(IReadOnlyBattleEnemy enemy, Vector3 spawnPos)
@@ -38,12 +44,17 @@ namespace View.BattleView
             transform.position = spawnPos;
             spriteRenderer.sprite = enemy.Data.GetBattleSprite(EnemySpriteType.Idle);
 
-            DrawHealthBar();
+            DrawHealthBar(enemy.CurrentHealth, enemy.MaxHealth);
         }
 
         public void OnEnemyActionPlanned(EnemyActionPlanned payload)
         {
-            if (payload.Enemy != enemy) { return; }
+            if (enemy == null)
+            {
+                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+            }
+
+            if (!payload.Enemy.Equals(enemy)) { return; }
 
             foreach (var action in enemy.PlannedActions)
             {
@@ -51,10 +62,46 @@ namespace View.BattleView
             }
         }
 
-        private void DrawHealthBar()
+        private void OnEnemyHurt(EnemyHurt payload)
         {
-            healthBar.fillAmount = enemy.NormalizedHealth;
-            healthText.text = $"{enemy.CurrentHealth}/{enemy.MaxHealth}";
+            if (enemy == null)
+            {
+                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+            }
+
+            if (!payload.Enemy.Equals(enemy)) { return; }
+
+            DrawHealthBar(payload.CurrentHealth, enemy.MaxHealth);
+        }
+
+        private void OnEnemyHealed(EnemyHealed payload)
+        {
+            if (enemy == null)
+            {
+                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+            }
+
+            if (!payload.Enemy.Equals(enemy)) { return; }
+
+            DrawHealthBar(payload.CurrentHealth, enemy.MaxHealth);
+        }
+
+        private void OnEnemyDied(EnemyDied payload)
+        {
+            if (enemy == null)
+            {
+                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+            }
+
+            if (!payload.DiedEnemy.Equals(enemy)) { return; }
+            Destroy(gameObject); 
+        }
+
+        private void DrawHealthBar(int currentHealth, int maxHealth)
+        {
+            float normalizedHealth = maxHealth == 0 ? 0 : (float)currentHealth / maxHealth;
+            healthBar.fillAmount = normalizedHealth;
+            healthText.text = $"{currentHealth}/{maxHealth}";
         }
     }
 }

@@ -1,3 +1,3 @@
 public interface IReadOnlyBattlePhase {
-    public int ReaminPhase { get; }
+    public int ReaminTurn { get; }
 }

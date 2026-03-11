@@ -25,11 +25,16 @@ namespace View.BattleView
         {
             base.OnInitialized();
             eventBus.Subscribe<PlayerSettled>(OnPlayerSettled);
+            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
+            eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
         }
+
         public override void OnDestroy()
         {
             base.OnDestroy();
             eventBus?.Unsubscribe<PlayerSettled>(OnPlayerSettled);
+            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
+            eventBus?.Unsubscribe<PlayerHealed>(OnPlayerHealed);
         }
 
         public void OnPlayerSettled(PlayerSettled payload)
@@ -39,20 +44,47 @@ namespace View.BattleView
             player = payload.Player;
             entity = player;
             
-            DrawBattleHealthBar();
-            DrawMentalityBar();
+            DrawBattleHealthBar(player.Health.CurrentBattleHealth, player.Health.MaxBattleHealth);
+            DrawMentalityBar(player.Health.CurrentMentality, player.Health.MaxMentality);
         }
 
-        private void DrawBattleHealthBar()
+        private void OnPlayerHurt(PlayerHurt payload)
         {
-            battleHeatlhBar.fillAmount = player.Health.NormalizedBattleHealth;
-            battleHeatlhText.text = $"{player.Health.CurrentBattleHealth}/{player.Health.MaxBattleHealth}";
+            if (player == null)
+            {
+                throw new InvalidOperationException("[BattlePlayerView] The player entity is not initialized yet.");
+            }
+
+            if (!payload.Player.Equals(player)) { return; }
+
+            DrawBattleHealthBar(payload.CurrentBattleHealth, player.Health.MaxBattleHealth);
+            DrawMentalityBar(payload.CurrentMentality, player.Health.MaxMentality);
         }
 
-        private void DrawMentalityBar()
+        private void OnPlayerHealed(PlayerHealed payload)
         {
-            mentalityBar.fillAmount = player.Health.NomarlizedMentality;
-            mentaltiyText.text = $"{player.Health.CurrentMentality}/{player.Health.MaxMentality}";
+            if (player == null)
+            {
+                throw new InvalidOperationException("[BattlePlayerView] The player entity is not initialized yet.");
+            }
+
+            if (!payload.Player.Equals(player)) { return; }
+
+            DrawBattleHealthBar(payload.CurrentBattleHealth, player.Health.MaxBattleHealth);
+        }
+
+        private void DrawBattleHealthBar(int currentHealth, int maxHealth)
+        {
+            float normalizedHealth = maxHealth == 0 ? 0 : (float)currentHealth / maxHealth;
+            battleHeatlhBar.fillAmount = normalizedHealth;
+            battleHeatlhText.text = $"{currentHealth}/{maxHealth}";
+        }
+
+        private void DrawMentalityBar(int currentMentality, int maxMentality)
+        {
+            float normalizedMentality = maxMentality == 0 ? 0 : (float)currentMentality / maxMentality;
+            mentalityBar.fillAmount = normalizedMentality;
+            mentaltiyText.text = $"{currentMentality}/{maxMentality}";
         }
     }
 }

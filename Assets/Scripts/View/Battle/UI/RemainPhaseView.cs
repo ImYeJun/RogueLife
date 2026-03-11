@@ -43,7 +43,7 @@ namespace View.BattleView
 
         private void DrawPhaseText()
         {
-            DrawPhaseText(phase.ReaminPhase);
+            DrawPhaseText(phase.ReaminTurn);
         }
         private void DrawPhaseText(int currentPhase)
         {
