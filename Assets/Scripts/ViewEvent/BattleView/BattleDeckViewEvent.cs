@@ -15,12 +15,12 @@ namespace ViewEvent.BattleView
         public Card Card => card;
     }
 
-    public readonly struct CardDisCarded : IBattleViewEvent
+    public readonly struct CardDiscarded : IBattleViewEvent
     {
         private readonly int sequenceId;
         private readonly Card card;
 
-        public CardDisCarded(int sequenceId, Card card)
+        public CardDiscarded(int sequenceId, Card card)
         {
             this.sequenceId = sequenceId;
             this.card = card;

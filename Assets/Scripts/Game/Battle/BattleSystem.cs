@@ -180,4 +180,9 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         var cardUseAction = new TryUseCardBattleAction(card.CurrentActionCost, card, cardTarget);
         pipeline.Enqueue(cardUseAction);
     }
+
+    public void EndPlayerTurn()
+    {
+        scheduler.EndPlayerTurn();
+    }
 }

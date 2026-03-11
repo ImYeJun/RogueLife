@@ -4,6 +4,7 @@ using ViewEvent.Core;
 using ViewEvent.BattleView;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace View.BattleView
 {
@@ -27,16 +28,37 @@ namespace View.BattleView
             cardViews = new List<BattleCardView>();
 
             eventBus.Subscribe<CardDrawed>(OnCardDrawed);
+            eventBus.Subscribe<CardDiscarded>(OnCardDiscarded);
         }
 
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<CardDrawed>(OnCardDrawed);
+            eventBus?.Unsubscribe<CardDiscarded>(OnCardDiscarded);
         }
 
         public void OnCardDrawed(CardDrawed payload)
         {
             cardViews.Add(CreateBattleCardView(payload.Card));
+            DrawHandCards();
+        }
+
+        public void OnCardDiscarded(CardDiscarded payload)
+        {
+            var view = cardViews.FirstOrDefault(view => view.Card == payload.Card);
+            
+            if (view is null)
+            {
+                throw new InvalidOperationException($"[DeckViewSystem] Given UI isn't presenting {payload.Card}");
+            }
+
+            cardViews.Remove(view);
+            if (view == focusedCardView)
+            {
+                focusedCardView = null;
+                cardDescriptionView.Unfocus();
+            }
+            Destroy(view.gameObject);
             DrawHandCards();
         }
 
@@ -74,7 +96,8 @@ namespace View.BattleView
 
             float normalizedX = (layoutProgress * 2f) - 1f;
             
-            float targetX = normalizedX * handWidth;
+            float currentWidth = Mathf.Min(handWidth, handWidth * (totalCount / 5f));
+            float targetX = normalizedX * currentWidth;
             float targetY = (-normalizedX * normalizedX + 1f) * handHeight;
             float targetAngle = Mathf.Lerp(maxCardAngle, -maxCardAngle, layoutProgress);
             

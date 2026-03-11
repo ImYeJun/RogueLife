@@ -62,7 +62,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         if (sourceDeck == deckMap[BattleDeckType.HAND] && destinationDeck == deckMap[BattleDeckType.GRAVE])
         {
             history.RecordGravedCard(card);
-            viewEventPublisher.Publish(new CardDisCarded(viewEventPublisher.GetNextSequenceId(), card));
+            viewEventPublisher.Publish(new CardDiscarded(viewEventPublisher.GetNextSequenceId(), card));
         }
         if (sourceDeck == deckMap[BattleDeckType.GRAVE] && destinationDeck == deckMap[BattleDeckType.DRAW])
         {

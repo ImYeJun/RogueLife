@@ -51,6 +51,8 @@ public class BattleScheduler : IBattleScheduler
     {
         context.EventBus.Publish(new PlayerTurnEndBattleEvent());
         viewEventPublisher.Publish(new PlayerTurnEnded(viewEventPublisher.GetNextSequenceId()));
+
+        StartEnemyTurn();
     }
 
     public void StartEnemyTurn()
@@ -63,12 +65,16 @@ public class BattleScheduler : IBattleScheduler
     {
         context.EventBus.Publish(new EnemyTurnEndBattleEvent());
         viewEventPublisher.Publish(new EnemyTurnEnded(viewEventPublisher.GetNextSequenceId()));
+
+        EndPhase();
     }
 
     public void EndPhase()
     {
         context.EventBus.Publish(new PhaseEndBattleEvent());
         viewEventPublisher.Publish(new PhaseEnded(viewEventPublisher.GetNextSequenceId()));
+
+        StartPhase();
     }
 
     public void EndBattle(BattleResult result)
