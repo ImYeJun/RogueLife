@@ -1154,7 +1154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.NodeTransitionPresentation
   playerView: {fileID: 1229625917}
   playerImageView: {fileID: 1275263200}
-  foreground: {fileID: 1027314862}
+  foreground: {fileID: 1027314861}
+  tilingMaterial: {fileID: 2100000, guid: 3bb64454bb8d48f44a2055df35b0e060, type: 2}
   enterMoveDistance: 524
   enterPlayerMoveDuration: 0.8
   enterPlayerEasingType: 6
@@ -1165,6 +1166,8 @@ MonoBehaviour:
   exitPlayerEasingType: 11
   exitForegroundMoveDuration: 1.5
   exitForegroundEasingType: 22
+  engageFadeDuration: 1
+  engageFadeEasingType: 0
   returnFadeDuration: 2
   returnFadeEasingType: 18
 --- !u!1 &237502059
@@ -6656,7 +6659,7 @@ GameObject:
   - component: {fileID: 1027314864}
   - component: {fileID: 1027314863}
   m_Layer: 5
-  m_Name: NodeTransitionForeground
+  m_Name: FadeInOutForeground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

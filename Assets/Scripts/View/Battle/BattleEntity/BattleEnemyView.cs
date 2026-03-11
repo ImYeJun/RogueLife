@@ -51,7 +51,7 @@ namespace View.BattleView
             entity = enemy;
 
             transform.position = spawnPos;
-            spriteRenderer.sprite = enemy.Data.GetBattleSprite(EnemySpriteType.Idle);
+            // spriteRenderer.sprite = enemy.Data.GetBattleSprite(EnemySpriteType.Idle);
 
             DrawHealthBar(enemy.CurrentHealth, enemy.MaxHealth);
         }

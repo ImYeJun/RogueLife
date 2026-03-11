@@ -41,7 +41,8 @@ public static class PresentationPriority
     public const int NodeSelect_NodeButtonBasePriority = 20;
 
     // Battle Engaged
-    public const int BattleEngaged_SceneTransition = 10;
+    public const int BattleEngaged_FadeIn = 10;
+    public const int BattleEngaged_SceneTransition = 20;
 
     //Returned From Battle
     public const int ReturnedFromBattle_FadeOut = 10;

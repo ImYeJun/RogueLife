@@ -11,9 +11,14 @@ namespace View.ScheduleView.Presentation
 {
     public class FadeInOutTransitionPresentation : ViewBehaviour<IScheduleViewEvent>
     {
+        private static readonly int SeedID = Shader.PropertyToID("_Seed");
+        private static readonly int ProgressID = Shader.PropertyToID("_Progress");
+
         [SerializeField] private RectTransform playerView;
         [SerializeField] private PlayerImageView playerImageView;
-        [SerializeField] private RectTransform foreground;
+        [SerializeField] private GameObject foreground;
+        [SerializeField] private Material tilingMaterial;
+
 
         [Header("On Node Enter")]
         [SerializeField] private float enterMoveDistance;
@@ -29,17 +34,28 @@ namespace View.ScheduleView.Presentation
         [SerializeField] private float exitForegroundMoveDuration;
         [SerializeField] private Ease exitForegroundEasingType;
 
+        [Header("Battle Engage")]
+        [SerializeField] private float engageFadeDuration;
+        [SerializeField] private Ease engageFadeEasingType;
+
         [Header("Returned From Battle")]
         [SerializeField] private float returnFadeDuration;
         [SerializeField] private Ease returnFadeEasingType;
 
+        private Image foregroundImage;
+        private RectTransform foregroundTransform;
+
         public override void OnInitialized()
         {
-            foreground.gameObject.SetActive(true);
+            foregroundImage = foreground.GetComponent<Image>();
+            foregroundTransform = foreground.GetComponent<RectTransform>();
+            
+            foregroundTransform.gameObject.SetActive(true);
 
             eventBus.Subscribe<NodeEntered>(OnNodeEntered);
             eventBus.Subscribe<NodeExited>(OnNodeExited);
             eventBus.Subscribe<ReturnedFromBattle>(OnReturnedFromBattle);
+            eventBus.Subscribe<BattleEngaged>(OnBattleEngaged);
         }
         
         public override void OnDestroy()
@@ -47,6 +63,26 @@ namespace View.ScheduleView.Presentation
             eventBus?.Unsubscribe<NodeEntered>(OnNodeEntered);
             eventBus?.Unsubscribe<NodeExited>(OnNodeExited);
             eventBus?.Unsubscribe<ReturnedFromBattle>(OnReturnedFromBattle);
+            eventBus?.Unsubscribe<BattleEngaged>(OnBattleEngaged);
+        }
+
+        public void OnBattleEngaged(BattleEngaged payload)
+        {
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleEngaged_FadeIn, OnBattleEngagedPresentation());
+        }
+        private IEnumerator OnBattleEngagedPresentation()
+        {
+            foregroundTransform.sizeDelta = new Vector2(1920f, 1080f);
+            foregroundImage.material = tilingMaterial;
+            foreground.SetActive(true);
+            
+            int seed = random.Next(1000 + 1);
+            tilingMaterial.SetFloat(SeedID, seed);
+            tilingMaterial.SetFloat(ProgressID, 0);
+            yield return tilingMaterial.DOFloat(1, ProgressID, engageFadeDuration).SetEase(engageFadeEasingType).WaitForCompletion();
+
+            foregroundImage.material = null;
+            foreground.SetActive(true); //TODO FUck it
         }
 
         private void OnReturnedFromBattle(ReturnedFromBattle payload)
@@ -58,10 +94,8 @@ namespace View.ScheduleView.Presentation
         {
             playerView.anchoredPosition = new Vector2(enterMoveDistance, 0); 
             playerImageView.SetIdleView();
-
-            foreground.gameObject.SetActive(true);
+            foreground.SetActive(true);
             
-            Image foregroundImage = foreground.GetComponent<Image>();
             if (foregroundImage != null)
             {
                 foregroundImage.color = new Color(0, 0, 0, 1f);
@@ -76,7 +110,7 @@ namespace View.ScheduleView.Presentation
                 yield return null;
             }
 
-            foreground.gameObject.SetActive(false);
+            foreground.SetActive(false);
             foregroundImage.color = new Color(0, 0, 0, 1f);
         }
 
@@ -87,15 +121,15 @@ namespace View.ScheduleView.Presentation
         
         public IEnumerator EnterNodePresentation()
         {
-            foreground.gameObject.SetActive(true);
+            foreground.SetActive(true);
             playerImageView.SetWalkView();
             
             playerView.anchoredPosition = Vector2.zero;
             var targetPosition = new Vector2(enterMoveDistance, 0);
 
-            foreground.pivot = new Vector2(1f, 0.5f);
-            foreground.anchoredPosition = new Vector2(1920f, 0f); 
-            foreground.sizeDelta = new Vector2(1920f, 1080f);
+            foregroundTransform.pivot = new Vector2(1f, 0.5f);
+            foregroundTransform.anchoredPosition = new Vector2(1920f, 0f); 
+            foregroundTransform.sizeDelta = new Vector2(1920f, 1080f);
 
             var tween = DOTween.Sequence();
             
@@ -107,14 +141,14 @@ namespace View.ScheduleView.Presentation
                     playerImageView.SetIdleView(); 
                 });
                 
-            var foregroundTween = foreground.DOSizeDelta(new Vector2(0f, 1080f), enterForegroundMoveDuration)
+            var foregroundTween = foregroundTransform.DOSizeDelta(new Vector2(0f, 1080f), enterForegroundMoveDuration)
                 .SetEase(enterForegroundEasingType);
             
             tween.Join(playerTween).Join(foregroundTween);
 
             yield return tween.WaitForCompletion();
 
-            foreground.gameObject.SetActive(false);
+            foreground.SetActive(false);
         }
 
         public void OnNodeExited(NodeExited payload)
@@ -124,15 +158,15 @@ namespace View.ScheduleView.Presentation
         
         public IEnumerator ExitNodePresentation()
         {
-            foreground.gameObject.SetActive(true);
+            foreground.SetActive(true);
             playerImageView.SetWalkView();
 
             playerView.anchoredPosition = new Vector2(enterMoveDistance, 0);
             Vector2 targetPosition = new Vector2(playerView.anchoredPosition.x + exitMoveDistance, playerView.anchoredPosition.y);
 
-            foreground.pivot = new Vector2(0f, 0.5f);
-            foreground.anchoredPosition = Vector2.zero; 
-            foreground.sizeDelta = new Vector2(0f, 1080f);
+            foregroundTransform.pivot = new Vector2(0f, 0.5f);
+            foregroundTransform.anchoredPosition = Vector2.zero; 
+            foregroundTransform.sizeDelta = new Vector2(0f, 1080f);
 
             var tween = DOTween.Sequence();
             
@@ -144,14 +178,14 @@ namespace View.ScheduleView.Presentation
                     playerImageView.SetIdleView(); 
                 });
                 
-            var foregroundTween = foreground.DOSizeDelta(new Vector2(1920f, 1080f), exitForegroundMoveDuration)
+            var foregroundTween = foregroundTransform.DOSizeDelta(new Vector2(1920f, 1080f), exitForegroundMoveDuration)
                 .SetEase(exitForegroundEasingType);
             
             tween.Join(playerTween).Join(foregroundTween);
 
             yield return tween.WaitForCompletion();
 
-            foreground.gameObject.SetActive(false);
+            foreground.SetActive(false);
         }
 
 #if UNITY_EDITOR
@@ -171,6 +205,12 @@ namespace View.ScheduleView.Presentation
         public void TestOnReturnedFromBattle()
         {
             presentationManager.Enqueue(0, PresentationPriority.ReturnedFromBattle_FadeOut, ReturnedFromBattlePresentation());
+        }
+
+        [ContextMenu("Play Engage Battle Presentation")]
+        public void TestOnEnageBattle()
+        {
+            presentationManager.Enqueue(0, PresentationPriority.BattleEngaged_FadeIn, OnBattleEngagedPresentation());
         }
 #endif
     }
