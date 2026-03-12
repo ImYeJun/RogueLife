@@ -35,52 +35,52 @@ public class BattleScheduler : IBattleScheduler
 
     public void StartPhase()
     {
-        context.EventBus.Publish(new PhaseStartBattleEvent());
         viewEventPublisher.Publish(new PhaseStarted(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new PhaseStartBattleEvent());
 
         StartPlayerTurn();
     }
 
     public void StartPlayerTurn()
     {
-        context.EventBus.Publish(new PlayerTurnStartBattleEvent());
         viewEventPublisher.Publish(new PlayerTurnStarted(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new PlayerTurnStartBattleEvent());
     }
 
     public void EndPlayerTurn()
     {
-        context.EventBus.Publish(new PlayerTurnEndBattleEvent());
         viewEventPublisher.Publish(new PlayerTurnEnded(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new PlayerTurnEndBattleEvent());
 
         StartEnemyTurn();
     }
 
     public void StartEnemyTurn()
     {
-        context.EventBus.Publish(new EnemyTurnStartBattleEvent());
         viewEventPublisher.Publish(new EnemyTurnStarted(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new EnemyTurnStartBattleEvent());
     }
 
     public void EndEnemyTurn()
     {
-        context.EventBus.Publish(new EnemyTurnEndBattleEvent());
         viewEventPublisher.Publish(new EnemyTurnEnded(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new EnemyTurnEndBattleEvent());
 
         EndPhase();
     }
 
     public void EndPhase()
     {
-        context.EventBus.Publish(new PhaseEndBattleEvent());
         viewEventPublisher.Publish(new PhaseEnded(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new PhaseEndBattleEvent());
 
         StartPhase();
     }
 
     public void EndBattle(BattleResult result)
     {
-        context.EventBus.Publish(new BattleEndBattleEvent(result));
         viewEventPublisher.Publish(new BattleEnded(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new BattleEndBattleEvent(result));
         
         OnBattleEnd?.Invoke(result);
     }

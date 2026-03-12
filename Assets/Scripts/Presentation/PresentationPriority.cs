@@ -53,7 +53,20 @@ public static class PresentationPriority
     
     // Battle Started
     public const int BattleStarted_FadeOut = 10;
+    public const int BattleStarted_TurnViewShowingDown = 10;
 
     // Battle Exited
     public const int BattleExited_SceneTransition = 10;
+    
+    // Player Turn Started
+    public const int PlayerTurnStarted_TurnViewShowingDown = 10;
+
+    //Player Turn Ended
+    public const int PlayerTurnEnded_TurnViewDisappearingUp = 10;
+
+    //Enemy Turn Started
+    public const int EnemyTurnStarted_TurnViewShowingDown = 10;
+
+    //Enemy Turn Ended
+    public const int EnemyTurnEnded_TurnViewDisappearingUp = 10;
 }

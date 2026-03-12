@@ -1431,7 +1431,7 @@ GameObject:
   - component: {fileID: 1065188441}
   - component: {fileID: 1065188442}
   m_Layer: 5
-  m_Name: RemainPhaseView
+  m_Name: RemainTurnView
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1456,8 +1456,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -16.5062, y: -20}
-  m_SizeDelta: {x: 193.6525, y: 193.6525}
+  m_AnchoredPosition: {x: -0.0000038146973, y: -20}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &1065188441
 CanvasRenderer:
@@ -1479,7 +1479,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf068fd9f83f6ff4ab12db4b3a99ca45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.RemainPhaseView
-  remainPhaseText: {fileID: 869329573}
+  rectTransform: {fileID: 1065188440}
+  remainTurnText: {fileID: 869329573}
+  disappearingUpDestination: {x: 0, y: 200}
+  disappearingUpDuration: 1
+  disappearingUpEasingType: 4
+  showingPosition: {x: 0, y: -20}
+  showingDownDuration: 1
+  showingDownEasingType: 7
 --- !u!1 &1119854809
 GameObject:
   m_ObjectHideFlags: 0
