@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: BattleEnterTransitionMaterial
+  m_Name: BattleTransitionMaterial
   m_Shader: {fileID: -6465566751694194690, guid: ddf99d7c201fe88408b8ab528394a54d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -42,8 +42,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _Progress: 1
-    - _Seed: 982
+    - _Progress: 0
+    - _Seed: 984
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0

@@ -51,6 +51,9 @@ public static class PresentationPriority
     ///* Battle
     ///* -------------------------
     
+    // Battle Started
+    public const int BattleStarted_FadeOut = 10;
+
     // Battle Exited
     public const int BattleExited_SceneTransition = 10;
 }

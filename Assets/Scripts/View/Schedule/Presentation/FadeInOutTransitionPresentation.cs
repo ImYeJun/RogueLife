@@ -60,10 +60,23 @@ namespace View.ScheduleView.Presentation
         
         public override void OnDestroy()
         {
+            KillActiveTweens(); 
+
             eventBus?.Unsubscribe<NodeEntered>(OnNodeEntered);
             eventBus?.Unsubscribe<NodeExited>(OnNodeExited);
             eventBus?.Unsubscribe<ReturnedFromBattle>(OnReturnedFromBattle);
             eventBus?.Unsubscribe<BattleEngaged>(OnBattleEngaged);
+        }
+
+        private void KillActiveTweens()
+        {
+            playerView?.DOKill();
+            foregroundTransform?.DOKill();
+            foregroundImage?.DOKill();
+            if (tilingMaterial != null) 
+            {
+                tilingMaterial.DOKill();
+            }
         }
 
         public void OnBattleEngaged(BattleEngaged payload)
@@ -72,6 +85,8 @@ namespace View.ScheduleView.Presentation
         }
         private IEnumerator OnBattleEngagedPresentation()
         {
+            KillActiveTweens();
+
             foregroundTransform.sizeDelta = new Vector2(1920f, 1080f);
             foregroundImage.material = tilingMaterial;
             foreground.SetActive(true);
@@ -82,7 +97,6 @@ namespace View.ScheduleView.Presentation
             yield return tilingMaterial.DOFloat(1, ProgressID, engageFadeDuration).SetEase(engageFadeEasingType).WaitForCompletion();
 
             foregroundImage.material = null;
-            foreground.SetActive(true); //TODO FUck it
         }
 
         private void OnReturnedFromBattle(ReturnedFromBattle payload)
@@ -92,6 +106,8 @@ namespace View.ScheduleView.Presentation
 
         private IEnumerator ReturnedFromBattlePresentation()
         {
+            KillActiveTweens();
+
             playerView.anchoredPosition = new Vector2(enterMoveDistance, 0); 
             playerImageView.SetIdleView();
             foreground.SetActive(true);
@@ -121,6 +137,8 @@ namespace View.ScheduleView.Presentation
         
         public IEnumerator EnterNodePresentation()
         {
+            KillActiveTweens();
+
             foreground.SetActive(true);
             playerImageView.SetWalkView();
             
@@ -158,6 +176,8 @@ namespace View.ScheduleView.Presentation
         
         public IEnumerator ExitNodePresentation()
         {
+            KillActiveTweens();
+
             foreground.SetActive(true);
             playerImageView.SetWalkView();
 
@@ -211,6 +231,7 @@ namespace View.ScheduleView.Presentation
         public void TestOnEnageBattle()
         {
             presentationManager.Enqueue(0, PresentationPriority.BattleEngaged_FadeIn, OnBattleEngagedPresentation());
+            foreground.SetActive(true);
         }
 #endif
     }
