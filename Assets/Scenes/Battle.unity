@@ -2492,13 +2492,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa6a3ef9e1548994c8be8402258e5638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.DeckViewSystem
+  handDeckRectransform: {fileID: 1978891040}
+  handDeckCanvasGroup: {fileID: 1978891043}
   battleCardView: {fileID: 5435799982283191476, guid: 9df2e7092c6c89a418bc63ef66504240, type: 3}
   cardDescriptionView: {fileID: 1887423780}
-  cardActivateSystem: {fileID: 1469854392}
   cardContainer: {fileID: 89241391}
   handWidth: 200
   handHeight: 50
   maxCardAngle: 30
+  cardActivateSystem: {fileID: 1469854392}
+  openedHandDeckPosition: {x: 0, y: 130}
+  openHandDeckDuration: 0.3
+  openHandDeckEasingType: 10
+  closedHandDeckPosition: {x: 0, y: -200}
+  closeHandDeckDuration: 0.3
+  closeHandDeckEasingType: 10
 --- !u!1 &1469854391
 GameObject:
   m_ObjectHideFlags: 0
@@ -2714,8 +2722,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.0068359375, y: 0.014404297}
+  m_SizeDelta: {x: -786.78, y: -442.68}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1536065025
 MonoBehaviour:
@@ -3528,6 +3536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1978891040}
   - component: {fileID: 1978891042}
+  - component: {fileID: 1978891043}
   m_Layer: 5
   m_Name: HandDeck
   m_TagString: Untagged
@@ -3553,7 +3562,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 130.64996}
+  m_AnchoredPosition: {x: 0, y: 130.72}
   m_SizeDelta: {x: 642.0618, y: 261.3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1978891042
@@ -3564,6 +3573,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1978891039}
   m_CullTransparentMesh: 1
+--- !u!225 &1978891043
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1978891039}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &6763570588057789036
 PrefabInstance:
   m_ObjectHideFlags: 0

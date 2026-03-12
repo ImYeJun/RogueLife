@@ -60,10 +60,12 @@ public static class PresentationPriority
     
     // Player Turn Started
     public const int PlayerTurnStarted_TurnViewShowingDown = 10;
+    public const int PlayerTurnStarted_OpenHandDeck = 10;
     public const int PlayerTurnStarted_TurnEndButtonShow = 10;
 
     //Player Turn Ended
     public const int PlayerTurnEnded_TurnEndButtonDisappear = 10;
+    public const int PlayerTurnEnded_CloseHandDeck = 10;
     public const int PlayerTurnEnded_TurnViewDisappearingUp = 10;
 
     //Enemy Turn Started

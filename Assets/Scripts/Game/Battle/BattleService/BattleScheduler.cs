@@ -4,6 +4,8 @@ using ViewEvent.BattleView;
 
 public class BattleScheduler : IBattleScheduler
 {
+    private bool isBattleActive = false;
+
     private BattleContext context;
     private IBattleViewEventPublisher viewEventPublisher;
     private Action<BattleResult> OnBattleEnd;
@@ -18,6 +20,8 @@ public class BattleScheduler : IBattleScheduler
     
     public void StartBattle(BattleStartData data)
     {
+        isBattleActive = true;
+
         context.EventBus.Publish(new BattleStartEvent(
             data.StartPhaseCount, 
             data.MaxActionCost, 
@@ -35,6 +39,8 @@ public class BattleScheduler : IBattleScheduler
 
     public void StartPhase()
     {
+        if (!isBattleActive) { return; }
+
         viewEventPublisher.Publish(new PhaseStarted(viewEventPublisher.GetNextSequenceId()));
         context.EventBus.Publish(new PhaseStartBattleEvent());
 
@@ -43,12 +49,16 @@ public class BattleScheduler : IBattleScheduler
 
     public void StartPlayerTurn()
     {
+        if (!isBattleActive) { return; }
+
         viewEventPublisher.Publish(new PlayerTurnStarted(viewEventPublisher.GetNextSequenceId()));
         context.EventBus.Publish(new PlayerTurnStartBattleEvent());
     }
 
     public void EndPlayerTurn()
     {
+        if (!isBattleActive) { return; }
+
         viewEventPublisher.Publish(new PlayerTurnEnded(viewEventPublisher.GetNextSequenceId()));
         context.EventBus.Publish(new PlayerTurnEndBattleEvent());
 
@@ -57,12 +67,16 @@ public class BattleScheduler : IBattleScheduler
 
     public void StartEnemyTurn()
     {
+        if (!isBattleActive) { return; }
+
         viewEventPublisher.Publish(new EnemyTurnStarted(viewEventPublisher.GetNextSequenceId()));
         context.EventBus.Publish(new EnemyTurnStartBattleEvent());
     }
 
     public void EndEnemyTurn()
     {
+        if (!isBattleActive) { return; }
+
         viewEventPublisher.Publish(new EnemyTurnEnded(viewEventPublisher.GetNextSequenceId()));
         context.EventBus.Publish(new EnemyTurnEndBattleEvent());
 
@@ -71,6 +85,8 @@ public class BattleScheduler : IBattleScheduler
 
     public void EndPhase()
     {
+        if (!isBattleActive) { return; }
+
         viewEventPublisher.Publish(new PhaseEnded(viewEventPublisher.GetNextSequenceId()));
         context.EventBus.Publish(new PhaseEndBattleEvent());
 
@@ -79,9 +95,12 @@ public class BattleScheduler : IBattleScheduler
 
     public void EndBattle(BattleResult result)
     {
+        if (!isBattleActive) { return; }
+
         viewEventPublisher.Publish(new BattleEnded(viewEventPublisher.GetNextSequenceId()));
         context.EventBus.Publish(new BattleEndBattleEvent(result));
         
         OnBattleEnd?.Invoke(result);
+        isBattleActive = false;
     }
 }
