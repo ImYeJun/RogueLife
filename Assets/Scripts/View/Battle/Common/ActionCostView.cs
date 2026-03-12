@@ -4,13 +4,18 @@ using ViewEvent.Core;
 using ViewEvent.BattleView;
 using System;
 using TMPro;
+using System.Collections;
+using DG.Tweening;
 
 namespace View.BattleView
 {
     public class ActionCostView : ViewBehaviour<IBattleViewEvent>
     {
         [SerializeField] private TextMeshProUGUI costIndicator;
+        [SerializeField] private float costCountDuration;
+        [SerializeField] private Ease costCountEasingType;
         private IReadOnlyBattleActionCost actionCost;
+        private int currentViewCost;
 
         public override void OnInitialized()
         {
@@ -35,21 +40,27 @@ namespace View.BattleView
 
         private void OnCostConsumed(CostConsumed payload)
         {
-            SetCostText(payload.CurrentCost);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CostConsumed_CountCost, CountCostPresentation(payload.CurrentCost), () => SetCostText(payload.CurrentCost));
         }
 
         private void OnCostRestored(CostRestored payload)
         {
-            SetCostText(payload.CurrentCost);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CostRestored_CountCost, CountCostPresentation(payload.CurrentCost), () => SetCostText(payload.CurrentCost));
         }
         
+        private IEnumerator CountCostPresentation(int finalCost)
+        {
+            yield return DOTween.To(() => currentViewCost, (cost) => SetCostText(cost), finalCost, costCountDuration).SetEase(costCountEasingType).WaitForCompletion();
+        }
+
         private void SetCostText()
         {
             SetCostText(actionCost.RemainCost);
         }
         private void SetCostText(int currentCost)
         {
-            costIndicator.text = $"{currentCost}/{actionCost.MaxActionCost}";
+            currentViewCost = currentCost;
+            costIndicator.text = $"{currentViewCost}/{actionCost.MaxActionCost}";
         }
     }
 }

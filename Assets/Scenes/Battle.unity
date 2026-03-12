@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.ActionCostView
   costIndicator: {fileID: 1003502943}
+  costCountDuration: 0.3
+  costCountEasingType: 1
 --- !u!1 &77016456
 GameObject:
   m_ObjectHideFlags: 0

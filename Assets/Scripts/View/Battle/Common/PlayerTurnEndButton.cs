@@ -2,6 +2,7 @@
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.BattleView;
+using System.Collections;
 
 namespace View.BattleView
 {
@@ -20,14 +21,24 @@ namespace View.BattleView
             eventBus?.Unsubscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
         }
 
-        public void OnPlayerTurnStarted(PlayerTurnStarted payload)
+        private void OnPlayerTurnStarted(PlayerTurnStarted payload)
         {
-            gameObject.SetActive(true);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_TurnEndButtonShow, ShowPresentation(),
+            () => { gameObject?.SetActive(true); } );
+        }
+        private IEnumerator ShowPresentation()
+        {
+            yield return null;
         }
 
-        public void OnPlayerTurnEnded(PlayerTurnEnded payload)
+        private void OnPlayerTurnEnded(PlayerTurnEnded payload)
         {
-            gameObject.SetActive(false);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnEnded_TurnViewDisappearingUp, DisappearPresentation(),
+            () => { gameObject?.SetActive(false); } );
+        }
+        private IEnumerator DisappearPresentation()
+        {
+            yield return null;
         }
 
         public void OnPressed()

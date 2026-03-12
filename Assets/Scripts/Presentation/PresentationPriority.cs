@@ -60,8 +60,10 @@ public static class PresentationPriority
     
     // Player Turn Started
     public const int PlayerTurnStarted_TurnViewShowingDown = 10;
+    public const int PlayerTurnStarted_TurnEndButtonShow = 10;
 
     //Player Turn Ended
+    public const int PlayerTurnEnded_TurnEndButtonDisappear = 10;
     public const int PlayerTurnEnded_TurnViewDisappearingUp = 10;
 
     //Enemy Turn Started
@@ -69,4 +71,10 @@ public static class PresentationPriority
 
     //Enemy Turn Ended
     public const int EnemyTurnEnded_TurnViewDisappearingUp = 10;
+
+    //Cost Consumed
+    public const int CostConsumed_CountCost = 10;
+
+    //Cost Restored
+    public const int CostRestored_CountCost = 10;
 }
