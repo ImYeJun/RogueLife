@@ -33,6 +33,13 @@ namespace View.BattleView
         [SerializeField] private float closeHandDeckDuration;
         [SerializeField] private Ease closeHandDeckEasingType;
 
+        [Header("Draw Card Presentation")]
+        [SerializeField] private RectTransform drawDeckPosition;
+
+        [Header("Dicard Card Presentation")]
+        [SerializeField] private RectTransform graveDeckPosition;
+        [SerializeField] private RectTransform discardControlPointOffset;
+
         private bool isHandDeckOpened;
         private Tween currentHandDeckTween;
 
@@ -75,7 +82,6 @@ namespace View.BattleView
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, CloseHandDeckPresentation());
             isHandDeckOpened = false;
         }
-
         private IEnumerator OpenHandDeckPresentation()
         {
             currentHandDeckTween?.Kill();
@@ -101,13 +107,40 @@ namespace View.BattleView
             handDeckCanvasGroup.blocksRaycasts = true;
         }
 
-        public void OnCardDrawed(CardDrawed payload)
+        private void OnCardDrawed(CardDrawed payload)
         {
-            cardViews.Add(CreateBattleCardView(payload.Card));
-            DrawHandCards();
+            var newCardView = CreateBattleCardView(payload.Card);
+            newCardView.gameObject.SetActive(false);
+            cardViews.Add(newCardView);
+
+            presentationManager.Enqueue(payload.SequenceId, -1, DrawCardPresentation(newCardView, new List<BattleCardView>(cardViews)));
         }
 
-        public void OnCardDiscarded(CardDiscarded payload)
+        private IEnumerator DrawCardPresentation(BattleCardView drawedCardView, List<BattleCardView> currentCardViews)
+        {
+            RectTransform drawCardRect = drawedCardView.rectTransform;
+
+            drawCardRect.position = drawDeckPosition.position;
+            drawCardRect.rotation = drawDeckPosition.rotation; 
+
+            Sequence sequence = DOTween.Sequence();
+            for (int i = 0; i < currentCardViews.Count; i++)
+            {
+                var view = currentCardViews[i];
+                view.transform.SetSiblingIndex(i);
+                view.gameObject.SetActive(true);
+
+                GetCardPositionAngle(i, currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
+                view.SetBaseLayoutTransform(targetPos, targetAngle);
+
+                sequence.Join(view.rectTransform.DOAnchorPos(targetPos, 0.1f).SetEase(Ease.OutQuad));
+                sequence.Join(view.transform.DORotate(targetAngle, 0.1f, RotateMode.Fast).SetEase(Ease.OutQuad));
+            }
+
+            yield return sequence.WaitForCompletion();
+        }
+
+        private void OnCardDiscarded(CardDiscarded payload)
         {
             var view = cardViews.FirstOrDefault(view => view.Card == payload.Card);
             
@@ -122,8 +155,57 @@ namespace View.BattleView
                 focusedCardView = null;
                 cardDescriptionView.Unfocus();
             }
-            Destroy(view.gameObject);
-            DrawHandCards();
+            
+            presentationManager.Enqueue(payload.SequenceId, 0, DiscardCardPresentation(view, new List<BattleCardView>(cardViews)));
+        }
+        private IEnumerator DiscardCardPresentation(BattleCardView discardCard, List<BattleCardView> currentCardViews)
+        {
+            var discardCardRect = discardCard.rectTransform;
+
+            Sequence sequence = DOTween.Sequence();
+
+            Vector3 startPos = discardCardRect.position;
+            Vector3 endPos = graveDeckPosition.position;
+            Vector3 controlPos = discardControlPointOffset.position;
+            float t = 0f;
+            sequence.Join(DOTween.To(() => t, x => 
+            {
+                t = x; 
+                discardCardRect.position = CalculateQuadraticBezierPoint(t, startPos, controlPos, endPos);
+            }, 1f, 1f).SetEase(Ease.InOutCubic));
+
+            // sequence.Join(discardCardRect.DOMove(graveDeckPosition.position, 1).SetEase(Ease.OutQuad));
+            sequence.Join(discardCardRect.DORotate(graveDeckPosition.rotation.eulerAngles, 1).SetEase(Ease.OutQuad));
+            sequence.Join(discardCardRect.DOScale(0.4f, 1)).SetEase(Ease.OutQuad);
+
+            for (int i = 0; i < currentCardViews.Count; i++)
+            {
+                var view = currentCardViews[i];
+                view.transform.SetSiblingIndex(i);
+                view.gameObject.SetActive(true);
+
+                GetCardPositionAngle(i, currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
+                view.SetBaseLayoutTransform(targetPos, targetAngle);
+
+                sequence.Join(view.rectTransform.DOAnchorPos(targetPos, 0.3f).SetEase(Ease.OutQuad));
+                sequence.Join(view.transform.DORotate(targetAngle, 0.3f, RotateMode.Fast).SetEase(Ease.OutQuad));
+            }
+
+            yield return sequence.WaitForCompletion();
+
+            Destroy(discardCard.gameObject);
+        }
+        private Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
+        {
+            float u = 1 - t;
+            float tt = t * t;
+            float uu = u * u;
+            
+            Vector3 p = uu * p0; 
+            p += 2 * u * t * p1; 
+            p += tt * p2;        
+            
+            return p;
         }
 
         private BattleCardView CreateBattleCardView(Card card)
@@ -136,25 +218,26 @@ namespace View.BattleView
             return cardView;
         }
 
-        private void DrawHandCards()
-        {
-            for (int i = 0; i < cardViews.Count; i++)
-            {
-                var view = cardViews[i];
+        // private void DrawHandCards()
+        // {
+        //     for (int i = 0; i < cardViews.Count; i++)
+        //     {
+        //         var view = cardViews[i];
                 
-                view.transform.SetSiblingIndex(i);
+        //         view.transform.SetSiblingIndex(i);
 
-                PositionCard(view, i, cardViews.Count);
-            }
+        //         GetCardPositionAngle(i, cardViews.Count, out Vector3 position, out Vector3 angle);
+        //         view.SetLayoutTransform(position, angle);
+        //     }
 
-            if (focusedCardView != null)
-            {
-                focusedCardViewIndex = cardViews.IndexOf(focusedCardView);
-                focusedCardView.transform.SetAsLastSibling();
-            }
-        }
+        //     if (focusedCardView != null)
+        //     {
+        //         focusedCardViewIndex = cardViews.IndexOf(focusedCardView);
+        //         focusedCardView.transform.SetAsLastSibling();
+        //     }
+        // }
 
-        private void PositionCard(BattleCardView cardView, int cardIndex, int totalCount)
+        private void GetCardPositionAngle(int cardIndex, int totalCount, out Vector3 position, out Vector3 angle)
         {
             float layoutProgress = (totalCount <= 1) ? 0.5f : (float)cardIndex / (totalCount - 1);
 
@@ -165,7 +248,18 @@ namespace View.BattleView
             float targetY = (-normalizedX * normalizedX + 1f) * handHeight;
             float targetAngle = Mathf.Lerp(maxCardAngle, -maxCardAngle, layoutProgress);
             
-            cardView.SetLayoutTransform(new Vector3(targetX, targetY, 0f), new Vector3(0f, 0f, targetAngle));
+
+            position = new Vector3(targetX, targetY, 0f);
+            angle = new Vector3(0f, 0f, targetAngle);
+        }
+
+        private IEnumerator CardDiscardPresentation()
+        {
+            yield return null;
+        }
+        private IEnumerator CardRevivePresentation()
+        {
+            yield return null;
         }
 
         public void OnCardClicked(BattleCardView cardView)
@@ -208,20 +302,25 @@ namespace View.BattleView
         }
 
 #if UNITY_EDITOR
-        [ContextMenu("Test Open Hand Deck")]
+        [ContextMenu("Test Open Hand Deck (Direct)")]
         public void TestOpenHandDeck()
         {
-            handDeckRectransform.anchoredPosition = closedHandDeckPosition;
-            StartCoroutine(OpenHandDeckPresentation());
-            isHandDeckOpened = true; 
+            StartCoroutine(DelayedTestRoutine(OpenHandDeckPresentation()));
+            isHandDeckOpened = true;
         }
 
-        [ContextMenu("Test Close Hand Deck")]
+        [ContextMenu("Test Close Hand Deck (Direct)")]
         public void TestCloseHandDeck()
         {
-            handDeckRectransform.anchoredPosition = openedHandDeckPosition;
-            StartCoroutine(CloseHandDeckPresentation());
+            if (!Application.isPlaying) return;
+            StartCoroutine(DelayedTestRoutine(CloseHandDeckPresentation()));
             isHandDeckOpened = false;
+        }
+
+        private IEnumerator DelayedTestRoutine(IEnumerator targetPresentation)
+        {
+            yield return new WaitForSeconds(0.5f); 
+            yield return StartCoroutine(targetPresentation);
         }
 #endif
     }

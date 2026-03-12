@@ -7,6 +7,7 @@ namespace View.BattleView
     public class BattleCardView : MonoBehaviour, IPointerClickHandler
     {
         [Header("Settings")]
+        [SerializeField] public RectTransform rectTransform;
         [SerializeField] private float popUpDistance = 0.5f; 
         [SerializeField] private SharedCardView sharedCardView;
 
@@ -27,8 +28,13 @@ namespace View.BattleView
             baseLocalPosition = targetLocalPos;
             baseLocalEulerAngles = targetLocalAngles;
 
-            transform.localPosition = baseLocalPosition;
+            rectTransform.anchoredPosition = baseLocalPosition;
             transform.localEulerAngles = baseLocalEulerAngles;
+        }
+        public void SetBaseLayoutTransform(Vector3 basePos, Vector3 baseAngles)
+        {
+            baseLocalPosition = basePos;
+            baseLocalEulerAngles = baseAngles;
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -40,12 +46,12 @@ namespace View.BattleView
         {
             Vector3 tiltDirection = transform.localRotation * Vector3.up;
 
-            transform.localPosition = baseLocalPosition + (tiltDirection * popUpDistance);
+            rectTransform.anchoredPosition = baseLocalPosition + (tiltDirection * popUpDistance);
         }
 
         public void Unfocus()
         {
-            transform.localPosition = baseLocalPosition;
+            rectTransform.anchoredPosition = baseLocalPosition;
         }
     }
 }

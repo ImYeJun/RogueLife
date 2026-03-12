@@ -1001,6 +1001,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 755915898}
   m_CullTransparentMesh: 1
+--- !u!1 &778315169
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 778315170}
+  m_Layer: 5
+  m_Name: BezirOffset
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &778315170
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778315169}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1978891040}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 494, y: 245.8}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &826068020
 GameObject:
   m_ObjectHideFlags: 0
@@ -2503,10 +2538,13 @@ MonoBehaviour:
   cardActivateSystem: {fileID: 1469854392}
   openedHandDeckPosition: {x: 0, y: 130}
   openHandDeckDuration: 0.3
-  openHandDeckEasingType: 10
+  openHandDeckEasingType: 9
   closedHandDeckPosition: {x: 0, y: -200}
   closeHandDeckDuration: 0.3
-  closeHandDeckEasingType: 10
+  closeHandDeckEasingType: 9
+  drawDeckPosition: {fileID: 1395829481}
+  graveDeckPosition: {fileID: 755915899}
+  discardControlPointOffset: {fileID: 778315170}
 --- !u!1 &1469854391
 GameObject:
   m_ObjectHideFlags: 0
@@ -2873,11 +2911,11 @@ RectTransform:
   m_Children:
   - {fileID: 1333229990}
   - {fileID: 1065188440}
-  - {fileID: 1978891040}
   - {fileID: 708906914}
   - {fileID: 70812119}
   - {fileID: 1395829481}
   - {fileID: 755915899}
+  - {fileID: 1978891040}
   - {fileID: 1264185669}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3171,8 +3209,8 @@ GameObject:
   - component: {fileID: 1887423776}
   - component: {fileID: 1887423779}
   - component: {fileID: 1887423778}
-  - component: {fileID: 1887423777}
   - component: {fileID: 1887423780}
+  - component: {fileID: 1887423777}
   m_Layer: 5
   m_Name: CardDescriptionView
   m_TagString: Untagged
@@ -3558,6 +3596,7 @@ RectTransform:
   m_Children:
   - {fileID: 89241391}
   - {fileID: 1887423776}
+  - {fileID: 778315170}
   m_Father: {fileID: 1583219005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}

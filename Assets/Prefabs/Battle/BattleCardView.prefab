@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_fontSize
       value: 7.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3903518039320139436, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4373715813284568589, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -96,9 +100,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5306426239839974760, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5985513952171809556, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_fontSize
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985513952171809556, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_Name
@@ -112,6 +124,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 7652275019843950045}
   m_SourcePrefab: {fileID: 100100000, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+--- !u!224 &2188953926507250836 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4373715813284568589, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+  m_PrefabInstance: {fileID: 2509128021818776217}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5435799982283191476 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
@@ -129,6 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f21d9fa4b8516ed429b09cd8ea351522, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleCardView
+  rectTransform: {fileID: 2188953926507250836}
   popUpDistance: 50
   sharedCardView: {fileID: 7710798999060977258}
 --- !u!114 &7710798999060977258 stripped
