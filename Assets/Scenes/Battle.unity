@@ -2565,8 +2565,8 @@ MonoBehaviour:
   discardExistingMoveEase: 6
   discardExistingRotateDuration: 0.25
   discardExistingRotateEase: 6
-  restoreCardDuration: 0.1
-  restorCardEase: 12
+  restoreMoveCardDuration: 0.1
+  restoreMoveCardEase: 27
 --- !u!1 &1469854391
 GameObject:
   m_ObjectHideFlags: 0

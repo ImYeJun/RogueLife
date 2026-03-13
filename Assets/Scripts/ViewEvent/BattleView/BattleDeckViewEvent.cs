@@ -19,15 +19,18 @@ namespace ViewEvent.BattleView
     {
         private readonly int sequenceId;
         private readonly Card card;
+        private readonly BattleDeckType destination;
 
-        public CardDiscarded(int sequenceId, Card card)
+        public CardDiscarded(int sequenceId, Card card, BattleDeckType destination)
         {
             this.sequenceId = sequenceId;
             this.card = card;
+            this.destination = destination;
         }
 
         public int SequenceId => sequenceId;
         public Card Card => card;
+        public BattleDeckType Destination => destination;
     }
 
     public readonly struct CardRestored : IBattleViewEvent

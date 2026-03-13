@@ -18,7 +18,6 @@ namespace View.BattleView
         public override void OnInitialized()
         {
             eventBus.Subscribe<InitialDeckSettled>(OnInitialDeckSettled);
-            
             eventBus.Subscribe<CardDrawed>(OnCardDrawed);
             eventBus.Subscribe<CardDiscarded>(OnCardDiscarded);
             eventBus.Subscribe<CardRestored>(OnCardRestored);

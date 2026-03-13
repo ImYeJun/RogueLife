@@ -7,6 +7,7 @@ using System.Linq;
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 namespace View.BattleView
 {
@@ -69,8 +70,8 @@ namespace View.BattleView
         [SerializeField] private Ease discardExistingRotateEase = Ease.OutQuad;
 
         [Header("Restore Card Presentation")]
-        [SerializeField] private float restoreCardDuration;
-        [SerializeField] private Ease restorCardEase;
+        [SerializeField, FormerlySerializedAs("restoreCardDuration")] private float restoreMoveCardDuration;
+        [SerializeField, FormerlySerializedAs("restorCardEase")] private Ease restoreMoveCardEase;
 
         private bool isHandDeckOpened;
         private Tween currentHandDeckTween;
@@ -200,16 +201,21 @@ namespace View.BattleView
                 cardDescriptionView.Unfocus();
             }
             
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(view, new List<BattleCardView>(cardViews)));
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(view, new List<BattleCardView>(cardViews), payload.Destination));
         }
-        private IEnumerator DiscardCardPresentation(BattleCardView discardCard, List<BattleCardView> currentCardViews)
+        private IEnumerator DiscardCardPresentation(BattleCardView discardCard, List<BattleCardView> currentCardViews, BattleDeckType destination)
         {
             var discardCardRect = discardCard.rectTransform;
 
             Sequence sequence = DOTween.Sequence();
 
             Vector3 startPos = discardCardRect.position;
-            Vector3 endPos = graveDeckPosition.position;
+            Vector3 endPos = destination switch 
+            {
+                BattleDeckType.DRAW => drawDeckPosition.position,
+                BattleDeckType.GRAVE => graveDeckPosition.position,
+                _ => throw new InvalidOperationException($"[DeckViewSystem] {destination} is not valid.")
+            };
             Vector3 controlPos = discardControlPointOffset.position;
             
             float t = 0f;
@@ -263,7 +269,11 @@ namespace View.BattleView
         {
             cardView.gameObject.SetActive(true);
             cardView.transform.position = graveDeckPosition.position;
-            yield return cardView.transform.DOMove(drawDeckPosition.position, restoreCardDuration).SetEase(restorCardEase).WaitForCompletion();
+
+            var sequence = DOTween.Sequence();
+            sequence.Join(cardView.transform.DOMove(drawDeckPosition.position, restoreMoveCardDuration).SetEase(restoreMoveCardEase));
+
+            yield return sequence.WaitForCompletion();
             Destroy(cardView.gameObject);
         }
 

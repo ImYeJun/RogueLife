@@ -59,10 +59,14 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             card.OnDraw(context);
             viewEventPublisher.Publish(new CardDrawed(viewEventPublisher.GetNextSequenceId(), card));
         }
-        if (sourceDeck == deckMap[BattleDeckType.HAND] && destinationDeck == deckMap[BattleDeckType.GRAVE])
+        if (sourceDeck == deckMap[BattleDeckType.HAND])
         {
-            history.RecordGravedCard(card);
-            viewEventPublisher.Publish(new CardDiscarded(viewEventPublisher.GetNextSequenceId(), card));
+            if (destinationDeck == deckMap[BattleDeckType.GRAVE])
+            {
+                history.RecordGravedCard(card);
+            }
+
+            viewEventPublisher.Publish(new CardDiscarded(viewEventPublisher.GetNextSequenceId(), card, destination));
         }
         if (sourceDeck == deckMap[BattleDeckType.GRAVE] && destinationDeck == deckMap[BattleDeckType.DRAW])
         {
@@ -153,7 +157,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         {
             for (int i = graveDeck.Count - 1; i >= 0; i--)
             {
-                context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
+                context.ActionScheduler.Enqueue(new    MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
             }
         }
     }
