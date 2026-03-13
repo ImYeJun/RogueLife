@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Battle.Enemies.Actions;
 
 namespace ViewEvent.BattleView
 {
@@ -87,5 +88,23 @@ namespace ViewEvent.BattleView
 
         public int SequenceId => sequenceId;
         public IReadOnlyBattleEnemy DiedEnemy => diedEnemy;
+    }
+    
+    public readonly struct EnemyActionExecuted : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly IReadOnlyBattleEnemy actor;
+        private readonly EnemyAction action;
+
+        public EnemyActionExecuted(int sequenceId, IReadOnlyBattleEnemy actor, EnemyAction action)
+        {
+            this.sequenceId = sequenceId;
+            this.actor = actor;
+            this.action = action;
+        }
+
+        public int SequenceId => sequenceId;
+        public IReadOnlyBattleEnemy Actor => actor;
+        public EnemyAction Action => action;
     }
 }

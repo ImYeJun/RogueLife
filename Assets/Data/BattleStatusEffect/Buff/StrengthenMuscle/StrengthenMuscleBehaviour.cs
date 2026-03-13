@@ -24,6 +24,7 @@ namespace Battle.StatusEffects.Behaviour
             if (source.Caster is not BattleEntity sourceEntity) { return; }
             if (sourceEntity != owner) { return; }
 
+            OnExecuted();
             requestHurtEntity.AddDamage(state.StackCount * 5);
             RequestExpire();
         }

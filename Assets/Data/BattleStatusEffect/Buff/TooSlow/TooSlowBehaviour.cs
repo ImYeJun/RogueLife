@@ -35,6 +35,7 @@ namespace Battle.StatusEffects.Behaviour
             if (requestHurtEntity.HasNullified) { return; }
             if (requestHurtEntity.Damage == 0) { return; }
 
+            OnExecuted();
             requestHurtEntity.Nullify();
             RequestExpire();
         }

@@ -21,6 +21,7 @@ namespace Battle.StatusEffects.Behaviour
         public void ReduceHealAmount(HealEntityBattleAction healEntity, BattleContext context)
         {
             if (healEntity.Target != owner) { return; }
+            OnExecuted();
             healEntity.Amount /= 2;
         }
         public override void OnApplied()
@@ -31,10 +32,12 @@ namespace Battle.StatusEffects.Behaviour
         }
         public void HurtOnPlayerTurnEnd(PlayerTurnEndBattleEvent payload)
         {
+            OnExecuted();
             owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
         }
         public void HurtOnEnemyTurnEnd(EnemyTurnEndBattleEvent payload)
         {
+            OnExecuted();
             owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
         }
         public override void OnMerged() { }

@@ -1,3 +1,5 @@
+using Battle.Cards.Casters;
+
 namespace ViewEvent.BattleView
 {
     public readonly struct BattleStatusEffectApplied : IBattleViewEvent
@@ -58,5 +60,44 @@ namespace ViewEvent.BattleView
         public IReadOnlyBattleStatusEffect BattleStatusEffect => battleStatusEffect;
         public int RemainTurn => remainTurn;
         public int CurrentStack => currentStack;
+    }
+
+    public readonly struct CardEffectExecuted : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly IReadOnlyBattleCard executedCard;
+        private readonly CardCaster caster;
+        private readonly CardTarget target;
+
+        public CardEffectExecuted(int sequenceId, IReadOnlyBattleCard executedCard, CardCaster caster, CardTarget target)
+        {
+            this.sequenceId = sequenceId;
+            this.executedCard = executedCard;
+            this.caster = caster;
+            this.target = target;
+        }
+
+        public int SequenceId => sequenceId;
+        public IReadOnlyBattleCard ExecutedCard => executedCard;
+        public CardCaster Caster => caster;
+        public CardTarget Target => target;
+    }
+
+    public readonly struct BattleStatusEffectExecuted : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly IReadOnlyBattleEntity owner;
+        private readonly IReadOnlyBattleStatusEffect battleStatusEffect;
+
+        public BattleStatusEffectExecuted(int sequenceId, IReadOnlyBattleEntity owner, IReadOnlyBattleStatusEffect battleStatusEffect)
+        {
+            this.sequenceId = sequenceId;
+            this.owner = owner;
+            this.battleStatusEffect = battleStatusEffect;
+        }
+
+        public int SequenceId => sequenceId;
+        public IReadOnlyBattleEntity Owner => owner;
+        public IReadOnlyBattleStatusEffect BattleStatusEffect => battleStatusEffect;
     }
 }

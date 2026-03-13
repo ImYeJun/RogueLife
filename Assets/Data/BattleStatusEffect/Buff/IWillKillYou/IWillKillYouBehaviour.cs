@@ -34,6 +34,7 @@ namespace Battle.StatusEffects.Behaviour
             var source = action.Source;
             if (source.Caster != owner) { return; }
 
+            OnExecuted();
             action.AddDamage(state.StackCount * 5);
         }
     }

@@ -147,7 +147,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
 
                 foreach (var actionData in plannedActions)
                 {
-                    var executeAction = new ExecuteEnemyActionBattleAction(actionData);
+                    var executeAction = new ExecuteEnemyActionBattleAction(enemy, actionData);
                     context.ActionScheduler.Enqueue(new BattleEntityAction(enemy, executeAction));
                 }
             }

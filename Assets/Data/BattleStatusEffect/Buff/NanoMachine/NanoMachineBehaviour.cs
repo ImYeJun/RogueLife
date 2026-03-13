@@ -33,6 +33,7 @@ namespace Battle.StatusEffects.Behaviour
         {
             if (payload.Victim != owner) { return; }
 
+            OnExecuted();
             int healAmount = (int)(payload.Amount * 0.5);
             owner.RequestHeal(healAmount);
             RequestExpire();

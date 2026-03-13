@@ -28,6 +28,7 @@ namespace Battle.StatusEffects.Behaviour
         {
             if (state.StackCount < 3) { return; }
 
+            OnExecuted();
             context.ActionScheduler.Enqueue(new DecreasePhaseCountBattleAction(1));
             state.RequestExpired();
         }

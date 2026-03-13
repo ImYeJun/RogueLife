@@ -20,6 +20,7 @@ namespace Battle.StatusEffects.Behaviour
         {
             if (!isOwnerDied) return;
 
+            OnExecuted();
             if (owner is BattleEnemy enemy)
             {
                 for (int i = 0; i < 2; i++)

@@ -39,8 +39,8 @@ namespace Battle.StatusEffects.Behaviour
             var existingDamage = requestHurtEntityBattleAction.Damage;
             var target = requestHurtEntityBattleAction.Target;
 
+            OnExecuted();
             requestHurtEntityBattleAction.Nullify();
-
             var stack = (int)(existingDamage * 0.5f * state.StackCount);
             var nani = new BattleStatusEffect(naniEntity, stack);
             context.ActionScheduler.Enqueue(new ApplyEntityStatusEffectBattleAction(target, nani));

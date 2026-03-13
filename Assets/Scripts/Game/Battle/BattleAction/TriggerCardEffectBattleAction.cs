@@ -25,6 +25,7 @@ public class TriggerCardEffectBattleAction : IBattleAction
 
         for (int i = 0; i < executeTimes; i++)
         {
+            context.EventBus.Publish(new CardEffectExecutedBattleEvent(card, caster, targetEntity));
             card.Trigger(context, caster, targetEntity, isReflection);
             context.BattleDeckHistory.RecordExecuteCardEffect(card, isReflection);
         }

@@ -33,10 +33,10 @@ namespace Battle.StatusEffects.Behaviour
             {
                 if (targetedAction.Target == owner)
                 {
+                    OnExecuted();
                     entityAction.Nullify();
+                    RequestExpire();
                 }
-
-                RequestExpire();
             }
         }
 

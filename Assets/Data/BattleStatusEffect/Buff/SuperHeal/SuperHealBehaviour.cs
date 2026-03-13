@@ -33,10 +33,12 @@ namespace Battle.StatusEffects.Behaviour
 
         public void HealOnPlayerTurnEnd(PlayerTurnEndBattleEvent payload)
         {
+            OnExecuted();
             owner.RequestHeal(state.StackCount * 5);
         }
         public void HealOnEnemyTurnEnd(EnemyTurnEndBattleEvent payload)
         {
+            OnExecuted();
             owner.RequestHeal(state.StackCount * 5);
         }
     }

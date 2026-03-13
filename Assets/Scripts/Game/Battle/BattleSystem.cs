@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.BattleResultCommands;
 using Battle.StartEffects;
+using Unity.XR.OpenVR;
 using ViewEvent.BattleView;
 
 public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
@@ -77,6 +78,10 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         belongingsBag.SubscribeEventBus(eventBus);
         enemySystem.SubscribeEventBus(eventBus);
         enemySystem.History.SubscribeEventBus(eventBus);
+
+        eventBus.Subscribe<CardEffectExecutedBattleEvent>(OnCardEffectExecuted);
+        eventBus.Subscribe<EnemyActionExecutedBattleEvent>(OnEnemyActionExecuted);
+        eventBus.Subscribe<BattleStatusEffectExecutedBattleEvent>(OnBattleStatusEffectExecuted);
     }
 
     public event Action<BattleResultCommand> OnBattleExit;
@@ -195,4 +200,16 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         scheduler.EndPlayerTurn();
     }
 
+    private void OnCardEffectExecuted(CardEffectExecutedBattleEvent payload)
+    {
+        viewEventBus.Publish(new CardEffectExecuted(viewEventBus.GetNextSequenceId(), payload.ExecutedCard, payload.Caster, payload.Target));
+    }
+    private void OnEnemyActionExecuted(EnemyActionExecutedBattleEvent payload)
+    {
+        viewEventBus.Publish(new EnemyActionExecuted(viewEventBus.GetNextSequenceId(), payload.Actor, payload.Action));
+    }
+    private void OnBattleStatusEffectExecuted(BattleStatusEffectExecutedBattleEvent payload)
+    {
+        viewEventBus.Publish(new BattleStatusEffectExecuted(viewEventBus.GetNextSequenceId(), payload.Owner, payload.BattleStatusEffect));
+    }
 }

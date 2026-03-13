@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // ⭐️ 수정된 부분: 텍스트 UI를 위해 추가
+using TMPro;
 using ViewEvent.BattleView;
 using UnityEngine.EventSystems;
 

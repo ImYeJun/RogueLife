@@ -22,6 +22,7 @@ namespace Battle.StatusEffects.Behaviour
         {
             if (requestHurtEntity.Target != owner) { return; }
 
+            OnExecuted();
             requestHurtEntity.Nullify();
             RequestExpire();
         }

@@ -10,6 +10,8 @@ public class BattleStatusEffect : IBattleStatusEffectState, IReadOnlyBattleStatu
     private BattleStatusEffectBehaviour behaviour;
     private Action<BattleStatusEffect> OnExpired;
 
+    public event Action<IReadOnlyBattleStatusEffect> OnExecuted;
+
     private BattleStatusEffect(BattleStatusEffectEntity entity, int stackCount, int remainTurn, bool isDurationEternal)
     {
         this.entity = entity;
@@ -47,12 +49,14 @@ public class BattleStatusEffect : IBattleStatusEffectState, IReadOnlyBattleStatu
         OnExpired = onExpired;
 
         behaviour = entity.CloneBehaviour(context, owner, this);
+        behaviour.Executed += Executed;
         behaviour.OnApplied();
     }
     
     public void OnRemoved(bool isOwnerDied = false)
     {
         behaviour.OnRemoved(isOwnerDied);
+        behaviour.Executed -= Executed;
     }
 
     public void DecreaseTurn(int amount = 1)
@@ -89,5 +93,10 @@ public class BattleStatusEffect : IBattleStatusEffectState, IReadOnlyBattleStatu
                 remainTurn = Mathf.Max(remainTurn, newEffect.remainTurn);
             }
         }
+    }
+
+    private void Executed()
+    {
+        OnExecuted?.Invoke(this);
     }
 }

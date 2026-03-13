@@ -22,6 +22,7 @@ public class UseCardEffectBattleAction : IBattleAction
     {
         for (int i = 0; i < executeTimes; i++)
         {
+            context.EventBus.Publish(new CardEffectExecutedBattleEvent(card, caster, target));
             card.Use(context, caster, target);
             context.BattleDeckHistory.RecordExecuteCardEffect(card, card.IsReflectionApplied);
         }

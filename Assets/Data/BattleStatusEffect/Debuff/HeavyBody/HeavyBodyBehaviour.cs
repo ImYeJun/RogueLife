@@ -19,6 +19,7 @@ namespace Battle.StatusEffects.Behaviour
 
         public void IncreaseCost(TryUseCardBattleAction tryUseCard, BattleContext context)
         {
+            OnExecuted();
             tryUseCard.IncreaseCost(state.StackCount);
 
             RequestExpire();

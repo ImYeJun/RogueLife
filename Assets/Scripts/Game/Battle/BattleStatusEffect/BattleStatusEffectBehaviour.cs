@@ -10,6 +10,8 @@ public abstract class BattleStatusEffectBehaviour
 
     protected BattleStatusEffectBehaviour() {}
 
+    public event Action Executed;
+
     protected BattleStatusEffectBehaviour(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)
     {
         this.context = context;
@@ -17,6 +19,11 @@ public abstract class BattleStatusEffectBehaviour
         this.state = state;
     }
 
+    //TODO Make sure subclass always call this method by rectoring with template method pattern
+    protected void OnExecuted()
+    {
+        Executed?.Invoke();
+    }
     public abstract void OnApplied();
     public abstract void OnRemoved(bool isOwnerDied = false);
     public abstract void OnMerged();

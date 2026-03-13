@@ -23,6 +23,7 @@ namespace Battle.StatusEffects.Behaviour
             if (requestHurtEntity.HasNullified) { return; }
             if (requestHurtEntity.Damage <= 0) { return; }
 
+            OnExecuted();
             requestHurtEntity.ReduceDamage(state.StackCount * 5);
             RequestExpire();
         }

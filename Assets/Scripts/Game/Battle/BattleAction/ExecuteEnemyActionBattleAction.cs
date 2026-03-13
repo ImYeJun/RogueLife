@@ -2,10 +2,12 @@ using Battle.Enemies.Actions;
 
 public class ExecuteEnemyActionBattleAction : IBattleAction
 {
+    private IReadOnlyBattleEnemy actor;
     private EnemyAction action;
 
-    public ExecuteEnemyActionBattleAction(EnemyAction action)
+    public ExecuteEnemyActionBattleAction(IReadOnlyBattleEnemy actor, EnemyAction action)
     {
+        this.actor = actor;
         this.action = action;
     }
 
@@ -13,6 +15,7 @@ public class ExecuteEnemyActionBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
+        context.EventBus.Publish(new EnemyActionExecutedBattleEvent(actor, action));
         action.Execute(context);
     }
 }

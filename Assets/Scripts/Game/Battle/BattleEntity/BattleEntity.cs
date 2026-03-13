@@ -116,6 +116,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         {
             targetDict[newEffect.Data] = newEffect;
             newEffect.OnApplied(context, this, RequestRemoveStatusEffect);
+            newEffect.OnExecuted += OnBattleStatusEffectExecuted;
             viewEventPublisher.Publish(new BattleStatusEffectApplied(viewEventPublisher.GetNextSequenceId(), this, newEffect));
         }
 
@@ -178,6 +179,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         if (targetDict != null && targetDict.ContainsKey(statusEffect.Data))
         {
             statusEffect.OnRemoved();
+            statusEffect.OnExecuted -= OnBattleStatusEffectExecuted;
             targetDict.Remove(statusEffect.Data);
 
             UpdateCondition();
@@ -203,6 +205,11 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
             currentCondition |= debuff.GrantedCondition;
         }
     }
+
+    private void OnBattleStatusEffectExecuted(IReadOnlyBattleStatusEffect battleStatusEffect)
+    {
+        context.EventBus.Publish(new BattleStatusEffectExecutedBattleEvent(this, battleStatusEffect));
+    } 
 
     private Dictionary<BattleStatusEffectData, BattleStatusEffect> GetEffectDictionary(BattleStatusEffectType type)
     {

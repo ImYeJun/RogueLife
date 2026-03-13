@@ -35,6 +35,7 @@ namespace Battle.StatusEffects.Behaviour
             var source = requestHurtEntityBattleAction.Source;
             if (source.Caster is not BattleEntity sourceEntity) { return; }
 
+            OnExecuted();
             context.ActionScheduler.Enqueue(new RequestHurtEntityBattleAction(owner.GetAsHurtSource(), state.StackCount * 5, sourceEntity));
             RequestExpire();
         }

@@ -26,6 +26,7 @@ namespace Battle.StatusEffects.Behaviour
         {
             if (requestHurtEntityBattleAction.Target != owner) { return; }
 
+            OnExecuted();
             requestHurtEntityBattleAction.ReduceDamage(state.StackCount * 5);
         }
 

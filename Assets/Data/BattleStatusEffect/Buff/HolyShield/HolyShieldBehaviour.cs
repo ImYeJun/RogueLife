@@ -40,6 +40,7 @@ namespace Battle.StatusEffects.Behaviour
             if (sourceEntitiy is null || sourceEntitiy == owner) { return; }
 
             int damage = (int)(payload.Amount * 0.5);
+            OnExecuted();
             var action = new RequestHurtEntityBattleAction(new NoneEntitySource(), damage, sourceEntitiy);
             context.ActionScheduler.Enqueue(action);
             RequestExpire();

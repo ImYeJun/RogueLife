@@ -21,6 +21,7 @@ namespace Battle.StatusEffects.Behaviour
         {
             if (entityAction.Actor != owner) { return; }
 
+            OnExecuted();
             entityAction.Nullify();
             RequestExpire();
         }
