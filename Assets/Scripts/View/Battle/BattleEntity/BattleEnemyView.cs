@@ -6,6 +6,7 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Collections;
 
 namespace View.BattleView
 {
@@ -35,6 +36,7 @@ namespace View.BattleView
             eventBus.Subscribe<EnemyHurt>(OnEnemyHurt);
             eventBus.Subscribe<EnemyHealed>(OnEnemyHealed);
             eventBus.Subscribe<EnemyDied>(OnEnemyDied);
+            eventBus.Subscribe<EnemyActionExecuted>(OnEnemyActionExecuted);
         }
 
         public override void OnDestroy()
@@ -44,6 +46,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<EnemyHurt>(OnEnemyHurt);
             eventBus?.Unsubscribe<EnemyHealed>(OnEnemyHealed);
             eventBus?.Unsubscribe<EnemyDied>(OnEnemyDied);
+            eventBus?.Unsubscribe<EnemyActionExecuted>(OnEnemyActionExecuted);
         }
 
         public void Initialize(IReadOnlyBattleEnemy enemy, Vector3 spawnPos)
@@ -118,6 +121,18 @@ namespace View.BattleView
             if (!payload.DiedEnemy.Equals(enemy)) { return; }
             actionIcons.Clear();
             Destroy(gameObject); 
+        }
+
+        private void OnEnemyActionExecuted(EnemyActionExecuted payload)
+        {
+            if (payload.Actor != enemy) { return; }
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, ActionExecutedPresentation(payload));
+        }
+        private IEnumerator ActionExecutedPresentation(EnemyActionExecuted payload)
+        {
+            Debug.Log($"{payload.Action} 실행 연출");
+            yield return new WaitForSeconds(1.0f);
         }
 
         private void DrawHealthBar(int currentHealth, int maxHealth)

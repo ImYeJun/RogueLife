@@ -92,4 +92,15 @@ public static class PresentationPriority
     public const int CardRestored_HandDeckPresentation = 10;
     public const int CardRestored_DrawGraveDeckCount = 20;
     public const int CardRestored_DrawDrawDeckCount = 20;
+
+    //Card Effect Executed
+    public const int CardEffectExecuted_CasterAction = 10;
+
+    //Enemy Action Executed
+    public const int EnemyActionExecuted_ActorAction = 10;
+
+    //Battle Status Effect Executed
+    public const int BattleStatusEffectExecuted_IconAction = 10;
+
+    
 }

@@ -5,6 +5,7 @@ using ViewEvent.BattleView;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using System.Collections;
 
 namespace View.BattleView
 {
@@ -27,6 +28,7 @@ namespace View.BattleView
             eventBus.Subscribe<PlayerSettled>(OnPlayerSettled);
             eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
             eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
+            eventBus.Subscribe<CardEffectExecuted>(OnCardEffectExecuted);
         }
 
         public override void OnDestroy()
@@ -35,6 +37,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<PlayerSettled>(OnPlayerSettled);
             eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
             eventBus?.Unsubscribe<PlayerHealed>(OnPlayerHealed);
+            eventBus?.Unsubscribe<CardEffectExecuted>(OnCardEffectExecuted);
         }
 
         public void OnPlayerSettled(PlayerSettled payload)
@@ -72,6 +75,21 @@ namespace View.BattleView
 
             DrawBattleHealthBar(payload.CurrentBattleHealth, player.Health.MaxBattleHealth);
         }
+
+        private void OnCardEffectExecuted(CardEffectExecuted payload)
+        {
+            if (!payload.Caster.Caster.Equals(player))
+            {
+                throw new InvalidOperationException("[BattlePlayerView] Card Caster is expected Player for now. But other entity executed a Card");
+            }
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardEffectExecuted_CasterAction, CardExecutePresentation(payload));
+        }
+        private IEnumerator CardExecutePresentation(CardEffectExecuted payload)
+        {
+            Debug.Log($"{payload.ExecutedCard.CurrentName} 카드 효과 연출 실행");
+            yield return new WaitForSeconds(1.0f);
+        } 
 
         private void DrawBattleHealthBar(int currentHealth, int maxHealth)
         {

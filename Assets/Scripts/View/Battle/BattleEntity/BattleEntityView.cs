@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -26,6 +27,7 @@ namespace View.BattleView
             eventBus.Subscribe<BattleStatusEffectApplied>(OnStatusEffectApplied);
             eventBus.Subscribe<BattleStatusEffectRemoved>(OnStatusEffectRemoved);
             eventBus.Subscribe<BattleStatusEffectChanged>(OnStatusEffectChanged);
+            eventBus.Subscribe<BattleStatusEffectExecuted>(OnStatusEffectExecuted);
         }
 
         public override void OnDestroy()
@@ -33,6 +35,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<BattleStatusEffectApplied>(OnStatusEffectApplied);
             eventBus?.Unsubscribe<BattleStatusEffectRemoved>(OnStatusEffectRemoved);
             eventBus?.Unsubscribe<BattleStatusEffectChanged>(OnStatusEffectChanged);
+            eventBus?.Unsubscribe<BattleStatusEffectExecuted>(OnStatusEffectExecuted);
         }
 
         private void OnStatusEffectApplied(BattleStatusEffectApplied payload)
@@ -77,6 +80,25 @@ namespace View.BattleView
             {
                 throw new InvalidOperationException("[BattleEntityView] Received changed event for an untracked status effect.");
             }
+        }
+
+        private void OnStatusEffectExecuted(BattleStatusEffectExecuted payload)
+        {
+            if (!payload.Owner.Equals(entity)) { return; }
+
+            var iconView = battleStatusEffectIcons.FirstOrDefault(icon => icon.CurrentEffect == payload.BattleStatusEffect);
+
+            if (iconView is null)
+            {
+                throw new InvalidCastException($"[BattleEntityView] Given Entity({gameObject.name}) doesn't contain battle status effect({payload.BattleStatusEffect.Data.Name}) but try to execute.");
+            }
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, StatusEffectExectuedPresentation(payload));
+        }
+        private IEnumerator StatusEffectExectuedPresentation(BattleStatusEffectExecuted payload)
+        {
+            Debug.Log($"{payload.BattleStatusEffect.Data.Name} 효과 실행 됨");
+            yield return new WaitForSeconds(1.0f);
         }
 
         public void OnCardTargetable(Action<T> onClicked)

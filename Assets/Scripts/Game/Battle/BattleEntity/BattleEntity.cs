@@ -188,7 +188,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         }
         else
         {
-            Debug.LogWarning("[BattleEntity] The battle entity doesn't contain given status effect");
+            Debug.LogWarning($"[BattleEntity] The battle entity doesn't contain given status effect {statusEffect.Data.Name}");
         }
     }
     
