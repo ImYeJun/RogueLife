@@ -79,4 +79,17 @@ public static class PresentationPriority
 
     //Cost Restored
     public const int CostRestored_CountCost = 10;
+
+    //Card Drawed
+    public const int CardDrawed_HandDeckPresentation = 10;
+    public const int CardDrawed_DrawDrawDeckCount = 20;
+    
+    //Card Discarded
+    public const int CardDiscarded_HandDeckPresentation = 10;
+    public const int CardDiscarded_DrawGraveDeckCount = 20;
+
+    //Card Restored
+    public const int CardRestored_HandDeckPresentation = 10;
+    public const int CardRestored_DrawGraveDeckCount = 20;
+    public const int CardRestored_DrawDrawDeckCount = 20;
 }

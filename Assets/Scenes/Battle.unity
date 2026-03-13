@@ -2543,8 +2543,30 @@ MonoBehaviour:
   closeHandDeckDuration: 0.3
   closeHandDeckEasingType: 9
   drawDeckPosition: {fileID: 1395829481}
+  drawTargetMoveDuration: 0.25
+  drawTargetMoveEase: 6
+  drawTargetRotateDuration: 0.25
+  drawTargetRotateEase: 6
+  drawTargetScaleDuration: 0.15
+  drawTargetScaleEase: 27
+  drawExistingMoveDuration: 0.1
+  drawExistingMoveEase: 6
+  drawExistingRotateDuration: 0.1
+  drawExistingRotateEase: 6
   graveDeckPosition: {fileID: 755915899}
   discardControlPointOffset: {fileID: 778315170}
+  discardTargetMoveDuration: 0.3
+  discardTargetMoveEase: 5
+  discardTargetRotateDuration: 0.3
+  discardTargetRotateEase: 5
+  discardTargetScaleDuration: 0.3
+  discardTargetScaleEase: 26
+  discardExistingMoveDuration: 0.25
+  discardExistingMoveEase: 6
+  discardExistingRotateDuration: 0.25
+  discardExistingRotateEase: 6
+  restoreCardDuration: 0.1
+  restorCardEase: 12
 --- !u!1 &1469854391
 GameObject:
   m_ObjectHideFlags: 0

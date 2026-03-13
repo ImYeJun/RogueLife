@@ -3,6 +3,7 @@ using View.Core;
 using ViewEvent.Core;
 using ViewEvent.BattleView;
 using TMPro;
+using System.Collections;
 
 namespace View.BattleView
 {
@@ -41,25 +42,72 @@ namespace View.BattleView
 
         private void OnCardDrawed(CardDrawed payload)
         {
-            DrawDeckCountText();
+            int targetCount = handDeck.Count; 
+            
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.CardDrawed_DrawDrawDeckCount, 
+                UpdateDrawDeckCountPresentation(targetCount)
+            );
         }
 
         private void OnCardDiscarded(CardDiscarded payload)
         {
-            DrawDeckCountText();
+            int targetCount = graveDeck.Count;
+
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.CardDiscarded_DrawGraveDeckCount, 
+                UpdateGraveDeckCountPresentation(targetCount)
+            );
         }
 
         private void OnCardRestored(CardRestored payload)
         {
-            DrawDeckCountText();
+            int targetGraveCount = graveDeck.Count;
+            int targetDrawCount = handDeck.Count;
+
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.CardRestored_DrawGraveDeckCount, 
+                UpdateGraveDeckCountPresentation(targetGraveCount)
+            );
+
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.CardRestored_DrawDrawDeckCount, 
+                UpdateDrawDeckCountPresentation(targetDrawCount)
+            );
+        }
+
+        private IEnumerator UpdateDrawDeckCountPresentation(int targetCount)
+        {
+            DrawDrawDeckCountText(targetCount);
+            yield return null;
+        }
+
+        private IEnumerator UpdateGraveDeckCountPresentation(int targetCount)
+        {
+            DrawGraveDeckCountText(targetCount);
+            yield return null;
+        }
+
+        private void DrawDrawDeckCountText(int currentDrawDeckCount)
+        {
+            drawDeckCountText.text = currentDrawDeckCount.ToString();
+        }
+        
+        private void DrawGraveDeckCountText(int currentGraveDeckCount)
+        {
+            graveDeckCountText.text = currentGraveDeckCount.ToString();
         }
 
         private void DrawDeckCountText()
         {
             if (handDeck == null || graveDeck == null) return;
 
-            drawDeckCountText.text = handDeck.Count.ToString();
-            graveDeckCountText.text = graveDeck.Count.ToString();
+            DrawDrawDeckCountText(handDeck.Count);
+            DrawGraveDeckCountText(graveDeck.Count);
         }
     }
 }

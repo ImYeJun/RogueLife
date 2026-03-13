@@ -35,10 +35,42 @@ namespace View.BattleView
 
         [Header("Draw Card Presentation")]
         [SerializeField] private RectTransform drawDeckPosition;
+        
+        [Header("- Target Card (Drawing)")]
+        [SerializeField] private float drawTargetMoveDuration = 0.4f;
+        [SerializeField] private Ease drawTargetMoveEase = Ease.OutQuad;
+        [SerializeField] private float drawTargetRotateDuration = 0.4f;
+        [SerializeField] private Ease drawTargetRotateEase = Ease.OutQuad;
+        [SerializeField] private float drawTargetScaleDuration = 0.3f;
+        [SerializeField] private Ease drawTargetScaleEase = Ease.OutBack;
 
-        [Header("Dicard Card Presentation")]
+        [Header("- Existing Cards (Rearranging)")]
+        [SerializeField] private float drawExistingMoveDuration = 0.3f;
+        [SerializeField] private Ease drawExistingMoveEase = Ease.OutQuad;
+        [SerializeField] private float drawExistingRotateDuration = 0.3f;
+        [SerializeField] private Ease drawExistingRotateEase = Ease.OutQuad;
+
+        [Header("Discard Card Presentation")]
         [SerializeField] private RectTransform graveDeckPosition;
         [SerializeField] private RectTransform discardControlPointOffset;
+        
+        [Header("- Target Card (Discarding)")]
+        [SerializeField] private float discardTargetMoveDuration = 0.5f;
+        [SerializeField] private Ease discardTargetMoveEase = Ease.InQuad;
+        [SerializeField] private float discardTargetRotateDuration = 0.5f;
+        [SerializeField] private Ease discardTargetRotateEase = Ease.InQuad;
+        [SerializeField] private float discardTargetScaleDuration = 0.5f;
+        [SerializeField] private Ease discardTargetScaleEase = Ease.InBack;
+
+        [Header("- Existing Cards (Rearranging)")]
+        [SerializeField] private float discardExistingMoveDuration = 0.3f;
+        [SerializeField] private Ease discardExistingMoveEase = Ease.OutQuad;
+        [SerializeField] private float discardExistingRotateDuration = 0.3f;
+        [SerializeField] private Ease discardExistingRotateEase = Ease.OutQuad;
+
+        [Header("Restore Card Presentation")]
+        [SerializeField] private float restoreCardDuration;
+        [SerializeField] private Ease restorCardEase;
 
         private bool isHandDeckOpened;
         private Tween currentHandDeckTween;
@@ -58,13 +90,16 @@ namespace View.BattleView
             eventBus.Subscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
             eventBus.Subscribe<CardDrawed>(OnCardDrawed);
             eventBus.Subscribe<CardDiscarded>(OnCardDiscarded);
+            eventBus.Subscribe<CardRestored>(OnCardRestored);
         }
+
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
             eventBus?.Unsubscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
             eventBus?.Unsubscribe<CardDrawed>(OnCardDrawed);
             eventBus?.Unsubscribe<CardDiscarded>(OnCardDiscarded);
+            eventBus?.Unsubscribe<CardRestored>(OnCardRestored);
         }
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
@@ -113,15 +148,15 @@ namespace View.BattleView
             newCardView.gameObject.SetActive(false);
             cardViews.Add(newCardView);
 
-            presentationManager.Enqueue(payload.SequenceId, -1, DrawCardPresentation(newCardView, new List<BattleCardView>(cardViews)));
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDrawed_HandDeckPresentation, DrawCardPresentation(newCardView, new List<BattleCardView>(cardViews)));
         }
-
         private IEnumerator DrawCardPresentation(BattleCardView drawedCardView, List<BattleCardView> currentCardViews)
         {
             RectTransform drawCardRect = drawedCardView.rectTransform;
 
             drawCardRect.position = drawDeckPosition.position;
             drawCardRect.rotation = drawDeckPosition.rotation; 
+            drawCardRect.localScale = Vector3.zero; 
 
             Sequence sequence = DOTween.Sequence();
             for (int i = 0; i < currentCardViews.Count; i++)
@@ -133,8 +168,17 @@ namespace View.BattleView
                 GetCardPositionAngle(i, currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
                 view.SetBaseLayoutTransform(targetPos, targetAngle);
 
-                sequence.Join(view.rectTransform.DOAnchorPos(targetPos, 0.1f).SetEase(Ease.OutQuad));
-                sequence.Join(view.transform.DORotate(targetAngle, 0.1f, RotateMode.Fast).SetEase(Ease.OutQuad));
+                if (view == drawedCardView)
+                {
+                    sequence.Join(view.rectTransform.DOAnchorPos(targetPos, drawTargetMoveDuration).SetEase(drawTargetMoveEase));
+                    sequence.Join(view.transform.DORotate(targetAngle, drawTargetRotateDuration, RotateMode.Fast).SetEase(drawTargetRotateEase));
+                    sequence.Join(view.transform.DOScale(Vector3.one, drawTargetScaleDuration).SetEase(drawTargetScaleEase));
+                }
+                else
+                {
+                    sequence.Join(view.rectTransform.DOAnchorPos(targetPos, drawExistingMoveDuration).SetEase(drawExistingMoveEase));
+                    sequence.Join(view.transform.DORotate(targetAngle, drawExistingRotateDuration, RotateMode.Fast).SetEase(drawExistingRotateEase));
+                }
             }
 
             yield return sequence.WaitForCompletion();
@@ -142,11 +186,11 @@ namespace View.BattleView
 
         private void OnCardDiscarded(CardDiscarded payload)
         {
-            var view = cardViews.FirstOrDefault(view => view.Card == payload.Card);
+            var view = cardViews.FirstOrDefault(v => v.Card == payload.Card);
             
             if (view is null)
             {
-                throw new InvalidOperationException($"[DeckViewSystem] Given UI isn't presenting {payload.Card}");
+                throw new InvalidOperationException($"[DeckViewSystem/OnCardDiscarded] Given UI isn't presenting card ID: {payload.Card}");
             }
 
             cardViews.Remove(view);
@@ -156,7 +200,7 @@ namespace View.BattleView
                 cardDescriptionView.Unfocus();
             }
             
-            presentationManager.Enqueue(payload.SequenceId, 0, DiscardCardPresentation(view, new List<BattleCardView>(cardViews)));
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(view, new List<BattleCardView>(cardViews)));
         }
         private IEnumerator DiscardCardPresentation(BattleCardView discardCard, List<BattleCardView> currentCardViews)
         {
@@ -167,16 +211,17 @@ namespace View.BattleView
             Vector3 startPos = discardCardRect.position;
             Vector3 endPos = graveDeckPosition.position;
             Vector3 controlPos = discardControlPointOffset.position;
+            
             float t = 0f;
+            
             sequence.Join(DOTween.To(() => t, x => 
             {
                 t = x; 
                 discardCardRect.position = CalculateQuadraticBezierPoint(t, startPos, controlPos, endPos);
-            }, 1f, 1f).SetEase(Ease.InOutCubic));
+            }, 1f, discardTargetMoveDuration).SetEase(discardTargetMoveEase));
 
-            // sequence.Join(discardCardRect.DOMove(graveDeckPosition.position, 1).SetEase(Ease.OutQuad));
-            sequence.Join(discardCardRect.DORotate(graveDeckPosition.rotation.eulerAngles, 1).SetEase(Ease.OutQuad));
-            sequence.Join(discardCardRect.DOScale(0.4f, 1)).SetEase(Ease.OutQuad);
+            sequence.Join(discardCardRect.DORotate(graveDeckPosition.rotation.eulerAngles, discardTargetRotateDuration).SetEase(discardTargetRotateEase));
+            sequence.Join(discardCardRect.DOScale(0.2f, discardTargetScaleDuration).SetEase(discardTargetScaleEase));
 
             for (int i = 0; i < currentCardViews.Count; i++)
             {
@@ -187,8 +232,8 @@ namespace View.BattleView
                 GetCardPositionAngle(i, currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
                 view.SetBaseLayoutTransform(targetPos, targetAngle);
 
-                sequence.Join(view.rectTransform.DOAnchorPos(targetPos, 0.3f).SetEase(Ease.OutQuad));
-                sequence.Join(view.transform.DORotate(targetAngle, 0.3f, RotateMode.Fast).SetEase(Ease.OutQuad));
+                sequence.Join(view.rectTransform.DOAnchorPos(targetPos, discardExistingMoveDuration).SetEase(discardExistingMoveEase));
+                sequence.Join(view.transform.DORotate(targetAngle, discardExistingRotateDuration, RotateMode.Fast).SetEase(discardExistingRotateEase));
             }
 
             yield return sequence.WaitForCompletion();
@@ -208,6 +253,21 @@ namespace View.BattleView
             return p;
         }
 
+        private void OnCardRestored(CardRestored payload)
+        {
+            var view = CreateBattleCardView(payload.Card);
+            view.gameObject.SetActive(false);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardRestored_HandDeckPresentation, RestoreCardPresentation(view));
+        }
+        private IEnumerator RestoreCardPresentation(BattleCardView cardView)
+        {
+            cardView.gameObject.SetActive(true);
+            cardView.transform.position = graveDeckPosition.position;
+            yield return cardView.transform.DOMove(drawDeckPosition.position, restoreCardDuration).SetEase(restorCardEase).WaitForCompletion();
+            Destroy(cardView.gameObject);
+        }
+
+
         private BattleCardView CreateBattleCardView(Card card)
         {
             var instantiatedCard = Instantiate(battleCardView, cardContainer);
@@ -217,25 +277,6 @@ namespace View.BattleView
 
             return cardView;
         }
-
-        // private void DrawHandCards()
-        // {
-        //     for (int i = 0; i < cardViews.Count; i++)
-        //     {
-        //         var view = cardViews[i];
-                
-        //         view.transform.SetSiblingIndex(i);
-
-        //         GetCardPositionAngle(i, cardViews.Count, out Vector3 position, out Vector3 angle);
-        //         view.SetLayoutTransform(position, angle);
-        //     }
-
-        //     if (focusedCardView != null)
-        //     {
-        //         focusedCardViewIndex = cardViews.IndexOf(focusedCardView);
-        //         focusedCardView.transform.SetAsLastSibling();
-        //     }
-        // }
 
         private void GetCardPositionAngle(int cardIndex, int totalCount, out Vector3 position, out Vector3 angle)
         {
@@ -247,19 +288,9 @@ namespace View.BattleView
             float targetX = normalizedX * currentWidth;
             float targetY = (-normalizedX * normalizedX + 1f) * handHeight;
             float targetAngle = Mathf.Lerp(maxCardAngle, -maxCardAngle, layoutProgress);
-            
 
             position = new Vector3(targetX, targetY, 0f);
             angle = new Vector3(0f, 0f, targetAngle);
-        }
-
-        private IEnumerator CardDiscardPresentation()
-        {
-            yield return null;
-        }
-        private IEnumerator CardRevivePresentation()
-        {
-            yield return null;
         }
 
         public void OnCardClicked(BattleCardView cardView)
@@ -305,6 +336,7 @@ namespace View.BattleView
         [ContextMenu("Test Open Hand Deck (Direct)")]
         public void TestOpenHandDeck()
         {
+            if (!Application.isPlaying) return;
             StartCoroutine(DelayedTestRoutine(OpenHandDeckPresentation()));
             isHandDeckOpened = true;
         }
@@ -319,7 +351,7 @@ namespace View.BattleView
 
         private IEnumerator DelayedTestRoutine(IEnumerator targetPresentation)
         {
-            yield return new WaitForSeconds(0.5f); 
+            yield return new WaitForSeconds(0.4f); 
             yield return StartCoroutine(targetPresentation);
         }
 #endif
