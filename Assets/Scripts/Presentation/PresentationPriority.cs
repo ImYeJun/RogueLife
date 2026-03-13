@@ -102,5 +102,20 @@ public static class PresentationPriority
     //Battle Status Effect Executed
     public const int BattleStatusEffectExecuted_IconAction = 10;
 
+    //Enemy Hurt
+    public const int EnemyHurt_EnemyPresentation = 10;
+    public const int EnemyHurt_HealthBarPresentation = 10;
+
+    //Enemy Heal
+    public const int EnemyHeal_HealthBarPresentation = 10;
     
+    //Enemy Died
+    public const int EnemyDied_DiePresentation = 10;
+
+    //Player Hurt
+    public const int PlayerHurt_EnemyPresentation = 10;
+    public const int PlayerHurt_HealthBarPresentation = 10;
+
+    //Player Heal
+    public const int PlayerHeal_HealthBarPresentation = 10;
 }

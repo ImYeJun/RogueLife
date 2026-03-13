@@ -12,6 +12,7 @@ namespace View.BattleView
     public class BattlePlayerView : BattleEntityView<IReadOnlyBattlePlayer>
     {
         private IReadOnlyBattlePlayer player;
+        private BattlePlayerActionPresentation actionPresentation;
 
         [Header("BattlePlayerView")]
         [SerializeField] private Vector2 initialPos;
@@ -19,16 +20,19 @@ namespace View.BattleView
         [SerializeField] private TextMeshProUGUI battleHeatlhText;
         [SerializeField] private Image mentalityBar;
         [SerializeField] private TextMeshProUGUI mentaltiyText;
+        [SerializeField] private TextMeshProUGUI actionText;
 
         public IReadOnlyBattlePlayer Player { get => player; }
 
         public override void OnInitialized()
         {
             base.OnInitialized();
+            actionPresentation = GetComponent<BattlePlayerActionPresentation>();
+
             eventBus.Subscribe<PlayerSettled>(OnPlayerSettled);
             eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
             eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
-            eventBus.Subscribe<CardEffectExecuted>(OnCardEffectExecuted);
+            eventBus.Subscribe<CardEffectExecuted>(actionPresentation.OnCardEffectExecuted);
         }
 
         public override void OnDestroy()
@@ -37,7 +41,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<PlayerSettled>(OnPlayerSettled);
             eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
             eventBus?.Unsubscribe<PlayerHealed>(OnPlayerHealed);
-            eventBus?.Unsubscribe<CardEffectExecuted>(OnCardEffectExecuted);
+            eventBus?.Unsubscribe<CardEffectExecuted>(actionPresentation.OnCardEffectExecuted);
         }
 
         public void OnPlayerSettled(PlayerSettled payload)
@@ -47,6 +51,7 @@ namespace View.BattleView
             player = payload.Player;
             entity = player;
             
+            actionPresentation.Initiate(player, presentationManager, PlayActionPresentation);
             DrawBattleHealthBar(player.Health.CurrentBattleHealth, player.Health.MaxBattleHealth);
             DrawMentalityBar(player.Health.CurrentMentality, player.Health.MaxMentality);
         }
@@ -55,41 +60,51 @@ namespace View.BattleView
         {
             if (player == null)
             {
-                throw new InvalidOperationException("[BattlePlayerView] The player entity is not initialized yet.");
+                throw new InvalidOperationException("[BattlePlayerView/OnPlayerHurt] The player entity is not initialized yet.");
             }
 
             if (!payload.Player.Equals(player)) { return; }
 
-            DrawBattleHealthBar(payload.CurrentBattleHealth, player.Health.MaxBattleHealth);
-            DrawMentalityBar(payload.CurrentMentality, player.Health.MaxMentality);
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.PlayerHurt_HealthBarPresentation, 
+                UpdateHurtHealthBarPresentation(payload.CurrentBattleHealth, payload.CurrentMentality, player.Health.MaxBattleHealth, player.Health.MaxMentality)
+            );
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.PlayerHurt_HealthBarPresentation, 
+                PlayHurtPresentation()
+            );
         }
 
         private void OnPlayerHealed(PlayerHealed payload)
         {
             if (player == null)
             {
-                throw new InvalidOperationException("[BattlePlayerView] The player entity is not initialized yet.");
+                throw new InvalidOperationException("[BattlePlayerView/OnPlayerHealed] The player entity is not initialized yet.");
             }
 
             if (!payload.Player.Equals(player)) { return; }
 
-            DrawBattleHealthBar(payload.CurrentBattleHealth, player.Health.MaxBattleHealth);
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.PlayerHeal_HealthBarPresentation, 
+                UpdateHealHealthBarPresentation(payload.CurrentBattleHealth, player.Health.MaxBattleHealth)
+            );
         }
 
-        private void OnCardEffectExecuted(CardEffectExecuted payload)
+        private IEnumerator UpdateHurtHealthBarPresentation(int currentHealth, int currentMentality, int maxHealth, int maxMentality)
         {
-            if (!payload.Caster.Caster.Equals(player))
-            {
-                throw new InvalidOperationException("[BattlePlayerView] Card Caster is expected Player for now. But other entity executed a Card");
-            }
-
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardEffectExecuted_CasterAction, CardExecutePresentation(payload));
+            DrawBattleHealthBar(currentHealth, maxHealth);
+            DrawMentalityBar(currentMentality, maxMentality);
+            yield return null;
         }
-        private IEnumerator CardExecutePresentation(CardEffectExecuted payload)
+
+        private IEnumerator UpdateHealHealthBarPresentation(int currentHealth, int maxHealth)
         {
-            Debug.Log($"{payload.ExecutedCard.CurrentName} 카드 효과 연출 실행");
-            yield return new WaitForSeconds(1.0f);
-        } 
+            DrawBattleHealthBar(currentHealth, maxHealth);
+            yield return null;
+        }
 
         private void DrawBattleHealthBar(int currentHealth, int maxHealth)
         {
@@ -103,6 +118,20 @@ namespace View.BattleView
             float normalizedMentality = maxMentality == 0 ? 0 : (float)currentMentality / maxMentality;
             mentalityBar.fillAmount = normalizedMentality;
             mentaltiyText.text = $"{currentMentality}/{maxMentality}";
+        }
+
+        public override IEnumerator PlayHurtPresentation()
+        {
+            actionText.text = "아야 아파요";
+            yield return new WaitForSeconds(1.0f);
+            actionText.text = "";
+        }
+        
+        public override IEnumerator PlayActionPresentation()
+        {
+            actionText.text = "행동함";
+            yield return new WaitForSeconds(1.0f);
+            actionText.text = "";
         }
     }
 }

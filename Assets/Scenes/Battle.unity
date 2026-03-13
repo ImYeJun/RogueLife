@@ -2345,6 +2345,10 @@ PrefabInstance:
       propertyPath: m_CellSize.y
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 6855730422780328402, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: battleEnemyViewController
+      value: 
+      objectReference: {fileID: 1479479579}
     - target: {fileID: 6894954872006343217, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
       value: 1

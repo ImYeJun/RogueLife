@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace View.BattleView
 {
-    public class BattleStatusEffectIcon : MonoBehaviour, IPointerEnterHandler
+    public class BattleStatusEffectIcon : MonoBehaviour, IPointerClickHandler
     {
         [SerializeField] private Image effectImage;
         [SerializeField] private TextMeshProUGUI stackText;
@@ -34,7 +34,7 @@ namespace View.BattleView
             remainTurnText.text = currentEffect.IsDurationEternal ? "" : remainTurn.ToString();
         }
 
-        public void OnPointerEnter(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
             if (currentEffect is not null)
             {

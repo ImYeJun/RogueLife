@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using View.Core;
@@ -14,7 +15,7 @@ namespace View.BattleView
         [Header("BattleEntityView")]
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] private GameObject battleStatusEffectIconPrefab;
-        [SerializeField] private Transform battleStatusEffectIconContainer;
+        [SerializeField] protected Transform battleStatusEffectIconContainer;
         
         private List<BattleStatusEffectIcon> battleStatusEffectIcons = new List<BattleStatusEffectIcon>();
 
@@ -107,7 +108,7 @@ namespace View.BattleView
             onClickedCallback = onClicked;
             
             // TODO: 외곽선 하이라이트 연출 ON
-            spriteRenderer.color = Color.red;
+            spriteRenderer.color = Color.black;
         }
 
         public void OnCardUntargetable()
@@ -131,5 +132,8 @@ namespace View.BattleView
                 onClickedCallback.Invoke(entity);
             }
         }
+
+        public abstract IEnumerator PlayHurtPresentation();
+        public abstract IEnumerator PlayActionPresentation();
     }
 }
