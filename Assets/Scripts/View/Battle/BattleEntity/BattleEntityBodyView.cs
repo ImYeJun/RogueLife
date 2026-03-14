@@ -38,14 +38,18 @@ namespace View.BattleView
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (entity == null)
+            {
+                throw new InvalidOperationException("[BattleEntityBodyView] Entity is not initialized");
+            }
+
             if (isCardTargetable && onTargetClickedCallback != null)
             {
-                if (entity == null)
-                {
-                    throw new InvalidOperationException("[BattleEntityBodyView] Entity is not initialized in sub-class.");
-                }
-
                 onTargetClickedCallback.Invoke(entity);
+            }
+            else
+            {
+                
             }
         }
     }
