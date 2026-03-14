@@ -8,7 +8,7 @@ namespace View.BattleView
     public class CardTargetSelectSystem : MonoBehaviour
     {
         // TODO: Refactor this code to reduce coupling
-        [SerializeField] private BattlePlayerView battlePlayerView;
+        [SerializeField] private BattlePlayerBodyView battlePlayerBody;
         [SerializeField] private BattleEnemyViewController battleEnemyViewController;
 
         private Card currentCard;
@@ -65,16 +65,16 @@ namespace View.BattleView
             {
                 foreach (var view in battleEnemyViewController.SpawnedEnemyViews)
                 {
-                    view.OnCardTargetable(OnSingleEnemySelected);
+                    view.BodyView.OnCardTargetable(OnSingleEnemySelected);
                 }
             }
             else if (targetType is BattleEntityCardTargetType)
             {
-                battlePlayerView.OnCardTargetable(OnEntitySelected);
+                battlePlayerBody.OnCardTargetable(OnEntitySelected);
 
                 foreach (var view in battleEnemyViewController.SpawnedEnemyViews)
                 {
-                    view.OnCardTargetable(OnEntitySelected);
+                    view.BodyView.OnCardTargetable(OnEntitySelected);
                 }
             }
             else
@@ -101,10 +101,10 @@ namespace View.BattleView
 
         private void ClearAllTargetables()
         {
-            battlePlayerView.OnCardUntargetable();
+            battlePlayerBody.OnCardUntargetable();
             foreach (var view in battleEnemyViewController.SpawnedEnemyViews)
             {
-                view.OnCardUntargetable();
+                view.BodyView.OnCardUntargetable();
             }
         }
 
@@ -134,7 +134,7 @@ namespace View.BattleView
             return targetType switch
             {
                 NoneCardTargetType => new NoneCardTarget(),
-                PlayerCardTargetType => new PlayerCardTarget(battlePlayerView.Player),
+                PlayerCardTargetType => new PlayerCardTarget(battlePlayerBody.Player),
                 AllEnemyCardTargetType => new AllEnemyCardTarget(
                     battleEnemyViewController.SpawnedEnemyViews.Select(view => view.Enemy).ToList()
                 ),

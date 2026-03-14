@@ -10,9 +10,12 @@ using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public abstract class BattleEntityView<T> : ViewBehaviour<IBattleViewEvent>, IPointerClickHandler where T : IReadOnlyBattleEntity
+    public abstract class BattleEntityView<T> : ViewBehaviour<IBattleViewEvent> where T : IReadOnlyBattleEntity
     {
         [Header("BattleEntityView")]
+        [SerializeField] protected GameObject whole;
+        [SerializeField] protected GameObject body;
+        [SerializeField] protected GameObject HealthBar;
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] private GameObject battleStatusEffectIconPrefab;
         [SerializeField] protected Transform battleStatusEffectIconContainer;
@@ -20,8 +23,6 @@ namespace View.BattleView
         private List<BattleStatusEffectIcon> battleStatusEffectIcons = new List<BattleStatusEffectIcon>();
 
         protected T entity;
-        private bool isCardTargetable;
-        private Action<T> onClickedCallback;
 
         public override void OnInitialized()
         {
@@ -100,37 +101,6 @@ namespace View.BattleView
         {
             Debug.Log($"{payload.BattleStatusEffect.Data.Name} 효과 실행 됨");
             yield return new WaitForSeconds(1.0f);
-        }
-
-        public void OnCardTargetable(Action<T> onClicked)
-        {
-            isCardTargetable = true;
-            onClickedCallback = onClicked;
-            
-            // TODO: 외곽선 하이라이트 연출 ON
-            spriteRenderer.color = Color.black;
-        }
-
-        public void OnCardUntargetable()
-        {
-            isCardTargetable = false;
-            onClickedCallback = null;
-            
-            // TODO: 외곽선 하이라이트 연출 OFF
-            spriteRenderer.color = Color.white;
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (isCardTargetable && onClickedCallback != null)
-            {
-                if (entity == null)
-                {
-                    throw new InvalidOperationException("[BattleEntityView/OnPointerClick] Entity is not initialized in sub-class.");
-                }
-
-                onClickedCallback.Invoke(entity);
-            }
         }
 
         public abstract IEnumerator PlayHurtPresentation();

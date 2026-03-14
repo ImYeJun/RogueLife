@@ -8,6 +8,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
+using UnityEngine.Serialization;
 
 namespace View.BattleView
 {
@@ -16,12 +17,11 @@ namespace View.BattleView
         private const float ICONS_CONAINTER_HEIGHT = 1;
 
         private IReadOnlyBattleEnemy enemy;
+        private BattleEnemyBodyView bodyView;
         private int currentHealth;
 
         [Header("BattleEnemyView")]
-        [SerializeField] private GameObject body;
-        [SerializeField] private GameObject HealthBar;
-        [SerializeField] private Image healthBar;
+        [SerializeField, FormerlySerializedAs("healthBar")] private Image healthBarImage;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private GameObject actionIconPrefab;
         [SerializeField] private RectTransform actionIconView;
@@ -46,9 +46,6 @@ namespace View.BattleView
         [SerializeField] private Ease normalHurtEase;
         [SerializeField] private Ease heavyHurtEase;
 
-        // ==========================================
-        // ⭐️ 수정됨: overlapDelay 대신 여운(Follow-through)이 지속될 시간 변수 추가
-        // ==========================================
         [Header("Follow-Through Settings")]
         [Tooltip("본체의 흔들림이 멈춘 후, 부속품들이 흔들리는 여운 시간")]
         [SerializeField] private float normalFollowThroughDuration;
@@ -66,12 +63,14 @@ namespace View.BattleView
         [SerializeField] private int testDamage = 30;
 
         public IReadOnlyBattleEnemy Enemy { get => enemy; }
+        public BattleEnemyBodyView BodyView { get => bodyView; }
 
         public override void OnInitialized()
         {
             base.OnInitialized();
             actionIcons.Clear();
             actionIconView.sizeDelta = new Vector2(1, ICONS_CONAINTER_HEIGHT);
+            bodyView = GetComponentInChildren<BattleEnemyBodyView>();
 
             eventBus.Subscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
             eventBus.Subscribe<EnemyHurt>(OnEnemyHurt);
@@ -93,7 +92,9 @@ namespace View.BattleView
         public void Initialize(IReadOnlyBattleEnemy enemy, Vector3 spawnPos)
         {
             this.enemy = enemy;
+            bodyView.Initialize(enemy);
             entity = enemy;
+
 
             transform.position = spawnPos;
 
@@ -186,7 +187,7 @@ namespace View.BattleView
         private void DrawHealthBarDirectly(int newHealth, int maxHealth)
         {
             float normalizedHealth = maxHealth == 0 ? 0 : (float)newHealth / maxHealth;
-            healthBar.fillAmount = normalizedHealth;
+            healthBarImage.fillAmount = normalizedHealth;
             healthText.text = $"{newHealth}/{maxHealth}";
 
             currentHealth = newHealth;
@@ -217,7 +218,7 @@ namespace View.BattleView
             Ease ease = CheckHeavyHurt(damageRatio, newHealth) ? heavyHurtEase : normalHurtEase;
 
             Sequence healthBarSequence = DOTween.Sequence();
-            healthBarSequence.Join(healthBar.DOFillAmount(normalizedHealth, totalHealthDuration).SetEase(ease));
+            healthBarSequence.Join(healthBarImage.DOFillAmount(normalizedHealth, totalHealthDuration).SetEase(ease));
             healthBarSequence.Join(DOTween.To(
                 () => currentHealth,
                 (health) =>
@@ -231,7 +232,7 @@ namespace View.BattleView
 
             Sequence shakeSequence = DOTween.Sequence();
 
-            shakeSequence.Append(body.transform.DOShakePosition(duration, bodyShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease));
+            shakeSequence.Append(whole.transform.DOShakePosition(duration, bodyShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease));
 
             shakeSequence.Insert(duration, HealthBar.transform.DOShakePosition(followThroughDuration, hpBarShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease));
 

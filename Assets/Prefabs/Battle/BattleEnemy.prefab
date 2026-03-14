@@ -36,7 +36,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -0.000000074505806, y: 0}
-  m_SizeDelta: {x: 1.1971, y: 0.6199}
+  m_SizeDelta: {x: 1.1971, y: 0.3478}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &2952376034478513215
 GameObject:
@@ -127,15 +127,15 @@ RectTransform:
   m_GameObject: {fileID: 4074910226497129580}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4479022, y: 1, z: 0.5693571}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 0.5693571}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2551302439490744935}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.0007765889, y: -0.000000059604645}
-  m_SizeDelta: {x: 1.4721, y: -0.2361}
+  m_AnchoredPosition: {x: -0.0000023841858, y: 0}
+  m_SizeDelta: {x: -0.0000052452, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5941628533012153637
 CanvasRenderer:
@@ -459,6 +459,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1017482659250681039}
   - component: {fileID: 4945011816906392779}
+  - component: {fileID: 5490577400142553307}
+  - component: {fileID: 2718955847158494555}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -540,6 +542,65 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!114 &5490577400142553307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7621401191049275610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f83a43e71198e03458e0f24461f7c926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleEnemyBodyView
+  spriteRenderer: {fileID: 4945011816906392779}
+--- !u!61 &2718955847158494555
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7621401191049275610}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &7687119895812368725
 GameObject:
   m_ObjectHideFlags: 0
@@ -806,6 +867,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2610019311952558974, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1.1652
+      objectReference: {fileID: 0}
     - target: {fileID: 5297974095149439057, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_Spacing.y
       value: 0.3
@@ -816,7 +881,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5297974095149439057, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_CellSize.y
-      value: 0.6
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_SizeDelta.x
@@ -824,11 +889,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1.4022
+      value: 0.7445
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_Name
@@ -851,9 +928,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7654202711930046269}
-    - targetCorrespondingSourceObject: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3361711700148763728}
   m_SourcePrefab: {fileID: 100100000, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
 --- !u!224 &2960287392695078974 stripped
 RectTransform:
@@ -887,12 +961,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c784d23a6e5f44049a6b3c4bd8e97c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleEnemyView
+  whole: {fileID: 8901253260552651874}
+  body: {fileID: 7621401191049275610}
+  HealthBar: {fileID: 2602326737599770183}
   spriteRenderer: {fileID: 4945011816906392779}
   battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
   battleStatusEffectIconContainer: {fileID: 2960287392695078974}
-  body: {fileID: 8901253260552651874}
-  HealthBar: {fileID: 2602326737599770183}
-  healthBar: {fileID: 1605041273057130787}
+  healthBarImage: {fileID: 1605041273057130787}
   healthText: {fileID: 1264867112611709670}
   actionIconPrefab: {fileID: 2553415525742267564, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
   actionIconView: {fileID: 4421735693550918179}
@@ -924,52 +999,6 @@ MonoBehaviour:
   testMaxHealth: 100
   testStartHealth: 100
   testDamage: 30
---- !u!61 &3361711700148763728
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8379007039155902586}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!1 &8901253260552651874 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8550701417197236002, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}

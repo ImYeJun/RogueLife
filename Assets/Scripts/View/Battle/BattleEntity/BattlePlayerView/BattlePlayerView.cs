@@ -13,6 +13,8 @@ namespace View.BattleView
     {
         private IReadOnlyBattlePlayer player;
         private BattlePlayerActionPresentation actionPresentation;
+        private BattlePlayerBodyView bodyView;
+
 
         [Header("BattlePlayerView")]
         [SerializeField] private Vector2 initialPos;
@@ -28,6 +30,8 @@ namespace View.BattleView
         {
             base.OnInitialized();
             actionPresentation = GetComponent<BattlePlayerActionPresentation>();
+            bodyView = GetComponentInChildren<BattlePlayerBodyView>();
+
 
             eventBus.Subscribe<PlayerSettled>(OnPlayerSettled);
             eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
@@ -49,6 +53,7 @@ namespace View.BattleView
             transform.position = initialPos;
 
             player = payload.Player;
+            bodyView.Initialize(player);
             entity = player;
             
             actionPresentation.Initiate(player, presentationManager, PlayActionPresentation);
