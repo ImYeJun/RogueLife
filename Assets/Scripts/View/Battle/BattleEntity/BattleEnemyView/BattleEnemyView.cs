@@ -89,12 +89,12 @@ namespace View.BattleView
             eventBus?.Unsubscribe<EnemyActionExecuted>(OnEnemyActionExecuted);
         }
 
-        public void Initialize(IReadOnlyBattleEnemy enemy, Vector3 spawnPos)
+        public void Initialize(IReadOnlyBattleEnemy enemy, Vector3 spawnPos, BattleViewTransitionManager viewTransitionManager)
         {
+            this.viewTransitionManager = viewTransitionManager;
             this.enemy = enemy;
-            bodyView.Initialize(enemy);
+            bodyView.Initialize(enemy, this, viewTransitionManager.InspectEntity);
             entity = enemy;
-
 
             transform.position = spawnPos;
 
@@ -300,6 +300,29 @@ namespace View.BattleView
         {
             yield return new WaitForSeconds(0.5f);
             StartCoroutine(HurtPresentation(testDamage, targetHealth));
+        }
+
+        public override void OnInspect(IInspectorBuilder builder, RectTransform parent)
+        {
+            var nameText = builder.AddNameText(parent);
+            nameText.Text = $"{enemy.Data.EnemyName}";
+
+            var healthText = builder.AddMainText(parent);
+            healthText.Text = $"{enemy.CurrentHealth}/{enemy.MaxHealth}";
+
+            var availableActionPanel = builder.AddSubPanel(parent);
+            availableActionPanel.Header = "행동 종류";
+            var toDo = builder.AddNormalText(availableActionPanel.ItemContainer);
+            toDo.Text = "ToDo : Implement Enemy Action Description";
+
+            var intendedActionPanel = builder.AddSubPanel(parent);
+            intendedActionPanel.Header = "하게 될 행동";
+            foreach (var icon in actionIcons)
+            {
+                icon.OnInspect(builder, intendedActionPanel.ItemContainer);
+            }
+            
+            base.OnInspect(builder, parent);
         }
     }
 }

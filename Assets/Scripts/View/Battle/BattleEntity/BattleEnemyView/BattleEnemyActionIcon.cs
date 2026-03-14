@@ -5,13 +5,19 @@ using UnityEngine.EventSystems;
 
 namespace View.BattleView
 {
-    public class BattleEnemyActionIcon : MonoBehaviour, IPointerClickHandler
+    public class BattleEnemyActionIcon : MonoBehaviour, IPointerClickHandler, IInspectable
     {
         private EnemyAction action;
 
         public void Initialize(EnemyAction action)
         {
             this.action = action;
+        }
+
+        public void OnInspect(IInspectorBuilder builder, RectTransform parent)
+        {
+            var text = builder.AddNormalText(parent);
+            text.Text = $"{action}";
         }
 
         public void OnPointerClick(PointerEventData eventData)

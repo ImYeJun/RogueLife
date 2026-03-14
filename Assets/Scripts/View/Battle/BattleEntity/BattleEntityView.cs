@@ -4,24 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using View.Core;
 using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public abstract class BattleEntityView<T> : ViewBehaviour<IBattleViewEvent> where T : IReadOnlyBattleEntity
+    public abstract class BattleEntityView<T> : ViewBehaviour<IBattleViewEvent>, IInspectable where T : IReadOnlyBattleEntity
     {
         [Header("BattleEntityView")]
+        [SerializeField] protected BattleViewTransitionManager viewTransitionManager;
         [SerializeField] protected GameObject whole;
         [SerializeField] protected GameObject body;
         [SerializeField] protected GameObject HealthBar;
         [SerializeField] protected SpriteRenderer spriteRenderer;
         [SerializeField] private GameObject battleStatusEffectIconPrefab;
         [SerializeField] protected Transform battleStatusEffectIconContainer;
-        
         private List<BattleStatusEffectIcon> battleStatusEffectIcons = new List<BattleStatusEffectIcon>();
-
+        
         protected T entity;
 
         public override void OnInitialized()
@@ -105,5 +106,15 @@ namespace View.BattleView
 
         public abstract IEnumerator PlayHurtPresentation();
         public abstract IEnumerator PlayActionPresentation();
+        public virtual void OnInspect(IInspectorBuilder builder, RectTransform parent)
+        {
+            var subPanel = builder.AddSubPanel(parent);
+            subPanel.Header = "버프/디버프";
+
+            foreach (var icon in battleStatusEffectIcons)
+            {
+                icon.OnInspect(builder, subPanel.ItemContainer);
+            }
+        }
     }
 }

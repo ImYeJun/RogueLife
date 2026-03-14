@@ -20,6 +20,7 @@ namespace View.BattleView
             public List<Vector2> Positions => positions;
         }
 
+        [SerializeField] BattleViewTransitionManager viewTransitionManager;
         [SerializeField] GameObject battleEnemyPrefab;
         [SerializeField] private List<EnemyPosition> enemyPositionConfigs;
         private List<BattleEnemyView> spawnedEnemyViews = new List<BattleEnemyView>();
@@ -65,7 +66,7 @@ namespace View.BattleView
                 if (enemyView != null)
                 {
                     enemyView.Initialize(eventBus, presentationManager);
-                    enemyView.Initialize(enemy, spawnPos);
+                    enemyView.Initialize(enemy, spawnPos, viewTransitionManager);
 
                     spawnedEnemyViews.Add(enemyView);
                 }

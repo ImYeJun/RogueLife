@@ -10,18 +10,23 @@ namespace View.BattleView
         [SerializeField] private SpriteRenderer spriteRenderer;
 
         protected T entity;
+        private IInspectable inspectableEntity; 
         private bool isCardTargetable;
-        private Action<T> onTargetClickedCallback;
+        private Action<T> onCardTargetedClickedCallback;
 
-        public virtual void Initialize(T entity)
+        private Action<IInspectable> onEntityInspectClickedCallback;
+
+        public virtual void Initialize(T entity, IInspectable inspectableEntity, Action<IInspectable> onEntityInspectClickedCallback)
         {
             this.entity = entity;
+            this.inspectableEntity = inspectableEntity;
+            this.onEntityInspectClickedCallback = onEntityInspectClickedCallback;
         }
 
         public void OnCardTargetable(Action<T> onTargetClicked)
         {
             isCardTargetable = true;
-            onTargetClickedCallback = onTargetClicked;
+            onCardTargetedClickedCallback = onTargetClicked;
             
             // TODO: 외곽선 하이라이트 연출 ON
             spriteRenderer.color = Color.black;
@@ -30,7 +35,7 @@ namespace View.BattleView
         public void OnCardUntargetable()
         {
             isCardTargetable = false;
-            onTargetClickedCallback = null;
+            onCardTargetedClickedCallback = null;
             
             // TODO: 외곽선 하이라이트 연출 OFF
             spriteRenderer.color = Color.white;
@@ -43,13 +48,13 @@ namespace View.BattleView
                 throw new InvalidOperationException("[BattleEntityBodyView] Entity is not initialized");
             }
 
-            if (isCardTargetable && onTargetClickedCallback != null)
+            if (isCardTargetable && onCardTargetedClickedCallback != null)
             {
-                onTargetClickedCallback.Invoke(entity);
+                onCardTargetedClickedCallback.Invoke(entity);
             }
             else
             {
-                
+                onEntityInspectClickedCallback?.Invoke(inspectableEntity);
             }
         }
     }

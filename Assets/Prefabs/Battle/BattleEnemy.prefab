@@ -371,7 +371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -961,6 +961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c784d23a6e5f44049a6b3c4bd8e97c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleEnemyView
+  viewTransitionManager: {fileID: 0}
   whole: {fileID: 8901253260552651874}
   body: {fileID: 7621401191049275610}
   HealthBar: {fileID: 2602326737599770183}

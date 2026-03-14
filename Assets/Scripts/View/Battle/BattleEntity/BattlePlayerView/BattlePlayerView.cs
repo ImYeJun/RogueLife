@@ -53,7 +53,7 @@ namespace View.BattleView
             transform.position = initialPos;
 
             player = payload.Player;
-            bodyView.Initialize(player);
+            bodyView.Initialize(player, this, viewTransitionManager.InspectEntity);
             entity = player;
             
             actionPresentation.Initiate(player, presentationManager, PlayActionPresentation);
@@ -137,6 +137,14 @@ namespace View.BattleView
             actionText.text = "행동함";
             yield return new WaitForSeconds(1.0f);
             actionText.text = "";
+        }
+
+        public override void OnInspect(IInspectorBuilder builder, RectTransform parent)
+        {
+            var nameText = builder.AddNameText(parent);
+            nameText.Text = "유지아";
+
+            base.OnInspect(builder, parent);
         }
     }
 }

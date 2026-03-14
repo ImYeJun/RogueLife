@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 
 namespace View.BattleView
 {
-    public class BattleStatusEffectIcon : MonoBehaviour, IPointerClickHandler
+    public class BattleStatusEffectIcon : MonoBehaviour, IInspectable, IPointerClickHandler
     {
         [SerializeField] private Image effectImage;
         [SerializeField] private TextMeshProUGUI stackText;
@@ -40,6 +40,12 @@ namespace View.BattleView
             {
                 Debug.Log($"{currentEffect.Data.Id}");
             }
+        }
+
+        public void OnInspect(IInspectorBuilder builder, RectTransform parent)
+        {
+            var normalText = builder.AddNormalText(parent);
+            normalText.Text = $"({currentEffect.Data.Name}) 스택 : {currentEffect.StackCount}, 남은 턴  : {currentEffect.RemainTurn}";
         }
     }
 }
