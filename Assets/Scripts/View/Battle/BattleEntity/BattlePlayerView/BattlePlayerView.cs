@@ -53,7 +53,7 @@ namespace View.BattleView
             transform.position = initialPos;
 
             player = payload.Player;
-            bodyView.Initialize(player, this, viewTransitionManager.InspectEntity);
+            bodyView.Initialize(player, this, viewTransitionManager.InspectEntity, BattleEntityInspectorView.InspectorDirection.Right);
             entity = player;
             
             actionPresentation.Initiate(player, presentationManager, PlayActionPresentation);

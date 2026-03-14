@@ -93,7 +93,7 @@ namespace View.BattleView
         {
             this.viewTransitionManager = viewTransitionManager;
             this.enemy = enemy;
-            bodyView.Initialize(enemy, this, viewTransitionManager.InspectEntity);
+            bodyView.Initialize(enemy, this, viewTransitionManager.InspectEntity, BattleEntityInspectorView.InspectorDirection.Left);
             entity = enemy;
 
             transform.position = spawnPos;
@@ -323,6 +323,7 @@ namespace View.BattleView
             }
             
             base.OnInspect(builder, parent);
+
         }
     }
 }

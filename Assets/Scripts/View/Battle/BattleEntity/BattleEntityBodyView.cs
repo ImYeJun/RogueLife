@@ -14,13 +14,15 @@ namespace View.BattleView
         private bool isCardTargetable;
         private Action<T> onCardTargetedClickedCallback;
 
-        private Action<IInspectable> onEntityInspectClickedCallback;
+        private Action<IInspectable, Transform, BattleEntityInspectorView.InspectorDirection> onEntityInspectClickedCallback;
+        private BattleEntityInspectorView.InspectorDirection inspectorDirection;
 
-        public virtual void Initialize(T entity, IInspectable inspectableEntity, Action<IInspectable> onEntityInspectClickedCallback)
+        public virtual void Initialize(T entity, IInspectable inspectableEntity, Action<IInspectable, Transform, BattleEntityInspectorView.InspectorDirection> onEntityInspectClickedCallback,  BattleEntityInspectorView.InspectorDirection inspectorDirection)
         {
             this.entity = entity;
             this.inspectableEntity = inspectableEntity;
             this.onEntityInspectClickedCallback = onEntityInspectClickedCallback;
+            this.inspectorDirection = inspectorDirection;
         }
 
         public void OnCardTargetable(Action<T> onTargetClicked)
@@ -54,7 +56,7 @@ namespace View.BattleView
             }
             else
             {
-                onEntityInspectClickedCallback?.Invoke(inspectableEntity);
+                onEntityInspectClickedCallback.Invoke(inspectableEntity, transform, inspectorDirection);
             }
         }
     }
