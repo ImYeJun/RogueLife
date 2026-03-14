@@ -360,6 +360,8 @@ GameObject:
   - component: {fileID: 4763474342559278715}
   - component: {fileID: 1947146331877418147}
   - component: {fileID: 6274679244594761936}
+  - component: {fileID: 5044922355700162174}
+  - component: {fileID: 7884067199777457318}
   m_Layer: 5
   m_Name: BattleStatusEffectIcon
   m_TagString: Untagged
@@ -412,3 +414,44 @@ MonoBehaviour:
   effectImage: {fileID: 7915039712946618872}
   stackText: {fileID: 5232811214554367938}
   remainTurnText: {fileID: 6464565986299148482}
+  appliedPresentationDuration: 0.3
+  appliedPresentationEase: 10
+  executedPresentationDuration: 0.3
+  executedPresentationEase: 18
+  punchAmount: {x: 0.5, y: 0.5, z: 0}
+  punchVibrato: 1
+  punchElasticity: 1
+  removedPresentationDuration: 0.3
+  removedPresentationEase: 10
+--- !u!225 &5044922355700162174
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7446987446512404855}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &7884067199777457318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7446987446512404855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Collections;
 using DG.Tweening;
 using UnityEngine.Serialization;
+using System.Linq;
 
 namespace View.BattleView
 {
@@ -123,6 +124,8 @@ namespace View.BattleView
                 var actionIcon = iconObject.GetComponent<BattleEnemyActionIcon>();
                 actionIcon.Initialize(action);
                 actionIcons.Add(actionIcon);
+
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_IconAction, actionIcon.PlayAppliedPresentation());
             }
         }
 
@@ -175,7 +178,14 @@ namespace View.BattleView
         {
             if (payload.Actor != enemy) { return; }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, ActionExecutedPresentation(payload));
+            var actionView = actionIcons.FirstOrDefault(view => view.Action == payload.Action);
+
+            if (actionView is null)
+            {
+                throw new InvalidOperationException($"[{GetType()}]] The Enemy doesn't have given action");
+            }
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, actionView.PlayExecutedPresentation());
         }
 
         private IEnumerator ActionExecutedPresentation(EnemyActionExecuted payload)

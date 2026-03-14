@@ -99,8 +99,23 @@ public static class PresentationPriority
     //Enemy Action Executed
     public const int EnemyActionExecuted_ActorAction = 10;
 
+    //Battle Status Effect Applied
+    public const int BattleStatusEffectAplied_IconAction = 10;
+
     //Battle Status Effect Executed
     public const int BattleStatusEffectExecuted_IconAction = 10;
+
+    //Battle Status Effect Removed
+    public const int BattleStatusEffectRemoved_IconAction = 10;
+
+    //Enemy Action Planned
+    public const int EnemyActionPlanned_IconAction = 10;
+
+    //Enemy Action Executed
+    public const int EnemyActionExecuted_IconAction = 10;
+
+    //Enemy Action Removed
+    public const int EnemyActionRemoved_IconAction = 10;
 
     //Enemy Hurt
     public const int EnemyHurt_EnemyPresentation = 10;

@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 5763815547149761100}
   - component: {fileID: 4552625851116552044}
   - component: {fileID: 5965952328367423201}
+  - component: {fileID: -208908964393434016}
+  - component: {fileID: -3078393497605355763}
   m_Layer: 0
   m_Name: EnemyActionIcon
   m_TagString: Untagged
@@ -88,3 +90,44 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a49b23218ad8263498266e0c961bcb9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleEnemyActionIcon
+  appliedPresentationDuration: 0.3
+  appliedPresentationEase: 10
+  executedPresentationDuration: 0.3
+  executedPresentationEase: 18
+  punchAmount: {x: 0.5, y: 0.5, z: 0}
+  punchVibrato: 1
+  punchElasticity: 1
+  removedPresentationDuration: 0.3
+  removedPresentationEase: 10
+--- !u!114 &-208908964393434016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553415525742267564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.LayoutElement
+  m_IgnoreLayout: 0
+  m_MinWidth: -1
+  m_MinHeight: -1
+  m_PreferredWidth: -1
+  m_PreferredHeight: -1
+  m_FlexibleWidth: -1
+  m_FlexibleHeight: -1
+  m_LayoutPriority: 1
+--- !u!225 &-3078393497605355763
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553415525742267564}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0

@@ -50,6 +50,8 @@ namespace View.BattleView
 
             icon.Initialize(payload.BattleStatusEffect);
             battleStatusEffectIcons.Add(icon);
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectAplied_IconAction, icon.PlayAppliedPresentation());
         }
 
         private void OnStatusEffectRemoved(BattleStatusEffectRemoved payload)
@@ -61,7 +63,11 @@ namespace View.BattleView
             if (iconToRemove != null)
             {
                 battleStatusEffectIcons.Remove(iconToRemove);
-                Destroy(iconToRemove.gameObject);
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectRemoved_IconAction, iconToRemove.PlayExectuedPresentation(),
+                () =>
+                {
+                    Destroy(iconToRemove.gameObject);
+                });
             }
             else
             {
@@ -96,12 +102,7 @@ namespace View.BattleView
                 throw new InvalidCastException($"[BattleEntityView] Given Entity({gameObject.name}) doesn't contain battle status effect({payload.BattleStatusEffect.Data.Name}) but try to execute.");
             }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, StatusEffectExectuedPresentation(payload));
-        }
-        private IEnumerator StatusEffectExectuedPresentation(BattleStatusEffectExecuted payload)
-        {
-            Debug.Log($"{payload.BattleStatusEffect.Data.Name} 효과 실행 됨");
-            yield return new WaitForSeconds(1.0f);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, iconView.PlayExectuedPresentation());
         }
 
         public abstract IEnumerator PlayHurtPresentation();
