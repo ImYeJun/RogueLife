@@ -105,8 +105,6 @@ namespace View.BattleView
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, iconView.PlayExectuedPresentation());
         }
 
-        public abstract IEnumerator PlayHurtPresentation();
-        public abstract IEnumerator PlayActionPresentation();
         public virtual void OnInspect(IInspectorBuilder builder, RectTransform parent)
         {
             var subPanel = builder.AddSubPanel(parent);

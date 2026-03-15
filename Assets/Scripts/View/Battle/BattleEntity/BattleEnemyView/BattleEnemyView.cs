@@ -58,10 +58,17 @@ namespace View.BattleView
         [SerializeField] private Vector3 normalStatusIconShakeAmount;
         [SerializeField] private Vector3 heavyStatusIconShakeAmount;
 
+        [Header("Heal Presentation Settings")]
+        [Tooltip("Settings for enemy heal presentation.")]
+        [SerializeField] private float healDuration = 0.3f;
+        [SerializeField] private float healTextOffsetDuration = 0.2f;
+        [SerializeField] private Ease healEase = Ease.OutQuad;
+
         [Header("Test Only")]
         [SerializeField] private int testMaxHealth = 100;
         [SerializeField] private int testStartHealth = 100;
         [SerializeField] private int testDamage = 30;
+        [SerializeField] private int testHealAmount = 25;
 
         public IReadOnlyBattleEnemy Enemy { get => enemy; }
         public BattleEnemyBodyView BodyView { get => bodyView; }
@@ -108,7 +115,7 @@ namespace View.BattleView
         {
             if (enemy == null)
             {
-                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+                throw new InvalidOperationException("[BattleEnemyView/OnEnemyActionPlanned] The enemy entity is not initialized yet.");
             }
 
             if (!payload.Enemy.Equals(enemy)) { return; }
@@ -148,7 +155,7 @@ namespace View.BattleView
 
             if (actionView is null)
             {
-                throw new InvalidOperationException($"[{GetType()}]] The Enemy doesn't have given action");
+                throw new InvalidOperationException("[BattleEnemyView/OnEnemyActionExecuted] The Enemy doesn't have given action.");
             }
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, actionView.PlayExecutedPresentation());
@@ -173,13 +180,11 @@ namespace View.BattleView
         {
             if (enemy == null)
             {
-                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+                throw new InvalidOperationException("[BattleEnemyView/OnEnemyHurt] The enemy entity is not initialized yet.");
             }
 
             if (!payload.Enemy.Equals(enemy)) { return; }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyHurt_EnemyPresentation, PlayHurtPresentation());
-            
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyHurt_HealthBarPresentation, HurtPresentation(payload.Damage, payload.CurrentHealth));
         }
 
@@ -187,19 +192,29 @@ namespace View.BattleView
         {
             if (enemy == null)
             {
-                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+                throw new InvalidOperationException("[BattleEnemyView/OnEnemyHealed] The enemy entity is not initialized yet.");
             }
 
             if (!payload.Enemy.Equals(enemy)) { return; }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyHeal_HealthBarPresentation, HealPresentation(payload.HealAmount, payload.CurrentHealth));
+            int startHealth = currentHealth;
+            int targetHealth = payload.CurrentHealth;
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyHeal_HealthBarPresentation, HealPresentation(startHealth, targetHealth), 
+                () => 
+                {
+                    DrawHealthBarDirectly(targetHealth, enemy.MaxHealth);
+                }
+            );
+
+            currentHealth = targetHealth;
         }
 
         private void OnEnemyDied(EnemyDied payload)
         {
             if (enemy == null)
             {
-                throw new InvalidOperationException("[BattleEnemyView] The enemy entity is not initialized yet.");
+                throw new InvalidOperationException("[BattleEnemyView/OnEnemyDied] The enemy entity is not initialized yet.");
             }
 
             if (!payload.DiedEnemy.Equals(enemy)) { return; }
@@ -213,12 +228,6 @@ namespace View.BattleView
         {
             yield return null;
         }
-
-        private IEnumerator ActionExecutedPresentation(EnemyActionExecuted payload)
-        {
-            yield return StartCoroutine(PlayActionPresentation());
-        }
-
 
         private void DrawHealthBarDirectly(int newHealth, int maxHealth)
         {
@@ -302,25 +311,34 @@ namespace View.BattleView
             }
         }
 
-        private IEnumerator HealPresentation(int newHealth, int currentHealth)
+        // 💡 [수정된 부분] 힐 연출 시퀀스 구현 (바 차오름 -> 텍스트 도달)
+        private IEnumerator HealPresentation(int startHealth, int targetHealth)
         {
-            yield return null;
-            DrawHealthBarDirectly(newHealth, enemy != null ? enemy.MaxHealth : testMaxHealth);
+            int maxH = enemy != null ? enemy.MaxHealth : testMaxHealth;
+            float targetNormalized = maxH == 0 ? 0 : (float)targetHealth / maxH;
+            float totalDuration = healDuration + healTextOffsetDuration;
+
+            Sequence sequence = DOTween.Sequence();
+
+            // 체력 바 채우기
+            sequence.Join(healthBarImage.DOFillAmount(targetNormalized, healDuration).SetEase(healEase));
+
+            // 숫자 텍스트 카운팅 애니메이션
+            int tempHealth = startHealth;
+            sequence.Join(DOTween.To(
+                () => tempHealth,
+                (val) =>
+                {
+                    tempHealth = val;
+                    healthText.text = $"{tempHealth}/{maxH}";
+                },
+                targetHealth,
+                totalDuration
+            ).SetEase(healEase));
+
+            yield return sequence.WaitForCompletion();
         }
 
-        public override IEnumerator PlayHurtPresentation()
-        {
-            actionText.text = "아야 아파요";
-            yield return new WaitForSeconds(1.0f);
-            actionText.text = "";
-        }
-        
-        public override IEnumerator PlayActionPresentation()
-        {
-            actionText.text = "행동함";
-            yield return new WaitForSeconds(1.0f);
-            actionText.text = "";
-        }
         public override void OnInspect(IInspectorBuilder builder, RectTransform parent)
         {
             var nameText = builder.AddNameText(parent);
@@ -357,8 +375,23 @@ namespace View.BattleView
         private IEnumerator DelayTestHurtPresentation(int testDamage, int targetHealth)
         {
             yield return new WaitForSeconds(0.5f);
-            StartCoroutine(HurtPresentation(testDamage, targetHealth));
+            yield return StartCoroutine(HurtPresentation(testDamage, targetHealth));
         }
 
+        [ContextMenu("Test Heal Presentation")]
+        public void TestHealPresentation()
+        {
+            DrawHealthBarDirectly(testStartHealth, testMaxHealth);
+
+            int targetHealth = Mathf.Min(testMaxHealth, testStartHealth + testHealAmount);
+            
+            StartCoroutine(DelayTestHealPresentation(testStartHealth, targetHealth));
+        }
+
+        private IEnumerator DelayTestHealPresentation(int startHealth, int targetHealth)
+        {
+            yield return new WaitForSeconds(0.5f);
+            yield return StartCoroutine(HealPresentation(startHealth, targetHealth));
+        }
     }
 }

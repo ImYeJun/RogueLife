@@ -7,6 +7,7 @@ using TMPro;
 using System;
 using System.Collections;
 using System.Linq;
+using DG.Tweening;
 
 namespace View.BattleView
 {
@@ -30,6 +31,17 @@ namespace View.BattleView
         [SerializeField] private Image mentalityBar;
         [SerializeField] private TextMeshProUGUI mentaltiyText;
         [SerializeField] private TextMeshProUGUI actionText;
+
+        [Header("Heal Presentation Settings")]
+        [Tooltip("Settings for battle health heal.")]
+        [SerializeField] private float healDuration = 0.3f;
+        [SerializeField] private float healTextOffsetDuration = 0.2f;
+        [SerializeField] private Ease healEase = Ease.OutQuad;
+
+        [Header("Test Only")]
+        [SerializeField] private int testMaxHealth = 100;
+        [SerializeField] private int testStartHealth = 30;
+        [SerializeField] private int testHealAmount = 25;
 
         public IReadOnlyBattlePlayer Player { get => player; }
 
@@ -101,7 +113,6 @@ namespace View.BattleView
                     DrawMentalityBar(snapshotedMentality, player.Health.MaxMentality);
                 }
             );
-
         }
 
         private void OnPlayerHealed(PlayerHealed payload)
@@ -113,23 +124,44 @@ namespace View.BattleView
 
             if (!payload.Player.Equals(player)) { return; }
 
+            int startHealth = currentBattleHealth;
+            int targetHealth = payload.CurrentBattleHealth;
+
             presentationManager.Enqueue(
                 payload.SequenceId, 
                 PresentationPriority.PlayerHeal_HealthBarPresentation, 
-                UpdateHealHealthBarPresentation(payload.CurrentBattleHealth, player.Health.MaxBattleHealth),
+                UpdateHealHealthBarPresentation(startHealth, targetHealth, player.Health.MaxBattleHealth),
                 () =>
                 {
-                    DrawBattleHealthBar(currentBattleHealth, player.Health.MaxBattleHealth);
+                    DrawBattleHealthBar(targetHealth, player.Health.MaxBattleHealth);
                 }
             );
 
-            currentBattleHealth = payload.CurrentBattleHealth;
+            currentBattleHealth = targetHealth;
         }
-
-        private IEnumerator UpdateHealHealthBarPresentation(int currentHealth, int maxHealth)
+        
+        private IEnumerator UpdateHealHealthBarPresentation(int startHealth, int targetHealth, int maxHealth)
         {
-            DrawBattleHealthBar(currentHealth, maxHealth);
-            yield return null;
+            float targetNormalized = maxHealth == 0 ? 0 : (float)targetHealth / maxHealth;
+            float totalDuration = healDuration + healTextOffsetDuration;
+
+            Sequence sequence = DOTween.Sequence();
+
+            sequence.Join(battleHeatlhBar.DOFillAmount(targetNormalized, healDuration).SetEase(healEase));
+
+            int tempHealth = startHealth;
+            sequence.Join(DOTween.To(
+                () => tempHealth,
+                (val) =>
+                {
+                    tempHealth = val;
+                    battleHeatlhText.text = $"{tempHealth}/{maxHealth}";
+                },
+                targetHealth,
+                totalDuration
+            ).SetEase(healEase));
+
+            yield return sequence.WaitForCompletion();
         }
 
         private void DrawBattleHealthBar(int currentHealth, int maxHealth)
@@ -146,14 +178,7 @@ namespace View.BattleView
             mentaltiyText.text = $"{currentMentality}/{maxMentality}";
         }
 
-        public override IEnumerator PlayHurtPresentation()
-        {
-            actionText.text = "아야 아파요";
-            yield return new WaitForSeconds(1.0f);
-            actionText.text = "";
-        }
-        
-        public override IEnumerator PlayActionPresentation()
+        public IEnumerator PlayActionPresentation()
         {
             actionText.text = "행동함";
             yield return new WaitForSeconds(1.0f);
@@ -166,6 +191,22 @@ namespace View.BattleView
             nameText.Text = "유지아";
 
             base.OnInspect(builder, parent);
+        }
+
+        [ContextMenu("Test Heal Presentation")]
+        public void TestHealPresentation()
+        {
+            int maxH = player != null ? player.Health.MaxBattleHealth : testMaxHealth;
+            DrawBattleHealthBar(testStartHealth, maxH);
+
+            int targetHealth = Mathf.Min(maxH, testStartHealth + testHealAmount);
+            StartCoroutine(DelayTestHealPresentation(testStartHealth, targetHealth, maxH));
+        }
+
+        private IEnumerator DelayTestHealPresentation(int startHealth, int targetHealth, int maxHealth)
+        {
+            yield return new WaitForSeconds(0.5f);
+            yield return StartCoroutine(UpdateHealHealthBarPresentation(startHealth, targetHealth, maxHealth));
         }
     }
 }
