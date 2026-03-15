@@ -13,7 +13,7 @@ namespace View.BattleView
         private PresentationManager presentationManager;
         private Func<IEnumerator> playActionPresentation;
 
-        public void Initiate(
+        public void Initialize(
             IReadOnlyBattlePlayer player, 
             PresentationManager presentationManager,
             Func<IEnumerator> playActionPresentation)

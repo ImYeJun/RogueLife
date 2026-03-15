@@ -968,6 +968,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4945011816906392779}
   battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
   battleStatusEffectIconContainer: {fileID: 2960287392695078974}
+  hurtDirection: {x: 1, y: 1, z: 0}
   healthBarImage: {fileID: 1605041273057130787}
   healthText: {fileID: 1264867112611709670}
   actionIconPrefab: {fileID: 2553415525742267564, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
@@ -975,13 +976,13 @@ MonoBehaviour:
   actionIconsContainer: {fileID: 3949053645069490204}
   actionText: {fileID: 3097028948126537074}
   heavyHurtRatio: 0.5
-  normalHurtDuration: 0.2
+  normalHurtDuration: 0.1
   heavyHurtDuration: 0.3
   normalHurtTextOffsetDuration: 0.4
   heavyHurtTextOffsetDuration: 0.7
-  normalHurShakeAmount: {x: 0.05, y: 0.05, z: 0}
-  heavyHurtShakeAmount: {x: 0.28, y: 0.14, z: 0}
-  normalHurtShakeVibartor: 50
+  normalHurShakeAmount: {x: 0.05, y: 0, z: 0}
+  heavyHurtShakeAmount: {x: 0.13, y: 0.07, z: 0}
+  normalHurtShakeVibartor: 86
   heavyHurtShakeVibartor: 208
   normalHurtShakeRandomNess: 100
   heavyHurtShakeRandomNess: 100
@@ -991,11 +992,11 @@ MonoBehaviour:
   heavyHurtEase: 18
   normalFollowThroughDuration: 0.1
   heavyFollowThroughDuration: 0.1
-  normalHealthBarShakeAmount: {x: 0.05, y: 0.05, z: 0}
+  normalHealthBarShakeAmount: {x: 0.05, y: 0, z: 0}
   heavyHealthBarShakeAmount: {x: 0.1, y: 0.1, z: 0}
-  normalActionIconShakeAmount: {x: 0.05, y: 0.05, z: 0}
+  normalActionIconShakeAmount: {x: 0.05, y: 0, z: 0}
   heavyActionIconShakeAmount: {x: 0.1, y: 0.1, z: 0}
-  normalStatusIconShakeAmount: {x: 0.05, y: 0.05, z: 0}
+  normalStatusIconShakeAmount: {x: 0.05, y: 0, z: 0}
   heavyStatusIconShakeAmount: {x: 0.1, y: 0.1, z: 0}
   testMaxHealth: 100
   testStartHealth: 100

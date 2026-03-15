@@ -109,8 +109,8 @@ public static class PresentationPriority
     //Battle Status Effect Removed
     public const int BattleStatusEffectRemoved_IconAction = 10;
 
-    //Enemy Action Planned
-    public const int EnemyActionPlanned_IconAction = 10;
+    //Enemy Action Planned 
+    public const int EnemyActionPlanned_BaseIconAction = 10;
 
     //Enemy Action Executed
     public const int EnemyActionExecuted_IconAction = 10;

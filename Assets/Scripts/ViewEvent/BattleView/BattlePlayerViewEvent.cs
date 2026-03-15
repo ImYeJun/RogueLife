@@ -8,8 +8,9 @@ namespace ViewEvent.BattleView
         private readonly int mentalityDamage;
         private readonly int currentBattleHealth;
         private readonly int currentMentality;
+        private readonly bool isOverflowed;
 
-        public PlayerHurt(int sequenceId, IReadOnlyBattlePlayer player, int battleHealthDamage, int mentalityDamage, int currentBattleHealth, int currentMentality)
+        public PlayerHurt(int sequenceId, IReadOnlyBattlePlayer player, int battleHealthDamage, int mentalityDamage, int currentBattleHealth, int currentMentality, bool isOverflowed)
         {
             this.sequenceId = sequenceId;
             this.player = player;
@@ -17,6 +18,7 @@ namespace ViewEvent.BattleView
             this.mentalityDamage = mentalityDamage;
             this.currentBattleHealth = currentBattleHealth;
             this.currentMentality = currentMentality;
+            this.isOverflowed = isOverflowed;
         }
 
         public int SequenceId => sequenceId;
@@ -25,6 +27,8 @@ namespace ViewEvent.BattleView
         public int MentalityDamage => mentalityDamage;
         public int CurrentBattleHealth => currentBattleHealth;
         public int CurrentMentality => currentMentality;
+
+        public bool IsOverflowed => isOverflowed;
     }
 
     public readonly struct PlayerHealed : IBattleViewEvent

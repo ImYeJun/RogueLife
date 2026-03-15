@@ -966,6 +966,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6855730422780328402}
+    - targetCorrespondingSourceObject: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5144951943770866396}
   m_SourcePrefab: {fileID: 100100000, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
 --- !u!1 &411770850120495925 stripped
 GameObject:
@@ -997,6 +1000,7 @@ MonoBehaviour:
   battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
   battleStatusEffectIconContainer: {fileID: 6279267436393260905}
   initialPos: {x: 0, y: 0}
+  healthBar: {fileID: 8829734819740980077}
   battleHeatlhBar: {fileID: 3288604834692385680}
   battleHeatlhText: {fileID: 886982744983495145}
   mentalityBar: {fileID: 3603141181732516152}
@@ -1015,6 +1019,92 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattlePlayerActionPresentation
   battleEnemyViewController: {fileID: 0}
+--- !u!114 &5144951943770866396
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 754717184939208493}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20afec2623a47fc4db480b3d421ebc67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.PlayerHurtPresentation
+  heavyHurtRatio: 0.5
+  normalHurtDuration: 0.2
+  normalHurtTextOffsetDuration: 0.4
+  normalHurtShakeAmount: {x: 0.05, y: 0, z: 0}
+  normalHurtShakeVibrato: 50
+  normalHurtShakeRandomness: 100
+  normalHurtShakeRandomnessMode: 1
+  normalHurtEase: 9
+  heavyHurtDuration: 0.3
+  heavyHurtTextOffsetDuration: 0.7
+  heavyHurtShakeAmount: {x: 0.28, y: 0.14, z: 0}
+  heavyHurtShakeVibrato: 208
+  heavyHurtShakeRandomness: 100
+  heavyHurtShakeRandomnessMode: 1
+  heavyHurtEase: 18
+  firstMentalityHurtDuration: 0
+  firstMentalityHurtTextOffsetDuration: 0
+  firstMentalityPunchAmount: {x: 0, y: 0, z: 0}
+  firstMentalityPunchVibrato: 10
+  firstMentalityPunchElasticity: 1
+  firstMentalityShakeAmount: {x: 0, y: 0, z: 0}
+  firstMentalityShakeVibrato: 10
+  firstMentalityShakeRandomness: 90
+  firstMentalityShakeRandomnessMode: 0
+  firstMentalityHurtEase: 0
+  firstMentalityGlitchColor: {r: 1, g: 0, b: 1, a: 1}
+  normalMentalityHurtDuration: 0.3
+  normalMentalityHurtTextOffsetDuration: 0.5
+  normalMentalityPunchAmount: {x: -0.05, y: 0.06, z: 0}
+  normalMentalityPunchVibrato: 10
+  normalMentalityPunchElasticity: 1
+  normalMentalityShakeAmount: {x: 0, y: 0, z: 0}
+  normalMentalityHurtEase: 15
+  normalMentalityGlitchColor: {r: 1, g: 0, b: 0, a: 1}
+  firstOverflow_BattleHealthDuration: 0
+  firstOverflow_BattleHealthShakeAmount: {x: 0, y: 0, z: 0}
+  firstOverflow_BattleHealthShakeVibrato: 20
+  firstOverflow_HitStopDuration: 0.15
+  firstOverflow_HitStopTimeScale: 0.05
+  firstOverflow_MentalityDuration: 0
+  firstOverflow_MentalityPunchAmount: {x: 0, y: 0, z: 0}
+  firstOverflow_MentalityPunchVibrato: 15
+  firstOverflow_MentalityPunchElasticity: 1
+  firstOverflow_MentalityShakeAmount: {x: 0, y: 0, z: 0}
+  firstOverflow_MentalityEase: 0
+  normalOverflow_BattleHealthDuration: 0
+  normalOverflow_BattleHealthShakeAmount: {x: 0, y: 0, z: 0}
+  normalOverflow_HitStopDuration: 0.05
+  normalOverflow_HitStopTimeScale: 0.2
+  normalOverflow_FlashColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  normalOverflow_MentalityDuration: 0
+  normalOverflow_MentalityPunchAmount: {x: -0.02, y: 0.03, z: 0}
+  normalOverflow_MentalityShakeAmount: {x: -0.02, y: 0.03, z: 0}
+  normalOverflow_MentalityEase: 0
+  normalFollowThroughDuration: 0.1
+  heavyFollowThroughDuration: 0.1
+  mentalityFollowThroughDuration: 0
+  overflowedFollowThroughDuration: 0
+  normalHealthBarShakeAmount: {x: 0.01, y: 0, z: 0}
+  heavyHealthBarShakeAmount: {x: 0.04, y: 0.01, z: 0}
+  normalStatusIconShakeAmount: {x: 0.01, y: 0, z: 0}
+  heavyStatusIconShakeAmount: {x: 0.04, y: 0.1, z: 0}
+  mentalityHealthBarPunchAmount: {x: 0, y: 0, z: 0}
+  mentalityStatusIconPunchAmount: {x: 0, y: 0, z: 0}
+  overflowedHealthBarShakeAmount: {x: 0, y: 0, z: 0}
+  overflowedStatusIconShakeAmount: {x: 0, y: 0, z: 0}
+  testMaxBattleHealth: 100
+  testStartBattleHealth: 100
+  testBattleHealthDamage: 30
+  testMaxMentality: 50
+  testStartMentality: 50
+  testMentalityDamage: 0
+  testIsOverflowed: 0
+  testStatusEffectIcons: []
 --- !u!224 &1487930226242013889 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7474539844241872598, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}

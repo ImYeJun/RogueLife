@@ -37,13 +37,13 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
         playerHealth.HurtMentality(hurtContext.MentalityDamage);
 
         context.EventBus.Publish(new EntityHurtBattleEvent(hurtContext.TotalDamage, this, source));
-        viewEventPublisher.Publish(new PlayerHurt(viewEventPublisher.GetNextSequenceId(), this, hurtContext.BattleHealthDamage, hurtContext.MentalityDamage, playerHealth.CurrentBattleHealth, playerHealth.CurrentMentality));
+        viewEventPublisher.Publish(new PlayerHurt(viewEventPublisher.GetNextSequenceId(), this, hurtContext.BattleHealthDamage, hurtContext.MentalityDamage, playerHealth.CurrentBattleHealth, playerHealth.CurrentMentality, hurtContext.IsOverflow));
     }
 
     public void HurtMentality(int damage)
     {
         playerHealth.HurtMentality(damage);
-        viewEventPublisher.Publish(new PlayerHurt(viewEventPublisher.GetNextSequenceId(), this, 0, damage, playerHealth.CurrentBattleHealth, playerHealth.CurrentMentality));
+        viewEventPublisher.Publish(new PlayerHurt(viewEventPublisher.GetNextSequenceId(), this, 0, damage, playerHealth.CurrentBattleHealth, playerHealth.CurrentMentality, false));
     }
 
     public override void RequestHurt(int amount, BattleHurtSource source)

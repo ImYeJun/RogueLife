@@ -114,23 +114,37 @@ namespace View.BattleView
             if (!payload.Enemy.Equals(enemy)) { return; }
             actionIcons.Clear();
 
-            actionIconsContainer.sizeDelta = new Vector2(enemy.PlannedActions.Count, ICONS_CONAINTER_HEIGHT);
-            foreach (var action in enemy.PlannedActions)
+            int actionCount = enemy.PlannedActions.Count;
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_BaseIconAction, PlayActionPlannedPresentation(actionCount),
+                () =>
+                {
+                    actionIconsContainer.sizeDelta = new Vector2(actionCount, ICONS_CONAINTER_HEIGHT);
+                } );
+            
+            for (int i = 0; i < actionCount; i++)
             {
+                var action = enemy.PlannedActions[i];
                 var iconObject = Instantiate(actionIconPrefab, actionIconsContainer);
                 var actionIcon = iconObject.GetComponent<BattleEnemyActionIcon>();
                 actionIcon.Initialize(action);
                 actionIcons.Add(actionIcon);
 
-                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_IconAction, actionIcon.PlayAppliedPresentation());
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_BaseIconAction + i, actionIcon.PlayAppliedPresentation());
             }
+        }
+
+        private IEnumerator PlayActionPlannedPresentation(int actionCount)
+        {
+            actionIconsContainer.sizeDelta = new Vector2(actionCount, ICONS_CONAINTER_HEIGHT);
+            yield return null;
         }
 
         private void OnEnemyActionExecuted(EnemyActionExecuted payload)
         {
             if (payload.Actor != enemy) { return; }
 
-            var actionView = actionIcons.FirstOrDefault(view => view.Action == payload.Action);
+            var actionView = actionIcons.FirstOrDefault(view => view.Action == payload.Action && !view.HasExecuted);
+            //* Notice that enemy action reference is not cloned but same reference.
 
             if (actionView is null)
             {
@@ -138,6 +152,7 @@ namespace View.BattleView
             }
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, actionView.PlayExecutedPresentation());
+            actionView.HasExecuted = true;
         }
 
         private void OnEnemyTurnEndend(EnemyTurnEnded payload)
@@ -306,23 +321,6 @@ namespace View.BattleView
             yield return new WaitForSeconds(1.0f);
             actionText.text = "";
         }
-
-        [ContextMenu("Test Hurt Presentation")]
-        public void TestHurtPresentation()
-        {
-            DrawHealthBarDirectly(testStartHealth, testMaxHealth);
-
-            int targetHealth = Mathf.Max(0, testStartHealth - testDamage);
-            
-            StartCoroutine(DelayTestHurtPresentation(testDamage, targetHealth));
-        }
-        
-        private IEnumerator DelayTestHurtPresentation(int testDamage, int targetHealth)
-        {
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(HurtPresentation(testDamage, targetHealth));
-        }
-
         public override void OnInspect(IInspectorBuilder builder, RectTransform parent)
         {
             var nameText = builder.AddNameText(parent);
@@ -344,7 +342,23 @@ namespace View.BattleView
             }
             
             base.OnInspect(builder, parent);
-
         }
+
+        [ContextMenu("Test Hurt Presentation")]
+        public void TestHurtPresentation()
+        {
+            DrawHealthBarDirectly(testStartHealth, testMaxHealth);
+
+            int targetHealth = Mathf.Max(0, testStartHealth - testDamage);
+            
+            StartCoroutine(DelayTestHurtPresentation(testDamage, targetHealth));
+        }
+        
+        private IEnumerator DelayTestHurtPresentation(int testDamage, int targetHealth)
+        {
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(HurtPresentation(testDamage, targetHealth));
+        }
+
     }
 }

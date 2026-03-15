@@ -6,18 +6,24 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Collections;
+using System.Linq;
 
 namespace View.BattleView
 {
     public class BattlePlayerView : BattleEntityView<IReadOnlyBattlePlayer>
     {
+        private PlayerHurtPresentation hurtPresentation;
+
         private IReadOnlyBattlePlayer player;
         private BattlePlayerActionPresentation actionPresentation;
         private BattlePlayerBodyView bodyView;
+        private int currentBattleHealth;
+        private int currentMentality;
 
 
         [Header("BattlePlayerView")]
         [SerializeField] private Vector2 initialPos;
+        [SerializeField] private Transform healthBar;
         [SerializeField] private Image battleHeatlhBar;
         [SerializeField] private TextMeshProUGUI battleHeatlhText;
         [SerializeField] private Image mentalityBar;
@@ -26,12 +32,15 @@ namespace View.BattleView
 
         public IReadOnlyBattlePlayer Player { get => player; }
 
+        private void Awake() {
+            actionPresentation = GetComponent<BattlePlayerActionPresentation>();
+            bodyView = GetComponentInChildren<BattlePlayerBodyView>();
+            hurtPresentation = GetComponent<PlayerHurtPresentation>();
+        }
+
         public override void OnInitialized()
         {
             base.OnInitialized();
-            actionPresentation = GetComponent<BattlePlayerActionPresentation>();
-            bodyView = GetComponentInChildren<BattlePlayerBodyView>();
-
 
             eventBus.Subscribe<PlayerSettled>(OnPlayerSettled);
             eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
@@ -55,8 +64,13 @@ namespace View.BattleView
             player = payload.Player;
             bodyView.Initialize(player, this, viewTransitionManager.InspectEntity, BattleEntityInspectorView.InspectorDirection.Right);
             entity = player;
+
+            currentBattleHealth = player.Health.CurrentBattleHealth;
+            currentMentality = player.Health.CurrentMentality;
             
-            actionPresentation.Initiate(player, presentationManager, PlayActionPresentation);
+            actionPresentation.Initialize(player, presentationManager, PlayActionPresentation);
+            hurtPresentation.Initialize(transform, healthBar, mentalityBar, mentaltiyText, battleHeatlhBar, battleHeatlhText);
+
             DrawBattleHealthBar(player.Health.CurrentBattleHealth, player.Health.MaxBattleHealth);
             DrawMentalityBar(player.Health.CurrentMentality, player.Health.MaxMentality);
         }
@@ -73,13 +87,22 @@ namespace View.BattleView
             presentationManager.Enqueue(
                 payload.SequenceId, 
                 PresentationPriority.PlayerHurt_HealthBarPresentation, 
-                UpdateHurtHealthBarPresentation(payload.CurrentBattleHealth, payload.CurrentMentality, player.Health.MaxBattleHealth, player.Health.MaxMentality)
+                hurtPresentation.Play(payload, currentBattleHealth, currentMentality, battleStatusEffectIconContainer.Cast<Transform>().ToList())
             );
-            presentationManager.Enqueue(
-                payload.SequenceId, 
-                PresentationPriority.PlayerHurt_HealthBarPresentation, 
-                PlayHurtPresentation()
-            );
+
+            currentBattleHealth = payload.CurrentBattleHealth;
+            currentMentality = payload.CurrentMentality;
+            //TODO REFACTOR FUCKING
+            // presentationManager.Enqueue(
+            //     payload.SequenceId, 
+            //     PresentationPriority.PlayerHurt_HealthBarPresentation, 
+            //     UpdateHurtHealthBarPresentation(payload.CurrentBattleHealth, payload.CurrentMentality, player.Health.MaxBattleHealth, player.Health.MaxMentality)
+            // );
+            // presentationManager.Enqueue(
+            //     payload.SequenceId, 
+            //     PresentationPriority.PlayerHurt_HealthBarPresentation, 
+            //     PlayHurtPresentation()
+            // );
         }
 
         private void OnPlayerHealed(PlayerHealed payload)

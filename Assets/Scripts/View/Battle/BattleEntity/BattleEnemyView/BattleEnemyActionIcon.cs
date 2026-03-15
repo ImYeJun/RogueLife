@@ -31,6 +31,8 @@ namespace View.BattleView
         [SerializeField] private float removedPresentationDuration;
         [SerializeField] private Ease removedPresentationEase;
 
+        public bool HasExecuted { get; set;}
+
         private void Awake() 
         {
             canvasGroup = GetComponent<CanvasGroup>();
