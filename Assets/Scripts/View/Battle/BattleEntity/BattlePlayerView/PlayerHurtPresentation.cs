@@ -19,7 +19,7 @@ namespace View.BattleView
         private Image battleHealthBar;
         private TextMeshProUGUI battleHealthText;
 
-        private bool isFirstOverflowHurt = true;
+        [SerializeField] private bool isFirstOverflowHurt = true;
 
         [Header("Battle Health Hurt Presentation Settings")]
         [Tooltip("Settings for battle health hurt. (Shake Effect)")]
@@ -52,13 +52,11 @@ namespace View.BattleView
         [SerializeField] private float firstOverflow_HitStopDuration = 0.15f;
         [SerializeField, Range(0f, 1f)] private float firstOverflow_HitStopTimeScale = 0.05f;
         
-        [Tooltip("Step 3: Mentality damage presentation")]
+        [Tooltip("Step 3: Mentality damage presentation (Massive Shake)")]
         [Space(2)]
         [SerializeField] private float firstOverflow_MentalityDuration;
-        [SerializeField] private Vector3 firstOverflow_MentalityPunchAmount;
-        [SerializeField] private int firstOverflow_MentalityPunchVibrato = 15;
-        [SerializeField] private float firstOverflow_MentalityPunchElasticity = 1f;
         [SerializeField] private Vector3 firstOverflow_MentalityShakeAmount;
+        [SerializeField] private int firstOverflow_MentalityShakeVibrato = 25;
         [SerializeField] private Ease firstOverflow_MentalityEase;
 
         [Header("Normal Overflowed Hurt Presentation Settings")]
@@ -67,17 +65,17 @@ namespace View.BattleView
         [SerializeField] private Vector3 normalOverflow_BattleHealthShakeAmount;
         [SerializeField] private float normalOverflow_HitStopDuration = 0.05f;
         [SerializeField, Range(0f, 1f)] private float normalOverflow_HitStopTimeScale = 0.2f;
-        [SerializeField] private Color normalOverflow_FlashColor = Color.gray;
         [SerializeField] private float normalOverflow_MentalityDuration;
-        [SerializeField] private Vector3 normalOverflow_MentalityPunchAmount;
         [SerializeField] private Vector3 normalOverflow_MentalityShakeAmount;
+        [SerializeField] private int normalOverflow_MentalityShakeVibrato = 15;
         [SerializeField] private Ease normalOverflow_MentalityEase;
 
         [Header("Follow-Through Settings (All Shaking)")]
         [Tooltip("Lingering shake duration for child components (e.g., UI, icons) after the main body stops shaking.")]
         [SerializeField] private float battleHealthFollowThroughDuration;
         [SerializeField] private float mentalityFollowThroughDuration;
-        [SerializeField] private float overflowedFollowThroughDuration;
+        [SerializeField] private float firstOverflowed_FollowThroughDuration;
+        [SerializeField] private float normalOverflowed_FollowThroughDuration;
 
         [Space(5)]
         [Tooltip("Common shake settings for all follow-through components.")]
@@ -96,9 +94,14 @@ namespace View.BattleView
         [SerializeField] private Vector3 mentalityStatusIconShakeAmount; 
 
         [Space(10)]
-        [Tooltip("Follow-through shake amounts for Overflowed hurt.")]
-        [SerializeField] private Vector3 overflowedHealthBarShakeAmount;
-        [SerializeField] private Vector3 overflowedStatusIconShakeAmount;
+        [Tooltip("Follow-through shake amounts for Fisrt Overflowed hurt.")]
+        [SerializeField] private Vector3 firstOverflowed_healthBarShakeAmount;
+        [SerializeField] private Vector3 firstOverflowed_statusIconShakeAmount;
+
+        [Space(10)]
+        [Tooltip("Follow-through shake amounts for Normal Overflowed hurt.")]
+        [SerializeField] private Vector3 normalOverflowed_healthBarShakeAmount;
+        [SerializeField] private Vector3 normalOverflowed_statusIconShakeAmount;
 
         public void Initialize(
             Transform whole,
@@ -120,6 +123,7 @@ namespace View.BattleView
             if (payload.IsOverflowed)
             {
                 sequence.Append(PlayOverflowedHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
+                isFirstOverflowHurt = false;
             }
             else
             {
@@ -166,7 +170,6 @@ namespace View.BattleView
 
             result.Join(healthBarSequence);
             result.Join(actionSequence);
-
             return result;
         }
 
@@ -200,13 +203,76 @@ namespace View.BattleView
 
             result.Join(healthBarSequence);
             result.Join(actionSequence);
-
             return result;
         }
 
         private Tween PlayOverflowedHurtPresentation(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
         {
-            throw new NotImplementedException();
+            int maxBattleHealth = payload.Player.Health.MaxBattleHealth;
+            int maxMentality = payload.Player.Health.MaxMentality;
+
+            Sequence result = DOTween.Sequence();
+
+            float bhDuration = isFirstOverflowHurt ? firstOverflow_BattleHealthDuration : normalOverflow_BattleHealthDuration;
+            Vector3 bhShakeAmount = isFirstOverflowHurt ? firstOverflow_BattleHealthShakeAmount : normalOverflow_BattleHealthShakeAmount;
+            int bhShakeVibrato = isFirstOverflowHurt ? firstOverflow_BattleHealthShakeVibrato : battleHealthShakeVibrato;
+
+            float hitStopDuration = isFirstOverflowHurt ? firstOverflow_HitStopDuration : normalOverflow_HitStopDuration;
+            float hitStopTimeScale = isFirstOverflowHurt ? firstOverflow_HitStopTimeScale : normalOverflow_HitStopTimeScale;
+
+            float menDuration = isFirstOverflowHurt ? firstOverflow_MentalityDuration : normalOverflow_MentalityDuration;
+            Vector3 menShakeAmount = isFirstOverflowHurt ? firstOverflow_MentalityShakeAmount : normalOverflow_MentalityShakeAmount;
+            int menShakeVibrato = isFirstOverflowHurt ? firstOverflow_MentalityShakeVibrato : normalOverflow_MentalityShakeVibrato;
+            Ease menEase = isFirstOverflowHurt ? firstOverflow_MentalityEase : normalOverflow_MentalityEase;
+
+            float overflowedFollowThroughDuration = isFirstOverflowHurt ? firstOverflowed_FollowThroughDuration : normalOverflowed_FollowThroughDuration;
+            Vector3 healthBarShakeAmount = isFirstOverflowHurt ? firstOverflowed_healthBarShakeAmount : normalOverflowed_healthBarShakeAmount;
+            Vector3 statusIconShakeAmount = isFirstOverflowHurt ? firstOverflowed_statusIconShakeAmount : normalOverflowed_statusIconShakeAmount;
+
+            Sequence phase1 = DOTween.Sequence();
+            Sequence battleHealthBarSequence = CreateBarUpdateSequence(
+                targetBar: battleHealthBar,
+                targetText: battleHealthText,
+                startValue: existingBattleHealth,
+                endValue: 0,
+                maxValue: maxBattleHealth,
+                barDuration: bhDuration,
+                textDuration: bhDuration, 
+                ease: Ease.Linear
+            );
+
+            phase1.Join(battleHealthBarSequence);
+            phase1.Join(whole.DOShakePosition(bhDuration, bhShakeAmount, bhShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(Ease.Linear));
+
+            Sequence phase2 = DOTween.Sequence();
+            phase2.AppendInterval(hitStopDuration);
+
+            Sequence phase3 = DOTween.Sequence();
+            Sequence mentalityBarSequence = CreateBarUpdateSequence(
+                targetBar: mentalityBar,
+                targetText: mentalityText,
+                startValue: existingMentality,
+                endValue: payload.CurrentMentality,
+                maxValue: maxMentality,
+                barDuration: menDuration,
+                textDuration: menDuration,
+                ease: menEase
+            );
+
+            phase3.Join(mentalityBarSequence);
+            phase3.Join(whole.DOShakePosition(menDuration, menShakeAmount, menShakeVibrato, mentalityShakeRandomness, false, false, mentalityShakeRandomnessMode).SetEase(menEase));
+            phase3.Insert(menDuration, healthBarContainer.DOShakePosition(overflowedFollowThroughDuration, healthBarShakeAmount, followThroughShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(menEase));
+            
+            foreach (var icon in statusEffectIcons)
+            {
+                if (icon == null) continue;
+                phase3.Insert(menDuration, icon.DOShakePosition(overflowedFollowThroughDuration, statusIconShakeAmount, followThroughShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(menEase));
+            }
+
+            result.Append(phase1);
+            result.Append(phase2);
+            result.Append(phase3);
+            return result;
         }
 
         private IEnumerator WrapAsCoroutine(Tween tween)
