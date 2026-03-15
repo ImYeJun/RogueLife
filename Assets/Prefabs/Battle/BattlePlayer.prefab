@@ -1031,40 +1031,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20afec2623a47fc4db480b3d421ebc67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.PlayerHurtPresentation
-  heavyHurtRatio: 0.5
-  normalHurtDuration: 0.2
-  normalHurtTextOffsetDuration: 0.4
-  normalHurtShakeAmount: {x: 0.05, y: 0, z: 0}
-  normalHurtShakeVibrato: 50
-  normalHurtShakeRandomness: 100
-  normalHurtShakeRandomnessMode: 1
-  normalHurtEase: 9
-  heavyHurtDuration: 0.3
-  heavyHurtTextOffsetDuration: 0.7
-  heavyHurtShakeAmount: {x: 0.28, y: 0.14, z: 0}
-  heavyHurtShakeVibrato: 208
-  heavyHurtShakeRandomness: 100
-  heavyHurtShakeRandomnessMode: 1
-  heavyHurtEase: 18
-  firstMentalityHurtDuration: 0
-  firstMentalityHurtTextOffsetDuration: 0
-  firstMentalityPunchAmount: {x: 0, y: 0, z: 0}
-  firstMentalityPunchVibrato: 10
-  firstMentalityPunchElasticity: 1
-  firstMentalityShakeAmount: {x: 0, y: 0, z: 0}
-  firstMentalityShakeVibrato: 10
-  firstMentalityShakeRandomness: 90
-  firstMentalityShakeRandomnessMode: 0
-  firstMentalityHurtEase: 0
-  firstMentalityGlitchColor: {r: 1, g: 0, b: 1, a: 1}
-  normalMentalityHurtDuration: 0.3
-  normalMentalityHurtTextOffsetDuration: 0.5
-  normalMentalityPunchAmount: {x: -0.05, y: 0.06, z: 0}
-  normalMentalityPunchVibrato: 10
-  normalMentalityPunchElasticity: 1
-  normalMentalityShakeAmount: {x: 0, y: 0, z: 0}
-  normalMentalityHurtEase: 15
-  normalMentalityGlitchColor: {r: 1, g: 0, b: 0, a: 1}
+  impactDirection: {x: -1, y: 0, z: 0}
+  battleHealthHurtDuration: 0.2
+  battleHealthTextOffsetDuration: 0.2
+  battleHealthShakeAmount: {x: 0.05, y: 0.05, z: 0}
+  battleHealthShakeVibrato: 50
+  battleHealthShakeRandomness: 90
+  battleHealthShakeRandomnessMode: 1
+  battleHealthHurtEase: 10
+  mentalityHurtDuration: 0.3
+  mentalityHurtTextOffsetDuration: 0.1
+  mentalityShakeAmount: {x: 0.15, y: 0.15, z: 0}
+  mentalityShakeVibrato: 50
+  mentalityShakeRandomness: 90
+  mentalityShakeRandomnessMode: 1
+  mentalityHurtEase: 19
   firstOverflow_BattleHealthDuration: 0
   firstOverflow_BattleHealthShakeAmount: {x: 0, y: 0, z: 0}
   firstOverflow_BattleHealthShakeVibrato: 20
@@ -1085,16 +1066,16 @@ MonoBehaviour:
   normalOverflow_MentalityPunchAmount: {x: -0.02, y: 0.03, z: 0}
   normalOverflow_MentalityShakeAmount: {x: -0.02, y: 0.03, z: 0}
   normalOverflow_MentalityEase: 0
-  normalFollowThroughDuration: 0.1
-  heavyFollowThroughDuration: 0.1
-  mentalityFollowThroughDuration: 0
+  battleHealthFollowThroughDuration: 0.1
+  mentalityFollowThroughDuration: 0.1
   overflowedFollowThroughDuration: 0
-  normalHealthBarShakeAmount: {x: 0.01, y: 0, z: 0}
-  heavyHealthBarShakeAmount: {x: 0.04, y: 0.01, z: 0}
-  normalStatusIconShakeAmount: {x: 0.01, y: 0, z: 0}
-  heavyStatusIconShakeAmount: {x: 0.04, y: 0.1, z: 0}
-  mentalityHealthBarPunchAmount: {x: 0, y: 0, z: 0}
-  mentalityStatusIconPunchAmount: {x: 0, y: 0, z: 0}
+  followThroughShakeVibrato: 20
+  followThroughShakeRandomness: 300
+  followThroughShakeRandomnessMode: 1
+  battleHealthBarShakeAmount: {x: 0.01, y: 0.01, z: 0}
+  battleHealthStatusIconShakeAmount: {x: 0.03, y: 0.03, z: 0}
+  mentalityHealthBarShakeAmount: {x: 0.01, y: 0.01, z: 0}
+  mentalityStatusIconShakeAmount: {x: 0.03, y: 0.03, z: 0}
   overflowedHealthBarShakeAmount: {x: 0, y: 0, z: 0}
   overflowedStatusIconShakeAmount: {x: 0, y: 0, z: 0}
   testMaxBattleHealth: 100

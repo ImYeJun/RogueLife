@@ -22,52 +22,24 @@ namespace View.BattleView
         private bool isFirstOverflowHurt = true;
 
         [Header("Battle Health Hurt Presentation Settings")]
-        [SerializeField, Range(0, 1f)] private float heavyHurtRatio;
-        
-        [Space(5)]
-        [Tooltip("Settings for normal battle health hurt.")]
-        [SerializeField] private float normalHurtDuration;
-        [SerializeField] private float normalHurtTextOffsetDuration;
-        [SerializeField] private Vector3 normalHurtShakeAmount;
-        [SerializeField] private int normalHurtShakeVibrato = 10;
-        [SerializeField] private float normalHurtShakeRandomness = 90;
-        [SerializeField] private ShakeRandomnessMode normalHurtShakeRandomnessMode = ShakeRandomnessMode.Full;
-        [SerializeField] private Ease normalHurtEase;
+        [Tooltip("Settings for battle health hurt. (Shake Effect)")]
+        [SerializeField] private float battleHealthHurtDuration;
+        [SerializeField] private float battleHealthTextOffsetDuration;
+        [SerializeField] private Vector3 battleHealthShakeAmount; 
+        [SerializeField] private int battleHealthShakeVibrato = 10;
+        [SerializeField] private float battleHealthShakeRandomness = 90;
+        [SerializeField] private ShakeRandomnessMode battleHealthShakeRandomnessMode = ShakeRandomnessMode.Full;
+        [SerializeField] private Ease battleHealthHurtEase;
 
-        [Space(5)]
-        [Tooltip("Settings for heavy battle health hurt.")]
-        [SerializeField] private float heavyHurtDuration;
-        [SerializeField] private float heavyHurtTextOffsetDuration;
-        [SerializeField] private Vector3 heavyHurtShakeAmount;
-        [SerializeField] private int heavyHurtShakeVibrato = 10;
-        [SerializeField] private float heavyHurtShakeRandomness = 90;
-        [SerializeField] private ShakeRandomnessMode heavyHurtShakeRandomnessMode = ShakeRandomnessMode.Full;
-        [SerializeField] private Ease heavyHurtEase;
-
-        [Header("First Mentality Hurt Presentation Settings")]
-        [Tooltip("Settings for the first direct hit to Mentality.")]
-        [SerializeField] private float firstMentalityHurtDuration;
-        [SerializeField] private float firstMentalityHurtTextOffsetDuration;
-        [SerializeField] private Vector3 firstMentalityPunchAmount;
-        [SerializeField] private int firstMentalityPunchVibrato = 10;
-        [SerializeField] private float firstMentalityPunchElasticity = 1f;
-        [SerializeField] private Vector3 firstMentalityShakeAmount;
-        [SerializeField] private int firstMentalityShakeVibrato = 10;
-        [SerializeField] private float firstMentalityShakeRandomness = 90;
-        [SerializeField] private ShakeRandomnessMode firstMentalityShakeRandomnessMode = ShakeRandomnessMode.Full;
-        [SerializeField] private Ease firstMentalityHurtEase;
-        [SerializeField] private Color firstMentalityGlitchColor = Color.magenta;
-
-        [Header("Normal Mentality Hurt Presentation Settings")]
-        [Tooltip("Settings for subsequent direct hits to Mentality. Usually slightly shorter and less dramatic than the first hit.")]
-        [SerializeField] private float normalMentalityHurtDuration;
-        [SerializeField] private float normalMentalityHurtTextOffsetDuration;
-        [SerializeField] private Vector3 normalMentalityPunchAmount;
-        [SerializeField] private int normalMentalityPunchVibrato = 10;
-        [SerializeField] private float normalMentalityPunchElasticity = 1f;
-        [SerializeField] private Vector3 normalMentalityShakeAmount;
-        [SerializeField] private Ease normalMentalityHurtEase;
-        [SerializeField] private Color normalMentalityGlitchColor = Color.red;
+        [Header("Mentality Hurt Presentation Settings")]
+        [Tooltip("Settings for direct hits to Mentality. (Stronger Shake Effect)")]
+        [SerializeField] private float mentalityHurtDuration;
+        [SerializeField] private float mentalityHurtTextOffsetDuration;
+        [SerializeField] private Vector3 mentalityShakeAmount; 
+        [SerializeField] private int mentalityShakeVibrato = 15; 
+        [SerializeField] private float mentalityShakeRandomness = 90;
+        [SerializeField] private ShakeRandomnessMode mentalityShakeRandomnessMode = ShakeRandomnessMode.Full;
+        [SerializeField] private Ease mentalityHurtEase;
 
         [Header("First Overflowed Mentality Hurt Presentation Settings")]
         [Tooltip("Step 1: Battle health broken duration & shake.")]
@@ -101,29 +73,33 @@ namespace View.BattleView
         [SerializeField] private Vector3 normalOverflow_MentalityShakeAmount;
         [SerializeField] private Ease normalOverflow_MentalityEase;
 
-        [Header("Follow-Through Settings")]
+        [Header("Follow-Through Settings (All Shaking)")]
         [Tooltip("Lingering shake duration for child components (e.g., UI, icons) after the main body stops shaking.")]
-        [SerializeField] private float normalFollowThroughDuration;
-        [SerializeField] private float heavyFollowThroughDuration;
+        [SerializeField] private float battleHealthFollowThroughDuration;
         [SerializeField] private float mentalityFollowThroughDuration;
         [SerializeField] private float overflowedFollowThroughDuration;
 
-        [Space(10)]
-        [Tooltip("Follow-through for Battle Health hurt.")]
-        [SerializeField] private Vector3 normalHealthBarShakeAmount;
-        [SerializeField] private Vector3 heavyHealthBarShakeAmount;
-        [SerializeField] private Vector3 normalStatusIconShakeAmount;
-        [SerializeField] private Vector3 heavyStatusIconShakeAmount;
+        [Space(5)]
+        [Tooltip("Common shake settings for all follow-through components.")]
+        [SerializeField] private int followThroughShakeVibrato = 15;
+        [SerializeField] private float followThroughShakeRandomness = 90;
+        [SerializeField] private ShakeRandomnessMode followThroughShakeRandomnessMode = ShakeRandomnessMode.Full;
 
         [Space(10)]
-        [Tooltip("Follow-through for Mentality hurt.")]
-        [SerializeField] private Vector3 mentalityHealthBarPunchAmount;
-        [SerializeField] private Vector3 mentalityStatusIconPunchAmount;
+        [Tooltip("Follow-through shake amounts for Battle Health hurt.")]
+        [SerializeField] private Vector3 battleHealthBarShakeAmount; 
+        [SerializeField] private Vector3 battleHealthStatusIconShakeAmount; 
 
         [Space(10)]
-        [Tooltip("Follow-through for Overflowed hurt.")]
+        [Tooltip("Follow-through shake amounts for Mentality hurt.")]
+        [SerializeField] private Vector3 mentalityHealthBarShakeAmount; 
+        [SerializeField] private Vector3 mentalityStatusIconShakeAmount; 
+
+        [Space(10)]
+        [Tooltip("Follow-through shake amounts for Overflowed hurt.")]
         [SerializeField] private Vector3 overflowedHealthBarShakeAmount;
         [SerializeField] private Vector3 overflowedStatusIconShakeAmount;
+
         public void Initialize(
             Transform whole,
             Transform healthBar, Image mentalityBar, TextMeshProUGUI mentalityText, Image battleHealthBar, TextMeshProUGUI battleHealthText)
@@ -149,7 +125,7 @@ namespace View.BattleView
             {
                 if (payload.MentalityDamage > 0)
                 {
-                    sequence.Append(PlayNormalMentalityHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
+                    sequence.Append(PlayMentalityHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
                 }
                 if (payload.BattleHealthDamage > 0)
                 {
@@ -164,79 +140,66 @@ namespace View.BattleView
         {
             int maxHealth = payload.Player.Health.MaxBattleHealth;
 
-            float damageRatio = (float)payload.BattleHealthDamage/existingBattleHealth;
-            float normalizedHealth = (float)payload.CurrentBattleHealth/maxHealth;
-
-            float duration = IsHeavyHurt(damageRatio) ? heavyHurtDuration : normalHurtDuration;
-            float textOffsetDuration = IsHeavyHurt(damageRatio) ? heavyHurtTextOffsetDuration : normalHurtTextOffsetDuration;
-            Vector3 shakeAmount = IsHeavyHurt(damageRatio) ? heavyHurtShakeAmount : normalHurtShakeAmount;
-            int shakeVibrato = IsHeavyHurt(damageRatio) ? heavyHurtShakeVibrato : normalHurtShakeVibrato;
-            float shakeRandomness = IsHeavyHurt(damageRatio) ? heavyHurtShakeRandomness : normalHurtShakeRandomness;
-            ShakeRandomnessMode shakeRandomnesMode = IsHeavyHurt(damageRatio) ? heavyHurtShakeRandomnessMode : normalHurtShakeRandomnessMode;
-            Ease ease = IsHeavyHurt(damageRatio) ? heavyHurtEase : normalHurtEase;
-            float followThroughDuration = IsHeavyHurt(damageRatio) ? heavyFollowThroughDuration : normalFollowThroughDuration;
-            Vector3 healthBarShakeAmount = IsHeavyHurt(damageRatio) ? heavyHealthBarShakeAmount : normalHealthBarShakeAmount;
-            Vector3 statusIconShakeAmount = IsHeavyHurt(damageRatio) ? heavyStatusIconShakeAmount : normalStatusIconShakeAmount;
-            
             Sequence result = DOTween.Sequence();
 
             Sequence healthBarSequence = CreateBarUpdateSequence(
-                targetBar : battleHealthBar,
-                targetText : battleHealthText,
-                startValue : existingBattleHealth,
-                endValue : payload.CurrentBattleHealth,
-                maxValue : maxHealth,
-                barDuration : duration,
-                textDuration : duration + textOffsetDuration,
-                ease : ease
+                targetBar: battleHealthBar,
+                targetText: battleHealthText,
+                startValue: existingBattleHealth,
+                endValue: payload.CurrentBattleHealth,
+                maxValue: maxHealth,
+                barDuration: battleHealthHurtDuration,
+                textDuration: battleHealthHurtDuration + battleHealthTextOffsetDuration,
+                ease: battleHealthHurtEase
             );
 
-            Sequence shakeSeqeuence = DOTween.Sequence();
-            shakeSeqeuence.Join(whole.DOShakePosition(duration, shakeAmount, shakeVibrato, shakeRandomness, false, false, shakeRandomnesMode)).SetEase(ease);
-            shakeSeqeuence.Insert(duration, healthBarContainer.DOShakePosition(followThroughDuration, healthBarShakeAmount, shakeVibrato, shakeRandomness, false, false, shakeRandomnesMode)).SetEase(ease);
+            Sequence actionSequence = DOTween.Sequence();
+
+            actionSequence.Join(whole.DOShakePosition(battleHealthHurtDuration, battleHealthShakeAmount, battleHealthShakeVibrato, battleHealthShakeRandomness, false, false, battleHealthShakeRandomnessMode).SetEase(battleHealthHurtEase));
+            actionSequence.Insert(battleHealthHurtDuration, healthBarContainer.DOShakePosition(battleHealthFollowThroughDuration, battleHealthBarShakeAmount, followThroughShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(battleHealthHurtEase));
+            
             foreach (var icon in statusEffectIcons)
             {
-                shakeSeqeuence.Insert(duration, icon.DOShakePosition(followThroughDuration, statusIconShakeAmount, shakeVibrato, shakeRandomness, false, false, shakeRandomnesMode)).SetEase(ease);
+                if (icon == null) continue;
+                actionSequence.Insert(battleHealthHurtDuration, icon.DOShakePosition(battleHealthFollowThroughDuration, battleHealthStatusIconShakeAmount, followThroughShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(battleHealthHurtEase));
             }
 
             result.Join(healthBarSequence);
-            result.Join(shakeSeqeuence);
+            result.Join(actionSequence);
 
             return result;
-
-            bool IsHeavyHurt(float damageRatio)
-            {
-                return damageRatio >= heavyHurtRatio;
-            }
         }
 
-        private Tween PlayNormalMentalityHurtPresentation(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
+        private Tween PlayMentalityHurtPresentation(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
         {
             int maxHealth = payload.Player.Health.MaxMentality;
 
             Sequence result = DOTween.Sequence();
 
             Sequence healthBarSequence = CreateBarUpdateSequence(
-                targetBar : mentalityBar,
-                targetText : mentalityText,
-                startValue : existingMentality,
-                endValue : payload.CurrentMentality,
-                maxValue : maxHealth,
-                barDuration : normalMentalityHurtDuration,
-                textDuration : normalMentalityHurtDuration + normalMentalityHurtTextOffsetDuration,
-                ease : normalMentalityHurtEase
+                targetBar: mentalityBar,
+                targetText: mentalityText,
+                startValue: existingMentality,
+                endValue: payload.CurrentMentality,
+                maxValue: maxHealth,
+                barDuration: mentalityHurtDuration,
+                textDuration: mentalityHurtDuration + mentalityHurtTextOffsetDuration,
+                ease: mentalityHurtEase
             );
             
-            Sequence punchSequence = DOTween.Sequence();
-            punchSequence.Append(whole.DOPunchPosition(normalMentalityPunchAmount, normalMentalityHurtDuration, normalMentalityPunchVibrato, normalMentalityPunchElasticity)).SetEase(normalMentalityHurtEase);
-            punchSequence.Insert(normalMentalityHurtDuration, healthBarContainer.DOPunchPosition(mentalityHealthBarPunchAmount, mentalityFollowThroughDuration)).SetEase(normalMentalityHurtEase);
+            Sequence actionSequence = DOTween.Sequence();
+
+            actionSequence.Join(whole.DOShakePosition(mentalityHurtDuration, mentalityShakeAmount, mentalityShakeVibrato, mentalityShakeRandomness, false, false, mentalityShakeRandomnessMode).SetEase(mentalityHurtEase));
+            actionSequence.Insert(mentalityHurtDuration, healthBarContainer.DOShakePosition(mentalityFollowThroughDuration, mentalityHealthBarShakeAmount, followThroughShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(mentalityHurtEase));
+            
             foreach (var icon in statusEffectIcons)
             {
-                punchSequence.Insert(normalMentalityHurtDuration, icon.DOPunchPosition(mentalityStatusIconPunchAmount, mentalityFollowThroughDuration)).SetEase(normalMentalityHurtEase);
+                if (icon == null) continue;
+                actionSequence.Insert(mentalityHurtDuration, icon.DOShakePosition(mentalityFollowThroughDuration, mentalityStatusIconShakeAmount, followThroughShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(mentalityHurtEase));
             }
 
             result.Join(healthBarSequence);
-            result.Join(punchSequence);
+            result.Join(actionSequence);
 
             return result;
         }
@@ -278,6 +241,7 @@ namespace View.BattleView
 
             return sequence;
         }
+
 #if UNITY_EDITOR
         [Header("Test Only")]
         [SerializeField] private int testMaxBattleHealth = 100;
@@ -349,9 +313,7 @@ namespace View.BattleView
             
             yield return StartCoroutine(Play(dummyPayload, testStartBattleHealth, testStartMentality, testStatusEffectIcons.Select(icon => (Transform)icon).ToList()));
         }
-#endif
 
-#if UNITY_EDITOR
     public class MockHealth : IReadOnlyHealth
     {
         public int CurrentBattleHealth { get; set; }
