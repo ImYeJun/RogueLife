@@ -71,11 +71,11 @@ namespace View.BattleView
         {
             layoutElement.ignoreLayout = false;
             canvasGroup.alpha = 0;
-            yield return canvasGroup.DOFade(1, appliedPresentationDuration).SetEase(appliedPresentationEase);
+            yield return canvasGroup.DOFade(1, appliedPresentationDuration).SetEase(appliedPresentationEase).WaitForCompletion();
         }
         public IEnumerator PlayExectuedPresentation()
         {
-            yield return transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity).SetEase(executedPresentationEase);
+            yield return transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity).SetEase(executedPresentationEase).WaitForCompletion();
         }
         public IEnumerator PlayUpdatedPresentation()
         {
@@ -84,7 +84,7 @@ namespace View.BattleView
         public IEnumerator PlayRemovedPresentation()
         {
             canvasGroup.alpha = 1;
-            yield return canvasGroup.DOFade(0, removedPresentationDuration).SetEase(removedPresentationEase);
+            yield return canvasGroup.DOFade(0, removedPresentationDuration).SetEase(removedPresentationEase).WaitForCompletion();
         }
 
 #if UNITY_EDITOR

@@ -72,7 +72,8 @@ public static class PresentationPriority
     public const int EnemyTurnStarted_TurnViewShowingDown = 10;
 
     //Enemy Turn Ended
-    public const int EnemyTurnEnded_TurnViewDisappearingUp = 10;
+    public const int EnemyTurnEnded_ActionClear = 10;
+    public const int EnemyTurnEnded_TurnViewDisappearingUp = 0;
 
     //Cost Consumed
     public const int CostConsumed_CountCost = 10;
@@ -133,4 +134,10 @@ public static class PresentationPriority
 
     //Player Heal
     public const int PlayerHeal_HealthBarPresentation = 10;
+
+    //Phase Increased
+    public const int PhaseIncreased_UpdateView = 10;
+
+    //Phase Decreased
+    public const int PhaseDecreased_UpdateView = 10;
 }

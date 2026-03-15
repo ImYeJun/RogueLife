@@ -26,6 +26,7 @@ namespace View.BattleView
         [SerializeField] float showingDownDuration;
         [SerializeField] Ease showingDownEasingType;
 
+        private Tween currentTween;
         private bool isViewVisible = false;
         private int? pendingTurnValue = null;
 
@@ -58,7 +59,7 @@ namespace View.BattleView
 
         private void KillActiveTweens()
         {
-            rectTransform?.DOKill();
+            currentTween?.Kill();
         }
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
@@ -82,7 +83,8 @@ namespace View.BattleView
             }
             isViewVisible = true;
             
-            yield return rectTransform.DOAnchorPos(showingPosition, showingDownDuration).SetEase(showingDownEasingType).WaitForCompletion();
+            currentTween = rectTransform.DOAnchorPos(showingPosition, showingDownDuration).SetEase(showingDownEasingType);
+            yield return currentTween.WaitForCompletion();
         }
 
         private void OnPlayerTurnEnded(PlayerTurnEnded payload)
@@ -101,17 +103,22 @@ namespace View.BattleView
             
             isViewVisible = false;
             
-            yield return rectTransform.DOAnchorPos(disappearingUpDestination, disappearingUpDuration).SetEase(disappearingUpEasingType).WaitForCompletion();
+            currentTween = rectTransform.DOAnchorPos(disappearingUpDestination, disappearingUpDuration).SetEase(disappearingUpEasingType);
+            yield return currentTween.WaitForCompletion();
         }
 
         public void OnPhaseIncreased(PhaseIncreased payload)
         {
-            HandlePhaseUpdate(payload.CurrentPhase);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PhaseIncreased_UpdateView, PhaseUpdatePresentation(payload.CurrentPhase), () =>{
+                HandlePhaseUpdate(payload.CurrentPhase);
+            });
         }
         
         public void OnPhaseDecreased(PhaseDecreased payload)
         {
-            HandlePhaseUpdate(payload.CurrentPhase);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PhaseDecreased_UpdateView, PhaseUpdatePresentation(payload.CurrentPhase), () =>{
+                HandlePhaseUpdate(payload.CurrentPhase);
+            });
         }
 
         public void OnInitialPhaseSettled(InitialPhaseSettled payload)
@@ -120,9 +127,15 @@ namespace View.BattleView
             HandlePhaseUpdate(phase.ReaminTurn);
         }
 
+        private IEnumerator PhaseUpdatePresentation(int currentPhase)
+        {
+            HandlePhaseUpdate(currentPhase);
+            yield return null;
+        }
+
         private void HandlePhaseUpdate(int currentPhase)
         {
-            if (isViewVisible)
+            if (isViewVisible && !currentTween.IsActive())
             {
                 DrawPhaseText(currentPhase);
             }

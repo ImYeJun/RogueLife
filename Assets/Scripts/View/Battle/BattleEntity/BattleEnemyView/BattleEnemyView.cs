@@ -74,6 +74,7 @@ namespace View.BattleView
             bodyView = GetComponentInChildren<BattleEnemyBodyView>();
 
             eventBus.Subscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
+            eventBus.Subscribe<EnemyTurnEnded>(OnEnemyTurnEndend);
             eventBus.Subscribe<EnemyHurt>(OnEnemyHurt);
             eventBus.Subscribe<EnemyHealed>(OnEnemyHealed);
             eventBus.Subscribe<EnemyDied>(OnEnemyDied);
@@ -84,6 +85,7 @@ namespace View.BattleView
         {
             base.OnDestroy();
             eventBus?.Unsubscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
+            eventBus?.Unsubscribe<EnemyTurnEnded>(OnEnemyTurnEndend);
             eventBus?.Unsubscribe<EnemyHurt>(OnEnemyHurt);
             eventBus?.Unsubscribe<EnemyHealed>(OnEnemyHealed);
             eventBus?.Unsubscribe<EnemyDied>(OnEnemyDied);
@@ -110,11 +112,6 @@ namespace View.BattleView
             }
 
             if (!payload.Enemy.Equals(enemy)) { return; }
-
-            foreach (var icon in actionIcons)
-            {
-                Destroy(icon.gameObject);
-            }
             actionIcons.Clear();
 
             actionIconsContainer.sizeDelta = new Vector2(enemy.PlannedActions.Count, ICONS_CONAINTER_HEIGHT);
@@ -126,6 +123,34 @@ namespace View.BattleView
                 actionIcons.Add(actionIcon);
 
                 presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_IconAction, actionIcon.PlayAppliedPresentation());
+            }
+        }
+
+        private void OnEnemyActionExecuted(EnemyActionExecuted payload)
+        {
+            if (payload.Actor != enemy) { return; }
+
+            var actionView = actionIcons.FirstOrDefault(view => view.Action == payload.Action);
+
+            if (actionView is null)
+            {
+                throw new InvalidOperationException($"[{GetType()}]] The Enemy doesn't have given action");
+            }
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, actionView.PlayExecutedPresentation());
+        }
+
+        private void OnEnemyTurnEndend(EnemyTurnEnded payload)
+        {
+            for (int i = actionIcons.Count - 1; i >= 0; i--)
+            {
+                var actionIcon = actionIcons[i];
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyTurnEnded_ActionClear, actionIcon.PlayRemovedPresentation(),
+                () =>
+                {
+                    Destroy(actionIcon.gameObject);
+                }
+                );
             }
         }
 
@@ -172,20 +197,6 @@ namespace View.BattleView
         private IEnumerator EnemyDiedPresentation()
         {
             yield return null;
-        }
-
-        private void OnEnemyActionExecuted(EnemyActionExecuted payload)
-        {
-            if (payload.Actor != enemy) { return; }
-
-            var actionView = actionIcons.FirstOrDefault(view => view.Action == payload.Action);
-
-            if (actionView is null)
-            {
-                throw new InvalidOperationException($"[{GetType()}]] The Enemy doesn't have given action");
-            }
-
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, actionView.PlayExecutedPresentation());
         }
 
         private IEnumerator ActionExecutedPresentation(EnemyActionExecuted payload)
