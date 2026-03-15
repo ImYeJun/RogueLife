@@ -129,8 +129,7 @@ public static class PresentationPriority
     public const int EnemyDied_DiePresentation = 10;
 
     //Player Hurt
-    public const int PlayerHurt_EnemyPresentation = 10;
-    public const int PlayerHurt_HealthBarPresentation = 10;
+    public const int PlayerHurt_PlayerPresentation = 10;
 
     //Player Heal
     public const int PlayerHeal_HealthBarPresentation = 10;

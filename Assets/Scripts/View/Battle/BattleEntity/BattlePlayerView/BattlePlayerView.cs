@@ -18,6 +18,7 @@ namespace View.BattleView
         private BattlePlayerActionPresentation actionPresentation;
         private BattlePlayerBodyView bodyView;
         private int currentBattleHealth;
+
         private int currentMentality;
 
 
@@ -83,26 +84,24 @@ namespace View.BattleView
             }
 
             if (!payload.Player.Equals(player)) { return; }
-
-            presentationManager.Enqueue(
-                payload.SequenceId, 
-                PresentationPriority.PlayerHurt_HealthBarPresentation, 
-                hurtPresentation.Play(payload, currentBattleHealth, currentMentality, battleStatusEffectIconContainer.Cast<Transform>().ToList())
-            );
+            
 
             currentBattleHealth = payload.CurrentBattleHealth;
             currentMentality = payload.CurrentMentality;
-            //TODO REFACTOR FUCKING
-            // presentationManager.Enqueue(
-            //     payload.SequenceId, 
-            //     PresentationPriority.PlayerHurt_HealthBarPresentation, 
-            //     UpdateHurtHealthBarPresentation(payload.CurrentBattleHealth, payload.CurrentMentality, player.Health.MaxBattleHealth, player.Health.MaxMentality)
-            // );
-            // presentationManager.Enqueue(
-            //     payload.SequenceId, 
-            //     PresentationPriority.PlayerHurt_HealthBarPresentation, 
-            //     PlayHurtPresentation()
-            // );
+            int snapshotedBattleHealth = currentBattleHealth;
+            int snapshotedMentality = currentMentality;
+
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.PlayerHurt_PlayerPresentation, 
+                hurtPresentation.Play(payload, currentBattleHealth, currentMentality, battleStatusEffectIconContainer.Cast<Transform>().ToList()),
+                () =>
+                {
+                    DrawBattleHealthBar(snapshotedBattleHealth, player.Health.MaxBattleHealth);
+                    DrawMentalityBar(snapshotedMentality, player.Health.MaxMentality);
+                }
+            );
+
         }
 
         private void OnPlayerHealed(PlayerHealed payload)
@@ -117,15 +116,14 @@ namespace View.BattleView
             presentationManager.Enqueue(
                 payload.SequenceId, 
                 PresentationPriority.PlayerHeal_HealthBarPresentation, 
-                UpdateHealHealthBarPresentation(payload.CurrentBattleHealth, player.Health.MaxBattleHealth)
+                UpdateHealHealthBarPresentation(payload.CurrentBattleHealth, player.Health.MaxBattleHealth),
+                () =>
+                {
+                    DrawBattleHealthBar(currentBattleHealth, player.Health.MaxBattleHealth);
+                }
             );
-        }
 
-        private IEnumerator UpdateHurtHealthBarPresentation(int currentHealth, int currentMentality, int maxHealth, int maxMentality)
-        {
-            DrawBattleHealthBar(currentHealth, maxHealth);
-            DrawMentalityBar(currentMentality, maxMentality);
-            yield return null;
+            currentBattleHealth = payload.CurrentBattleHealth;
         }
 
         private IEnumerator UpdateHealHealthBarPresentation(int currentHealth, int maxHealth)

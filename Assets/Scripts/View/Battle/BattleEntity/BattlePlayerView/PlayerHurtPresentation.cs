@@ -50,8 +50,6 @@ namespace View.BattleView
         [Tooltip("Step 2: Hit Stop presentation when the defense is initially breached.")]
         [Space(2)]
         [SerializeField] private float firstOverflow_HitStopDuration = 0.15f;
-        [SerializeField, Range(0f, 1f)] private float firstOverflow_HitStopTimeScale = 0.05f;
-        
         [Tooltip("Step 3: Mentality damage presentation (Massive Shake)")]
         [Space(2)]
         [SerializeField] private float firstOverflow_MentalityDuration;
@@ -64,7 +62,6 @@ namespace View.BattleView
         [SerializeField] private float normalOverflow_BattleHealthDuration;
         [SerializeField] private Vector3 normalOverflow_BattleHealthShakeAmount;
         [SerializeField] private float normalOverflow_HitStopDuration = 0.05f;
-        [SerializeField, Range(0f, 1f)] private float normalOverflow_HitStopTimeScale = 0.2f;
         [SerializeField] private float normalOverflow_MentalityDuration;
         [SerializeField] private Vector3 normalOverflow_MentalityShakeAmount;
         [SerializeField] private int normalOverflow_MentalityShakeVibrato = 15;
@@ -127,17 +124,18 @@ namespace View.BattleView
             }
             else
             {
-                if (payload.MentalityDamage > 0)
-                {
-                    sequence.Append(PlayMentalityHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
-                }
                 if (payload.BattleHealthDamage > 0)
                 {
                     sequence.Append(PlayBattleHealthHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
                 }
+                if (payload.MentalityDamage > 0)
+                {
+                    sequence.Append(PlayMentalityHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
+                }
             }
 
-            return WrapAsCoroutine(sequence);
+            yield return sequence.WaitForCompletion();
+            // return WrapAsCoroutine(sequence);
         }
 
         private Tween PlayBattleHealthHurtPresentation(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
@@ -218,7 +216,6 @@ namespace View.BattleView
             int bhShakeVibrato = isFirstOverflowHurt ? firstOverflow_BattleHealthShakeVibrato : battleHealthShakeVibrato;
 
             float hitStopDuration = isFirstOverflowHurt ? firstOverflow_HitStopDuration : normalOverflow_HitStopDuration;
-            float hitStopTimeScale = isFirstOverflowHurt ? firstOverflow_HitStopTimeScale : normalOverflow_HitStopTimeScale;
 
             float menDuration = isFirstOverflowHurt ? firstOverflow_MentalityDuration : normalOverflow_MentalityDuration;
             Vector3 menShakeAmount = isFirstOverflowHurt ? firstOverflow_MentalityShakeAmount : normalOverflow_MentalityShakeAmount;
@@ -273,11 +270,6 @@ namespace View.BattleView
             result.Append(phase2);
             result.Append(phase3);
             return result;
-        }
-
-        private IEnumerator WrapAsCoroutine(Tween tween)
-        {
-            yield return tween.WaitForCompletion();
         }
 
         private Sequence CreateBarUpdateSequence(

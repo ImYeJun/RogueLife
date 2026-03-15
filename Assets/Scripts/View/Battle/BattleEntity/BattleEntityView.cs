@@ -63,7 +63,7 @@ namespace View.BattleView
             if (iconToRemove != null)
             {
                 battleStatusEffectIcons.Remove(iconToRemove);
-                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectRemoved_IconAction, iconToRemove.PlayExectuedPresentation(),
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectRemoved_IconAction, iconToRemove.PlayRemovedPresentation(),
                 () =>
                 {
                     Destroy(iconToRemove.gameObject);
