@@ -87,6 +87,8 @@ namespace View.BattleView
             cardDescriptionView.Unfocus();
             cardViews = new List<BattleCardView>();
 
+            cardActivateSystem.OnCardProcessingPrepared = OnCardProcessed;
+
             eventBus.Subscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
             eventBus.Subscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
             eventBus.Subscribe<CardDrawed>(OnCardDrawed);
@@ -110,6 +112,7 @@ namespace View.BattleView
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, OpenHandDeckPresentation());
             isHandDeckOpened = true;
         }
+
         private void OnPlayerTurnEnded(PlayerTurnEnded payload)
         {
             if (!isHandDeckOpened) { return; }
@@ -118,6 +121,7 @@ namespace View.BattleView
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, CloseHandDeckPresentation());
             isHandDeckOpened = false;
         }
+
         private IEnumerator OpenHandDeckPresentation()
         {
             currentHandDeckTween?.Kill();
@@ -130,6 +134,7 @@ namespace View.BattleView
             handDeckRectransform.anchoredPosition = openedHandDeckPosition;
             handDeckCanvasGroup.blocksRaycasts = true;
         }
+
         private IEnumerator CloseHandDeckPresentation()
         {
             currentHandDeckTween?.Kill();
@@ -151,36 +156,25 @@ namespace View.BattleView
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDrawed_HandDeckPresentation, DrawCardPresentation(newCardView, new List<BattleCardView>(cardViews)));
         }
+
         private IEnumerator DrawCardPresentation(BattleCardView drawedCardView, List<BattleCardView> currentCardViews)
         {
-            RectTransform drawCardRect = drawedCardView.rectTransform;
-
-            drawCardRect.position = drawDeckPosition.position;
-            drawCardRect.rotation = drawDeckPosition.rotation; 
-            drawCardRect.localScale = Vector3.zero; 
+            drawedCardView.SetWorldTransform(drawDeckPosition.position, drawDeckPosition.rotation, Vector3.zero);
 
             Sequence sequence = DOTween.Sequence();
-            for (int i = 0; i < currentCardViews.Count; i++)
-            {
-                var view = currentCardViews[i];
-                view.transform.SetSiblingIndex(i);
-                view.gameObject.SetActive(true);
+            
+            sequence.Join(PlayCardSortPresentation(
+                currentCardViews, 
+                drawExistingMoveDuration, drawExistingRotateDuration, 
+                drawExistingMoveEase, drawExistingRotateEase, 
+                excludeTweenView: drawedCardView));
 
-                GetCardPositionAngle(i, currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
-                view.SetBaseLayoutTransform(targetPos, targetAngle);
+            GetCardPositionAngle(currentCardViews.IndexOf(drawedCardView), currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
+            drawedCardView.SetBaseLayoutTransform(targetPos, targetAngle);
 
-                if (view == drawedCardView)
-                {
-                    sequence.Join(view.rectTransform.DOAnchorPos(targetPos, drawTargetMoveDuration).SetEase(drawTargetMoveEase));
-                    sequence.Join(view.transform.DORotate(targetAngle, drawTargetRotateDuration, RotateMode.Fast).SetEase(drawTargetRotateEase));
-                    sequence.Join(view.transform.DOScale(Vector3.one, drawTargetScaleDuration).SetEase(drawTargetScaleEase));
-                }
-                else
-                {
-                    sequence.Join(view.rectTransform.DOAnchorPos(targetPos, drawExistingMoveDuration).SetEase(drawExistingMoveEase));
-                    sequence.Join(view.transform.DORotate(targetAngle, drawExistingRotateDuration, RotateMode.Fast).SetEase(drawExistingRotateEase));
-                }
-            }
+            sequence.Join(drawedCardView.PlayDrawPresentation(
+                drawTargetMoveDuration, drawTargetRotateDuration, drawTargetScaleDuration, 
+                drawTargetMoveEase, drawTargetRotateEase, drawTargetScaleEase));
 
             yield return sequence.WaitForCompletion();
         }
@@ -203,31 +197,59 @@ namespace View.BattleView
             
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(view, new List<BattleCardView>(cardViews), payload.Destination));
         }
+
         private IEnumerator DiscardCardPresentation(BattleCardView discardCard, List<BattleCardView> currentCardViews, BattleDeckType destination)
         {
-            var discardCardRect = discardCard.rectTransform;
-
             Sequence sequence = DOTween.Sequence();
 
-            Vector3 startPos = discardCardRect.position;
-            Vector3 endPos = destination switch 
+            Vector3 endPos = destination switch
             {
                 BattleDeckType.DRAW => drawDeckPosition.position,
                 BattleDeckType.GRAVE => graveDeckPosition.position,
                 _ => throw new InvalidOperationException($"[DeckViewSystem] {destination} is not valid.")
             };
             Vector3 controlPos = discardControlPointOffset.position;
-            
-            float t = 0f;
-            
-            sequence.Join(DOTween.To(() => t, x => 
-            {
-                t = x; 
-                discardCardRect.position = CalculateQuadraticBezierPoint(t, startPos, controlPos, endPos);
-            }, 1f, discardTargetMoveDuration).SetEase(discardTargetMoveEase));
+            Vector3 endRot = graveDeckPosition.rotation.eulerAngles;
 
-            sequence.Join(discardCardRect.DORotate(graveDeckPosition.rotation.eulerAngles, discardTargetRotateDuration).SetEase(discardTargetRotateEase));
-            sequence.Join(discardCardRect.DOScale(0.2f, discardTargetScaleDuration).SetEase(discardTargetScaleEase));
+            sequence.Join(discardCard.PlayDiscardPresentation(
+                endPos, controlPos, endRot,
+                discardTargetMoveDuration, discardTargetRotateDuration, discardTargetScaleDuration,
+                discardTargetMoveEase, discardTargetRotateEase, discardTargetScaleEase));
+
+            sequence.Join(PlayCardSortPresentation(
+                currentCardViews, 
+                discardExistingMoveDuration, discardExistingRotateDuration,
+                discardExistingMoveEase, discardExistingRotateEase));
+
+            yield return sequence.WaitForCompletion();
+
+            Destroy(discardCard.gameObject);
+        }
+
+        private void OnCardRestored(CardRestored payload)
+        {
+            var view = CreateBattleCardView(payload.Card);
+            view.gameObject.SetActive(false);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardRestored_HandDeckPresentation, RestoreCardPresentation(view));
+        }
+
+        private IEnumerator RestoreCardPresentation(BattleCardView cardView)
+        {
+            cardView.gameObject.SetActive(true);
+            
+            cardView.SetWorldTransform(graveDeckPosition.position, graveDeckPosition.rotation, Vector3.one);
+
+            var sequence = DOTween.Sequence();
+            
+            sequence.Join(cardView.PlayRestorePresentation(drawDeckPosition.position, restoreMoveCardDuration, restoreMoveCardEase));
+
+            yield return sequence.WaitForCompletion();
+            Destroy(cardView.gameObject);
+        }
+
+        private Tween PlayCardSortPresentation(List<BattleCardView> currentCardViews, float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase, BattleCardView excludeTweenView = null)
+        {
+            var sequence = DOTween.Sequence();
 
             for (int i = 0; i < currentCardViews.Count; i++)
             {
@@ -238,45 +260,14 @@ namespace View.BattleView
                 GetCardPositionAngle(i, currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
                 view.SetBaseLayoutTransform(targetPos, targetAngle);
 
-                sequence.Join(view.rectTransform.DOAnchorPos(targetPos, discardExistingMoveDuration).SetEase(discardExistingMoveEase));
-                sequence.Join(view.transform.DORotate(targetAngle, discardExistingRotateDuration, RotateMode.Fast).SetEase(discardExistingRotateEase));
+                if (view != excludeTweenView)
+                {
+                    sequence.Join(view.MoveToLayoutTransform(moveDuration, rotateDuration, moveEase, rotateEase));
+                }
             }
 
-            yield return sequence.WaitForCompletion();
-
-            Destroy(discardCard.gameObject);
+            return sequence;
         }
-        private Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
-        {
-            float u = 1 - t;
-            float tt = t * t;
-            float uu = u * u;
-            
-            Vector3 p = uu * p0; 
-            p += 2 * u * t * p1; 
-            p += tt * p2;        
-            
-            return p;
-        }
-
-        private void OnCardRestored(CardRestored payload)
-        {
-            var view = CreateBattleCardView(payload.Card);
-            view.gameObject.SetActive(false);
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardRestored_HandDeckPresentation, RestoreCardPresentation(view));
-        }
-        private IEnumerator RestoreCardPresentation(BattleCardView cardView)
-        {
-            cardView.gameObject.SetActive(true);
-            cardView.transform.position = graveDeckPosition.position;
-
-            var sequence = DOTween.Sequence();
-            sequence.Join(cardView.transform.DOMove(drawDeckPosition.position, restoreMoveCardDuration).SetEase(restoreMoveCardEase));
-
-            yield return sequence.WaitForCompletion();
-            Destroy(cardView.gameObject);
-        }
-
 
         private BattleCardView CreateBattleCardView(Card card)
         {
@@ -340,6 +331,11 @@ namespace View.BattleView
             cardDescriptionView.Unfocus();
             focusedCardView.transform.SetSiblingIndex(focusedCardViewIndex);
             focusedCardView = null;
+        }
+
+        private IEnumerator OnCardProcessed(Card card)
+        {
+            yield return null;
         }
 
 #if UNITY_EDITOR

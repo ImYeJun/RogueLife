@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.BattleView;
 using System;
 using System.Collections.Generic;
+using System.Collections;
+using NUnit.Framework;
 
 namespace View.BattleView
 {
@@ -26,6 +29,8 @@ namespace View.BattleView
 
         private Queue<TargetRequest> targetingQueue = new Queue<TargetRequest>();
         private bool isTargeting = false;
+
+        public Func<Card, IEnumerator> OnCardProcessingPrepared { get; set; }
 
         public override void OnInitialized()
         {
@@ -92,11 +97,23 @@ namespace View.BattleView
             isTargeting = true;
             TargetRequest request = targetingQueue.Dequeue();
 
+            StartCoroutine(ProcessTargetingRoutine(request));
+        }
+
+        private IEnumerator ProcessTargetingRoutine(TargetRequest request)
+        {
+            yield return StartCoroutine(OnCardProcessingPrepared?.Invoke(request.Card));
+
+            bool isTargetSelected = false;
             targetSelectSystem.RequestTarget(request.Card, (c, t) => 
             {
                 request.OnTargetSelected(c, t); 
-                ProcessNextRequest();           
+                isTargetSelected = true;
             });
+
+            yield return new WaitUntil(() => isTargetSelected);
+
+            ProcessNextRequest();           
         }
 
         private void ActivateCard(Card card, CardTarget cardTarget, bool isFreeUse)
