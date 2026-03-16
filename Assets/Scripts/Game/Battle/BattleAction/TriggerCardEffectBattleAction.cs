@@ -24,7 +24,6 @@ public class TriggerCardEffectBattleAction : IBattleAction
         var caster = new NoneEntityCaster();
 
         context.DeckSystem.AddActiveTriggerCard(card);
-        context.ActionScheduler.Enqueue(new ResolveCardTriggerBattleAction(card));
 
         for (int i = 0; i < executeTimes; i++)
         {
@@ -32,5 +31,8 @@ public class TriggerCardEffectBattleAction : IBattleAction
             card.Trigger(context, caster, targetEntity, isReflection);
             context.BattleDeckHistory.RecordExecuteCardEffect(card, isReflection);
         }
+
+        context.ActionScheduler.Enqueue(new ResolveCardTriggerBattleAction(card));
+        context.ActionScheduler.Enqueue(new NotifyCardExecutionCompletedBattleAction(card));
     }
 }

@@ -20,7 +20,8 @@ public class TryTriggerCardEffectBattleAction : IBattleAction
     {
         if (card.IsAbleToUse(context, cardTarget))
         {
-            context.ActionScheduler.Enqueue(new TriggerCardEffectBattleAction(card, cardTarget, executeTimes, isReflection));
+            // context.ActionScheduler.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
+            context.ActionScheduler.EnqueueFront(new TriggerCardEffectBattleAction(card, cardTarget, executeTimes, isReflection));
         }
     }
 }

@@ -49,12 +49,15 @@ namespace Battle.Cards.Behaviours
                         .ToList();
             ExecuteCommonAction(context, cards);
         }
+
         private void ExecuteCommonAction(BattleContext context, List<Card> cards)
         {
-            foreach (var card in cards)
+            // 💡 [수정된 부분]
+            // 기존의 foreach 문을 완전히 삭제하고, 우리가 만든 "순차 발동 매크로 액션" 하나로 교체!
+            // 이전 코드에서 isFreeUse를 true로 넘겼으므로, 매크로 액션에도 true를 명시적으로 넘겨준다.
+            if (cards.Count > 0)
             {
-                var requestTryUseCardAction = new RequestTryUseCardBattleAction(card, true);
-                context.ActionScheduler.Enqueue(requestTryUseCardAction);
+                context.ActionScheduler.Enqueue(new SequentialCardUseRequestBattleAction(cards, true));
             }
         }
     }

@@ -93,20 +93,20 @@ namespace Battle.Cards.Behaviours
         {
             ExecuteCommonAction(context);
         }
+        
         private void ExecuteCommonAction(BattleContext context)
         {
             var currentTurnHistory = context.BattleDeckHistory.GetRecentPhasePlayedHistory(owner);
             if (currentTurnHistory is null) { return; }
 
-            var magicCardsHistory = currentTurnHistory
+            var cardsToTrigger = currentTurnHistory
                                     .Where(history => history.UsedCard.CurrentAttribute == CardAttribute.MAGIC)
+                                    .Select(history => history.UsedCard)
                                     .ToList();
 
-            foreach (var history in magicCardsHistory)
+            if (cardsToTrigger.Count > 0)
             {
-                var card = history.UsedCard;
-                var requestTriggerCard = new RequestTryTriggerCardBattleAction(card, true);
-                context.ActionScheduler.Enqueue(requestTriggerCard);
+                context.ActionScheduler.Enqueue(new SequentialCardTriggerRequestBattleAction(cardsToTrigger, true));
             }
 
             observer?.Clean();

@@ -28,6 +28,7 @@ public class TryUseCardBattleAction : IBattleAction
         if (!card.IsAbleToUse(context, cardTarget)) { return; }
         if (!context.ActionCost.HasEnough(cost)) { return; }
 
+        // context.ActionScheduler.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
         context.ActionScheduler.EnqueueFront(new UseCardBattleAction(card, cardTarget));
         context.ActionScheduler.EnqueueFront(new ConsumeActionCostBattleAction(cost));
 

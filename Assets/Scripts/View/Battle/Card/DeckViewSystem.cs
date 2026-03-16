@@ -188,17 +188,22 @@ namespace View.BattleView
 
         private void OnCardDiscarded(CardDiscarded payload)
         {
-            var view = cardViews.FirstOrDefault(v => v.Card == payload.Card);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(payload.Card, payload.Destination));
+        }
+
+        private IEnumerator DiscardCardPresentation(Card discardCardData, BattleDeckType destination)
+        {
+            var view = cardViews.FirstOrDefault(v => v.Card == discardCardData);
             
-            if (view == null && processingCardView != null && processingCardView.Card == payload.Card)
+            if (view == null && processingCardView != null && processingCardView.Card == discardCardData)
             {
                 view = processingCardView;
             }
 
             if (view is null)
             {
-                Debug.Log($"[DeckViewSystem/OnCardDiscarded] Given UI isn't presenting card ID: {payload.Card}. Skipping discard animation.");
-                return;
+                Debug.Log($"[DeckViewSystem/DiscardCardPresentation] Given UI isn't presenting card ID: {discardCardData}. Skipping discard animation.");
+                yield break;
             }
 
             if (view == processingCardView)
@@ -217,11 +222,6 @@ namespace View.BattleView
                 }
             }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(view, new List<BattleCardView>(cardViews), payload.Destination));
-        }
-
-        private IEnumerator DiscardCardPresentation(BattleCardView discardCard, List<BattleCardView> currentCardViews, BattleDeckType destination)
-        {
             Sequence sequence = DOTween.Sequence();
 
             Vector3 endPos = destination switch
@@ -233,19 +233,19 @@ namespace View.BattleView
             Vector3 controlPos = discardControlPointOffset.position;
             Vector3 endRot = graveDeckPosition.rotation.eulerAngles;
 
-            sequence.Join(discardCard.PlayDiscardPresentation(
+            sequence.Join(view.PlayDiscardPresentation(
                 endPos, controlPos, endRot,
                 discardTargetMoveDuration, discardTargetRotateDuration, discardTargetScaleDuration,
                 discardTargetMoveEase, discardTargetRotateEase, discardTargetScaleEase));
 
             sequence.Join(PlayCardSortPresentation(
-                currentCardViews, 
+                cardViews, 
                 discardExistingMoveDuration, discardExistingRotateDuration,
                 discardExistingMoveEase, discardExistingRotateEase));
 
             yield return sequence.WaitForCompletion();
 
-            Destroy(discardCard.gameObject);
+            Destroy(view.gameObject);
         }
 
         private void OnCardRestored(CardRestored payload)
@@ -271,24 +271,23 @@ namespace View.BattleView
 
         private void OnCardTriggerResolved(CardTriggerResolved payload)
         {
-            if (processingCardView == null || payload.Card != processingCardView.Card)
-            {
-                Debug.LogWarning($"[{GetType()}/OnCardTriggerResolved] processingCardView is null or not matched with payload card. Skipped.");
-                return;
-            }
-
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardTriggerResolved_ExtinguishCardView, PlayResolveCardPresentation(processingCardView),
-                () =>
-                {
-                    SetHandCardInteractable(true);
-                }
-            );
-            processingCardView = null;
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardTriggerResolved_ExtinguishCardView, PlayResolveCardPresentation(payload.Card));
         }
 
-        private IEnumerator PlayResolveCardPresentation(BattleCardView cardView)
+        private IEnumerator PlayResolveCardPresentation(Card cardData)
         {
-            yield return cardView.PlayFadePresentation(0.5f, Ease.Linear, isFadeIn : true).WaitForCompletion();
+            if (processingCardView == null || cardData != processingCardView.Card)
+            {
+                Debug.LogWarning($"[{GetType()}/PlayResolveCardPresentation] processingCardView is null or not matched. Skipped.");
+                yield break;
+            }
+
+            var view = processingCardView;
+            processingCardView = null;
+            SetHandCardInteractable(true);
+
+            yield return view.PlayFadePresentation(0.5f, Ease.Linear, isFadeIn : true).WaitForCompletion();
+            Destroy(view.gameObject);
         }
 
         private Tween PlayCardSortPresentation(List<BattleCardView> currentCardViews, float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase, BattleCardView excludeTweenView = null)
@@ -383,6 +382,8 @@ namespace View.BattleView
 
         private IEnumerator OnCardProcessed(Card card, bool isTriggering)
         {
+            yield return null;
+
             if (processingCardView is not null)
             {
                 throw new InvalidOperationException($"[{GetType()}/OnCardProcessed] Try to process card but it's already processing.");

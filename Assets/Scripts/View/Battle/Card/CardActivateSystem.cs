@@ -111,6 +111,8 @@ namespace View.BattleView
 
         private IEnumerator ProcessTargetingRoutine(TargetRequest request)
         {
+            yield return new WaitWhile(() => IsProcessingCard.Invoke());
+
             SetHandCardInteractable.Invoke(false);
             bool isProcessPresentationEnd = false;
             presentationManager.Enqueue(request.SequenceId, request.PresentationPriority, OnCardProcessingPrepared.Invoke(request.Card, request.IsTriggering),
@@ -136,6 +138,7 @@ namespace View.BattleView
 
         private void ActivateCard(Card card, CardTarget cardTarget, bool isFreeUse)
         {
+            //TODO FUCK THIS SHIT (FIX IT :/ )
             if (!commander.IsAbleToUseCard(card, cardTarget))
             {
                 Debug.Log($"[CardActivateSystem] Cannot activate card: {card.CurrentName}");
@@ -147,6 +150,12 @@ namespace View.BattleView
 
         private void TriggerCard(Card card, CardTarget cardTarget, bool isReflection)
         {
+            if (!commander.IsAbleToUseCard(card, cardTarget))
+            {
+                Debug.Log($"[CardActivateSystem] Cannot activate card: {card.CurrentName}");
+                return;
+            }
+
             commander.TriggerCard(card, cardTarget, isReflection);
         }
     }

@@ -1,6 +1,7 @@
 #nullable enable
 
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Battle.Cards.Casters;
@@ -52,15 +53,15 @@ namespace Battle.Cards.Behaviours
             }
 
             var availableCards = context.HandDeck.GetCards().Where(card => card != owner).ToList();
-            if (availableCards.Count == 0) { return; }
+            if (availableCards.Count == 0 || totalExecuteCount == 0) { return; }
 
+            List<Card> cardsToTrigger = new List<Card>();
             for (int i = 0; i < totalExecuteCount; i++)
             {
-                var selectedCard = availableCards[context.Random.Next(availableCards.Count)];
-
-                var requestTryTiggerCardAction = new RequestTryTriggerCardBattleAction(selectedCard, true);
-                context.ActionScheduler.Enqueue(requestTryTiggerCardAction);
+                cardsToTrigger.Add(availableCards[context.Random.Next(availableCards.Count)]);
             }
+
+            context.ActionScheduler.Enqueue(new SequentialCardTriggerRequestBattleAction(cardsToTrigger, true));
         }
     }
 }
