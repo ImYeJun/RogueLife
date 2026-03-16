@@ -103,4 +103,9 @@ public class PresentationManager : SingletonManager<PresentationManager>
         presentation.OnComplete?.Invoke();
         onBatchComplete.Invoke();
     }
+
+    internal void Enqueue(object sequenceId, object presentationPriority, IEnumerator enumerator, Action value)
+    {
+        throw new NotImplementedException();
+    }
 }

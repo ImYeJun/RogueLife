@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Battle.Cards.Casters;
 using UnityEngine;
 using ViewEvent.BattleView;
 
@@ -25,6 +26,8 @@ namespace View.BattleView
 
         public void OnCardEffectExecuted(CardEffectExecuted payload)
         {
+            if (payload.Caster is NoneEntityCaster) { return; }
+
             if (!payload.Caster.Caster.Equals(player))
             {
                 throw new InvalidOperationException("[BattlePlayerActionPresentation/OnCardEffectExecuted] Card Caster is expected Player for now. But other entity executed a Card");

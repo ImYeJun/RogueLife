@@ -11,6 +11,7 @@ namespace View.BattleView
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private float popUpDistance = 0.5f; 
         [SerializeField] private SharedCardView sharedCardView;
+        [SerializeField] private CanvasGroup canvasGroup;
 
         private Action<BattleCardView> onCardClicked; 
         private Vector3 baseLocalPosition;
@@ -46,7 +47,7 @@ namespace View.BattleView
             rectTransform.localScale = localScale;
         }
 
-        public Tween MoveToLayoutTransform(float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase)
+        public Tween PlayMoveToLayoutTransform(float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase)
         {
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, moveDuration).SetEase(moveEase));
@@ -63,7 +64,7 @@ namespace View.BattleView
             return sequence;
         }
 
-        public Tween PlayDiscardPresentation(Vector3 endPos, Vector3 controlPos, Vector3 endRot, float moveDuration, float rotateDuration, float scaleDuration, Ease moveEase, Ease rotateEase, Ease scaleEase)
+        public Tween  PlayDiscardPresentation(Vector3 endPos, Vector3 controlPos, Vector3 endRot, float moveDuration, float rotateDuration, float scaleDuration, Ease moveEase, Ease rotateEase, Ease scaleEase)
         {
             var sequence = DOTween.Sequence();
             Vector3 startPos = rectTransform.position;
@@ -97,6 +98,12 @@ namespace View.BattleView
         public Tween PlayRestorePresentation(Vector3 targetPos, float moveDuration, Ease moveEase)
         {
             return transform.DOMove(targetPos, moveDuration).SetEase(moveEase);
+        }
+
+        public Tween PlayFadePresentation(float duration, Ease ease, bool isFadeIn = true)
+        {
+            canvasGroup.alpha = isFadeIn ? 1 : 0;
+            return canvasGroup.DOFade(isFadeIn ? 0 : 1, duration).SetEase(ease);
         }
 
         public void OnPointerClick(PointerEventData eventData)

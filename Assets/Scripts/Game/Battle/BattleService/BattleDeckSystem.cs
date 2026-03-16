@@ -14,12 +14,15 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     private bool isFirstTurn;
     private int firstTurnDrawCount;
     private int turnStartDrawCount;
+    
     private Dictionary<BattleDeckType, BattleDeck> deckMap = new Dictionary<BattleDeckType, BattleDeck>
     {
         { BattleDeckType.DRAW, new BattleDeck() },
         { BattleDeckType.HAND, new BattleDeck() },
         { BattleDeckType.GRAVE, new BattleDeck() }
     };
+
+    private HashSet<Card> activeTriggeringCards = new HashSet<Card>();
 
     public BattleDeckSystem(IBattleViewEventPublisher viewEventPublisher)
     {
@@ -44,12 +47,12 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     public void MoveCard(Card card, BattleDeckType destination)
     {
         var sourceDecks = deckMap.Values.Where(deck => deck.HasCard(card));
-        if (sourceDecks.Count() == 0) { throw new InvalidOperationException($"The given card isn't located in any deck. (cardName : {card?.CurrentName})"); }
-        if (sourceDecks.Count() >= 2) { throw new InvalidOperationException($"The given card is located in more than one deck. (cardName : {card?.CurrentName})");}
+        if (sourceDecks.Count() == 0) { throw new InvalidOperationException($"[BattleDeckSystem/MoveCard] The given card isn't located in any deck. (cardName : {card?.CurrentName})"); }
+        if (sourceDecks.Count() >= 2) { throw new InvalidOperationException($"[BattleDeckSystem/MoveCard] The given card is located in more than one deck. (cardName : {card?.CurrentName})");}
 
         var sourceDeck = sourceDecks.First();
         var destinationDeck = deckMap[destination];
-        if (sourceDeck == destinationDeck) { throw new InvalidOperationException($"Source deck and destination deck cannot be the same. (deckType : {destination})"); }
+        if (sourceDeck == destinationDeck) { throw new InvalidOperationException($"[BattleDeckSystem/MoveCard] Source deck and destination deck cannot be the same. (deckType : {destination})"); }
 
         sourceDeck.RemoveCard(card);
         destinationDeck.AddCard(card);
@@ -78,6 +81,24 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     public Card? RequestDrawingCard(System.Random random, CardRarity rarity, CardAttribute attribute, CardType type)
     {
         return deckMap[BattleDeckType.DRAW].GetRandomCard(random, rarity, attribute, type);
+    }
+
+    public void AddActiveTriggerCard(Card card)
+    {
+        if (!activeTriggeringCards.Add(card))
+        {
+            throw new InvalidOperationException($"[BattleDeckSystem/AddActiveTriggerCard] The card is already in the active triggering list. (cardName : {card?.CurrentName})");
+        }
+    }
+
+    public void RemoveActiveTriggerCard(Card card)
+    {
+        if (!activeTriggeringCards.Remove(card))
+        {
+            throw new InvalidOperationException($"[BattleDeckSystem/RemoveActiveTriggerCard] The card is not in the active triggering list. (cardName : {card?.CurrentName})");
+        }
+        
+        viewEventPublisher.Publish(new CardTriggerResolved(viewEventPublisher.GetNextSequenceId(), card));
     }
 
     public void NullifyCardUseOnStunned(TryUseCardBattleAction tryUseCardBattleAction, BattleContext context)
@@ -110,6 +131,8 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
                 pair.Value.SetDeck(payload.StartDrawDeck);
             }
         }
+        
+        activeTriggeringCards.Clear();
 
         context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
 

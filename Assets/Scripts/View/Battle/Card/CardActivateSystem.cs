@@ -18,19 +18,28 @@ namespace View.BattleView
         private struct TargetRequest
         {
             public Card Card;
+            public bool IsTriggering;
             public Action<Card, CardTarget> OnTargetSelected;
+            public int SequenceId;
+            public int PresentationPriority;
 
-            public TargetRequest(Card card, Action<Card, CardTarget> onTargetSelected)
+            public TargetRequest(Card card, bool isTriggering, Action<Card, CardTarget> onTargetSelected, int sequenceId, int presentationPriority)
             {
                 Card = card;
                 OnTargetSelected = onTargetSelected;
+                IsTriggering = isTriggering;
+                SequenceId = sequenceId;
+                PresentationPriority = presentationPriority;
             }
+
         }
 
         private Queue<TargetRequest> targetingQueue = new Queue<TargetRequest>();
         private bool isTargeting = false;
 
-        public Func<Card, IEnumerator> OnCardProcessingPrepared { get; set; }
+        public Func<Card, bool, IEnumerator> OnCardProcessingPrepared { get; set; }
+        public Action<bool> SetHandCardInteractable { get; set; }
+        public Func<bool> IsProcessingCard { get; set; }
 
         public override void OnInitialized()
         {
@@ -64,21 +73,21 @@ namespace View.BattleView
                 return;
             }
 
-            EnqueueTargetRequest(card, (c, t) => ActivateCard(c, t, false));
+            EnqueueTargetRequest(card, false, (c, t) => ActivateCard(c, t, false), 0, 0);
         }
 
         private void OnUseCardRequested(UseCardRequested payload)
         {
-            EnqueueTargetRequest(payload.Card, (card, target) => ActivateCard(card, target, payload.IsFreeUse));
+            EnqueueTargetRequest(payload.Card, false, (card, target) => ActivateCard(card, target, payload.IsFreeUse), payload.SequenceId, 0);
         }
         private void OnTriggerCardRequested(TriggerCardRequested payload)
         {
-            EnqueueTargetRequest(payload.Card, (card, target) => TriggerCard(card, target, payload.IsReflection));
+            EnqueueTargetRequest(payload.Card, true, (card, target) => TriggerCard(card, target, payload.IsReflection), payload.SequenceId, 0);
         }
 
-        private void EnqueueTargetRequest(Card card, Action<Card, CardTarget> onTargetSelected)
+        private void EnqueueTargetRequest(Card card, bool isTriggering, Action<Card, CardTarget> onTargetSelected, int sequenceId, int presentationPriority)
         {
-            targetingQueue.Enqueue(new TargetRequest(card, onTargetSelected));
+            targetingQueue.Enqueue(new TargetRequest(card, isTriggering, onTargetSelected, sequenceId, presentationPriority));
             
             if (!isTargeting)
             {
@@ -102,7 +111,16 @@ namespace View.BattleView
 
         private IEnumerator ProcessTargetingRoutine(TargetRequest request)
         {
-            yield return StartCoroutine(OnCardProcessingPrepared?.Invoke(request.Card));
+            SetHandCardInteractable.Invoke(false);
+            bool isProcessPresentationEnd = false;
+            presentationManager.Enqueue(request.SequenceId, request.PresentationPriority, OnCardProcessingPrepared.Invoke(request.Card, request.IsTriggering),
+                () =>
+                {
+                    isProcessPresentationEnd = true;
+                }
+            );
+
+            yield return new WaitUntil(() => isProcessPresentationEnd);
 
             bool isTargetSelected = false;
             targetSelectSystem.RequestTarget(request.Card, (c, t) => 

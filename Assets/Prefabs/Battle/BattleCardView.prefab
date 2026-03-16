@@ -123,6 +123,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7652275019843950045}
+    - targetCorrespondingSourceObject: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6518359986212636166}
   m_SourcePrefab: {fileID: 100100000, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
 --- !u!224 &2188953926507250836 stripped
 RectTransform:
@@ -149,6 +152,19 @@ MonoBehaviour:
   rectTransform: {fileID: 2188953926507250836}
   popUpDistance: 50
   sharedCardView: {fileID: 7710798999060977258}
+  canvasGroup: {fileID: 6518359986212636166}
+--- !u!225 &6518359986212636166
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5435799982283191476}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &7710798999060977258 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5318879194460654835, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}

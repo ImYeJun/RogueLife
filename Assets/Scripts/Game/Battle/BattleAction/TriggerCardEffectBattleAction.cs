@@ -23,6 +23,9 @@ public class TriggerCardEffectBattleAction : IBattleAction
     {
         var caster = new NoneEntityCaster();
 
+        context.DeckSystem.AddActiveTriggerCard(card);
+        context.ActionScheduler.Enqueue(new ResolveCardTriggerBattleAction(card));
+
         for (int i = 0; i < executeTimes; i++)
         {
             context.EventBus.Publish(new CardEffectExecutedBattleEvent(card, caster, targetEntity));

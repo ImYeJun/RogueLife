@@ -83,4 +83,19 @@ namespace ViewEvent.BattleView
         public Card Card => card;
         public bool IsReflection => isReflection;
     }
+
+    public readonly struct CardTriggerResolved : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly Card card;
+
+        public CardTriggerResolved(int sequenceId, Card card)
+        {
+            this.sequenceId = sequenceId;
+            this.card = card;
+        }
+
+        public int SequenceId => sequenceId;
+        public Card Card => card;
+    }
 }

@@ -19,6 +19,7 @@ namespace View.BattleView
         [SerializeField] private GameObject battleCardView;
         [SerializeField] private CardDescriptionView cardDescriptionView;
         [SerializeField] private Transform cardContainer;
+        [SerializeField] private Transform processingCardContainer;
         [SerializeField] private float handWidth = 5f;       
         [SerializeField] private float handHeight = 1f;      
         [SerializeField] private float maxCardAngle = 15f;   
@@ -80,6 +81,8 @@ namespace View.BattleView
         private BattleCardView focusedCardView;
         private int focusedCardViewIndex;
 
+        private BattleCardView processingCardView;
+
         public override void OnInitialized()
         {
             handDeckRectransform.anchoredPosition = openedHandDeckPosition;
@@ -88,12 +91,15 @@ namespace View.BattleView
             cardViews = new List<BattleCardView>();
 
             cardActivateSystem.OnCardProcessingPrepared = OnCardProcessed;
+            cardActivateSystem.SetHandCardInteractable = SetHandCardInteractable;
+            cardActivateSystem.IsProcessingCard = IsProcessingCard;
 
             eventBus.Subscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
             eventBus.Subscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
             eventBus.Subscribe<CardDrawed>(OnCardDrawed);
             eventBus.Subscribe<CardDiscarded>(OnCardDiscarded);
             eventBus.Subscribe<CardRestored>(OnCardRestored);
+            eventBus.Subscribe<CardTriggerResolved>(OnCardTriggerResolved);
         }
 
         public override void OnDestroy()
@@ -103,6 +109,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<CardDrawed>(OnCardDrawed);
             eventBus?.Unsubscribe<CardDiscarded>(OnCardDiscarded);
             eventBus?.Unsubscribe<CardRestored>(OnCardRestored);
+            eventBus?.Unsubscribe<CardTriggerResolved>(OnCardTriggerResolved);
         }
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
@@ -126,26 +133,26 @@ namespace View.BattleView
         {
             currentHandDeckTween?.Kill();
 
-            handDeckCanvasGroup.blocksRaycasts = false;
+            SetHandCardInteractable(false);
 
             currentHandDeckTween = handDeckRectransform.DOAnchorPos(openedHandDeckPosition, openHandDeckDuration).SetEase(openHandDeckEasingType);
             yield return currentHandDeckTween.WaitForCompletion();
 
             handDeckRectransform.anchoredPosition = openedHandDeckPosition;
-            handDeckCanvasGroup.blocksRaycasts = true;
+            SetHandCardInteractable(true);
         }
 
         private IEnumerator CloseHandDeckPresentation()
         {
             currentHandDeckTween?.Kill();
 
-            handDeckCanvasGroup.blocksRaycasts = false;
+            SetHandCardInteractable(false);
 
             currentHandDeckTween = handDeckRectransform.DOAnchorPos(closedHandDeckPosition, closeHandDeckDuration).SetEase(closeHandDeckEasingType);
             yield return currentHandDeckTween.WaitForCompletion();
 
             handDeckRectransform.anchoredPosition = closedHandDeckPosition;
-            handDeckCanvasGroup.blocksRaycasts = true;
+            SetHandCardInteractable(true);
         }
 
         private void OnCardDrawed(CardDrawed payload)
@@ -183,18 +190,33 @@ namespace View.BattleView
         {
             var view = cardViews.FirstOrDefault(v => v.Card == payload.Card);
             
-            if (view is null)
+            if (view == null && processingCardView != null && processingCardView.Card == payload.Card)
             {
-                throw new InvalidOperationException($"[DeckViewSystem/OnCardDiscarded] Given UI isn't presenting card ID: {payload.Card}");
+                view = processingCardView;
             }
 
-            cardViews.Remove(view);
-            if (view == focusedCardView)
+            if (view is null)
             {
-                focusedCardView = null;
-                cardDescriptionView.Unfocus();
+                Debug.Log($"[DeckViewSystem/OnCardDiscarded] Given UI isn't presenting card ID: {payload.Card}. Skipping discard animation.");
+                return;
             }
-            
+
+            if (view == processingCardView)
+            {
+                processingCardView = null;
+                SetHandCardInteractable(true);
+            }
+            else
+            {
+                cardViews.Remove(view);
+                
+                if (view == focusedCardView)
+                {
+                    focusedCardView = null;
+                    cardDescriptionView.Unfocus();
+                }
+            }
+
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(view, new List<BattleCardView>(cardViews), payload.Destination));
         }
 
@@ -206,7 +228,7 @@ namespace View.BattleView
             {
                 BattleDeckType.DRAW => drawDeckPosition.position,
                 BattleDeckType.GRAVE => graveDeckPosition.position,
-                _ => throw new InvalidOperationException($"[DeckViewSystem] {destination} is not valid.")
+                _ => throw new InvalidOperationException($"[DeckViewSystem/DiscardCardPresentation] {destination} is not valid.")
             };
             Vector3 controlPos = discardControlPointOffset.position;
             Vector3 endRot = graveDeckPosition.rotation.eulerAngles;
@@ -247,6 +269,28 @@ namespace View.BattleView
             Destroy(cardView.gameObject);
         }
 
+        private void OnCardTriggerResolved(CardTriggerResolved payload)
+        {
+            if (processingCardView == null || payload.Card != processingCardView.Card)
+            {
+                Debug.LogWarning($"[{GetType()}/OnCardTriggerResolved] processingCardView is null or not matched with payload card. Skipped.");
+                return;
+            }
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardTriggerResolved_ExtinguishCardView, PlayResolveCardPresentation(processingCardView),
+                () =>
+                {
+                    SetHandCardInteractable(true);
+                }
+            );
+            processingCardView = null;
+        }
+
+        private IEnumerator PlayResolveCardPresentation(BattleCardView cardView)
+        {
+            yield return cardView.PlayFadePresentation(0.5f, Ease.Linear, isFadeIn : true).WaitForCompletion();
+        }
+
         private Tween PlayCardSortPresentation(List<BattleCardView> currentCardViews, float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase, BattleCardView excludeTweenView = null)
         {
             var sequence = DOTween.Sequence();
@@ -262,7 +306,7 @@ namespace View.BattleView
 
                 if (view != excludeTweenView)
                 {
-                    sequence.Join(view.MoveToLayoutTransform(moveDuration, rotateDuration, moveEase, rotateEase));
+                    sequence.Join(view.PlayMoveToLayoutTransform(moveDuration, rotateDuration, moveEase, rotateEase));
                 }
             }
 
@@ -271,7 +315,11 @@ namespace View.BattleView
 
         private BattleCardView CreateBattleCardView(Card card)
         {
-            var instantiatedCard = Instantiate(battleCardView, cardContainer);
+            return CreateBattleCardView(card, cardContainer);
+        }
+        private BattleCardView CreateBattleCardView(Card card, Transform parent)
+        {
+            var instantiatedCard = Instantiate(battleCardView, parent);
             
             var cardView = instantiatedCard.GetComponent<BattleCardView>();
             cardView.Initialize(card, OnCardClicked);
@@ -333,9 +381,53 @@ namespace View.BattleView
             focusedCardView = null;
         }
 
-        private IEnumerator OnCardProcessed(Card card)
+        private IEnumerator OnCardProcessed(Card card, bool isTriggering)
         {
-            yield return null;
+            if (processingCardView is not null)
+            {
+                throw new InvalidOperationException($"[{GetType()}/OnCardProcessed] Try to process card but it's already processing.");
+            }
+
+            UnfocusFoucsedCard();
+            var sequence = DOTween.Sequence();
+
+            if (isTriggering)
+            {
+                processingCardView = CreateBattleCardView(card, processingCardContainer);
+                processingCardView.SetLayoutTransform(new Vector3(0, 100, 0), Vector3.zero);
+
+                sequence.Append(processingCardView.PlayFadePresentation(0.5f, Ease.Linear, isFadeIn: false));
+            }
+            else
+            {
+                var cardView = cardViews.FirstOrDefault(view => view.Card == card);
+                if (cardView is null)
+                {
+                    throw new InvalidOperationException($"[{GetType()}/OnCardProcessed] Try to process using card but the given card is not presenting.");
+                }
+                processingCardView = cardView;
+
+                cardViews.Remove(processingCardView);
+                processingCardView.transform.SetParent(processingCardContainer);
+
+                processingCardView.SetBaseLayoutTransform(new Vector3(0, 100, 0), Vector3.zero);
+                sequence.Append(processingCardView.PlayMoveToLayoutTransform(0.5f, 0.5f, Ease.Linear, Ease.Linear));
+
+                sequence.Join(PlayCardSortPresentation(cardViews, 0.5f, 0.5f, Ease.Linear, Ease.Linear));
+            }
+
+            yield return sequence.WaitForCompletion();
+        }
+
+        private void SetHandCardInteractable(bool value)
+        {
+            handDeckCanvasGroup.blocksRaycasts = value;
+            handDeckCanvasGroup.interactable = value;
+        }
+
+        private bool IsProcessingCard()
+        {
+            return processingCardView is not null;
         }
 
 #if UNITY_EDITOR

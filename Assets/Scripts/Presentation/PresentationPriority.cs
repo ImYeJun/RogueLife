@@ -97,6 +97,9 @@ public static class PresentationPriority
     //Card Effect Executed
     public const int CardEffectExecuted_CasterAction = 10;
 
+    //Card Trigger Resolved
+    public const int CardTriggerResolved_ExtinguishCardView = 10;
+
     //Enemy Action Executed
     public const int EnemyActionExecuted_ActorAction = 10;
 
