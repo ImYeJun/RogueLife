@@ -1,6 +1,7 @@
 #nullable enable
 
 using System;
+using Field.Deck.Observers;
 
 public interface IBattleDeckSystemContext {
     public void MoveCard(Card card, BattleDeckType destination);
@@ -10,4 +11,6 @@ public interface IBattleDeckSystemContext {
     public void RequestTriggerCard(Card card, bool isReflection);
     public void AddActiveTriggerCard(Card card);
     public void RemoveActiveTriggerCard(Card card);
+    public void RegisterHandDeckObserver(IDeckObserver observer);
+    public void UnregisterHandDeckObserver(IDeckObserver observer);
 }

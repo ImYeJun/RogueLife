@@ -50,6 +50,7 @@ namespace Battle.Cards.Behaviours
             var recentHistory = context.BattleDeckHistory.GetRecentlyPlayedHistory(owner);
             if (recentHistory is null) { return; }
             var previousUsedCard = recentHistory.Value.UsedCard;
+            if (context.HandDeck.HasCard(previousUsedCard)) { return; }
             
             var restoreCostAction = new RestoreActionCostBattleAction(previousUsedCard.CurrentActionCost);
             var moveCardAction = new MoveCardToDeckBattleAction(previousUsedCard, BattleDeckType.DRAW);

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ViewEvent.BattleView;
+using Field.Deck.Observers; // 💡 IDeckObserver 사용을 위해 네임스페이스 추가
 
 public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveService
 {
@@ -23,6 +24,8 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     };
 
     private HashSet<Card> activeTriggeringCards = new HashSet<Card>();
+    
+    private HashSet<IDeckObserver> handDeckObservers = new HashSet<IDeckObserver>();
 
     public BattleDeckSystem(IBattleViewEventPublisher viewEventPublisher)
     {
@@ -56,6 +59,22 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
 
         sourceDeck.RemoveCard(card);
         destinationDeck.AddCard(card);
+
+        if (sourceDeck == deckMap[BattleDeckType.HAND])
+        {
+            foreach (var observer in handDeckObservers)
+            {
+                observer.OnCardRemoved(card);
+            }
+        }
+
+        if (destinationDeck == deckMap[BattleDeckType.HAND])
+        {
+            foreach (var observer in handDeckObservers)
+            {
+                observer.OnCardEquipped(card);
+            }
+        }
 
         if (sourceDeck == deckMap[BattleDeckType.DRAW] && destinationDeck == deckMap[BattleDeckType.HAND])
         {
@@ -110,12 +129,38 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             tryUseCardBattleAction.Nullify();
         }
     }
+
+    public void RegisterHandDeckObserver(IDeckObserver observer)
+    {
+        if (handDeckObservers.Contains(observer))
+        {
+            Debug.Log("[BattleDeckSystem] Hand Deck already has the observer");
+            return;
+        }
+
+        handDeckObservers.Add(observer);
+        observer.OnStartObserving(deckMap[BattleDeckType.HAND].GetCards().ToList());
+    }
+
+    public void UnregisterHandDeckObserver(IDeckObserver observer)
+    {
+        if (!handDeckObservers.Contains(observer))
+        {
+            Debug.Log("[BattleDeckSystem] Hand Deck doesn't have the observer");
+            return;
+        }
+
+        observer.OnStopObserving(deckMap[BattleDeckType.HAND].GetCards().ToList());
+        handDeckObservers.Remove(observer);
+    }
+
     public void SubscribeEventBus(IBattleEventBus eventBus)
     {
         eventBus.Subscribe<BattleStartEvent>(Initiate);
         eventBus.Subscribe<PlayerTurnStartBattleEvent>(StartTurnDraw);
         eventBus.Subscribe<BattleEndBattleEvent>(OnBattleEnd);
     }
+    
     public void Initiate(BattleStartEvent payload)
     {
         firstTurnDrawCount = payload.FirstTurnDrawCount;
@@ -143,6 +188,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             graveDeck : this[BattleDeckType.GRAVE]
             ));
     }
+    
     public void StartTurnDraw(PlayerTurnStartBattleEvent payload)
     {
         int acutalDrawAmount = isFirstTurn ? firstTurnDrawCount : turnStartDrawCount;
@@ -161,10 +207,13 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
             context.ActionScheduler.Enqueue(new RequestDrawCardBattleAction(CardRarity.ANY, CardAttribute.ANY, CardType.ANY, Guid.NewGuid()));
         }
     }
+    
     public void OnBattleEnd(BattleEndBattleEvent payload)
     {
         context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
+        handDeckObservers.Clear();
     }
+    
     public void ReviveGraveCards(bool insertFront = false)
     {
         var graveDeck = deckMap[BattleDeckType.GRAVE];
@@ -180,7 +229,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         {
             for (int i = graveDeck.Count - 1; i >= 0; i--)
             {
-                context.ActionScheduler.Enqueue(new    MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
+                context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(graveDeck[i], BattleDeckType.DRAW));
             }
         }
     }
