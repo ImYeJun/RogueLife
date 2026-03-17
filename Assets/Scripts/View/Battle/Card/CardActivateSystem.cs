@@ -11,6 +11,7 @@ namespace View.BattleView
 {
     public class CardActivateSystem : InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>
     {
+        [SerializeField] private PlayerTurnEndButton playerTurnEndButton;
         [SerializeField] private CardTargetSelectSystem targetSelectSystem;
         private IReadOnlyBattleActionCost actionCost;
 
@@ -89,6 +90,7 @@ namespace View.BattleView
             
             if (!isTargeting)
             {
+                playerTurnEndButton.PlayDisappear();
                 ProcessNextRequest();
             }
         }
@@ -98,6 +100,7 @@ namespace View.BattleView
             if (targetingQueue.Count == 0)
             {
                 isTargeting = false;
+                playerTurnEndButton.PlayShow();
                 return;
             }
 

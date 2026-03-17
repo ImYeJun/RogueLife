@@ -251,6 +251,7 @@ namespace View.BattleView
                 view = processingCardView;
             }
 
+            Sequence sequence = DOTween.Sequence();
             if (view is null)
             {
                 Debug.Log($"[DeckViewSystem/DiscardCardPresentation] Given UI isn't presenting card ID: {discardCardData.CurrentName}. Skipping discard animation.");
@@ -273,7 +274,6 @@ namespace View.BattleView
                 }
             }
 
-            Sequence sequence = DOTween.Sequence();
 
             Vector3 endPos = destination switch
             {
@@ -337,7 +337,10 @@ namespace View.BattleView
             processingCardView = null;
             SetHandCardInteractable(true);
 
-            yield return view.PlayFadePresentation(resolveFadeDuration, resolveFadeEase, isFadeIn : false).WaitForCompletion();
+            var sequence = DOTween.Sequence();
+            sequence.Join(view.PlayFadePresentation(resolveFadeDuration, resolveFadeEase, isFadeIn : false));
+            yield return sequence.WaitForCompletion();
+
             Destroy(view.gameObject);
         }
 
@@ -441,8 +444,6 @@ namespace View.BattleView
 
         private IEnumerator OnCardProcessed(Card card, bool isTriggering)
         {
-            yield return null;
-
             if (processingCardView is not null)
             {
                 throw new InvalidOperationException($"[{GetType()}/OnCardProcessed] Try to process card but it's already processing.");

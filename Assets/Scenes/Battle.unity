@@ -1229,6 +1229,7 @@ GameObject:
   - component: {fileID: 708906915}
   - component: {fileID: 708906918}
   - component: {fileID: 708906917}
+  - component: {fileID: 708906919}
   m_Layer: 5
   m_Name: PlayerTurnEndButton
   m_TagString: Untagged
@@ -1306,6 +1307,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42263a01fff25d04489b329f20abfb51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.PlayerTurnEndButton
+  shownPosition: {x: 441, y: -372, z: 0}
+  disappearPosition: {x: 441, y: -422, z: 0}
+  showMoveDuration: 0.2
+  showFadeDuration: 0.1
+  showMoveEase: 10
+  showFadeEase: 10
+  disappearMoveDuration: 0.2
+  disappearFadeDuration: 0.1
+  disappearMoveEase: 10
+  disappearFadeEase: 10
 --- !u!114 &708906918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1362,6 +1373,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!225 &708906919
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708906913}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &732854858
 GameObject:
   m_ObjectHideFlags: 0
@@ -3293,6 +3316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09a01b161e641484db90b060098c4f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.CardActivateSystem
+  playerTurnEndButton: {fileID: 708906917}
   targetSelectSystem: {fileID: 1469854394}
 --- !u!4 &1469854393
 Transform:
