@@ -252,8 +252,10 @@ namespace View.BattleView
                 yield break;
             }
 
+            Sequence sequence = DOTween.Sequence();
             if (view == processingCardView)
             {
+                sequence.Append(PlayCardContainerMovePresentation(isMovingDown: false));
                 processingCardView = null;
                 SetHandCardInteractable(true);
             }
@@ -267,8 +269,6 @@ namespace View.BattleView
                     cardDescriptionView.Unfocus();
                 }
             }
-
-            Sequence sequence = DOTween.Sequence();
 
             Vector3 endPos = destination switch
             {
