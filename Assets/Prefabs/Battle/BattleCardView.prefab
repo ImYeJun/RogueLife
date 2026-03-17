@@ -169,6 +169,7 @@ MonoBehaviour:
   processRotateDuration: 0.6
   processMoveEase: 27
   processRotateEase: 27
+  processScaleEase: 10
   resolveFadeDuration: 0.5
   resolveFadeEase: 1
 --- !u!225 &6518359986212636166

@@ -3238,11 +3238,11 @@ MonoBehaviour:
   maxCardAngle: 30
   cardActivateSystem: {fileID: 1469854392}
   openedHandDeckPosition: {x: 0, y: 130}
-  openHandDeckDuration: 0.3
-  openHandDeckEasingType: 9
+  openHandDeckDuration: 0.4
+  openHandDeckEasingType: 27
   closedHandDeckPosition: {x: 0, y: -200}
   closeHandDeckDuration: 0.3
-  closeHandDeckEasingType: 9
+  closeHandDeckEasingType: 10
   drawDeckPosition: {fileID: 1395829481}
   drawTargetMoveDuration: 0.25
   drawTargetMoveEase: 6
@@ -3272,15 +3272,13 @@ MonoBehaviour:
   cancelSortRotateDuration: 0.15
   cancelSortMoveEase: 10
   cancelSortRotateEase: 10
-  resolveFadeDuration: 0.3
-  resolveFadeEase: 18
   processingCardPosition: {x: 0, y: 150, z: 0}
-  triggerFadeDuration: 0.2
-  triggerFadeEase: 10
-  processMoveDuration: 0.4
-  processRotateDuration: 0.6
-  processMoveEase: 27
-  processRotateEase: 27
+  processingCardScale: {x: 1.4, y: 1.4, z: 1.2}
+  processingCardContainerOffsetY: -50
+  cardContainerMoveDownDuration: 0.2
+  cardContainerMoveUpDuration: 0.4
+  cardContainerMoveDownEase: 6
+  cardContainerMoveUpEase: 27
   processSortMoveDuration: 0.4
   processSortRotateDuration: 0.3
   processSortMoveEase: 10

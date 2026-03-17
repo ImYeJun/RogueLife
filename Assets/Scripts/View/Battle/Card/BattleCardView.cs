@@ -24,6 +24,7 @@ namespace View.BattleView
         [SerializeField] private float processRotateDuration = 0.5f;
         [SerializeField] private Ease processMoveEase = Ease.Linear;
         [SerializeField] private Ease processRotateEase = Ease.Linear;
+        [SerializeField] private Ease processScaleEase = Ease.Linear;
 
         [Header("Resolve Card Presentation")]
         [SerializeField] private float resolveFadeDuration = 0.5f;
@@ -32,7 +33,7 @@ namespace View.BattleView
         private Action<BattleCardView> onCardClicked; 
         private Vector3 baseLocalPosition;
         private Vector3 baseLocalEulerAngles;
-
+        private Vector3 baseLocalScale = Vector3.one;
         private Tween currentTween;
 
         public Card Card => sharedCardView.Card;
@@ -43,19 +44,22 @@ namespace View.BattleView
             sharedCardView.SetCard(card);
         }
 
-        public void SetLayoutTransform(Vector3 targetLocalPos, Vector3 targetLocalAngles)
+        public void SetLayoutTransform(Vector3 targetLocalPos, Vector3 targetLocalAngles, Vector3 targetLocalScale)
         {
             baseLocalPosition = targetLocalPos;
             baseLocalEulerAngles = targetLocalAngles;
+            baseLocalScale = targetLocalScale;
 
             rectTransform.anchoredPosition = baseLocalPosition;
             transform.localEulerAngles = baseLocalEulerAngles;
+            transform.localScale = baseLocalScale;
         }
 
-        public void SetBaseLayoutTransform(Vector3 basePos, Vector3 baseAngles)
+        public void SetBaseLayoutTransform(Vector3 basePos, Vector3 baseAngles, Vector3 baseScale)
         {
             baseLocalPosition = basePos;
             baseLocalEulerAngles = baseAngles;
+            baseLocalScale = baseScale;
         }
 
         public void SetWorldTransform(Vector3 worldPos, Quaternion worldRot, Vector3 localScale)
@@ -76,6 +80,7 @@ namespace View.BattleView
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, processMoveDuration).SetEase(processMoveEase));
             sequence.Join(transform.DORotate(baseLocalEulerAngles, processRotateDuration, RotateMode.Fast).SetEase(processRotateEase));
+            sequence.Join(transform.DOScale(baseLocalScale, processMoveDuration).SetEase(processScaleEase));
             
             currentTween = sequence;
             return currentTween;
@@ -104,6 +109,7 @@ namespace View.BattleView
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, moveDuration).SetEase(moveEase));
             sequence.Join(transform.DORotate(baseLocalEulerAngles, rotateDuration, RotateMode.Fast).SetEase(rotateEase));
+            sequence.Join(transform.DOScale(baseLocalScale, moveDuration).SetEase(moveEase));
             
             currentTween = sequence;
             return currentTween;
@@ -116,7 +122,7 @@ namespace View.BattleView
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, moveDuration).SetEase(moveEase));
             sequence.Join(transform.DORotate(baseLocalEulerAngles, rotateDuration, RotateMode.Fast).SetEase(rotateEase));
-            sequence.Join(transform.DOScale(Vector3.one, scaleDuration).SetEase(scaleEase));
+            sequence.Join(transform.DOScale(baseLocalScale, scaleDuration).SetEase(scaleEase));
 
             currentTween = sequence;
             return currentTween;
