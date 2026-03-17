@@ -63,8 +63,19 @@ namespace View.BattleView
 
         public void OnInspect(IInspectorBuilder builder, RectTransform parent)
         {
-            var normalText = builder.AddNormalText(parent);
-            normalText.Text = $"({currentEffect.Data.Name}) 스택 : {currentEffect.StackCount}, 남은 턴  : {currentEffect.RemainTurn}";
+            var linkedGroup = builder.AddLinkedGroup(parent);
+
+            var mainText = builder.AddBodyText(linkedGroup.RectTransform);
+            string typeColorHex = currentEffect.Data.Type switch
+            {
+                BattleStatusEffectType.BUFF => "#44FF44",   
+                BattleStatusEffectType.DEBUFF => "#FF4444", 
+                _ => "#FFFFFF"                              
+            };
+            mainText.Text = $"<color={typeColorHex}>{currentEffect.Data.Name}</color> <size=80%>스택 : {currentEffect.StackCount}, 남은 턴 : {currentEffect.RemainTurn}</size>";
+
+            var captionText = builder.AddCaptionText(linkedGroup.RectTransform);
+            captionText.Text = $"{currentEffect.Data.Description}";
         }
 
         public IEnumerator PlayAppliedPresentation()

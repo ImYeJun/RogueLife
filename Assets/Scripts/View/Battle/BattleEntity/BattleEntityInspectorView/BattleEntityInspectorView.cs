@@ -49,8 +49,10 @@ namespace View.BattleView
         [SerializeField] private RectTransform panelContentTransform;
         
         [Header("Prefabs")]
-        [SerializeField] private GameObject normalTextPrefab;
-        [SerializeField] private GameObject mainTextPrefab;
+        [SerializeField] private GameObject bodyTextPrefab;
+        [SerializeField] private GameObject captionTextPrefab;
+        [SerializeField] private GameObject headerPrefab;
+        [SerializeField] private GameObject linkedGroupPrefab;
         [SerializeField] private GameObject nameTextPrefab;
         [SerializeField] private GameObject subPanelPrefab;
 
@@ -94,16 +96,28 @@ namespace View.BattleView
             }
         }
 
-        public InspectorNormalText AddNormalText(RectTransform parent)
+        public InspectorBodyText AddBodyText(RectTransform parent)
         {
-            var gameObj = Instantiate(normalTextPrefab, parent);
-            return gameObj.GetComponent<InspectorNormalText>();
+            var gameObj = Instantiate(bodyTextPrefab, parent);
+            return gameObj.GetComponent<InspectorBodyText>();
         }
 
-        public InspectorMainText AddMainText(RectTransform parent)
+        public InspectorCaptionText AddCaptionText(RectTransform parent)
         {
-            var gameObj = Instantiate(mainTextPrefab, parent);
-            return gameObj.GetComponent<InspectorMainText>();
+            var gameObj = Instantiate(captionTextPrefab, parent);
+            return gameObj.GetComponent<InspectorCaptionText>();
+        }
+
+        public InspectorHeader AddHeader(RectTransform parent)
+        {
+            var gameObj = Instantiate(headerPrefab, parent);
+            return gameObj.GetComponent<InspectorHeader>();
+        }
+
+        public InspectorLinkedGroup AddLinkedGroup(RectTransform parent)
+        {
+            var gameObj = Instantiate(linkedGroupPrefab, parent);
+            return gameObj.GetComponent<InspectorLinkedGroup>();
         }
 
         public InspectorNameText AddNameText(RectTransform parent)

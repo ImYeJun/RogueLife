@@ -49,7 +49,7 @@ namespace View.BattleView
 
         public void OnInspect(IInspectorBuilder builder, RectTransform parent)
         {
-            var text = builder.AddNormalText(parent);
+            var text = builder.AddBodyText(parent);
             text.Text = $"{action}";
         }
 

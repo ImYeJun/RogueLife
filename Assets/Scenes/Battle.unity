@@ -1437,7 +1437,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3207547, g: 0.3207547, b: 0.3207547, a: 0.83137256}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.83137256}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2649,8 +2649,10 @@ MonoBehaviour:
   panelTransform: {fileID: 732854859}
   closeButtonTransform: {fileID: 1653912221}
   panelContentTransform: {fileID: 2078863897}
-  normalTextPrefab: {fileID: 5614501261806460051, guid: 102d0dcf8af3ba240862cf52c95d0a4b, type: 3}
-  mainTextPrefab: {fileID: 8352374944360500735, guid: 06de938855a79144f848a6c1c6eb26c6, type: 3}
+  bodyTextPrefab: {fileID: 5614501261806460051, guid: 102d0dcf8af3ba240862cf52c95d0a4b, type: 3}
+  captionTextPrefab: {fileID: 654479732743848394, guid: 9eae0774376deb2408c63fdf9ff0d469, type: 3}
+  headerPrefab: {fileID: 8352374944360500735, guid: 06de938855a79144f848a6c1c6eb26c6, type: 3}
+  linkedGroupPrefab: {fileID: 4539029599409723602, guid: 579e6745802f4fa438155345c5e0754e, type: 3}
   nameTextPrefab: {fileID: 226342128993032476, guid: 617dba6217245e54bb493e4695d4df08, type: 3}
   subPanelPrefab: {fileID: 4568891915341802135, guid: 8e72c5243f5b68e40b22a1ef2525b9eb, type: 3}
 --- !u!1 &1333229989
@@ -4870,7 +4872,7 @@ MonoBehaviour:
     m_Top: 50
     m_Bottom: 50
   m_ChildAlignment: 0
-  m_Spacing: 20
+  m_Spacing: 40
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0

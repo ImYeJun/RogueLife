@@ -344,12 +344,12 @@ namespace View.BattleView
             var nameText = builder.AddNameText(parent);
             nameText.Text = $"{enemy.Data.EnemyName}";
 
-            var healthText = builder.AddMainText(parent);
+            var healthText = builder.AddHeader(parent);
             healthText.Text = $"{enemy.CurrentHealth}/{enemy.MaxHealth}";
 
             var availableActionPanel = builder.AddSubPanel(parent);
             availableActionPanel.Header = "행동 종류";
-            var toDo = builder.AddNormalText(availableActionPanel.ItemContainer);
+            var toDo = builder.AddBodyText(availableActionPanel.ItemContainer);
             toDo.Text = "ToDo : Implement Enemy Action Description";
 
             var intendedActionPanel = builder.AddSubPanel(parent);

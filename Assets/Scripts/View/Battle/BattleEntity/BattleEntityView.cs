@@ -108,7 +108,7 @@ namespace View.BattleView
         public virtual void OnInspect(IInspectorBuilder builder, RectTransform parent)
         {
             var subPanel = builder.AddSubPanel(parent);
-            subPanel.Header = "버프/디버프";
+            subPanel.Header = "보유 중인 버프·디버프";
 
             foreach (var icon in battleStatusEffectIcons)
             {

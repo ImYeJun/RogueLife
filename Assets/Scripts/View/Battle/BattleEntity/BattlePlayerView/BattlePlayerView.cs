@@ -190,6 +190,12 @@ namespace View.BattleView
             var nameText = builder.AddNameText(parent);
             nameText.Text = "유지아";
 
+            var battleHealthText = builder.AddHeader(parent);
+            battleHealthText.Text = $"전투 체력 : {player.Health.CurrentBattleHealth}/{player.Health.MaxBattleHealth}";
+
+            var mentalityText = builder.AddHeader(parent);
+            mentalityText.Text = $"정신력 : {player.Health.CurrentMentality}/{player.Health.MaxMentality}";
+
             base.OnInspect(builder, parent);
         }
 
