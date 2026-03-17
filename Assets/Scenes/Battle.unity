@@ -2203,11 +2203,11 @@ MonoBehaviour:
   rectTransform: {fileID: 1065188440}
   remainTurnText: {fileID: 869329573}
   disappearingUpDestination: {x: 0, y: 200}
-  disappearingUpDuration: 1
-  disappearingUpEasingType: 4
+  disappearingUpDuration: 0.5
+  disappearingUpEasingType: 18
   showingPosition: {x: 0, y: -20}
-  showingDownDuration: 1
-  showingDownEasingType: 7
+  showingDownDuration: 0.5
+  showingDownEasingType: 27
 --- !u!1 &1119854809
 GameObject:
   m_ObjectHideFlags: 0

@@ -105,6 +105,7 @@ namespace View.BattleView
         private int focusedCardViewIndex;
 
         private BattleCardView processingCardView;
+        private Tween currentSortPresentation;
 
         public override void OnInitialized()
         {
@@ -274,7 +275,6 @@ namespace View.BattleView
                 }
             }
 
-
             Vector3 endPos = destination switch
             {
                 BattleDeckType.DRAW => drawDeckPosition.position,
@@ -346,6 +346,7 @@ namespace View.BattleView
 
         private Tween PlayCardSortPresentation(List<BattleCardView> currentCardViews, float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase, BattleCardView excludeTweenView = null)
         {
+            currentSortPresentation?.Kill();
             var sequence = DOTween.Sequence();
 
             for (int i = 0; i < currentCardViews.Count; i++)
@@ -363,6 +364,7 @@ namespace View.BattleView
                 }
             }
 
+            currentSortPresentation = sequence;
             return sequence;
         }
 
