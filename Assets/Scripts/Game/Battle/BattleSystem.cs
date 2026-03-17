@@ -234,8 +234,8 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         viewEventBus.Publish(new BattleStatusEffectExecuted(viewEventBus.GetNextSequenceId(), payload.Owner, payload.BattleStatusEffect));
     }
 
-    public string GetStatusEffectDescription(string id)
+    public BattleStatusEffectData GetStatusEffectData(string id)
     {
-        return context.BattleStatusEffectDatabase.GetDescription(id);
+        return context.BattleStatusEffectDatabase.GetData(id);
     }
 }

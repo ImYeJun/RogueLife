@@ -7,7 +7,7 @@ namespace Battle.Enemies.Actions.Shared
         private readonly BattleStatusEffectType type;
         private int amount;
 
-        public RemovePlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectType type, int amount = 1) : base(owner)
+        public RemovePlayerStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectType type, int amount = 1) : base(id, owner)
         {
             this.amount = amount;
             this.type = type;

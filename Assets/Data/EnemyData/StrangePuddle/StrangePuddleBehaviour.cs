@@ -19,7 +19,7 @@ namespace Battle.Enemies.Behaviours
 
         private class CorruptPlayerStatus : EnemyAction
         {
-            public CorruptPlayerStatus(IEnemyBehaviourOwner owner) : base(owner)
+            public CorruptPlayerStatus(string id, IEnemyBehaviourOwner owner) : base(id, owner)
             {
             }
 
@@ -61,9 +61,9 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplyPlayerStatusEffect(owner, deadlyPoisionEntity, 2, 3) },
-                { SECOND_ACTION, new ApplyPlayerStatusEffect(owner, heavyBodyEntity, 2, 2) },
-                { THIRD_ACTION, new CorruptPlayerStatus(owner) }
+                { FIRST_ACTION, new ApplyPlayerStatusEffect(FIRST_ACTION, owner, deadlyPoisionEntity, 2, 3) },
+                { SECOND_ACTION, new ApplyPlayerStatusEffect(SECOND_ACTION, owner, heavyBodyEntity, 2, 2) },
+                { THIRD_ACTION, new CorruptPlayerStatus(THIRD_ACTION, owner) }
             };
 
             availablePatterns = new List<Pattern>

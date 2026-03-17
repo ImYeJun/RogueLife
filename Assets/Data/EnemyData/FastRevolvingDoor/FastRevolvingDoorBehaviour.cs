@@ -54,7 +54,7 @@ namespace Battle.Enemies.Behaviours
                 }
             }
 
-            public RecklessSpin(IEnemyBehaviourOwner owner) : base(owner)
+            public RecklessSpin(string id, IEnemyBehaviourOwner owner) : base(id, owner)
             {
             }
 
@@ -84,13 +84,13 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new CompositeEnemyAction(owner, new List<EnemyAction>()
+                { FIRST_ACTION, new CompositeEnemyAction(FIRST_ACTION, owner, new List<EnemyAction>()
                 {
-                    new HurtPlayer(owner, 20),
-                    new ApplyPlayerStatusEffect(owner, bleedingEntity, 2, 2)
+                    new HurtPlayer(FIRST_ACTION + "_sub1", owner, 20),
+                    new ApplyPlayerStatusEffect(FIRST_ACTION + "_sub2", owner, bleedingEntity, 2, 2)
                 }) },
-                { SECOND_ACTION, new RecklessSpin(owner) },
-                { THIRD_ACTION, new HurtSelf(owner, 40) }
+                { SECOND_ACTION, new RecklessSpin(SECOND_ACTION, owner) },
+                { THIRD_ACTION, new HurtSelf(THIRD_ACTION, owner, 40) }
             };
 
             availablePatterns = new List<Pattern>

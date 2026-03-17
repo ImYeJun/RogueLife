@@ -10,6 +10,7 @@ namespace View.BattleView
 
         private void Awake() {
             textMeshPro = GetComponent<TextMeshProUGUI>();
+            textMeshPro.text = "";
         }
     }
 }

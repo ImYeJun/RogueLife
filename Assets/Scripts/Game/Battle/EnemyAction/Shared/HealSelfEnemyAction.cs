@@ -4,7 +4,7 @@ namespace Battle.Enemies.Actions.Shared
     {
         private int amount;
 
-        public HealSelf(IEnemyBehaviourOwner owner, int amount) : base(owner)
+        public HealSelf(string id, IEnemyBehaviourOwner owner, int amount) : base(id, owner)
         {
             this.amount = amount;
         }

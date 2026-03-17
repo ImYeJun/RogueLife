@@ -9,14 +9,14 @@ namespace Battle.Enemies.Actions.Shared
         private int duration;
         private bool isEthernal;
 
-        public ApplySelfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack, int duration, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
+        public ApplySelfStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack, int duration, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, isLastAction, isOncePerTurn)
         {
             this.statusEffectEntity = statusEffectEntity;
             this.stack = stack;
             this.duration = duration;
             isEthernal = false;
         }
-        public ApplySelfStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
+        public ApplySelfStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, isLastAction, isOncePerTurn)
         {
             this.statusEffectEntity = statusEffectEntity;
             this.stack = stack;

@@ -67,16 +67,16 @@ public class BattleStatusEffectDatabase : MonoBehaviour, IBattleBattleStatusEffe
         }
     }
 
-    public string GetDescription(string id)
+    public BattleStatusEffectData? GetData(string id)
     {
         var entity = idLookUp[id];
 
         if (entity is null)
         {
             Debug.LogWarning($"[{GetType()}/GetDescription] There's no BattleStatusEffect for {id}");
-            return "";
+            return null;
         }
-        return entity.Data.Description;
+        return entity.Data;
     }
 
 #if UNITY_EDITOR

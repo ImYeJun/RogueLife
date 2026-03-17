@@ -22,7 +22,7 @@ namespace Battle.Enemies.Behaviours
 
         private class Payback : EnemyAction
         {
-            public Payback(IEnemyBehaviourOwner owner, bool isLastAction = false) : base(owner, isLastAction)
+            public Payback(string id, IEnemyBehaviourOwner owner, bool isLastAction = false) : base(id, owner, isLastAction)
             {
             }
 
@@ -47,20 +47,20 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new HurtPlayer(owner, 50) },
-                { SECOND_ACTION, new CompositeEnemyAction(owner, new List<EnemyAction>()
+                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 50) },
+                { SECOND_ACTION, new CompositeEnemyAction(SECOND_ACTION, owner, new List<EnemyAction>()
                 {
-                    new RemovePlayerStatusEffect(owner, BattleStatusEffectType.BUFF),
-                    new ClearSelfStatusEffect(owner, BattleStatusEffectType.DEBUFF)
+                    new RemovePlayerStatusEffect(SECOND_ACTION + "_sub1", owner, BattleStatusEffectType.BUFF),
+                    new ClearSelfStatusEffect(SECOND_ACTION + "_sub2", owner, BattleStatusEffectType.DEBUFF)
                 }) },
-                { THIRD_ACTION, new DumpPlayerHandCard(owner, 3) },
-                { FOURTH_ACTION, new CompositeEnemyAction(owner, new List<EnemyAction>()
+                { THIRD_ACTION, new DumpPlayerHandCard(THIRD_ACTION, owner, 3) },
+                { FOURTH_ACTION, new CompositeEnemyAction(FOURTH_ACTION, owner, new List<EnemyAction>()
                 {
-                    new ApplyPlayerStatusEffect(owner, burningEntity, 2, 2),
-                    new ApplyPlayerStatusEffect(owner, deadlyPoisionEntity, 1, 2),
-                    new ApplyPlayerStatusEffect(owner, bleedingEntity, 1, 2),
+                    new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub1", owner, burningEntity, 2, 2),
+                    new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub2", owner, deadlyPoisionEntity, 1, 2),
+                    new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub3", owner, bleedingEntity, 1, 2),
                 })},
-                { FIFTH_ACTION, new Payback(owner) }
+                { FIFTH_ACTION, new Payback(FIFTH_ACTION, owner) }
             };
 
             availablePatterns = new List<Pattern>

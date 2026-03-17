@@ -23,8 +23,8 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
-                { FIRST_ACTION, new ApplySelfStatusEffect(owner, counterAttackEntity, 2, 2) },
-                { SECOND_ACTION, new HealSelf(owner, 10) }
+                { FIRST_ACTION, new ApplySelfStatusEffect(FIRST_ACTION, owner, counterAttackEntity, 2, 2) },
+                { SECOND_ACTION, new HealSelf(SECOND_ACTION, owner, 10) }
             };
 
             availablePatterns = new List<Pattern>

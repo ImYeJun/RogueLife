@@ -19,7 +19,7 @@ namespace Battle.Enemies.Behaviours
 
         private class Imitate : EnemyAction
         {
-            public Imitate(IEnemyBehaviourOwner owner, bool isLastAction = false, bool isOncePerTurn = false) : base(owner, isLastAction, isOncePerTurn)
+            public Imitate(string id, IEnemyBehaviourOwner owner, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, isLastAction, isOncePerTurn)
             {
             }
 
@@ -47,9 +47,9 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplyPlayerStatusEffect(owner, waterFistEntity, 2, 2) },
-                { SECOND_ACTION, new HurtPlayer(owner, 30) },
-                { THIRD_ACTION, new Imitate(owner) }
+                { FIRST_ACTION, new ApplyPlayerStatusEffect(FIRST_ACTION, owner, waterFistEntity, 2, 2) },
+                { SECOND_ACTION, new HurtPlayer(SECOND_ACTION, owner, 30) },
+                { THIRD_ACTION, new Imitate(THIRD_ACTION, owner) }
             };
 
             availablePatterns = new List<Pattern>

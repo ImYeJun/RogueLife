@@ -7,14 +7,14 @@ namespace Battle.Enemies.Actions.Shared
         private int duration;
         private bool isEthernal;
 
-        public ApplyPlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack, int duration) : base(owner)
+        public ApplyPlayerStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack, int duration) : base(id, owner)
         {
             this.statusEffectEntity = statusEffectEntity;
             this.stack = stack;
             this.duration = duration;
             isEthernal = false;
         }
-        public ApplyPlayerStatusEffect(IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack) : base(owner)
+        public ApplyPlayerStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectEntity statusEffectEntity, int stack) : base(id, owner)
         {
             this.statusEffectEntity = statusEffectEntity;
             this.stack = stack;

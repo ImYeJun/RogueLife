@@ -25,9 +25,9 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new HurtPlayer(owner, 40, true) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, strenghenMuscleEntity, 2, 2) },
-                { THIRD_ACTION, new RemoveItselfStatusEffect(owner, BattleStatusEffectType.DEBUFF) }
+                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 40, true) },
+                { SECOND_ACTION, new ApplySelfStatusEffect(SECOND_ACTION, owner, strenghenMuscleEntity, 2, 2) },
+                { THIRD_ACTION, new RemoveItselfStatusEffect(THIRD_ACTION, owner, BattleStatusEffectType.DEBUFF) }
             };
 
             availablePatterns = new List<Pattern>

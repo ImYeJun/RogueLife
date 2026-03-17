@@ -1,6 +1,4 @@
 using UnityEngine;
-using View.Core;
-using ViewEvent.Core;
 using ViewEvent.BattleView;
 using System;
 using UnityEngine.UI;
@@ -311,7 +309,6 @@ namespace View.BattleView
             }
         }
 
-        // 💡 [수정된 부분] 힐 연출 시퀀스 구현 (바 차오름 -> 텍스트 도달)
         private IEnumerator HealPresentation(int startHealth, int targetHealth)
         {
             int maxH = enemy != null ? enemy.MaxHealth : testMaxHealth;
@@ -320,10 +317,8 @@ namespace View.BattleView
 
             Sequence sequence = DOTween.Sequence();
 
-            // 체력 바 채우기
             sequence.Join(healthBarImage.DOFillAmount(targetNormalized, healDuration).SetEase(healEase));
 
-            // 숫자 텍스트 카운팅 애니메이션
             int tempHealth = startHealth;
             sequence.Join(DOTween.To(
                 () => tempHealth,
@@ -349,14 +344,35 @@ namespace View.BattleView
 
             var availableActionPanel = builder.AddSubPanel(parent);
             availableActionPanel.Header = "행동 종류";
-            var toDo = builder.AddBodyText(availableActionPanel.ItemContainer);
-            toDo.Text = "ToDo : Implement Enemy Action Description";
+            foreach (var behaviour in enemy.Data.BehaviourDescriptions)
+            {
+                var linkedGroup = builder.AddLinkedGroup(availableActionPanel.ItemContainer);
+
+                var availableBehaviourText = builder.AddBodyText(linkedGroup.RectTransform);
+                availableBehaviourText.Text = $"{int.Parse(behaviour.Id[behaviour.Id.Length - 1].ToString()) + 1} : {behaviour.Description}";
+
+                foreach (var associatedStatusEffect in behaviour.AssociatedStatusEffectIds)
+                {
+                    var data = commander.GetStatusEffectData(associatedStatusEffect);
+
+                    var statusEffectText = builder.AddCaptionText(linkedGroup.RectTransform);
+                    statusEffectText.Text = $"{data.Name} : {data.Description}";
+                }
+            }
 
             var intendedActionPanel = builder.AddSubPanel(parent);
             intendedActionPanel.Header = "하게 될 행동";
-            foreach (var icon in actionIcons)
+
+            var sequenceText = builder.AddBodyText(intendedActionPanel.ItemContainer);
+
+            for (int i = 0; i < actionIcons.Count; i++)
             {
-                icon.OnInspect(builder, intendedActionPanel.ItemContainer);
+                string id = actionIcons[i].Action.Id;
+                sequenceText.Text += $"{int.Parse(id[id.Length - 1].ToString()) + 1}";
+
+                if (i != actionIcons.Count - 1){
+                    sequenceText.Text += " → ";
+                }
             }
             
             base.OnInspect(builder, parent);

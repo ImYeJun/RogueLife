@@ -4,7 +4,7 @@ namespace Battle.Enemies.Actions.Shared
     {
         private int amount;
 
-        public DirectlyDecreaseMentality(IEnemyBehaviourOwner owner, int amount) : base(owner)
+        public DirectlyDecreaseMentality(string id, IEnemyBehaviourOwner owner, int amount) : base(id, owner)
         {
             this.amount = amount;
         }

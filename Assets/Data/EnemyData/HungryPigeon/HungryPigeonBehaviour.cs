@@ -21,7 +21,7 @@ namespace Battle.Enemies.Behaviours
 
         private class CallComarades : EnemyAction
         {
-            public CallComarades(IEnemyBehaviourOwner owner, bool isLastAction = false) : base(owner, isLastAction)
+            public CallComarades(string id, IEnemyBehaviourOwner owner, bool isLastAction = false) : base(id, owner, isLastAction)
             {
             }
 
@@ -45,11 +45,11 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new HurtPlayer(owner, 15) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, multiplyingComaradesEntity, 1) },
-                { THIRD_ACTION, new ApplySelfStatusEffect(owner, toughenEntity, 3, 2) },
-                { FOURTH_ACTION, new HealSelf(owner, 20)},
-                { FIFTH_ACTION, new CallComarades(owner) }
+                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 15) },
+                { SECOND_ACTION, new ApplySelfStatusEffect(SECOND_ACTION, owner, multiplyingComaradesEntity, 1) },
+                { THIRD_ACTION, new ApplySelfStatusEffect(THIRD_ACTION, owner, toughenEntity, 3, 2) },
+                { FOURTH_ACTION, new HealSelf(FOURTH_ACTION, owner, 20)},
+                { FIFTH_ACTION, new CallComarades(FIFTH_ACTION, owner) }
             };
 
             availablePatterns = new List<Pattern>

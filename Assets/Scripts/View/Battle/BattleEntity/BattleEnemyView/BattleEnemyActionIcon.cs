@@ -8,7 +8,7 @@ using DG.Tweening;
 
 namespace View.BattleView
 {
-    public class BattleEnemyActionIcon : MonoBehaviour, IInspectable
+    public class BattleEnemyActionIcon : MonoBehaviour
     {
         private CanvasGroup canvasGroup;
         private LayoutElement layoutElement;
@@ -45,12 +45,6 @@ namespace View.BattleView
         public void Initialize(EnemyAction action)
         {
             this.action = action;
-        }
-
-        public void OnInspect(IInspectorBuilder builder, RectTransform parent)
-        {
-            var text = builder.AddBodyText(parent);
-            text.Text = $"{action}";
         }
 
         public IEnumerator PlayAppliedPresentation()

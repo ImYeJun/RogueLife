@@ -31,11 +31,11 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplySelfStatusEffect(owner, dontTouchEntity, 1, 2) },
-                { SECOND_ACTION, new SpawnEnemy(owner, obstacleForFleeingEntity, 3) },
-                { THIRD_ACTION, new ApplySelfStatusEffect(owner, quickEscapeEntity, 1, isLastAction : false, isOncePerTurn : true) },
-                { FOURTH_ACTION, new HealSelf(owner, 20)},
-                { FIFTH_ACTION, new DecreasePhaseCount(owner, 2) }
+                { FIRST_ACTION, new ApplySelfStatusEffect(FIRST_ACTION, owner, dontTouchEntity, 1, 2) },
+                { SECOND_ACTION, new SpawnEnemy(SECOND_ACTION, owner, obstacleForFleeingEntity, 3) },
+                { THIRD_ACTION, new ApplySelfStatusEffect(THIRD_ACTION, owner, quickEscapeEntity, 1, isLastAction : false, isOncePerTurn : true) },
+                { FOURTH_ACTION, new HealSelf(FOURTH_ACTION, owner, 20)},
+                { FIFTH_ACTION, new DecreasePhaseCount(FIFTH_ACTION, owner, 2) }
             };
 
             availablePatterns = new List<Pattern>

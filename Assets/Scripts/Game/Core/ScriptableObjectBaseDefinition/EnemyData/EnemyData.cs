@@ -24,8 +24,8 @@ public abstract class EnemyData : ScriptableObject, ISerializationCallbackReceiv
         [SerializeField, TextArea(3, 10)] private string behaviourDescription;
         [SerializeField] private List<string> associatedStatusEffectIds;
 
-        public string BehaviourId => behaviourId;
-        public string BehaviourDescription => behaviourDescription;
+        public string Id => behaviourId;
+        public string Description => behaviourDescription;
         public IReadOnlyList<string> AssociatedStatusEffectIds => associatedStatusEffectIds;
     }
 
@@ -38,6 +38,7 @@ public abstract class EnemyData : ScriptableObject, ISerializationCallbackReceiv
 
     [SerializeField] private List<EnemyBehaviourDescription> behaviourDescriptionList = new List<EnemyBehaviourDescription>();
     private Dictionary<string, EnemyBehaviourDescription> behaviourDescriptionDict = new Dictionary<string, EnemyBehaviourDescription>();
+    public List<EnemyBehaviourDescription> BehaviourDescriptions => behaviourDescriptionList;
 
     [Header("Dialogue")]
     [SerializeField, TextArea] private List<string> encounterLines;
@@ -88,15 +89,15 @@ public abstract class EnemyData : ScriptableObject, ISerializationCallbackReceiv
 
         foreach (var desc in behaviourDescriptionList)
         {
-            if (string.IsNullOrEmpty(desc.BehaviourId)) continue;
+            if (string.IsNullOrEmpty(desc.Id)) continue;
             
-            if (!behaviourDescriptionDict.ContainsKey(desc.BehaviourId))
+            if (!behaviourDescriptionDict.ContainsKey(desc.Id))
             {
-                behaviourDescriptionDict.Add(desc.BehaviourId, desc);
+                behaviourDescriptionDict.Add(desc.Id, desc);
             }
             else
             {
-                Debug.LogWarning($"[EnemyData] Duplicate Behaviour ID found in Inspector: {desc.BehaviourId}");
+                Debug.LogWarning($"[EnemyData] Duplicate Behaviour ID found in Inspector: {desc.Id}");
             }
         }
     }

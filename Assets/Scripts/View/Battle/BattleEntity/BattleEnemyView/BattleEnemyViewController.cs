@@ -65,7 +65,7 @@ namespace View.BattleView
                 BattleEnemyView enemyView = enemyObj.GetComponent<BattleEnemyView>();
                 if (enemyView != null)
                 {
-                    enemyView.Initialize(eventBus, presentationManager);
+                    enemyView.Initialize(eventBus, presentationManager, commander);
                     enemyView.Initialize(enemy, spawnPos, viewTransitionManager);
 
                     spawnedEnemyViews.Add(enemyView);

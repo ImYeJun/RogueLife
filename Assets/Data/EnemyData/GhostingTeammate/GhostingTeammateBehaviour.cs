@@ -25,8 +25,8 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
-                { FIRST_ACTION, new ApplySelfStatusEffect(owner, strengthenMuscleEntity, 1, 2) },
-                { SECOND_ACTION, new ApplySelfStatusEffect(owner, thatsFoulEntity, 1, 2) }
+                { FIRST_ACTION, new ApplySelfStatusEffect(FIRST_ACTION, owner, strengthenMuscleEntity, 1, 2) },
+                { SECOND_ACTION, new ApplySelfStatusEffect(SECOND_ACTION, owner, thatsFoulEntity, 1, 2) }
             };
 
             availablePatterns = new List<Pattern>

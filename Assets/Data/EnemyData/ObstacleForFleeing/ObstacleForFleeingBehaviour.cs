@@ -71,7 +71,5 @@ namespace Battle.Enemies.Behaviours
         {
             return new ObstacleForFleeing(this, newOwner);
         }
-
-        
     }
 }

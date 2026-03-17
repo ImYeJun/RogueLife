@@ -19,8 +19,8 @@ namespace Battle.Enemies.Behaviours
         {
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
-                { FIRST_ACTION, new DumpPlayerHandCard(owner)},
-                { SECOND_ACTION, new HurtPlayer(owner, 20) }
+                { FIRST_ACTION, new DumpPlayerHandCard(FIRST_ACTION, owner)},
+                { SECOND_ACTION, new HurtPlayer(SECOND_ACTION, owner, 20) }
             };
 
             availablePatterns = new List<Pattern>

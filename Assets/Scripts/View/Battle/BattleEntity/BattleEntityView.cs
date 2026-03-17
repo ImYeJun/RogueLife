@@ -11,7 +11,7 @@ using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public abstract class BattleEntityView<T> : ViewBehaviour<IBattleViewEvent>, IInspectable where T : IReadOnlyBattleEntity
+    public abstract class BattleEntityView<T> : InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>, IInspectable where T : IReadOnlyBattleEntity
     {
         [Header("BattleEntityView")]
         [SerializeField] protected BattleViewTransitionManager viewTransitionManager;
