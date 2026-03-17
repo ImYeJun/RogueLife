@@ -174,28 +174,29 @@ namespace View.BattleView
 
         private void OnCardDrawed(CardDrawed payload)
         {
-            var newCardView = CreateBattleCardView(payload.Card);
-            newCardView.gameObject.SetActive(false);
-            cardViews.Add(newCardView);
-
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDrawed_HandDeckPresentation, DrawCardPresentation(newCardView, new List<BattleCardView>(cardViews)));
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDrawed_HandDeckPresentation, DrawCardPresentation(payload.Card));
         }
 
-        private IEnumerator DrawCardPresentation(BattleCardView drawedCardView, List<BattleCardView> currentCardViews)
+        private IEnumerator DrawCardPresentation(Card cardData)
         {
+            var drawedCardView = CreateBattleCardView(cardData);
+            drawedCardView.gameObject.SetActive(false);
+            cardViews.Add(drawedCardView);
+
             drawedCardView.SetWorldTransform(drawDeckPosition.position, drawDeckPosition.rotation, Vector3.zero);
 
             Sequence sequence = DOTween.Sequence();
             
             sequence.Join(PlayCardSortPresentation(
-                currentCardViews, 
+                cardViews, 
                 drawExistingMoveDuration, drawExistingRotateDuration, 
                 drawExistingMoveEase, drawExistingRotateEase, 
                 excludeTweenView: drawedCardView));
 
-            GetCardPositionAngle(currentCardViews.IndexOf(drawedCardView), currentCardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
+            GetCardPositionAngle(cardViews.IndexOf(drawedCardView), cardViews.Count, out Vector3 targetPos, out Vector3 targetAngle);
             drawedCardView.SetBaseLayoutTransform(targetPos, targetAngle, Vector3.one);
 
+            drawedCardView.gameObject.SetActive(true);
             sequence.Join(drawedCardView.PlayDrawPresentation(
                 drawTargetMoveDuration, drawTargetRotateDuration, drawTargetScaleDuration, 
                 drawTargetMoveEase, drawTargetRotateEase, drawTargetScaleEase));
@@ -205,23 +206,22 @@ namespace View.BattleView
 
         private void OnCardActivationCancelled(CardActivationCancelled payload)
         {
-            if (processingCardView == null || processingCardView.Card != payload.Card) return;
-
-            var view = processingCardView;
-            processingCardView = null;
-
-            cardViews.Add(view);
-            view.transform.SetParent(cardContainer);
-            
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, PlayCancelActivationPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, PlayCancelActivationPresentation(payload.Card));
         }
 
-        private IEnumerator PlayCancelActivationPresentation()
+        private IEnumerator PlayCancelActivationPresentation(Card cardData)
         {
+            if (processingCardView != null && processingCardView.Card == cardData)
+            {
+                var view = processingCardView;
+                processingCardView = null;
+                cardViews.Add(view);
+                view.transform.SetParent(cardContainer);
+            }
+
             var sequence = DOTween.Sequence();
             
             sequence.Join(PlayCardSortPresentation(cardViews, cancelSortMoveDuration, cancelSortRotateDuration, cancelSortMoveEase, cancelSortRotateEase));
-            
             sequence.Append(PlayCardContainerMovePresentation(isMovingDown: false));
 
             yield return sequence.WaitForCompletion();
@@ -252,35 +252,8 @@ namespace View.BattleView
                 yield break;
             }
 
-            Sequence sequence = DOTween.Sequence();
-
-            Vector3 endPos = destination switch
-            {
-                BattleDeckType.DRAW => drawDeckPosition.position,
-                BattleDeckType.GRAVE => graveDeckPosition.position,
-                _ => throw new InvalidOperationException($"[DeckViewSystem/DiscardCardPresentation] {destination} is not valid.")
-            };
-            Vector3 controlPos = discardControlPointOffset.position;
-            Vector3 endRot = graveDeckPosition.rotation.eulerAngles;
-
-            sequence.Join(view.PlayDiscardPresentation(
-                endPos, controlPos, endRot,
-                discardTargetMoveDuration, discardTargetRotateDuration, discardTargetScaleDuration,
-                discardTargetMoveEase, discardTargetRotateEase, discardTargetScaleEase).OnComplete(()
-                =>
-                {
-                    Destroy(view.gameObject);
-                }
-                ));
-
-            sequence.Join(PlayCardSortPresentation(
-                cardViews, 
-                discardExistingMoveDuration, discardExistingRotateDuration,
-                discardExistingMoveEase, discardExistingRotateEase));
-            
             if (view == processingCardView)
             {
-                sequence.Append(PlayCardContainerMovePresentation(false));
                 processingCardView = null;
                 SetHandCardInteractable(true);
             }
@@ -295,18 +268,40 @@ namespace View.BattleView
                 }
             }
 
+            Sequence sequence = DOTween.Sequence();
+
+            Vector3 endPos = destination switch
+            {
+                BattleDeckType.DRAW => drawDeckPosition.position,
+                BattleDeckType.GRAVE => graveDeckPosition.position,
+                _ => throw new InvalidOperationException($"[DeckViewSystem/DiscardCardPresentation] {destination} is not valid.")
+            };
+            Vector3 controlPos = discardControlPointOffset.position;
+            Vector3 endRot = graveDeckPosition.rotation.eulerAngles;
+
+            sequence.Join(view.PlayDiscardPresentation(
+                endPos, controlPos, endRot,
+                discardTargetMoveDuration, discardTargetRotateDuration, discardTargetScaleDuration,
+                discardTargetMoveEase, discardTargetRotateEase, discardTargetScaleEase));
+
+            sequence.Join(PlayCardSortPresentation(
+                cardViews, 
+                discardExistingMoveDuration, discardExistingRotateDuration,
+                discardExistingMoveEase, discardExistingRotateEase));
+
             yield return sequence.WaitForCompletion();
+
+            Destroy(view.gameObject);
         }
 
         private void OnCardRestored(CardRestored payload)
         {
-            var view = CreateBattleCardView(payload.Card);
-            view.gameObject.SetActive(false);
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardRestored_HandDeckPresentation, RestoreCardPresentation(view));
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardRestored_HandDeckPresentation, RestoreCardPresentation(payload.Card));
         }
 
-        private IEnumerator RestoreCardPresentation(BattleCardView cardView)
+        private IEnumerator RestoreCardPresentation(Card cardData)
         {
+            var cardView = CreateBattleCardView(cardData);
             cardView.gameObject.SetActive(true);
             
             cardView.SetWorldTransform(graveDeckPosition.position, graveDeckPosition.rotation, Vector3.one);
@@ -337,7 +332,8 @@ namespace View.BattleView
             SetHandCardInteractable(true);
 
             var sequence = DOTween.Sequence();
-            sequence.Join(view.PlayResolveFadePresentation());
+            
+            sequence.Append(view.PlayResolveFadePresentation());
             sequence.Append(PlayCardContainerMovePresentation(isMovingDown: false));
             
             yield return sequence.WaitForCompletion();
@@ -346,6 +342,8 @@ namespace View.BattleView
 
         private Tween PlayCardContainerMovePresentation(bool isMovingDown)
         {
+            cardContainer.DOKill(); 
+            
             float targetY = isMovingDown ? originalCardContainerY + processingCardContainerOffsetY : originalCardContainerY;
             float duration = isMovingDown ? cardContainerMoveDownDuration : cardContainerMoveUpDuration;
             Ease ease = isMovingDown ? cardContainerMoveDownEase : cardContainerMoveUpEase;
@@ -569,8 +567,10 @@ namespace View.BattleView
             yield return new WaitForSeconds(0.7f);
 
             var resolveSeq = DOTween.Sequence();
-            resolveSeq.Join(testCardView.PlayResolveFadePresentation());
+            
+            resolveSeq.Append(testCardView.PlayResolveFadePresentation());
             resolveSeq.Append(PlayCardContainerMovePresentation(isMovingDown: false));
+            
             yield return resolveSeq.WaitForCompletion();
 
             if (wasInHand)
