@@ -17,6 +17,18 @@ namespace View.BattleView
         [SerializeField] private float focusMoveDuration = 0.2f;
         [SerializeField] private Ease focusMoveEase = Ease.OutBack;
 
+        [Header("Process Card Presentation")]
+        [SerializeField] private float triggerFadeDuration = 0.5f;
+        [SerializeField] private Ease triggerFadeEase = Ease.Linear;
+        [SerializeField] private float processMoveDuration = 0.5f;
+        [SerializeField] private float processRotateDuration = 0.5f;
+        [SerializeField] private Ease processMoveEase = Ease.Linear;
+        [SerializeField] private Ease processRotateEase = Ease.Linear;
+
+        [Header("Resolve Card Presentation")]
+        [SerializeField] private float resolveFadeDuration = 0.5f;
+        [SerializeField] private Ease resolveFadeEase = Ease.Linear;
+
         private Action<BattleCardView> onCardClicked; 
         private Vector3 baseLocalPosition;
         private Vector3 baseLocalEulerAngles;
@@ -56,6 +68,33 @@ namespace View.BattleView
         public void SetAlpha(float value)
         {
             canvasGroup.alpha = value;
+        }
+
+        public Tween PlayProcessMoveToLayoutTransform()
+        {
+            currentTween?.Kill();
+            var sequence = DOTween.Sequence();
+            sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, processMoveDuration).SetEase(processMoveEase));
+            sequence.Join(transform.DORotate(baseLocalEulerAngles, processRotateDuration, RotateMode.Fast).SetEase(processRotateEase));
+            
+            currentTween = sequence;
+            return currentTween;
+        }
+
+        public Tween PlayTriggerFadePresentation()
+        {
+            currentTween?.Kill();
+            canvasGroup.alpha = 0;
+            currentTween = canvasGroup.DOFade(1, triggerFadeDuration).SetEase(triggerFadeEase);
+            return currentTween;
+        }
+
+        public Tween PlayResolveFadePresentation()
+        {
+            currentTween?.Kill();
+            canvasGroup.alpha = 1;
+            currentTween = canvasGroup.DOFade(0, resolveFadeDuration).SetEase(resolveFadeEase);
+            return currentTween;
         }
 
         public Tween PlayMoveToLayoutTransform(float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase)
@@ -134,7 +173,6 @@ namespace View.BattleView
         public void OnPointerClick(PointerEventData eventData)
         {
             currentTween?.Kill();
-
             onCardClicked?.Invoke(this);
         }
 

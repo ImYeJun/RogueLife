@@ -37,16 +37,12 @@ namespace View.BattleView
 
         [Header("Draw Card Presentation")]
         [SerializeField] private RectTransform drawDeckPosition;
-        
-        [Header("- Target Card (Drawing)")]
         [SerializeField] private float drawTargetMoveDuration = 0.4f;
         [SerializeField] private Ease drawTargetMoveEase = Ease.OutQuad;
         [SerializeField] private float drawTargetRotateDuration = 0.4f;
         [SerializeField] private Ease drawTargetRotateEase = Ease.OutQuad;
         [SerializeField] private float drawTargetScaleDuration = 0.3f;
         [SerializeField] private Ease drawTargetScaleEase = Ease.OutBack;
-
-        [Header("- Existing Cards (Rearranging)")]
         [SerializeField] private float drawExistingMoveDuration = 0.3f;
         [SerializeField] private Ease drawExistingMoveEase = Ease.OutQuad;
         [SerializeField] private float drawExistingRotateDuration = 0.3f;
@@ -55,16 +51,12 @@ namespace View.BattleView
         [Header("Discard Card Presentation")]
         [SerializeField] private RectTransform graveDeckPosition;
         [SerializeField] private RectTransform discardControlPointOffset;
-        
-        [Header("- Target Card (Discarding)")]
         [SerializeField] private float discardTargetMoveDuration = 0.5f;
         [SerializeField] private Ease discardTargetMoveEase = Ease.InQuad;
         [SerializeField] private float discardTargetRotateDuration = 0.5f;
         [SerializeField] private Ease discardTargetRotateEase = Ease.InQuad;
         [SerializeField] private float discardTargetScaleDuration = 0.5f;
         [SerializeField] private Ease discardTargetScaleEase = Ease.InBack;
-
-        [Header("- Existing Cards (Rearranging)")]
         [SerializeField] private float discardExistingMoveDuration = 0.3f;
         [SerializeField] private Ease discardExistingMoveEase = Ease.OutQuad;
         [SerializeField] private float discardExistingRotateDuration = 0.3f;
@@ -80,18 +72,8 @@ namespace View.BattleView
         [SerializeField] private Ease cancelSortMoveEase;
         [SerializeField] private Ease cancelSortRotateEase;
 
-        [Header("Resolve Card Presentation")]
-        [SerializeField] private float resolveFadeDuration;
-        [SerializeField] private Ease resolveFadeEase;
-
         [Header("Process Card Presentation")]
         [SerializeField] private Vector3 processingCardPosition;
-        [SerializeField] private float triggerFadeDuration;
-        [SerializeField] private Ease triggerFadeEase;
-        [SerializeField] private float processMoveDuration;
-        [SerializeField] private float processRotateDuration;
-        [SerializeField] private Ease processMoveEase;
-        [SerializeField] private Ease processRotateEase;
         [SerializeField] private float processSortMoveDuration;
         [SerializeField] private float processSortRotateDuration;
         [SerializeField] private Ease processSortMoveEase;
@@ -105,7 +87,6 @@ namespace View.BattleView
         private int focusedCardViewIndex;
 
         private BattleCardView processingCardView;
-        private Tween currentSortPresentation;
 
         public override void OnInitialized()
         {
@@ -252,7 +233,6 @@ namespace View.BattleView
                 view = processingCardView;
             }
 
-            Sequence sequence = DOTween.Sequence();
             if (view is null)
             {
                 Debug.Log($"[DeckViewSystem/DiscardCardPresentation] Given UI isn't presenting card ID: {discardCardData.CurrentName}. Skipping discard animation.");
@@ -274,6 +254,8 @@ namespace View.BattleView
                     cardDescriptionView.Unfocus();
                 }
             }
+
+            Sequence sequence = DOTween.Sequence();
 
             Vector3 endPos = destination switch
             {
@@ -337,16 +319,12 @@ namespace View.BattleView
             processingCardView = null;
             SetHandCardInteractable(true);
 
-            var sequence = DOTween.Sequence();
-            sequence.Join(view.PlayFadePresentation(resolveFadeDuration, resolveFadeEase, isFadeIn : false));
-            yield return sequence.WaitForCompletion();
-
+            yield return view.PlayResolveFadePresentation().WaitForCompletion();
             Destroy(view.gameObject);
         }
 
         private Tween PlayCardSortPresentation(List<BattleCardView> currentCardViews, float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase, BattleCardView excludeTweenView = null)
         {
-            currentSortPresentation?.Kill();
             var sequence = DOTween.Sequence();
 
             for (int i = 0; i < currentCardViews.Count; i++)
@@ -364,7 +342,6 @@ namespace View.BattleView
                 }
             }
 
-            currentSortPresentation = sequence;
             return sequence;
         }
 
@@ -446,6 +423,8 @@ namespace View.BattleView
 
         private IEnumerator OnCardProcessed(Card card, bool isTriggering)
         {
+            yield return null;
+
             if (processingCardView is not null)
             {
                 throw new InvalidOperationException($"[{GetType()}/OnCardProcessed] Try to process card but it's already processing.");
@@ -459,7 +438,7 @@ namespace View.BattleView
                 processingCardView = CreateBattleCardView(card, processingCardContainer);
                 processingCardView.SetLayoutTransform(processingCardPosition, Vector3.zero);
 
-                sequence.Append(processingCardView.PlayFadePresentation(triggerFadeDuration, triggerFadeEase, isFadeIn: true));
+                sequence.Append(processingCardView.PlayTriggerFadePresentation());
             }
             else
             {
@@ -474,8 +453,8 @@ namespace View.BattleView
                 processingCardView.transform.SetParent(processingCardContainer);
 
                 processingCardView.SetBaseLayoutTransform(processingCardPosition, Vector3.zero);
-                sequence.Append(processingCardView.PlayMoveToLayoutTransform(processMoveDuration, processRotateDuration, processMoveEase, processRotateEase));
                 
+                sequence.Append(processingCardView.PlayProcessMoveToLayoutTransform());
                 sequence.Join(PlayCardSortPresentation(cardViews, processSortMoveDuration, processSortRotateDuration, processSortMoveEase, processSortRotateEase));
             }
 
@@ -541,21 +520,20 @@ namespace View.BattleView
             if (isTriggering)
             {
                 testCardView.SetLayoutTransform(processingCardPosition, Vector3.zero);
-                enterSeq.Append(testCardView.PlayFadePresentation(triggerFadeDuration, triggerFadeEase, isFadeIn: true));
-                testCardView.SetAlpha(0);
-                yield return new WaitForSeconds(0.5f);
+                enterSeq.Append(testCardView.PlayTriggerFadePresentation());
             }
             else
             {
                 testCardView.SetBaseLayoutTransform(processingCardPosition, Vector3.zero);
-                enterSeq.Append(testCardView.PlayMoveToLayoutTransform(processMoveDuration, processRotateDuration, processMoveEase, processRotateEase));
+                enterSeq.Append(testCardView.PlayProcessMoveToLayoutTransform());
                 enterSeq.Join(PlayCardSortPresentation(cardViews, processSortMoveDuration, processSortRotateDuration, processSortMoveEase, processSortRotateEase));
             }
 
             yield return enterSeq.WaitForCompletion();
+
             yield return new WaitForSeconds(0.7f);
 
-            yield return testCardView.PlayFadePresentation(resolveFadeDuration, resolveFadeEase, isFadeIn: false).WaitForCompletion();
+            yield return testCardView.PlayResolveFadePresentation().WaitForCompletion();
 
             if (wasInHand)
             {
@@ -565,7 +543,7 @@ namespace View.BattleView
             
             testCardView.PlayFadePresentation(0f, Ease.Linear, isFadeIn: true);
             
-            yield return PlayCardSortPresentation(cardViews, 0.4f, 0.4f, Ease.OutQuad, Ease.OutQuad).WaitForCompletion();
+            yield return PlayCardSortPresentation(cardViews, cancelSortMoveDuration, cancelSortRotateDuration, cancelSortMoveEase, cancelSortRotateEase).WaitForCompletion();
         }
 
         private IEnumerator DelayedTestRoutine(IEnumerator targetPresentation)

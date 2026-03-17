@@ -20,6 +20,10 @@ PrefabInstance:
       propertyPath: m_fontSizeMin
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3903518039320139436, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: m_overflowMode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4373715813284568589, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -112,6 +116,10 @@ PrefabInstance:
       propertyPath: m_fontSizeMin
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5985513952171809556, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: m_overflowMode
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_Name
       value: BattleCardView
@@ -153,6 +161,16 @@ MonoBehaviour:
   popUpDistance: 50
   sharedCardView: {fileID: 7710798999060977258}
   canvasGroup: {fileID: 6518359986212636166}
+  focusMoveDuration: 0.2
+  focusMoveEase: 27
+  triggerFadeDuration: 0.2
+  triggerFadeEase: 10
+  processMoveDuration: 0.4
+  processRotateDuration: 0.6
+  processMoveEase: 27
+  processRotateEase: 27
+  resolveFadeDuration: 0.5
+  resolveFadeEase: 1
 --- !u!225 &6518359986212636166
 CanvasGroup:
   m_ObjectHideFlags: 0
