@@ -98,4 +98,19 @@ namespace ViewEvent.BattleView
         public int SequenceId => sequenceId;
         public Card Card => card;
     }
+
+    public readonly struct CardActivationCancelled : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly Card card;
+
+        public CardActivationCancelled(int sequenceId, Card card)
+        {
+            this.sequenceId = sequenceId;
+            this.card = card;
+        }
+
+        public int SequenceId => sequenceId;
+        public Card Card => card;
+    }
 }

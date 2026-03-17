@@ -80,7 +80,6 @@ namespace View.BattleView
         private List<BattleCardView> cardViews = new List<BattleCardView>();
         private BattleCardView focusedCardView;
         private int focusedCardViewIndex;
-
         private BattleCardView processingCardView;
 
         public override void OnInitialized()
@@ -100,6 +99,7 @@ namespace View.BattleView
             eventBus.Subscribe<CardDiscarded>(OnCardDiscarded);
             eventBus.Subscribe<CardRestored>(OnCardRestored);
             eventBus.Subscribe<CardTriggerResolved>(OnCardTriggerResolved);
+            eventBus.Subscribe<CardActivationCancelled>(OnCardActivationCancelled); 
         }
 
         public override void OnDestroy()
@@ -110,6 +110,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<CardDiscarded>(OnCardDiscarded);
             eventBus?.Unsubscribe<CardRestored>(OnCardRestored);
             eventBus?.Unsubscribe<CardTriggerResolved>(OnCardTriggerResolved);
+            eventBus?.Unsubscribe<CardActivationCancelled>(OnCardActivationCancelled);
         }
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
@@ -186,6 +187,33 @@ namespace View.BattleView
             yield return sequence.WaitForCompletion();
         }
 
+        private void OnCardActivationCancelled(CardActivationCancelled payload)
+        {
+            // 💡 단일 변수 복구
+            if (processingCardView == null || processingCardView.Card != payload.Card) return;
+
+            var view = processingCardView;
+            processingCardView = null;
+
+            cardViews.Add(view);
+            view.transform.SetParent(cardContainer);
+            
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, PlayCancelActivationPresentation());
+        }
+
+        private IEnumerator PlayCancelActivationPresentation()
+        {
+            var sequence = DOTween.Sequence();
+            sequence.Join(PlayCardSortPresentation(cardViews, 0.4f, 0.4f, Ease.OutQuad, Ease.OutQuad));
+            
+            yield return sequence.WaitForCompletion();
+            
+            if (processingCardView == null)
+            {
+                SetHandCardInteractable(true);
+            }
+        }
+
         private void OnCardDiscarded(CardDiscarded payload)
         {
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(payload.Card, payload.Destination));
@@ -202,7 +230,7 @@ namespace View.BattleView
 
             if (view is null)
             {
-                Debug.Log($"[DeckViewSystem/DiscardCardPresentation] Given UI isn't presenting card ID: {discardCardData}. Skipping discard animation.");
+                Debug.Log($"[DeckViewSystem/DiscardCardPresentation] Given UI isn't presenting card ID: {discardCardData.CurrentName}. Skipping discard animation.");
                 yield break;
             }
 
@@ -278,7 +306,7 @@ namespace View.BattleView
         {
             if (processingCardView == null || cardData != processingCardView.Card)
             {
-                Debug.LogWarning($"[{GetType()}/PlayResolveCardPresentation] processingCardView is null or not matched. Skipped.");
+                Debug.LogWarning($"[{GetType()}/PlayResolveCardPresentation] Processing card view not found. Skipped.");
                 yield break;
             }
 

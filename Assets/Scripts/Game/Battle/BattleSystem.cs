@@ -104,7 +104,7 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
             EnemyTier.NORMAL => Constant.NORMAL_ENEMY_START_PHASE_COUNT,
             EnemyTier.ELITE => Constant.ELITE_ENEMY_START_PHASE_COUNT,
             EnemyTier.BOSS => Constant.BOSS_ENEMY_START_PHASE_COUNT,
-            _ => throw new InvalidOperationException($"[BattleSystem] {mainEnemyEntity.Tier} is not supported for determining start phase count.")
+            _ => throw new InvalidOperationException($"[BattleSystem/EngageBattle] {mainEnemyEntity.Tier} is not supported for determining start phase count.")
         };
 
         int maxActionCost = actionCost.CurrentMaxActionCost;
@@ -161,7 +161,7 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
                     }),
             BattleResult.PLAYER_DIED => new PlayerDiedCommand(mainEnemyTier),
             BattleResult.OUT_OF_MY_WAY => new OutOfMyWayCommand(mainEnemyTier),
-            _ => throw new InvalidOperationException($"[BattleSystem] {result} is not valid to generate resultCommand.")
+            _ => throw new InvalidOperationException($"[BattleSystem/ExitBattle] {result} is not valid to generate resultCommand.")
         };
         
         fieldActionCost?.OnBattleEnd();
@@ -182,16 +182,37 @@ public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
     {
         return card.IsAbleToUse(context, cardTarget);
     }
+
+    public void CancelActivation(Card card, bool isTriggering)
+    {
+        if (isTriggering)
+        {
+            viewEventBus.Publish(new CardTriggerResolved(viewEventBus.GetNextSequenceId(), card));
+        }
+        else
+        {
+            viewEventBus.Publish(new CardActivationCancelled(viewEventBus.GetNextSequenceId(), card));
+        }
+        
+        pipeline.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
+        pipeline.Resume();
+    }
+
     public void UseCard(Card card, CardTarget cardTarget, bool isFreeUse)
     {
         var cardUseAction = new TryUseCardBattleAction(isFreeUse ? 0 : card.CurrentActionCost, card, cardTarget);
-        pipeline.Enqueue(cardUseAction);
+        
+        pipeline.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
+        pipeline.EnqueueFront(cardUseAction);
         pipeline.Resume();
     }
+
     public void TriggerCard(Card card, CardTarget cardTarget, bool isReflection)
     {
         var triggerCardAction = new TryTriggerCardEffectBattleAction(card, cardTarget, 1, isReflection);  
-        pipeline.Enqueue(triggerCardAction);
+        
+        pipeline.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
+        pipeline.EnqueueFront(triggerCardAction);
         pipeline.Resume();
     }
 

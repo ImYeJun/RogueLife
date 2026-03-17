@@ -5,4 +5,5 @@ public interface IBattleViewCommander : IViewCommander
     public void EndPlayerTurn();
     public void UseCard(Card card, CardTarget cardTarget, bool isFreeUse);
     public void TriggerCard(Card card, CardTarget cardTarget, bool isReflection);
+    public void CancelActivation(Card card, bool isTriggering);
 }

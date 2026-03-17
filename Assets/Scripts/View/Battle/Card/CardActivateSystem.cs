@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.BattleView;
@@ -31,7 +30,6 @@ namespace View.BattleView
                 SequenceId = sequenceId;
                 PresentationPriority = presentationPriority;
             }
-
         }
 
         private Queue<TargetRequest> targetingQueue = new Queue<TargetRequest>();
@@ -73,16 +71,16 @@ namespace View.BattleView
                 return;
             }
 
-            EnqueueTargetRequest(card, false, (c, t) => ActivateCard(c, t, false), 0, 0);
+            EnqueueTargetRequest(card, false, (c, t) => ActivateCard(c, t, false, false), 0, 0);
         }
 
         private void OnUseCardRequested(UseCardRequested payload)
         {
-            EnqueueTargetRequest(payload.Card, false, (card, target) => ActivateCard(card, target, payload.IsFreeUse), payload.SequenceId, 0);
+            EnqueueTargetRequest(payload.Card, false, (card, target) => ActivateCard(card, target, payload.IsFreeUse, false), payload.SequenceId, 0);
         }
         private void OnTriggerCardRequested(TriggerCardRequested payload)
         {
-            EnqueueTargetRequest(payload.Card, true, (card, target) => TriggerCard(card, target, payload.IsReflection), payload.SequenceId, 0);
+            EnqueueTargetRequest(payload.Card, true, (card, target) => TriggerCard(card, target, payload.IsReflection, true), payload.SequenceId, 0);
         }
 
         private void EnqueueTargetRequest(Card card, bool isTriggering, Action<Card, CardTarget> onTargetSelected, int sequenceId, int presentationPriority)
@@ -136,23 +134,24 @@ namespace View.BattleView
             ProcessNextRequest();           
         }
 
-        private void ActivateCard(Card card, CardTarget cardTarget, bool isFreeUse)
+        private void ActivateCard(Card card, CardTarget cardTarget, bool isFreeUse, bool isTriggering)
         {
-            //TODO FUCK THIS SHIT (FIX IT :/ )
             if (!commander.IsAbleToUseCard(card, cardTarget))
             {
                 Debug.Log($"[CardActivateSystem] Cannot activate card: {card.CurrentName}");
+                commander.CancelActivation(card, isTriggering);
                 return;
             }
 
             commander.UseCard(card, cardTarget, isFreeUse);
         }
 
-        private void TriggerCard(Card card, CardTarget cardTarget, bool isReflection)
+        private void TriggerCard(Card card, CardTarget cardTarget, bool isReflection, bool isTriggering)
         {
             if (!commander.IsAbleToUseCard(card, cardTarget))
             {
-                Debug.Log($"[CardActivateSystem] Cannot activate card: {card.CurrentName}");
+                Debug.Log($"[CardActivateSystem] Cannot trigger card: {card.CurrentName}");
+                commander.CancelActivation(card, isTriggering);
                 return;
             }
 
