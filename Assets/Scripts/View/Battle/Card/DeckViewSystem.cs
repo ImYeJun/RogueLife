@@ -74,12 +74,36 @@ namespace View.BattleView
         [SerializeField, FormerlySerializedAs("restoreCardDuration")] private float restoreMoveCardDuration;
         [SerializeField, FormerlySerializedAs("restorCardEase")] private Ease restoreMoveCardEase;
 
+        [Header("Cancel Activation Presentation")]
+        [SerializeField] private float cancelSortMoveDuration;
+        [SerializeField] private float cancelSortRotateDuration;
+        [SerializeField] private Ease cancelSortMoveEase;
+        [SerializeField] private Ease cancelSortRotateEase;
+
+        [Header("Resolve Card Presentation")]
+        [SerializeField] private float resolveFadeDuration;
+        [SerializeField] private Ease resolveFadeEase;
+
+        [Header("Process Card Presentation")]
+        [SerializeField] private Vector3 processingCardPosition;
+        [SerializeField] private float triggerFadeDuration;
+        [SerializeField] private Ease triggerFadeEase;
+        [SerializeField] private float processMoveDuration;
+        [SerializeField] private float processRotateDuration;
+        [SerializeField] private Ease processMoveEase;
+        [SerializeField] private Ease processRotateEase;
+        [SerializeField] private float processSortMoveDuration;
+        [SerializeField] private float processSortRotateDuration;
+        [SerializeField] private Ease processSortMoveEase;
+        [SerializeField] private Ease processSortRotateEase;
+
         private bool isHandDeckOpened;
         private Tween currentHandDeckTween;
 
         private List<BattleCardView> cardViews = new List<BattleCardView>();
         private BattleCardView focusedCardView;
         private int focusedCardViewIndex;
+
         private BattleCardView processingCardView;
 
         public override void OnInitialized()
@@ -189,7 +213,6 @@ namespace View.BattleView
 
         private void OnCardActivationCancelled(CardActivationCancelled payload)
         {
-            // 💡 단일 변수 복구
             if (processingCardView == null || processingCardView.Card != payload.Card) return;
 
             var view = processingCardView;
@@ -204,7 +227,7 @@ namespace View.BattleView
         private IEnumerator PlayCancelActivationPresentation()
         {
             var sequence = DOTween.Sequence();
-            sequence.Join(PlayCardSortPresentation(cardViews, 0.4f, 0.4f, Ease.OutQuad, Ease.OutQuad));
+            sequence.Join(PlayCardSortPresentation(cardViews, cancelSortMoveDuration, cancelSortRotateDuration, cancelSortMoveEase, cancelSortRotateEase));
             
             yield return sequence.WaitForCompletion();
             
@@ -314,7 +337,7 @@ namespace View.BattleView
             processingCardView = null;
             SetHandCardInteractable(true);
 
-            yield return view.PlayFadePresentation(0.5f, Ease.Linear, isFadeIn : true).WaitForCompletion();
+            yield return view.PlayFadePresentation(resolveFadeDuration, resolveFadeEase, isFadeIn : false).WaitForCompletion();
             Destroy(view.gameObject);
         }
 
@@ -363,7 +386,15 @@ namespace View.BattleView
             float currentWidth = Mathf.Min(handWidth, handWidth * (totalCount / 5f));
             float targetX = normalizedX * currentWidth;
             float targetY = (-normalizedX * normalizedX + 1f) * handHeight;
-            float targetAngle = Mathf.Lerp(maxCardAngle, -maxCardAngle, layoutProgress);
+            float targetAngle;
+            if (totalCount == 2)
+            {
+                targetAngle = cardIndex == 0 ? maxCardAngle / 2 : -maxCardAngle / 2;
+            }
+            else
+            {
+                targetAngle = Mathf.Lerp(maxCardAngle, -maxCardAngle, layoutProgress);
+            }
 
             position = new Vector3(targetX, targetY, 0f);
             angle = new Vector3(0f, 0f, targetAngle);
@@ -423,9 +454,9 @@ namespace View.BattleView
             if (isTriggering)
             {
                 processingCardView = CreateBattleCardView(card, processingCardContainer);
-                processingCardView.SetLayoutTransform(new Vector3(0, 100, 0), Vector3.zero);
+                processingCardView.SetLayoutTransform(processingCardPosition, Vector3.zero);
 
-                sequence.Append(processingCardView.PlayFadePresentation(0.5f, Ease.Linear, isFadeIn: false));
+                sequence.Append(processingCardView.PlayFadePresentation(triggerFadeDuration, triggerFadeEase, isFadeIn: true));
             }
             else
             {
@@ -439,10 +470,10 @@ namespace View.BattleView
                 cardViews.Remove(processingCardView);
                 processingCardView.transform.SetParent(processingCardContainer);
 
-                processingCardView.SetBaseLayoutTransform(new Vector3(0, 100, 0), Vector3.zero);
-                sequence.Append(processingCardView.PlayMoveToLayoutTransform(0.5f, 0.5f, Ease.Linear, Ease.Linear));
-
-                sequence.Join(PlayCardSortPresentation(cardViews, 0.5f, 0.5f, Ease.Linear, Ease.Linear));
+                processingCardView.SetBaseLayoutTransform(processingCardPosition, Vector3.zero);
+                sequence.Append(processingCardView.PlayMoveToLayoutTransform(processMoveDuration, processRotateDuration, processMoveEase, processRotateEase));
+                
+                sequence.Join(PlayCardSortPresentation(cardViews, processSortMoveDuration, processSortRotateDuration, processSortMoveEase, processSortRotateEase));
             }
 
             yield return sequence.WaitForCompletion();
@@ -460,7 +491,11 @@ namespace View.BattleView
         }
 
 #if UNITY_EDITOR
-        [ContextMenu("Test Open Hand Deck (Direct)")]
+        [Header("Editor Testing - Card Lifecycle")]
+        [Tooltip("테스트할 손패(Hand) 안의 CardView를 연결하세요.")]
+        [SerializeField] private BattleCardView testCardView;
+
+        [ContextMenu("Test - Open Hand Deck")]
         public void TestOpenHandDeck()
         {
             if (!Application.isPlaying) return;
@@ -468,12 +503,66 @@ namespace View.BattleView
             isHandDeckOpened = true;
         }
 
-        [ContextMenu("Test Close Hand Deck (Direct)")]
+        [ContextMenu("Test - Close Hand Deck")]
         public void TestCloseHandDeck()
         {
             if (!Application.isPlaying) return;
             StartCoroutine(DelayedTestRoutine(CloseHandDeckPresentation()));
             isHandDeckOpened = false;
+        }
+
+        [ContextMenu("Test - Full Sequence (Use from Hand)")]
+        public void TestFullSequenceFromHand()
+        {
+            if (!Application.isPlaying || testCardView == null) return;
+            StartCoroutine(DelayedTestRoutine(TestFullSequenceRoutine(isTriggering: false)));
+        }
+
+        [ContextMenu("Test - Full Sequence (Trigger from Void)")]
+        public void TestFullSequenceTrigger()
+        {
+            if (!Application.isPlaying || testCardView == null) return;
+            StartCoroutine(DelayedTestRoutine(TestFullSequenceRoutine(isTriggering: true)));
+        }
+
+        private IEnumerator TestFullSequenceRoutine(bool isTriggering)
+        {
+            bool wasInHand = cardViews.Contains(testCardView);
+            int originalIndex = testCardView.transform.GetSiblingIndex();
+            
+            if (wasInHand) cardViews.Remove(testCardView);
+            testCardView.transform.SetParent(processingCardContainer);
+
+            var enterSeq = DOTween.Sequence();
+
+            if (isTriggering)
+            {
+                testCardView.SetLayoutTransform(processingCardPosition, Vector3.zero);
+                enterSeq.Append(testCardView.PlayFadePresentation(triggerFadeDuration, triggerFadeEase, isFadeIn: true));
+                testCardView.SetAlpha(0);
+                yield return new WaitForSeconds(0.5f);
+            }
+            else
+            {
+                testCardView.SetBaseLayoutTransform(processingCardPosition, Vector3.zero);
+                enterSeq.Append(testCardView.PlayMoveToLayoutTransform(processMoveDuration, processRotateDuration, processMoveEase, processRotateEase));
+                enterSeq.Join(PlayCardSortPresentation(cardViews, processSortMoveDuration, processSortRotateDuration, processSortMoveEase, processSortRotateEase));
+            }
+
+            yield return enterSeq.WaitForCompletion();
+            yield return new WaitForSeconds(0.7f);
+
+            yield return testCardView.PlayFadePresentation(resolveFadeDuration, resolveFadeEase, isFadeIn: false).WaitForCompletion();
+
+            if (wasInHand)
+            {
+                cardViews.Insert(Mathf.Min(originalIndex, cardViews.Count), testCardView);
+            }
+            testCardView.transform.SetParent(cardContainer);
+            
+            testCardView.PlayFadePresentation(0f, Ease.Linear, isFadeIn: true);
+            
+            yield return PlayCardSortPresentation(cardViews, 0.4f, 0.4f, Ease.OutQuad, Ease.OutQuad).WaitForCompletion();
         }
 
         private IEnumerator DelayedTestRoutine(IEnumerator targetPresentation)

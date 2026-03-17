@@ -3245,6 +3245,24 @@ MonoBehaviour:
   discardExistingRotateEase: 6
   restoreMoveCardDuration: 0.1
   restoreMoveCardEase: 27
+  cancelSortMoveDuration: 0.15
+  cancelSortRotateDuration: 0.15
+  cancelSortMoveEase: 10
+  cancelSortRotateEase: 10
+  resolveFadeDuration: 0.3
+  resolveFadeEase: 18
+  processingCardPosition: {x: 0, y: 150, z: 0}
+  triggerFadeDuration: 0.2
+  triggerFadeEase: 10
+  processMoveDuration: 0.4
+  processRotateDuration: 0.6
+  processMoveEase: 27
+  processRotateEase: 27
+  processSortMoveDuration: 0.4
+  processSortRotateDuration: 0.3
+  processSortMoveEase: 10
+  processSortRotateEase: 10
+  testCardView: {fileID: 0}
 --- !u!1 &1469854391
 GameObject:
   m_ObjectHideFlags: 0
@@ -4225,7 +4243,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 574121936}
   m_HandleRect: {fileID: 574121934}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -4445,7 +4463,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.CardDescriptionView
   description: {fileID: 1761775580}
+  canvasGroup: {fileID: 1887423777}
   floatingDistance: 150
+  appearOffset: 20
+  fadeDuration: 0.15
+  moveDuration: 0.2
+  moveEase: 27
+  fadeEase: 6
 --- !u!1001 &1906795116
 PrefabInstance:
   m_ObjectHideFlags: 0

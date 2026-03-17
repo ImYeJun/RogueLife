@@ -13,9 +13,15 @@ namespace View.BattleView
         [SerializeField] private SharedCardView sharedCardView;
         [SerializeField] private CanvasGroup canvasGroup;
 
+        [Header("Focus Presentation")]
+        [SerializeField] private float focusMoveDuration = 0.2f;
+        [SerializeField] private Ease focusMoveEase = Ease.OutBack;
+
         private Action<BattleCardView> onCardClicked; 
         private Vector3 baseLocalPosition;
         private Vector3 baseLocalEulerAngles;
+
+        private Tween currentTween;
 
         public Card Card => sharedCardView.Card;
 
@@ -47,25 +53,40 @@ namespace View.BattleView
             rectTransform.localScale = localScale;
         }
 
+        public void SetAlpha(float value)
+        {
+            canvasGroup.alpha = value;
+        }
+
         public Tween PlayMoveToLayoutTransform(float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase)
         {
+            currentTween?.Kill();
+
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, moveDuration).SetEase(moveEase));
             sequence.Join(transform.DORotate(baseLocalEulerAngles, rotateDuration, RotateMode.Fast).SetEase(rotateEase));
-            return sequence;
+            
+            currentTween = sequence;
+            return currentTween;
         }
 
         public Tween PlayDrawPresentation(float moveDuration, float rotateDuration, float scaleDuration, Ease moveEase, Ease rotateEase, Ease scaleEase)
         {
+            currentTween?.Kill();
+
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, moveDuration).SetEase(moveEase));
             sequence.Join(transform.DORotate(baseLocalEulerAngles, rotateDuration, RotateMode.Fast).SetEase(rotateEase));
             sequence.Join(transform.DOScale(Vector3.one, scaleDuration).SetEase(scaleEase));
-            return sequence;
+
+            currentTween = sequence;
+            return currentTween;
         }
 
-        public Tween  PlayDiscardPresentation(Vector3 endPos, Vector3 controlPos, Vector3 endRot, float moveDuration, float rotateDuration, float scaleDuration, Ease moveEase, Ease rotateEase, Ease scaleEase)
+        public Tween PlayDiscardPresentation(Vector3 endPos, Vector3 controlPos, Vector3 endRot, float moveDuration, float rotateDuration, float scaleDuration, Ease moveEase, Ease rotateEase, Ease scaleEase)
         {
+            currentTween?.Kill();
+
             var sequence = DOTween.Sequence();
             Vector3 startPos = rectTransform.position;
             float t = 0f;
@@ -79,7 +100,8 @@ namespace View.BattleView
             sequence.Join(rectTransform.DORotate(endRot, rotateDuration, RotateMode.Fast).SetEase(rotateEase));
             sequence.Join(rectTransform.DOScale(0.2f, scaleDuration).SetEase(scaleEase));
 
-            return sequence;
+            currentTween = sequence;
+            return currentTween;
         }
 
         private Vector3 CalculateQuadraticBezierPoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
@@ -97,29 +119,40 @@ namespace View.BattleView
 
         public Tween PlayRestorePresentation(Vector3 targetPos, float moveDuration, Ease moveEase)
         {
-            return transform.DOMove(targetPos, moveDuration).SetEase(moveEase);
+            currentTween = transform.DOMove(targetPos, moveDuration).SetEase(moveEase);
+            return currentTween;
         }
 
         public Tween PlayFadePresentation(float duration, Ease ease, bool isFadeIn = true)
         {
-            canvasGroup.alpha = isFadeIn ? 1 : 0;
-            return canvasGroup.DOFade(isFadeIn ? 0 : 1, duration).SetEase(ease);
+            canvasGroup.alpha = isFadeIn ? 0 : 1;
+
+            currentTween = canvasGroup.DOFade(isFadeIn ? 1 : 0, duration).SetEase(ease);
+            return currentTween;
         }
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            currentTween?.Kill();
+
             onCardClicked?.Invoke(this);
         }
 
         public void Focus()
         {
+            currentTween?.Kill();
+            
             Vector3 tiltDirection = transform.localRotation * Vector3.up;
-            rectTransform.anchoredPosition = baseLocalPosition + (tiltDirection * popUpDistance);
+            Vector3 targetPos = baseLocalPosition + (tiltDirection * popUpDistance);
+            
+            currentTween = rectTransform.DOAnchorPos(targetPos, focusMoveDuration).SetEase(focusMoveEase);
         }
 
         public void Unfocus()
         {
-            rectTransform.anchoredPosition = baseLocalPosition;
+            currentTween?.Kill();
+            
+            currentTween = rectTransform.DOAnchorPos(baseLocalPosition, focusMoveDuration).SetEase(focusMoveEase);
         }
     }
 }
