@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public abstract class EnemyData : ScriptableObject
+public abstract class EnemyData : ScriptableObject, ISerializationCallbackReceiver
 {
     [Serializable]
     public struct EnemySpriteMapping
@@ -17,12 +17,27 @@ public abstract class EnemyData : ScriptableObject
         public Sprite Sprite => sprite;
     }
 
+    [Serializable]
+    public struct EnemyBehaviourDescription
+    {
+        [SerializeField] private string behaviourId;
+        [SerializeField, TextArea(3, 10)] private string behaviourDescription;
+        [SerializeField] private List<string> associatedStatusEffectIds;
+
+        public string BehaviourId => behaviourId;
+        public string BehaviourDescription => behaviourDescription;
+        public IReadOnlyList<string> AssociatedStatusEffectIds => associatedStatusEffectIds;
+    }
+
     [Header("Basic Information")]
     [SerializeField] protected string id;
     [SerializeField] protected string enemyName;
     [SerializeField] protected EnemyTier tier;
     [SerializeField, TextArea] protected string description;
     [SerializeField] protected int maxBaseHealth;
+
+    [SerializeField] private List<EnemyBehaviourDescription> behaviourDescriptionList = new List<EnemyBehaviourDescription>();
+    private Dictionary<string, EnemyBehaviourDescription> behaviourDescriptionDict = new Dictionary<string, EnemyBehaviourDescription>();
 
     [Header("Dialogue")]
     [SerializeField, TextArea] private List<string> encounterLines;
@@ -51,4 +66,38 @@ public abstract class EnemyData : ScriptableObject
         => battleSprites.FirstOrDefault(item => item.Type == type).Sprite;
     public Sprite? BattleIdleSprite => GetBattleSprite(EnemySpriteType.Idle);
     public Sprite? BattleActionSprite => GetBattleSprite(EnemySpriteType.Action);
+    
+    public EnemyBehaviourDescription? GetBehaviourDescription(string behaviourId)
+    {
+        if (behaviourDescriptionDict.TryGetValue(behaviourId, out var desc))
+        {
+            return desc;
+        }
+        
+        Debug.LogWarning($"[EnemyData] Cannot find BehaviourDescription for ID: {behaviourId}");
+        return null;
+    }
+
+    public void OnBeforeSerialize()
+    {
+    }
+
+    public void OnAfterDeserialize()
+    {
+        behaviourDescriptionDict.Clear();
+
+        foreach (var desc in behaviourDescriptionList)
+        {
+            if (string.IsNullOrEmpty(desc.BehaviourId)) continue;
+            
+            if (!behaviourDescriptionDict.ContainsKey(desc.BehaviourId))
+            {
+                behaviourDescriptionDict.Add(desc.BehaviourId, desc);
+            }
+            else
+            {
+                Debug.LogWarning($"[EnemyData] Duplicate Behaviour ID found in Inspector: {desc.BehaviourId}");
+            }
+        }
+    }
 }

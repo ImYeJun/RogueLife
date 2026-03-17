@@ -17,6 +17,24 @@ MonoBehaviour:
   tier: 1
   description: "\uC774\uC0C1\uD560 \uC815\uB3C4\uB85C \uAE4A\uC740 \uBB3C\uC6C5\uB369\uC774"
   maxBaseHealth: 200
+  behaviourDescriptionList:
+  - behaviourId: Enemy_StrangePuddle_Behavior_0
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 3\uD134\uB3D9\uC548
+      \uC9C0\uC18D\uB418\uB294 \uB9F9\uB3C5 2\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Debuff_DeadlyPoision
+  - behaviourId: Enemy_StrangePuddle_Behavior_1
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 2\uD134 \uB3D9\uC548
+      \uC9C0\uC18D\uB418\uB294 \uBB34\uAC70\uC6CC\uC9C4 \uBAB8 2\uC2A4\uD0DD\uC744
+      \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Debuff_HeavyBody
+  - behaviourId: Enemy_StrangePuddle_Behavior_2
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC758 \uBC84\uD504\uC911 \uD558\uB098\uB97C
+      \uC5C6\uC564 \uD6C4, \uB611\uAC19\uC740 \uBC84\uD504\uB97C \uC790\uC2E0\uC5D0\uAC8C
+      \uBD80\uC5EC\uD558\uACE0, \uD50C\uB808\uC774\uC5B4\uC758 \uB514\uBC84\uD504
+      \uBAA8\uB450 \uC9C0\uC18D\uC2DC\uAC04 1\uD134 \uC99D\uAC00, 1\uC2A4\uD0DD \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds: []
   encounterLines:
   - "\uAF2C\uB974\uB974\uB975\u2026"
   actionLines:
@@ -27,14 +45,4 @@ MonoBehaviour:
   defeatLines:
   - "\u2026\u2026"
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520098351382608
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520098351382608
-      type: {class: StrangePuddle, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        deadlyPoisionData: {fileID: 0}
-        heavyBodyData: {fileID: 0}
+  battleSprites: []

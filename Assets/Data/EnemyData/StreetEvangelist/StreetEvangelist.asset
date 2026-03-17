@@ -18,6 +18,17 @@ MonoBehaviour:
   description: "\uD604\uC2E4\uC5D0\uC11C \uAE38\uAC00\uC5D0 \uD754\uD788 \uBCFC \uC218
     \uC788\uB294 \uD3EC\uAD50 \uD65C\uB3D9\uD558\uB294 \uAD50\uD68C\uC778 "
   maxBaseHealth: 100
+  behaviourDescriptionList:
+  - behaviourId: Enemy_StreetEvangelist_Behavior_0
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 20 \uB9CC\uD07C\uC758
+      \uD53C\uD574\uB97C \uC900\uB2E4"
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_StreetEvangelist_Behavior_1
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548
+      \uC9C0\uC18D\uB418\uB294 \uBB34\uAC70\uC6CC\uC9C4 \uBAB8 1 \uC2A4\uD0DD\uC744
+      \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Debuff_HeavyBody
   encounterLines:
   - "\uB2F9\uC2E0\uB3C4 \uC800\uD76C\uC640 \uD568\uAED8 \uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4"
   actionLines:
@@ -28,13 +39,4 @@ MonoBehaviour:
   defeatLines:
   - "\uC544\uC9C1 \uB54C\uAC00 \uC544\uB2CC\uAC00 \uBCF4\uAD70\uC694"
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520094982307923
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520094982307923
-      type: {class: StreetEvangelist, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        heavyBodyData: {fileID: 11400000, guid: 5f286f1994735a9478b0da440ca1c440, type: 2}
+  battleSprites: []

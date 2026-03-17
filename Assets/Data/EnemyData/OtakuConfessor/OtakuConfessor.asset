@@ -19,6 +19,19 @@ MonoBehaviour:
     \uB300\uD654\uB97C \uC77C\uC808 \uD574\uBCF8\uC801\uC5C6\uC73C\uB098 \uAC11\uC790\uAE30
     \uACE0\uBC31\uACF5\uACA9\uC744 \uD574\uBC84\uB9BC"
   maxBaseHealth: 130
+  behaviourDescriptionList:
+  - behaviourId: Enemy_OtakuConfessor_Behavior_0
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC758 \uC815\uC2E0\uB825\uC744
+      5 \uAC10\uC18C\uC2DC\uD0A4\uACE0 \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C \uB450
+      \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654 1\uC2A4\uD0DD\uC744
+      \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Buff_StrengthenMuscle
+  - behaviourId: Enemy_OtakuConfessor_Behavior_1
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uB2E8\uB2E8\uD574\uC9C0\uAE30 2\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Buff_Toughen
   encounterLines:
   - "\uC548\uB155 \uC9C0\uC544\uC57C \uB108\uB97C \uCC98\uC74C \uBCF8 \uC21C\uAC04\uBD80\uD130\u2026"
   actionLines:
@@ -28,14 +41,4 @@ MonoBehaviour:
   defeatLines:
   - "\uC774\uB807\uAC8C \uCC28\uC774\uB2E4\uB2C8 (\uB208\uBB3C)"
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520094982307931
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520094982307931
-      type: {class: OtakuConfessor, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        strengthenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
-        toughenData: {fileID: 11400000, guid: c206aec4c8c51be4eaa4db3c12ed5f48, type: 2}
+  battleSprites: []

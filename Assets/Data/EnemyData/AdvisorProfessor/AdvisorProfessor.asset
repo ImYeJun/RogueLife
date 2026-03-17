@@ -17,6 +17,44 @@ MonoBehaviour:
   tier: 2
   description: "\uC9C0\uC544\uB97C \uB2F4\uB2F9\uD558\uB294 \uAD50\uC218"
   maxBaseHealth: 300
+  behaviourDescriptionList:
+  - behaviourId: Enemy_AdvisorProfessor_Behavior_0
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 30 \uB9CC\uD07C\uC758
+      \uD53C\uD574\uB97C \uC900\uB2E4. "
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_AdvisorProfessor_Behavior_1
+    behaviourDescription: "\uAE30\uC874 \uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD
+      \uB4E4\uC744 \uC804\uBD80 \uC5C6\uC560\uACE0 \uC0C8\uB85C \uCCB4\uB825 25\uC758
+      \uD55C \uD134\uC5D0 \uD55C \uBC88\uB9CC \uD589\uB3D9\uD558\uB294 4\uB9C8\uB9AC\uB97C
+      \uC18C\uD658\uD55C\uB2E4."
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_AdvisorProfessor_Behavior_2
+    behaviourDescription: "\uC18C\uD658\uD55C \uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD
+      \uB4E4\uC5D0\uAC8C 10\uB9CC\uD07C\uC758 \uACF5\uACA9\uC744 \uD558\uB3C4\uB85D
+      \uD55C\uB2E4."
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_AdvisorProfessor_Behavior_3
+    behaviourDescription: "\uB0A8\uC740 \uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD\uB4E4\uC744
+      \uC81C\uAC70\uD558\uACE0, \uC81C\uAC70\uD55C \uCCB4\uB825 \uC808\uBC18\uB9CC\uD07C
+      \uCCB4\uB825\uC744 \uD68C\uBCF5\uD55C\uB2E4."
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_AdvisorProfessor_Behavior_4
+    behaviourDescription: "\uB0A8\uC740 \uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD\uC758
+      \uC218\uC5D0 \uB530\uB77C \uC790\uC2E0 \uB610\uB294 \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C
+      \uD6A8\uACFC\uB97C \uC801\uC6A9\uD55C\uB2E4.\n\xB7 0\uBA85 : \uC544\uBB34\uB7F0
+      \uD6A8\uACFC\uB3C4 \uC5C6\uC74C\n\xB7 1\uBA85 : \uC790\uC2E0\uC5D0\uAC8C \uB124
+      \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uBC29\uC5B4\uD0DC\uC138 2 \uC2A4\uD0DD\uC744
+      \uBD80\uC5EC\xB7 \n\xB7 2\uBA85 : \uC790\uC2E0\uC5D0\uAC8C \uC138 \uD134\uB3D9\uC548
+      \uC9C0\uC18D\uB418\uB294 \uC8FD\uC5EC\uC8FC\uB9C8! 4 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\n\xB7
+      3\uBA85 : \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294\uBB34\uAC70\uC6CC\uC9C4
+      \uBAB8 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\n\xB7 4\uBA85 : \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C
+      \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uC544\uC774\uCFE0! 1 \uC2A4\uD0DD\uC744
+      \uBD80\uC5EC"
+    associatedStatusEffectIds:
+    - Buff_DefensiveStance
+    - Buff_IWillKillYou
+    - Debuff_HeavyBody
+    - Debuff_OhMy
   encounterLines:
   - "\uD559\uC0DD, \uADF8\uB798\uC11C \uB300\uD559\uC6D0\uC0DD\uC740 \uACE0\uBBFC\uD574\uBD24\uB294\uAC00?"
   actionLines:

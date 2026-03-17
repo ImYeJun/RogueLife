@@ -10,8 +10,8 @@ namespace Battle.Enemies.Behaviours
     [Serializable]
     public class OtakuConfessor : NormalBattleEnemyBehaviour
     {
-        private const string FIRST_ACTION = "first";
-        private const string SECOND_ACTION = "second";
+        private const string FIRST_ACTION = "Enemy_OtakuConfessor_Behavior_0";
+        private const string SECOND_ACTION = "Enemy_OtakuConfessor_Behavior_1";
 
         [SerializeField] private BattleStatusEffectEntity strengthenMuscleEntity;
         [SerializeField] private BattleStatusEffectEntity toughenEntity;

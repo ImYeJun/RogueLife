@@ -18,6 +18,16 @@ MonoBehaviour:
   description: "\uC220\uC744 \uAC70 \uD558\uAC8C \uB9C8\uC154 \uB9CC\uCDE8 \uC0C1\uD0DC\uAC00
     \uB418\uC5B4\uBC84\uB9B0 \uB3D9\uB124 \uC544\uC800\uC528"
   maxBaseHealth: 120
+  behaviourDescriptionList:
+  - behaviourId: Enemy_DrunkenMan_Behavior_0
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 20 \uB9CC\uD07C\uC758
+      \uD53C\uD574\uB97C \uC900\uB2E4."
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_DrunkenMan_Behavior_1
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uCDE8\uAE30 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Buff_Drunk
   encounterLines:
   - "\uC73C\uC774? \uB108 \uB204\uAE30\uC57C?!"
   actionLines:
@@ -28,13 +38,4 @@ MonoBehaviour:
   defeatLines:
   - "\uC5D0\uC6B1\u2026 \uC220\uC744 \uB108\uBB34 \uB9CE\uC774 \uBA39\uC5C8\uB098\u2026."
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520094982307914
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520094982307914
-      type: {class: DrunkenMan, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        drunkenData: {fileID: 11400000, guid: 2165a48a4c707cd48b9746deecf73ef5, type: 2}
+  battleSprites: []

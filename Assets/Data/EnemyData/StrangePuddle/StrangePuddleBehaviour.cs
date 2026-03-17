@@ -10,9 +10,9 @@ namespace Battle.Enemies.Behaviours
     [Serializable]
     public class StrangePuddle : EliteBattleEnemyBehaviour
     {
-        private const string FIRST_ACTION = "first";
-        private const string SECOND_ACTION = "second";
-        private const string THIRD_ACTION = "third";
+        private const string FIRST_ACTION = "Enemy_StrangePuddle_Behavior_0";
+        private const string SECOND_ACTION = "Enemy_StrangePuddle_Behavior_1";
+        private const string THIRD_ACTION = "Enemy_StrangePuddle_Behavior_2";
 
         [SerializeField] private BattleStatusEffectEntity deadlyPoisionEntity;
         [SerializeField] private BattleStatusEffectEntity heavyBodyEntity;

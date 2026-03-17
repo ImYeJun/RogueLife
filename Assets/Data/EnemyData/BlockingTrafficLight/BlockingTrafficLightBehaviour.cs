@@ -10,9 +10,9 @@ namespace Battle.Enemies.Behaviours
     [Serializable]
     public class BlockingTrafficLight  : EliteBattleEnemyBehaviour
     {
-        private const string FIRST_ACTION = "first";
-        private const string SECOND_ACTION = "second";
-        private const string THIRD_ACTION = "third";
+        private const string FIRST_ACTION = "Enemy_BlockingTrafficLight_Behavior_0";
+        private const string SECOND_ACTION = "Enemy_BlockingTrafficLight_Behavior_1";
+        private const string THIRD_ACTION = "Enemy_BlockingTrafficLight_Behavior_2";
 
         [SerializeField] private BattleStatusEffectEntity nanoMachineEntity;
         [SerializeField] private BattleStatusEffectEntity heavyBodyEntity;

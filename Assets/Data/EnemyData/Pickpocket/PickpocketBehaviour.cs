@@ -10,11 +10,11 @@ namespace Battle.Enemies.Behaviours
     [Serializable]
     public class Pickpocket : BossBattleEnemyBehaviour
     {
-        private const string FIRST_ACTION = "first";
-        private const string SECOND_ACTION = "second";
-        private const string THIRD_ACTION = "third";
-        private const string FOURTH_ACTION = "fourth";
-        private const string FIFTH_ACTION = "fifth";
+        private const string FIRST_ACTION = "Enemy_Pickpocket_Behavior_0";
+        private const string SECOND_ACTION = "Enemy_Pickpocket_Behavior_1";
+        private const string THIRD_ACTION = "Enemy_Pickpocket_Behavior_2";
+        private const string FOURTH_ACTION = "Enemy_Pickpocket_Behavior_3";
+        private const string FIFTH_ACTION = "Enemy_Pickpocket_Behavior_4";
 
         [SerializeField] private BattleStatusEffectEntity dontTouchEntity;
         [SerializeField] private BattleStatusEffectEntity quickEscapeEntity;

@@ -18,6 +18,31 @@ MonoBehaviour:
   description: "\uC774\uC820 \uC778\uAC04\uC744 \uC548 \uBB34\uC11C\uC6CC\uD558\uB294
     \uAC78 \uB118\uC5B4 \uACF5\uACA9\uD558\uB294 \uBE44\uB458\uAE30"
   maxBaseHealth: 300
+  behaviourDescriptionList:
+  - behaviourId: Enemy_HungryPigeon_Behavior_0
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 15\uC758 \uD53C\uD574\uB97C
+      \uC900\uB2E4."
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_HungryPigeon_Behavior_1
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uC774\uBC88 \uC804\uD22C\uB3D9\uC548
+      \uC9C0\uC18D\uB418\uB294 \uB298\uC5B4\uB098\uB294 \uB3D9\uB8CC\uB4E4 1\uC2A4\uD0DD\uC744
+      \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Buff_MultiplyingComrades
+  - behaviourId: Enemy_HungryPigeon_Behavior_2
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uB2E8\uB2E8\uD574\uC9C0\uAE30 3\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Buff_Toughen
+  - behaviourId: Enemy_HungryPigeon_Behavior_3
+    behaviourDescription: "\uC790\uC2E0\uC758 \uCCB4\uB825\uC744 20 \uD68C\uBCF5\uD55C\uB2E4. "
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_HungryPigeon_Behavior_4
+    behaviourDescription: "\uD604\uC7AC \uC804\uD22C \uB178\uB4DC\uC5D0 \uC790\uC2E0\uACFC
+      \uAC19\uC740 \uAC1C\uCCB4\uAC00 5\uB9C8\uB9AC \uC774\uD558\uC77C \uACBD\uC6B0,
+      \uC790\uC2E0\uC758 \uCCB4\uB825 \uC808\uBC18\uC778 \uC790\uC2E0\uACFC \uAC19\uC740
+      \uAC1C\uCCB4\uB97C 1\uB9C8\uB9AC \uC18C\uD658\uD55C\uB2E4."
+    associatedStatusEffectIds: []
   encounterLines:
   - "\uAD6C\uAD6C\uAD6C!"
   actionLines:
@@ -27,14 +52,4 @@ MonoBehaviour:
   defeatLines:
   - "\uAD6C\uAFB9\u2026."
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520110087307345
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520110087307345
-      type: {class: HungryPigeon, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        multiplyingComaradesData: {fileID: 11400000, guid: aa5daed305a82ed4d83bc907a367a801, type: 2}
-        toughenData: {fileID: 11400000, guid: c206aec4c8c51be4eaa4db3c12ed5f48, type: 2}
+  battleSprites: []

@@ -18,6 +18,17 @@ MonoBehaviour:
   description: "\uC870\uBCC4\uACFC\uC81C \uC911, \uC5F0\uB77D\uC744 \uC548 \uBC1B\uACE0
     \uC7A0\uC218\uB97C \uD558\uB294 \uD300\uC6D0"
   maxBaseHealth: 100
+  behaviourDescriptionList:
+  - behaviourId: Enemy_GhostingTeammate_Behavior_0
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uB2E8\uB2E8\uD574\uC9C0\uAE30 1\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+    associatedStatusEffectIds:
+    - Buff_Toughen
+  - behaviourId: Enemy_GhostingTeammate_Behavior_1
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uADF8\uAC70 \uBC18\uCE59\uC774\uC57C 1\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+    associatedStatusEffectIds:
+    - Buff_ThatsFoul
   encounterLines:
   - "\u2026\u2026\u2026."
   actionLines:
@@ -28,14 +39,4 @@ MonoBehaviour:
   defeatLines:
   - "\uC557 \uBBF8\uC548 \uC790\uB290\uB77C \uBABB\uBD24\uB124"
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520089318686812
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520089318686812
-      type: {class: GhostingTeammate, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        strengthenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
-        thatsFoulData: {fileID: 11400000, guid: 808fa2c5a6f27384287e17eaac9de9d5, type: 2}
+  battleSprites: []

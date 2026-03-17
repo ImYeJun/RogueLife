@@ -18,6 +18,21 @@ MonoBehaviour:
   description: "\uD559\uAD50 \uB561\uB561\uC774 \uCE58\uACE0 \uB2F4\uBC30\uB97C \uC0AC\uB2EC\uB77C\uACE0
     \uD611\uBC15\uD558\uB294 \uBD88\uB7C9 \uD559\uC0DD 3\uBA85"
   maxBaseHealth: 200
+  behaviourDescriptionList:
+  - behaviourId: Enemy_DelinquentGang_Behavior_0
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C \uB450 \uD134 \uB3D9\uC548
+      \uC9C0\uC18D\uB418\uB294 \uBB3C \uC8FC\uBA39 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    associatedStatusEffectIds:
+    - Debuff_WaterFist
+  - behaviourId: Enemy_DelinquentGang_Behavior_1
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 30\uC758 \uD53C\uD574\uB97C
+      \uC90D\uB2C8\uB2E4."
+    associatedStatusEffectIds: []
+  - behaviourId: Enemy_DelinquentGang_Behavior_2
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC758 \uBC84\uD504 \uD558\uB098\uB97C
+      \uB611\uAC19\uC740 \uC9C0\uC18D\uC2DC\uAC04\uACFC \uC2A4\uD0DD\uC73C\uB85C
+      \uC790\uC2E0\uC5D0\uAC8C \uC90D\uB2C8\uB2E4."
+    associatedStatusEffectIds: []
   encounterLines:
   - "\uAC70\uAE30, \uB2F4\uBC30 \uD558\uB098\uB9CC \uC0AC\uC918\uC694"
   actionLines:
@@ -30,13 +45,4 @@ MonoBehaviour:
   defeatLines:
   - "\uC73C\uC775! \uC8C4.. \uC8C4\uC1A1\uD569\uB2C8\uB2E4! "
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520117406892109
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520117406892109
-      type: {class: DelinquentGang, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        waterFistData: {fileID: 11400000, guid: 2214e386bf6009f4f8a9cedd674e67e0, type: 2}
+  battleSprites: []
