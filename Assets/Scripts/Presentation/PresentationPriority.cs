@@ -50,6 +50,12 @@ public static class PresentationPriority
     //Collection Update
     public const int CollectionUpdate = 10;
 
+    //Player Hurt
+    public const int PlayerHurt = 10;
+
+    //Player Healed
+    public const int PlayerHealed = 10;
+
     ///* -------------------------
     ///* Battle
     ///* -------------------------
