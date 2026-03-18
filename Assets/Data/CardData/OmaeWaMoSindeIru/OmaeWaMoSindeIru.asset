@@ -18,9 +18,13 @@ MonoBehaviour:
   description: "\uC790\uC2E0\uC5D0\uAC8C \uD55C \uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uC624\uB9C8\uC5D0\uC640 \uBAA8 \uC2E0\uB370\uC774\uB8E8 2\uC2A4\uD0DD\uC744
     \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  relatedStatusEffectIds:
+  - Buff_OmaeWaMoSindeIru
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uD55C \uD134 \uB3D9\uC548
     \uC9C0\uC18D\uB418\uB294 \uC624\uB9C8\uC5D0\uC640 \uBAA8 \uC2E0\uB370\uC774\uB8E8
     3\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds:
+  - Buff_OmaeWaMoSindeIru
   type: 2
   attribute: 1
   rarity: 2

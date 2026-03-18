@@ -14,30 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_LowPointDefense
   cardName: "\uC800\uC810 \uBC29\uC5B4"
+  background: {fileID: 0}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uBC29\uC5B4\uD0DC\uC138 3 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+  relatedStatusEffectIds:
+  - Buff_DefensiveStance
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548
     \uC9C0\uC18D\uB418\uB294 \uBC29\uC5B4\uD0DC\uC138 4 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+  reflectionRelatedStatusEffectIds:
+  - Buff_DefensiveStance
   type: 3
   attribute: 3
   rarity: 1
   actionCost: 3
-  battleBehaviour:
-    rid: 1582000878922236028
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236028
-      type: {class: LowPointDefense, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236029
-        reflectionTargetType:
-          rid: 1582000878922236030
-        defensiveStanceData: {fileID: 11400000, guid: 30f236735daa9264280e404db68d49e1, type: 2}
-    - rid: 1582000878922236029
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236030
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}

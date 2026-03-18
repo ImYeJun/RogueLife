@@ -17,8 +17,12 @@ MonoBehaviour:
   background: {fileID: -3534983632466806906, guid: ce96f2a976d17664291762ed70750724, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134 \uB3D9\uC548 \uC720\uC9C0\uB418\uB294
     \uBC29\uC5B4\uD0DC\uC138 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4.."
+  relatedStatusEffectIds:
+  - Buff_DefensiveStance
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134 \uB3D9\uC548
     \uC720\uC9C0\uB418\uB294 \uBC29\uC5B4\uD0DC\uC138 3 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+  reflectionRelatedStatusEffectIds:
+  - Buff_DefensiveStance
   type: 3
   attribute: 1
   rarity: 1

@@ -14,30 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_MentalTraining
   cardName: "\uC815\uC2E0 \uC218\uB828"
+  background: {fileID: 0}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uD55C \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uAC00\uBCBC\uC6CC\uC9C4 \uBAB8 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+  relatedStatusEffectIds:
+  - Buff_LightBody
   relfectionAppliedDescription: "\uB2E4\uC74C 3\uBC88\uC758 \uCE74\uB4DC \uC0AC\uC6A9\uB3D9\uC548
     \uD589\uB3D9\uB825\uC774 1 \uAC10\uC18C\uD55C\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 2
   attribute: 2
   rarity: 1
   actionCost: 0
-  battleBehaviour:
-    rid: 1582000901244059717
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000901244059717
-      type: {class: MentalTraining, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000901244059718
-        reflectionTargetType:
-          rid: 1582000901244059719
-        lightBodyData: {fileID: 11400000, guid: 1d19fcd4e8fc1fe4e81ea8d07356f3c2, type: 2}
-    - rid: 1582000901244059718
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000901244059719
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

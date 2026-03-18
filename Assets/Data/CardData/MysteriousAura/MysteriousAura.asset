@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_MysteriousAura
   cardName: "\uC54C \uC218 \uC5C6\uB294 \uAE30\uC6B4"
+  background: {fileID: 0}
   description: "\uC790\uC2E0 \uB610\uB294 \uC0C1\uB300\uC5D0\uAC8C \uC0AC\uC6A9\uD558\uC5EC
     \uB2E4\uC74C \uC544\uB798\uC758 \uD6A8\uACFC \uC911 \uD558\uB098\uB97C \uC801\uC6A9\uD55C\uB2E4.\n-
     \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654
@@ -23,6 +24,11 @@ MonoBehaviour:
     \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADF8\uAC70 \uBC18\uCE59\uC774\uC57C
     1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4.\n- \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uC544\uC774\uCFE0! 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4"
+  relatedStatusEffectIds:
+  - Buff_StrengthenMuscle
+  - Debuff_ThatsWeakSpot
+  - Buff_ThatsFoul
+  - Debuff_OhMy
   relfectionAppliedDescription: "\uC790\uC2E0 \uB610\uB294 \uC0C1\uB300\uC5D0\uAC8C
     \uC0AC\uC6A9\uD558\uC5EC  \uC544\uB798 \uD6A8\uACFC\uB97C \uC801\uC6A9\uD55C\uB2E4.\r\n-
     \uC790\uC2E0\uC5D0\uAC8C \uC0AC\uC6A9\uD55C \uACBD\uC6B0\n\t- \uB450 \uD134\uB3D9\uC548
@@ -33,29 +39,12 @@ MonoBehaviour:
     \uC9C0\uC18D\uB418\uB294 \uAC70\uAE34 \uC57D\uC810\uC778\uB370.. 4 \uC2A4\uD0DD\uC744\uBD80\uC5EC\uD55C\uB2E4.\n\t-
     \uC804\uD22C \uCCB4\uB825 10 \uAC10\uC18C\n\t- \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uC544\uC774\uCFE0! 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4. "
+  reflectionRelatedStatusEffectIds:
+  - Buff_StrengthenMuscle
+  - Debuff_ThatsWeakSpot
+  - Buff_ThatsFoul
+  - Debuff_OhMy
   type: 2
   attribute: 3
   rarity: 1
   actionCost: 1
-  battleBehaviour:
-    rid: 1582000905641787473
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000905641787473
-      type: {class: MysteriousAura, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000905641787474
-        reflectionTargetType:
-          rid: 1582000905641787475
-        strengthenMuscleData: {fileID: 11400000, guid: dce1786556e5d67449dfeed2bb0f97bd, type: 2}
-        thatsWeakSpotData: {fileID: 11400000, guid: 8865c218364630545b0cacb75692e74a, type: 2}
-        thatsFoulData: {fileID: 11400000, guid: 808fa2c5a6f27384287e17eaac9de9d5, type: 2}
-        ohMyData: {fileID: 11400000, guid: 48b8906e8b2fa67448ac048224d44f3d, type: 2}
-    - rid: 1582000905641787474
-      type: {class: BattleEntityCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000905641787475
-      type: {class: BattleEntityCardTargetType, ns: , asm: GameAssembly}
