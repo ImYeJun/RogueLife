@@ -10,9 +10,8 @@ namespace View.Core
 
         public void Initialize(System.Random random, ViewEventBus<TEvent> eventBus, PresentationManager presentationManager, TCommander commander)
         {
-            Initialize(random, eventBus, presentationManager);
-
             this.commander = commander;
+            Initialize(random, eventBus, presentationManager);
         }
 
         public void Initialize(ViewEventBus<TEvent> eventBus, PresentationManager presentationManager, TCommander commander)

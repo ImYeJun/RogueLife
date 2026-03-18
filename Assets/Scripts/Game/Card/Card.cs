@@ -23,8 +23,11 @@ public class Card : ICardBehaviourOwner, IReadOnlyBattleCard
     public Sprite Background { get => data.Background; }
     public string CurrentName { get => currentName; }
     public string CurrentDescription { get => isReflectionApplied ? data.RelfectionActivatedDescription : data.Description; }
+    public List<string> CurrentRelatedStatusEffectIds { get => isReflectionApplied ? data.ReflectionRelatedStatusEffectIds : data.RelatedStatusEffectIds; }
     public string NormalEffectDescription { get => data.Description; }
+    public List<string> RelatedStatusEffectIds { get => data.RelatedStatusEffectIds; }
     public string ReflectionEffectDescription { get => data.RelfectionActivatedDescription; }
+    public List<string> ReflectionRelatedStatusEffectIds { get => data.ReflectionRelatedStatusEffectIds; }
     public CardType CurrentType { get => currentType; }
     public CardAttribute CurrentAttribute { get => currentAttribute; }
     public CardRarity CurrentRarity { get => currentRarity; }

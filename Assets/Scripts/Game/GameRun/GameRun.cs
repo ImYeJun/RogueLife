@@ -63,7 +63,7 @@ public partial class GameRun
         player = new Player(startDeck, cardDatabase);
         runDiarySystem = new RunDiarySystem(databases.specialDiaryDatabase, databases.enemyDatabase, databases.incidentDatabase, databases.belongingsDatabase, databases.cardDatabase);
         battleSystem = new BattleSystem(random, databases.cardDatabase, databases.battleStatusEffectDatabase);
-        scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase);
+        scheduleSystem = new ScheduleSystem(random, rules.skeletonRule, rules.typeResolveRule, battleSystem, OnScheduleEnd, scheduleDatabase, transactionChoiceDatabase, battleStatusEffectDatabase);
 
         viewEventBus = new GameRunViewEventBus();
 

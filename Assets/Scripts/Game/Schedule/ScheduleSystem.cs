@@ -12,6 +12,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     private System.Random random;
     private FieldContext context;
     private ScheduleDatabase scheduleDatabase;
+    private BattleStatusEffectDatabase battleStatusEffectDatabase;
     private ScheduleGenerator scheduleGenerator;
     private Action<ScheduleHistory> onScheduleEnd;
     private Action onScheduleUnsettled;
@@ -28,13 +29,14 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
     public ScheduleSystem(
         System.Random random, ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule nodeTypeResolveRule, IEngageBattle battleSystem, Action<ScheduleHistory> onScheduleEnd,
-        ScheduleDatabase scheduleDatabase, TransactionChoiceDatabase transactionChoiceDatabase
+        ScheduleDatabase scheduleDatabase, TransactionChoiceDatabase transactionChoiceDatabase, BattleStatusEffectDatabase battleStatusEffectDatabase
     )
     {
         this.random = random;
         this.onScheduleEnd = onScheduleEnd;
         this.scheduleDatabase = scheduleDatabase;
-        
+        this.battleStatusEffectDatabase = battleStatusEffectDatabase;
+
         sequenceIdGenerator = new SequenceIdGenerator();
         scheduleSelectingViewEventBus = new ScheduleSelectingViewEventBus();
         scheduleViewEventBus = new ScheduleViewEventBus();
@@ -204,5 +206,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void OnBelongingsObtained(Belongings belongings)
     {
         scheduleViewEventBus.Publish(new BelongingsObtained(sequenceIdGenerator.GetNextId(), belongings));
+    }
+
+    public BattleStatusEffectData GetStatusEffectData(string id)
+    {
+        return battleStatusEffectDatabase.GetData(id);
     }
 }

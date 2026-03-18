@@ -105,6 +105,8 @@ namespace View.BattleView
             cardViews = new List<BattleCardView>();
             originalCardContainerY = cardContainer.anchoredPosition.y;
 
+            cardDescriptionView.Initialize(commander.GetStatusEffectData);
+
             cardActivateSystem.OnCardProcessingPrepared = OnCardProcessed;
             cardActivateSystem.SetHandCardInteractable = SetHandCardInteractable;
             cardActivateSystem.IsProcessingCard = IsProcessingCard;

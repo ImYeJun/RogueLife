@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System.Collections.Generic;
+using System.Text;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using View.Core;
@@ -7,7 +9,7 @@ using ViewEvent.ScheduleView;
 
 namespace View.ScheduleView.Deck
 {
-    public class CardInspectorView : ViewBehaviour<IScheduleViewEvent>
+    public class CardInspectorView : InteractableViewBehaviour<IScheduleViewEvent, IScheduleViewCommander>
     {
         private Card currentCard;
 
@@ -49,15 +51,41 @@ namespace View.ScheduleView.Deck
 
             SetViewActive(true);
         }
+
         public void ShowNormalDescription()
         {
-            cardEffectDescription.text = $"효과 : \n {currentCard.NormalEffectDescription}";
+            StringBuilder sb = new StringBuilder();
+            sb.Append(currentCard.NormalEffectDescription);
+            AppendStatusEffectDescriptions(sb, currentCard.RelatedStatusEffectIds);
+            cardEffectDescription.text = sb.ToString();
+
             cardView.DrawDescription(false);
         }
+
         public void ShowReflectionDescription()
         {
-            cardEffectDescription.text = $"효과 : \n {currentCard.ReflectionEffectDescription}";
+            StringBuilder sb = new StringBuilder();
+            sb.Append(currentCard.ReflectionEffectDescription);
+            AppendStatusEffectDescriptions(sb, currentCard.ReflectionRelatedStatusEffectIds);
+            cardEffectDescription.text = sb.ToString();
+
             cardView.DrawDescription(true);
+        }
+
+        private void AppendStatusEffectDescriptions(StringBuilder sb, IReadOnlyList<string> statusEffectIds)
+        {
+            if (statusEffectIds == null || statusEffectIds.Count == 0) return;
+
+            sb.Append("\n<size=70%>");
+            foreach (var relatedStatusEffect in statusEffectIds)
+            {
+                var data = commander.GetStatusEffectData(relatedStatusEffect);
+                if (data != null)
+                {
+                    sb.Append($"({data.Name})").Append("\n").Append(data.Description).Append("\n"); 
+                }
+            }
+            sb.Append("</size>");
         }
     }
 }

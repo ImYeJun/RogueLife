@@ -8,4 +8,5 @@ public interface IScheduleViewCommander : IViewCommander
     public void SettleNextNode(Node nextNode);
     public void SettleTransactionChoice(TransactionChoiceOrder order);
     public void SettleIncidentChoice(DeterminedIncidentChoice choice);
+    public BattleStatusEffectData GetStatusEffectData(string id);
 }
