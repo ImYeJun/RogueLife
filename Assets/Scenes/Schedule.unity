@@ -4589,6 +4589,7 @@ GameObject:
   - component: {fileID: 710759934}
   - component: {fileID: 710759936}
   - component: {fileID: 710759935}
+  - component: {fileID: 710759937}
   m_Layer: 5
   m_Name: CollectionUpdateView
   m_TagString: Untagged
@@ -4655,6 +4656,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 710759933}
   m_CullTransparentMesh: 1
+--- !u!225 &710759937
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 710759933}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &712181105
 GameObject:
   m_ObjectHideFlags: 0
@@ -9898,6 +9911,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19d96ccdde84a584e962dece1aefc0ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.CollectionUpdateView.CardView
+  rectTransform: {fileID: 1340759275}
+  popUpDuration: 0.3
+  popUpAmount: 20
+  popUpEase: 27
+  pointerEnterDuration: 0.2
+  pointerEnterScaleAmount: 1.05
+  pointerEnterEase: 9
+  pointerExitDuration: 0.2
+  pointerExitEase: 10
 --- !u!1 &1364740334
 GameObject:
   m_ObjectHideFlags: 0
@@ -12128,6 +12150,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2212f374d0c06e642aa9af3db3dce32e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.CollectionUpdateView.BelongingsView
+  rectTransform: {fileID: 1715897525}
+  popUpDuration: 0.3
+  popUpAmount: 20
+  popUpEase: 27
+  pointerEnterDuration: 0.2
+  pointerEnterScaleAmount: 1.1
+  pointerEnterEase: 9
+  pointerExitDuration: 0.2
+  pointerExitEase: 10
   image: {fileID: 1715897527}
   nameText: {fileID: 699754200}
   descriptionText: {fileID: 465069593}
@@ -13195,6 +13226,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.CollectionUpdateView
   panelView: {fileID: 710759933}
+  panelCanvasGroup: {fileID: 710759937}
+  openDuration: 0.3
+  openEase: 4
+  closeDuration: 0.3
+  closeEase: 4
 --- !u!114 &1851769379
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -52,10 +52,12 @@ namespace View.ScheduleView.Deck
         public void ShowNormalDescription()
         {
             cardEffectDescription.text = $"효과 : \n {currentCard.NormalEffectDescription}";
+            cardView.DrawDescription(false);
         }
         public void ShowReflectionDescription()
         {
             cardEffectDescription.text = $"효과 : \n {currentCard.ReflectionEffectDescription}";
+            cardView.DrawDescription(true);
         }
     }
 }

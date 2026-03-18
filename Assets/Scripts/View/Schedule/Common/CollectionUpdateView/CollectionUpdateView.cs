@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using View.Core;
 using ViewEvent.ScheduleView;
@@ -8,11 +9,17 @@ namespace View.ScheduleView.CollectionUpdateView
 {
     public class CollectionUpdateView : ViewBehaviour<IScheduleViewEvent>
     {
-        public const int CollectionUpdate_Priority = 10;
-
+        [Header("Behaviour")]
         [SerializeField] private GameObject panelView; 
+        [SerializeField] private CanvasGroup panelCanvasGroup;
         private CardUpdateView cardUpdateView;
         private BelongingsUpdateView belongingsUpdateView;
+
+        [Header("Presentation")]
+        [SerializeField] private float openDuration;
+        [SerializeField] private Ease openEase;
+        [SerializeField] private float closeDuration;
+        [SerializeField] private Ease closeEase;
 
         private enum UpdateType { CardObtained, CardRemoved, BelongingObtained }
         private struct UpdateData
@@ -91,13 +98,15 @@ namespace View.ScheduleView.CollectionUpdateView
         private IEnumerator OpenPanelPresentation()
         {
             panelView.SetActive(true);
-            yield return null; 
+            panelCanvasGroup.alpha = 0;
+            yield return panelCanvasGroup.DOFade(1, openDuration).SetEase(openEase).WaitForCompletion(); 
         }
 
         private IEnumerator ClosePanelPresentation()
         {
+            panelCanvasGroup.alpha = 1;
+            yield return panelCanvasGroup.DOFade(0, closeDuration).SetEase(closeEase).WaitForCompletion();
             panelView.SetActive(false);
-            yield return null;
         }
 
         private IEnumerator ShowItemPresentation(UpdateData data)

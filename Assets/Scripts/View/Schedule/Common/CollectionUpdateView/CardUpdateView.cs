@@ -12,6 +12,8 @@ namespace View.ScheduleView.CollectionUpdateView
         [SerializeField] private CardView cardView;
         [SerializeField] private TextMeshProUGUI header;
         [SerializeField] private TextMeshProUGUI reflectionButtonText;
+        [SerializeField] private Color obtainedColor = Color.green;
+        [SerializeField] private Color removedColor = Color.red;
         private Action OnUpdateConfirmed;
 
         private void Awake() {
@@ -26,6 +28,7 @@ namespace View.ScheduleView.CollectionUpdateView
             cardView.Draw(payload.Card);
 
             header.text = "카드 획득";
+            header.color = obtainedColor;
             SetReflectionButtonText(cardView.IsReflectionText);
         }
 
@@ -36,12 +39,13 @@ namespace View.ScheduleView.CollectionUpdateView
             cardView.Draw(payload.Card);
 
             header.text = "카드 상실";
+            header.color = removedColor;
             SetReflectionButtonText(cardView.IsReflectionText);
         }
 
         public void OnCardClicked()
         {
-            gameObject.SetActive(false);
+            updateViewObject.SetActive(false);
             OnUpdateConfirmed?.Invoke();
         }
 

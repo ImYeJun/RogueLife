@@ -4,10 +4,9 @@ using UnityEngine.EventSystems;
 
 namespace View.ScheduleView.CollectionUpdateView
 {
-    public class CardView : MonoBehaviour, IPointerDownHandler {
+    public class CardView : ItemView {
         private SharedCardView cardView;
         private bool isReflectionText;
-        public Action OnClicked;
 
         public bool IsReflectionText => isReflectionText; 
 
@@ -20,17 +19,14 @@ namespace View.ScheduleView.CollectionUpdateView
             isReflectionText = false;
             cardView.SetCard(card);
             cardView.DrawDescription(isReflectionText);
+
+            PopUp();
         }
 
         public void DrawDescription(bool isReflection)
         {
             isReflectionText = isReflection;
             cardView.DrawDescription(isReflectionText);
-        }
-
-        public void OnPointerDown(PointerEventData eventData)
-        {
-            OnClicked?.Invoke();
         }
     }
 }

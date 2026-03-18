@@ -11,6 +11,7 @@ namespace View.ScheduleView.CollectionUpdateView
         [SerializeField] private GameObject updateViewObject;
         [SerializeField] private BelongingsView belongingsView;
         [SerializeField] private TextMeshProUGUI header;
+        [SerializeField] private Color obtainedColor = Color.green;
         private Action OnUpdateConfirmed;
 
         private void Awake() {
@@ -20,6 +21,9 @@ namespace View.ScheduleView.CollectionUpdateView
 
         public void OnObtained(BelongingsObtained payload, Action onUpdateConfirmed)
         {
+            header.text = "소지품 획득";
+            header.color = obtainedColor;
+            
             updateViewObject.SetActive(true);
             OnUpdateConfirmed = onUpdateConfirmed;
             belongingsView.SetBelongings(payload.Belongings);
@@ -27,13 +31,13 @@ namespace View.ScheduleView.CollectionUpdateView
 
         public void OnBelongingsClicked()
         {
-            gameObject.SetActive(false);
+            updateViewObject.SetActive(false);
             OnUpdateConfirmed?.Invoke();
         }
 
         public void SetActive(bool value)
         {
-            updateViewObject.SetActive(false);
+            updateViewObject.SetActive(value);
         }
     }
 }
