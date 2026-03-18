@@ -210,4 +210,49 @@ namespace ViewEvent.ScheduleView
 
         public int SequenceId => sequenceId;
     }
+
+    public readonly struct CardObtained : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly Card card;
+
+        public CardObtained(int sequenceId, Card card)
+        {
+            this.sequenceId = sequenceId;
+            this.card = card;
+        }
+
+        public int SequenceId => sequenceId;
+        public Card Card => card;
+    }
+
+    public readonly struct CardRemoved : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly Card card;
+
+        public CardRemoved(int sequenceId, Card card)
+        {
+            this.sequenceId = sequenceId;
+            this.card = card;
+        }
+
+        public int SequenceId => sequenceId;
+        public Card Card => card;
+    }
+
+    public readonly struct BelongingsObtained : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly Belongings belongings;
+
+        public BelongingsObtained(int sequenceId, Belongings belongings)
+        {
+            this.sequenceId = sequenceId;
+            this.belongings = belongings;
+        }
+
+        public int SequenceId => sequenceId;
+        public Belongings Belongings => belongings;
+    }
 }

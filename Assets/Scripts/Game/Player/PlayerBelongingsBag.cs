@@ -16,6 +16,8 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
     public IReadOnlyDictionary<BelongingsData, Belongings> SideBelongingsBag { get => sideBelongingsBag; }
 
     public List<Belongings> EquippingBelongings => mainBelongingsBag.Values.Concat(sideBelongingsBag.Values).ToList();
+    
+    public event Action<Belongings> OnBelongingsObtained;
 
     public List<BelongingsData> GetClonedMainBag() { 
         var result = new List<BelongingsData>();
@@ -65,6 +67,7 @@ public class PlayerBelongingsBag : IFieldBelongingsBag, IRunDiaryPlayerBelonging
         }
 
         sideBelongingsBag[belongings.Data] = belongings;
+        OnBelongingsObtained?.Invoke(belongings);
         return true;
     }
 

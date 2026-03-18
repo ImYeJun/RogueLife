@@ -95,6 +95,8 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
     public int MaxCardVariety { get => maxCardVariety; }
 
     HashSet<IDeckObserver> deckObservers = new HashSet<IDeckObserver>();
+    public event Action<Card> OnCardObtained;
+    public event Action<Card> OnCardRemoved;
 
     public bool HasEnoughCard(CardData data, int amount = 1)
     {
@@ -167,6 +169,7 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
         {
             observer.OnCardEquipped(card);
         }
+        OnCardObtained?.Invoke(card);
         return true;
     } 
     
@@ -184,6 +187,7 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
                 observer.OnCardRemoved(card);
             }
             
+            OnCardRemoved?.Invoke(card);
             return true;
         }
 

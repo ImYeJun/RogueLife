@@ -70,7 +70,7 @@ public class SharedCardView : MonoBehaviour
     
     public void OnReflectionChanged()
     {
-        DrawDescription();
+        DrawDescription(card.IsReflectionApplied);
     }
 
     private void DrawSync()
@@ -83,7 +83,7 @@ public class SharedCardView : MonoBehaviour
         
         DrawCost();
         cardName.text = card.CurrentName;
-        DrawDescription();
+        DrawDescription(card.IsReflectionApplied);
     }
 
     private void DrawCost()
@@ -98,8 +98,8 @@ public class SharedCardView : MonoBehaviour
         };
     }
 
-    private void DrawDescription()
+    public void DrawDescription(bool isReflection)
     {
-        description.text = card.CurrentDescription;
+        description.text = isReflection ? card.ReflectionEffectDescription : card.NormalEffectDescription;
     }
 }

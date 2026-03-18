@@ -15,6 +15,11 @@ public partial class GameRun
         player.Deck.TryObtainCard(newCard);
     }
 
+    public void TestRemoveCard(CardEntity entity)
+    {
+        player.Deck.TryRemoveCardByData(entity.Data, 1);
+    }
+
     public void TestHurtPlayer(int testHurtDamage, bool isOverflowable)
     {
         player.Health.HurtBattleHealth(testHurtDamage, isOverflowable);

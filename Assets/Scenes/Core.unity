@@ -4299,7 +4299,10 @@ MonoBehaviour:
   - {fileID: 7036215186716217664, guid: c68492cf54ff4794a99f384fed6a0bf2, type: 3}
   - {fileID: 7307215356052559845, guid: 7977bce85b9d0924eae1ca4b6e09a749, type: 3}
   - {fileID: 3157649277395767657, guid: 5d2bc43d2ea087449a5399c45b7ab556, type: 3}
-  testCardEntities: []
+  testCardEntities:
+  - {fileID: 1232414264696122722, guid: d17d7e942348aa04a887868cb8ec5b3d, type: 3}
+  testRemoveCardEntities:
+  - {fileID: 1232414264696122722, guid: d17d7e942348aa04a887868cb8ec5b3d, type: 3}
   testHurtDamage: 0
   isOverflowable: 0
   testHealAmount: 0

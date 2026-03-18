@@ -47,6 +47,9 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
         context.Health.OnHurt += OnHealthHurt;
         context.Health.OnHealed += OnHealthHealed;
+        context.Deck.OnCardObtained += OnCardObatined;
+        context.Deck.OnCardRemoved += OnCardRemoved;
+        context.BelongingsBag.OnBelongingsObtained += OnBelongingsObtained;
     }
 
     public void StartSchedule(int currentStartCount, Action OnScheduleUnsettled)
@@ -111,8 +114,6 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
             currentSchedule.ResolvePendingResult();
             return;
         }
-
-
     }
 
     public void EndSchedule(ScheduleHistory history)
@@ -190,5 +191,18 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void OnRequestBattleTransition()
     {
         scheduleViewEventBus.Publish(new BattleEngaged(sequenceIdGenerator.GetNextId()));
+    }
+
+    public void OnCardObatined(Card card)
+    {
+        scheduleViewEventBus.Publish(new CardObtained(sequenceIdGenerator.GetNextId(), card));
+    }
+    public void OnCardRemoved(Card card)
+    {
+        scheduleViewEventBus.Publish(new CardRemoved(sequenceIdGenerator.GetNextId(), card));
+    }
+    public void OnBelongingsObtained(Belongings belongings)
+    {
+        scheduleViewEventBus.Publish(new BelongingsObtained(sequenceIdGenerator.GetNextId(), belongings));
     }
 }

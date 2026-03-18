@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Field.Deck.Observers;
 
@@ -13,4 +14,6 @@ public interface IFieldDeck : IBattleEntryDeck, IReadOnlyDeck {
     public void IncreaseMaxCardVariety(int amount);
     public void DecreaseMaxCardVariety(int amount);
     public bool TryMoveCard(Card card, DeckType from, DeckType to);
+    public event Action<Card> OnCardObtained;
+    public event Action<Card> OnCardRemoved;
 }

@@ -7,6 +7,7 @@ public class GameRunManagerEditor : Editor
 {
     private SerializedProperty testBelongingsEntitiesProp;
     private SerializedProperty testCardEntitiesProp;
+    private SerializedProperty testRemoveCardEntitiesProp; 
     private SerializedProperty testHurtDamage;
     private SerializedProperty isOverflowable;
     
@@ -19,6 +20,7 @@ public class GameRunManagerEditor : Editor
     {
         testBelongingsEntitiesProp = serializedObject.FindProperty("testBelongingsEntities");
         testCardEntitiesProp = serializedObject.FindProperty("testCardEntities");
+        testRemoveCardEntitiesProp = serializedObject.FindProperty("testRemoveCardEntities"); 
         
         testHurtDamage = serializedObject.FindProperty("testHurtDamage");
         isOverflowable = serializedObject.FindProperty("isOverflowable");
@@ -31,7 +33,7 @@ public class GameRunManagerEditor : Editor
     {
         serializedObject.Update();
 
-        DrawPropertiesExcluding(serializedObject, "m_Script", "testBelongingsEntities", "testCardEntities", 
+        DrawPropertiesExcluding(serializedObject, "m_Script", "testBelongingsEntities", "testCardEntities", "testRemoveCardEntities", 
             "testHurtDamage", "isOverflowable", "testHealAmount", "isHealOverflowable");
 
         EditorGUILayout.Space(10);
@@ -50,7 +52,8 @@ public class GameRunManagerEditor : Editor
 
             EditorGUILayout.PropertyField(testBelongingsEntitiesProp, true);
             EditorGUILayout.PropertyField(testCardEntitiesProp, true);
-            
+            EditorGUILayout.PropertyField(testRemoveCardEntitiesProp, true);
+
             EditorGUILayout.Space(10);
             
             EditorGUILayout.LabelField("💥 Hurt Settings", EditorStyles.boldLabel);
@@ -76,6 +79,13 @@ public class GameRunManagerEditor : Editor
             if (GUILayout.Button("Add Card", GUILayout.Height(30)))
             {
                 manager.TestAddCard();
+            }
+
+            EditorGUILayout.Space(5);
+
+            if (GUILayout.Button("Remove Card", GUILayout.Height(30)))
+            {
+                manager.TestRemoveCard();
             }
 
             EditorGUILayout.Space(5);

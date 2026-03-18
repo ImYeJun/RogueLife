@@ -10,6 +10,9 @@ public partial class GameRunManager
     [SerializeField] private List<BelongingsEntity> testBelongingsEntities = new List<BelongingsEntity>();
     [SerializeField] private List<CardEntity> testCardEntities = new List<CardEntity>();
     
+    [HideInInspector] 
+    [SerializeField] private List<CardEntity> testRemoveCardEntities = new List<CardEntity>();
+    
     [Header("Hurt Test Settings")]
     [SerializeField] private int testHurtDamage;
     [SerializeField] private bool isOverflowable;
@@ -40,6 +43,18 @@ public partial class GameRunManager
         }
 
         Debug.Log("테스트 카드 지급 완료!");
+    }
+
+    public void TestRemoveCard()
+    {
+        if (!CheckGameRunExsited()) { return; }
+
+        foreach (var entity in testRemoveCardEntities)
+        {
+            CurrentRun.TestRemoveCard(entity);
+        }
+
+        Debug.Log("테스트 카드 삭제 완료!");
     }
 
     public void TestHurtPlayer()
