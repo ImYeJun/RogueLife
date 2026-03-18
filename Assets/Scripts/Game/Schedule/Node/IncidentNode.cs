@@ -19,7 +19,7 @@ public class IncidentNode : Node
 
         var determiendChoices = entity.DetermineEffect(context);
 
-        router.RequestIncidentSelection(determiendChoices);
+        router.RequestIncidentSelection(entity.Data, determiendChoices);
     }
 
     public void OnChoiceSettled(DeterminedIncidentChoice selectedChoice)

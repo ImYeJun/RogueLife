@@ -42,7 +42,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
     public event Action<Node> OnNodeExit;
     public event Action<List<Node>> OnRequestNextNodeSelection;
     public event Action<Dictionary<TransactionChoiceOrder, TransactionChoiceData>> OnRequestTransactionSelection;
-    public event Action<List<DeterminedIncidentChoice>> OnRequestIncidentSelection;
+    public event Action<IncidentData, List<DeterminedIncidentChoice>> OnRequestIncidentSelection;
     public event Action OnRequestBattleTransition;
 
 
@@ -82,9 +82,9 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
     {
         OnRequestTransactionSelection?.Invoke(choices);
     }
-    public void RequestIncidentSelection(List<DeterminedIncidentChoice> choices)
+    public void RequestIncidentSelection(IncidentData incidentData, List<DeterminedIncidentChoice> choices)
     {
-        OnRequestIncidentSelection?.Invoke(choices);
+        OnRequestIncidentSelection?.Invoke(incidentData, choices);
     }
     public void RequestBattleTransition()
     {

@@ -40,6 +40,12 @@ public static class PresentationPriority
     public const int NodeSelect_OpenPanel = 10;
     public const int NodeSelect_NodeButtonBasePriority = 20;
 
+    //Incident Select Requested
+    public const int IncidentSelectRequested_ChoiceAppear = 10;
+
+    //Transaction Select Requested
+    public const int TransactionSelectRequested_ChoiceAppear = 10;
+
     // Battle Engaged
     public const int BattleEngaged_FadeIn = 10;
     public const int BattleEngaged_SceneTransition = 20;

@@ -175,16 +175,19 @@ namespace ViewEvent.ScheduleView
     public readonly struct IncidentSelectRequested : IScheduleViewEvent
     {
         private readonly int sequenceId;
+        private readonly IncidentData data;
         private readonly List<DeterminedIncidentChoice> choices;
 
-        public IncidentSelectRequested(int sequenceId, List<DeterminedIncidentChoice> choices)
+        public IncidentSelectRequested(int sequenceId, IncidentData data, List<DeterminedIncidentChoice> choices)
         {
             this.sequenceId = sequenceId;
+            this.data = data;
             this.choices = choices;
         }
 
         public int SequenceId => sequenceId;
         public List<DeterminedIncidentChoice> Choices => choices;
+        public IncidentData Data => data;
     }
 
     public readonly struct BattleEngaged : IScheduleViewEvent

@@ -149,6 +149,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3418478988124011777}
+    - targetCorrespondingSourceObject: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2563686076502102083}
   m_SourcePrefab: {fileID: 100100000, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
 --- !u!1 &496771192496769035 stripped
 GameObject:
@@ -167,7 +170,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2c9d7c93c45df47a9fba88aa1fd8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.IncidentSelectView.IncidentChoiceButton
+  rectTransform: {fileID: 1622796767533856250}
   mainText: {fileID: 1844929474524698675}
+  canvasGroup: {fileID: 2563686076502102083}
+  moveDuration: 0.4
+  moveDistance: 30
+  appearDuration: 0.2
+  moveEase: 27
+  appearEase: 10
 --- !u!114 &3418478988124011777
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,6 +235,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!225 &2563686076502102083
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496771192496769035}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!114 &659319203405918539 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2693925766021429802, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
@@ -236,6 +258,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!224 &1622796767533856250 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+  m_PrefabInstance: {fileID: 3189921158575213409}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1844929474524698675 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}

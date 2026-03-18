@@ -185,9 +185,9 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         scheduleViewEventBus.Publish(new TransactionSelectRequested(sequenceIdGenerator.GetNextId(), choices));
     }
-    public void OnRequestIncidentSelection(List<DeterminedIncidentChoice> choices)
+    public void OnRequestIncidentSelection(IncidentData data, List<DeterminedIncidentChoice> choices)
     {
-        scheduleViewEventBus.Publish(new IncidentSelectRequested(sequenceIdGenerator.GetNextId(), choices));
+        scheduleViewEventBus.Publish(new IncidentSelectRequested(sequenceIdGenerator.GetNextId(), data, choices));
     }
 
     public void OnRequestBattleTransition()
