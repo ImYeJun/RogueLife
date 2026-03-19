@@ -24,8 +24,6 @@ public partial class GameRunManager
 
     [Header("Battle Enemy Setting")]
     [SerializeField] private BattleEnemyView enemy;
-    
-    // 💡 [수정됨] float에서 int로 변경 (체력 시스템 일관성)
     [SerializeField] private int enemyHurtAmount; 
     [SerializeField] private int enemyHealAmount;
 
@@ -90,7 +88,6 @@ public partial class GameRunManager
         Debug.Log($"플레이어의 전투 체력을 \"{testHealAmount}\" 만큼 회복");
     }
 
-    // 💡 [추가됨] 지정된 적에게 데미지를 가하는 테스트 기능
     public void TestHurtEnemy()
     {
         if (!CheckGameRunExsited()) { return; }
@@ -104,7 +101,6 @@ public partial class GameRunManager
         Debug.Log($"적에게 \"{enemyHurtAmount}\" 만큼의 데미지 가격");
     }
 
-    // 💡 [추가됨] 지정된 적을 회복시키는 테스트 기능
     public void TestHealEnemy()
     {
         if (!CheckGameRunExsited()) { return; }

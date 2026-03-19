@@ -4307,6 +4307,9 @@ MonoBehaviour:
   isOverflowable: 0
   testHealAmount: 0
   isHealOverflowable: 0
+  enemy: {fileID: 0}
+  enemyHurtAmount: 0
+  enemyHealAmount: 0
   databaseManager: {fileID: 20736402}
   skeletonGenerateRuleManager: {fileID: 83840618}
 --- !u!4 &2117917723

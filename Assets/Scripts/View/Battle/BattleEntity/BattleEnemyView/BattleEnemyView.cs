@@ -62,6 +62,10 @@ namespace View.BattleView
         [SerializeField] private float healTextOffsetDuration = 0.2f;
         [SerializeField] private Ease healEase = Ease.OutQuad;
 
+        [Header("Positioning Presentation Setting")]
+        [SerializeField] private float positionDuration = 0.4f;
+        [SerializeField] private Ease positioningEase = Ease.OutCubic;
+
         [Header("Test Only")]
         [SerializeField] private int testMaxHealth = 100;
         [SerializeField] private int testStartHealth = 100;
@@ -109,9 +113,9 @@ namespace View.BattleView
             DrawHealthBarDirectly(enemy.CurrentHealth, enemy.MaxHealth);
         }
 
-        public void UpdatePosition(Vector2 targetPosition)
+        public Tween UpdatePosition(Vector2 targetPosition)
         {
-            transform.DOMove(targetPosition, 0.4f).SetEase(Ease.OutCubic);
+            return transform.DOMove(targetPosition, positionDuration).SetEase(positioningEase);
         }
 
         public void OnEnemyActionPlanned(EnemyActionPlanned payload)
@@ -224,7 +228,8 @@ namespace View.BattleView
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyDied_DiePresentation, EnemyDiedPresentation(), () =>
             {
                 actionIcons.Clear();
-                Destroy(gameObject); 
+                spriteRenderer.color = new Color(spriteRenderer.color.r,spriteRenderer.color.g,spriteRenderer.color.b,0);
+                // Destroy(gameObject); 
             });
         }
         private IEnumerator EnemyDiedPresentation()

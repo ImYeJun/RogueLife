@@ -148,6 +148,12 @@ public static class PresentationPriority
     //Enemy Died
     public const int EnemyDied_DiePresentation = 10;
 
+    //Enemy Spawned
+    public const int EnemySpawned_PositionSet = 10;
+
+    //Enemy Removed
+    public const int EnemyRemoved_PositionSet = 10;
+
     //Player Hurt
     public const int PlayerHurt_PlayerPresentation = 10;
 

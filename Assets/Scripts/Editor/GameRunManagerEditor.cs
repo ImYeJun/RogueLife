@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
+using View.BattleView;
 
 [CustomEditor(typeof(GameRunManager))]
 public class GameRunManagerEditor : Editor
@@ -76,9 +77,13 @@ public class GameRunManagerEditor : Editor
 
             EditorGUILayout.Space(5);
 
-            // 💡 [추가됨] 적 타겟팅 관련 인스펙터 UI
             EditorGUILayout.LabelField("👾 Target Enemy Settings", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(enemyProp, true);
+            enemyProp.objectReferenceValue = EditorGUILayout.ObjectField(
+                new GUIContent("Enemy (GameObject)"), 
+                enemyProp.objectReferenceValue, 
+                typeof(BattleEnemyView), 
+                true
+            );
             EditorGUILayout.PropertyField(enemyHurtAmountProp, true);
             EditorGUILayout.PropertyField(enemyHealAmountProp, true);
 
@@ -127,7 +132,6 @@ public class GameRunManagerEditor : Editor
 
             EditorGUILayout.Space(5);
 
-            // 💡 [추가됨] 적에게 테스트 명령을 내리는 버튼
             if (GUILayout.Button("Hurt Target Enemy", GUILayout.Height(30)))
             {
                 manager.TestHurtEnemy();
