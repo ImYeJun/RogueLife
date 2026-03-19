@@ -21,8 +21,8 @@ MonoBehaviour:
     \uB9CE\uC740 \uC0AC\uB78C\uB4E4\uC774 \uC624\uACE0\uAC04\uB2E4."
   usualBackground: []
   battleBackground: {fileID: 0}
-  usualBGM: {fileID: 0}
-  battleBGM: {fileID: 0}
+  usualBGM: {fileID: 8300000, guid: 7abfd298443093a499a6f6100962b9db, type: 3}
+  battleBGM: {fileID: 8300000, guid: e9fe02633baba524daa2ba65ac43ce39, type: 3}
   choiceSprite: {fileID: -6577420212743684982, guid: dc77096a47dce604c90f59f22f4af8ea, type: 3}
   bossEntity: {fileID: 7805023692001381090, guid: 5bcd60cda037a594685f4add65269f11, type: 3}
   availableEliteEnemyEntities:
