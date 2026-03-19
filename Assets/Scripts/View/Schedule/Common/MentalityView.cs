@@ -21,44 +21,30 @@ namespace View.ScheduleView
 
         private float currentDisplayedMentality;
 
-        public override void OnInitialized()
-        {
-            eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
-            eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
-        }
-        
-        public override void OnDestroy()
-        {
-            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
-            eventBus?.Unsubscribe<PlayerHealed>(OnPlayerHealed);
-        }
+        public override void OnInitialized() { }
+        public override void OnDestroy() { }
 
-        public void OnScheduleStateSynced(ScheduleStateSynced payload)
+        public void DrawViewInstant(IReadOnlyHealth health)
         {
-            DrawViewInstant(payload.Health);
-        }
-        
-        public void OnPlayerHurt(PlayerHurt payload)
-        {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHurt, UpdateMentalityRoutine(payload.Health));
-        }
+            if (health == null)
+            {
+                Debug.LogWarning("[MentalityView/DrawViewInstant] health is null.");
+                return;
+            }
 
-        public void OnPlayerHealed(PlayerHealed payload)
-        {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHealed, UpdateMentalityRoutine(payload.Health));
-        }
-        
-        private void DrawViewInstant(IReadOnlyHealth health)
-        {
             mentalitySlider.fillAmount = health.NomarlizedMentality;
             currentDisplayedMentality = health.CurrentMentality;
             mentalityText.text = $"{health.CurrentMentality}/{health.MaxMentality}";
         }
 
-        private IEnumerator UpdateMentalityRoutine(IReadOnlyHealth health)
+        public Tween GetUpdateMentalityTween(IReadOnlyHealth health)
         {
+            if (health == null)
+            {
+                Debug.LogWarning("[MentalityView/GetUpdateMentalityTween] health is null.");
+                return null;
+            }
+
             var sequence = DOTween.Sequence();
             
             sequence.Join(mentalitySlider.DOFillAmount(health.NomarlizedMentality, fillDuration).SetEase(fillEase));
@@ -72,7 +58,7 @@ namespace View.ScheduleView
                 mentalityText.text = $"{Mathf.RoundToInt(currentDisplayedMentality)}/{maxMentality}";
             }, targetMentality, fillDuration + offsetDuration).SetEase(fillEase));
 
-            yield return sequence.WaitForCompletion();
+            return sequence;
         }
     }
 }

@@ -16,38 +16,27 @@ namespace View.ScheduleView
         [SerializeField] private float fillDuration = 0.3f;
         [SerializeField] private Ease fillEase = Ease.OutQuad;
 
-        public override void OnInitialized()
-        {
-            eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
-            eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
-        }
+        public override void OnInitialized() { }
+        public override void OnDestroy() { }
 
-        public override void OnDestroy()
+        public void DrawViewInstant(IReadOnlyHealth health)
         {
-            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
-            eventBus?.Unsubscribe<PlayerHealed>(OnPlayerHealed);
-        }
-
-        public void OnScheduleStateSynced(ScheduleStateSynced payload)
-        {
-            mentalitySlider.fillAmount = payload.Health.NomarlizedMentality;
+            if (health == null)
+            {
+                Debug.LogWarning("[PlayerStatusView/DrawViewInstant] health is null.");
+                return;
+            }
+            mentalitySlider.fillAmount = health.NomarlizedMentality;
         }
         
-        public void OnPlayerHurt(PlayerHurt payload)
+        public Tween GetUpdateSliderTween(IReadOnlyHealth health)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHurt, UpdateSliderRoutine(payload.Health));
-        }
-        
-        public void OnPlayerHealed(PlayerHealed payload)
-        {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHealed, UpdateSliderRoutine(payload.Health));
-        }
-        
-        private IEnumerator UpdateSliderRoutine(IReadOnlyHealth health)
-        {
-            yield return mentalitySlider.DOFillAmount(health.NomarlizedMentality, fillDuration).SetEase(fillEase).WaitForCompletion();
+            if (health == null)
+            {
+                Debug.LogWarning("[PlayerStatusView/GetUpdateSliderTween] health is null.");
+                return null;
+            }
+            return mentalitySlider.DOFillAmount(health.NomarlizedMentality, fillDuration).SetEase(fillEase);
         }
     }
 }

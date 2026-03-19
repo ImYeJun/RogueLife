@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening; // 💡 DOTween 추가
+using DG.Tweening; 
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
@@ -27,33 +27,28 @@ namespace View.ScheduleView
         [SerializeField] private float healthBarShakeStrength = 7f; 
         [SerializeField] private int healthBarShakeVibrato = 10;
 
+        // 💡 [수정됨] 큐 등록 및 이벤트 구독 제거
         public override void OnInitialized()
         {
             image = GetComponent<Image>();
             image.sprite = idleImage;
-
-            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
         }
         
-        public override void OnDestroy()
-        {
-            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
-        }
+        public override void OnDestroy() { }
 
-        private void OnPlayerHurt(PlayerHurt payload)
+        public Tween GetHurtEffectTween()
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHurt, HurtEffectRoutine());
-        }
-
-        private IEnumerator HurtEffectRoutine()
-        {
-            SetHurtView();
-
             Sequence seq = DOTween.Sequence();
+
+            seq.AppendCallback(() => SetHurtView());
 
             if (wholeBody != null)
             {
                 seq.Append(wholeBody.DOShakeAnchorPos(hurtEffectDuration, shakeStrength, shakeVibrato));
+            }
+            else
+            {
+                Debug.LogWarning("[PlayerImageView/GetHurtEffectTween] wholeBody is null.");
             }
 
             seq.AppendCallback(() => SetIdleView());
@@ -62,8 +57,12 @@ namespace View.ScheduleView
             {
                 seq.Append(heatlhBar.DOShakeAnchorPos(healthBarShakeDuration, healthBarShakeStrength, healthBarShakeVibrato));
             }
+            else
+            {
+                Debug.LogWarning("[PlayerImageView/GetHurtEffectTween] heatlhBar is null.");
+            }
 
-            yield return seq.WaitForCompletion();
+            return seq;
         }
 
         public void SetIdleView() { image.sprite = idleImage; }

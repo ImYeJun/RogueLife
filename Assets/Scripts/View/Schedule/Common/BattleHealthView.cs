@@ -21,44 +21,30 @@ namespace View.ScheduleView
 
         private float currentDisplayedHealth;
 
-        public override void OnInitialized()
-        {
-            eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
-            eventBus.Subscribe<PlayerHealed>(OnPlayerHealed);
-        }
+        public override void OnInitialized() { }
+        public override void OnDestroy() { }
 
-        public override void OnDestroy()
+        public void DrawViewInstant(IReadOnlyHealth health)
         {
-            eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
-            eventBus?.Unsubscribe<PlayerHurt>(OnPlayerHurt);
-            eventBus?.Unsubscribe<PlayerHealed>(OnPlayerHealed);
-        }
+            if (health == null)
+            {
+                Debug.LogWarning("[BattleHealthView/DrawViewInstant] health is null.");
+                return;
+            }
 
-        public void OnScheduleStateSynced(ScheduleStateSynced payload)
-        {
-            DrawViewInstant(payload.Health);
-        }
-        
-        public void OnPlayerHurt(PlayerHurt payload)
-        {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHurt, UpdateHealthRoutine(payload.Health));
-        }
-
-        public void OnPlayerHealed(PlayerHealed payload)
-        {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHealed, UpdateHealthRoutine(payload.Health));
-        }
-        
-        private void DrawViewInstant(IReadOnlyHealth health)
-        {
             battleHealthSlider.fillAmount = health.NormalizedBattleHealth;
             currentDisplayedHealth = health.CurrentBattleHealth;
             battleHealthText.text = $"{health.CurrentBattleHealth}/{health.MaxBattleHealth}";
         }
 
-        private IEnumerator UpdateHealthRoutine(IReadOnlyHealth health)
+        public Tween GetUpdateHealthTween(IReadOnlyHealth health)
         {
+            if (health == null)
+            {
+                Debug.LogWarning("[BattleHealthView/GetUpdateHealthTween] health is null.");
+                return null;
+            }
+
             var sequence = DOTween.Sequence();
             
             sequence.Join(battleHealthSlider.DOFillAmount(health.NormalizedBattleHealth, fillDuration).SetEase(fillEase));
@@ -72,7 +58,7 @@ namespace View.ScheduleView
                 battleHealthText.text = $"{Mathf.RoundToInt(currentDisplayedHealth)}/{maxHealth}";
             }, targetHealth, fillDuration + offsetDuration).SetEase(fillEase));
 
-            yield return sequence.WaitForCompletion();
+            return sequence;
         }
     }
 }

@@ -1007,6 +1007,7 @@ Transform:
   m_Children:
   - {fileID: 207654013}
   - {fileID: 1913237869}
+  - {fileID: 282196863}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &207654012
@@ -1519,6 +1520,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.OveringFilterListButton
   cost: 10
   costText: {fileID: 1401663293}
+--- !u!1 &282196862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 282196863}
+  - component: {fileID: 282196864}
+  m_Layer: 0
+  m_Name: HealthUpdatePresentation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &282196863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282196862}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 143883267}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &282196864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282196862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143e750d3e309d14d9ac549a3ac92d70, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.HealthUpdatePresentation
+  battleHealthView: {fileID: 49045446}
+  mentalityView: {fileID: 2120220270}
+  playerStatusView: {fileID: 1431076835}
+  playerImageView: {fileID: 1275263200}
 --- !u!1 &283907488
 GameObject:
   m_ObjectHideFlags: 0
@@ -11249,6 +11298,7 @@ MonoBehaviour:
   - {fileID: 207654014}
   - {fileID: 1913237870}
   - {fileID: 1851769378}
+  - {fileID: 282196864}
   interacatbleViews:
   - {fileID: 1031923498}
   - {fileID: 1024027836}
