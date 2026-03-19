@@ -54,12 +54,17 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
     public abstract void Heal(int amount);
     public void RequestHeal(int amount)
     {
+        if (isDead) return;
         context.ActionScheduler.Enqueue(new HealEntityBattleAction(this, amount));
     }
-    public void Kill() { OnDead(); }
+    public void Kill() { 
+        if (isDead) return;
+        OnDead();
+    }
 
     protected virtual void OnDead()
     {
+        if (isDead) return;
         isDead = true;
 
         var buffList = equippingBuffs.Values.ToList();
@@ -130,14 +135,17 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
 
     public void OnPlayerTurnEnded(PlayerTurnEndBattleEvent payload)
     {
+        if (isDead) return;
         DecreaseStatusEffectDuration();
     }
     public void OnEnemyTurnEnded(EnemyTurnEndBattleEvent payload)
     {
+        if (isDead) return;
         DecreaseStatusEffectDuration();
     }
     private void DecreaseStatusEffectDuration()
     {
+        if (isDead) return;
         var buffList = equippingBuffs.Values.ToList();
         for (int i = buffList.Count - 1; i >= 0; i--)
         {
@@ -194,6 +202,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
     
     private void UpdateCondition()
     {
+        if (isDead) return;
         currentCondition = BattleEntityCondition.NONE;
         foreach (var buff in equippingBuffs.Values)
         {
@@ -208,6 +217,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
 
     private void OnBattleStatusEffectExecuted(IReadOnlyBattleStatusEffect battleStatusEffect)
     {
+        if (isDead) return;
         context.EventBus.Publish(new BattleStatusEffectExecutedBattleEvent(this, battleStatusEffect));
     } 
 

@@ -22,9 +22,10 @@ public class BattleEventBus : IBattleEventBus
             return;
         }
 
-        for (int i = wrapperList.Count - 1; i >= 0; i--)
+        var snapshot = wrapperList.ToList();
+        for (int i = snapshot.Count - 1; i >= 0; i--)
         {
-            var materializedAction = (Action<T>)wrapperList[i].action;
+            var materializedAction = (Action<T>)snapshot[i].action;
             materializedAction.Invoke(battleEvent);
         }
     }

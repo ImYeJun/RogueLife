@@ -22,6 +22,7 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
 
     protected override void OnDead()
     {
+        if (isDead) return;
         base.OnDead();
 
         playerHealth.OnMentalBreakDown -= OnDead;
@@ -30,7 +31,8 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
         context.ActionScheduler.EnqueueFront(action);
     }
 
-    public void ReceiveDamage(PlayerBattleHurtContext hurtContext, BattleHurtSource source) { 
+    public void ReceiveDamage(PlayerBattleHurtContext hurtContext, BattleHurtSource source) {
+        if (isDead) return; 
         if (hurtContext.TotalDamage <= 0) { return; }
 
         playerHealth.HurtBattleHealth(hurtContext.BattleHealthDamage, false);
@@ -42,12 +44,14 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
 
     public void HurtMentality(int damage)
     {
+        if (isDead) return;
         playerHealth.HurtMentality(damage);
         viewEventPublisher.Publish(new PlayerHurt(viewEventPublisher.GetNextSequenceId(), this, 0, damage, playerHealth.CurrentBattleHealth, playerHealth.CurrentMentality, false));
     }
 
     public override void RequestHurt(int amount, BattleHurtSource source)
     {
+        if (isDead) return;
         context.ActionScheduler.Enqueue(new RequestHurtPlayerBattleAction(amount, source, this));
     }
     public PlayerBattleHurtContext GenerateHurtContext(int amount)
@@ -61,6 +65,7 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
     }
 
     public override void Heal(int amount) { 
+        if (isDead) return;
         playerHealth.HealBattleHealth(amount);
         viewEventPublisher.Publish(new PlayerHealed(viewEventPublisher.GetNextSequenceId(), this, amount, playerHealth.CurrentBattleHealth));
     }

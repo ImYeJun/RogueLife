@@ -17,15 +17,6 @@ MonoBehaviour:
   description: "\uB2E4\uC74C \uC790\uC2E0\uC774 \uD558\uB294 \uD589\uB3D9\uC744 \uBB34\uD6A8\uC2DC\uD0A8\uB2E4
     (\uC77C\uD68C\uC6A9)"
   type: 1
-  grantedCondition: 0
+  grantedCondition: -1
   requiredTraits: -1
   icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554040
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554040
-      type: {class: OhMy, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}

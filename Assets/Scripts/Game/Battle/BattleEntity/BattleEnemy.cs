@@ -56,6 +56,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
 
     protected override void OnDead()
     {
+        if (isDead) return;
         behaviourInstance.OnOwnerDied(context);
         viewEventPublisher.Publish(new EnemyDied(viewEventPublisher.GetNextSequenceId(), this));
         base.OnDead();

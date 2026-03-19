@@ -54,13 +54,13 @@ public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEvent
     
     public void RemoveEnemy(BattleEnemy enemy)
     {
-        if (!currentEnemies.ContainsKey(enemy.Data)) { throw new InvalidOperationException($"[BattleEnemySystem] There's not enemy data for {enemy.Data.EnemyName}"); }
+        if (!currentEnemies.ContainsKey(enemy.Data)) { throw new InvalidOperationException($"[BattleEnemySystem/RemoveEnemy] There's not enemy data for {enemy.Data.EnemyName}"); }
 
         var enemyList = currentEnemies[enemy.Data];
 
         if (!enemyList.Remove(enemy))
         {
-            throw new InvalidOperationException("[BattleEnemySystem] There is no enemy for the given argument");
+            throw new InvalidOperationException("[BattleEnemySystem/RemoveEnemy] There is no enemy for the given argument");
         }
         enemy.Died -= RemoveEnemy;
         viewEventPublisher.Publish(new EnemyRemoved(viewEventPublisher.GetNextSequenceId(), enemy));
@@ -78,7 +78,12 @@ public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEvent
     }
     public List<BattleEnemy> GetBattleEnemies(EnemyData data)
     {
-        return currentEnemies[data] ?? new List<BattleEnemy>();
+        if (currentEnemies.TryGetValue(data, out var enemies))
+        {
+            return enemies;
+        }
+        
+        return new List<BattleEnemy>();
     }
 
     public int GetEnemyCountByData(EnemyData data)
@@ -128,9 +133,12 @@ public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEvent
 
     public void PlanNextEnemyAction(PhaseStartBattleEvent payload)
     {
-        foreach (var enemyList in currentEnemies.Values)
+        var groupSnapshot = currentEnemies.Values.ToList();
+        
+        foreach (var enemyList in groupSnapshot)
         {
-            foreach (var enemy in enemyList)
+            var enemySnapshot = enemyList.ToList();
+            foreach (var enemy in enemySnapshot)
             {
                 enemy.PlanNextAction();
             }
@@ -139,11 +147,18 @@ public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEvent
 
     public void ExecuteEnemyAction(EnemyTurnStartBattleEvent payload)
     {
-        foreach (var enemyGroup in currentEnemies.Values)
+        var groupSnapshot = currentEnemies.Values.ToList();
+
+        foreach (var enemyGroup in groupSnapshot)
         {
-            for (int i = enemyGroup.Count - 1; i >= 0; i--)
+            var enemySnapshot = enemyGroup.ToList();
+
+            for (int i = enemySnapshot.Count - 1; i >= 0; i--)
             {
-                var enemy = enemyGroup[i];
+                var enemy = enemySnapshot[i];
+                
+                if (enemy.IsDead) continue;
+
                 var plannedActions = enemy.PlannedActions;
 
                 foreach (var actionData in plannedActions)

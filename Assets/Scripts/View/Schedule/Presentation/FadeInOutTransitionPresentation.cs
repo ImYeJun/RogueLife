@@ -132,6 +132,8 @@ namespace View.ScheduleView.Presentation
 
         public void OnNodeEntered(NodeEntered payload)
         {
+            if (payload.EnteringNode is ScheduleExitNode) { return; }
+
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_MovePlayer, EnterNodePresentation());
         }
         
