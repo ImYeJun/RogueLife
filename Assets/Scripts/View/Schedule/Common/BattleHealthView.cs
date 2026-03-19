@@ -15,9 +15,7 @@ namespace View.ScheduleView
         [SerializeField] private TextMeshProUGUI battleHealthText;
 
         [Header("Tween Settings")]
-        [SerializeField] private float fillDuration = 0.3f;
         [SerializeField] private Ease fillEase = Ease.OutQuad;
-        [SerializeField] private float offsetDuration = 0.2f;
 
         private float currentDisplayedHealth;
 
@@ -37,26 +35,21 @@ namespace View.ScheduleView
             battleHealthText.text = $"{health.CurrentBattleHealth}/{health.MaxBattleHealth}";
         }
 
-        public Tween GetUpdateHealthTween(IReadOnlyHealth health)
+        public Tween GetUpdateHealthTween(int newHealth, int currentMaxHealth, float duration, float offsetDuration)
         {
-            if (health == null)
-            {
-                Debug.LogWarning("[BattleHealthView/GetUpdateHealthTween] health is null.");
-                return null;
-            }
-
             var sequence = DOTween.Sequence();
+            float normalizedBattleHealth = currentMaxHealth == 0 ? 0 : (float)newHealth/currentMaxHealth;
             
-            sequence.Join(battleHealthSlider.DOFillAmount(health.NormalizedBattleHealth, fillDuration).SetEase(fillEase));
+            sequence.Join(battleHealthSlider.DOFillAmount(normalizedBattleHealth, duration).SetEase(fillEase));
 
-            int targetHealth = health.CurrentBattleHealth;
-            int maxHealth = health.MaxBattleHealth;
+            int targetHealth = newHealth;
+            int maxHealth = currentMaxHealth;
             
             sequence.Join(DOTween.To(() => currentDisplayedHealth, x => 
             {
                 currentDisplayedHealth = x;
                 battleHealthText.text = $"{Mathf.RoundToInt(currentDisplayedHealth)}/{maxHealth}";
-            }, targetHealth, fillDuration + offsetDuration).SetEase(fillEase));
+            }, targetHealth, duration + offsetDuration).SetEase(fillEase));
 
             return sequence;
         }

@@ -157,11 +157,13 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
     private void OnHealthHurt(int actualDamage, int actualMentalityDamage, bool isOverflowed)
     {
-        scheduleViewEventBus.Publish(new PlayerHurt(sequenceIdGenerator.GetNextId(), context.Health, actualDamage, actualMentalityDamage, isOverflowed));
+        var health = context.Health;
+        scheduleViewEventBus.Publish(new PlayerHurt(sequenceIdGenerator.GetNextId(), health.CurrentBattleHealth, health.MaxBattleHealth, health.CurrentMentality, health.MaxMentality, actualDamage, actualMentalityDamage, isOverflowed));
     }
     private void OnHealthHealed(bool isOverflowed, int actualBattleHealthHeal, int actualMentalityHeal)
     {
-        scheduleViewEventBus.Publish(new PlayerHealed(sequenceIdGenerator.GetNextId(), context.Health, isOverflowed, actualBattleHealthHeal, actualMentalityHeal));
+        var health = context.Health;
+        scheduleViewEventBus.Publish(new PlayerHealed(sequenceIdGenerator.GetNextId(), health.CurrentBattleHealth, health.MaxBattleHealth, health.CurrentMentality, health.MaxMentality, isOverflowed, actualBattleHealthHeal, actualMentalityHeal));
     }
 
     public void OnRequestNextNodeSelection(List<Node> nextNodes)

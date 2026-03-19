@@ -97,22 +97,37 @@ namespace ViewEvent.ScheduleView
     public struct PlayerHurt : IScheduleViewEvent
     {
         private readonly int sequenceId;
-        private readonly IReadOnlyHealth health;
+        
+        // 💡 [수정됨] IReadOnlyHealth 대신 개별 데이터 스냅샷을 들고 있습니다.
+        private readonly int currentBattleHealth;
+        private readonly int maxBattleHealth;
+        private readonly int currentMentality;
+        private readonly int maxMentality;
+        
         private bool isOverflowed;
         private int battleHealthDamage;
         private int mentalityDamage;
 
-        public PlayerHurt(int sequenceId, IReadOnlyHealth health, int battleHealthDamage, int mentalityDamage, bool isOverflowed)
+        public PlayerHurt(int sequenceId, int currentBattleHealth, int maxBattleHealth, int currentMentality, int maxMentality, int battleHealthDamage, int mentalityDamage, bool isOverflowed)
         {
             this.sequenceId = sequenceId;
-            this.health = health;
+            this.currentBattleHealth = currentBattleHealth;
+            this.maxBattleHealth = maxBattleHealth;
+            this.currentMentality = currentMentality;
+            this.maxMentality = maxMentality;
+            
             this.battleHealthDamage = battleHealthDamage;
             this.mentalityDamage = mentalityDamage;
             this.isOverflowed = isOverflowed;
         }
         
         public int SequenceId => sequenceId;
-        public IReadOnlyHealth Health { get => health; }
+        
+        public int CurrentBattleHealth => currentBattleHealth;
+        public int MaxBattleHealth => maxBattleHealth;
+        public int CurrentMentality => currentMentality;
+        public int MaxMentality => maxMentality;
+        
         public bool IsOverflowed { get => isOverflowed; set => isOverflowed = value; }
         public int BattleHealthDamage { get => battleHealthDamage; set => battleHealthDamage = value; }
         public int MentalityDamage { get => mentalityDamage; set => mentalityDamage = value; }
@@ -121,27 +136,38 @@ namespace ViewEvent.ScheduleView
     public struct PlayerHealed : IScheduleViewEvent
     {
         private readonly int sequenceId;
-        private readonly IReadOnlyHealth health;
+        
+        private readonly int currentBattleHealth;
+        private readonly int maxBattleHealth;
+        private readonly int currentMentality;
+        private readonly int maxMentality;
+        
         private bool isOverflowed;
         private int battleHealtHeal;
         private int mentalityHeal;
 
-        public PlayerHealed(int sequenceId, IReadOnlyHealth health, bool isOverflowed, int battleHealtHeal, int mentalityHeal)
+        public PlayerHealed(int sequenceId, int currentBattleHealth, int maxBattleHealth, int currentMentality, int maxMentality, bool isOverflowed, int battleHealtHeal, int mentalityHeal)
         {
             this.sequenceId = sequenceId;
-            this.health = health;
+            this.currentBattleHealth = currentBattleHealth;
+            this.maxBattleHealth = maxBattleHealth;
+            this.currentMentality = currentMentality;
+            this.maxMentality = maxMentality;
+            
             this.isOverflowed = isOverflowed;
             this.battleHealtHeal = battleHealtHeal;
             this.mentalityHeal = mentalityHeal;
         }
 
         public int SequenceId => sequenceId;
-        public IReadOnlyHealth Health => health;
+        public int CurrentBattleHealth => currentBattleHealth;
+        public int MaxBattleHealth => maxBattleHealth;
+        public int CurrentMentality => currentMentality;
+        public int MaxMentality => maxMentality;
         public bool IsOverflowed { get => isOverflowed; set => isOverflowed = value; }
         public int BattleHealtHeal { get => battleHealtHeal; set => battleHealtHeal = value; }
         public int MentalityHeal { get => mentalityHeal; set => mentalityHeal = value; }
     }
-
     public readonly struct NextNodeSelectRequested : IScheduleViewEvent
     {
         private readonly int sequenceId;

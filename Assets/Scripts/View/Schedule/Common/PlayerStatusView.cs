@@ -13,7 +13,6 @@ namespace View.ScheduleView
         [SerializeField] private Image mentalitySlider;
 
         [Header("Tween Settings")]
-        [SerializeField] private float fillDuration = 0.3f;
         [SerializeField] private Ease fillEase = Ease.OutQuad;
 
         public override void OnInitialized() { }
@@ -29,14 +28,10 @@ namespace View.ScheduleView
             mentalitySlider.fillAmount = health.NomarlizedMentality;
         }
         
-        public Tween GetUpdateSliderTween(IReadOnlyHealth health)
+        public Tween GetUpdateSliderTween(int newHealth, int currentMaxHealth, float duration)
         {
-            if (health == null)
-            {
-                Debug.LogWarning("[PlayerStatusView/GetUpdateSliderTween] health is null.");
-                return null;
-            }
-            return mentalitySlider.DOFillAmount(health.NomarlizedMentality, fillDuration).SetEase(fillEase);
+            float nomarlizedMentality = currentMaxHealth == 0 ? 0 : (float)newHealth/currentMaxHealth;
+            return mentalitySlider.DOFillAmount(nomarlizedMentality, duration).SetEase(fillEase);
         }
     }
 }

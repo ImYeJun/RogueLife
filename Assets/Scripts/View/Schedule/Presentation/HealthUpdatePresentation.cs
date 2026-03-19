@@ -14,6 +14,10 @@ namespace View.ScheduleView
         [SerializeField] private PlayerStatusView playerStatusView;
         [SerializeField] private PlayerImageView playerImageView;
 
+        [Header("Global Tween Settings")]
+        [SerializeField] private float totalFillDuration = 0.4f;
+        [SerializeField] private float textOffsetDuration = 0.2f;
+
         public override void OnInitialized()
         {
             if (battleHealthView == null) Debug.LogWarning("[HealthUpdatePresentation/OnInitialized] battleHealthView is not assigned.");
@@ -35,40 +39,87 @@ namespace View.ScheduleView
 
         private void OnScheduleStateSynced(ScheduleStateSynced payload)
         {
-            battleHealthView.DrawViewInstant(payload.Health);
-            mentalityView.DrawViewInstant(payload.Health);
-            playerStatusView.DrawViewInstant(payload.Health);
+            if (battleHealthView != null) battleHealthView.DrawViewInstant(payload.Health);
+            if (mentalityView != null) mentalityView.DrawViewInstant(payload.Health);
+            if (playerStatusView != null) playerStatusView.DrawViewInstant(payload.Health);
         }
 
         private void OnPlayerHurt(PlayerHurt payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHurt, HurtPresentationRoutine(payload.Health));
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHurt, HurtPresentationRoutine(payload));
         }
 
         private void OnPlayerHealed(PlayerHealed payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHealed, HealPresentationRoutine(payload.Health));
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerHealed, HealPresentationRoutine(payload));
         }
 
-        private IEnumerator HurtPresentationRoutine(IReadOnlyHealth health)
+        private IEnumerator HurtPresentationRoutine(PlayerHurt payload)
         {
             Sequence mainSeq = DOTween.Sequence();
 
-            mainSeq.Join(battleHealthView.GetUpdateHealthTween(health));
-            mainSeq.Join(mentalityView.GetUpdateMentalityTween(health));
-            mainSeq.Join(playerStatusView.GetUpdateSliderTween(health));
-            mainSeq.Join(playerImageView.GetHurtEffectTween());
+            float totalDamage = payload.BattleHealthDamage + payload.MentalityDamage;
+            float battleDur = totalDamage > 0 ? totalFillDuration * ((float)payload.BattleHealthDamage / totalDamage) : totalFillDuration;
+            float mentDur = totalDamage > 0 ? totalFillDuration * ((float)payload.MentalityDamage / totalDamage) : totalFillDuration;
+
+            Sequence battleHealthSeq = DOTween.Sequence();
+            if (payload.BattleHealthDamage > 0)
+            {
+                battleHealthSeq.Join(battleHealthView.GetUpdateHealthTween(payload.CurrentBattleHealth, payload.MaxBattleHealth, battleDur, textOffsetDuration));
+            }
+
+            Sequence mentalitySeqence = DOTween.Sequence();
+            if (payload.MentalityDamage > 0)
+            {
+                mentalitySeqence.Join(mentalityView.GetUpdateMentalityTween(payload.CurrentMentality, payload.MaxMentality, mentDur, textOffsetDuration));
+                mentalitySeqence.Join(playerStatusView.GetUpdateSliderTween(payload.CurrentMentality, payload.MaxMentality, mentDur));
+            }
+
+            mainSeq.Join(battleHealthSeq);
+            if (payload.IsOverflowed)
+            {
+                mainSeq.Insert(battleDur, mentalitySeqence);
+                battleHealthSeq.Join(playerImageView.GetHurtEffectTween());
+            }
+            else
+            {
+                mainSeq.Join(mentalitySeqence);
+                battleHealthSeq.Join(playerImageView.GetHurtEffectTween());
+            }
 
             yield return mainSeq.WaitForCompletion();
         }
 
-        private IEnumerator HealPresentationRoutine(IReadOnlyHealth health)
+        private IEnumerator HealPresentationRoutine(PlayerHealed payload)
         {
             Sequence mainSeq = DOTween.Sequence();
 
-            mainSeq.Join(battleHealthView.GetUpdateHealthTween(health));
-            mainSeq.Join(mentalityView.GetUpdateMentalityTween(health));
-            mainSeq.Join(playerStatusView.GetUpdateSliderTween(health));
+            float totalHeal = payload.BattleHealtHeal + payload.MentalityHeal;
+            float battleDur = totalHeal > 0 ? totalFillDuration * ((float)payload.BattleHealtHeal / totalHeal) : totalFillDuration;
+            float mentDur = totalHeal > 0 ? totalFillDuration * ((float)payload.MentalityHeal / totalHeal) : totalFillDuration;
+
+            Sequence mentalitySeqence = DOTween.Sequence();
+            if (payload.MentalityHeal > 0)
+            {
+                mentalitySeqence.Join(mentalityView.GetUpdateMentalityTween(payload.CurrentMentality, payload.MaxMentality, mentDur, textOffsetDuration));
+                mentalitySeqence.Join(playerStatusView.GetUpdateSliderTween(payload.CurrentMentality, payload.MaxMentality, mentDur));
+            }
+
+            Sequence battleHealthSeq = DOTween.Sequence();
+            if (payload.BattleHealtHeal > 0)
+            {
+                battleHealthSeq.Join(battleHealthView.GetUpdateHealthTween(payload.CurrentBattleHealth, payload.MaxBattleHealth, battleDur, textOffsetDuration));
+            }
+
+            mainSeq.Join(mentalitySeqence);
+            if (payload.IsOverflowed)
+            {
+                mainSeq.Insert(mentDur, battleHealthSeq);
+            }
+            else
+            {
+                mainSeq.Join(battleHealthSeq);
+            }
 
             yield return mainSeq.WaitForCompletion();
         }

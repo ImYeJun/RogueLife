@@ -27,7 +27,6 @@ namespace View.ScheduleView
         [SerializeField] private float healthBarShakeStrength = 7f; 
         [SerializeField] private int healthBarShakeVibrato = 10;
 
-        // 💡 [수정됨] 큐 등록 및 이벤트 구독 제거
         public override void OnInitialized()
         {
             image = GetComponent<Image>();
