@@ -14,6 +14,7 @@ namespace View.ScheduleView.IncidentNodeView
     public class IncidentNodeView : InteractableViewBehaviour<IScheduleViewEvent, IScheduleViewCommander>
     {
         [Header("Behaviour")]
+        private IncidentNode currentNode;
         [SerializeField] private GameObject uiRoot;
         [SerializeField] private Transform buttonsContainer; 
         [SerializeField] private GameObject incidentButtonPrefab; 
@@ -29,6 +30,9 @@ namespace View.ScheduleView.IncidentNodeView
         public override void OnInitialized()
         {
             uiRoot.SetActive(false);
+            buttonsContainer.gameObject.SetActive(false);
+            incidentImage.gameObject.SetActive(true);
+
 
             pool = new ObjectPool<IncidentChoiceButton>(
                 createFunc: () =>
@@ -46,31 +50,108 @@ namespace View.ScheduleView.IncidentNodeView
 
             activeButtons.Clear();
             eventBus.Subscribe<IncidentSelectRequested>(OnIncidentSelectRequested);
+            eventBus.Subscribe<NodeEntered>(OnNodeEntered);
+            eventBus.Subscribe<NodeExited>(OnNodeExited);
         }
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<IncidentSelectRequested>(OnIncidentSelectRequested);
+            eventBus?.Unsubscribe<NodeEntered>(OnNodeEntered);
+            eventBus?.Unsubscribe<NodeExited>(OnNodeExited);
+        }
+
+        public void OnNodeEntered(NodeEntered payload)
+        {
+            if (payload.EnteringNode is not IncidentNode incidentNode) { return ;}
+
+            currentNode = incidentNode;
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_StageSet, SetStage(), () =>
+            {
+                uiRoot.SetActive(true);
+            });
+        }
+        public IEnumerator SetStage()
+        {
+            yield return null;
+        }
+
+        public void OnNodeExited(NodeExited payload)
+        {
+            if (payload.ExitingNode != currentNode) { return; }
+            currentNode = null;
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeExit_StageUnset, UnsetStage(), () =>
+            {
+                if (payload.ExitingNode is IncidentNode)
+                {
+                    uiRoot.SetActive(false);
+                    buttonsContainer.gameObject.SetActive(false);
+                }
+            });
+        }
+        public IEnumerator UnsetStage()
+        {
+            yield return null;
         }
 
         public void OnIncidentSelectRequested(IncidentSelectRequested payload)
         {
-            uiRoot.SetActive(true);
-
             if (payload.Data.Image is not null)
             {
                 incidentImage.sprite = payload.Data.Image;
-                incidentImage.gameObject.SetActive(false);
             }
+
+            foreach (var choice in payload.Choices)
+            {
+                var button = pool.Get();
+                button.transform.SetAsLastSibling();
+                button.Initiate(choice, () => OnChoiceSelected(choice));
+                activeButtons.Add(button);
+            }
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.IncidentSelectRequested_ChoiceAppear, ChoiceButtonAppearPresentation());
+        }
+
+        private IEnumerator ChoiceButtonAppearPresentation()
+        {
+            buttonsContainer.gameObject.SetActive(true);
+            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(buttonsContainer as RectTransform);
 
             buttonsAppearTween?.Kill();
             buttonsAppearTween = DOTween.Sequence();
             
-            foreach (var choice in payload.Choices)
+            float currentDelay = 0;
+            foreach (var button in activeButtons)
             {
-                var button = pool.Get();
-                button.Initiate(choice, () => OnChoiceSelected(choice));
-                activeButtons.Add(button);
+                buttonsAppearTween.Insert(currentDelay, button.PlayAppearPresentation());
+                currentDelay += buttonAppearDelay;
             }
+
+            if (buttonsAppearTween != null && buttonsAppearTween.IsActive())
+            {
+                yield return buttonsAppearTween.WaitForCompletion();
+            }
+        }
+
+        private void OnChoiceSelected(DeterminedIncidentChoice selectedChoice)
+        {
+            buttonsAppearTween?.Kill();
+            buttonsContainer.gameObject.SetActive(false);
+            commander.SettleIncidentChoice(selectedChoice);
+
+            foreach (var button in activeButtons)
+            {
+                pool.Release(button);
+            }
+            activeButtons.Clear();
+        }
+
+#if UNITY_EDITOR
+        [ContextMenu("Play Choice Button Appear Presentation")]
+        public void TestPlayChoiceButtonAppearPresentation()
+        {
+            buttonsAppearTween?.Kill();
+            buttonsAppearTween = DOTween.Sequence();
 
             UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(buttonsContainer as RectTransform);
             float currentDelay = 0;
@@ -81,31 +162,14 @@ namespace View.ScheduleView.IncidentNodeView
             }
 
             buttonsAppearTween.Pause();
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.IncidentSelectRequested_ChoiceAppear, ChoiceButtonAppearPresentation());
+            StartCoroutine(PlayDelay(ChoiceButtonAppearPresentation()));
         }
 
-        private IEnumerator ChoiceButtonAppearPresentation()
+        private IEnumerator PlayDelay(IEnumerator presentation)
         {
-            buttonsAppearTween.Play();
-            incidentImage.gameObject.SetActive(true);
-            if (buttonsAppearTween != null && buttonsAppearTween.IsActive())
-            {
-                yield return buttonsAppearTween.WaitForCompletion();
-            }
+            yield return new WaitForSeconds(0.5f);
+            yield return StartCoroutine(presentation);
         }
-
-        private void OnChoiceSelected(DeterminedIncidentChoice selectedChoice)
-        {
-            buttonsAppearTween?.Kill();
-            commander.SettleIncidentChoice(selectedChoice);
-
-            foreach (var button in activeButtons)
-            {
-                pool.Release(button);
-            }
-            activeButtons.Clear();
-
-            uiRoot.SetActive(false);
-        }
+#endif
     }
 }

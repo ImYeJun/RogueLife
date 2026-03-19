@@ -173,10 +173,10 @@ MonoBehaviour:
   rectTransform: {fileID: 1622796767533856250}
   mainText: {fileID: 1844929474524698675}
   canvasGroup: {fileID: 2563686076502102083}
-  moveDuration: 0.4
-  moveDistance: 30
-  appearDuration: 0.2
-  moveEase: 27
+  moveDuration: 0.5
+  moveDistance: 20
+  appearDuration: 0.3
+  moveEase: 18
   appearEase: 10
 --- !u!114 &3418478988124011777
 MonoBehaviour:

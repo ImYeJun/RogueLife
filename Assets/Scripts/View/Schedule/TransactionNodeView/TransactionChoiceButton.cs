@@ -47,8 +47,8 @@ namespace View.ScheduleView.TransactionNodeView
         {
             Sequence sequence = DOTween.Sequence();
 
-            sequence.Join(rectTransform.DOAnchorPosX(moveDistance, moveDuration).From(true));
-            sequence.Join(canvasGroup.DOFade(1, appearDuration).From(0));
+            sequence.Join(rectTransform.DOAnchorPosX(moveDistance, moveDuration).SetEase(moveEase).From(true));
+            sequence.Join(canvasGroup.DOFade(1, appearDuration).SetEase(appearEase).From(0));
 
             return sequence;
         }

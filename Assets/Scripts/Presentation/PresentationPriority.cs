@@ -30,11 +30,13 @@ public static class PresentationPriority
     ///* -------------------------
 
     // Node Entered
-    public const int NodeEnter_MovePlayer = 10;
-    public const int NodeEnter_Specific = 20;
+    public const int NodeEnter_StageSet = 10;
+    public const int NodeEnter_MovePlayer = 20;
+    public const int NodeEnter_Specific = 30;
 
     // Node Exited
     public const int NodeExit_MovePlayer = 10;
+    public const int NodeExit_StageUnset = 20;
 
     // Next Node Select Requested
     public const int NodeSelect_OpenPanel = 10;

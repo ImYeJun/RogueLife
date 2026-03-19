@@ -212,10 +212,10 @@ MonoBehaviour:
   canvasGroup: {fileID: 9209491055433524932}
   mainText: {fileID: 8719124793367676141}
   subText: {fileID: 6469132029697943843}
-  moveDuration: 0.4
-  moveDistance: 30
-  appearDuration: 0.2
-  moveEase: 27
+  moveDuration: 0.5
+  moveDistance: 20
+  appearDuration: 0.3
+  moveEase: 18
   appearEase: 10
 --- !u!114 &7619055972837780885 stripped
 MonoBehaviour:

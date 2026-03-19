@@ -8741,6 +8741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.TransactionSelectView.TransactionSelectView
   uiRoot: {fileID: 1632844410}
+  buttonsContainer: {fileID: 1632844409}
   buttonMappings:
   - targetOrder: 0
     choiceButton: {fileID: 4303905}
@@ -8749,7 +8750,7 @@ MonoBehaviour:
   - targetOrder: 2
     choiceButton: {fileID: 469450555}
   image: {fileID: 738801984}
-  buttonAppearDelay: 0.1
+  buttonAppearDelay: 0.05
 --- !u!1001 &1167158272
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12253,6 +12254,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6747096143356705734, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
   m_PrefabInstance: {fileID: 1632844407}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1632844409 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6506318465164561377, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
+  m_PrefabInstance: {fileID: 1632844407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1632844410 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3086725529269195632, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
@@ -15682,8 +15688,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 590007649}
   - {fileID: 479694160}
+  - {fileID: 590007649}
   - {fileID: 874367752}
   - {fileID: 1027314862}
   - {fileID: 1268403894}
@@ -16858,7 +16864,7 @@ MonoBehaviour:
   buttonsContainer: {fileID: 6656522444005027748}
   incidentButtonPrefab: {fileID: 496771192496769035, guid: 38c9b2b9ebe503f4faba49f6064ecc48, type: 3}
   incidentImage: {fileID: 358375543}
-  buttonAppearDelay: 0.1
+  buttonAppearDelay: 0.05
 --- !u!1 &2127462194
 GameObject:
   m_ObjectHideFlags: 0

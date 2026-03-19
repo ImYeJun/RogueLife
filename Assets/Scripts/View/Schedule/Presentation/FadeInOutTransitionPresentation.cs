@@ -204,8 +204,6 @@ namespace View.ScheduleView.Presentation
             tween.Join(playerTween).Join(foregroundTween);
 
             yield return tween.WaitForCompletion();
-
-            foreground.SetActive(false);
         }
 
 #if UNITY_EDITOR

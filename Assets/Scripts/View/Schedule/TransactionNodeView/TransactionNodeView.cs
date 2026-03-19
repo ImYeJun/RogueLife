@@ -22,7 +22,9 @@ namespace View.ScheduleView.TransactionNodeView
         }
 
         [Header("Behaviour")]
+        private TransactionNode currentNode; 
         [SerializeField] private GameObject uiRoot;
+        [SerializeField] private Transform buttonsContainer; 
         [SerializeField] private List<ChoiceButtonMapping> buttonMappings;
         [SerializeField] private GameObject image;
         
@@ -33,31 +35,65 @@ namespace View.ScheduleView.TransactionNodeView
         public override void OnInitialized()
         {
             uiRoot.SetActive(false);
+            buttonsContainer.gameObject.SetActive(false); 
+            
             eventBus.Subscribe<TransactionSelectRequested>(OnTransactionSelectRequested);
+            eventBus.Subscribe<NodeEntered>(OnNodeEntered);
+            eventBus.Subscribe<NodeExited>(OnNodeExited); 
         }
+        
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<TransactionSelectRequested>(OnTransactionSelectRequested);
+            eventBus?.Unsubscribe<NodeEntered>(OnNodeEntered);
+            eventBus?.Unsubscribe<NodeExited>(OnNodeExited);
+        }
+
+        public void OnNodeEntered(NodeEntered payload)
+        {
+            if (payload.EnteringNode is not TransactionNode transactionNode) { return; }
+
+            currentNode = transactionNode;
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_StageSet, SetStage(), () =>
+            {
+                uiRoot.SetActive(true);
+                image.gameObject.SetActive(true);
+            });
+        }
+        
+        public IEnumerator SetStage()
+        {
+            yield return null;
+        }
+
+        public void OnNodeExited(NodeExited payload)
+        {
+            if (payload.ExitingNode != currentNode) { return; }
+            currentNode = null;
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeExit_StageUnset, UnsetStage(), () =>
+            {
+                if (payload.ExitingNode is TransactionNode)
+                {
+                    uiRoot.SetActive(false);
+                    buttonsContainer.gameObject.SetActive(false);
+                    image.gameObject.SetActive(false);
+                }
+            });
+        }
+        
+        public IEnumerator UnsetStage()
+        {
+            yield return null;
         }
 
         private void OnTransactionSelectRequested(TransactionSelectRequested payload)
         {
-            uiRoot.SetActive(true);
-            
-            buttonsAppearTween?.Kill();
-            buttonsAppearTween = DOTween.Sequence();
-            image.gameObject.SetActive(false);
-
-
-            float currentDelay = 0f;
             foreach (var mapping in buttonMappings)
             {
                 if (payload.Choices.TryGetValue(mapping.TargetOrder, out var choiceData))
                 {
                     mapping.ChoiceButton.Initiate(choiceData, () => OnChoiceSelected(mapping.TargetOrder));
-                    
-                    buttonsAppearTween.Insert(currentDelay, mapping.ChoiceButton.PlayAppearPresentation());
-                    currentDelay += buttonAppearDelay;
                 }
                 else
                 {
@@ -65,14 +101,27 @@ namespace View.ScheduleView.TransactionNodeView
                 }
             }
             
-            buttonsAppearTween.Pause();
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.TransactionSelectRequested_ChoiceAppear, ChoiceButtonAppearPresentation());
         }
 
         private IEnumerator ChoiceButtonAppearPresentation()
         {
-            image.gameObject.SetActive(true);
-            buttonsAppearTween.Play();
+            buttonsContainer.gameObject.SetActive(true);
+            UnityEngine.UI.LayoutRebuilder.ForceRebuildLayoutImmediate(buttonsContainer as RectTransform);
+
+            buttonsAppearTween?.Kill();
+            buttonsAppearTween = DOTween.Sequence();
+
+            float currentDelay = 0f;
+            foreach (var mapping in buttonMappings)
+            {
+                if (mapping.ChoiceButton.gameObject.activeSelf) 
+                {
+                    buttonsAppearTween.Insert(currentDelay, mapping.ChoiceButton.PlayAppearPresentation());
+                    currentDelay += buttonAppearDelay;
+                }
+            }
+
             if (buttonsAppearTween != null && buttonsAppearTween.IsActive())
             {
                 yield return buttonsAppearTween.WaitForCompletion();
@@ -82,6 +131,7 @@ namespace View.ScheduleView.TransactionNodeView
         private void OnChoiceSelected(TransactionChoiceOrder selectedOrder)
         {
             buttonsAppearTween?.Kill();
+            buttonsContainer.gameObject.SetActive(false);
             
             commander.SettleTransactionChoice(selectedOrder);
             
@@ -89,8 +139,25 @@ namespace View.ScheduleView.TransactionNodeView
             {
                 mapping.ChoiceButton.Unactive();
             }
-
-            uiRoot.SetActive(false); 
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Play Choice Button Appear Presentation")]
+        public void TestPlayChoiceButtonAppearPresentation()
+        {
+            foreach (var mapping in buttonMappings)
+            {
+                mapping.ChoiceButton.gameObject.SetActive(true);
+            }
+            
+            StartCoroutine(PlayDelay(ChoiceButtonAppearPresentation()));
+        }
+
+        private IEnumerator PlayDelay(IEnumerator presentation)
+        {
+            yield return new WaitForSeconds(0.5f);
+            yield return StartCoroutine(presentation);
+        }
+#endif
     }
 }
