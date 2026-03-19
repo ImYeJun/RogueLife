@@ -14,6 +14,10 @@ public class GameRunManagerEditor : Editor
     private SerializedProperty testHealAmount;
     private SerializedProperty isHealOverflowable;
 
+    private SerializedProperty enemyProp;
+    private SerializedProperty enemyHurtAmountProp;
+    private SerializedProperty enemyHealAmountProp;
+
     private bool showDebugTools = false; 
 
     private void OnEnable()
@@ -27,6 +31,10 @@ public class GameRunManagerEditor : Editor
         
         testHealAmount = serializedObject.FindProperty("testHealAmount");
         isHealOverflowable = serializedObject.FindProperty("isHealOverflowable");
+
+        enemyProp = serializedObject.FindProperty("enemy");
+        enemyHurtAmountProp = serializedObject.FindProperty("enemyHurtAmount");
+        enemyHealAmountProp = serializedObject.FindProperty("enemyHealAmount");
     }
 
     public override void OnInspectorGUI()
@@ -34,7 +42,7 @@ public class GameRunManagerEditor : Editor
         serializedObject.Update();
 
         DrawPropertiesExcluding(serializedObject, "m_Script", "testBelongingsEntities", "testCardEntities", "testRemoveCardEntities", 
-            "testHurtDamage", "isOverflowable", "testHealAmount", "isHealOverflowable");
+            "testHurtDamage", "isOverflowable", "testHealAmount", "isHealOverflowable", "enemy", "enemyHurtAmount", "enemyHealAmount");
 
         EditorGUILayout.Space(10);
 
@@ -65,6 +73,14 @@ public class GameRunManagerEditor : Editor
             EditorGUILayout.LabelField("💖 Heal Settings", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(testHealAmount, true);
             EditorGUILayout.PropertyField(isHealOverflowable, true);
+
+            EditorGUILayout.Space(5);
+
+            // 💡 [추가됨] 적 타겟팅 관련 인스펙터 UI
+            EditorGUILayout.LabelField("👾 Target Enemy Settings", EditorStyles.boldLabel);
+            EditorGUILayout.PropertyField(enemyProp, true);
+            EditorGUILayout.PropertyField(enemyHurtAmountProp, true);
+            EditorGUILayout.PropertyField(enemyHealAmountProp, true);
 
             EditorGUILayout.Space(10);
 
@@ -107,6 +123,21 @@ public class GameRunManagerEditor : Editor
             if (GUILayout.Button("Heal Battle Health", GUILayout.Height(30)))
             {
                 manager.TestHealBattleHealth();
+            }
+
+            EditorGUILayout.Space(5);
+
+            // 💡 [추가됨] 적에게 테스트 명령을 내리는 버튼
+            if (GUILayout.Button("Hurt Target Enemy", GUILayout.Height(30)))
+            {
+                manager.TestHurtEnemy();
+            }
+
+            EditorGUILayout.Space(2);
+
+            if (GUILayout.Button("Heal Target Enemy", GUILayout.Height(30)))
+            {
+                manager.TestHealEnemy();
             }
 
             EditorGUI.indentLevel--;

@@ -6,7 +6,7 @@ using Battle.StartEffects;
 using Unity.XR.OpenVR;
 using ViewEvent.BattleView;
 
-public class BattleSystem : IFieldBattleSystem, IBattleViewCommander
+public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
 {
     private BattleViewEventBus viewEventBus;
 

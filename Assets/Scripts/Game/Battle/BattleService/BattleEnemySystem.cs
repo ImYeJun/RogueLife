@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ViewEvent.BattleView;
 
-public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveService
+public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveService
 {
     private BattleContext context;
     private IBattleViewEventPublisher viewEventPublisher;

@@ -477,9 +477,9 @@ Transform:
   m_GameObject: {fileID: 7621401191049275610}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 0.002, y: -0.0285, z: 0}
+  m_LocalScale: {x: 0.28, y: 0.28, z: 0.28}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5598119306226170763}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -532,7 +532,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 3599071349354086885, guid: ac988d54d864463468c31687975c0792, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -593,13 +593,13 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.5, y: 3.75}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.5, y: 3.75}
   m_EdgeRadius: 0
 --- !u!1 &7687119895812368725
 GameObject:
@@ -801,11 +801,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 177705842734011401, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.743
+      value: 3.2817984
       objectReference: {fileID: 0}
     - target: {fileID: 177705842734011401, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.169
+      value: -0.58073694
       objectReference: {fileID: 0}
     - target: {fileID: 177705842734011401, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       propertyPath: m_LocalPosition.z
@@ -968,7 +968,6 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4945011816906392779}
   battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
   battleStatusEffectIconContainer: {fileID: 2960287392695078974}
-  hurtDirection: {x: 1, y: 1, z: 0}
   healthBarImage: {fileID: 1605041273057130787}
   healthText: {fileID: 1264867112611709670}
   actionIconPrefab: {fileID: 2553415525742267564, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
@@ -998,9 +997,13 @@ MonoBehaviour:
   heavyActionIconShakeAmount: {x: 0.1, y: 0.1, z: 0}
   normalStatusIconShakeAmount: {x: 0.05, y: 0, z: 0}
   heavyStatusIconShakeAmount: {x: 0.1, y: 0.1, z: 0}
+  healDuration: 0.3
+  healTextOffsetDuration: 0.2
+  healEase: 6
   testMaxHealth: 100
   testStartHealth: 100
   testDamage: 30
+  testHealAmount: 25
 --- !u!1 &8901253260552651874 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8550701417197236002, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}

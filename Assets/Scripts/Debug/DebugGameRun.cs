@@ -1,4 +1,5 @@
 using System;
+using View.BattleView;
 
 public partial class GameRun
 {
@@ -33,6 +34,16 @@ public partial class GameRun
     public void TestHealBattleHealth(int testHealAmount)
     {
         player.Health.HealBattleHealth(testHealAmount);
+    }
+
+    public void TestHurtEnemy(BattleEnemyView view, int amount)
+    {
+        battleSystem?.TestHurtEnemy(view, amount);
+    }
+
+    public void TestHealEnemy(BattleEnemyView view, int amount)
+    {
+        battleSystem?.TestHealEnemy(view, amount);
     }
 #endif
 }
