@@ -57,6 +57,11 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         var destinationDeck = deckMap[destination];
         if (sourceDeck == destinationDeck) { throw new InvalidOperationException($"[BattleDeckSystem/MoveCard] Source deck and destination deck cannot be the same. (deckType : {destination})"); }
 
+        if (destinationDeck == deckMap[BattleDeckType.HAND] && destinationDeck.Count >= Constant.BASE_MAX_HAND_ZONE_CARD_COUNT)
+        {
+            return;
+        }
+
         sourceDeck.RemoveCard(card);
         destinationDeck.AddCard(card);
 
