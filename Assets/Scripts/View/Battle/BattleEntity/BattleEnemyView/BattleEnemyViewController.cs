@@ -30,13 +30,16 @@ namespace View.BattleView
         public override void OnInitialized()
         {
             eventBus.Subscribe<InitialEnemySettled>(OnInitialEnemySettled);
+            eventBus.Subscribe<EnemySpawned>(OnEnemySpawned);
+            eventBus.Subscribe<EnemyRemoved>(OnEnemyRemoved);
         }
 
         public override void OnDestroy()
         {
-            eventBus.Unsubscribe<InitialEnemySettled>(OnInitialEnemySettled);
+            eventBus?.Unsubscribe<InitialEnemySettled>(OnInitialEnemySettled);
+            eventBus?.Unsubscribe<EnemySpawned>(OnEnemySpawned);
+            eventBus?.Unsubscribe<EnemyRemoved>(OnEnemyRemoved);
         }
-
 
         private void OnInitialEnemySettled(InitialEnemySettled payload)
         {
@@ -45,13 +48,13 @@ namespace View.BattleView
             EnemyPosition? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == enemyCount);
             if (targetConfig == null)
             {
-                Debug.LogError($"[BattleEnemyViewController] Error: No EnemyPosition configuration found for enemy count ({enemyCount})!");
+                Debug.LogError($"[BattleEnemyViewController/OnInitialEnemySettled] Error: No EnemyPosition configuration found for enemy count ({enemyCount})!");
                 return;
             }
 
             if (targetConfig.Value.Count != targetConfig.Value.Positions.Count)
             {
-                Debug.LogError($"[BattleEnemyViewController] Error: EnemyPosition configuration mismatch! The configured Count ({targetConfig.Value.Count}) does not match the actual number of positions ({targetConfig.Value.Positions.Count}).");
+                Debug.LogError($"[BattleEnemyViewController/OnInitialEnemySettled] Error: EnemyPosition configuration mismatch! The configured Count ({targetConfig.Value.Count}) does not match the actual number of positions ({targetConfig.Value.Positions.Count}).");
                 return;
             }
 
@@ -72,8 +75,69 @@ namespace View.BattleView
                 }
                 else
                 {
-                    Debug.LogError("[BattleEnemyViewController] The given battleEnemyPrefab does not have BattleEnemyView.");
+                    Debug.LogError("[BattleEnemyViewController/OnInitialEnemySettled] The given battleEnemyPrefab does not have BattleEnemyView.");
                 }
+            }
+        }
+
+        private void UpdateEnemyPositions()
+        {
+            int enemyCount = spawnedEnemyViews.Count;
+            if (enemyCount == 0) return;
+
+            EnemyPosition? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == enemyCount);
+            if (targetConfig == null)
+            {
+                Debug.LogError($"[BattleEnemyViewController/UpdateEnemyPositions] Error: No EnemyPosition configuration found for enemy count ({enemyCount})!");
+                return;
+            }
+
+            if (targetConfig.Value.Count != targetConfig.Value.Positions.Count)
+            {
+                Debug.LogError($"[BattleEnemyViewController/UpdateEnemyPositions] Error: EnemyPosition configuration mismatch! The configured Count ({targetConfig.Value.Count}) does not match the actual number of positions ({targetConfig.Value.Positions.Count}).");
+                return;
+            }
+
+            for (int i = 0; i < enemyCount; i++)
+            {
+                Vector2 targetPos = targetConfig.Value.Positions[i];
+                spawnedEnemyViews[i].UpdatePosition(targetPos);
+            }
+        }
+
+        private void OnEnemySpawned(EnemySpawned payload)
+        {
+            IReadOnlyBattleEnemy enemy = payload.Enemy;
+
+            GameObject enemyObj = Instantiate(battleEnemyPrefab, transform);
+            BattleEnemyView enemyView = enemyObj.GetComponent<BattleEnemyView>();
+
+            if (enemyView != null)
+            {
+                enemyView.Initialize(eventBus, presentationManager, commander);
+                enemyView.Initialize(enemy, Vector2.zero, viewTransitionManager);
+
+                spawnedEnemyViews.Add(enemyView);
+                UpdateEnemyPositions();
+            }
+            else
+            {
+                Debug.LogError("[BattleEnemyViewController/OnEnemySpawned] The given battleEnemyPrefab does not have BattleEnemyView.");
+            }
+        }
+
+        private void OnEnemyRemoved(EnemyRemoved payload)
+        {
+            BattleEnemyView viewToRemove = spawnedEnemyViews.FirstOrDefault(v => v.Enemy.Equals(payload.Enemy));
+            
+            if (viewToRemove != null)
+            {
+                spawnedEnemyViews.Remove(viewToRemove);
+                UpdateEnemyPositions();
+            }
+            else
+            {
+                Debug.LogWarning("[BattleEnemyViewController/OnEnemyRemoved] Target BattleEnemyView not found in spawnedEnemyViews.");
             }
         }
     }

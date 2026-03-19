@@ -107,4 +107,19 @@ namespace ViewEvent.BattleView
         public IReadOnlyBattleEnemy Actor => actor;
         public EnemyAction Action => action;
     }
+
+    public readonly struct EnemyRemoved : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly IReadOnlyBattleEnemy enemy;
+
+        public EnemyRemoved(int sequenceId, IReadOnlyBattleEnemy enemy)
+        {
+            this.sequenceId = sequenceId;
+            this.enemy = enemy;
+        }
+
+        public int SequenceId => sequenceId;
+        public IReadOnlyBattleEnemy Enemy => enemy;
+    }
 }

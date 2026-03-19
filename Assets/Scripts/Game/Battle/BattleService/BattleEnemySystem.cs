@@ -63,6 +63,7 @@ public class BattleEnemySystem : IBattleEnemySystemContext, IBattleEventObserveS
             throw new InvalidOperationException("[BattleEnemySystem] There is no enemy for the given argument");
         }
         enemy.Died -= RemoveEnemy;
+        viewEventPublisher.Publish(new EnemyRemoved(viewEventPublisher.GetNextSequenceId(), enemy));
 
         if (currentEnemies[enemy.Data].Count == 0) { currentEnemies.Remove(enemy.Data); }
         if (currentEnemies.Count == 0) { 

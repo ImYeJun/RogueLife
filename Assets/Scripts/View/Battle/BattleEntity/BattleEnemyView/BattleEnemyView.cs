@@ -109,6 +109,11 @@ namespace View.BattleView
             DrawHealthBarDirectly(enemy.CurrentHealth, enemy.MaxHealth);
         }
 
+        public void UpdatePosition(Vector2 targetPosition)
+        {
+            transform.DOMove(targetPosition, 0.4f).SetEase(Ease.OutCubic);
+        }
+
         public void OnEnemyActionPlanned(EnemyActionPlanned payload)
         {
             if (enemy == null)
