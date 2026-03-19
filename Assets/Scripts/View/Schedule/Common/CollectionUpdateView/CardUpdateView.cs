@@ -57,7 +57,7 @@ namespace View.ScheduleView.CollectionUpdateView
 
         private void SetReflectionButtonText(bool isReflection)
         {
-            reflectionButtonText.text = isReflection ? "복기 효과 보기" : "기본 효과 보기";
+            reflectionButtonText.text = isReflection ? "기본 효과 보기" : "복기 효과 보기";
         }
 
         public void SetActive(bool value)
