@@ -64,6 +64,9 @@ public static class PresentationPriority
     //Player Healed
     public const int PlayerHealed = 10;
 
+    //Schedule Cleared
+    public const int ScheduleCleared_SceneTransition = 10;
+
     ///* -------------------------
     ///* Battle
     ///* -------------------------

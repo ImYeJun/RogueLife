@@ -86,7 +86,7 @@ namespace View.BattleView
             eventBus.Subscribe<EnemyTurnEnded>(OnEnemyTurnEndend);
             eventBus.Subscribe<EnemyHurt>(OnEnemyHurt);
             eventBus.Subscribe<EnemyHealed>(OnEnemyHealed);
-            eventBus.Subscribe<EnemyDied>(OnEnemyDied);
+            // eventBus.Subscribe<EnemyDied>(OnEnemyDied);
             eventBus.Subscribe<EnemyActionExecuted>(OnEnemyActionExecuted);
         }
 
@@ -97,7 +97,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<EnemyTurnEnded>(OnEnemyTurnEndend);
             eventBus?.Unsubscribe<EnemyHurt>(OnEnemyHurt);
             eventBus?.Unsubscribe<EnemyHealed>(OnEnemyHealed);
-            eventBus?.Unsubscribe<EnemyDied>(OnEnemyDied);
+            // eventBus?.Unsubscribe<EnemyDied>(OnEnemyDied);
             eventBus?.Unsubscribe<EnemyActionExecuted>(OnEnemyActionExecuted);
         }
 
@@ -217,25 +217,25 @@ namespace View.BattleView
             currentHealth = targetHealth;
         }
 
-        private void OnEnemyDied(EnemyDied payload)
-        {
-            if (enemy == null)
-            {
-                throw new InvalidOperationException("[BattleEnemyView/OnEnemyDied] The enemy entity is not initialized yet.");
-            }
+        // private void OnEnemyDied(EnemyDied payload)
+        // {
+        //     if (enemy == null)
+        //     {
+        //         throw new InvalidOperationException("[BattleEnemyView/OnEnemyDied] The enemy entity is not initialized yet.");
+        //     }
 
-            if (!payload.DiedEnemy.Equals(enemy)) { return; }
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyDied_DiePresentation, EnemyDiedPresentation(), () =>
-            {
-                actionIcons.Clear();
-                spriteRenderer.color = new Color(spriteRenderer.color.r,spriteRenderer.color.g,spriteRenderer.color.b,0);
-                // Destroy(gameObject); 
-            });
-        }
-        private IEnumerator EnemyDiedPresentation()
-        {
-            yield return null;
-        }
+        //     if (!payload.DiedEnemy.Equals(enemy)) { return; }
+        //     presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyDied_DiePresentation, EnemyDiedPresentation(), () =>
+        //     {
+        //         actionIcons.Clear();
+        //         spriteRenderer.color = new Color(spriteRenderer.color.r,spriteRenderer.color.g,spriteRenderer.color.b,0);
+        //         // Destroy(gameObject); 
+        //     });
+        // }
+        // private IEnumerator EnemyDiedPresentation()
+        // {
+        //     yield return null;
+        // }
 
         private void DrawHealthBarDirectly(int newHealth, int maxHealth)
         {

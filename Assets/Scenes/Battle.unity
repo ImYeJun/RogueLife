@@ -3405,7 +3405,7 @@ MonoBehaviour:
     positions:
     - {x: 3.4, y: 0.44}
     - {x: 5.4, y: 0.14}
-    - {x: 1.4, y: 0.44}
+    - {x: 1.4, y: 0.14}
   - count: 4
     positions:
     - {x: 3.4, y: 0.44}

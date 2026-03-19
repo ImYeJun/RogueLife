@@ -85,11 +85,7 @@ namespace View.BattleView
 
         private void OnEnemySpawned(EnemySpawned payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemySpawned_PositionSet, SpawnEnemyPresentation(payload.Enemy));
-        }
-
-        private IEnumerator SpawnEnemyPresentation(IReadOnlyBattleEnemy enemy)
-        {
+            IReadOnlyBattleEnemy enemy = payload.Enemy;
             GameObject enemyObj = Instantiate(battleEnemyPrefab, transform);
             BattleEnemyView enemyView = enemyObj.GetComponent<BattleEnemyView>();
 
@@ -97,82 +93,117 @@ namespace View.BattleView
             {
                 enemyView.Initialize(eventBus, presentationManager, commander);
                 
+                enemyView.SetInvisibleDirectly();
+
                 spawnedEnemyViews.Add(enemyView);
 
                 int newEnemyCount = spawnedEnemyViews.Count;
                 Vector2 spawnPos = Vector2.zero;
 
                 EnemyPosition? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == newEnemyCount);
-                
                 if (targetConfig != null && targetConfig.Value.Count == targetConfig.Value.Positions.Count)
                 {
                     spawnPos = targetConfig.Value.Positions[newEnemyCount - 1];
                 }
                 else
                 {
-                    Debug.LogError($"[BattleEnemyViewController/SpawnEnemyPresentation] Error: No valid EnemyPosition configuration found for enemy count ({newEnemyCount})!");
+                    Debug.LogError($"[BattleEnemyViewController/OnEnemySpawned] Error: No valid EnemyPosition configuration found for enemy count ({newEnemyCount})!");
                 }
 
                 enemyView.Initialize(enemy, spawnPos, viewTransitionManager);
 
-                if (targetConfig != null)
-                {
-                    yield return PositioningPresentationRoutine(targetConfig.Value);
-                }
+                var snapshot = new List<BattleEnemyView>(spawnedEnemyViews);
+
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemySpawned_PositionSet, SpawnEnemyPresentation(enemyView, targetConfig, snapshot));
             }
             else
             {
-                Debug.LogError("[BattleEnemyViewController/SpawnEnemyPresentation] The given battleEnemyPrefab does not have BattleEnemyView.");
+                Debug.LogError("[BattleEnemyViewController/OnEnemySpawned] The given battleEnemyPrefab does not have BattleEnemyView.");
+            }
+        }
+
+        private IEnumerator SpawnEnemyPresentation(BattleEnemyView newlySpawnedView, EnemyPosition? targetConfig, List<BattleEnemyView> snapshot)
+        {
+            if (targetConfig != null)
+            {
+                currentPositionTween?.Kill();
+                currentPositionTween = DOTween.Sequence();
+
+                for (int i = 0; i < snapshot.Count; i++)
+                {
+                    if (snapshot[i] == null) continue;
+
+                    Vector2 targetPos = targetConfig.Value.Positions[i];
+                    Vector2 currentPos = snapshot[i].transform.position;
+                    
+                    if (Vector2.Distance(currentPos, targetPos) > 0.01f)
+                    {
+                        currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos));
+                    }
+                }
+
+                currentPositionTween.Join(newlySpawnedView.PlayAppearPresentation());
+
+                if (currentPositionTween.IsActive() && currentPositionTween.Duration() > 0)
+                {
+                    yield return currentPositionTween.WaitForCompletion();
+                }
             }
         }
 
         private void OnEnemyRemoved(EnemyRemoved payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyRemoved_PositionSet, RemoveEnemyPresentation(payload.Enemy));
-        }
-
-        private IEnumerator RemoveEnemyPresentation(IReadOnlyBattleEnemy enemy)
-        {
-            BattleEnemyView viewToRemove = spawnedEnemyViews.FirstOrDefault(v => v.Enemy.Equals(enemy));
+            BattleEnemyView viewToRemove = spawnedEnemyViews.FirstOrDefault(v => v.Enemy.Equals(payload.Enemy));
             
             if (viewToRemove != null)
             {
                 spawnedEnemyViews.Remove(viewToRemove);
-                Destroy(viewToRemove.gameObject);
 
-                int newEnemyCount = spawnedEnemyViews.Count;
+                var snapshot = new List<BattleEnemyView>(spawnedEnemyViews);
+                int newEnemyCount = snapshot.Count;
+                
+                EnemyPosition? targetConfig = null;
                 if (newEnemyCount > 0)
                 {
-                    EnemyPosition? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == newEnemyCount);
-                    if (targetConfig != null && targetConfig.Value.Count == targetConfig.Value.Positions.Count)
-                    {
-                        yield return PositioningPresentationRoutine(targetConfig.Value);
-                    }
-                    else
-                    {
-                        Debug.LogError($"[BattleEnemyViewController/RemoveEnemyPresentation] Error: No valid EnemyPosition configuration found for enemy count ({newEnemyCount})!");
-                    }
+                    targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == newEnemyCount);
                 }
+
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyRemoved_PositionSet, RemoveEnemyPresentation(viewToRemove, targetConfig, snapshot));
             }
             else
             {
-                Debug.LogWarning("[BattleEnemyViewController/RemoveEnemyPresentation] Target BattleEnemyView not found in spawnedEnemyViews.");
+                Debug.LogWarning("[BattleEnemyViewController/OnEnemyRemoved] Target BattleEnemyView not found in spawnedEnemyViews.");
+            }
+        }
+        private IEnumerator RemoveEnemyPresentation(BattleEnemyView viewToRemove, EnemyPosition? targetConfig, List<BattleEnemyView> snapshot)
+        {
+            if (viewToRemove != null)
+            {
+                yield return viewToRemove.PlayDisappearPresentation().WaitForCompletion();
+                Destroy(viewToRemove.gameObject);
+            }
+
+            if (targetConfig != null && targetConfig.Value.Count == targetConfig.Value.Positions.Count)
+            {
+                yield return PositioningPresentationRoutine(targetConfig.Value, snapshot);
             }
         }
 
-        private IEnumerator PositioningPresentationRoutine(EnemyPosition config)
+        private IEnumerator PositioningPresentationRoutine(EnemyPosition config, List<BattleEnemyView> snapshot)
         {
             currentPositionTween?.Kill();
             currentPositionTween = DOTween.Sequence();
 
-            for (int i = 0; i < spawnedEnemyViews.Count; i++)
+            for (int i = 0; i < snapshot.Count; i++)
             {
+                if (snapshot[i] == null) continue;
+
                 Vector2 targetPos = config.Positions[i];
-                Vector2 currentPos = spawnedEnemyViews[i].transform.position;
+                Vector2 currentPos = snapshot[i].transform.position;
                 
                 if (Vector2.Distance(currentPos, targetPos) > 0.01f)
                 {
-                    currentPositionTween.Join(spawnedEnemyViews[i].UpdatePosition(targetPos));
+                    currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos));
                 }
             }
 

@@ -19,6 +19,10 @@ namespace View.BattleView
         [SerializeField] protected GameObject body;
         [SerializeField] protected GameObject HealthBar;
         [SerializeField] protected SpriteRenderer spriteRenderer;
+        
+        [Header("Fade Presentation Settings")]
+        [SerializeField] protected float fadeDuration = 0.5f; // 💡 [추가됨] 등장/퇴장 페이드 시간
+
         [SerializeField] private GameObject battleStatusEffectIconPrefab;
         [SerializeField] protected Transform battleStatusEffectIconContainer;
         private List<BattleStatusEffectIcon> battleStatusEffectIcons = new List<BattleStatusEffectIcon>();
@@ -39,6 +43,40 @@ namespace View.BattleView
             eventBus?.Unsubscribe<BattleStatusEffectRemoved>(OnStatusEffectRemoved);
             eventBus?.Unsubscribe<BattleStatusEffectChanged>(OnStatusEffectChanged);
             eventBus?.Unsubscribe<BattleStatusEffectExecuted>(OnStatusEffectExecuted);
+        }
+
+        // 💡 [추가됨] 즉각적인 은신 (초기화 직후 호출)
+        public void SetInvisibleDirectly()
+        {
+            if (spriteRenderer != null)
+            {
+                Color c = spriteRenderer.color;
+                c.a = 0f;
+                spriteRenderer.color = c;
+            }
+            
+            // UI 요소나 자식 캔버스가 있다면 필요시 CanvasGroup을 통해 0으로 맞춰야 합니다.
+            // 여기서는 spriteRenderer 기준으로만 처리합니다.
+        }
+
+        // 💡 [추가됨] 서서히 나타나는 등장 연출 트윈 반환
+        public Tween PlayAppearPresentation()
+        {
+            if (spriteRenderer != null)
+            {
+                return spriteRenderer.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad);
+            }
+            return DOTween.Sequence();
+        }
+
+        // 💡 [추가됨] 서서히 사라지는 퇴장 연출 트윈 반환
+        public Tween PlayDisappearPresentation()
+        {
+            if (spriteRenderer != null)
+            {
+                return spriteRenderer.DOFade(0f, fadeDuration).SetEase(Ease.InQuad);
+            }
+            return DOTween.Sequence();
         }
 
         private void OnStatusEffectApplied(BattleStatusEffectApplied payload)

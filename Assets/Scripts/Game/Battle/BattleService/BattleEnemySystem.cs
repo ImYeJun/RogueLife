@@ -146,8 +146,6 @@ public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEvent
                 var enemy = enemyGroup[i];
                 var plannedActions = enemy.PlannedActions;
 
-                if (plannedActions.Count <= 0) { continue; }
-
                 foreach (var actionData in plannedActions)
                 {
                     var executeAction = new ExecuteEnemyActionBattleAction(enemy, actionData);

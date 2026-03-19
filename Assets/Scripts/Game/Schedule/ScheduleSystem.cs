@@ -25,7 +25,8 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public Schedule CurrentSchedule { get => currentSchedule; }
     public ScheduleSelectingViewEventBus SelectingScheduleViewEventBus { get => scheduleSelectingViewEventBus; }
     public ScheduleViewEventBus ScheduleViewEventBus { get => scheduleViewEventBus; }
-
+    //TODO This Property is only for GameRun in publishing GameRunViewEvent. Refactor is needed
+    public SequenceIdGenerator SequenceIdGenerator { get => sequenceIdGenerator; }
 
     public ScheduleSystem(
         System.Random random, ScheduleSkeletonRule skeletonRule, ScheduleNodeTypeResolveRule nodeTypeResolveRule, IEngageBattle battleSystem, Action<ScheduleHistory> onScheduleEnd,

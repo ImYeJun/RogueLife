@@ -6,16 +6,37 @@ namespace ViewEvent.GameRunView
 
     public readonly struct ScehduleSettled : IGameRunViewEvent
     {
-        public int SequenceId => throw new System.NotImplementedException();
+        private readonly int sequenceId;
+
+        public ScehduleSettled(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId => sequenceId;
     }
 
     public readonly struct RunEnded : IGameRunViewEvent
     {
-        public int SequenceId => throw new System.NotImplementedException();
+        private readonly int sequenceId;
+
+        public RunEnded(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId => sequenceId;
     }
 
     public readonly struct ScheduleCleared : IGameRunViewEvent
     {
-        public int SequenceId => throw new System.NotImplementedException();
+        private readonly int sequenceId;
+
+        public ScheduleCleared(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId => sequenceId;
     }
 }

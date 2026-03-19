@@ -116,7 +116,7 @@ public partial class GameRun
         if (history.HasMentalBroken)
         {
             onRunEnded?.Invoke();
-            viewEventBus.Publish(new RunEnded());
+            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId()));
             // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
             return;
         }
@@ -124,12 +124,12 @@ public partial class GameRun
         if (finishedSchedulesCount >= Constant.MAX_SCHEDULE_REPETITION)
         {
             onRunEnded?.Invoke();
-            viewEventBus.Publish(new RunEnded());
+            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId()));
             // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, true);
         }
         else
         {
-            viewEventBus.Publish(new ScheduleCleared());
+            viewEventBus.Publish(new ScheduleCleared(scheduleSystem.SequenceIdGenerator.GetNextId()));
         }
     }
 

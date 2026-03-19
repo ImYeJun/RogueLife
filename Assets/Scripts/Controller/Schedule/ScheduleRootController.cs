@@ -48,19 +48,19 @@ namespace Controller.Schedule
         {
             GameSceneManager.Instance.LoadScene(SceneName.MAIN_MENU);
         }
-        public void OnScheduleCleared(ScheduleCleared payloaed)
+        public void OnScheduleCleared(ScheduleCleared payload)
         {
-            GameSceneManager.Instance.LoadScene(SceneName.SCHEDULE_SELECTING);
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.ScheduleCleared_SceneTransition, SceneTransitionPresentation(SceneName.SCHEDULE_SELECTING));
         }
         public void OnBattleEngaged(BattleEngaged payload)
         {
-            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleEngaged_SceneTransition, BattleSceneTransitionPresentation());
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleEngaged_SceneTransition, SceneTransitionPresentation(SceneName.BATTLE));
         }
 
-        public IEnumerator BattleSceneTransitionPresentation()
+        public IEnumerator SceneTransitionPresentation(SceneName name)
         {
             yield return null;
-            GameSceneManager.Instance.LoadScene(SceneName.BATTLE);
+            GameSceneManager.Instance.LoadScene(name);
         }
     }
 }
