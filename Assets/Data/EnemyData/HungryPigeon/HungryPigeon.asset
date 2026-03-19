@@ -53,3 +53,4 @@ MonoBehaviour:
   - "\uAD6C\uAFB9\u2026."
   usualSprite: {fileID: 0}
   battleSprites: []
+  battleBgm: {fileID: 8300000, guid: b3e0423ea80bd0742b93d706d0e48d1f, type: 3}
