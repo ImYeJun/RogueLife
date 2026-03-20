@@ -348,8 +348,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ce2c562ba41514ba0a5a7bfcb818d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameAssembly::SkeletonGenerateRuleManager
-  scheduleSkeletonRule: {fileID: 11400000, guid: 0d0ef002a0a5f85418f9b28d29601c06, type: 2}
-  scheduleNodeTypeResolveRule: {fileID: 11400000, guid: 6bb9d1f621ceac441a38ebadf223e4a5, type: 2}
+  scheduleSkeletonRule: {fileID: 11400000, guid: 9805d36abc73d25439d3f36980192586, type: 2}
+  scheduleNodeTypeResolveRule: {fileID: 11400000, guid: 86d4bf8adaa395a4a852ec088758f15b, type: 2}
 --- !u!4 &83840619
 Transform:
   m_ObjectHideFlags: 0
@@ -4656,6 +4656,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpecialDiaryDatabase
       objectReference: {fileID: 0}
+    - target: {fileID: 9131527948261172144, guid: d163190e3884f3e48ba99c5a5c907060, type: 3}
+      propertyPath: availableSpeicalDiaryEntities.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 9131527948261172144, guid: d163190e3884f3e48ba99c5a5c907060, type: 3}
+      propertyPath: 'availableSpeicalDiaryEntities.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1450694413064337300, guid: 8c25d929a7dd1234eb2298549faf322c, type: 3}
+    - target: {fileID: 9131527948261172144, guid: d163190e3884f3e48ba99c5a5c907060, type: 3}
+      propertyPath: 'availableSpeicalDiaryEntities.Array.data[1]'
+      value: 
+      objectReference: {fileID: 6484038992076226791, guid: 3b5b94f4bdd81684fb51e0a0daa5d15a, type: 3}
+    - target: {fileID: 9131527948261172144, guid: d163190e3884f3e48ba99c5a5c907060, type: 3}
+      propertyPath: 'availableSpeicalDiaryEntities.Array.data[2]'
+      value: 
+      objectReference: {fileID: 7165060698278697072, guid: 5c81a86a78a653048b54109518711d1c, type: 3}
+    - target: {fileID: 9131527948261172144, guid: d163190e3884f3e48ba99c5a5c907060, type: 3}
+      propertyPath: 'availableSpeicalDiaryEntities.Array.data[3]'
+      value: 
+      objectReference: {fileID: 6484038992076226791, guid: 3b5b94f4bdd81684fb51e0a0daa5d15a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

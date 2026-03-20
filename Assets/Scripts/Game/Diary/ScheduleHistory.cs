@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class ScheduleHistory
 {
+    private ScheduleData data;
     private Dictionary<EnemyData, (int encounterCount, int resolvedCount)> encounterEnemies = new Dictionary<EnemyData, (int encounerCount, int resolvedCount)>();
     private Dictionary<IncidentData, int> encounterIncidents = new Dictionary<IncidentData, int>();
     private int transactionCount = 0;
@@ -15,9 +16,13 @@ public class ScheduleHistory
     private bool hasEarlyExited = false;
     private int remainMentalityOnExit;
 
-    public ScheduleHistory() {}
-    public ScheduleHistory(ScheduleHistorySaveData saveData, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase)
+    public ScheduleHistory(ScheduleData data)
     {
+        this.data = data;
+    }
+    public ScheduleHistory(ScheduleHistorySaveData saveData, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase, ScheduleDatabase scheduleDatabase)
+    {
+        data = scheduleDatabase.GetData(saveData.scheduleDataId);
         foreach (var pair in saveData.encounterEnemies)
         {
             var data = enemyDatabase.GetData(pair.Key);
@@ -58,6 +63,7 @@ public class ScheduleHistory
     public bool HasMentalBroken { get => hasMentalBroken; set => hasMentalBroken = value; }
     public bool HasEarlyExited { get => hasEarlyExited; set => hasEarlyExited = value; }
     public int RemainMentalityOnExit { get => remainMentalityOnExit; set => remainMentalityOnExit = value; }
+    public ScheduleData Data { get => data; }
 
     public void RecordEncounterEnemy(EnemyData data, bool isResolved)
     {
@@ -91,10 +97,5 @@ public class ScheduleHistory
         if (!equippedBelongingsNodeCounts.ContainsKey(data)) { equippedBelongingsNodeCounts[data] = 0; }
 
         equippedBelongingsNodeCounts[data]++;
-    }
-
-    internal void RecordEncounterIncident(object data)
-    {
-        throw new NotImplementedException();
     }
 }

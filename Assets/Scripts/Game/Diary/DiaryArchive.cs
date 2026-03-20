@@ -7,19 +7,21 @@ using Newtonsoft.Json;
 public class DiaryArchive
 {
     private List<Diary> diaries = new List<Diary>();
+    private ScheduleDatabase scheduleDatabase;
     private EnemyDatabase enemyDatabase;
     private IncidentDatabase incidentDatabase;
     private BelongingsDatabase belongingsDatabase;
     private CardDatabase cardDatabase;
     private SpecialDiaryDatabase specialDiaryDatabase;
 
-    public DiaryArchive(EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, SpecialDiaryDatabase specialDiaryDatabase)
+    public DiaryArchive(EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase, SpecialDiaryDatabase specialDiaryDatabase, ScheduleDatabase scheduleDatabase)
     {
         this.enemyDatabase = enemyDatabase;
         this.incidentDatabase = incidentDatabase;
         this.belongingsDatabase = belongingsDatabase;
         this.cardDatabase = cardDatabase;
         this.specialDiaryDatabase = specialDiaryDatabase;
+        this.scheduleDatabase = scheduleDatabase;
     }
 
     public void AddDiary(Diary diary)
@@ -80,7 +82,7 @@ public class DiaryArchive
         Dictionary<int, ScheduleHistory> scheduleHistories = new Dictionary<int, ScheduleHistory>();
         foreach(var pair in saveData.scheduleHistories)
         {
-            scheduleHistories[pair.Key] = new ScheduleHistory(pair.Value, enemyDatabase, incidentDatabase, belongingsDatabase);
+            scheduleHistories[pair.Key] = new ScheduleHistory(pair.Value, enemyDatabase, incidentDatabase, belongingsDatabase, scheduleDatabase);
         }
 
         bool areAllScheduleFinished = saveData.areAllSchedulesFinished;

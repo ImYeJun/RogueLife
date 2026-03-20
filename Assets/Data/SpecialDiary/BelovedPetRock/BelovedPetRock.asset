@@ -13,28 +13,6 @@ MonoBehaviour:
   m_Name: BelovedPetRock
   m_EditorClassIdentifier: GameAssembly::SpecialDiaryData
   id: SpecialDiary_BelovedPetRock
-  description: 
-  requirements:
-  - rid: 7557519912807170146
-  - rid: 7557519912807170147
-  - rid: 7557519912807170148
-  - rid: 7557519912807170149
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557519912807170146
-      type: {class: SpecialDiaryRequirementsFinalEquippingBelongings, ns: , asm: GameAssembly}
-      data:
-        data: {fileID: 11400000, guid: d9a43aed20362824e8741703a397e06b, type: 2}
-    - rid: 7557519912807170147
-      type: {class: SpecialDiaryRequirementBelongingsEquipNodeCount, ns: , asm: GameAssembly}
-      data:
-        data: {fileID: 11400000, guid: d9a43aed20362824e8741703a397e06b, type: 2}
-        requiredNodeCount: 15
-    - rid: 7557519912807170148
-      type: {class: SpecialDiaryRequirementAllScheduleFinished, ns: , asm: GameAssembly}
-      data: 
-    - rid: 7557519912807170149
-      type: {class: SpecialDiaryRequirementRemainMentality, ns: , asm: GameAssembly}
-      data:
-        amount: 55
+  image: {fileID: 0}
+  specialDiaryName: "\uB0B4 \uC18C\uC911\uD55C \uC560\uC644 \uB3CC\uB9F9\uC774"
+  description: "\uC73C\uD5E4~"

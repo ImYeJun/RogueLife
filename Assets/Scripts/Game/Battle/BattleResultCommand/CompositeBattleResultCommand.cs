@@ -6,7 +6,7 @@ namespace Battle.BattleResultCommands
     {
         private List<BattleResultCommand> leaves;
 
-        public CompositeCommand(EnemyTier mainEnemyTier, List<BattleResultCommand> leaves) : base(mainEnemyTier)
+        public CompositeCommand(EnemyTier mainEnemyTier, List<BattleResultCommand> leaves, bool hasResolved) : base(mainEnemyTier, hasResolved)
         {
             this.leaves = leaves ?? new List<BattleResultCommand>();
         }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpecialDiaryEntity : MonoBehaviour {
     [SerializeField] private SpecialDiaryData data;
-    [SerializeReference, SubclassSelector] private List<SpecialDiaryRequirement> requirements;
+    [SerializeReference, SubclassSelector] private List<SpecialDiaryRequirement> requirements = new List<SpecialDiaryRequirement>();
 
     public string Id { get => data.Id; }
     public string Description { get => data.Description; }
@@ -12,6 +12,6 @@ public class SpecialDiaryEntity : MonoBehaviour {
 
     public bool AreRequirementsFulfilled(DiaryContext context)
     {
-        return requirements.All(requirements => requirements.IsFulfilled(context));
+        return requirements.Count == 0 || requirements.All(requirements => requirements.IsFulfilled(context));
     }
 }

@@ -34,6 +34,7 @@ public class BattleNode : Node
     public void OnBattleExit(IScheduleRouter scheduleRouter, BattleResultCommand resultCommand)
     {
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
+        hasResolved = resultCommand.HasResolved;
         scheduleRouter.PendBattleResult(resultCommand);
     }
 

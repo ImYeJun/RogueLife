@@ -7,7 +7,7 @@ using ViewEvent.ScheduleView;
 
 public class Schedule : IReadOnlySchedule, IScheduleRouter
 {
-    private ScheduleHistory history = new ScheduleHistory();
+    private ScheduleHistory history;
     private ScheduleData data;
     private Node startNode;
     private Node exitNode;
@@ -23,7 +23,10 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
     public IReadOnlyDictionary<int, List<Node>> Map => map;
     public Node CurrentNode => currentNode;
 
-    public void FixData(ScheduleData data) { this.data = data; }
+    public void FixData(ScheduleData data) { 
+        this.data = data;
+        history = new ScheduleHistory(data);
+    }
     public void FixMap(Dictionary<int, List<Node>> map) { this.map = map; }
     public void FixStartNode(Node startNode) { this.startNode = startNode; }
     public void SetBossDataSlot(EnemyDataSlot slot) { this.bossDataSlot = slot; }

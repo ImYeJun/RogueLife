@@ -16,10 +16,10 @@ public class RunDiarySystem : IWriteDiaryViewCommander
     private IRunDiaryPlayerBelongingsBag pendingBelongingsBag;
     private bool pendingAreAllScheduleFinished;
 
-    public RunDiarySystem(SpecialDiaryDatabase specialDiaryDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase)
+    public RunDiarySystem(SpecialDiaryDatabase specialDiaryDatabase, ScheduleDatabase scheduleDatabase, EnemyDatabase enemyDatabase, IncidentDatabase incidentDatabase, BelongingsDatabase belongingsDatabase, CardDatabase cardDatabase)
     {
         context = new DiaryContext(enemyDatabase, incidentDatabase);
-        archive = new DiaryArchive(enemyDatabase, incidentDatabase, belongingsDatabase, cardDatabase, specialDiaryDatabase);
+        archive = new DiaryArchive(enemyDatabase, incidentDatabase, belongingsDatabase, cardDatabase, specialDiaryDatabase, scheduleDatabase);
         this.specialDiaryDatabase = specialDiaryDatabase;
     }
     

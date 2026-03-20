@@ -16,6 +16,7 @@ public abstract class Node
     public IReadOnlyList<Node> PreviousNodes { get => previousNodes; }
     public IReadOnlyList<Node> NextNodes { get => nextNodes; }
     public Node ExitNode { get => exitNode; }
+    public ScheduleHistory ScheduleHistory { get => scheduleHistory;  }
 
     public void LinkNextNode(Node nextNode) { nextNodes.Add(nextNode); }
     public void LinkPreviousNode(Node previousNode) { previousNodes.Add(previousNode); }

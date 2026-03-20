@@ -38,5 +38,10 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
     {
         context.Health.OnMentalBreakDown += currentNode.OnPlayerMentalBroken;
         context.Schedule.PendBattleResult(resultCommand);
+
+        foreach (var enemyEntity in engaingEnemyData)
+        {
+            currentNode.ScheduleHistory.RecordEncounterEnemy(enemyEntity.Data, resultCommand.HasResolved);
+        }
     }
 }

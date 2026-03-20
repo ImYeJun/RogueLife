@@ -8,7 +8,7 @@ namespace Battle.BattleResultCommands
 {
     public class ObtainCardCommand : BattleResultCommand
     {
-        public ObtainCardCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier)
+        public ObtainCardCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier, true)
         {
         }
 

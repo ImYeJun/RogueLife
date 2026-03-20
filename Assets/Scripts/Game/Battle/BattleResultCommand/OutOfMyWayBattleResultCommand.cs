@@ -2,7 +2,7 @@ namespace Battle.BattleResultCommands
 {
     public class OutOfMyWayCommand : BattleResultCommand
     {
-        public OutOfMyWayCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier)
+        public OutOfMyWayCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier, false)
         {
         }
 

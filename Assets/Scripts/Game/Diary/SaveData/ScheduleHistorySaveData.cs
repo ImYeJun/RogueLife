@@ -6,6 +6,7 @@ using UnityEngine;
 [Serializable]
 public class ScheduleHistorySaveData
 {
+    public string scheduleDataId;
     public Dictionary<string, (int encounterCount, int resvoledCount)> encounterEnemies = new Dictionary<string, (int encounterCount, int resvoledCount)>();
     public Dictionary<string, int> encounterIncidents = new Dictionary<string, int>();
     public int transactionCount;
@@ -16,6 +17,7 @@ public class ScheduleHistorySaveData
 
     public ScheduleHistorySaveData(ScheduleHistory origin)
     {
+        scheduleDataId = origin.Data.Id;
         foreach (var pair in origin.EncounterEnemies)
         {
             encounterEnemies[pair.Key.Id] = pair.Value;
@@ -39,8 +41,9 @@ public class ScheduleHistorySaveData
     }
 
     [JsonConstructor]
-    public ScheduleHistorySaveData(Dictionary<string, (int encounterCount, int resvoledCount)> encounterEnemies, Dictionary<string, int> encounterIncidents, int transactionCount, Dictionary<string, int> equippedBelongingsNodeCount, bool hasMetBoss, bool hasMentalBroken, bool hasEarlyExited)
+    public ScheduleHistorySaveData(string scheduleDataId, Dictionary<string, (int encounterCount, int resvoledCount)> encounterEnemies, Dictionary<string, int> encounterIncidents, int transactionCount, Dictionary<string, int> equippedBelongingsNodeCount, bool hasMetBoss, bool hasMentalBroken, bool hasEarlyExited)
     {
+        this.scheduleDataId = scheduleDataId;
         this.encounterEnemies = encounterEnemies;
         this.encounterIncidents = encounterIncidents;
         this.transactionCount = transactionCount;

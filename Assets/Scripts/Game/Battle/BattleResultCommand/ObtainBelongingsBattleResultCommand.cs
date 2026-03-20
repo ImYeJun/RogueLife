@@ -4,7 +4,7 @@ namespace Battle.BattleResultCommands
 {
     public class ObtainBelongingsCommand : BattleResultCommand
     {
-        public ObtainBelongingsCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier)
+        public ObtainBelongingsCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier, true)
         {
         }
 

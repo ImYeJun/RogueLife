@@ -6,8 +6,12 @@ using UnityEngine;
 public class SpecialDiaryData : ScriptableObject
 {
     [SerializeField] private string id;
+    [SerializeField] private Sprite image;
+    [SerializeField] private string specialDiaryName;
     [SerializeField] private string description;
     
     public string Id { get => id; }
+    public Sprite Image { get => image; }
+    public string Name { get => specialDiaryName; }
     public string Description { get => description; }
 }

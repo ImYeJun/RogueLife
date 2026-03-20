@@ -150,17 +150,17 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
                     new ObtainCardCommand(mainEnemyTier),
                     new ObtainBelongingsCommand(mainEnemyTier),
                     new RequestNextNodeSelectionCommand(mainEnemyTier)
-                }),
+                }, true),
             BattleResult.PLAYER_ANNIHILATE_WIN => new 
                 CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                     new ObtainCardCommand(mainEnemyTier),
                     new ObtainBelongingsCommand(mainEnemyTier),
                     new RequestNextNodeSelectionCommand(mainEnemyTier)
-                }),
+                }, true),
             BattleResult.ALL_PHASE_END => new CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                         new ReceiveDamageCommand(mainEnemyTier),
                         new RequestNextNodeSelectionCommand(mainEnemyTier)
-                    }),
+                    }, false),
             BattleResult.PLAYER_DIED => new PlayerDiedCommand(mainEnemyTier),
             BattleResult.OUT_OF_MY_WAY => new OutOfMyWayCommand(mainEnemyTier),
             _ => throw new InvalidOperationException($"[BattleSystem/ExitBattle] {result} is not valid to generate resultCommand.")
