@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using TMPro;
 using UnityEngine;
@@ -11,10 +13,19 @@ namespace View.WriteDiaryView
 {
     public class DiaryWriterView : ViewBehaviour<IWriteDiaryViewEvent>
     {
+        [Serializable]
+        public struct StampImage
+        {
+            public int minMentality;
+            public Sprite image;
+        }
+
         [Header("Common")]
         [SerializeField] private TextMeshProUGUI dateText;
         [SerializeField] private TextMeshProUGUI cotentText;
         [SerializeField] private Image stamp;
+        [SerializeField] private List<StampImage> stampImages;
+        
         [Header("Special Diary")]
         [SerializeField] private GameObject normalIndicator;
         [SerializeField] private Image specialDiaryImage;
@@ -35,8 +46,14 @@ namespace View.WriteDiaryView
             var diary = payload.Diary;
             dateText.text = diary.Date.ToString("yyyy년 M월 d일");
 
-            var stringBuilder = new StringBuilder();
+            int remainMentality = diary.ScheduleHistories.Last().Value.RemainMentalityOnExit;
+            var stampImage = stampImages.FirstOrDefault(stamp => remainMentality >= stamp.minMentality);
+            if (stampImage.image != null)
+            {
+                stamp.sprite = stampImage.image;
+            }
 
+            var stringBuilder = new StringBuilder();
             int totalEnemyEncounterCount = 0;
             int totalEnemyResovledCount = 0;
             int totalEncounterIncidentCount = 0;
@@ -68,7 +85,7 @@ namespace View.WriteDiaryView
             stringBuilder.Append("총 결산\n");
             stringBuilder.Append($"총 만난 적 : {totalEnemyEncounterCount}회 조우, {totalEnemyResovledCount}회 해결\n");
             stringBuilder.Append($"총 경험한 사건 : {totalEncounterIncidentCount}\n");
-            stringBuilder.Append($"남은 정신력 : {diary.ScheduleHistories.Last().Value.RemainMentalityOnExit}\n");
+            stringBuilder.Append($"남은 정신력 : {remainMentality}\n");
 
             cotentText.text = stringBuilder.ToString();
 

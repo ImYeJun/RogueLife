@@ -55,11 +55,11 @@ public class RunDiarySystem : IWriteDiaryViewCommander
         Diary diary;
         if (specialDiaryDatabase.TryGetData(context, out specialDiaryData))
         {
-            diary = new Diary(context.Date, context.ScheduleHistories, context.AreAllScheduleFinished, context.FinalEquipment);
+            diary = new Diary(context.Date, context.ScheduleHistories, context.AreAllScheduleFinished, context.FinalEquipment, specialDiaryData);
         }
         else
         {
-            diary = new Diary(context.Date, context.ScheduleHistories, context.AreAllScheduleFinished, context.FinalEquipment, specialDiaryData);
+            diary = new Diary(context.Date, context.ScheduleHistories, context.AreAllScheduleFinished, context.FinalEquipment);
         }
 
         archive.AddDiary(diary);

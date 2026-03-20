@@ -357,8 +357,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -231, y: -282.56024}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 6.0891, y: -282.56024}
+  m_SizeDelta: {x: 674.18, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &101331929
 MonoBehaviour:
@@ -859,7 +859,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 914549814}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.23605043
+  m_Size: 0.2360504
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1071,6 +1071,15 @@ MonoBehaviour:
   dateText: {fileID: 464565862}
   cotentText: {fileID: 17463093}
   stamp: {fileID: 1343084154}
+  stampImages:
+  - minMentality: 80
+    image: {fileID: 7026245537314740023, guid: 011c1fbffcc650e4e92bda7e2a4a61cd, type: 3}
+  - minMentality: 50
+    image: {fileID: -8869565056736990322, guid: 7790c2453701f76469737d614ef16a13, type: 3}
+  - minMentality: 20
+    image: {fileID: -1431011764049411728, guid: 5e31f77bfa2b83c448f02bf0d2ccfb57, type: 3}
+  - minMentality: 0
+    image: {fileID: -7668598176730588923, guid: 6847924cfca0d20439f54472b2a15fc1, type: 3}
   normalIndicator: {fileID: 602464093}
   specialDiaryImage: {fileID: 1169201633}
   specialDiaryName: {fileID: 101331929}
@@ -1583,7 +1592,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 222, y: 322.44}
+  m_AnchoredPosition: {x: 203.1, y: 289}
   m_SizeDelta: {x: 162.9, y: 162.8978}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1343084154
@@ -1599,7 +1608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
