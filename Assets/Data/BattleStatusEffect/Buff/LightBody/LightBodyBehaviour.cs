@@ -55,7 +55,8 @@ namespace Battle.StatusEffects.Behaviour
                 if (!modifiers.ContainsKey(card))
                 {
                     var mod = new CardCostModifier(-parent.state.StackCount);
-                    card.AddCostModifier(mod);
+                    // 💡 [수정됨] 직접 추가 대신 Action을 큐에 삽입합니다.
+                    context.ActionScheduler.Enqueue(new AddCardCostModifierBattleAction(card, mod));
                     modifiers[card] = mod;
                 }
             }
@@ -64,7 +65,8 @@ namespace Battle.StatusEffects.Behaviour
             {
                 if (modifiers.TryGetValue(card, out var mod))
                 {
-                    card.RemoveCostModifier(mod);
+                    // 💡 [수정됨] 직접 제거 대신 Action을 큐에 삽입합니다.
+                    context.ActionScheduler.Enqueue(new RemoveCardCostModifierBattleAction(card, mod));
                     modifiers.Remove(card);
                 }
             }
@@ -74,10 +76,11 @@ namespace Battle.StatusEffects.Behaviour
                 var keys = new List<Card>(modifiers.Keys);
                 foreach (var card in keys)
                 {
-                    card.RemoveCostModifier(modifiers[card]);
+                    // 💡 [수정됨]
+                    context.ActionScheduler.Enqueue(new RemoveCardCostModifierBattleAction(card, modifiers[card]));
                     
                     var newMod = new CardCostModifier(-parent.state.StackCount);
-                    card.AddCostModifier(newMod);
+                    context.ActionScheduler.Enqueue(new AddCardCostModifierBattleAction(card, newMod));
                     modifiers[card] = newMod;
                 }
             }
@@ -101,7 +104,8 @@ namespace Battle.StatusEffects.Behaviour
                 var keys = new List<Card>(modifiers.Keys);
                 foreach (var card in keys)
                 {
-                    card.RemoveCostModifier(modifiers[card]);
+                    // 💡 [수정됨]
+                    context.ActionScheduler.Enqueue(new RemoveCardCostModifierBattleAction(card, modifiers[card]));
                 }
                 modifiers.Clear();
 

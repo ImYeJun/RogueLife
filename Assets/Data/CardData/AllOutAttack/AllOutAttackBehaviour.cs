@@ -9,7 +9,6 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class AllOutAttack : CardBattleBehaviour<SingleEnemyCardTarget, SingleEnemyCardTarget>
     {
-
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
         public AllOutAttack() {}
@@ -51,9 +50,12 @@ namespace Battle.Cards.Behaviours
 
             var physicalCards = context.HandDeck.GetCardsByCondition(CardRarity.ANY, CardAttribute.PHYSICAL, CardType.ATTACK);
             var filteredCards = physicalCards.Where(card => card != owner).ToList();
+            
             for (int i = filteredCards.Count - 1; i >= 0; i--)
             {
-                var decreaseCardCostAction = new DecreaseCardActionCost(filteredCards[i], decreaseCardCostAmount, BattleScope.BATTLE);
+                // 💡 [수정됨] 범용 모디파이어 시스템으로 전환!
+                var mod = new CardCostModifier(-decreaseCardCostAmount);
+                var decreaseCardCostAction = new AddCardCostModifierBattleAction(filteredCards[i], mod);
                 context.ActionScheduler.Enqueue(decreaseCardCostAction);
             }
         }

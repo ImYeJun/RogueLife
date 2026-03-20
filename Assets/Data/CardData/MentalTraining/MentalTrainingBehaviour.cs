@@ -60,8 +60,11 @@ namespace Battle.Cards.Behaviours
                 if (!discountedCards.ContainsKey(card))
                 {
                     var modifier = new CardCostModifier(-1);
+                    
+                    // 💡 [수정됨] 직접 추가(card.AddCostModifier)하는 대신 범용 Action을 스케줄러 큐에 넣습니다!
+                    context.ActionScheduler.Enqueue(new AddCardCostModifierBattleAction(card, modifier));
+                    
                     discountedCards.Add(card, modifier);
-                    card.AddCostModifier(modifier);
                 }
             }
 
@@ -69,13 +72,18 @@ namespace Battle.Cards.Behaviours
             {
                 if (discountedCards.TryGetValue(card, out var modifier))
                 {
-                    card.RemoveCostModifier(modifier);
+                    // 💡 [수정됨] 직접 제거(card.RemoveCostModifier)하는 대신 범용 Action을 스케줄러 큐에 넣습니다!
+                    context.ActionScheduler.Enqueue(new RemoveCardCostModifierBattleAction(card, modifier));
+                    
                     discountedCards.Remove(card);
                 }
             }
 
             public void PostObserveTryUseCard(TryUseCardBattleAction action, BattleContext context)
             {
+                // (선택적) 카드가 모종의 이유로 사용이 취소되었다면 카운트를 차감하지 않도록 방어 코드를 넣어도 좋습니다.
+                // if (action.IsNullified) { return; }
+
                 RemoveDiscount(action.Card);
 
                 remainObserveCount--;

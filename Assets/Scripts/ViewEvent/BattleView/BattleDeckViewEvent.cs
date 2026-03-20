@@ -113,4 +113,22 @@ namespace ViewEvent.BattleView
         public int SequenceId => sequenceId;
         public Card Card => card;
     }
+
+    public readonly struct CardCostChanged : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly Card card;
+        private readonly int currentCost;
+
+        public CardCostChanged(int sequenceId, Card card, int currentCost)
+        {
+            this.sequenceId = sequenceId;
+            this.card = card;
+            this.currentCost = currentCost;
+        }
+
+        public int SequenceId => sequenceId;
+        public Card Card => card;
+        public int CurrentCost => currentCost;
+    }
 }

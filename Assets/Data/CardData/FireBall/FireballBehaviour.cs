@@ -47,7 +47,9 @@ namespace Battle.Cards.Behaviours
 
             if (owner.CurrentActionCost <= 0) { return; }
 
-            var decreaseCardActionCostAcion = new DecreaseCardActionCost(owner, 1, BattleScope.BATTLE);
+            // 💡 [수정됨] 범용 모디파이어 시스템으로 전환!
+            var mod = new CardCostModifier(-1);
+            var decreaseCardActionCostAcion = new AddCardCostModifierBattleAction((Card)owner, mod);
             context.ActionScheduler.Enqueue(decreaseCardActionCostAcion);
         }
         

@@ -32,7 +32,8 @@ namespace Battle.Cards.Behaviours
                 int baseActionCost = useCardEffect.Card.BaseActionCost;
                 var costModifier = new CardCostModifier(-baseActionCost);
                 
-                owner.AddCostModifier(costModifier);
+                // 💡 [수정됨] 직접 조작 대신 Action을 Enqueue
+                context.ActionScheduler.Enqueue(new AddCardCostModifierBattleAction((Card)owner, costModifier));
                 costModifiers.Add(costModifier);
             }
 
@@ -45,7 +46,8 @@ namespace Battle.Cards.Behaviours
             {
                 foreach (var costModifier in costModifiers)
                 {
-                    owner.RemoveCostModifier(costModifier);
+                    // 💡 [수정됨] 직접 조작 대신 Action을 Enqueue
+                    context.ActionScheduler.Enqueue(new RemoveCardCostModifierBattleAction((Card)owner, costModifier));
                 }
 
                 context.ActionObserverHub.UnsubscribePostObserver<UseCardEffectBattleAction>(PostUseCardEffect);

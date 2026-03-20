@@ -63,9 +63,10 @@ public class SharedCardView : MonoBehaviour
         }
     }
 
+    //TODO This code may confused with OnCardCost BattleViewEvent. It's because BattleCard is not Separated from the Card class! Refactor it!
     public void OnActionCostChanged()
     {
-        DrawCost();
+        DrawCost(card.CurrentActionCost);
     }
     
     public void OnReflectionChanged()
@@ -81,21 +82,31 @@ public class SharedCardView : MonoBehaviour
         frame.sprite = asset.Frame;
         background.sprite = card.Data.Background ?? asset.DefaultBackground;
         
-        DrawCost();
+        DrawCost(card.CurrentActionCost);
         cardName.text = card.CurrentName;
         DrawDescription(card.IsReflectionApplied);
     }
 
-    private void DrawCost()
+    public void DrawCost(int currentCost)
     {
-        cost.text = card.CurrentActionCost.ToString();
+        cost.text = currentCost.ToString();
 
-        cost.color = card.CurrentActionCost.CompareTo(card.BaseActionCost) switch
+        cost.color = currentCost.CompareTo(card.BaseActionCost) switch
         {
             1 => increasedCostTextColor,  
             -1 => decreasedCostTextColor,  
             _ => normalCostTextColor      
         };
+    }
+
+    //TODO Erase these code when Card is splited into BattleCard and SheduleCard (Or something...)
+    public void LinkCosySync()
+    {
+        card.OnCostChanged += OnActionCostChanged;
+    }
+    public void UnlinkCostSync()
+    {
+        card.OnCostChanged -= OnActionCostChanged;
     }
 
     public void DrawDescription(bool isReflection)

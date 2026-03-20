@@ -385,6 +385,7 @@ namespace View.BattleView
             var instantiatedCard = Instantiate(battleCardView, parent);
             
             var cardView = instantiatedCard.GetComponent<BattleCardView>();
+            cardView.Initialize(random, eventBus, presentationManager);
             cardView.Initialize(card, OnCardClicked);
 
             return cardView;

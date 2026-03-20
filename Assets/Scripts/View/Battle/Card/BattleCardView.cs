@@ -1,11 +1,14 @@
 using System;
+using System.Collections;
 using DG.Tweening; 
 using UnityEngine;
 using UnityEngine.EventSystems;
+using View.Core;
+using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public class BattleCardView : MonoBehaviour, IPointerClickHandler
+    public class BattleCardView : ViewBehaviour<IBattleViewEvent>, IPointerClickHandler
     {
         [Header("Settings")]
         [SerializeField] private RectTransform rectTransform;
@@ -38,10 +41,34 @@ namespace View.BattleView
 
         public Card Card => sharedCardView.Card;
 
+        
+        public override void OnInitialized()
+        {
+            eventBus.Subscribe<CardCostChanged>(OnCardCostChanged);
+        }
+        public override void OnDestroy()
+        {
+            eventBus?.Unsubscribe<CardCostChanged>(OnCardCostChanged);
+        }
         public void Initialize(Card card, Action<BattleCardView> onCardClicked)
         {
             this.onCardClicked = onCardClicked;
             sharedCardView.SetCard(card);
+            sharedCardView.UnlinkCostSync();
+        }
+
+        private void OnCardCostChanged(CardCostChanged payload)
+        {
+            if (payload.Card != sharedCardView.Card) { return;}
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardCostChanged_UpdateView, CardCostChangedPresentation(), () =>
+            {
+                sharedCardView.DrawCost(payload.CurrentCost);
+            });
+        }
+        private IEnumerator CardCostChangedPresentation()
+        {
+            yield return null;
         }
 
         public void SetLayoutTransform(Vector3 targetLocalPos, Vector3 targetLocalAngles, Vector3 targetLocalScale)

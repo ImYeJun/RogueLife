@@ -82,6 +82,7 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         eventBus.Subscribe<CardEffectExecutedBattleEvent>(OnCardEffectExecuted);
         eventBus.Subscribe<EnemyActionExecutedBattleEvent>(OnEnemyActionExecuted);
         eventBus.Subscribe<BattleStatusEffectExecutedBattleEvent>(OnBattleStatusEffectExecuted);
+        eventBus.Subscribe<CardCostChangedBattleEvent>(OnCardCostChanged);
     }
 
     public event Action<BattleResultCommand> OnBattleExit;
@@ -232,6 +233,10 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
     private void OnBattleStatusEffectExecuted(BattleStatusEffectExecutedBattleEvent payload)
     {
         viewEventBus.Publish(new BattleStatusEffectExecuted(viewEventBus.GetNextSequenceId(), payload.Owner, payload.BattleStatusEffect));
+    }
+    private void OnCardCostChanged(CardCostChangedBattleEvent payload)
+    {
+        viewEventBus.Publish(new CardCostChanged(viewEventBus.GetNextSequenceId(), payload.Card, payload.CurrentCost));
     }
 
     public BattleStatusEffectData GetStatusEffectData(string id)

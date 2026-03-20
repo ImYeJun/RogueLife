@@ -168,4 +168,7 @@ public static class PresentationPriority
 
     //Phase Decreased
     public const int PhaseDecreased_UpdateView = 10;
+
+    //Card Cost Changed
+    public const int CardCostChanged_UpdateView = 10;
 }

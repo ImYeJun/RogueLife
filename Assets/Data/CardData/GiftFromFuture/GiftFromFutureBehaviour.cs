@@ -28,7 +28,9 @@ namespace Battle.Cards.Behaviours
 
                 if (isReflection)
                 {
-                    var decreaseCardCostAction = new DecreaseCardActionCost(drawCard.Card, 1, BattleScope.BATTLE);
+                    // 💡 [수정됨] 범용 모디파이어 시스템으로 전환!
+                    var mod = new CardCostModifier(-1);
+                    var decreaseCardCostAction = new AddCardCostModifierBattleAction(drawCard.Card, mod);
                     context.ActionScheduler.EnqueueFront(decreaseCardCostAction);
                 }
 
