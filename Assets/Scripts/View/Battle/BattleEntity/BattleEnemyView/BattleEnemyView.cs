@@ -20,6 +20,8 @@ namespace View.BattleView
         private int currentHealth;
 
         [Header("BattleEnemyView")]
+        [SerializeField] private CanvasGroup entityStatusCanvasGroup;
+        [SerializeField] private CanvasGroup plannedActionsCanvasGroup;
         [SerializeField, FormerlySerializedAs("healthBar")] private Image healthBarImage;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private GameObject actionIconPrefab;
@@ -27,6 +29,10 @@ namespace View.BattleView
         [SerializeField] private RectTransform actionIconsContainer;
         [SerializeField] private TextMeshProUGUI actionText;
         private List<BattleEnemyActionIcon> actionIcons = new List<BattleEnemyActionIcon>();
+
+        // 💡 [추가됨] 부모 클래스에서 내려온 Fade Presentation Settings
+        [Header("Fade Presentation Settings")]
+        [SerializeField] protected float fadeDuration = 0.5f;
 
         [Header("Hurt Presentation Settings")]
         [SerializeField, Range(0, 1f)] private float heavyHurtRatio;
@@ -111,6 +117,64 @@ namespace View.BattleView
             transform.position = spawnPos;
 
             DrawHealthBarDirectly(enemy.CurrentHealth, enemy.MaxHealth);
+        }
+
+        public void SetInvisibleDirectly()
+        {
+            if (spriteRenderer != null)
+            {
+                Color c = spriteRenderer.color;
+                c.a = 0f;
+                spriteRenderer.color = c;
+            }
+            if (entityStatusCanvasGroup != null)
+            {
+                entityStatusCanvasGroup.alpha = 0f;
+            }
+            if (plannedActionsCanvasGroup != null)
+            {
+                plannedActionsCanvasGroup.alpha = 0f;
+            }
+        }
+
+        public Tween PlayAppearPresentation()
+        {
+            Sequence seq = DOTween.Sequence();
+
+            if (spriteRenderer != null)
+            {
+                seq.Join(spriteRenderer.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad));
+            }
+            if (entityStatusCanvasGroup != null)
+            {
+                seq.Join(entityStatusCanvasGroup.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad));
+            }
+            if (plannedActionsCanvasGroup != null)
+            {
+                seq.Join(plannedActionsCanvasGroup.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad));
+            }
+
+            return seq;
+        }
+
+        public Tween PlayDisappearPresentation()
+        {
+            Sequence seq = DOTween.Sequence();
+
+            if (spriteRenderer != null)
+            {
+                seq.Join(spriteRenderer.DOFade(0f, fadeDuration).SetEase(Ease.InQuad));
+            }
+            if (entityStatusCanvasGroup != null)
+            {
+                seq.Join(entityStatusCanvasGroup.DOFade(0f, fadeDuration).SetEase(Ease.InQuad));
+            }
+            if (plannedActionsCanvasGroup != null)
+            {
+                seq.Join(plannedActionsCanvasGroup.DOFade(0f, fadeDuration).SetEase(Ease.InQuad));
+            }
+
+            return seq;
         }
 
         public Tween UpdatePosition(Vector2 targetPosition)

@@ -20,9 +20,6 @@ namespace View.BattleView
         [SerializeField] protected GameObject HealthBar;
         [SerializeField] protected SpriteRenderer spriteRenderer;
         
-        [Header("Fade Presentation Settings")]
-        [SerializeField] protected float fadeDuration = 0.5f; // 💡 [추가됨] 등장/퇴장 페이드 시간
-
         [SerializeField] private GameObject battleStatusEffectIconPrefab;
         [SerializeField] protected Transform battleStatusEffectIconContainer;
         private List<BattleStatusEffectIcon> battleStatusEffectIcons = new List<BattleStatusEffectIcon>();
@@ -43,40 +40,6 @@ namespace View.BattleView
             eventBus?.Unsubscribe<BattleStatusEffectRemoved>(OnStatusEffectRemoved);
             eventBus?.Unsubscribe<BattleStatusEffectChanged>(OnStatusEffectChanged);
             eventBus?.Unsubscribe<BattleStatusEffectExecuted>(OnStatusEffectExecuted);
-        }
-
-        // 💡 [추가됨] 즉각적인 은신 (초기화 직후 호출)
-        public void SetInvisibleDirectly()
-        {
-            if (spriteRenderer != null)
-            {
-                Color c = spriteRenderer.color;
-                c.a = 0f;
-                spriteRenderer.color = c;
-            }
-            
-            // UI 요소나 자식 캔버스가 있다면 필요시 CanvasGroup을 통해 0으로 맞춰야 합니다.
-            // 여기서는 spriteRenderer 기준으로만 처리합니다.
-        }
-
-        // 💡 [추가됨] 서서히 나타나는 등장 연출 트윈 반환
-        public Tween PlayAppearPresentation()
-        {
-            if (spriteRenderer != null)
-            {
-                return spriteRenderer.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad);
-            }
-            return DOTween.Sequence();
-        }
-
-        // 💡 [추가됨] 서서히 사라지는 퇴장 연출 트윈 반환
-        public Tween PlayDisappearPresentation()
-        {
-            if (spriteRenderer != null)
-            {
-                return spriteRenderer.DOFade(0f, fadeDuration).SetEase(Ease.InQuad);
-            }
-            return DOTween.Sequence();
         }
 
         private void OnStatusEffectApplied(BattleStatusEffectApplied payload)
@@ -109,7 +72,7 @@ namespace View.BattleView
             }
             else
             {
-                throw new InvalidOperationException("[BattleEntityView] Received status effect removed event for an untracked status effect.");
+                throw new InvalidOperationException("[BattleEntityView/OnStatusEffectRemoved] Received status effect removed event for an untracked status effect.");
             }
         }
 
@@ -125,7 +88,7 @@ namespace View.BattleView
             }
             else
             {
-                throw new InvalidOperationException("[BattleEntityView] Received changed event for an untracked status effect.");
+                throw new InvalidOperationException("[BattleEntityView/OnStatusEffectChanged] Received changed event for an untracked status effect.");
             }
         }
 
@@ -137,7 +100,7 @@ namespace View.BattleView
 
             if (iconView is null)
             {
-                throw new InvalidCastException($"[BattleEntityView] Given Entity({gameObject.name}) doesn't contain battle status effect({payload.BattleStatusEffect.Data.Name}) but try to execute.");
+                throw new InvalidCastException($"[BattleEntityView/OnStatusEffectExecuted] Given Entity({gameObject.name}) doesn't contain battle status effect({payload.BattleStatusEffect.Data.Name}) but try to execute.");
             }
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, iconView.PlayExectuedPresentation());

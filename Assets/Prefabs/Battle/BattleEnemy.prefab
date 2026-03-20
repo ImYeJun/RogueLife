@@ -688,6 +688,7 @@ GameObject:
   - component: {fileID: 2737224376991895427}
   - component: {fileID: 5900870385297885124}
   - component: {fileID: 3236088565143695150}
+  - component: {fileID: 5422764486569813957}
   m_Layer: 0
   m_Name: PlannedActions
   m_TagString: Untagged
@@ -779,6 +780,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!225 &5422764486569813957
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8950965511105857677}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1001 &949603178758744896
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -928,7 +941,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8747571081362912058, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7654202711930046269}
+    - targetCorrespondingSourceObject: {fileID: 2711965342699662581, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2901193462291648644}
   m_SourcePrefab: {fileID: 100100000, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+--- !u!1 &2922692204243158965 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2711965342699662581, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
+  m_PrefabInstance: {fileID: 949603178758744896}
+  m_PrefabAsset: {fileID: 0}
+--- !u!225 &2901193462291648644
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2922692204243158965}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &2960287392695078974 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2610019311952558974, guid: 22a9b706fdcc89a44be08aa069515f94, type: 3}
@@ -968,12 +1001,15 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4945011816906392779}
   battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
   battleStatusEffectIconContainer: {fileID: 2960287392695078974}
+  entityStatusCanvasGroup: {fileID: 2901193462291648644}
+  plannedActionsCanvasGroup: {fileID: 5422764486569813957}
   healthBarImage: {fileID: 1605041273057130787}
   healthText: {fileID: 1264867112611709670}
   actionIconPrefab: {fileID: 2553415525742267564, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
   actionIconView: {fileID: 4421735693550918179}
   actionIconsContainer: {fileID: 3949053645069490204}
   actionText: {fileID: 3097028948126537074}
+  fadeDuration: 0.5
   heavyHurtRatio: 0.5
   normalHurtDuration: 0.1
   heavyHurtDuration: 0.3
@@ -1000,6 +1036,8 @@ MonoBehaviour:
   healDuration: 0.3
   healTextOffsetDuration: 0.2
   healEase: 6
+  positionDuration: 0.4
+  positioningEase: 9
   testMaxHealth: 100
   testStartHealth: 100
   testDamage: 30
