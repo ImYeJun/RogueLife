@@ -82,4 +82,5 @@ MonoBehaviour:
     - rid: 2642317903642755308
       type: {class: ChoiceEngageBattleEffect, ns: , asm: Assembly-CSharp}
       data:
-        engaingEnemyData: []
+        engaingEnemyData:
+        - {fileID: 5034874676155296441, guid: bcbcb788573327d4dbe7010ffb6b69fc, type: 3}

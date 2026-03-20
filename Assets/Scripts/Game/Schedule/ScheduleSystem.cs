@@ -75,6 +75,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         currentSchedule.OnRequestBattleTransition += OnRequestBattleTransition;
         currentSchedule.OnNodeExit += OnExitNode;
         currentSchedule.OnEnd += EndSchedule;
+        context.SetScehdule(currentSchedule);
         
         scheduleSelectingViewEventBus.Publish(new ScheduleSettled(sequenceIdGenerator.GetNextId(), selectPos));
     }
@@ -114,7 +115,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         if (currentSchedule.HasPendingBattleResult())
         {
             scheduleViewEventBus.Publish(new ReturnedFromBattle(sequenceIdGenerator.GetNextId()));
-            currentSchedule.ResolvePendingResult();
+            currentSchedule.ResolvePendingResult(context);
             return;
         }
     }

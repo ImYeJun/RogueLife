@@ -13,6 +13,7 @@ public class FieldContext
     private IFieldActionCost actionCost;
     private IFieldDeck deck;
     private IFieldBelongingsBag belongingsBag;
+    private IFieldSchedule schedule;
 
     public FieldContext(Random random, IFieldTransactionChoiceDatabase transactionChoiceDatabase, IFieldCardDatabase cardDatabase, IFieldBelongingsDatabase belongingsDatabase, IFieldScheduleSystem scheduleSystem, IFieldBattleSystem battleSystem, IFieldHealth health, IFieldActionCost actionCost, IFieldDeck deck, IFieldBelongingsBag belongingsBag)
     {
@@ -28,6 +29,10 @@ public class FieldContext
         this.belongingsBag = belongingsBag;
     }
 
+    public void SetScehdule(IFieldSchedule schedule)
+    {
+        this.schedule = schedule;
+    }
     public Random Random { get => random; }
     public IFieldTransactionChoiceDatabase TransactionChoiceDatabase { get => transactionChoiceDatabase; }
     public IFieldCardDatabase CardDatabase { get => cardDatabase; }
@@ -38,4 +43,5 @@ public class FieldContext
     public IFieldActionCost ActionCost { get => actionCost; }
     public IFieldDeck Deck { get => deck; }
     public IFieldBelongingsBag BelongingsBag { get => belongingsBag; }
+    public IFieldSchedule Schedule { get => schedule;  }
 }

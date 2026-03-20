@@ -70,4 +70,4 @@ MonoBehaviour:
     - rid: 2642317903642755277
       type: {class: ChoiceSetBossEffect, ns: , asm: Assembly-CSharp}
       data:
-        bossData: {fileID: 0}
+        bossEntity: {fileID: 2860687264168228554, guid: 9cc1fbc854c21d943ba956d89f8989c0, type: 3}

@@ -30,14 +30,13 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
             belongingsBag : context.BelongingsBag,
             engagingEnemiesDataSlot : engaingEnemyData.Select(entity => new EnemyDataSlot(entity)).ToList(),
             battleExit : OnBattleExit,
-            onEngage : null //TODO Refactor Schedule System
+            onEngage : context.Schedule.RequestBattleTransition
         );
     }
 
     public void OnBattleExit(BattleResultCommand resultCommand)
     {
         context.Health.OnMentalBreakDown += currentNode.OnPlayerMentalBroken;
-        
-        resultCommand.Resolve(context, currentNode);
+        context.Schedule.PendBattleResult(resultCommand);
     }
 }

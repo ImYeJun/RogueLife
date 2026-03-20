@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.BattleResultCommands;
 using NUnit.Framework;
 using ViewEvent.ScheduleView;
 
@@ -13,6 +14,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
     private Node currentNode;
     private EnemyDataSlot bossDataSlot;
     private Dictionary<int, List<Node>> map;
+    private BattleResultCommand pendingBattleResultCommand;
 
     private bool hasStarted = false;
 
@@ -125,19 +127,23 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
 
     public bool HasPendingBattleResult()
     {
-        if (currentNode is not BattleNode battleNode) { return false; }
-
-        return battleNode.HasPendingBattleResult;
+        return pendingBattleResultCommand is not null;
     }
 
-    public void ResolvePendingResult()
+    public void ResolvePendingResult(FieldContext context)
     {
-        if (currentNode is not BattleNode battleNode || !battleNode.HasPendingBattleResult) 
+        if (!HasPendingBattleResult()) 
         { 
-            UnityEngine.Debug.LogWarning($"[Schedule] Current node is not a BattleNode or has no pending result, but a battle result resolve was requested.");
+            UnityEngine.Debug.LogWarning($"[Schedule] Current shcedule has no pending result, but a battle result resolve was requested.");
             return;
         }
 
-        battleNode.ResolvePendingResult();
+        pendingBattleResultCommand.Resolve(context, currentNode);
+        pendingBattleResultCommand = null;
+    }
+
+    public void PendBattleResult(BattleResultCommand battleResult)
+    {
+        pendingBattleResultCommand = battleResult;
     }
 }

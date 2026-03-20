@@ -28,26 +28,13 @@ public class BattleNode : Node
     {
         base.OnEnter(context, scheduleRouter, scheduleHistory);
 
-        battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, OnBattleExit, scheduleRouter.RequestBattleTransition);
+        battleSystem.EngageBattle(context.Health, context.ActionCost, context.Deck, context.BelongingsBag, engagingEnemiesDataSlot, (BattleResultCommand resultCommand) => OnBattleExit(scheduleRouter, resultCommand), scheduleRouter.RequestBattleTransition);
     }
 
-    public void OnBattleExit(BattleResultCommand resultCommand)
+    public void OnBattleExit(IScheduleRouter scheduleRouter, BattleResultCommand resultCommand)
     {
         context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
-
-        pendingBattleResultCommand = resultCommand;
-    }
-
-    public void ResolvePendingResult()
-    {
-        if (pendingBattleResultCommand is null)
-        {
-            Debug.LogError("[BattleNode] pendingBattleResultCommand is null but try to resolve it");
-            return;
-        }
-
-        pendingBattleResultCommand.Resolve(context, this);
-        pendingBattleResultCommand = null;
+        scheduleRouter.PendBattleResult(resultCommand);
     }
 
     public override void OnExit(Node nextNode)
