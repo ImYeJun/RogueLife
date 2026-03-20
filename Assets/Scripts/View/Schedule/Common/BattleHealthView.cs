@@ -16,6 +16,7 @@ namespace View.ScheduleView
 
         [Header("Tween Settings")]
         [SerializeField] private Ease fillEase = Ease.OutQuad;
+        [SerializeField] private Ease textEase = Ease.OutQuad;
 
         private float currentDisplayedHealth;
 
@@ -49,7 +50,7 @@ namespace View.ScheduleView
             {
                 currentDisplayedHealth = x;
                 battleHealthText.text = $"{Mathf.RoundToInt(currentDisplayedHealth)}/{maxHealth}";
-            }, targetHealth, duration + offsetDuration).SetEase(fillEase));
+            }, targetHealth, duration + offsetDuration).SetEase(textEase));
 
             return sequence;
         }

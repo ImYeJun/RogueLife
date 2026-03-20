@@ -323,9 +323,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BattleHealthView
   battleHealthSlider: {fileID: 1863312452}
   battleHealthText: {fileID: 133928828}
-  fillDuration: 0.3
-  fillEase: 6
-  offsetDuration: 0.2
+  fillEase: 7
+  textEase: 7
 --- !u!1 &72760195
 GameObject:
   m_ObjectHideFlags: 0
@@ -1568,6 +1567,8 @@ MonoBehaviour:
   mentalityView: {fileID: 2120220270}
   playerStatusView: {fileID: 1431076835}
   playerImageView: {fileID: 1275263200}
+  totalFillDuration: 0.4
+  textOffsetDuration: 0.23
 --- !u!1 &283907488
 GameObject:
   m_ObjectHideFlags: 0
@@ -9898,11 +9899,11 @@ MonoBehaviour:
   hurtImage: {fileID: 923401773693706214, guid: fbbdfcc8aba596443b1f9cf11cdf7c51, type: 3}
   walkImage: {fileID: -472954648174649577, guid: 852d6b65db3f0804b907a8338ae80bef, type: 3}
   hurtEffectDuration: 0.5
-  shakeStrength: 15
-  shakeVibrato: 10
-  healthBarShakeDuration: 0.2
-  healthBarShakeStrength: 7
-  healthBarShakeVibrato: 10
+  shakeStrength: 10
+  shakeVibrato: 50
+  healthBarShakeDuration: 0.1
+  healthBarShakeStrength: 5
+  healthBarShakeVibrato: 50
 --- !u!1 &1277017319
 GameObject:
   m_ObjectHideFlags: 0
@@ -11011,8 +11012,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.PlayerStatusView
   mentalitySlider: {fileID: 1890604185}
-  fillDuration: 0.3
-  fillEase: 6
+  fillEase: 27
 --- !u!1 &1441922520
 GameObject:
   m_ObjectHideFlags: 0
@@ -16726,9 +16726,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.MentalityView
   mentalitySlider: {fileID: 1172680490}
   mentalityText: {fileID: 1300663144}
-  fillDuration: 0.3
-  fillEase: 6
-  offsetDuration: 0.2
+  fillEase: 7
+  textEase: 7
 --- !u!1 &2121272834
 GameObject:
   m_ObjectHideFlags: 0

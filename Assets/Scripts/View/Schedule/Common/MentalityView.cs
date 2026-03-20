@@ -16,7 +16,7 @@ namespace View.ScheduleView
 
         [Header("Tween Settings")]
         [SerializeField] private Ease fillEase = Ease.OutQuad;
-
+        [SerializeField] private Ease textEase = Ease.OutQuad;
         private float currentDisplayedMentality;
 
         public override void OnInitialized() { }
@@ -49,7 +49,7 @@ namespace View.ScheduleView
             {
                 currentDisplayedMentality = x;
                 mentalityText.text = $"{Mathf.RoundToInt(currentDisplayedMentality)}/{maxMentality}";
-            }, targetMentality, duration + offsetDuration).SetEase(fillEase));
+            }, targetMentality, duration + offsetDuration).SetEase(textEase));
 
             return sequence;
         }
