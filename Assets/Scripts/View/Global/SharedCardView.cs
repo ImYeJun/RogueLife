@@ -103,10 +103,12 @@ public class SharedCardView : MonoBehaviour
     public void LinkCosySync()
     {
         card.OnCostChanged += OnActionCostChanged;
+        card.OnReflectionChanged += OnReflectionChanged;
     }
-    public void UnlinkCostSync()
+    public void UnlinkSync()
     {
         card.OnCostChanged -= OnActionCostChanged;
+        card.OnReflectionChanged -= OnReflectionChanged;
     }
 
     public void DrawDescription(bool isReflection)

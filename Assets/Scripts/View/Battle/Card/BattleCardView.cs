@@ -45,16 +45,18 @@ namespace View.BattleView
         public override void OnInitialized()
         {
             eventBus.Subscribe<CardCostChanged>(OnCardCostChanged);
+            eventBus.Subscribe<CardReflectionChanged>(OnCardReflectionChanged);
         }
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<CardCostChanged>(OnCardCostChanged);
+            eventBus?.Unsubscribe<CardReflectionChanged>(OnCardReflectionChanged);
         }
         public void Initialize(Card card, Action<BattleCardView> onCardClicked)
         {
             this.onCardClicked = onCardClicked;
             sharedCardView.SetCard(card);
-            sharedCardView.UnlinkCostSync();
+            sharedCardView.UnlinkSync();
         }
 
         private void OnCardCostChanged(CardCostChanged payload)
@@ -67,6 +69,20 @@ namespace View.BattleView
             });
         }
         private IEnumerator CardCostChangedPresentation()
+        {
+            yield return null;
+        }
+
+        private void OnCardReflectionChanged(CardReflectionChanged payload)
+        {
+            if (payload.Card != sharedCardView.Card) { return;}
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardReflectionChanged_UpdateView, CardReflectionChangedPresentation(), () =>
+            {
+                sharedCardView.DrawDescription(payload.IsReflection);
+            });
+        }
+        private IEnumerator CardReflectionChangedPresentation()
         {
             yield return null;
         }

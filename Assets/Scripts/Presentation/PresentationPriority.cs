@@ -171,4 +171,7 @@ public static class PresentationPriority
 
     //Card Cost Changed
     public const int CardCostChanged_UpdateView = 10;
+
+    //Card Reflection Changed
+    public const int CardReflectionChanged_UpdateView = 10;
 }

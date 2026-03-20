@@ -131,4 +131,22 @@ namespace ViewEvent.BattleView
         public Card Card => card;
         public int CurrentCost => currentCost;
     }
+
+    public readonly struct CardReflectionChanged : IBattleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly Card card;
+        private readonly bool isReflection;
+
+        public CardReflectionChanged(int sequenceId, Card card, bool isReflection)
+        {
+            this.sequenceId = sequenceId;
+            this.card = card;
+            this.isReflection = isReflection;
+        }
+
+        public int SequenceId => sequenceId;
+        public Card Card => card;
+        public bool IsReflection => isReflection;
+    }
 }

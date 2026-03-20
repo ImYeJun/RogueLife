@@ -10,5 +10,6 @@ public class ApplyReflectEffectOnCard : IBattleAction
     public void Execute(BattleContext context)
     {
         card.ApplyReflection();
+        context.EventBus.Publish(new CardReflectionChangedBattleEvent(card, card.IsReflectionApplied));
     }
 }
