@@ -21,7 +21,6 @@ public class UseCardEffectBattleAction : IBattleAction
     public void Execute(BattleContext context)
     {
         var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
-        if (card.IsReflectionApplied) { card.UnapplyReflection(); }
 
         for (int i = 0; i < executeTimes; i++)
         {
@@ -32,6 +31,7 @@ public class UseCardEffectBattleAction : IBattleAction
         context.BattleDeckHistory.RecordUseCard(card, card.IsReflectionApplied);
 
         context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(card, destination));
+        if (card.IsReflectionApplied) { context.ActionScheduler.Enqueue(new UnapplyReflectEffectOnCardBattleAction(card)); }
         context.ActionScheduler.Enqueue(new NotifyCardExecutionCompletedBattleAction(card));
     }
 }

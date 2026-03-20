@@ -56,11 +56,11 @@ MonoBehaviour:
         targetType:
           rid: 2642317808700489940
         reflectionTargetType:
-          rid: 2642317808700489941
+          rid: 2642318212727308360
         lightBodyEntity: {fileID: 4726228972849699375, guid: 872668b5ff8fc4246a1a1238b17b831d, type: 3}
     - rid: 2642317808700489940
       type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 2642317808700489941
-      type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
+    - rid: 2642318212727308360
+      type: {class: NoneCardTargetType, ns: , asm: Assembly-CSharp}
       data: 

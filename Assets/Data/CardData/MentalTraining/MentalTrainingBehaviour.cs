@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Battle.Cards.Casters;
+using Field.Deck.Observers;
 using UnityEngine;
 
 namespace Battle.Cards.Behaviours
@@ -10,36 +11,79 @@ namespace Battle.Cards.Behaviours
     [Serializable]
     public class MentalTraining : CardBattleBehaviour<PlayerCardTarget, NoneCardTarget>
     {
-        private class Observer
+        private class MentalTrainingDeckObserver : IDeckObserver
         {
             private BattleContext context;
             private int remainObserveCount;
+            
+            private Dictionary<Card, CardCostModifier> discountedCards = new Dictionary<Card, CardCostModifier>();
 
-            public Observer(BattleContext context, int remainObserveCount)
+            public MentalTrainingDeckObserver(BattleContext context, int remainObserveCount)
             {
                 this.context = context;
                 this.remainObserveCount = remainObserveCount;
             }
 
-            public void ModifyTryUseCard(TryUseCardBattleAction tryUseCard, BattleContext context)
+            public void OnStartObserving(List<Card> owningCards)
             {
-                tryUseCard.ReduceCost(1);
-
-                if(--remainObserveCount <= 0)
+                foreach (var card in owningCards)
                 {
-                    CleanItSelf();
+                    ApplyDiscount(card);
+                }
+
+                context.ActionObserverHub.SubscribePostObserver<TryUseCardBattleAction>(PostObserveTryUseCard);
+            }
+
+            public void OnCardEquipped(Card card)
+            {
+                ApplyDiscount(card);
+            }
+
+            public void OnCardRemoved(Card card)
+            {
+                RemoveDiscount(card);
+            }
+
+            public void OnStopObserving(List<Card> owningCards)
+            {
+                var cardsToRestore = discountedCards.Keys.ToList();
+                foreach (var card in cardsToRestore)
+                {
+                    RemoveDiscount(card);
+                }
+
+                context.ActionObserverHub.UnsubscribePostObserver<TryUseCardBattleAction>(PostObserveTryUseCard);
+            }
+
+            private void ApplyDiscount(Card card)
+            {
+                if (!discountedCards.ContainsKey(card))
+                {
+                    var modifier = new CardCostModifier(-1);
+                    discountedCards.Add(card, modifier);
+                    card.AddCostModifier(modifier);
                 }
             }
 
-            public void OnBattleEnd(BattleEndBattleEvent payload)
+            private void RemoveDiscount(Card card)
             {
-                CleanItSelf();
+                if (discountedCards.TryGetValue(card, out var modifier))
+                {
+                    card.RemoveCostModifier(modifier);
+                    discountedCards.Remove(card);
+                }
             }
 
-            private void CleanItSelf()
+            public void PostObserveTryUseCard(TryUseCardBattleAction action, BattleContext context)
             {
-                context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(ModifyTryUseCard);
-                context.EventBus.Unsubscribe<BattleEndBattleEvent>(OnBattleEnd);
+                RemoveDiscount(action.Card);
+
+                remainObserveCount--;
+
+                if (remainObserveCount <= 0)
+                {
+                    context.DeckSystem.UnregisterHandDeckObserver(this);
+                }
             }
         }
 
@@ -81,10 +125,8 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
-            var observer = new Observer(context, 3);
-
-            context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(observer.ModifyTryUseCard);
-            context.EventBus.Subscribe<BattleEndBattleEvent>(observer.OnBattleEnd);
+            var observer = new MentalTrainingDeckObserver(context, 3);
+            context.DeckSystem.RegisterHandDeckObserver(observer);
         }
     }
 }
