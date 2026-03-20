@@ -21,6 +21,14 @@ public class UseCardBattleAction : IBattleAction
     {
         var caster = new EntityCardCaster(context.PlayerContainer.Player);
         var cardEffectAction = new UseCardEffectBattleAction(card, caster, target, executeTimes);
-        context.ActionScheduler.Enqueue(new BattleEntityAction(context.PlayerContainer.Player, cardEffectAction));
+        context.ActionScheduler.Enqueue(new BattleEntityAction(context.PlayerContainer.Player, cardEffectAction, () => OnNullified(context)));
+    }
+
+    //TODO Refector this hack
+    private void OnNullified(BattleContext context)
+    {
+        var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
+        context.ActionScheduler.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
+        context.ActionScheduler.EnqueueFront(new MoveCardToDeckBattleAction(card, destination));
     }
 }

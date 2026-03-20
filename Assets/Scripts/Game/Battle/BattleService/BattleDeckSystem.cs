@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using ViewEvent.BattleView;
-using Field.Deck.Observers; // 💡 IDeckObserver 사용을 위해 네임스페이스 추가
+using Field.Deck.Observers;
 
 public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveService
 {
@@ -125,16 +125,6 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         viewEventPublisher.Publish(new CardTriggerResolved(viewEventPublisher.GetNextSequenceId(), card));
     }
 
-    public void NullifyCardUseOnStunned(TryUseCardBattleAction tryUseCardBattleAction, BattleContext context)
-    {
-        var player =  context.PlayerContainer.Player;
-
-        if (player.CurrentCondition.HasFlag(BattleEntityCondition.STUNNED))
-        {
-            tryUseCardBattleAction.Nullify();
-        }
-    }
-
     public void RegisterHandDeckObserver(IDeckObserver observer)
     {
         if (handDeckObservers.Contains(observer))
@@ -184,8 +174,6 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
         
         activeTriggeringCards.Clear();
 
-        context.ActionObserverHub.SubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
-
         viewEventPublisher.Publish(new InitialDeckSettled(
             sequenceId : viewEventPublisher.GetNextSequenceId(),
             handDeck : this[BattleDeckType.DRAW],
@@ -215,7 +203,6 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
     
     public void OnBattleEnd(BattleEndBattleEvent payload)
     {
-        context.ActionObserverHub.UnsubscribeActionModifier<TryUseCardBattleAction>(NullifyCardUseOnStunned);
         handDeckObservers.Clear();
     }
     

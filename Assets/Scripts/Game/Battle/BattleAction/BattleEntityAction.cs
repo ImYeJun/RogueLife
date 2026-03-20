@@ -5,6 +5,7 @@ public class BattleEntityAction : IBattleAction
     private bool isNullified = false;
     private BattleEntity actor;
     private IBattleAction action;
+    private Action onNullified;
     private BattleActionScope actionScope;
 
     public BattleEntity Actor { get => actor; }
@@ -12,10 +13,11 @@ public class BattleEntityAction : IBattleAction
     public BattleActionScope ActionScope { get => actionScope; }
     public bool IsNullified { get => isNullified; }
 
-    public BattleEntityAction(BattleEntity actor, IBattleAction action)
+    public BattleEntityAction(BattleEntity actor, IBattleAction action, Action onNullified = null)
     {
         this.actor = actor;
         this.action = action;
+        this.onNullified = onNullified;
         actionScope = new BattleActionScope();
     }
 
@@ -30,6 +32,8 @@ public class BattleEntityAction : IBattleAction
     public void Nullify()
     {
         isNullified = true;
+
+        onNullified?.Invoke();
     }
 
     public void AddActionOnScopeClose(Action<BattleContext> onScopeClose)

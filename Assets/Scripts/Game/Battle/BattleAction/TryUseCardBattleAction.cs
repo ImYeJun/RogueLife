@@ -24,21 +24,26 @@ public class TryUseCardBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        if (hasNullified) { 
+        if (hasNullified)
+        {
             //TODO This code is the same with UseCardEffectBattleAction code. BULLSHIT REFACTOR IT. 
-            var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
-            context.ActionScheduler.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
-            context.ActionScheduler.EnqueueFront(new MoveCardToDeckBattleAction(card, destination));
+            OnNullified(context);
             return;
         }
         if (!card.IsAbleToUse(context, cardTarget)) { return; }
         if (!context.ActionCost.HasEnough(cost)) { return; }
 
-        // context.ActionScheduler.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
         context.ActionScheduler.EnqueueFront(new UseCardBattleAction(card, cardTarget));
         context.ActionScheduler.EnqueueFront(new ConsumeActionCostBattleAction(cost));
 
         isSuccess = true;
+    }
+
+    private void OnNullified(BattleContext context)
+    {
+        var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
+        context.ActionScheduler.EnqueueFront(new NotifyCardExecutionCompletedBattleAction(card));
+        context.ActionScheduler.EnqueueFront(new MoveCardToDeckBattleAction(card, destination));
     }
 
     public void Nullify()
