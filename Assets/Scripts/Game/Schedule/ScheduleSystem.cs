@@ -216,4 +216,9 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         return battleStatusEffectDatabase.GetData(id);
     }
+
+    public void UnsettleSchedule()
+    {
+        onScheduleUnsettled.Invoke();
+    }
 }

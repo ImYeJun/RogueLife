@@ -98,11 +98,18 @@ public partial class GameRun
     public void StartGame()
     {
         finishedSchedulesCount = 0;
-    }
+}
 
     public void OnScheduleDataUnsettled()
     {
-        viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), finishedSchedulesCount != 0));
+        bool isDiaryWritable = finishedSchedulesCount != 0;
+
+        if (isDiaryWritable)
+        {
+            runDiarySystem.PendDiary(onRunEnded, player.Deck, player.BelongingsBag, isDiaryWritable);
+        }
+
+        viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), isDiaryWritable));
     }
 
     public void OnScheduleEnd(ScheduleHistory history)
@@ -113,23 +120,23 @@ public partial class GameRun
         if (history.HasEarlyExited)
         {
             //TODO 세이브 기능 만들기 (유저가 Esc 키 눌러서 나간 경우)
+            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), false));
             return;
         }
 
-        //TODO Diary 용도의 Player interface 만들기
         if (history.HasMentalBroken)
         {
-            onRunEnded?.Invoke();
+            runDiarySystem.PendDiary(onRunEnded, player.Deck, player.BelongingsBag, false);
+
             viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), true));
-            // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
             return;
         }
 
         if (finishedSchedulesCount >= Constant.MAX_SCHEDULE_REPETITION)
         {
-            onRunEnded?.Invoke();
+            runDiarySystem.PendDiary(onRunEnded, player.Deck, player.BelongingsBag, true);
+
             viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), true));
-            // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, true);
         }
         else
         {

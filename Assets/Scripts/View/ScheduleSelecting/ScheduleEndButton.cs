@@ -34,7 +34,7 @@ namespace View.ScheduleSelecting
 
         public void OnPressed()
         {
-            UnityEngine.Debug.Log("ToDo : 일기 쓰기 기능 구현하기");
+            commander.UnsettleSchedule();
         }
     }
 }

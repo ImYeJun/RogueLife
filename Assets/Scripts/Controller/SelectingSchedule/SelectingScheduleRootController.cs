@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using View.Core;
+using ViewEvent.GameRunView;
 using ViewEvent.ScheduleSelecting;
 
 namespace Controller.SelectingSchedule
@@ -28,9 +29,15 @@ namespace Controller.SelectingSchedule
                 interactabelView.Initialize(random, viewEventBus, PresentationManager.Instance ,viewCommander);
             }
 
+            currentRun.ViewEventBus.Subscribe<RunEnded>(OnRunEnded);
             viewEventBus.Subscribe<ScheduleSettled>(OnScheduleSettled);
 
             currentRun.StartSchedule();
+        }
+        public void OnDestroy()
+        {
+            currentRun?.ViewEventBus?.Unsubscribe<RunEnded>(OnRunEnded);
+            viewEventBus.Unsubscribe<ScheduleSettled>(OnScheduleSettled);
         }
 
         public void OnScheduleSettled(ScheduleSettled payload)
@@ -46,10 +53,16 @@ namespace Controller.SelectingSchedule
 
             yield return null;
         }
-
-        public void OnDestroy()
+        
+        public void OnRunEnded(RunEnded payload)
         {
-            viewEventBus.Unsubscribe<ScheduleSettled>(OnScheduleSettled);
+            SceneName destination = payload.DiaryWritable ? SceneName.WRITE_DIARY : SceneName.MAIN_MENU;
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.GameEnded_SceneTransition, SceneTransitionPresentation(destination));
+        }
+        public IEnumerator SceneTransitionPresentation(SceneName name)
+        {
+            yield return null;
+            GameSceneManager.Instance.LoadScene(name);
         }
     }
 }

@@ -177,4 +177,14 @@ public static class PresentationPriority
 
     //Card Reflection Changed
     public const int CardReflectionChanged_UpdateView = 10;
+
+    ///* -------------------------
+    ///* Write Diary
+    ///* -------------------------
+    
+    // Diary Written
+    public const int DiaryWritten_ = 10;
+
+    // Return To Main Menu Requested
+    public const int ReturnToMainMenuRequested_SceneTransition = 10;
 }
