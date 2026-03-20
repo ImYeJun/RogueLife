@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5238389702137727219
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9031868461218475776}
+  - component: {fileID: 7165060698278697072}
+  m_Layer: 0
+  m_Name: BelovedPetRock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9031868461218475776
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238389702137727219}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7165060698278697072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238389702137727219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7861f9d3f49c39c4db73249ea4bc5929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpecialDiaryEntity
+  data: {fileID: 11400000, guid: 080568cf2bdbcd34a824df8a672236fc, type: 2}
+  requirements:
+  - rid: 2642318212727308361
+  - rid: 2642318212727308362
+  - rid: 2642318212727308363
+  - rid: 2642318212727308364
+  references:
+    version: 2
+    RefIds:
+    - rid: 2642318212727308361
+      type: {class: SpecialDiaryRequirementsFinalEquippingBelongings, ns: , asm: Assembly-CSharp}
+      data:
+        data: {fileID: 11400000, guid: d9a43aed20362824e8741703a397e06b, type: 2}
+    - rid: 2642318212727308362
+      type: {class: SpecialDiaryRequirementBelongingsEquipNodeCount, ns: , asm: Assembly-CSharp}
+      data:
+        data: {fileID: 11400000, guid: d9a43aed20362824e8741703a397e06b, type: 2}
+        requiredNodeCount: 15
+    - rid: 2642318212727308363
+      type: {class: SpecialDiaryRequirementAllScheduleFinished, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2642318212727308364
+      type: {class: SpecialDiaryRequirementRemainMentality, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 55
