@@ -1,5 +1,7 @@
 public static class PresentationPriority
 {
+    //Game Ended
+    public const int GameEnded_SceneTransition = 10;
 
     ///* -------------------------
     ///* StartMenu
@@ -66,6 +68,7 @@ public static class PresentationPriority
 
     //Schedule Cleared
     public const int ScheduleCleared_SceneTransition = 10;
+
 
     ///* -------------------------
     ///* Battle

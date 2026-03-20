@@ -7,7 +7,7 @@ using System.Text;
 public class ViewScriptGenerator : EditorWindow
 {
     // 💡 1. 여기에 씬별 프리셋 데이터를 정의합니다. (나중에 씬이 추가되면 여기에 추가만 하세요!)
-    private enum ScenePreset { None, Global, StartMenu, ScheduleSelecting, ScheduleView, BattleView }
+    private enum ScenePreset { None, Global, StartMenu, ScheduleSelecting, ScheduleView, BattleView, WriteDiary }
 
     private ScenePreset currentPreset = ScenePreset.None;
     
@@ -42,6 +42,8 @@ public class ViewScriptGenerator : EditorWindow
         if (GUILayout.Button("일정 진행 (Schedule)", GUILayout.Height(30))) ApplyPreset(ScenePreset.ScheduleView);
         GUILayout.Space(5);
         if (GUILayout.Button("전투 (Battle)", GUILayout.Height(30))) ApplyPreset(ScenePreset.BattleView);
+        GUILayout.Space(5);
+        if (GUILayout.Button("일지 작성 (Write Diary)", GUILayout.Height(30))) ApplyPreset(ScenePreset.WriteDiary);
 
         // 프리셋이 선택되지 않았다면 아래 내용은 숨깁니다.
         if (currentPreset == ScenePreset.None)
@@ -117,6 +119,13 @@ public class ViewScriptGenerator : EditorWindow
                 eventNamespace = "ViewEvent.BattleView";
                 eventType = "IBattleViewEvent";
                 commanderType = "IBattleViewCommander";
+                break;
+
+            case ScenePreset.WriteDiary:
+                targetNamespace = "View.WriteDiaryView";
+                eventNamespace = "ViewEvent.WriteDiaryView";
+                eventType = "IWriteDiaryViewEvent";
+                commanderType = "IWriteDiaryViewCommander";
                 break;
         }
     }

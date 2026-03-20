@@ -54,6 +54,7 @@ public class PlayerHealth : IFieldHealth
         }
 
         OnHurt?.Invoke(actualDamage, actualMentalityDamage, isOverflowed);
+        CheckMentalBroken();
     }
 
     public void HurtMentality(int amount)
@@ -63,24 +64,24 @@ public class PlayerHealth : IFieldHealth
         int actualDamage = ProcessMentalityDamage(amount);
 
         OnHurt?.Invoke(0, actualDamage, false);
+        CheckMentalBroken();
     }
     
     private int ProcessMentalityDamage(int amount)
     {
-        bool wasBroken = IsMentalBrokenDown();
-        
         int actualDamage = Mathf.Min(currentMentality, amount);
 
         currentMentality = Mathf.Max(0, currentMentality - amount);
 
-        if (!wasBroken && IsMentalBrokenDown())
+        return actualDamage;
+    }
+    private void CheckMentalBroken()
+    {
+        if (IsMentalBrokenDown())
         {
             OnMentalBreakDown?.Invoke();
         }
-
-        return actualDamage;
     }
-
     public bool IsMentalBrokenDown() => currentMentality <= 0;
 
 

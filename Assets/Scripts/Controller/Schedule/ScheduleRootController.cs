@@ -46,7 +46,8 @@ namespace Controller.Schedule
 
         public void OnRunEnded(RunEnded payload)
         {
-            GameSceneManager.Instance.LoadScene(SceneName.MAIN_MENU);
+            SceneName destination = payload.DiaryWritable ? SceneName.WRITE_DIARY : SceneName.MAIN_MENU;
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.GameEnded_SceneTransition, SceneTransitionPresentation(destination));
         }
         public void OnScheduleCleared(ScheduleCleared payload)
         {

@@ -4,5 +4,5 @@ public enum SceneName
     SCHEDULE_SELECTING = 2,
     SCHEDULE = 3,
     BATTLE = 4,
-    WriteDiary = 5
+    WRITE_DIARY = 5
 }

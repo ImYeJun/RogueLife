@@ -3,6 +3,7 @@ using ViewEvent.BattleView;
 using ViewEvent.GameRunView;
 using ViewEvent.ScheduleSelecting;
 using ViewEvent.ScheduleView;
+using ViewEvent.WriteDiaryView;
 
 public partial class GameRun
 {
@@ -37,6 +38,9 @@ public partial class GameRun
 
     public IBattleViewCommander BattleViewCommander => battleSystem;
     public BattleViewEventBus BattleViewEventBus => battleSystem.ViewEventBus;
+
+    public IWriteDiaryViewCommander WriteDiaryViewCommander => runDiarySystem;
+    public WriteDiaryViewEventBus WriteDiaryViewEventBus => runDiarySystem.ViewEventBus;
 
     public GameRunViewEventBus ViewEventBus { get => viewEventBus; }
 
@@ -98,7 +102,7 @@ public partial class GameRun
 
     public void OnScheduleDataUnsettled()
     {
-        runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
+        viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), finishedSchedulesCount != 0));
     }
 
     public void OnScheduleEnd(ScheduleHistory history)
@@ -116,7 +120,7 @@ public partial class GameRun
         if (history.HasMentalBroken)
         {
             onRunEnded?.Invoke();
-            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId()));
+            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), true));
             // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, false);
             return;
         }
@@ -124,7 +128,7 @@ public partial class GameRun
         if (finishedSchedulesCount >= Constant.MAX_SCHEDULE_REPETITION)
         {
             onRunEnded?.Invoke();
-            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId()));
+            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), true));
             // runDiarySystem.WriteDiary(player.Deck, player.BelongingsBag, true);
         }
         else

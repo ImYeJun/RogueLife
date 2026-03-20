@@ -1,7 +1,9 @@
 using System;
+using ViewEvent.WriteDiaryView;
 
-public class RunDiarySystem
+public class RunDiarySystem : IWriteDiaryViewCommander
 {
+    private WriteDiaryViewEventBus viewEventBus = new WriteDiaryViewEventBus();
     private DiaryContext context;
     private SpecialDiaryDatabase specialDiaryDatabase;
     private DiaryArchive archive;
@@ -12,6 +14,7 @@ public class RunDiarySystem
         archive = new DiaryArchive(enemyDatabase, incidentDatabase, belongingsDatabase, cardDatabase, specialDiaryDatabase);
         this.specialDiaryDatabase = specialDiaryDatabase;
     }
+    public WriteDiaryViewEventBus ViewEventBus => viewEventBus;
 
     public void RecordScheduleHistory(int index, ScheduleHistory history)
     {

@@ -19,13 +19,16 @@ namespace ViewEvent.GameRunView
     public readonly struct RunEnded : IGameRunViewEvent
     {
         private readonly int sequenceId;
+        private readonly bool diaryWritable;
 
-        public RunEnded(int sequenceId)
+        public RunEnded(int sequenceId, bool diaryWritable)
         {
             this.sequenceId = sequenceId;
+            this.diaryWritable = diaryWritable;
         }
 
         public int SequenceId => sequenceId;
+        public bool DiaryWritable => diaryWritable;
     }
 
     public readonly struct ScheduleCleared : IGameRunViewEvent
