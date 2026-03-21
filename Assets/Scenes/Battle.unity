@@ -588,6 +588,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7460847059855408947, guid: 3c1a6373ef303d24380476e562103146, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4618,6 +4622,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7460847059855408947, guid: 3c1a6373ef303d24380476e562103146, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4922,18 +4930,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1013749835}
     m_Modifications:
-    - target: {fileID: 1731048987164333698, guid: 3c1a6373ef303d24380476e562103146, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1731048987164333698, guid: 3c1a6373ef303d24380476e562103146, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1731048987164333698, guid: 3c1a6373ef303d24380476e562103146, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5429195711061382700, guid: 3c1a6373ef303d24380476e562103146, type: 3}
       propertyPath: m_Name
       value: BelongingsIcon
@@ -5016,6 +5012,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6392655035273029914, guid: 3c1a6373ef303d24380476e562103146, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460847059855408947, guid: 3c1a6373ef303d24380476e562103146, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

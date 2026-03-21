@@ -16,6 +16,8 @@ public class BattleBelongings
     }
 
     public Sprite Image => data.Image;
+    public string Name => data.BelongingsName;
+    public string Description => data.Description;
 
     public void OnEngageBattle(BattleContext context)
     {
