@@ -219,6 +219,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
     public void UnsettleSchedule()
     {
+        scheduleSelectingViewEventBus.Publish(new WentToBed(sequenceIdGenerator.GetNextId()));
         onScheduleUnsettled.Invoke();
     }
 }

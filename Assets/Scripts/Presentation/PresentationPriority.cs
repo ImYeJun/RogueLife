@@ -26,6 +26,9 @@ public static class PresentationPriority
     public const int ScheduleSettled_FadeIn = 10;
     public const int ScheduleSettled_SceneTransition = 20;
 
+    // Went To Bed
+    public const int WentToBed_FadeOut = 10;
+
 
     ///* -------------------------
     ///* Schedule
@@ -183,9 +186,11 @@ public static class PresentationPriority
     ///* -------------------------
     
     // Diary Written
-    public const int DiaryWritten_CommonPartPresentation = 10;
-    public const int DiaryWritten_SpecialPartPresentation = 20;
+    public const int DiaryWritten_FadeIn = 10;
+    public const int DiaryWritten_CommonPartPresentation = 20;
+    public const int DiaryWritten_SpecialPartPresentation = 30;
 
     // Return To Main Menu Requested
-    public const int ReturnToMainMenuRequested_SceneTransition = 10;
+    public const int ReturnToMainMenuRequested_FadeOut = 10;
+    public const int ReturnToMainMenuRequested_SceneTransition = 20;
 }

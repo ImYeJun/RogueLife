@@ -39,4 +39,16 @@ namespace ViewEvent.ScheduleSelecting
         public int SequenceId => sequenceId;
         public Vector2 SelectPos => selectPos;
     }
+
+    public readonly struct WentToBed : IScheduleSelectingEvent
+    {
+        private readonly int sequenceId;
+
+        public WentToBed(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId => sequenceId;
+    }
 }
