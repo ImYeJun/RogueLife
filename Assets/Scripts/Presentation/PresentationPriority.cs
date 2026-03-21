@@ -183,7 +183,8 @@ public static class PresentationPriority
     ///* -------------------------
     
     // Diary Written
-    public const int DiaryWritten_ = 10;
+    public const int DiaryWritten_CommonPartPresentation = 10;
+    public const int DiaryWritten_SpecialPartPresentation = 20;
 
     // Return To Main Menu Requested
     public const int ReturnToMainMenuRequested_SceneTransition = 10;

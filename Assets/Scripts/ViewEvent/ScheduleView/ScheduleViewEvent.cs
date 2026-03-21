@@ -97,8 +97,6 @@ namespace ViewEvent.ScheduleView
     public struct PlayerHurt : IScheduleViewEvent
     {
         private readonly int sequenceId;
-        
-        // 💡 [수정됨] IReadOnlyHealth 대신 개별 데이터 스냅샷을 들고 있습니다.
         private readonly int currentBattleHealth;
         private readonly int maxBattleHealth;
         private readonly int currentMentality;

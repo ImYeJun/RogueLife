@@ -109,9 +109,10 @@ public partial class GameRun
             runDiarySystem.PendDiary(onRunEnded, player.Deck, player.BelongingsBag, isDiaryWritable);
         }
 
-        viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), isDiaryWritable));
+        viewEventBus.Publish(new RunEnded(int.MaxValue, isDiaryWritable));
     }
 
+    //TODO Notice that GameRunViewEvent SequeneceId is fixed not sequenced. Refactor it : be mindful of synchronizing current Scene's Sequence Generator
     public void OnScheduleEnd(ScheduleHistory history)
     {
         finishedSchedulesCount++;
@@ -120,7 +121,7 @@ public partial class GameRun
         if (history.HasEarlyExited)
         {
             //TODO 세이브 기능 만들기 (유저가 Esc 키 눌러서 나간 경우)
-            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), false));
+            viewEventBus.Publish(new RunEnded(int.MaxValue, false));
             return;
         }
 
@@ -128,7 +129,7 @@ public partial class GameRun
         {
             runDiarySystem.PendDiary(onRunEnded, player.Deck, player.BelongingsBag, false);
 
-            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), true));
+            viewEventBus.Publish(new RunEnded(int.MaxValue, true));
             return;
         }
 
@@ -136,11 +137,11 @@ public partial class GameRun
         {
             runDiarySystem.PendDiary(onRunEnded, player.Deck, player.BelongingsBag, true);
 
-            viewEventBus.Publish(new RunEnded(scheduleSystem.SequenceIdGenerator.GetNextId(), true));
+            viewEventBus.Publish(new RunEnded(int.MaxValue, true));
         }
         else
         {
-            viewEventBus.Publish(new ScheduleCleared(scheduleSystem.SequenceIdGenerator.GetNextId()));
+            viewEventBus.Publish(new ScheduleCleared(int.MaxValue));
         }
     }
 
