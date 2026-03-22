@@ -92,7 +92,6 @@ namespace View.BattleView
             eventBus.Subscribe<EnemyTurnEnded>(OnEnemyTurnEndend);
             eventBus.Subscribe<EnemyHurt>(OnEnemyHurt);
             eventBus.Subscribe<EnemyHealed>(OnEnemyHealed);
-            // eventBus.Subscribe<EnemyDied>(OnEnemyDied);
             eventBus.Subscribe<EnemyActionExecuted>(OnEnemyActionExecuted);
         }
 
@@ -103,7 +102,6 @@ namespace View.BattleView
             eventBus?.Unsubscribe<EnemyTurnEnded>(OnEnemyTurnEndend);
             eventBus?.Unsubscribe<EnemyHurt>(OnEnemyHurt);
             eventBus?.Unsubscribe<EnemyHealed>(OnEnemyHealed);
-            // eventBus?.Unsubscribe<EnemyDied>(OnEnemyDied);
             eventBus?.Unsubscribe<EnemyActionExecuted>(OnEnemyActionExecuted);
         }
 

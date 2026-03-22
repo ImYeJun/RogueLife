@@ -158,10 +158,10 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
             sideDeck.Add(card.Data, new List<Card>());
         }
 
-        if (GetCardDataCount(card) >= Constant.BASE_MAX_COPIES_PER_CARD) { 
-            Debug.Log($"[PlayerDeck] Cannot add card '{card.Data.Id}'. Maximum copies per card ({Constant.BASE_MAX_COPIES_PER_CARD}) exceeded.");
-            return false;
-        }
+        // if (GetCardDataCount(card) >= Constant.BASE_MAX_COPIES_PER_CARD) { 
+        //     Debug.Log($"[PlayerDeck] Cannot add card '{card.Data.Id}'. Maximum copies per card ({Constant.BASE_MAX_COPIES_PER_CARD}) exceeded.");
+        //     return false;
+        // }
 
         sideDeck[card.Data].Add(card);
 
