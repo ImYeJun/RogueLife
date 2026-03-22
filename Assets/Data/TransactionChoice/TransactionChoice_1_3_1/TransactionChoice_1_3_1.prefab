@@ -63,17 +63,17 @@ MonoBehaviour:
       type: {class: ChoiceSequenceCompositeEffect, ns: , asm: Assembly-CSharp}
       data:
         choiceEffects:
-        - rid: 2642317900041420896
         - rid: 2642317900041420897
+        - rid: 2642317900041420896
     - rid: 2642317900041420896
       type: {class: ChoiceObtainRandomCardEffect, ns: , asm: Assembly-CSharp}
       data:
         rarity: 1
         type: 0
-        attribute: 0
+        attribute: 3
     - rid: 2642317900041420897
       type: {class: ChoiceRemoveRandomCardEffect, ns: , asm: Assembly-CSharp}
       data:
         rarity: 1
         type: 0
-        attribute: 3
+        attribute: 0
