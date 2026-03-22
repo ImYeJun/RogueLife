@@ -67,5 +67,9 @@ MonoBehaviour:
   - "\uC5ED\uC2DC\u2026 \uB2E4\uC74C\uC5D4 \uAF2D \uB300\uD559\uC6D0\uC73C\uB85C
     \uB0A9\uCE58 \uD558\uACA0\uC5B4\u2026"
   usualSprite: {fileID: 0}
-  battleSprites: []
+  battleSprites:
+  - type: 0
+    sprite: {fileID: 2039240141471964177, guid: ed9b80fec780414479a1caf8dc0e3816, type: 3}
+  - type: 1
+    sprite: {fileID: -6639657771971595384, guid: ed9b80fec780414479a1caf8dc0e3816, type: 3}
   battleBgm: {fileID: 8300000, guid: 3c9fa7e0fe06a8942823ab2b093e1461, type: 3}
