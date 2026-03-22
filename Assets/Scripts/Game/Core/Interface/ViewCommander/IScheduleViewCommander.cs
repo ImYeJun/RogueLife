@@ -9,4 +9,6 @@ public interface IScheduleViewCommander : IViewCommander
     public void SettleTransactionChoice(TransactionChoiceOrder order);
     public void SettleIncidentChoice(DeterminedIncidentChoice choice);
     public BattleStatusEffectData GetStatusEffectData(string id);
+    public void RemoveAllCardOfData(CardData data);
+    public bool IsDeckOverflowed { get; }
 }

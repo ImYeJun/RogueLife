@@ -63,6 +63,8 @@ namespace View.ScheduleView.Deck
 
             eventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
             eventBus.Subscribe<DeckChanged>(OnDeckChanged);
+            eventBus.Subscribe<CardObtained>(OnCardObtained);
+            eventBus.Subscribe<CardRemoved>(OnCardRemoved);
 
             sortingSettingView.SetOnButtonPressed(ChangeSortingState);
             filteringSettingView.SetOnButtonPressed(ToggleAttributeFilteringState, ToggleTypeFilteringState, ToggleCostFilteringState);
@@ -72,6 +74,8 @@ namespace View.ScheduleView.Deck
         {
             eventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
             eventBus?.Unsubscribe<DeckChanged>(OnDeckChanged);
+            eventBus?.Unsubscribe<CardObtained>(OnCardObtained);
+            eventBus?.Unsubscribe<CardRemoved>(OnCardRemoved);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
@@ -79,10 +83,26 @@ namespace View.ScheduleView.Deck
             InitializeView();
             playerDeck = payload.Deck;
         }
+
         public void OnDeckChanged(DeckChanged payload)
         {
             playerDeck = payload.Deck;
             DrawView();
+        }
+
+        public void OnCardObtained(CardObtained payload)
+        {
+            if (uiRoot.activeSelf)
+            {
+                DrawView();
+            }
+        }
+        public void OnCardRemoved(CardRemoved payload)
+        {
+            if (uiRoot.activeSelf)
+            {
+                DrawView();
+            }
         }
 
         private CardSlotView CreateMainCardSlot()
@@ -136,8 +156,11 @@ namespace View.ScheduleView.Deck
             sortingSettingView.SetState(deckSorter.SortingState);
             filteringSettingView.SetState((deckSorter.FilteringAttributes, deckSorter.FilteringType, deckSorter.FilteringCost));
 
-            DrawInventory(playerDeck.MainDeck, DeckType.MAIN_DECK);
-            DrawInventory(playerDeck.SideDeck, DeckType.SIDE_DECK);
+            IReadOnlyDictionary<CardData, List<Card>> mainDeckSnapshot = new Dictionary<CardData, List<Card>>(playerDeck.MainDeck);
+            IReadOnlyDictionary<CardData, List<Card>> sideDeckSnapshot = new Dictionary<CardData, List<Card>>(playerDeck.SideDeck);
+
+            DrawInventory(mainDeckSnapshot, DeckType.MAIN_DECK);
+            DrawInventory(sideDeckSnapshot, DeckType.SIDE_DECK);
         }
 
         private void DrawInventory(IReadOnlyDictionary<CardData, List<Card>> deck, DeckType type)

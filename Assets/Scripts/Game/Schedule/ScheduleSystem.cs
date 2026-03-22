@@ -25,6 +25,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public Schedule CurrentSchedule { get => currentSchedule; }
     public ScheduleSelectingViewEventBus SelectingScheduleViewEventBus { get => scheduleSelectingViewEventBus; }
     public ScheduleViewEventBus ScheduleViewEventBus { get => scheduleViewEventBus; }
+    public bool IsDeckOverflowed => context.Deck.IsOverflowed;
     //TODO This Property is only for GameRun in publishing GameRunViewEvent. Refactor is needed
     public SequenceIdGenerator SequenceIdGenerator { get => sequenceIdGenerator; }
 
@@ -52,9 +53,9 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
         context.Health.OnHealed += OnHealthHealed;
         context.Deck.OnCardObtained += OnCardObatined;
         context.Deck.OnCardRemoved += OnCardRemoved;
+        context.Deck.OnCardRemoveRequseted += OnCardRemoveRequseted;
         context.BelongingsBag.OnBelongingsObtained += OnBelongingsObtained;
     }
-
     public void StartSchedule(int currentStartCount, Action OnScheduleUnsettled)
     {
         this.currentStartCount = currentStartCount;
@@ -172,6 +173,11 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         scheduleViewEventBus.Publish(new NextNodeSelectRequested(sequenceIdGenerator.GetNextId(), nextNodes));
     }
+    private void OnCardRemoveRequseted()
+    {
+        scheduleViewEventBus.Publish(new CardRemoveRequested(sequenceIdGenerator.GetNextId()));
+    }
+
     public void SettleNextNode(Node nextNode)
     {
         currentSchedule.SettleNextNode(nextNode);
@@ -221,5 +227,10 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     {
         scheduleSelectingViewEventBus.Publish(new WentToBed(sequenceIdGenerator.GetNextId()));
         onScheduleUnsettled.Invoke();
+    }
+
+    public void RemoveAllCardOfData(CardData data)
+    {
+        
     }
 }

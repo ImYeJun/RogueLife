@@ -16,4 +16,7 @@ public interface IFieldDeck : IBattleEntryDeck, IReadOnlyDeck {
     public bool TryMoveCard(Card card, DeckType from, DeckType to);
     public event Action<Card> OnCardObtained;
     public event Action<Card> OnCardRemoved;
+    public event Action OnCardRemoveRequseted;
+    public void RemoveAllCardOfData(CardData data);
+    public bool IsOverflowed { get; }
 }

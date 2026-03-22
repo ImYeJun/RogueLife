@@ -94,9 +94,13 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
     }
     public int MaxCardVariety { get => maxCardVariety; }
 
+    public bool IsOverflowed => OwingCardVariety > maxCardVariety;
+
     HashSet<IDeckObserver> deckObservers = new HashSet<IDeckObserver>();
     public event Action<Card> OnCardObtained;
     public event Action<Card> OnCardRemoved;
+    public event Action OnCardRemoveRequseted;
+
 
     public bool HasEnoughCard(CardData data, int amount = 1)
     {
@@ -151,10 +155,6 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
     public bool TryObtainCard(Card card)
     {
         if (!sideDeck.ContainsKey(card.Data)) { 
-            if (OwingCardVariety >= maxCardVariety) { 
-                Debug.Log($"[PlayerDeck] Cannot add new card type. Maximum card variety ({maxCardVariety}) reached.");
-                return false;
-            }
             sideDeck.Add(card.Data, new List<Card>());
         }
 
@@ -170,6 +170,11 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
             observer.OnCardEquipped(card);
         }
         OnCardObtained?.Invoke(card);
+
+        if (OwingCardVariety > maxCardVariety) { 
+            OnCardRemoveRequseted?.Invoke();
+            return false;
+        }
         return true;
     } 
     
@@ -271,6 +276,27 @@ public class PlayerDeck : IFieldDeck, IRunDiaryPlayerDeck
         toDeck[cardData].Add(card);
 
         return true;
+    }
+
+    public void RemoveAllCardOfData(CardData data)
+    {
+        if (HasCardData(data, DeckType.SIDE_DECK))
+        {
+            var cardsToRemove = sideDeck[data].ToList(); 
+            foreach (var card in cardsToRemove)
+            {
+                TryRemoveCard(card, DeckType.SIDE_DECK);
+            }
+        }
+
+        if (HasCardData(data, DeckType.MAIN_DECK))
+        {
+            var cardsToRemove = mainDeck[data].ToList();
+            foreach (var card in cardsToRemove)
+            {
+                TryRemoveCard(card, DeckType.MAIN_DECK);
+            }
+        }
     }
 
     public void RegisterDeckobserver(IDeckObserver observer)

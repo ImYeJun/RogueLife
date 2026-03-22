@@ -282,4 +282,16 @@ namespace ViewEvent.ScheduleView
         public int SequenceId => sequenceId;
         public Belongings Belongings => belongings;
     }
+
+    public readonly struct CardRemoveRequested : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+
+        public CardRemoveRequested(int sequenceId)
+        {
+            this.sequenceId = sequenceId;
+        }
+
+        public int SequenceId => sequenceId;
+    }
 }
