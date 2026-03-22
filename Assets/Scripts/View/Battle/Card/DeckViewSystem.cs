@@ -8,6 +8,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
+using TMPro;
 
 namespace View.BattleView
 {
@@ -15,6 +16,7 @@ namespace View.BattleView
     {
         [Header("Behaviour")]
         [SerializeField] private RectTransform handDeckRectransform;
+        [SerializeField] private TextMeshProUGUI handDeckCountText;
         [SerializeField] private CanvasGroup handDeckCanvasGroup;
         [SerializeField] private GameObject battleCardView;
         [SerializeField] private CardDescriptionView cardDescriptionView;
@@ -104,6 +106,7 @@ namespace View.BattleView
             cardDescriptionView.Unfocus();
             cardViews = new List<BattleCardView>();
             originalCardContainerY = cardContainer.anchoredPosition.y;
+            handDeckCountText.gameObject.SetActive(false);
 
             cardDescriptionView.Initialize(commander.GetStatusEffectData);
 
@@ -133,7 +136,10 @@ namespace View.BattleView
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
         {
-            if (isHandDeckOpened) { return ;}
+            if (isHandDeckOpened) { 
+                handDeckCountText.gameObject.SetActive(true);
+                return ;
+            }
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, OpenHandDeckPresentation());
             isHandDeckOpened = true;
@@ -141,7 +147,10 @@ namespace View.BattleView
 
         private void OnPlayerTurnEnded(PlayerTurnEnded payload)
         {
-            if (!isHandDeckOpened) { return; }
+            if (!isHandDeckOpened) { 
+                handDeckCountText.gameObject.SetActive(false);
+                return;
+            }
 
             UnfocusFoucsedCard();
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, CloseHandDeckPresentation());
@@ -154,6 +163,7 @@ namespace View.BattleView
 
             SetHandCardInteractable(false);
 
+            handDeckCountText.gameObject.SetActive(true);
             currentHandDeckTween = handDeckRectransform.DOAnchorPos(openedHandDeckPosition, openHandDeckDuration).SetEase(openHandDeckEasingType);
             yield return currentHandDeckTween.WaitForCompletion();
 
@@ -167,6 +177,7 @@ namespace View.BattleView
 
             SetHandCardInteractable(false);
 
+            handDeckCountText.gameObject.SetActive(false);
             currentHandDeckTween = handDeckRectransform.DOAnchorPos(closedHandDeckPosition, closeHandDeckDuration).SetEase(closeHandDeckEasingType);
             yield return currentHandDeckTween.WaitForCompletion();
 
@@ -203,6 +214,7 @@ namespace View.BattleView
                 drawTargetMoveDuration, drawTargetRotateDuration, drawTargetScaleDuration, 
                 drawTargetMoveEase, drawTargetRotateEase, drawTargetScaleEase));
 
+            DrawHandDeckCountText(cardViews.Count);
             yield return sequence.WaitForCompletion();
         }
 
@@ -237,6 +249,11 @@ namespace View.BattleView
         private void OnCardDiscarded(CardDiscarded payload)
         {
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardDiscarded_HandDeckPresentation, DiscardCardPresentation(payload.Card, payload.Destination));
+        }
+
+        private void DrawHandDeckCountText(int currentCount)
+        {
+            handDeckCountText.text = $"{currentCount}/{Constant.BASE_MAX_HAND_ZONE_CARD_COUNT}";
         }
 
         private IEnumerator DiscardCardPresentation(Card discardCardData, BattleDeckType destination)
@@ -291,6 +308,7 @@ namespace View.BattleView
                 discardExistingMoveDuration, discardExistingRotateDuration,
                 discardExistingMoveEase, discardExistingRotateEase));
 
+            DrawHandDeckCountText(cardViews.Count);
             yield return sequence.WaitForCompletion();
 
             Destroy(view.gameObject);
