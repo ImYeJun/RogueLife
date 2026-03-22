@@ -55,7 +55,7 @@ Material:
     - _UIMaskSoftnessX: 1
     - _UIMaskSoftnessY: 1
     m_Colors:
-    - _Center: {r: 0.143625, g: 0.52093554, b: 0, a: 0}
+    - _Center: {r: 0.143625, g: 0.5209167, b: 0, a: 0}
     - _ClipRect: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

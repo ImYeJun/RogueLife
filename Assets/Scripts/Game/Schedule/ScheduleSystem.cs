@@ -231,6 +231,6 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
     public void RemoveAllCardOfData(CardData data)
     {
-        
+        context.Deck.RemoveAllCardOfData(data);
     }
 }

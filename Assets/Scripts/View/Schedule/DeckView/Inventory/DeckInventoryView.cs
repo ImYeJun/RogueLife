@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Pool;
 using UnityEngine.Serialization;
+using UnityEngine.UI;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
@@ -34,6 +35,10 @@ namespace View.ScheduleView.Deck
 
         [SerializeField] private TextMeshProUGUI mainDeckIndicator;
         [SerializeField] private TextMeshProUGUI sideDeckIndicator;
+
+        [Header("Overflow Management")]
+        [SerializeField] private GameObject closeButton;
+        [SerializeField] private GameObject deleteButton;
 
         private IObjectPool<CardSlotView> mainDeckPool;
         private IObjectPool<CardSlotView> sideDeckPool;
@@ -65,6 +70,7 @@ namespace View.ScheduleView.Deck
             eventBus.Subscribe<DeckChanged>(OnDeckChanged);
             eventBus.Subscribe<CardObtained>(OnCardObtained);
             eventBus.Subscribe<CardRemoved>(OnCardRemoved);
+            eventBus.Subscribe<CardRemoveRequested>(OnCardRemoveRequested);
 
             sortingSettingView.SetOnButtonPressed(ChangeSortingState);
             filteringSettingView.SetOnButtonPressed(ToggleAttributeFilteringState, ToggleTypeFilteringState, ToggleCostFilteringState);
@@ -76,6 +82,7 @@ namespace View.ScheduleView.Deck
             eventBus?.Unsubscribe<DeckChanged>(OnDeckChanged);
             eventBus?.Unsubscribe<CardObtained>(OnCardObtained);
             eventBus?.Unsubscribe<CardRemoved>(OnCardRemoved);
+            eventBus?.Unsubscribe<CardRemoveRequested>(OnCardRemoveRequested);
         }
 
         public void OnScheduleStateSynced(ScheduleStateSynced payload)
@@ -97,11 +104,45 @@ namespace View.ScheduleView.Deck
                 DrawView();
             }
         }
+
         public void OnCardRemoved(CardRemoved payload)
         {
             if (uiRoot.activeSelf)
             {
                 DrawView();
+            }
+        }
+
+        public void OnCardRemoveRequested(CardRemoveRequested payload)
+        {
+            if (!uiRoot.activeSelf)
+            {
+                uiRoot.SetActive(true);
+                DrawView();
+            }
+
+            closeButton.gameObject.SetActive(false);
+            deleteButton.gameObject.SetActive(true);
+        }
+
+        public void OnDeleteButtonClicked()
+        {
+            if (focusedCard == null)
+            {
+                Debug.LogWarning("[DeckInventoryView] 삭제할 카드가 선택되지 않았습니다.");
+                return;
+            }
+
+            commander.RemoveAllCardOfData(focusedCard.Data);
+
+            focusedCard = null;
+            focusedSlot?.OnUnfocus();
+            focusedSlot = null;
+
+            if (!commander.IsDeckOverflowed)
+            {
+                closeButton.SetActive(true);
+                deleteButton.SetActive(false);
             }
         }
 
@@ -111,20 +152,24 @@ namespace View.ScheduleView.Deck
             cardSlotView.SetActive(false);
             return cardSlotView.GetComponent<CardSlotView>();
         }
+        
         private CardSlotView CreateSideCardSlot()
         {
             var cardSlotView = Instantiate(sideCardSlotPrefab, sideDeckInventory);
             return cardSlotView.GetComponent<CardSlotView>();
         }
+        
         private void GetDeckCardSlot(CardSlotView view)
         {
             view.gameObject.SetActive(true);
         }
+        
         private void ReturnDeckCardSlot(CardSlotView view)
         {
             view.OnUnfocus(); 
             view.gameObject.SetActive(false);
         }
+        
         private void DestroyDeckCardSlot(CardSlotView view)
         {
             Destroy(view.gameObject);
@@ -146,6 +191,12 @@ namespace View.ScheduleView.Deck
         {
             DrawView();
             uiRoot.SetActive(true);
+
+            if (commander != null && !commander.IsDeckOverflowed)
+            {
+                closeButton.SetActive(true);
+                deleteButton.SetActive(false);
+            }
         }
 
         private void DrawView()
@@ -156,8 +207,8 @@ namespace View.ScheduleView.Deck
             sortingSettingView.SetState(deckSorter.SortingState);
             filteringSettingView.SetState((deckSorter.FilteringAttributes, deckSorter.FilteringType, deckSorter.FilteringCost));
 
-            IReadOnlyDictionary<CardData, List<Card>> mainDeckSnapshot = new Dictionary<CardData, List<Card>>(playerDeck.MainDeck);
-            IReadOnlyDictionary<CardData, List<Card>> sideDeckSnapshot = new Dictionary<CardData, List<Card>>(playerDeck.SideDeck);
+            var mainDeckSnapshot = new Dictionary<CardData, List<Card>>(playerDeck.MainDeck);
+            var sideDeckSnapshot = new Dictionary<CardData, List<Card>>(playerDeck.SideDeck);
 
             DrawInventory(mainDeckSnapshot, DeckType.MAIN_DECK);
             DrawInventory(sideDeckSnapshot, DeckType.SIDE_DECK);
@@ -196,10 +247,15 @@ namespace View.ScheduleView.Deck
                     mainDeckIndicator.text = $"<style=\"DeckName\">전투 덱</style> <style=\"DeckSubscription\">(전투 덱 카드 종류 : {deck.Count}/{Constant.MAX_MAIN_DECK_CARD_TYPE_COUNT})</style>";
                     break;
                 case DeckType.SIDE_DECK:
-                    sideDeckIndicator.text = $"<style=\"DeckName\">보조 덱</style> <style=\"DeckSubscription\">(보조 덱 카드 종류 : {deck.Count}/{playerDeck.MaxCardVariety})</style>";
+                    sideDeckIndicator.text = $"<style=\"DeckName\">보조 덱</style> <style=\"DeckSubscription\">(보조 덱 카드 종류 : {GetSideDeckDescription(playerDeck.OwingCardVariety, playerDeck.MaxCardVariety)})</style>";
                     break;
                 default:
                     throw new InvalidCastException($"[DeckInventoryView] {type} is not valid.");
+            }
+
+            string GetSideDeckDescription(int currentCardVariety, int maxCardVairety)
+            {
+                return currentCardVariety > maxCardVairety ? $"<color=#FF0000>{currentCardVariety}/{maxCardVairety}</color>" : $"{currentCardVariety}/{maxCardVairety}";
             }
         }
         
@@ -240,11 +296,13 @@ namespace View.ScheduleView.Deck
             deckSorter.ToggleAttributeFilter(attribute);
             DrawView();
         }
+        
         public void ToggleTypeFilteringState(CardType type) 
         { 
             deckSorter.ToggleTypeFilter(type);
             DrawView();
         }
+        
         public void ToggleCostFilteringState(int cost) 
         { 
             deckSorter.ToggleCostFilter(cost);

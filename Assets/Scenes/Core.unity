@@ -4303,6 +4303,7 @@ MonoBehaviour:
   testCardEntities:
   - {fileID: 1232414264696122722, guid: d17d7e942348aa04a887868cb8ec5b3d, type: 3}
   - {fileID: 1338227754811386910, guid: e4dcfcf8bc1a0cc419713a45fd11cd3f, type: 3}
+  - {fileID: 8843871992935741563, guid: 6af5eccd1887cd24e9c9e578fbd0b622, type: 3}
   testRemoveCardEntities:
   - {fileID: 1232414264696122722, guid: d17d7e942348aa04a887868cb8ec5b3d, type: 3}
   testHurtDamage: 0
