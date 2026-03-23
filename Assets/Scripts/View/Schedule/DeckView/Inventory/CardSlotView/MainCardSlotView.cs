@@ -1,3 +1,5 @@
+using View.Global;
+
 namespace View.ScheduleView.Deck
 {
     public class MainCardSlotView : CardSlotView

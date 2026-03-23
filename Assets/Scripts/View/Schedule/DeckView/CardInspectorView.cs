@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using Unity.VisualScripting;
@@ -9,7 +10,7 @@ using ViewEvent.ScheduleView;
 
 namespace View.ScheduleView.Deck
 {
-    public class CardInspectorView : InteractableViewBehaviour<IScheduleViewEvent, IScheduleViewCommander>
+    public class CardInspectorView : MonoBehaviour
     {
         private Card currentCard;
 
@@ -19,11 +20,12 @@ namespace View.ScheduleView.Deck
         [SerializeField] private TextMeshProUGUI cardType;
         [SerializeField] private TextMeshProUGUI cardEffectDescription;
         [SerializeField] private GameObject effectTypeButtonsView;
+        public Func<string, BattleStatusEffectData> GetStatusEffectData;
 
-        public override void OnInitialized()
-        {
+        private void Awake() {
             SetViewActive(false);
         }
+
         public void SetViewActive(bool value)
         {
             cardView.gameObject.SetActive(value);
@@ -32,9 +34,6 @@ namespace View.ScheduleView.Deck
             cardType.gameObject.SetActive(value);
             cardEffectDescription.gameObject.SetActive(value);
             effectTypeButtonsView.SetActive(value);
-        }
-        public override void OnDestroy()
-        {
         }
 
         //* Referenced by DeckInventoryView in UnityEvent 
@@ -79,7 +78,7 @@ namespace View.ScheduleView.Deck
             sb.Append("\n<size=70%>");
             foreach (var relatedStatusEffect in statusEffectIds)
             {
-                var data = commander.GetStatusEffectData(relatedStatusEffect);
+                var data = GetStatusEffectData.Invoke(relatedStatusEffect);
                 if (data != null)
                 {
                     sb.Append($"({data.Name})").Append("\n").Append(data.Description).Append("\n"); 

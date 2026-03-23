@@ -8197,23 +8197,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.DeckInventoryView
   uiRoot: {fileID: 1737347692}
+  cardInspectorView: {fileID: 1031923497}
   sortingSettingView: {fileID: 409982441}
   filteringSettingView: {fileID: 1128453833}
-  OnSlotClicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1031923497}
-        m_TargetAssemblyTypeName: View.ScheduleView.Deck.CardInspectorView, Assembly-CSharp
-        m_MethodName: VisualizeSelectedSlot
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   mainCardSlotPrefab: {fileID: 6498705381639438029, guid: a2fcf816b30589f45bb4befd7eb7cc77, type: 3}
   sideCardSlotPrefab: {fileID: 6439422349983314710, guid: 1e48eaed06098334f86283876a842e4a, type: 3}
   mainDeckInventory: {fileID: 1194030975}
@@ -11765,7 +11751,6 @@ MonoBehaviour:
   - {fileID: 2120220270}
   - {fileID: 1881075775}
   - {fileID: 404647510}
-  - {fileID: 1031923497}
   - {fileID: 1024027835}
   - {fileID: 1275263200}
   - {fileID: 1485452801}
@@ -11780,7 +11765,6 @@ MonoBehaviour:
   - {fileID: 471653961}
   - {fileID: 1164588582}
   - {fileID: 2126167244}
-  - {fileID: 1031923497}
 --- !u!1 &1465191766
 GameObject:
   m_ObjectHideFlags: 0
