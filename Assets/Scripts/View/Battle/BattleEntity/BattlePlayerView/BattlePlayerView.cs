@@ -30,7 +30,9 @@ namespace View.BattleView
         [SerializeField] private TextMeshProUGUI battleHeatlhText;
         [SerializeField] private Image mentalityBar;
         [SerializeField] private TextMeshProUGUI mentaltiyText;
-        [SerializeField] private TextMeshProUGUI actionText;
+
+        [Header("Action Presentation")]
+        [SerializeField] private float actionDuration;
 
         [Header("Heal Presentation Settings")]
         [Tooltip("Settings for battle health heal.")]
@@ -54,6 +56,7 @@ namespace View.BattleView
         public override void OnInitialized()
         {
             base.OnInitialized();
+            bodyView.SetIdleSprite();
 
             eventBus.Subscribe<PlayerSettled>(OnPlayerSettled);
             eventBus.Subscribe<PlayerHurt>(OnPlayerHurt);
@@ -180,9 +183,9 @@ namespace View.BattleView
 
         public IEnumerator PlayActionPresentation()
         {
-            actionText.text = "행동함";
-            yield return new WaitForSeconds(1.0f);
-            actionText.text = "";
+            bodyView.SetActionSprite();
+            yield return new WaitForSeconds(actionDuration);
+            bodyView.SetIdleSprite();
         }
 
         public override void OnInspect(IInspectorBuilder builder, RectTransform parent)

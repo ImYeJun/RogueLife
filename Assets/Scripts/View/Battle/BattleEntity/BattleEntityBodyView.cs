@@ -7,7 +7,7 @@ namespace View.BattleView
 {
     public abstract class BattleEntityBodyView<T> : MonoBehaviour, IPointerClickHandler where T : IReadOnlyBattleEntity
     {
-        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] protected SpriteRenderer spriteRenderer;
 
         protected T entity;
         private IInspectable inspectableEntity; 
@@ -30,7 +30,6 @@ namespace View.BattleView
             isCardTargetable = true;
             onCardTargetedClickedCallback = onTargetClicked;
             
-            // TODO: 외곽선 하이라이트 연출 ON
             spriteRenderer.color = Color.black;
         }
 
@@ -39,7 +38,6 @@ namespace View.BattleView
             isCardTargetable = false;
             onCardTargetedClickedCallback = null;
             
-            // TODO: 외곽선 하이라이트 연출 OFF
             spriteRenderer.color = Color.white;
         }
 
@@ -59,5 +57,8 @@ namespace View.BattleView
                 onEntityInspectClickedCallback.Invoke(inspectableEntity, transform, inspectorDirection);
             }
         }
+
+        public abstract void SetActionSprite();
+        public abstract void SetIdleSprite();
     }
 }

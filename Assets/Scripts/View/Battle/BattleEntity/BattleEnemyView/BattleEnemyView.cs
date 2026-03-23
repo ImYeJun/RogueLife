@@ -30,7 +30,6 @@ namespace View.BattleView
         [SerializeField] private TextMeshProUGUI actionText;
         private List<BattleEnemyActionIcon> actionIcons = new List<BattleEnemyActionIcon>();
 
-        // 💡 [추가됨] 부모 클래스에서 내려온 Fade Presentation Settings
         [Header("Fade Presentation Settings")]
         [SerializeField] protected float fadeDuration = 0.5f;
 
@@ -113,6 +112,7 @@ namespace View.BattleView
             entity = enemy;
 
             transform.position = spawnPos;
+
 
             DrawHealthBarDirectly(enemy.CurrentHealth, enemy.MaxHealth);
         }
@@ -219,16 +219,22 @@ namespace View.BattleView
         {
             if (payload.Actor != enemy) { return; }
 
-            var actionView = actionIcons.FirstOrDefault(view => view.Action == payload.Action && !view.HasExecuted);
+            var actionIconView = actionIcons.FirstOrDefault(view => view.Action == payload.Action && !view.HasExecuted);
             //* Notice that enemy action reference is not cloned but same reference.
 
-            if (actionView is null)
+            if (actionIconView is null)
             {
                 throw new InvalidOperationException("[BattleEnemyView/OnEnemyActionExecuted] The Enemy doesn't have given action.");
             }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, actionView.PlayExecutedPresentation());
-            actionView.HasExecuted = true;
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionExecuted_ActorAction, PlayActionPresentation(actionIconView));
+            actionIconView.HasExecuted = true;
+        }
+        private IEnumerator PlayActionPresentation(BattleEnemyActionIcon actionIcon)
+        {
+            bodyView.SetActionSprite();
+            yield return StartCoroutine(actionIcon.PlayExecutedPresentation());
+            bodyView.SetIdleSprite();
         }
 
         private void OnEnemyTurnEndend(EnemyTurnEnded payload)
