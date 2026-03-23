@@ -16,6 +16,7 @@ namespace View.ScheduleView.Deck
 
         [SerializeField] private SharedCardView cardView;
         [SerializeField] private TextMeshProUGUI cardName;
+        [SerializeField] private TextMeshProUGUI cardRarity;
         [SerializeField] private TextMeshProUGUI cardAttribute;
         [SerializeField] private TextMeshProUGUI cardType;
         [SerializeField] private TextMeshProUGUI cardEffectDescription;
@@ -30,6 +31,7 @@ namespace View.ScheduleView.Deck
         {
             cardView.gameObject.SetActive(value);
             cardName.gameObject.SetActive(value);
+            cardRarity.gameObject.SetActive(value);
             cardAttribute.gameObject.SetActive(value);
             cardType.gameObject.SetActive(value);
             cardEffectDescription.gameObject.SetActive(value);
@@ -44,6 +46,7 @@ namespace View.ScheduleView.Deck
             cardView.SetCard(card);
 
             cardName.text = card.CurrentName;
+            cardRarity.text = $"등급 : {CardRarityExtenstions.ToKorean(card.CurrentRarity)}";
             cardAttribute.text = $"속성 : <sprite index={CardAttributeExtensions.GetTextIconIndex(card.CurrentAttribute)}> ({CardAttributeExtensions.ToKorean(card.CurrentAttribute)})";
             cardType.text = $", 유형 : {CardTypeExtensions.ToKorean(card.CurrentType)}";
             ShowNormalDescription();
