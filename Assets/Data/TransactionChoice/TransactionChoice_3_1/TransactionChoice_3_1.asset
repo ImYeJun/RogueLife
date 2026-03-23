@@ -15,17 +15,4 @@ MonoBehaviour:
   id: TransactionChoice_3_1
   description: "\uC5B4\uB5A4 \uAC83\uB3C4 \uC120\uD0DD\uD558\uC9C0 \uC54A\uB294 \uAC83\uB3C4
     \uB108\uC758 \uC120\uD0DD\uC774\uACA0\uC9C0.."
-  subDescription: 
-  condition:
-    rid: 7557519912807170170
-  effect:
-    rid: 7557519912807170171
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557519912807170170
-      type: {class: NoneChoideCondition, ns: , asm: GameAssembly}
-      data: 
-    - rid: 7557519912807170171
-      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
-      data: 
+  subDescription: "\uAC70\uB798 \uC548\uD568"
