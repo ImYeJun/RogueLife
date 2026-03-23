@@ -9,7 +9,7 @@ using System.Collections;
 
 namespace View.BattleView
 {
-    public abstract class BattleDeckView : ViewBehaviour<IBattleViewEvent>, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
+    public abstract class BattleDeckButtonView : ViewBehaviour<IBattleViewEvent>, IPointerEnterHandler, IPointerClickHandler, IPointerExitHandler
     {
         [Header("Behaviour")]
         [SerializeField] private RectTransform background;
@@ -67,9 +67,6 @@ namespace View.BattleView
             return focusingPresentationDuration * ratio;
         }
 
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            Debug.Log($"클릭 함! {deck.GetType()}");
-        }
+        public abstract void OnPointerClick(PointerEventData eventData);
     }
 }

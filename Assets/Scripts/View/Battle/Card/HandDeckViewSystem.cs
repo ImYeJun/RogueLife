@@ -12,7 +12,7 @@ using TMPro;
 
 namespace View.BattleView
 {
-    public class DeckViewSystem : InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>, IBackgroundClickDetector
+    public class HandDeckViewSystem : InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>, IBackgroundClickDetector
     {
         [Header("Behaviour")]
         [SerializeField] private RectTransform handDeckRectransform;

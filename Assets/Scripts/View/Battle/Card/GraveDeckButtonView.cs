@@ -1,9 +1,14 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
 using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public class GraveDeckView : BattleDeckView
+    public class GraveDeckButtonView : BattleDeckButtonView
     {
+        [Header("GraveDeckButtonView Behaviour")]
+        [SerializeField] private DeckInventoryView deckInventoryView;
+        
         public override void OnInitialDeckSettled(InitialDeckSettled payload)
         {
             deck = payload.GraveDeck;
@@ -44,6 +49,11 @@ namespace View.BattleView
                 PresentationPriority.CardRestored_DrawGraveDeckCount, 
                 DrawDeckCountTextPresentation(targetCount)
             );
+        }
+
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            deckInventoryView.SetActive(true);
         }
     }
 }
