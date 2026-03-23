@@ -25,7 +25,7 @@ namespace Battle.Cards.Behaviours
 
                 if (hurtEnemy.Amount > 0 && hurtEnemy.Enemy.CurrentHealth <= 10)
                 {
-                    var outOfMyWay = new RequestBattleEndBattleAction(BattleResult.OUT_OF_MY_WAY);
+                    var outOfMyWay = new RequestBattleEndBattleAction(BattleResultType.OUT_OF_MY_WAY);
                     context.ActionScheduler.Enqueue(outOfMyWay);
                 }
 

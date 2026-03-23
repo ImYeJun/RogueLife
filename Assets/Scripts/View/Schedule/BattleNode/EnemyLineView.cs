@@ -5,20 +5,20 @@ using UnityEngine;
 
 namespace View.ScheduleView.BattleNodes
 {
-    public class EnemyEncounterLineView : MonoBehaviour
+    public class EnemyLineView : MonoBehaviour
     {
         [SerializeField] private TextMeshProUGUI line;
-        private string selectedLine;
 
-        public void Initiate(System.Random random, IReadOnlyList<string> encounterLines)
+        public void SetLine(System.Random random, IReadOnlyList<string> lines)
         {
-            if (encounterLines.Count == 0)
+            string selectedLine;
+            if (lines.Count == 0)
             {
                 selectedLine = "";
             }
             else
             {
-                selectedLine = encounterLines[random.Next(encounterLines.Count)];
+                selectedLine = lines[random.Next(lines.Count)];
             }
 
             line.text = selectedLine;

@@ -27,7 +27,7 @@ public class BattlePlayer : BattleEntity, IBattleBelongingsOwner, IReadOnlyBattl
 
         playerHealth.OnMentalBreakDown -= OnDead;
 
-        var action = new RequestBattleEndBattleAction(BattleResult.PLAYER_DIED);
+        var action = new RequestBattleEndBattleAction(BattleResultType.PLAYER_DIED);
         context.ActionScheduler.EnqueueFront(action);
     }
 

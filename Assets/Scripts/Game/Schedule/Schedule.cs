@@ -14,7 +14,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
     private Node currentNode;
     private EnemyDataSlot bossDataSlot;
     private Dictionary<int, List<Node>> map;
-    private BattleResultCommand pendingBattleResultCommand;
+    private BattleResult? pendingBattleResult;
 
     private bool hasStarted = false;
 
@@ -22,6 +22,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
     public ScheduleData Data { get => data; }
     public IReadOnlyDictionary<int, List<Node>> Map => map;
     public Node CurrentNode => currentNode;
+    public BattleResult? PendingBattleResult => pendingBattleResult;
 
     public void FixData(ScheduleData data) { 
         this.data = data;
@@ -130,7 +131,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
 
     public bool HasPendingBattleResult()
     {
-        return pendingBattleResultCommand is not null;
+        return pendingBattleResult is not null;
     }
 
     public void ResolvePendingResult(FieldContext context)
@@ -141,12 +142,13 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
             return;
         }
 
-        pendingBattleResultCommand.Resolve(context, currentNode);
-        pendingBattleResultCommand = null;
+        var command = pendingBattleResult.Value.Command;
+        command.Resolve(context, currentNode);
+        pendingBattleResult = null;
     }
 
-    public void PendBattleResult(BattleResultCommand battleResult)
+    public void PendBattleResult(BattleResult battleResult)
     {
-        pendingBattleResultCommand = battleResult;
+        pendingBattleResult = battleResult;
     }
 }

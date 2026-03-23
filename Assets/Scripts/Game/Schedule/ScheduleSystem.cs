@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Battle.BattleResultCommands;
 using UnityEngine;
 using ViewEvent.ScheduleSelecting;
 using ViewEvent.ScheduleView;
@@ -26,6 +27,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public ScheduleSelectingViewEventBus SelectingScheduleViewEventBus { get => scheduleSelectingViewEventBus; }
     public ScheduleViewEventBus ScheduleViewEventBus { get => scheduleViewEventBus; }
     public bool IsDeckOverflowed => context.Deck.IsOverflowed;
+    
     //TODO This Property is only for GameRun in publishing GameRunViewEvent. Refactor is needed
     public SequenceIdGenerator SequenceIdGenerator { get => sequenceIdGenerator; }
 
@@ -115,7 +117,13 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
         if (currentSchedule.HasPendingBattleResult())
         {
-            scheduleViewEventBus.Publish(new ReturnedFromBattle(sequenceIdGenerator.GetNextId()));
+            BattleResult pendingResult = currentSchedule.PendingBattleResult.Value;
+            
+            bool hasResolved = pendingResult.HasResolved;
+            EnemyData mainEnemyData = pendingResult.MainEnemyData;
+
+            scheduleViewEventBus.Publish(new ReturnedFromBattle(sequenceIdGenerator.GetNextId(), hasResolved, mainEnemyData));
+            
             currentSchedule.ResolvePendingResult(context);
             return;
         }

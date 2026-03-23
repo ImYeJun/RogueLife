@@ -86,17 +86,17 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         eventBus.Subscribe<CardReflectionChangedBattleEvent>(OnCardReflectionChanged);
     }
 
-    public event Action<BattleResultCommand> OnBattleExit;
-    private EnemyTier mainEnemyTier;
+    public event Action<BattleResult> OnBattleExit;
+    private EnemyData mainEnemyData;
     private IBattleEntryActionCost fieldActionCost;
     private BattleStartData? preparedStartData;
 
     public BattleViewEventBus ViewEventBus { get => viewEventBus; }
 
-    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot, Action<BattleResultCommand> battleExit, Action onEngage)
+    public void EngageBattle(IBattleHealth battleHealth, IBattleEntryActionCost actionCost, IBattleEntryDeck deck, IBattleEntryBelongingsBag entrybelongingsBag, List<EnemyDataSlot> engagingEnemiesDataSlot, Action<BattleResult> battleExit, Action onEngage)
     {
         var mainEnemyEntity = engagingEnemiesDataSlot.OrderByDescending(slot => slot.Entity.Tier).First().Entity;
-        mainEnemyTier = mainEnemyEntity.Tier;
+        mainEnemyData = mainEnemyEntity.Data;
 
         OnBattleExit = battleExit;
         this.fieldActionCost = actionCost;
@@ -141,33 +141,39 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         scheduler.StartBattle(preparedStartData.Value);
     }
 
-    public void ExitBattle(BattleResult result)
+    // 변경점 3: BattleResult 구조체를 생성하여 OnBattleExit에 전달하도록 리팩토링 되었습니다.
+    public void ExitBattle(BattleResultType result)
     {
+        var mainEnemyTier = mainEnemyData.Tier;
+        bool hasResolved = result is BattleResultType.PLAYER_SPECIAL_CARD_WIN or BattleResultType.PLAYER_ANNIHILATE_WIN;
+
         BattleResultCommand resultCommand = result switch
         {
-            BattleResult.PLAYER_SPECIAL_CARD_WIN => new 
+            BattleResultType.PLAYER_SPECIAL_CARD_WIN => new 
                 CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                     new ObtainCardCommand(mainEnemyTier),
                     new ObtainBelongingsCommand(mainEnemyTier),
                     new RequestNextNodeSelectionCommand(mainEnemyTier)
-                }, true),
-            BattleResult.PLAYER_ANNIHILATE_WIN => new 
+                }),
+            BattleResultType.PLAYER_ANNIHILATE_WIN => new 
                 CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                     new ObtainCardCommand(mainEnemyTier),
                     new ObtainBelongingsCommand(mainEnemyTier),
                     new RequestNextNodeSelectionCommand(mainEnemyTier)
-                }, true),
-            BattleResult.ALL_PHASE_END => new CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
+                }),
+            BattleResultType.ALL_PHASE_END => new CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                         new ReceiveDamageCommand(mainEnemyTier),
                         new RequestNextNodeSelectionCommand(mainEnemyTier)
-                    }, false),
-            BattleResult.PLAYER_DIED => new PlayerDiedCommand(mainEnemyTier),
-            BattleResult.OUT_OF_MY_WAY => new OutOfMyWayCommand(mainEnemyTier),
+                    }),
+            BattleResultType.PLAYER_DIED => new PlayerDiedCommand(mainEnemyTier),
+            BattleResultType.OUT_OF_MY_WAY => new OutOfMyWayCommand(mainEnemyTier),
             _ => throw new InvalidOperationException($"[BattleSystem/ExitBattle] {result} is not valid to generate resultCommand.")
         };
         
+        BattleResult battleResult = new BattleResult(resultCommand, hasResolved, mainEnemyData);
+
         fieldActionCost?.OnBattleEnd();
-        OnBattleExit?.Invoke(resultCommand);
+        OnBattleExit?.Invoke(battleResult);
         OnBattleExit = null;
         fieldActionCost = null;
         preparedStartData = null;

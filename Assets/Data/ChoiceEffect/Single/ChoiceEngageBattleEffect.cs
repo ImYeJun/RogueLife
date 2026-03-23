@@ -34,14 +34,14 @@ public class ChoiceEngageBattleEffect : IChoiceEffect
         );
     }
 
-    public void OnBattleExit(BattleResultCommand resultCommand)
+    public void OnBattleExit(BattleResult result)
     {
         context.Health.OnMentalBreakDown += currentNode.OnPlayerMentalBroken;
-        context.Schedule.PendBattleResult(resultCommand);
+        context.Schedule.PendBattleResult(result);
 
         foreach (var enemyEntity in engaingEnemyData)
         {
-            currentNode.ScheduleHistory.RecordEncounterEnemy(enemyEntity.Data, resultCommand.HasResolved);
+            currentNode.ScheduleHistory.RecordEncounterEnemy(enemyEntity.Data, result.HasResolved);
         }
     }
 }

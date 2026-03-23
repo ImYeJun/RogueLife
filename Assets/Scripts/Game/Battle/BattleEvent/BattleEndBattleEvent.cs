@@ -1,11 +1,11 @@
 public class BattleEndBattleEvent : BattleEvent
 {
-    private BattleResult result;
+    private BattleResultType result;
 
-    public BattleEndBattleEvent(BattleResult result)
+    public BattleEndBattleEvent(BattleResultType result)
     {
         this.result = result;
     }
 
-    public BattleResult Result { get => result; }
+    public BattleResultType Result { get => result; }
 }

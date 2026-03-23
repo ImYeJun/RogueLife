@@ -1,8 +1,8 @@
 public class RequestBattleEndBattleAction : IBattleAction
 {
-    private BattleResult result;
+    private BattleResultType result;
 
-    public RequestBattleEndBattleAction(BattleResult result)
+    public RequestBattleEndBattleAction(BattleResultType result)
     {
         this.result = result;
     }
@@ -11,13 +11,13 @@ public class RequestBattleEndBattleAction : IBattleAction
     {
         switch (result)
         {
-            case BattleResult.PLAYER_ANNIHILATE_WIN:
+            case BattleResultType.PLAYER_ANNIHILATE_WIN:
                 if (!context.EnemySystem.IsAnihilated) { return; }
                 break;
-            case BattleResult.PLAYER_DIED:
+            case BattleResultType.PLAYER_DIED:
                 if (!context.PlayerContainer.Player.IsDead) { return; }
                 break;
-            case BattleResult.ALL_PHASE_END:
+            case BattleResultType.ALL_PHASE_END:
                 if (!context.Phase.IsAllTurnEnd) { return; }
                 break;
         }

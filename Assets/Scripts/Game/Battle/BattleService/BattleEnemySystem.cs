@@ -67,7 +67,7 @@ public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEvent
 
         if (currentEnemies[enemy.Data].Count == 0) { currentEnemies.Remove(enemy.Data); }
         if (currentEnemies.Count == 0) { 
-            var action = new RequestBattleEndBattleAction(BattleResult.PLAYER_ANNIHILATE_WIN);
+            var action = new RequestBattleEndBattleAction(BattleResultType.PLAYER_ANNIHILATE_WIN);
             context.ActionScheduler.EnqueueFront(action);
         }
     }

@@ -2,7 +2,7 @@ namespace Battle.BattleResultCommands
 {
     public class PlayerDiedCommand : BattleResultCommand
     {
-        public PlayerDiedCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier, false)
+        public PlayerDiedCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier)
         {
         }
 
