@@ -997,7 +997,6 @@ MonoBehaviour:
   - {fileID: 1574435526}
   interacatbleViews:
   - {fileID: 1448022095}
-  - {fileID: 1108376474}
   - {fileID: 356904202}
   - {fileID: 947882360}
   - {fileID: 434042279}
@@ -1161,7 +1160,7 @@ GameObject:
   - component: {fileID: 1108376471}
   - component: {fileID: 1108376474}
   m_Layer: 5
-  m_Name: GamExitButton
+  m_Name: GameExitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
