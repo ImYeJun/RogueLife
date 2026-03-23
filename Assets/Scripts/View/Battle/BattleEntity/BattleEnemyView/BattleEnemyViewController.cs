@@ -13,22 +13,33 @@ namespace View.BattleView
     public class BattleEnemyViewController : InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>
     {
         [Serializable]
-        public struct EnemyPosition
+        public struct EnemyPositionConfig
         {
+            [Serializable]
+            public struct SpawnPoint
+            {
+                public float x;
+                public float y;
+                public int spriteSortOrder;
+                
+                public Vector2 Coordinate => new Vector2(x, y);
+            }
+
             [SerializeField] private int count;
-            [SerializeField] private List<Vector2> positions;
+            [SerializeField] private List<SpawnPoint> spawnPoints;
 
             public int Count => count;
-            public List<Vector2> Positions => positions;
+            public List<SpawnPoint> SpawnPoints => spawnPoints;
         }
 
         [SerializeField] BattleViewTransitionManager viewTransitionManager;
         [SerializeField] GameObject battleEnemyPrefab;
-        [SerializeField] private List<EnemyPosition> enemyPositionConfigs;
+        [SerializeField] private List<EnemyPositionConfig> enemyPositionConfigs;
+        
         private List<BattleEnemyView> spawnedEnemyViews = new List<BattleEnemyView>();
         private Sequence currentPositionTween;
 
-        public IReadOnlyList<BattleEnemyView> SpawnedEnemyViews { get => spawnedEnemyViews; }
+        public IReadOnlyList<BattleEnemyView> SpawnedEnemyViews => spawnedEnemyViews;
 
         public override void OnInitialized()
         {
@@ -48,23 +59,23 @@ namespace View.BattleView
         {
             int enemyCount = payload.Enemies.Count;
 
-            EnemyPosition? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == enemyCount);
+            EnemyPositionConfig? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == enemyCount);
             if (targetConfig == null)
             {
                 Debug.LogError($"[BattleEnemyViewController/OnInitialEnemySettled] Error: No EnemyPosition configuration found for enemy count ({enemyCount})!");
                 return;
             }
 
-            if (targetConfig.Value.Count != targetConfig.Value.Positions.Count)
+            if (targetConfig.Value.Count != targetConfig.Value.SpawnPoints.Count)
             {
-                Debug.LogError($"[BattleEnemyViewController/OnInitialEnemySettled] Error: EnemyPosition configuration mismatch! The configured Count ({targetConfig.Value.Count}) does not match the actual number of positions ({targetConfig.Value.Positions.Count}).");
+                Debug.LogError($"[BattleEnemyViewController/OnInitialEnemySettled] Error: EnemyPosition configuration mismatch! The configured Count ({targetConfig.Value.Count}) does not match the actual number of positions ({targetConfig.Value.SpawnPoints.Count}).");
                 return;
             }
 
             for (int i = 0; i < enemyCount; i++)
             {
                 IReadOnlyBattleEnemy enemy = payload.Enemies[i];
-                Vector2 spawnPos = targetConfig.Value.Positions[i];
+                Vector2 spawnPos = targetConfig.Value.SpawnPoints[i].Coordinate;
 
                 GameObject enemyObj = Instantiate(battleEnemyPrefab, transform);
 
@@ -92,7 +103,6 @@ namespace View.BattleView
             if (enemyView != null)
             {
                 enemyView.Initialize(eventBus, presentationManager, commander);
-                
                 enemyView.SetInvisibleDirectly();
 
                 spawnedEnemyViews.Add(enemyView);
@@ -100,10 +110,10 @@ namespace View.BattleView
                 int newEnemyCount = spawnedEnemyViews.Count;
                 Vector2 spawnPos = Vector2.zero;
 
-                EnemyPosition? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == newEnemyCount);
-                if (targetConfig != null && targetConfig.Value.Count == targetConfig.Value.Positions.Count)
+                EnemyPositionConfig? targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == newEnemyCount);
+                if (targetConfig != null && targetConfig.Value.Count == targetConfig.Value.SpawnPoints.Count)
                 {
-                    spawnPos = targetConfig.Value.Positions[newEnemyCount - 1];
+                    spawnPos = targetConfig.Value.SpawnPoints[newEnemyCount - 1].Coordinate;
                 }
                 else
                 {
@@ -122,7 +132,7 @@ namespace View.BattleView
             }
         }
 
-        private IEnumerator SpawnEnemyPresentation(BattleEnemyView newlySpawnedView, EnemyPosition? targetConfig, List<BattleEnemyView> snapshot)
+        private IEnumerator SpawnEnemyPresentation(BattleEnemyView newlySpawnedView, EnemyPositionConfig? targetConfig, List<BattleEnemyView> snapshot)
         {
             if (targetConfig != null)
             {
@@ -133,12 +143,13 @@ namespace View.BattleView
                 {
                     if (snapshot[i] == null) continue;
 
-                    Vector2 targetPos = targetConfig.Value.Positions[i];
+                    var spawnPoint = targetConfig.Value.SpawnPoints[i];
+                    Vector2 targetPos = spawnPoint.Coordinate;
                     Vector2 currentPos = snapshot[i].transform.position;
                     
                     if (Vector2.Distance(currentPos, targetPos) > 0.01f)
                     {
-                        currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos, i));
+                        currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos, spawnPoint.spriteSortOrder));
                     }
                 }
 
@@ -162,7 +173,7 @@ namespace View.BattleView
                 var snapshot = new List<BattleEnemyView>(spawnedEnemyViews);
                 int newEnemyCount = snapshot.Count;
                 
-                EnemyPosition? targetConfig = null;
+                EnemyPositionConfig? targetConfig = null;
                 if (newEnemyCount > 0)
                 {
                     targetConfig = enemyPositionConfigs.FirstOrDefault(config => config.Count == newEnemyCount);
@@ -175,7 +186,8 @@ namespace View.BattleView
                 Debug.LogWarning("[BattleEnemyViewController/OnEnemyRemoved] Target BattleEnemyView not found in spawnedEnemyViews.");
             }
         }
-        private IEnumerator RemoveEnemyPresentation(BattleEnemyView viewToRemove, EnemyPosition? targetConfig, List<BattleEnemyView> snapshot)
+
+        private IEnumerator RemoveEnemyPresentation(BattleEnemyView viewToRemove, EnemyPositionConfig? targetConfig, List<BattleEnemyView> snapshot)
         {
             if (viewToRemove != null)
             {
@@ -183,13 +195,13 @@ namespace View.BattleView
                 Destroy(viewToRemove.gameObject);
             }
 
-            if (targetConfig != null && targetConfig.Value.Count == targetConfig.Value.Positions.Count)
+            if (targetConfig != null && targetConfig.Value.Count == targetConfig.Value.SpawnPoints.Count)
             {
                 yield return PositioningPresentationRoutine(targetConfig.Value, snapshot);
             }
         }
 
-        private IEnumerator PositioningPresentationRoutine(EnemyPosition config, List<BattleEnemyView> snapshot)
+        private IEnumerator PositioningPresentationRoutine(EnemyPositionConfig config, List<BattleEnemyView> snapshot)
         {
             currentPositionTween?.Kill();
             currentPositionTween = DOTween.Sequence();
@@ -198,12 +210,13 @@ namespace View.BattleView
             {
                 if (snapshot[i] == null) continue;
 
-                Vector2 targetPos = config.Positions[i];
+                var spawnPoint = config.SpawnPoints[i];
+                Vector2 targetPos = spawnPoint.Coordinate;
                 Vector2 currentPos = snapshot[i].transform.position;
                 
                 if (Vector2.Distance(currentPos, targetPos) > 0.01f)
                 {
-                    currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos, i));
+                    currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos, spawnPoint.spriteSortOrder)); 
                 }
             }
 

@@ -5985,30 +5985,60 @@ MonoBehaviour:
   battleEnemyPrefab: {fileID: 8379007039155902586, guid: 4ff04cfd222afda408fcaef2307181e2, type: 3}
   enemyPositionConfigs:
   - count: 1
-    positions:
-    - {x: 3.4, y: 0.44}
+    spawnPoints:
+    - x: 3.4
+      y: 0.44
+      spriteSortOrder: 0
   - count: 2
-    positions:
-    - {x: 3.4, y: 0.44}
-    - {x: 5.4, y: 0.14}
+    spawnPoints:
+    - x: 3.4
+      y: 0.44
+      spriteSortOrder: 0
+    - x: 5.4
+      y: 0.14
+      spriteSortOrder: 1
   - count: 3
-    positions:
-    - {x: 3.4, y: 0.44}
-    - {x: 5.4, y: 0.14}
-    - {x: 1.4, y: 0.14}
+    spawnPoints:
+    - x: 3.4
+      y: 0.44
+      spriteSortOrder: 1
+    - x: 5.4
+      y: 0.14
+      spriteSortOrder: 2
+    - x: 1.4
+      y: 0.14
+      spriteSortOrder: 0
   - count: 4
-    positions:
-    - {x: 3.4, y: 0.44}
-    - {x: 5.4, y: 0.14}
-    - {x: 1.4, y: 0.14}
-    - {x: 7.4, y: 0.44}
+    spawnPoints:
+    - x: 3.4
+      y: 0.44
+      spriteSortOrder: 1
+    - x: 5.4
+      y: 0.14
+      spriteSortOrder: 2
+    - x: 1.4
+      y: 0.14
+      spriteSortOrder: 0
+    - x: 7.4
+      y: 0.44
+      spriteSortOrder: 3
   - count: 5
-    positions:
-    - {x: 3.4, y: 0.44}
-    - {x: 5.4, y: 0.14}
-    - {x: 1.4, y: 0.24}
-    - {x: 7.4, y: 0.14}
-    - {x: -0.6, y: 0.14}
+    spawnPoints:
+    - x: 3.4
+      y: 0.44
+      spriteSortOrder: 2
+    - x: 5.4
+      y: 0.14
+      spriteSortOrder: 3
+    - x: 1.4
+      y: 0.14
+      spriteSortOrder: 1
+    - x: 7.4
+      y: 0.44
+      spriteSortOrder: 4
+    - x: -0.6
+      y: 0.44
+      spriteSortOrder: 0
 --- !u!1 &1497472813
 GameObject:
   m_ObjectHideFlags: 0
