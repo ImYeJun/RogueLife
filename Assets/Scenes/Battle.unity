@@ -4351,14 +4351,6 @@ PrefabInstance:
       propertyPath: viewTransitionManager
       value: 
       objectReference: {fileID: 1879123892}
-    - target: {fileID: 2433302998257475618, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
-      propertyPath: idleSprite
-      value: 
-      objectReference: {fileID: -5743194800094297406, guid: 9727f27d6597ab5499fbe8d80b5a9bf9, type: 3}
-    - target: {fileID: 2433302998257475618, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
-      propertyPath: actionSprite
-      value: 
-      objectReference: {fileID: -8869565056736990322, guid: 7790c2453701f76469737d614ef16a13, type: 3}
     - target: {fileID: 6855730422780328402, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: battleEnemyViewController
       value: 
@@ -7170,7 +7162,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 574121936}
   m_HandleRect: {fileID: 574121934}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

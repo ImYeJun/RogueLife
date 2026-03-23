@@ -418,6 +418,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleEnemyBodyView
   spriteRenderer: {fileID: 4945011816906392779}
+  targetableMaterial: {fileID: 2100000, guid: d8393db2212f3dc498f697028d1ca1dd, type: 2}
+  targetableHoverMaterial: {fileID: 2100000, guid: 1261718ec43abba48a5369b7a7a82835, type: 2}
+  focusingMultiplayAmount: 1.022
+  focusingPresentationDuration: 0.1
+  focusingPresentationEase: 10
 --- !u!61 &2718955847158494555
 BoxCollider2D:
   m_ObjectHideFlags: 0

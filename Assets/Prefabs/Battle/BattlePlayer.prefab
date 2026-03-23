@@ -106,8 +106,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattlePlayerBodyView
   spriteRenderer: {fileID: 1262323659262396462}
-  idleSprite: {fileID: 0}
-  actionSprite: {fileID: 0}
+  targetableMaterial: {fileID: 2100000, guid: d8393db2212f3dc498f697028d1ca1dd, type: 2}
+  targetableHoverMaterial: {fileID: 2100000, guid: 1261718ec43abba48a5369b7a7a82835, type: 2}
+  focusingMultiplayAmount: 1.022
+  focusingPresentationDuration: 0.1
+  focusingPresentationEase: 10
+  idleSprite: {fileID: -5743194800094297406, guid: 9727f27d6597ab5499fbe8d80b5a9bf9, type: 3}
+  actionSprite: {fileID: -8869565056736990322, guid: 7790c2453701f76469737d614ef16a13, type: 3}
 --- !u!61 &397722978824486992
 BoxCollider2D:
   m_ObjectHideFlags: 0

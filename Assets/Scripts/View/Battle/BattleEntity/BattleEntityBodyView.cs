@@ -1,13 +1,26 @@
 using System;
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 namespace View.BattleView
 {
-    public abstract class BattleEntityBodyView<T> : MonoBehaviour, IPointerClickHandler where T : IReadOnlyBattleEntity
+    public abstract class BattleEntityBodyView<T> : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler where T : IReadOnlyBattleEntity
     {
         [SerializeField] protected SpriteRenderer spriteRenderer;
+
+        [Header("Materials")]
+        [SerializeField] private Material targetableMaterial;
+        [SerializeField] private Material targetableHoverMaterial;
+        private Material originalMaterial;
+
+        [Header("Presentation")]
+        [SerializeField] private float focusingMultiplayAmount;
+        [SerializeField] private float focusingPresentationDuration;
+        [SerializeField] private Ease focusingPresentationEase;
+        private float FocusingScale => focusingMultiplayAmount * originalScale;
+        private float originalScale;
+        private Tween currentFocusingTween;
 
         protected T entity;
         private IInspectable inspectableEntity; 
@@ -19,6 +32,9 @@ namespace View.BattleView
 
         public virtual void Initialize(T entity, IInspectable inspectableEntity, Action<IInspectable, Transform, BattleEntityInspectorView.InspectorDirection> onEntityInspectClickedCallback,  BattleEntityInspectorView.InspectorDirection inspectorDirection)
         {
+            originalScale = transform.localScale.x;
+            originalMaterial = spriteRenderer.material;
+
             this.entity = entity;
             this.inspectableEntity = inspectableEntity;
             this.onEntityInspectClickedCallback = onEntityInspectClickedCallback;
@@ -30,7 +46,7 @@ namespace View.BattleView
             isCardTargetable = true;
             onCardTargetedClickedCallback = onTargetClicked;
             
-            spriteRenderer.color = Color.black;
+            spriteRenderer.material = targetableMaterial;
         }
 
         public void OnCardUntargetable()
@@ -38,7 +54,8 @@ namespace View.BattleView
             isCardTargetable = false;
             onCardTargetedClickedCallback = null;
             
-            spriteRenderer.color = Color.white;
+            spriteRenderer.material = originalMaterial;
+            ResetScale();
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -48,6 +65,8 @@ namespace View.BattleView
                 throw new InvalidOperationException("[BattleEntityBodyView] Entity is not initialized");
             }
 
+            ResetScale();
+
             if (isCardTargetable && onCardTargetedClickedCallback != null)
             {
                 onCardTargetedClickedCallback.Invoke(entity);
@@ -56,6 +75,47 @@ namespace View.BattleView
             {
                 onEntityInspectClickedCallback.Invoke(inspectableEntity, transform, inspectorDirection);
             }
+        }
+        
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            if (entity == null) return;
+
+            if (isCardTargetable)
+            {
+                spriteRenderer.material = targetableHoverMaterial;
+            }
+
+            currentFocusingTween?.Kill();
+            currentFocusingTween = transform.DOScale(FocusingScale, CalculateFocusingDuration(transform.localScale.x)).SetEase(focusingPresentationEase);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (entity == null) return;
+
+            if (isCardTargetable)
+            {
+                spriteRenderer.material = targetableMaterial;
+            }
+
+            ResetScale();
+        }
+
+        private void ResetScale()
+        {
+            currentFocusingTween?.Kill();
+            currentFocusingTween = transform.DOScale(originalScale, CalculateFocusingDuration(transform.localScale.x)).SetEase(focusingPresentationEase);
+        }
+
+        private float CalculateFocusingDuration(float currentScale)
+        {
+            float originalDelta = Mathf.Abs(FocusingScale - originalScale);
+            float currentDelta = Mathf.Abs(FocusingScale - currentScale);
+
+            float ratio = originalDelta == 0 ? 0 : currentDelta / originalDelta;
+
+            return focusingPresentationDuration * ratio;
         }
 
         public abstract void SetActionSprite();
