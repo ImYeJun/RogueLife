@@ -11,6 +11,11 @@ namespace View.BattleView
             SetIdleSprite();
         }
 
+        public void SetSpriteSortingOrder(int order)
+        {
+            spriteRenderer.sortingOrder = order;
+        }
+
         public override void SetActionSprite()
         {
             spriteRenderer.sprite = entity.Data.GetBattleSprite(EnemySpriteType.Action);

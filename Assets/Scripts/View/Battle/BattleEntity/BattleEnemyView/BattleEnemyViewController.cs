@@ -138,7 +138,7 @@ namespace View.BattleView
                     
                     if (Vector2.Distance(currentPos, targetPos) > 0.01f)
                     {
-                        currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos));
+                        currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos, i));
                     }
                 }
 
@@ -203,7 +203,7 @@ namespace View.BattleView
                 
                 if (Vector2.Distance(currentPos, targetPos) > 0.01f)
                 {
-                    currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos));
+                    currentPositionTween.Join(snapshot[i].UpdatePosition(targetPos, i));
                 }
             }
 

@@ -175,8 +175,9 @@ namespace View.BattleView
             return seq;
         }
 
-        public Tween UpdatePosition(Vector2 targetPosition)
+        public Tween UpdatePosition(Vector2 targetPosition, int positionIndex)
         {
+            bodyView.SetSpriteSortingOrder(positionIndex);
             return transform.DOMove(targetPosition, positionDuration).SetEase(positioningEase);
         }
 
