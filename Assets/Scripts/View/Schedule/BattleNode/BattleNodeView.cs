@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening; // 💡 Fade 처리를 위해 DOTween 추가!
+using DG.Tweening;
 using View.Core;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
@@ -22,6 +22,7 @@ namespace View.ScheduleView.BattleNodes
         [SerializeField] private float enterLineHoldDuration = 1f;
 
         [Header("Return Presentation Settings")]
+        [SerializeField] private float returnImageHoldDuration = 2f;
         [SerializeField] private float returnLineHoldDuration = 2f;
         [SerializeField] private float returnImageFadeDuration = 1f;
         [SerializeField] private Ease returnFadeEase = Ease.InOutCubic;
@@ -50,11 +51,10 @@ namespace View.ScheduleView.BattleNodes
         {
             if (payload.EnteringNode is not BattleNode battleNode) { return; }
 
-            battleNodeView.SetActive(true);
-
             currentMainEnemy = battleNode.MainEnemyData;
             
             mainEnemyUsualImage.sprite = currentMainEnemy.UsualSprite;
+            mainEnemyUsualImage.gameObject.SetActive(true);
             
             var color = mainEnemyUsualImage.color;
             color.a = 1f;
@@ -67,8 +67,7 @@ namespace View.ScheduleView.BattleNodes
 
         private IEnumerator BattleNodeEnterPresentation()
         {
-            mainEnemyUsualImage.gameObject.SetActive(true);
-
+            battleNodeView.SetActive(true);
             yield return new WaitForSeconds(enterImageToLineDelay);
             enemyLineView.gameObject.SetActive(true);
             yield return new WaitForSeconds(enterLineHoldDuration);
@@ -90,6 +89,7 @@ namespace View.ScheduleView.BattleNodes
 
         private IEnumerator ReturnedFromBattlePresentation()
         {
+            yield return new WaitForSeconds(returnImageHoldDuration);
             enemyLineView.gameObject.SetActive(true);
             yield return new WaitForSeconds(returnLineHoldDuration);
             enemyLineView.gameObject.SetActive(false);
@@ -99,7 +99,6 @@ namespace View.ScheduleView.BattleNodes
             mainEnemyUsualImage.gameObject.SetActive(false);
             battleNodeView.SetActive(false);
         }
-
 
         [ContextMenu("Test Enter Presentation")]
         public void TestEnterPresentation()

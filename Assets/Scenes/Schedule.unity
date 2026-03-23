@@ -1068,8 +1068,8 @@ MonoBehaviour:
   exitForegroundEasingType: 22
   engageFadeDuration: 1.3
   engageFadeEasingType: 17
-  returnFadeDuration: 2
-  returnFadeEasingType: 18
+  returnFadeDuration: 1
+  returnFadeEasingType: 8
 --- !u!1 &233765392
 GameObject:
   m_ObjectHideFlags: 0
@@ -15317,6 +15317,7 @@ MonoBehaviour:
   enemyLineView: {fileID: 1502667216}
   enterImageToLineDelay: 1
   enterLineHoldDuration: 1
+  returnImageHoldDuration: 1
   returnLineHoldDuration: 2
   returnImageFadeDuration: 1
   returnFadeEase: 10
@@ -16272,12 +16273,12 @@ RectTransform:
   m_Children:
   - {fileID: 479694160}
   - {fileID: 590007649}
-  - {fileID: 874367752}
   - {fileID: 567865970}
-  - {fileID: 1027314862}
+  - {fileID: 874367752}
   - {fileID: 1268403894}
   - {fileID: 1138755758}
   - {fileID: 710759934}
+  - {fileID: 1027314862}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0.317}
   m_AnchorMin: {x: 0, y: 0}

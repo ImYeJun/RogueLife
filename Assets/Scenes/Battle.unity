@@ -2892,6 +2892,8 @@ MonoBehaviour:
   foreground: {fileID: 1264185670}
   battleStartFadeDuration: 1
   battleStartFadeEasingType: 8
+  battleExitFadeDuration: 1.3
+  battleExitFadeEasingType: 17
 --- !u!1 &1324683659
 GameObject:
   m_ObjectHideFlags: 0
