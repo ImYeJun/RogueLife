@@ -61,8 +61,8 @@ public static class Constant
     public const int ELITE_ENEMY_MENTALITY_PENALTY_AMOUNT = 20;
     public const int BOSS_ENEMY_MENTALITY_PENALTY_AMOUNT = 35;
 
-    // [적 시작 페이즈 수]
-    public const int NORMAL_ENEMY_START_PHASE_COUNT = 5;
-    public const int ELITE_ENEMY_START_PHASE_COUNT = 6;
-    public const int BOSS_ENEMY_START_PHASE_COUNT = 8;
+    // [적 시작 턴 수]
+    public const int NORMAL_ENEMY_START_TURN_COUNT = 10;
+    public const int ELITE_ENEMY_START_TURN_COUNT = 12;
+    public const int BOSS_ENEMY_START_TURN_COUNT = 16;
 }

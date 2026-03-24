@@ -19,7 +19,7 @@ public class BattleStartEvent : BattleEvent
         this.turnStartDrawCount = turnStartDrawCount;
         this.startDrawDeck = startDrawDeck;
         this.battlePlayer = battlePlayer;
-        this.battleBelongings = battleBelongings; // 추가됨
+        this.battleBelongings = battleBelongings;
         this.enemies = enemies;
     }
 

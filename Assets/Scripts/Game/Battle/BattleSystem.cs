@@ -104,9 +104,9 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
 
         int startPhaseCount = mainEnemyEntity.Tier switch
         {
-            EnemyTier.NORMAL => Constant.NORMAL_ENEMY_START_PHASE_COUNT,
-            EnemyTier.ELITE => Constant.ELITE_ENEMY_START_PHASE_COUNT,
-            EnemyTier.BOSS => Constant.BOSS_ENEMY_START_PHASE_COUNT,
+            EnemyTier.NORMAL => Constant.NORMAL_ENEMY_START_TURN_COUNT,
+            EnemyTier.ELITE => Constant.ELITE_ENEMY_START_TURN_COUNT,
+            EnemyTier.BOSS => Constant.BOSS_ENEMY_START_TURN_COUNT,
             _ => throw new InvalidOperationException($"[BattleSystem/EngageBattle] {mainEnemyEntity.Tier} is not supported for determining start phase count.")
         };
 
