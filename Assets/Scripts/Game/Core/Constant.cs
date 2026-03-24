@@ -17,7 +17,7 @@ public static class Constant
     public const int BASE_FIRST_TURN_DRAW_COUNT = 5;
     public const int BASE_START_TURN_DRAW_COUNT = 2;
     public const int BASE_MAX_HAND_ZONE_CARD_COUNT = 7;
-    public const int BASE_MAX_DECK_CARD_TYPE_COUNT = 24;
+    public const int BASE_MAX_DECK_CARD_TYPE_COUNT = 9;
     public const int MAX_MAIN_DECK_CARD_TYPE_COUNT = 8;
     // ---------------------------------------------------------
     // * 소지품 규칙 (Belongings Rules)

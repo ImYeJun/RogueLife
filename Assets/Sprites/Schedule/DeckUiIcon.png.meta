@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1d3ea2f57455cdb4c80211643e91cd5f
+guid: bbee71375babd4f489b55be7b4b89083
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6358316933408920745
-    second: HitOnHurtSpot_0
+      213: -329776291181991311
+    second: DeckUiIcon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,23 +100,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: HitOnHurtSpot_0
+      name: DeckUiIcon_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 74
-        height: 48
+        width: 334
+        height: 334
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9a4903920974d3850800000000000000
-      internalID: 6358316933408920745
+      spriteID: 17a60ccd5366c6bf0800000000000000
+      internalID: -329776291181991311
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: b4a7e97a18ea99c4d8fcf3adf9b2907a
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      HitOnHurtSpot_0: 6358316933408920745
+      DeckUiIcon_0: -329776291181991311
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
