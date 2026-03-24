@@ -9,13 +9,13 @@ namespace View.BattleView
     public class CardDescriptionView : MonoBehaviour
     {
         [Header("Behaviour")]
+        private Vector3 originalPosition;
         [SerializeField] private RectTransform rectTransform;
         [SerializeField] private TextMeshProUGUI description;
         [SerializeField] private CanvasGroup canvasGroup; 
 
         [Header("Settings")]
         [SerializeField] private float floatingDistance = 300f;
-        [SerializeField] private float appearOffset = 20f; 
         
         [SerializeField] private Vector2 padding = new Vector2(40f, 40f); 
         [SerializeField] private bool useFixedWidth = true;
@@ -23,8 +23,6 @@ namespace View.BattleView
 
         [Header("Tween Presentation")]
         [SerializeField] private float fadeDuration = 0.15f;
-        [SerializeField] private float moveDuration = 0.2f;
-        [SerializeField] private Ease moveEase = Ease.OutBack;
         [SerializeField] private Ease fadeEase = Ease.OutQuad;
 
         private Tween currentTween;
@@ -34,13 +32,14 @@ namespace View.BattleView
         public void Initialize(Func<string, BattleStatusEffectData> getStatusEffectData)
         {
             GetStatusEffectData = getStatusEffectData;
+            originalPosition = rectTransform.anchoredPosition;
         }
 
         public void Focus(BattleCardView focusedCardView)
         {
             currentTween?.Kill();
 
-            var targetPosition = focusedCardView.gameObject.transform.localPosition + Vector3.up * floatingDistance;
+            var targetPosition = originalPosition;
             
             StringBuilder sb = new StringBuilder();
             sb.Append(focusedCardView.Card.CurrentDescription);
@@ -73,22 +72,18 @@ namespace View.BattleView
                 rectTransform.sizeDelta = new Vector2(textSize.x + padding.x, finalHeight);
             }
 
-            if (finalHeight > 500f)
+            if (finalHeight > 400f)
             {
-                float difference = finalHeight - 500f;
+                float difference = finalHeight - 400f;
                 targetPosition += new Vector3(0, difference, 0);
             }
 
+            transform.localPosition = targetPosition;
+            
             gameObject.SetActive(true);
-
-            transform.localPosition = targetPosition - new Vector3(0, appearOffset, 0);
             canvasGroup.alpha = 0f;
 
-            var sequence = DOTween.Sequence();
-            sequence.Join(transform.DOLocalMove(targetPosition, moveDuration).SetEase(moveEase));
-            sequence.Join(canvasGroup.DOFade(1f, fadeDuration).SetEase(fadeEase));
-
-            currentTween = sequence;
+            currentTween = canvasGroup.DOFade(1f, fadeDuration).SetEase(fadeEase);
         }
 
         public void Unfocus()
@@ -97,15 +92,9 @@ namespace View.BattleView
 
             if (!gameObject.activeSelf) return;
 
-            var targetPosition = transform.localPosition - new Vector3(0, appearOffset, 0);
-
-            var sequence = DOTween.Sequence();
-            sequence.Join(transform.DOLocalMove(targetPosition, moveDuration).SetEase(Ease.InBack)); 
-            sequence.Join(canvasGroup.DOFade(0f, fadeDuration).SetEase(fadeEase));
-            
-            sequence.OnComplete(() => gameObject.SetActive(false));
-
-            currentTween = sequence;
+            currentTween = canvasGroup.DOFade(0f, fadeDuration)
+                .SetEase(fadeEase)
+                .OnComplete(() => gameObject.SetActive(false));
         }
     }
 }

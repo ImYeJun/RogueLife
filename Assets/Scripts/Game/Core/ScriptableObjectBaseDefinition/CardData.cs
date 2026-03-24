@@ -7,9 +7,9 @@ public class CardData : ScriptableObject
     [SerializeField] private string id;
     [SerializeField] private string cardName;
     [SerializeField] private Sprite background;
-    [SerializeField, TextArea] private string description;
+    [SerializeField, TextArea(3, 20)] private string description;
     [SerializeField] private List<string> relatedStatusEffectIds;
-    [SerializeField, TextArea] private string relfectionAppliedDescription;
+    [SerializeField, TextArea(3, 20)] private string relfectionAppliedDescription;
     [SerializeField] private List<string> reflectionRelatedStatusEffectIds;
     [SerializeField] private CardType type;
     [SerializeField] private CardAttribute attribute;
