@@ -24,13 +24,19 @@ namespace Battle.BattleResultCommands
 
             var random = context.Random;
 
-            var determinedRarity = DetermineRewardCardRarity(random, candidateRarity);
+            int rewardCount = mainEnemyTier == EnemyTier.BOSS ? 2 : 1;
 
-            Card? rewardingCard = context.CardDatabase.GetRandomCard(random, determinedRarity, CardType.ANY, CardAttribute.ANY);
-            if (rewardingCard is null) { return; }
-
-            var reward = new CardBattleReward(rewardingCard);
-            rewardCollector.AddCandidate(reward);
+            for (int i = 0; i < rewardCount; i++)
+            {
+                var determinedRarity = DetermineRewardCardRarity(random, candidateRarity);
+                Card? rewardingCard = context.CardDatabase.GetRandomCard(random, determinedRarity, CardType.ANY, CardAttribute.ANY);
+                
+                if (rewardingCard is not null) 
+                { 
+                    var reward = new CardBattleReward(rewardingCard);
+                    rewardCollector.AddCandidate(reward);
+                }
+            }
         }
 
         private CardRarity DetermineRewardCardRarity(Random random, List<(CardRarity rarity, int weight)> candidates)

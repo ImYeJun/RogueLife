@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Battle.BattleResultCommands;
 using Battle.StartEffects;
+using Unity.VisualScripting;
 using Unity.XR.OpenVR;
 using ViewEvent.BattleView;
 
@@ -141,11 +142,11 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         scheduler.StartBattle(preparedStartData.Value);
     }
 
-    // 변경점 3: BattleResult 구조체를 생성하여 OnBattleExit에 전달하도록 리팩토링 되었습니다.
     public void ExitBattle(BattleResultType result)
     {
         var mainEnemyTier = mainEnemyData.Tier;
         bool hasResolved = result is BattleResultType.PLAYER_SPECIAL_CARD_WIN or BattleResultType.PLAYER_ANNIHILATE_WIN;
+        bool nextNodeSelectable = result is BattleResultType.PLAYER_SPECIAL_CARD_WIN or BattleResultType.PLAYER_ANNIHILATE_WIN or BattleResultType.ALL_PHASE_END;
 
         BattleResultCommand resultCommand = result switch
         {
@@ -153,24 +154,21 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
                 CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                     new ObtainCardCommand(mainEnemyTier),
                     new ObtainBelongingsCommand(mainEnemyTier),
-                    new RequestNextNodeSelectionCommand(mainEnemyTier)
                 }),
             BattleResultType.PLAYER_ANNIHILATE_WIN => new 
                 CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                     new ObtainCardCommand(mainEnemyTier),
                     new ObtainBelongingsCommand(mainEnemyTier),
-                    new RequestNextNodeSelectionCommand(mainEnemyTier)
                 }),
             BattleResultType.ALL_PHASE_END => new CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                         new ReceiveDamageCommand(mainEnemyTier),
-                        new RequestNextNodeSelectionCommand(mainEnemyTier)
                     }),
             BattleResultType.PLAYER_DIED => new PlayerDiedCommand(mainEnemyTier),
             BattleResultType.OUT_OF_MY_WAY => new OutOfMyWayCommand(mainEnemyTier),
             _ => throw new InvalidOperationException($"[BattleSystem/ExitBattle] {result} is not valid to generate resultCommand.")
         };
         
-        BattleResult battleResult = new BattleResult(resultCommand, hasResolved, mainEnemyData);
+        BattleResult battleResult = new BattleResult(resultCommand, hasResolved, mainEnemyData, nextNodeSelectable);
 
         fieldActionCost?.OnBattleEnd();
         OnBattleExit?.Invoke(battleResult);

@@ -129,7 +129,12 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
             if (rewardCollector.RewardCandidates.Count > 0)
             {
-                scheduleViewEventBus.Publish(new BattleRewardSelectRequested(sequenceIdGenerator.GetNextId(), rewardCollector));
+                scheduleViewEventBus.Publish(new BattleRewardSelectRequested(sequenceIdGenerator.GetNextId(), rewardCollector, 
+                pendingResult.IsNextNodeSelectable ? currentSchedule.CurrentNode.RequestNextNodeSelection : null));
+            }
+            else if (pendingResult.IsNextNodeSelectable)
+            {
+                currentSchedule.CurrentNode.RequestNextNodeSelection();
             }
 
             return;

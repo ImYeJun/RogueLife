@@ -122,6 +122,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleRewardButton
   text: {fileID: 4122424573546234116}
+  canvasGroup: {fileID: 4610535728645628717}
+  fadeDuration: 0.1
+  fadeEase: 10
+  showDuration: 0.3
+  showDistance: 10
+  showEase: 27
 --- !u!114 &4910377537509511987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,3 +206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!225 &4610535728645628717 stripped
+CanvasGroup:
+  m_CorrespondingSourceObject: {fileID: 3679515035680010619, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+  m_PrefabInstance: {fileID: 931025486862160470}
+  m_PrefabAsset: {fileID: 0}
