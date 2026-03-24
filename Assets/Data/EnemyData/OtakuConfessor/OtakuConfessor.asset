@@ -41,4 +41,8 @@ MonoBehaviour:
   defeatLines:
   - "\uC774\uB807\uAC8C \uCC28\uC774\uB2E4\uB2C8 (\uB208\uBB3C)"
   usualSprite: {fileID: 0}
-  battleSprites: []
+  battleSprites:
+  - type: 0
+    sprite: {fileID: 566815236806768333, guid: 93dde80a70a7b624e83b0097efd9ff3a, type: 3}
+  - type: 1
+    sprite: {fileID: 3258573464098860923, guid: 93dde80a70a7b624e83b0097efd9ff3a, type: 3}
