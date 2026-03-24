@@ -1818,7 +1818,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.HealthUpdatePresentation
   battleHealthView: {fileID: 49045446}
   mentalityView: {fileID: 2120220270}
-  playerStatusView: {fileID: 1431076835}
+  playerStatusView: {fileID: 1216537159}
   playerImageView: {fileID: 1275263200}
   totalFillDuration: 0.4
   textOffsetDuration: 0.23
@@ -7422,8 +7422,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0.71000004, y: 0.71000004}
-  m_AnchoredPosition: {x: -0.049606323, y: -0.049591064}
-  m_SizeDelta: {x: -0.23329997, y: -0.23329997}
+  m_AnchoredPosition: {x: 2.699997, y: 16.528}
+  m_SizeDelta: {x: 33.0565, y: 33.0559}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &945266531
 MonoBehaviour:
@@ -7445,7 +7445,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7477694624392355250, guid: a6d0382d92c76ef498e62f7e1c40bc32, type: 3}
+  m_Sprite: {fileID: 8907954949138390853, guid: 078d5673ff4474c4fb616c040163060d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10504,6 +10504,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1216537158}
+  - component: {fileID: 1216537159}
   m_Layer: 5
   m_Name: PlayerStatusView
   m_TagString: Untagged
@@ -10532,6 +10533,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 293.461, y: 293.456}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1216537159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1216537157}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d2b91c3e426d543958140b9ecdb770, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.PlayerStatusView
+  mentalitySlider: {fileID: 1890604185}
+  portrait: {fileID: 945266531}
+  idleSprite: {fileID: 8907954949138390853, guid: 078d5673ff4474c4fb616c040163060d, type: 3}
+  hurtSprite: {fileID: 3833621814861297782, guid: 2b44f2e705c258f468078b3cc8b30fd0, type: 3}
+  fillEase: 27
 --- !u!1 &1227459331
 GameObject:
   m_ObjectHideFlags: 0
@@ -12114,7 +12132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1431076834}
-  - component: {fileID: 1431076835}
   m_Layer: 5
   m_Name: MentalityVIew
   m_TagString: Untagged
@@ -12143,20 +12160,6 @@ RectTransform:
   m_AnchoredPosition: {x: -0.0000076294, y: -0.000015259}
   m_SizeDelta: {x: 0.0881958, y: 0.085494995}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &1431076835
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1431076833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8d2b91c3e426d543958140b9ecdb770, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.PlayerStatusView
-  mentalitySlider: {fileID: 1890604185}
-  fillEase: 27
 --- !u!1 &1441922520
 GameObject:
   m_ObjectHideFlags: 0
@@ -12429,7 +12432,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Controller.Schedule.ScheduleRootContorller
   views:
   - {fileID: 2091703561}
-  - {fileID: 1431076835}
   - {fileID: 49045446}
   - {fileID: 2120220270}
   - {fileID: 1881075775}

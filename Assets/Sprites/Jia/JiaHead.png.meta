@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b75d8546246d88e4182e08aee27425ba
+guid: 078d5673ff4474c4fb616c040163060d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5793833195331429025
-    second: SettingUiIcon_0
+      213: 8907954949138390853
+    second: JiaHead_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SettingUiIcon_0
+      name: JiaHead_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 334
-        height: 334
+        width: 800
+        height: 800
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a2a8971894d76050800000000000000
-      internalID: 5793833195331429025
+      spriteID: 54f939274d96f9b70800000000000000
+      internalID: 8907954949138390853
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8586ef5950e18d8499c4176d8d44e66e
+    spriteID: 7f768a13b8622044bae61c823f8a9b06
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SettingUiIcon_0: 5793833195331429025
+      JiaHead_0: 8907954949138390853
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

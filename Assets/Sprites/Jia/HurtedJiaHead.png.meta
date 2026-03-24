@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: b75d8546246d88e4182e08aee27425ba
+guid: 2b44f2e705c258f468078b3cc8b30fd0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5793833195331429025
-    second: SettingUiIcon_0
+      213: 3833621814861297782
+    second: HurtedJiaHead_0
+  - first:
+      213: -4209637460015798427
+    second: HurtedJiaHead_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: SettingUiIcon_0
+      name: HurtedJiaHead_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 334
-        height: 334
+        width: 800
+        height: 800
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1a2a8971894d76050800000000000000
-      internalID: 5793833195331429025
+      spriteID: 678fefdaab2c33530800000000000000
+      internalID: 3833621814861297782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HurtedJiaHead_1
+      rect:
+        serializedVersion: 2
+        x: 748
+        y: 376
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 567a492a80d5495c0800000000000000
+      internalID: -4209637460015798427
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8586ef5950e18d8499c4176d8d44e66e
+    spriteID: 54fc5888959058c43850f727e46998e9
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      SettingUiIcon_0: 5793833195331429025
+      HurtedJiaHead_0: 3833621814861297782
+      HurtedJiaHead_1: -4209637460015798427
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

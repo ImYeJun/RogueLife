@@ -87,7 +87,9 @@ namespace View.ScheduleView
                 battleHealthSeq.Join(playerImageView.GetHurtEffectTween());
             }
 
+            playerStatusView.SetHurtPortrait();
             yield return mainSeq.WaitForCompletion();
+            playerStatusView.SetIdlePortrait();
         }
 
         private IEnumerator HealPresentationRoutine(PlayerHealed payload)

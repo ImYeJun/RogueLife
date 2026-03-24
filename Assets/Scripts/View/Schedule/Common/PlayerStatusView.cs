@@ -8,15 +8,21 @@ using ViewEvent.ScheduleView;
 
 namespace View.ScheduleView
 {
-    public class PlayerStatusView : ViewBehaviour<IScheduleViewEvent>
+    public class PlayerStatusView : MonoBehaviour
     {
         [SerializeField] private Image mentalitySlider;
+
+        [SerializeField] private Image portrait;
+        [SerializeField] private Sprite idleSprite;
+        [SerializeField] private Sprite hurtSprite;
 
         [Header("Tween Settings")]
         [SerializeField] private Ease fillEase = Ease.OutQuad;
 
-        public override void OnInitialized() { }
-        public override void OnDestroy() { }
+        public void Awake()
+        {
+            SetIdlePortrait();
+        }
 
         public void DrawViewInstant(IReadOnlyHealth health)
         {
@@ -32,6 +38,15 @@ namespace View.ScheduleView
         {
             float nomarlizedMentality = currentMaxHealth == 0 ? 0 : (float)newHealth/currentMaxHealth;
             return mentalitySlider.DOFillAmount(nomarlizedMentality, duration).SetEase(fillEase);
+        }
+
+        public void SetIdlePortrait()
+        {
+            portrait.sprite = idleSprite;
+        }
+        public void SetHurtPortrait()
+        {
+            portrait.sprite = hurtSprite;
         }
     }
 }
