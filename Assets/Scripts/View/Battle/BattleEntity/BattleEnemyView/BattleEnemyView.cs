@@ -25,8 +25,10 @@ namespace View.BattleView
         [SerializeField, FormerlySerializedAs("healthBar")] private Image healthBarImage;
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private GameObject actionIconPrefab;
+        [SerializeField] private GameObject inspectActionIconPrefab;
         [SerializeField] private RectTransform actionIconView;
         [SerializeField] private RectTransform actionIconsContainer;
+
         private List<BattleEnemyActionIcon> actionIcons = new List<BattleEnemyActionIcon>();
 
         [Header("Fade Presentation Settings")]
@@ -111,8 +113,7 @@ namespace View.BattleView
             entity = enemy;
 
             transform.position = spawnPos;
-
-
+            
             DrawHealthBarDirectly(enemy.CurrentHealth, enemy.MaxHealth);
         }
 
@@ -406,8 +407,16 @@ namespace View.BattleView
             {
                 var linkedGroup = builder.AddLinkedGroup(availableActionPanel.ItemContainer);
 
-                var availableBehaviourText = builder.AddBodyText(linkedGroup.RectTransform);
-                availableBehaviourText.Text = $"{int.Parse(behaviour.Id[behaviour.Id.Length - 1].ToString()) + 1} : {behaviour.Description}";
+                var horizontalLayoutGroup = builder.AddHorizontalLayout(linkedGroup.RectTransform);
+                
+                var actionIconObject = Instantiate(inspectActionIconPrefab, horizontalLayoutGroup.transform);
+                actionIconObject.transform.localScale = Vector3.one;
+                var actionIcon = actionIconObject.GetComponent<BattleEnemyActionIcon>();
+                var action = enemy.AvailableActions[behaviour.Id];
+                actionIcon.Initialize(action);
+
+                var availableBehaviourText = builder.AddBodyText(horizontalLayoutGroup.RectTransform);
+                availableBehaviourText.Text = $" : {behaviour.Description}";
 
                 foreach (var associatedStatusEffect in behaviour.AssociatedStatusEffectIds)
                 {
@@ -421,15 +430,18 @@ namespace View.BattleView
             var intendedActionPanel = builder.AddSubPanel(parent);
             intendedActionPanel.Header = "하게 될 행동";
 
-            var sequenceText = builder.AddBodyText(intendedActionPanel.ItemContainer);
 
+            var intendedActionhorizontalLayoutGroup = builder.AddHorizontalLayout(intendedActionPanel.ItemContainer);
             for (int i = 0; i < actionIcons.Count; i++)
             {
-                string id = actionIcons[i].Action.Id;
-                sequenceText.Text += $"{int.Parse(id[id.Length - 1].ToString()) + 1}";
+                var actionIconObject = Instantiate(inspectActionIconPrefab, intendedActionhorizontalLayoutGroup.transform);
+                actionIconObject.transform.localScale = Vector3.one;
+                var actionIcon = actionIconObject.GetComponent<BattleEnemyActionIcon>();
+                actionIcon.Initialize(actionIcons[i].Action);
 
                 if (i != actionIcons.Count - 1){
-                    sequenceText.Text += " → ";
+                    var arrowText = builder.AddBodyText(intendedActionhorizontalLayoutGroup.RectTransform);
+                    arrowText.Text += " → ";
                 }
             }
             

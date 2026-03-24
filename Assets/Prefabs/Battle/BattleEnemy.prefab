@@ -877,9 +877,9 @@ MonoBehaviour:
   healthBarImage: {fileID: 1605041273057130787}
   healthText: {fileID: 1264867112611709670}
   actionIconPrefab: {fileID: 2553415525742267564, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
+  inspectActionIconPrefab: {fileID: 5954366684193098318, guid: c86a48230b85a114aaec7c9668778759, type: 3}
   actionIconView: {fileID: 4421735693550918179}
   actionIconsContainer: {fileID: 3949053645069490204}
-  actionText: {fileID: 0}
   fadeDuration: 0.5
   heavyHurtRatio: 0.5
   normalHurtDuration: 0.1

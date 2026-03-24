@@ -5,28 +5,44 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace View.BattleView
 {
     public class BattleEnemyActionIcon : MonoBehaviour
     {
+        [Serializable]
+        public struct ActionTypeSpriteMap
+        {
+            public BattleEnemyActionType type;
+            public Sprite sprite;
+        }
+
         private CanvasGroup canvasGroup;
         private LayoutElement layoutElement;
 
         private EnemyAction action;
         public EnemyAction Action => action;
 
+        [Header("Sprite")]
+        [SerializeField] private Image typeImage;
+        [SerializeField] private Image indexImage;
+        [SerializeField] private List<ActionTypeSpriteMap> actionTypeSpriteMap;
+        [SerializeField] private List<Sprite> actionIndexSprite;
+        
+
         [Header("Applied Presentation")]
         [SerializeField] private float appliedPresentationDuration;
         [SerializeField] private Ease appliedPresentationEase;
-        
+
         [Header("Executed Presentation")]
         [SerializeField] private float executedPresentationDuration;
         [SerializeField] private Ease executedPresentationEase;
         [SerializeField] private Vector3 punchAmount;
         [SerializeField] private int punchVibrato;
         [SerializeField] private float punchElasticity;
-        
+
         [Header("Removed Presentation")]
         [SerializeField] private float removedPresentationDuration;
         [SerializeField] private Ease removedPresentationEase;
@@ -45,6 +61,15 @@ namespace View.BattleView
         public void Initialize(EnemyAction action)
         {
             this.action = action;
+
+            var typeSprite = actionTypeSpriteMap.FirstOrDefault(map => map.type == action.ActionType).sprite;
+            typeImage.sprite = typeSprite;
+
+            //TODO Refactor the index to be a attribute of EnemyAction
+            string id = action.Id;
+            int index =  int.Parse(id[id.Length - 1].ToString());
+            var indexSprite = actionIndexSprite[index];
+            indexImage.sprite = indexSprite;    
         }
 
         public IEnumerator PlayAppliedPresentation()

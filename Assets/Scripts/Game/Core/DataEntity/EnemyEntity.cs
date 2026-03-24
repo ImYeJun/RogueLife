@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Battle.Enemies.Actions;
 using UnityEngine;
 
 public class EnemyEntity : MonoBehaviour 

@@ -28,6 +28,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     public BattleHurtSource AsHurtSource => new EntitySource(this);
     public override int MaxHealth => currentMaxHealth;
     public float NormalizedHealth { get => currentMaxHealth == 0 ? 0 : (float)currentHealth/currentMaxHealth; }
+    public IReadOnlyDictionary<string, EnemyAction> AvailableActions => behaviourInstance.AvailableActions;
 
     public BattleEnemy(BattleContext context, EnemyEntity enemyEntity) : base(context, BattleEntityTrait.ENEMY)
     {

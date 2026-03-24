@@ -9,5 +9,6 @@ namespace View.BattleView{
         public InspectorLinkedGroup AddLinkedGroup(RectTransform parent);
         public InspectorNameText AddNameText(RectTransform parent);
         public InspectorSubPanel AddSubPanel(RectTransform parent);
+        public InspectorHorizontalLayout AddHorizontalLayout(RectTransform parent);
     }
 }

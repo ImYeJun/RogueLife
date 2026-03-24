@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleCardSlotView
       objectReference: {fileID: 0}
+    - target: {fileID: 1847234555602272300, guid: e26b52014da8a0d4283fc5455c456c88, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2526381799139226901, guid: e26b52014da8a0d4283fc5455c456c88, type: 3}
       propertyPath: m_fontSize
       value: 2

@@ -55,6 +55,7 @@ namespace View.BattleView
         [SerializeField] private GameObject linkedGroupPrefab;
         [SerializeField] private GameObject nameTextPrefab;
         [SerializeField] private GameObject subPanelPrefab;
+        [SerializeField] private GameObject horizontalLayoutPrefab;
 
         private RectState defaultPanelState;
         private RectState defaultCloseState;
@@ -130,6 +131,12 @@ namespace View.BattleView
         {
             var gameObj = Instantiate(subPanelPrefab, parent);
             return gameObj.GetComponent<InspectorSubPanel>();
+        }
+
+        public InspectorHorizontalLayout AddHorizontalLayout(RectTransform parent)
+        {
+            var gameObj = Instantiate(horizontalLayoutPrefab, parent);
+            return gameObj.GetComponent<InspectorHorizontalLayout>();
         }
     }
 }

@@ -10,6 +10,8 @@ public abstract class BattleEnemyBehaviour
     protected Dictionary<string, EnemyAction> availableActions = new Dictionary<string, EnemyAction>();
     //* <actionId, EnemyAcion>
 
+    public IReadOnlyDictionary<string, EnemyAction> AvailableActions => availableActions;
+
     protected BattleEnemyBehaviour() {}
     protected BattleEnemyBehaviour(IEnemyBehaviourOwner owner)
     {

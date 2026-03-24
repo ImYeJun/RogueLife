@@ -4910,7 +4910,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1324683659}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -5019,6 +5019,7 @@ MonoBehaviour:
   linkedGroupPrefab: {fileID: 4539029599409723602, guid: 579e6745802f4fa438155345c5e0754e, type: 3}
   nameTextPrefab: {fileID: 226342128993032476, guid: 617dba6217245e54bb493e4695d4df08, type: 3}
   subPanelPrefab: {fileID: 4568891915341802135, guid: 8e72c5243f5b68e40b22a1ef2525b9eb, type: 3}
+  horizontalLayoutPrefab: {fileID: 4617116029495981942, guid: 5aa43f06b70a9b641a1815f6015953ab, type: 3}
 --- !u!1 &1329006128
 GameObject:
   m_ObjectHideFlags: 0

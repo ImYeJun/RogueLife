@@ -7,4 +7,5 @@ public interface IReadOnlyBattleEnemy : IReadOnlyBattleEntity{
     public int CurrentHealth { get; }
     public int MaxHealth { get; }
     public float NormalizedHealth { get; }
+    public IReadOnlyDictionary<string, EnemyAction> AvailableActions { get; }
 }
