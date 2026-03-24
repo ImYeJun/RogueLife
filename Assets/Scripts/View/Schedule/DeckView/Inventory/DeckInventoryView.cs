@@ -9,6 +9,7 @@ using UnityEngine.Pool;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 using View.Core;
+using View.Global;
 using ViewEvent.Core;
 using ViewEvent.ScheduleView;
 
@@ -21,12 +22,11 @@ namespace View.ScheduleView.Deck
         private Card focusedCard; 
         
         [SerializeField] private GameObject uiRoot;
+        [SerializeField] private CardInspectorView cardInspectorView;
 
         private DeckInventorySorter deckSorter = new DeckInventorySorter();
         [SerializeField] private SortingSettingView sortingSettingView;
         [SerializeField] private FilteringSettingView filteringSettingView;
-
-        [SerializeField] private UnityEvent<Card> OnSlotClicked;
 
         [SerializeField] private GameObject mainCardSlotPrefab;
         [SerializeField] private GameObject sideCardSlotPrefab;
@@ -48,6 +48,7 @@ namespace View.ScheduleView.Deck
         public override void OnInitialized()
         {
             uiRoot.SetActive(false);
+            cardInspectorView.GetStatusEffectData = commander.GetStatusEffectData;
 
             mainDeckPool = new ObjectPool<CardSlotView>(
                 createFunc : CreateMainCardSlot,
@@ -268,7 +269,7 @@ namespace View.ScheduleView.Deck
             
             focusedSlot.OnFocused();
 
-            OnSlotClicked.Invoke(slotView.CurrentCard);
+            cardInspectorView.VisualizeSelectedSlot(slotView.CurrentCard);
         }
 
         private void ClearActiveSlots()

@@ -4,7 +4,7 @@ namespace Battle.BattleResultCommands
 {
     public class ReceiveDamageCommand : BattleResultCommand
     {
-        public ReceiveDamageCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier, false)
+        public ReceiveDamageCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier)
         {
         }
 

@@ -20,21 +20,29 @@ namespace View.BattleView
         [SerializeField] private float battleStartFadeDuration;
         [SerializeField] private Ease battleStartFadeEasingType;
 
+        [Header("Battle Exited Presentation")]
+        [SerializeField] private float battleExitFadeDuration;
+        [SerializeField] private Ease battleExitFadeEasingType;
+
         public override void OnInitialized()
         {
             foreground.gameObject.SetActive(true);
             eventBus.Subscribe<BattleStarted>(OnBattleStarted);
+            eventBus.Subscribe<BattleExited>(OnBattleExited);
         }
+        
         public override void OnDestroy()
         {
             KillActiveTweens();
             eventBus?.Unsubscribe<BattleStarted>(OnBattleStarted);
+            eventBus?.Unsubscribe<BattleExited>(OnBattleExited);
         }
 
         private void OnBattleStarted(BattleStarted payload)
         {
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStarted_FadeOut, BattleStartedPresentation());
         }
+        
         private IEnumerator BattleStartedPresentation()
         {
             KillActiveTweens();
@@ -48,16 +56,39 @@ namespace View.BattleView
             foreground.material = null;
         }
 
+        private void OnBattleExited(BattleExited payload)
+        {
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleExited_FadeOut, BattleExitedPresentation());
+        }
+        
+        private IEnumerator BattleExitedPresentation()
+        {
+            KillActiveTweens();
+            foreground.material = tilingMaterial;
+            
+            tilingMaterial.SetFloat(ProgressID, 0); 
+            foreground.gameObject.SetActive(true);
+
+            yield return tilingMaterial.DOFloat(1, ProgressID, battleExitFadeDuration).SetEase(battleExitFadeEasingType).WaitForCompletion();
+        }
+
         private void KillActiveTweens()
         {
             foreground.DOKill();
         }
 
 #if UNITY_EDITOR
-    [ContextMenu("Play On Battle Started Presentation")]
-    public void TestOnBattleStarted()
+        [ContextMenu("Play On Battle Started Presentation")]
+        public void TestOnBattleStarted()
         {
             presentationManager.Enqueue(0, PresentationPriority.BattleStarted_FadeOut, BattleStartedPresentation());
+            foreground.gameObject.SetActive(true);
+        }
+
+        [ContextMenu("Play On Battle Exited Presentation")]
+        public void TestOnBattleExited()
+        {
+            presentationManager.Enqueue(0, PresentationPriority.BattleExited_FadeOut, BattleExitedPresentation());
             foreground.gameObject.SetActive(true);
         }
 #endif

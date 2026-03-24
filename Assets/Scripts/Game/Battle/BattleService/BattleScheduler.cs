@@ -8,9 +8,9 @@ public class BattleScheduler : IBattleScheduler
 
     private BattleContext context;
     private IBattleViewEventPublisher viewEventPublisher;
-    private Action<BattleResult> OnBattleEnd;
+    private Action<BattleResultType> OnBattleEnd;
 
-    public BattleScheduler(Action<BattleResult> onBattleEnd, IBattleViewEventPublisher viewEventPublisher)
+    public BattleScheduler(Action<BattleResultType> onBattleEnd, IBattleViewEventPublisher viewEventPublisher)
     {
         this.viewEventPublisher = viewEventPublisher;
         OnBattleEnd = onBattleEnd;
@@ -93,7 +93,7 @@ public class BattleScheduler : IBattleScheduler
         StartPhase();
     }
 
-    public void EndBattle(BattleResult result)
+    public void EndBattle(BattleResultType result)
     {
         if (!isBattleActive) { return; }
 

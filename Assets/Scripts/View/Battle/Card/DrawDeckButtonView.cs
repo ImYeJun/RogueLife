@@ -1,9 +1,14 @@
+using UnityEngine;
+using UnityEngine.EventSystems;
 using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public class DrawDeckView : BattleDeckView
-    {
+    public class DrawDeckButtonView : BattleDeckButtonView
+    { 
+        [Header("DrawDeckButtonView Behaviour")]
+        [SerializeField] private DeckInventoryView deckInventoryView;
+
         public override void OnInitialDeckSettled(InitialDeckSettled payload)
         {
             deck = payload.DrawDeck;
@@ -30,6 +35,11 @@ namespace View.BattleView
                 PresentationPriority.CardDrawed_DrawDrawDeckCount, 
                 DrawDeckCountTextPresentation(targetCount)
             );
+        }
+
+        public override void OnPointerClick(PointerEventData eventData)
+        {
+            deckInventoryView.SetActive(true);
         }
     }
 }

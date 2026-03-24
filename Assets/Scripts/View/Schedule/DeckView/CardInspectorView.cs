@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using Unity.VisualScripting;
@@ -9,32 +10,32 @@ using ViewEvent.ScheduleView;
 
 namespace View.ScheduleView.Deck
 {
-    public class CardInspectorView : InteractableViewBehaviour<IScheduleViewEvent, IScheduleViewCommander>
+    public class CardInspectorView : MonoBehaviour
     {
         private Card currentCard;
 
         [SerializeField] private SharedCardView cardView;
         [SerializeField] private TextMeshProUGUI cardName;
+        [SerializeField] private TextMeshProUGUI cardRarity;
         [SerializeField] private TextMeshProUGUI cardAttribute;
         [SerializeField] private TextMeshProUGUI cardType;
         [SerializeField] private TextMeshProUGUI cardEffectDescription;
         [SerializeField] private GameObject effectTypeButtonsView;
+        public Func<string, BattleStatusEffectData> GetStatusEffectData;
 
-        public override void OnInitialized()
-        {
+        private void Awake() {
             SetViewActive(false);
         }
+
         public void SetViewActive(bool value)
         {
             cardView.gameObject.SetActive(value);
             cardName.gameObject.SetActive(value);
+            cardRarity.gameObject.SetActive(value);
             cardAttribute.gameObject.SetActive(value);
             cardType.gameObject.SetActive(value);
             cardEffectDescription.gameObject.SetActive(value);
             effectTypeButtonsView.SetActive(value);
-        }
-        public override void OnDestroy()
-        {
         }
 
         //* Referenced by DeckInventoryView in UnityEvent 
@@ -45,6 +46,7 @@ namespace View.ScheduleView.Deck
             cardView.SetCard(card);
 
             cardName.text = card.CurrentName;
+            cardRarity.text = $"등급 : {CardRarityExtenstions.ToKorean(card.CurrentRarity)}";
             cardAttribute.text = $"속성 : <sprite index={CardAttributeExtensions.GetTextIconIndex(card.CurrentAttribute)}> ({CardAttributeExtensions.ToKorean(card.CurrentAttribute)})";
             cardType.text = $", 유형 : {CardTypeExtensions.ToKorean(card.CurrentType)}";
             ShowNormalDescription();
@@ -79,7 +81,7 @@ namespace View.ScheduleView.Deck
             sb.Append("\n<size=70%>");
             foreach (var relatedStatusEffect in statusEffectIds)
             {
-                var data = commander.GetStatusEffectData(relatedStatusEffect);
+                var data = GetStatusEffectData.Invoke(relatedStatusEffect);
                 if (data != null)
                 {
                     sb.Append($"({data.Name})").Append("\n").Append(data.Description).Append("\n"); 

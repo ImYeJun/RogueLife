@@ -110,24 +110,17 @@ namespace View.ScheduleView.Presentation
 
             playerView.anchoredPosition = new Vector2(enterMoveDistance, 0); 
             playerImageView.SetIdleView();
+            
+            foregroundTransform.sizeDelta = new Vector2(1920f, 1080f);
+            foregroundImage.material = tilingMaterial;
             foreground.SetActive(true);
             
-            if (foregroundImage != null)
-            {
-                foregroundImage.color = new Color(0, 0, 0, 1f);
-
-                var tween = foregroundImage.DOFade(0f, returnFadeDuration).SetEase(returnFadeEasingType);
-                
-                yield return tween.WaitForCompletion();
-            }
-            else
-            {
-                Debug.LogWarning("[FadeInOutTransitionPresentation] Foreground object does not have an Image component for fading.");
-                yield return null;
-            }
+            tilingMaterial.SetFloat(ProgressID, 1);
+            
+            yield return tilingMaterial.DOFloat(0, ProgressID, returnFadeDuration).SetEase(returnFadeEasingType).WaitForCompletion();
 
             foreground.SetActive(false);
-            foregroundImage.color = new Color(0, 0, 0, 1f);
+            foregroundImage.material = null;
         }
 
         public void OnNodeEntered(NodeEntered payload)

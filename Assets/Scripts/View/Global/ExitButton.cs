@@ -4,16 +4,8 @@ using ViewEvent.StartMenu;
 
 namespace View.StartMenu
 {
-    public class ExitButton : InteractableViewBehaviour<IStartMenuViewEvent, IStartMenuViewCommander>
+    public class ExitButton : MonoBehaviour
     {
-        public override void OnDestroy()
-        {
-        }
-
-        public override void OnInitialized()
-        {
-        }
-
         public void OnPressed()
         {
             UnityEngine.Debug.Log("게임 종료 버튼 클릭!");

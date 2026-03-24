@@ -59,6 +59,7 @@ public static class PresentationPriority
 
     //Returned From Battle
     public const int ReturnedFromBattle_FadeOut = 10;
+    public const int ReturnedFromBattle_EnemyLine = 20;
 
     //Collection Update
     public const int CollectionUpdate = 10;
@@ -82,7 +83,8 @@ public static class PresentationPriority
     public const int BattleStarted_TurnViewShowingDown = 10;
 
     // Battle Exited
-    public const int BattleExited_SceneTransition = 10;
+    public const int BattleExited_FadeOut = 10;
+    public const int BattleExited_SceneTransition = 20;
     
     // Player Turn Started
     public const int PlayerTurnStarted_TurnViewShowingDown = 10;

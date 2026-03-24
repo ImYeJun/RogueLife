@@ -30,7 +30,7 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
         viewEventPublisher.Publish(new PhaseDecreased(viewEventPublisher.GetNextSequenceId(), amount, remainTurn));
 
         if (remainTurn <= 0) { 
-            var action = new RequestBattleEndBattleAction(BattleResult.ALL_PHASE_END);
+            var action = new RequestBattleEndBattleAction(BattleResultType.ALL_PHASE_END);
             context.ActionScheduler.EnqueueFront(action);
         }
     }

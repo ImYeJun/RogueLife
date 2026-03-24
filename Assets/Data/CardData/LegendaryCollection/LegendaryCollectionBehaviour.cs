@@ -49,7 +49,7 @@ namespace Battle.Cards.Behaviours
         }
         private static void ExecuteCommonAction(BattleContext context)
         {
-            var action = new RequestBattleEndBattleAction(BattleResult.PLAYER_SPECIAL_CARD_WIN);
+            var action = new RequestBattleEndBattleAction(BattleResultType.PLAYER_SPECIAL_CARD_WIN);
             context.ActionScheduler.EnqueueFront(action);
         }
     }

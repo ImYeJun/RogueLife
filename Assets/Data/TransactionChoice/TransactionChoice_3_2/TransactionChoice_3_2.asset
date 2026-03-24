@@ -16,17 +16,5 @@ MonoBehaviour:
   description: "\uC815\uB9D0 \uC544\uBB34\uAC83\uB3C4 \uC548 \uBC14\uAFBC\uB2E4\uACE0?
     \uC9C4\uC9DC \uC88B\uC740\uAC70 \uB9CE\uC740\uB370? \uC790\u2026 \uC7A0\uAE50
     \uAC00\uC9C0\uB9C8!"
-  subDescription: 
-  condition:
-    rid: 7557519912807170170
-  effect:
-    rid: 7557519912807170171
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557519912807170170
-      type: {class: NoneChoideCondition, ns: , asm: GameAssembly}
-      data: 
-    - rid: 7557519912807170171
-      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
-      data: 
+  subDescription: "\uC544\uBB34\uB7F0 \uBCC0\uD654\uB3C4 \uC77C\uC5B4\uB098\uC9C0
+    \uC54A\uB294\uB2E4"

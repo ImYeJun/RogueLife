@@ -22,6 +22,7 @@ namespace View.BattleView
         
         [SerializeField] private GameObject battleStatusEffectIconPrefab;
         [SerializeField] protected Transform battleStatusEffectIconContainer;
+
         private List<BattleStatusEffectIcon> battleStatusEffectIcons = new List<BattleStatusEffectIcon>();
         
         protected T entity;

@@ -2,7 +2,7 @@ namespace Battle.BattleResultCommands
 {
     public class RequestNextNodeSelectionCommand : BattleResultCommand
     {
-        public RequestNextNodeSelectionCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier, false)
+        public RequestNextNodeSelectionCommand(EnemyTier mainEnemyTier) : base(mainEnemyTier)
         {
         }
 

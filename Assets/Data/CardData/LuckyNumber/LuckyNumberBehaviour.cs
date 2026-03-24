@@ -45,12 +45,12 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
-            var winAction = new RequestBattleEndBattleAction(BattleResult.PLAYER_SPECIAL_CARD_WIN);
+            var winAction = new RequestBattleEndBattleAction(BattleResultType.PLAYER_SPECIAL_CARD_WIN);
             context.ActionScheduler.Enqueue(winAction);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, NoneCardTarget target)
         {
-            var winAction = new RequestBattleEndBattleAction(BattleResult.PLAYER_SPECIAL_CARD_WIN);
+            var winAction = new RequestBattleEndBattleAction(BattleResultType.PLAYER_SPECIAL_CARD_WIN);
             context.ActionScheduler.Enqueue(winAction);
         }
     }

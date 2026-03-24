@@ -229,13 +229,19 @@ namespace ViewEvent.ScheduleView
     public readonly struct ReturnedFromBattle : IScheduleViewEvent
     {
         private readonly int sequenceId;
+        private readonly bool isResvoled;
+        private readonly EnemyData mainEnemyData;
 
-        public ReturnedFromBattle(int sequenceId)
+        public ReturnedFromBattle(int sequenceId, bool isResvoled, EnemyData mainEnemyData)
         {
             this.sequenceId = sequenceId;
+            this.isResvoled = isResvoled;
+            this.mainEnemyData = mainEnemyData;
         }
 
         public int SequenceId => sequenceId;
+        public bool HasResvoled => isResvoled;
+        public EnemyData MainEnemyData => mainEnemyData;
     }
 
     public readonly struct CardObtained : IScheduleViewEvent
