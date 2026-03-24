@@ -5,7 +5,7 @@ using Battle.Cards.Casters;
 namespace Battle.Cards.Behaviours
 {
     [Serializable]
-    public class NotJustOneHit : CardBattleBehaviour<NoneCardTarget, NoneCardTarget>
+    public class NotJustOneHit : CardBattleBehaviour<SingleEnemyCardTarget, SingleEnemyCardTarget>
     {
         [Obsolete("This constructor is for Unity Serialization only. Use Clone() instead.", true)]
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -18,14 +18,14 @@ namespace Battle.Cards.Behaviours
             return new NotJustOneHit(owner, targetType, reflectionTargetType);
         }
 
-        public override bool OnIsAbleToUse(BattleContext context, NoneCardTarget target)
+        public override bool OnIsAbleToUse(BattleContext context, SingleEnemyCardTarget target)
         {
             var hurtEnemies = context.EnemyHistory.HurtEnemies(BattleScope.PHASE);
 
             return hurtEnemies.Count != 0;
         }
 
-        public override bool OnIsAbleToUseReflect(BattleContext context, NoneCardTarget target)
+        public override bool OnIsAbleToUseReflect(BattleContext context, SingleEnemyCardTarget target)
         {
             var hurtEnemies = context.EnemyHistory.HurtEnemies(BattleScope.PHASE);
 
@@ -36,12 +36,12 @@ namespace Battle.Cards.Behaviours
         {
         }
 
-        protected override void OnExecute(BattleContext context, CardCaster caster, NoneCardTarget target)
+        protected override void OnExecute(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
             ExecuteCommonAction(context, caster, 20);
         }
 
-        protected override void OnExecuteReflection(BattleContext context, CardCaster caster, NoneCardTarget target)
+        protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
             ExecuteCommonAction(context, caster, 25);
         }

@@ -54,12 +54,12 @@ MonoBehaviour:
       type: {class: NotJustOneHit, ns: Battle.Cards.Behaviours, asm: Assembly-CSharp}
       data:
         targetType:
-          rid: 2642317808700489955
+          rid: 2642318310385385545
         reflectionTargetType:
-          rid: 2642317808700489956
-    - rid: 2642317808700489955
-      type: {class: NoneCardTargetType, ns: , asm: Assembly-CSharp}
+          rid: 2642318310385385546
+    - rid: 2642318310385385545
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 2642317808700489956
-      type: {class: NoneCardTargetType, ns: , asm: Assembly-CSharp}
+    - rid: 2642318310385385546
+      type: {class: SingleEnemyCardTargetType, ns: , asm: Assembly-CSharp}
       data: 
