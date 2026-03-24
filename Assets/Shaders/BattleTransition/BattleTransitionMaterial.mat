@@ -43,7 +43,7 @@ Material:
     m_Floats:
     - _ColorMask: 15
     - _Progress: 0
-    - _Seed: 381
+    - _Seed: 219
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
