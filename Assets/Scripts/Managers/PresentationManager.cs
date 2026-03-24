@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -104,8 +105,9 @@ public class PresentationManager : SingletonManager<PresentationManager>
         onBatchComplete.Invoke();
     }
 
-    internal void Enqueue(object sequenceId, object presentationPriority, IEnumerator enumerator, Action value)
+    public void KillAllPresentation()
     {
-        throw new NotImplementedException();
+        StopAllCoroutines();
+        DOTween.KillAll();
     }
 }
