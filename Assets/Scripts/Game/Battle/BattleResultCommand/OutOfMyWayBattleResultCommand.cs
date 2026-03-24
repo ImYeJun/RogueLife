@@ -6,7 +6,7 @@ namespace Battle.BattleResultCommands
         {
         }
 
-        public override void Resolve(FieldContext context, Node currentNode)
+        public override void Resolve(FieldContext context, Node currentNode, BattleRewardCollector rewardCollector)
         {
             var nextNodes = currentNode.NextNodes;
             var randomNextNode = nextNodes[context.Random.Next(nextNodes.Count)];

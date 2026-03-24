@@ -134,7 +134,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
         return pendingBattleResult is not null;
     }
 
-    public void ResolvePendingResult(FieldContext context)
+    public void ResolvePendingResult(FieldContext context, BattleRewardCollector rewardCollector)
     {
         if (!HasPendingBattleResult()) 
         { 
@@ -143,7 +143,7 @@ public class Schedule : IReadOnlySchedule, IScheduleRouter
         }
 
         var command = pendingBattleResult.Value.Command;
-        command.Resolve(context, currentNode);
+        command.Resolve(context, currentNode, rewardCollector);
         pendingBattleResult = null;
     }
 

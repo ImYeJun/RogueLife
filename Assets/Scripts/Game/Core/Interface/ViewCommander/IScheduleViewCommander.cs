@@ -10,5 +10,8 @@ public interface IScheduleViewCommander : IViewCommander
     public void SettleIncidentChoice(DeterminedIncidentChoice choice);
     public BattleStatusEffectData GetStatusEffectData(string id);
     public void RemoveAllCardOfData(CardData data);
+    void ObtainCard(Card card);
+    void ObtainBelongings(Belongings belongings);
+
     public bool IsDeckOverflowed { get; }
 }

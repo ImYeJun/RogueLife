@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using ViewEvent.Core;
 
@@ -242,6 +243,24 @@ namespace ViewEvent.ScheduleView
         public int SequenceId => sequenceId;
         public bool HasResvoled => isResvoled;
         public EnemyData MainEnemyData => mainEnemyData;
+    }
+
+    public readonly struct BattleRewardSelectRequested : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly BattleRewardCollector rewardCollector;
+        private readonly Action requestNextNodeSelect;
+
+        public BattleRewardSelectRequested(int sequenceId, BattleRewardCollector rewardCollector, Action requestNextNodeSelect)
+        {
+            this.sequenceId = sequenceId;
+            this.rewardCollector = rewardCollector;
+            this.requestNextNodeSelect = requestNextNodeSelect;
+        }
+
+        public int SequenceId => sequenceId;
+        public BattleRewardCollector RewardCollector => rewardCollector;
+        public Action RequestNextNodeSelect => requestNextNodeSelect;
     }
 
     public readonly struct CardObtained : IScheduleViewEvent

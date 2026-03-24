@@ -9,6 +9,6 @@ namespace Battle.BattleResultCommands
             this.mainEnemyTier = mainEnemyTier;
         }
 
-        public abstract void Resolve(FieldContext context, Node currentNode);
+        public abstract void Resolve(FieldContext context, Node currentNode, BattleRewardCollector rewardCollector);
     }
 }

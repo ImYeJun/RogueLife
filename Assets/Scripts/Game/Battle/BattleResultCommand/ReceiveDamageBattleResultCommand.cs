@@ -8,7 +8,7 @@ namespace Battle.BattleResultCommands
         {
         }
 
-        public override void Resolve(FieldContext context, Node currentNode)
+        public override void Resolve(FieldContext context, Node currentNode, BattleRewardCollector rewardCollector)
         {
             int damage = mainEnemyTier switch
             {

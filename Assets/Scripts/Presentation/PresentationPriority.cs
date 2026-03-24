@@ -61,6 +61,10 @@ public static class PresentationPriority
     public const int ReturnedFromBattle_FadeOut = 10;
     public const int ReturnedFromBattle_EnemyLine = 20;
 
+    //Battle Reward Select Requested
+    public const int BattleRewardSelectRequested_Open = 10;
+    public const int BattleRewardSelectRequested_Close = 20;
+
     //Collection Update
     public const int CollectionUpdate = 10;
 

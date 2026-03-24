@@ -124,7 +124,19 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
 
             scheduleViewEventBus.Publish(new ReturnedFromBattle(sequenceIdGenerator.GetNextId(), hasResolved, mainEnemyData));
             
-            currentSchedule.ResolvePendingResult(context);
+            var rewardCollector = new BattleRewardCollector();
+            currentSchedule.ResolvePendingResult(context, rewardCollector);
+
+            if (rewardCollector.RewardCandidates.Count > 0)
+            {
+                scheduleViewEventBus.Publish(new BattleRewardSelectRequested(sequenceIdGenerator.GetNextId(), rewardCollector, 
+                pendingResult.IsNextNodeSelectable ? currentSchedule.CurrentNode.RequestNextNodeSelection : null));
+            }
+            else if (pendingResult.IsNextNodeSelectable)
+            {
+                currentSchedule.CurrentNode.RequestNextNodeSelection();
+            }
+
             return;
         }
     }
@@ -240,5 +252,15 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     public void RemoveAllCardOfData(CardData data)
     {
         context.Deck.RemoveAllCardOfData(data);
+    }
+
+    public void ObtainCard(Card card)
+    {
+        context.Deck.TryObtainCard(card);
+    }
+
+    public void ObtainBelongings(Belongings belongings)
+    {
+        context.BelongingsBag.TryObtainBelongings(belongings);
     }
 }
