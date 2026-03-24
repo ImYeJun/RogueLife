@@ -244,6 +244,21 @@ namespace ViewEvent.ScheduleView
         public EnemyData MainEnemyData => mainEnemyData;
     }
 
+    public readonly struct BattleRewardSelectRequested : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly BattleRewardCollector rewardCollector;
+
+        public BattleRewardSelectRequested(int sequenceId, BattleRewardCollector rewardCollector)
+        {
+            this.sequenceId = sequenceId;
+            this.rewardCollector = rewardCollector;
+        }
+
+        public int SequenceId => sequenceId;
+        public BattleRewardCollector RewardCollector => rewardCollector;
+    }
+
     public readonly struct CardObtained : IScheduleViewEvent
     {
         private readonly int sequenceId;

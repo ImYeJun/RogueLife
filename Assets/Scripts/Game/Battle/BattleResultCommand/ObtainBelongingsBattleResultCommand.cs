@@ -8,7 +8,7 @@ namespace Battle.BattleResultCommands
         {
         }
 
-        public override void Resolve(FieldContext context, Node currentNode)
+        public override void Resolve(FieldContext context, Node currentNode, BattleRewardCollector rewardCollector)
         {
             if (mainEnemyTier != EnemyTier.BOSS) { return; }
 
@@ -17,7 +17,8 @@ namespace Battle.BattleResultCommands
             Belongings? rewardingBelongings = context.BelongingsDatabase.GetRandomBelongings(context.Random, equippingBelongings);
 
             if (rewardingBelongings is null) { return; }
-            context.BelongingsBag.TryObtainBelongings(rewardingBelongings);
+            var reward = new BelongingsBattleReward(rewardingBelongings);
+            rewardCollector.AddCandidate(reward);
         }
     }
 }

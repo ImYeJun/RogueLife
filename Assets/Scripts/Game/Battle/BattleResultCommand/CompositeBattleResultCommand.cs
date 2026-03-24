@@ -11,11 +11,11 @@ namespace Battle.BattleResultCommands
             this.leaves = leaves ?? new List<BattleResultCommand>();
         }
 
-        public override void Resolve(FieldContext context, Node currentNode)
+        public override void Resolve(FieldContext context, Node currentNode, BattleRewardCollector rewardCollector)
         {
             foreach (var leaf in leaves)
             {
-                leaf.Resolve(context, currentNode);
+                leaf.Resolve(context, currentNode, rewardCollector);
             }
         }
     }

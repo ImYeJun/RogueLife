@@ -12,7 +12,7 @@ namespace Battle.BattleResultCommands
         {
         }
 
-        public override void Resolve(FieldContext context, Node currentNode)
+        public override void Resolve(FieldContext context, Node currentNode, BattleRewardCollector rewardCollector)
         {
             List<(CardRarity rarity, int weight)> candidateRarity = mainEnemyTier switch
             {
@@ -27,10 +27,10 @@ namespace Battle.BattleResultCommands
             var determinedRarity = DetermineRewardCardRarity(random, candidateRarity);
 
             Card? rewardingCard = context.CardDatabase.GetRandomCard(random, determinedRarity, CardType.ANY, CardAttribute.ANY);
-            if (rewardingCard is not null)
-            {
-                context.Deck.TryObtainCard(rewardingCard);
-            }
+            if (rewardingCard is null) { return; }
+
+            var reward = new CardBattleReward(rewardingCard);
+            rewardCollector.AddCandidate(reward);
         }
 
         private CardRarity DetermineRewardCardRarity(Random random, List<(CardRarity rarity, int weight)> candidates)
