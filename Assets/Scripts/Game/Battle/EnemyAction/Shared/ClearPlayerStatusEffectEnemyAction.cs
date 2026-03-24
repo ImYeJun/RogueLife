@@ -7,7 +7,7 @@ namespace Battle.Enemies.Actions.Shared
     {
         private readonly BattleStatusEffectType type;
 
-        public ClearPlayerStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectType type = BattleStatusEffectType.ANY) : base(id, owner)
+        public ClearPlayerStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectType type = BattleStatusEffectType.ANY) : base(id, owner, BattleEnemyActionType.Effect)
         {
             this.type = type;
         }

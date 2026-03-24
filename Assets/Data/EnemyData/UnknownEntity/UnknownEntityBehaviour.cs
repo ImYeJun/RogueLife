@@ -22,7 +22,7 @@ namespace Battle.Enemies.Behaviours
 
         private class Payback : EnemyAction
         {
-            public Payback(string id, IEnemyBehaviourOwner owner, bool isLastAction = false) : base(id, owner, isLastAction)
+            public Payback(string id, IEnemyBehaviourOwner owner, bool isLastAction = false) : base(id, owner, BattleEnemyActionType.Attack, isLastAction)
             {
             }
 
@@ -52,14 +52,14 @@ namespace Battle.Enemies.Behaviours
                 {
                     new RemovePlayerStatusEffect(SECOND_ACTION + "_sub1", owner, BattleStatusEffectType.BUFF),
                     new ClearSelfStatusEffect(SECOND_ACTION + "_sub2", owner, BattleStatusEffectType.DEBUFF)
-                }) },
+                }, BattleEnemyActionType.Effect) },
                 { THIRD_ACTION, new DumpPlayerHandCard(THIRD_ACTION, owner, 3) },
                 { FOURTH_ACTION, new CompositeEnemyAction(FOURTH_ACTION, owner, new List<EnemyAction>()
                 {
                     new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub1", owner, burningEntity, 2, 2),
                     new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub2", owner, deadlyPoisionEntity, 1, 2),
                     new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub3", owner, bleedingEntity, 1, 2),
-                })},
+                }, BattleEnemyActionType.Effect)},
                 { FIFTH_ACTION, new Payback(FIFTH_ACTION, owner) }
             };
 

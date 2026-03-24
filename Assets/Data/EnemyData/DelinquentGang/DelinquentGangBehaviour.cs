@@ -19,7 +19,7 @@ namespace Battle.Enemies.Behaviours
 
         private class Imitate : EnemyAction
         {
-            public Imitate(string id, IEnemyBehaviourOwner owner, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, isLastAction, isOncePerTurn)
+            public Imitate(string id, IEnemyBehaviourOwner owner, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, BattleEnemyActionType.Effect, isLastAction, isOncePerTurn)
             {
             }
 

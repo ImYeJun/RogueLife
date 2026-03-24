@@ -9,7 +9,7 @@ namespace Battle.Enemies.Actions.Shared
         private readonly BattleStatusEffectType type;
         private int amount;
 
-        public RemoveItselfStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectType type, int amount = 1) : base(id, owner)
+        public RemoveItselfStatusEffect(string id, IEnemyBehaviourOwner owner, BattleStatusEffectType type, int amount = 1) : base(id, owner, BattleEnemyActionType.Effect)
         {
             this.amount = amount;
             this.type = type;

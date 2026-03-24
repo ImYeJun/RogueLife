@@ -26,7 +26,7 @@ namespace Battle.Enemies.Behaviours
         {
             private EnemyEntity labSlaveEntity;
 
-            public LabReorganization(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity) : base(id, owner)
+            public LabReorganization(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity) : base(id, owner, BattleEnemyActionType.Effect)
             {
                 this.labSlaveEntity = labSlaveEntity;
             }
@@ -56,7 +56,7 @@ namespace Battle.Enemies.Behaviours
         {
             private EnemyEntity labSlaveEntity;
 
-            public ForcedLabor(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, isLastAction, isOncePerTurn)
+            public ForcedLabor(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, BattleEnemyActionType.Effect, isLastAction, isOncePerTurn)
             {
                 this.labSlaveEntity = labSlaveEntity;
             }
@@ -77,7 +77,7 @@ namespace Battle.Enemies.Behaviours
         {
             private EnemyEntity labSlaveEntity;
 
-            public TakeCredit(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, isLastAction, isOncePerTurn)
+            public TakeCredit(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, BattleEnemyActionType.Effect, isLastAction, isOncePerTurn)
             {
                 this.labSlaveEntity = labSlaveEntity;
             }
@@ -107,7 +107,7 @@ namespace Battle.Enemies.Behaviours
             private BattleStatusEffectEntity ohMyData;
 
             // 💡 [수정된 부분] 첫 번째 인수로 id를 받고 base로 넘김
-            public PerformanceReview(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity iWillKillYouEntity, BattleStatusEffectEntity heavyBodyEntity, BattleStatusEffectEntity ohMyEntity) : base(id, owner)
+            public PerformanceReview(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, BattleStatusEffectEntity defensiveStanceEntity, BattleStatusEffectEntity iWillKillYouEntity, BattleStatusEffectEntity heavyBodyEntity, BattleStatusEffectEntity ohMyEntity) : base(id, owner, BattleEnemyActionType.Effect)
             {
                 this.labSlaveEntity = labSlaveEntity;
                 this.defensiveStanceData = defensiveStanceEntity;

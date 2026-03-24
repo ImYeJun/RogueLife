@@ -6,7 +6,7 @@ namespace Battle.Enemies.Actions.Shared
     {
         private List<EnemyAction> actions;
 
-        public CompositeEnemyAction(string id, IEnemyBehaviourOwner owner, List<EnemyAction> actions) : base(id, owner)
+        public CompositeEnemyAction(string id, IEnemyBehaviourOwner owner, List<EnemyAction> actions, BattleEnemyActionType actionType) : base(id, owner, actionType)
         {
             this.actions = actions;
         }

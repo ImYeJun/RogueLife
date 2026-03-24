@@ -30,7 +30,7 @@ namespace Battle.Enemies.Behaviours
                     new List<EnemyAction>(){ 
                         new DirectlyDecreaseMentality(FIRST_ACTION + "_sub1", owner, 5),
                         new ApplyPlayerStatusEffect(FIRST_ACTION + "_sub2", owner, strengthenMuscleEntity, 1, 2),
-                }) },
+                }, BattleEnemyActionType.Effect) },
                 { SECOND_ACTION, new ApplySelfStatusEffect(SECOND_ACTION, owner, toughenEntity, 2, 2) }
             };
 

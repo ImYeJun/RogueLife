@@ -19,7 +19,7 @@ namespace Battle.Enemies.Behaviours
 
         private class CorruptPlayerStatus : EnemyAction
         {
-            public CorruptPlayerStatus(string id, IEnemyBehaviourOwner owner) : base(id, owner)
+            public CorruptPlayerStatus(string id, IEnemyBehaviourOwner owner) : base(id, owner, BattleEnemyActionType.Effect)
             {
             }
 

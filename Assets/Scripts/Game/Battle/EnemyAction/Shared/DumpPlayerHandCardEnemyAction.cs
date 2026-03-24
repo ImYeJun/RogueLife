@@ -7,7 +7,7 @@ namespace Battle.Enemies.Actions.Shared
     {
         private int dumpCardCount;
 
-        public DumpPlayerHandCard(string id, IEnemyBehaviourOwner owner, int dumpCardCount = 1) : base(id, owner)
+        public DumpPlayerHandCard(string id, IEnemyBehaviourOwner owner, int dumpCardCount = 1) : base(id, owner, BattleEnemyActionType.Effect)
         {
             this.dumpCardCount = dumpCardCount;
         }

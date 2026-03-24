@@ -54,7 +54,7 @@ namespace Battle.Enemies.Behaviours
                 }
             }
 
-            public RecklessSpin(string id, IEnemyBehaviourOwner owner) : base(id, owner)
+            public RecklessSpin(string id, IEnemyBehaviourOwner owner) : base(id, owner, BattleEnemyActionType.Attack)
             {
             }
 
@@ -88,7 +88,7 @@ namespace Battle.Enemies.Behaviours
                 {
                     new HurtPlayer(FIRST_ACTION + "_sub1", owner, 20),
                     new ApplyPlayerStatusEffect(FIRST_ACTION + "_sub2", owner, bleedingEntity, 2, 2)
-                }) },
+                }, BattleEnemyActionType.Attack) },
                 { SECOND_ACTION, new RecklessSpin(SECOND_ACTION, owner) },
                 { THIRD_ACTION, new HurtSelf(THIRD_ACTION, owner, 40) }
             };

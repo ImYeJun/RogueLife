@@ -4,7 +4,7 @@ namespace Battle.Enemies.Actions.Shared
     {
         int phaseCount;
 
-        public DecreasePhaseCount(string id, IEnemyBehaviourOwner owner, int phaseCount, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, isLastAction, isOncePerTurn)
+        public DecreasePhaseCount(string id, IEnemyBehaviourOwner owner, int phaseCount, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, BattleEnemyActionType.Effect, isLastAction, isOncePerTurn)
         {
             this.phaseCount = phaseCount;
         }

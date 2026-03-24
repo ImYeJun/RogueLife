@@ -27,7 +27,6 @@ namespace View.BattleView
         [SerializeField] private GameObject actionIconPrefab;
         [SerializeField] private RectTransform actionIconView;
         [SerializeField] private RectTransform actionIconsContainer;
-        [SerializeField] private TextMeshProUGUI actionText;
         private List<BattleEnemyActionIcon> actionIcons = new List<BattleEnemyActionIcon>();
 
         [Header("Fade Presentation Settings")]
@@ -285,26 +284,6 @@ namespace View.BattleView
 
             currentHealth = targetHealth;
         }
-
-        // private void OnEnemyDied(EnemyDied payload)
-        // {
-        //     if (enemy == null)
-        //     {
-        //         throw new InvalidOperationException("[BattleEnemyView/OnEnemyDied] The enemy entity is not initialized yet.");
-        //     }
-
-        //     if (!payload.DiedEnemy.Equals(enemy)) { return; }
-        //     presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyDied_DiePresentation, EnemyDiedPresentation(), () =>
-        //     {
-        //         actionIcons.Clear();
-        //         spriteRenderer.color = new Color(spriteRenderer.color.r,spriteRenderer.color.g,spriteRenderer.color.b,0);
-        //         // Destroy(gameObject); 
-        //     });
-        // }
-        // private IEnumerator EnemyDiedPresentation()
-        // {
-        //     yield return null;
-        // }
 
         private void DrawHealthBarDirectly(int newHealth, int maxHealth)
         {

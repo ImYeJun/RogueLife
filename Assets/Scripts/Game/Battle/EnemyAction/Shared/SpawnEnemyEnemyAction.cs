@@ -5,7 +5,7 @@ namespace Battle.Enemies.Actions.Shared
         private EnemyEntity entity;
         private int amount;
 
-        public SpawnEnemy(string id, IEnemyBehaviourOwner owner, EnemyEntity entity, int amount = 1) : base(id, owner)
+        public SpawnEnemy(string id, IEnemyBehaviourOwner owner, EnemyEntity entity, int amount = 1) : base(id, owner, BattleEnemyActionType.Effect)
         {
             this.entity = entity;
             this.amount = amount;

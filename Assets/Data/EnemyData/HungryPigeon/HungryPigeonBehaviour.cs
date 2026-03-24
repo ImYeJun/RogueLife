@@ -21,7 +21,7 @@ namespace Battle.Enemies.Behaviours
 
         private class CallComarades : EnemyAction
         {
-            public CallComarades(string id, IEnemyBehaviourOwner owner, bool isLastAction = false) : base(id, owner, isLastAction)
+            public CallComarades(string id, IEnemyBehaviourOwner owner, bool isLastAction = false) : base(id, owner, BattleEnemyActionType.Attack, isLastAction)
             {
             }
 

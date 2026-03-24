@@ -31,7 +31,7 @@ namespace Battle.Enemies.Behaviours
                 {
                     new HealSelf(FIRST_ACTION + "_sub1", owner, 50),
                     new RemoveItselfStatusEffect(FIRST_ACTION + "_sub2", owner, BattleStatusEffectType.DEBUFF, 1)
-                }) },
+                }, BattleEnemyActionType.Effect) },
                 { SECOND_ACTION, new ApplySelfStatusEffect(SECOND_ACTION, owner, nanoMachineEntity, 1, 4) },
                 { THIRD_ACTION, new ApplyPlayerStatusEffect(THIRD_ACTION, owner, heavyBodyEntity, 2, 2) }
             };
