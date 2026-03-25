@@ -5,15 +5,7 @@ using View.Core;
 
 namespace View.StartMenu
 {
-    public class SettingButton : InteractableViewBehaviour<IStartMenuViewEvent, IStartMenuViewCommander> {
-        public override void OnDestroy()
-        {
-        }
-
-        public override void OnInitialized()
-        {
-        }
-
+    public class SettingButton : MonoBehaviour {
         public void OnPressed()
         {
             GlobalUIManager.Instance?.OpenSettingUI();

@@ -494,11 +494,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
-  isScaleAble: 1
-  focusingPresentationDuration: 0.1
-  focusingScale: 1.05
-  focusingPresentationEase: 7
+  isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &401970552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1016,7 +1016,6 @@ MonoBehaviour:
   interacatbleViews:
   - {fileID: 1448022095}
   - {fileID: 356904202}
-  - {fileID: 947882360}
   - {fileID: 434042279}
 --- !u!1 &947882355
 GameObject:
@@ -1178,10 +1177,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
   isScaleAble: 1
-  focusingPresentationDuration: 0.1
-  focusingScale: 1.05
-  focusingPresentationEase: 7
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1108376469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1341,11 +1340,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
-  isScaleAble: 1
-  focusingPresentationDuration: 0.1
-  focusingScale: 1.05
-  focusingPresentationEase: 7
+  isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1122256037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1791,11 +1790,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
-  isScaleAble: 1
-  focusingPresentationDuration: 0.1
-  focusingScale: 1.05
-  focusingPresentationEase: 7
+  isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1489088070
 GameObject:
   m_ObjectHideFlags: 0
