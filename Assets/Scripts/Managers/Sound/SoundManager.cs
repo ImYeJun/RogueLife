@@ -36,8 +36,8 @@ public class SoundManager : SingletonManager<SoundManager>
         return value == 0 ? -80f : Mathf.Log10(value) * 20;
     }
 
-    public void PlayeBgm(AudioClip bgm) { bgmManager.Play(bgm); }
-    public void PlayeSoundEffect(AudioClip bgm) { bgmManager.Play(bgm); }
-    public void PlaySoundEffectWithRandomPitch(AudioClip soundEffect) { soundEffectManager.PlayWithRandomPitch(soundEffect); }
-    public void PlaySoundEffectWithRandomPitch(AudioClip soundEffect, float pitchShakeRange) { soundEffectManager.PlayWithRandomPitch(soundEffect, pitchShakeRange); }
+    public void PlayeBgm(AudioData bgm) { bgmManager.Play(bgm.Clip); }
+    public void PlayeSoundEffect(AudioData bgm) { bgmManager.Play(bgm.Clip); }
+    public void PlaySoundEffectWithRandomPitch(AudioData soundEffect) { soundEffectManager.PlayWithRandomPitch(soundEffect.Clip); }
+    public void PlaySoundEffectWithRandomPitch(AudioData soundEffect, float pitchShakeRange) { soundEffectManager.PlayWithRandomPitch(soundEffect.Clip, pitchShakeRange); }
 } 
