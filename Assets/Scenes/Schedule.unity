@@ -1406,7 +1406,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 580317201}
   m_HandleRect: {fileID: 580317200}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -1636,6 +1636,7 @@ GameObject:
   - component: {fileID: 264612339}
   - component: {fileID: 264612338}
   - component: {fileID: 264612341}
+  - component: {fileID: 264612342}
   m_Layer: 5
   m_Name: 10+
   m_TagString: Untagged
@@ -1772,6 +1773,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.OveringFilterListButton
   cost: 10
   costText: {fileID: 1401663293}
+--- !u!114 &264612342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264612336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &282196862
 GameObject:
   m_ObjectHideFlags: 0
@@ -2345,7 +2363,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7207117639416890869, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 374188031}
   m_SourcePrefab: {fileID: 100100000, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
 --- !u!224 &374188028 stripped
 RectTransform:
@@ -2357,12 +2378,34 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1779269788289027535, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
   m_PrefabInstance: {fileID: 374188027}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 374188030}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3965ad71f010e4f4aa2f3aac2a42f858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.SortingSettingButton
+--- !u!1 &374188030 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7207117639416890869, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
+  m_PrefabInstance: {fileID: 374188027}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &374188031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374188030}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1001 &379320230
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2626,6 +2669,7 @@ GameObject:
   - component: {fileID: 396689341}
   - component: {fileID: 396689340}
   - component: {fileID: 396689343}
+  - component: {fileID: 396689344}
   m_Layer: 5
   m_Name: ScheduleButton
   m_TagString: Untagged
@@ -2759,6 +2803,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.ScheduleButton
   mapView: {fileID: 1485452801}
+--- !u!114 &396689344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396689338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!114 &397571091 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5416911982045373695, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
@@ -2783,6 +2844,7 @@ GameObject:
   - component: {fileID: 404647512}
   - component: {fileID: 404647511}
   - component: {fileID: 404647510}
+  - component: {fileID: 404647514}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -2932,6 +2994,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404647508}
   m_CullTransparentMesh: 1
+--- !u!114 &404647514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404647508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &409982439
 GameObject:
   m_ObjectHideFlags: 0
@@ -3003,6 +3082,7 @@ GameObject:
   - component: {fileID: 433287094}
   - component: {fileID: 433287093}
   - component: {fileID: 433287092}
+  - component: {fileID: 433287095}
   m_Layer: 5
   m_Name: ReflectionButton
   m_TagString: Untagged
@@ -3124,6 +3204,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433287090}
   m_CullTransparentMesh: 1
+--- !u!114 &433287095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433287090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &441254937
 GameObject:
   m_ObjectHideFlags: 0
@@ -3913,7 +4010,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1277017320}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.43892345
+  m_Size: 0.4389234
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3970,7 +4067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3086725529269195632, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6506318465164561377, guid: b8f54d8f6baa32545a54fd276f8dd183, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -4960,6 +5057,7 @@ GameObject:
   - component: {fileID: 693070540}
   - component: {fileID: 693070539}
   - component: {fileID: 693070542}
+  - component: {fileID: 693070543}
   m_Layer: 5
   m_Name: Effect
   m_TagString: Untagged
@@ -5095,6 +5193,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.TypeFilterListButton
   type: 2
   buttonText: {fileID: 389376425}
+--- !u!114 &693070543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 693070537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &694075820
 GameObject:
   m_ObjectHideFlags: 0
@@ -5472,6 +5587,7 @@ GameObject:
   - component: {fileID: 712181108}
   - component: {fileID: 712181107}
   - component: {fileID: 712181110}
+  - component: {fileID: 712181111}
   m_Layer: 5
   m_Name: Defense
   m_TagString: Untagged
@@ -5607,6 +5723,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.TypeFilterListButton
   type: 3
   buttonText: {fileID: 970625594}
+--- !u!114 &712181111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712181105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &735551169
 GameObject:
   m_ObjectHideFlags: 0
@@ -5881,7 +6014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3902967023346396365, guid: 8b9b506af63f1a44bb240e95a9ed94aa, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3902967023346396365, guid: 8b9b506af63f1a44bb240e95a9ed94aa, type: 3}
       propertyPath: m_AnchorMin.x
@@ -5889,7 +6022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3902967023346396365, guid: 8b9b506af63f1a44bb240e95a9ed94aa, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3902967023346396365, guid: 8b9b506af63f1a44bb240e95a9ed94aa, type: 3}
       propertyPath: m_SizeDelta.x
@@ -5929,11 +6062,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3902967023346396365, guid: 8b9b506af63f1a44bb240e95a9ed94aa, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 232.1708
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3902967023346396365, guid: 8b9b506af63f1a44bb240e95a9ed94aa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -539.9376
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3902967023346396365, guid: 8b9b506af63f1a44bb240e95a9ed94aa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5983,6 +6116,7 @@ GameObject:
   - component: {fileID: 775800472}
   - component: {fileID: 775800471}
   - component: {fileID: 775800474}
+  - component: {fileID: 775800475}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -6117,6 +6251,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Map.MapViewCloseButton
   mapView: {fileID: 1476495242}
+--- !u!114 &775800475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775800469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &775941364
 GameObject:
   m_ObjectHideFlags: 0
@@ -6981,6 +7132,7 @@ GameObject:
   - component: {fileID: 922110172}
   - component: {fileID: 922110171}
   - component: {fileID: 922110174}
+  - component: {fileID: 922110175}
   m_Layer: 5
   m_Name: TypeFilterButton
   m_TagString: Untagged
@@ -7122,6 +7274,23 @@ MonoBehaviour:
   - {fileID: 712181110}
   - {fileID: 2020919795}
   - {fileID: 1821869612}
+--- !u!114 &922110175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922110169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &931468603
 GameObject:
   m_ObjectHideFlags: 0
@@ -7172,6 +7341,7 @@ GameObject:
   - component: {fileID: 936863887}
   - component: {fileID: 936863886}
   - component: {fileID: 936863889}
+  - component: {fileID: 936863890}
   m_Layer: 5
   m_Name: Luck
   m_TagString: Untagged
@@ -7308,6 +7478,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.AttributeFilterListButton
   attribute: 3
   buttonText: {fileID: 26417882}
+--- !u!114 &936863890
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936863884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &943483331
 GameObject:
   m_ObjectHideFlags: 0
@@ -7904,6 +8091,7 @@ GameObject:
   - component: {fileID: 970952535}
   - component: {fileID: 970952534}
   - component: {fileID: 970952533}
+  - component: {fileID: 970952536}
   m_Layer: 5
   m_Name: NormalButton
   m_TagString: Untagged
@@ -8025,6 +8213,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 970952531}
   m_CullTransparentMesh: 1
+--- !u!114 &970952536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 970952531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &980535338
 GameObject:
   m_ObjectHideFlags: 0
@@ -9431,7 +9636,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7207117639416890869, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1134407702}
   m_SourcePrefab: {fileID: 100100000, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
 --- !u!224 &1134407699 stripped
 RectTransform:
@@ -9443,12 +9651,34 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1779269788289027535, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
   m_PrefabInstance: {fileID: 1134407698}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1134407701}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3965ad71f010e4f4aa2f3aac2a42f858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.SortingSettingButton
+--- !u!1 &1134407701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7207117639416890869, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
+  m_PrefabInstance: {fileID: 1134407698}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1134407702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134407701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1138755757
 GameObject:
   m_ObjectHideFlags: 0
@@ -10640,6 +10870,7 @@ GameObject:
   - component: {fileID: 1240821618}
   - component: {fileID: 1240821617}
   - component: {fileID: 1240821620}
+  - component: {fileID: 1240821621}
   m_Layer: 5
   m_Name: BelongingsBagButton
   m_TagString: Untagged
@@ -10773,6 +11004,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBagButton
   belongingsBagView: {fileID: 1024027836}
+--- !u!114 &1240821621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240821615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1246203085
 GameObject:
   m_ObjectHideFlags: 0
@@ -11432,6 +11680,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1340759277}
+    - targetCorrespondingSourceObject: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1340759278}
   m_SourcePrefab: {fileID: 100100000, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
 --- !u!224 &1340759275 stripped
 RectTransform:
@@ -11464,6 +11715,23 @@ MonoBehaviour:
   pointerEnterEase: 9
   pointerExitDuration: 0.2
   pointerExitEase: 10
+--- !u!114 &1340759278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340759276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1364740334
 GameObject:
   m_ObjectHideFlags: 0
@@ -12173,6 +12441,7 @@ GameObject:
   - component: {fileID: 1441922523}
   - component: {fileID: 1441922522}
   - component: {fileID: 1441922525}
+  - component: {fileID: 1441922526}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -12308,6 +12577,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBag.BelongingsViewCloseButton
   belongingsView: {fileID: 943483331}
+--- !u!114 &1441922526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441922520}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1463804726
 GameObject:
   m_ObjectHideFlags: 0
@@ -12344,7 +12630,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0007324219, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -1580.3658, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1463804728
 MonoBehaviour:
@@ -13783,6 +14069,7 @@ GameObject:
   - component: {fileID: 1715897528}
   - component: {fileID: 1715897527}
   - component: {fileID: 1715897526}
+  - component: {fileID: 1715897529}
   m_Layer: 5
   m_Name: BelongingsView
   m_TagString: Untagged
@@ -13871,6 +14158,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1715897524}
   m_CullTransparentMesh: 1
+--- !u!114 &1715897529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1715897524}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1716746853
 GameObject:
   m_ObjectHideFlags: 0
@@ -14555,6 +14859,7 @@ GameObject:
   - component: {fileID: 1821869614}
   - component: {fileID: 1821869613}
   - component: {fileID: 1821869612}
+  - component: {fileID: 1821869616}
   m_Layer: 5
   m_Name: Time
   m_TagString: Untagged
@@ -14690,6 +14995,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1821869610}
   m_CullTransparentMesh: 1
+--- !u!114 &1821869616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821869610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1824499032
 GameObject:
   m_ObjectHideFlags: 0
@@ -15078,7 +15400,7 @@ RectTransform:
   m_Father: {fileID: 1777872963}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -15133,6 +15455,7 @@ GameObject:
   - component: {fileID: 1855780466}
   - component: {fileID: 1855780465}
   - component: {fileID: 1855780468}
+  - component: {fileID: 1855780469}
   m_Layer: 5
   m_Name: Magic
   m_TagString: Untagged
@@ -15269,6 +15592,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.AttributeFilterListButton
   attribute: 2
   buttonText: {fileID: 117506259}
+--- !u!114 &1855780469
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1855780463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!114 &1863312452 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3098571928124678017, guid: 7880fd6472873b042bba149e3b490b7b, type: 3}
@@ -15293,6 +15633,7 @@ GameObject:
   - component: {fileID: 1881075773}
   - component: {fileID: 1881075772}
   - component: {fileID: 1881075775}
+  - component: {fileID: 1881075776}
   m_Layer: 5
   m_Name: DeckButton
   m_TagString: Untagged
@@ -15426,6 +15767,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.DeckButton
   deckView: {fileID: 1031923498}
+--- !u!114 &1881075776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1881075770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1890604183
 GameObject:
   m_ObjectHideFlags: 0
@@ -16007,6 +16365,7 @@ GameObject:
   - component: {fileID: 1934280980}
   - component: {fileID: 1934280979}
   - component: {fileID: 1934280982}
+  - component: {fileID: 1934280983}
   m_Layer: 5
   m_Name: CostFilterButton
   m_TagString: Untagged
@@ -16154,6 +16513,23 @@ MonoBehaviour:
   - {fileID: 2065288446}
   - {fileID: 1167158274}
   - {fileID: 264612341}
+--- !u!114 &1934280983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1934280977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1960276464
 GameObject:
   m_ObjectHideFlags: 0
@@ -16272,6 +16648,7 @@ GameObject:
   - component: {fileID: 1979952126}
   - component: {fileID: 1979952125}
   - component: {fileID: 1979952128}
+  - component: {fileID: 1979952129}
   m_Layer: 5
   m_Name: Attack
   m_TagString: Untagged
@@ -16407,6 +16784,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.TypeFilterListButton
   type: 1
   buttonText: {fileID: 1147762316}
+--- !u!114 &1979952129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979952123}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1991554069
 GameObject:
   m_ObjectHideFlags: 0
@@ -16850,6 +17244,7 @@ GameObject:
   - component: {fileID: 2020919797}
   - component: {fileID: 2020919796}
   - component: {fileID: 2020919795}
+  - component: {fileID: 2020919799}
   m_Layer: 5
   m_Name: Special
   m_TagString: Untagged
@@ -16985,6 +17380,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2020919793}
   m_CullTransparentMesh: 1
+--- !u!114 &2020919799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2020919793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &2025535947
 GameObject:
   m_ObjectHideFlags: 0
@@ -17495,6 +17907,7 @@ GameObject:
   - component: {fileID: 2071144273}
   - component: {fileID: 2071144272}
   - component: {fileID: 2071144275}
+  - component: {fileID: 2071144276}
   m_Layer: 5
   m_Name: SettingsButton
   m_TagString: Untagged
@@ -17627,6 +18040,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a5bd14af456d9419547dfb7f1bd895, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.SettingsButton
+--- !u!114 &2071144276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071144270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &2078269906
 GameObject:
   m_ObjectHideFlags: 0
@@ -17640,6 +18070,7 @@ GameObject:
   - component: {fileID: 2078269909}
   - component: {fileID: 2078269908}
   - component: {fileID: 2078269911}
+  - component: {fileID: 2078269912}
   m_Layer: 5
   m_Name: Physical
   m_TagString: Untagged
@@ -17776,6 +18207,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.AttributeFilterListButton
   attribute: 1
   buttonText: {fileID: 2000708800}
+--- !u!114 &2078269912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2078269906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &2088051531
 GameObject:
   m_ObjectHideFlags: 0
@@ -17904,6 +18352,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2104610444}
+  - component: {fileID: 2104610445}
   m_Layer: 5
   m_Name: AttributeFilterView
   m_TagString: Untagged
@@ -17932,6 +18381,23 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -52.37}
   m_SizeDelta: {x: 100, y: 45.9192}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2104610445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104610443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1001 &2109007188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19007,19 +19473,44 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7207117639416890869, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7593041939098500384}
   m_SourcePrefab: {fileID: 100100000, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
 --- !u!114 &7593041939098500382 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1779269788289027535, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
   m_PrefabInstance: {fileID: 7593041939098500381}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 7593041939098500383}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3965ad71f010e4f4aa2f3aac2a42f858, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.SortingSettingButton
+--- !u!1 &7593041939098500383 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7207117639416890869, guid: f56ecb65f05c2b64e994cf5aaa3a0d53, type: 3}
+  m_PrefabInstance: {fileID: 7593041939098500381}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7593041939098500384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7593041939098500383}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1001 &8943809072897908177
 PrefabInstance:
   m_ObjectHideFlags: 0

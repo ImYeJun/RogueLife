@@ -437,8 +437,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6482021165240882406, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1787024220}
   m_SourcePrefab: {fileID: 100100000, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+--- !u!1 &169677677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6482021165240882406, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+  m_PrefabInstance: {fileID: 169677676}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &223509566
 GameObject:
   m_ObjectHideFlags: 0
@@ -619,6 +627,7 @@ GameObject:
   - component: {fileID: 811096463}
   - component: {fileID: 811096464}
   - component: {fileID: 811096465}
+  - component: {fileID: 811096466}
   m_Layer: 5
   m_Name: ScheduleEndButton
   m_TagString: Untagged
@@ -717,6 +726,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleSelecting.ScheduleEndButton
   onHoverImage: {fileID: 1947420146}
+--- !u!114 &811096466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 811096462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &838525420
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,8 +930,16 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6482021165240882406, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1035228121}
   m_SourcePrefab: {fileID: 100100000, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+--- !u!1 &843794776 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6482021165240882406, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+  m_PrefabInstance: {fileID: 843794775}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &956266126
 GameObject:
   m_ObjectHideFlags: 0
@@ -1145,12 +1180,30 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7309914725385491437, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
   m_PrefabInstance: {fileID: 843794775}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 843794776}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19056c6144f01a14283342ceec95b14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ViewAssembly::ScheduleSelectButton
+--- !u!114 &1035228121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 843794776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!224 &1131399962 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4599840609866514266, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
@@ -1161,7 +1214,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7309914725385491437, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
   m_PrefabInstance: {fileID: 6588227378385429637}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6588227378385429638}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19056c6144f01a14283342ceec95b14c, type: 3}
@@ -1552,12 +1605,30 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7309914725385491437, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
   m_PrefabInstance: {fileID: 169677676}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 169677677}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19056c6144f01a14283342ceec95b14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: ViewAssembly::ScheduleSelectButton
+--- !u!114 &1787024220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169677677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1947420146
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,8 +1917,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6482021165240882406, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6588227378385429639}
   m_SourcePrefab: {fileID: 100100000, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+--- !u!1 &6588227378385429638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6482021165240882406, guid: bfad0487a75a66d429f52b5212f3cc11, type: 3}
+  m_PrefabInstance: {fileID: 6588227378385429637}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6588227378385429639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588227378385429638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -423,8 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ce2c562ba41514ba0a5a7bfcb818d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameAssembly::SkeletonGenerateRuleManager
-  scheduleSkeletonRule: {fileID: 11400000, guid: 0d0ef002a0a5f85418f9b28d29601c06, type: 2}
-  scheduleNodeTypeResolveRule: {fileID: 11400000, guid: 6bb9d1f621ceac441a38ebadf223e4a5, type: 2}
+  scheduleSkeletonRule: {fileID: 11400000, guid: 9805d36abc73d25439d3f36980192586, type: 2}
+  scheduleNodeTypeResolveRule: {fileID: 11400000, guid: 86d4bf8adaa395a4a852ec088758f15b, type: 2}
 --- !u!4 &83840619
 Transform:
   m_ObjectHideFlags: 0
@@ -1040,6 +1040,7 @@ GameObject:
   - component: {fileID: 858064279}
   - component: {fileID: 858064278}
   - component: {fileID: 858064281}
+  - component: {fileID: 858064282}
   m_Layer: 5
   m_Name: GoToMainMenuButton
   m_TagString: Untagged
@@ -1185,6 +1186,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c0a9f26eb6df34da4f21b4e516fb11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GoToMainMenuButton
+--- !u!114 &858064282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858064275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &899616458
 GameObject:
   m_ObjectHideFlags: 0
@@ -1340,6 +1358,7 @@ GameObject:
   - component: {fileID: 1108169753}
   - component: {fileID: 1108169752}
   - component: {fileID: 1108169755}
+  - component: {fileID: 1108169756}
   m_Layer: 5
   m_Name: GameEndButton
   m_TagString: Untagged
@@ -1473,6 +1492,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d99b682245d59543a6190c429257fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.StartMenu.ExitButton
+--- !u!114 &1108169756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108169750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1001 &1198425830
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2386,6 +2422,7 @@ GameObject:
   - component: {fileID: 1663532005}
   - component: {fileID: 1663532004}
   - component: {fileID: 1663532003}
+  - component: {fileID: 1663532006}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -2507,6 +2544,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1663532001}
   m_CullTransparentMesh: 1
+--- !u!114 &1663532006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1663532001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1851766513
 GameObject:
   m_ObjectHideFlags: 0

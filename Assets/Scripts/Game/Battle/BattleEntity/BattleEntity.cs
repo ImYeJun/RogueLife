@@ -175,7 +175,7 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
     {
         if (IsDead) { return; }
         
-        context.ActionScheduler.Enqueue(new RemoveEntityStatusEffect(this, statusEffect));
+        context.ActionScheduler.EnqueueFront(new RemoveEntityStatusEffect(this, statusEffect));
     }
 
     public void RemoveStatusEffect(BattleStatusEffect statusEffect)

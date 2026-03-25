@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 356904200}
   - component: {fileID: 356904199}
   - component: {fileID: 356904202}
+  - component: {fileID: 356904203}
   m_Layer: 5
   m_Name: DiaryButton
   m_TagString: Untagged
@@ -370,11 +371,11 @@ RectTransform:
   - {fileID: 1122256038}
   m_Father: {fileID: 655490967}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -89, y: 219.77}
-  m_SizeDelta: {x: 378.65, y: 120.016}
-  m_Pivot: {x: 1, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 681.675, y: -260.222}
+  m_SizeDelta: {x: 378.65002, y: 120.01599}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &356904199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,6 +482,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270de309b43349d459cf28916f940ae4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.StartMenu.DiaryButton
+--- !u!114 &356904203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 356904197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
 --- !u!1 &401970552
 GameObject:
   m_ObjectHideFlags: 0
@@ -1013,6 +1031,7 @@ GameObject:
   - component: {fileID: 947882358}
   - component: {fileID: 947882357}
   - component: {fileID: 947882360}
+  - component: {fileID: 947882361}
   m_Layer: 5
   m_Name: SettingButton
   m_TagString: Untagged
@@ -1035,11 +1054,11 @@ RectTransform:
   - {fileID: 1736553695}
   m_Father: {fileID: 655490967}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -93.04004, y: 34.66101}
-  m_SizeDelta: {x: 370.57, y: 117.455}
-  m_Pivot: {x: 1, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 681.675, y: -446.61142}
+  m_SizeDelta: {x: 370.57, y: 117.45502}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &947882357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1146,6 +1165,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 857a91d3398d73f49bb29175f42c20c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingButton
+--- !u!114 &947882361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947882355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
 --- !u!1 &1108376469
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1195,7 @@ GameObject:
   - component: {fileID: 1108376472}
   - component: {fileID: 1108376471}
   - component: {fileID: 1108376474}
+  - component: {fileID: 1108376475}
   m_Layer: 5
   m_Name: GameExitButton
   m_TagString: Untagged
@@ -1292,6 +1329,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d99b682245d59543a6190c429257fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.StartMenu.ExitButton
+--- !u!114 &1108376475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1108376469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
 --- !u!1 &1122256037
 GameObject:
   m_ObjectHideFlags: 0
@@ -1592,6 +1646,7 @@ GameObject:
   - component: {fileID: 1448022092}
   - component: {fileID: 1448022094}
   - component: {fileID: 1448022095}
+  - component: {fileID: 1448022096}
   m_Layer: 5
   m_Name: GameStartButton
   m_TagString: Untagged
@@ -1724,6 +1779,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21b3e2a5cd04978499b70df0c64b473d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI.StartMenu.GameStartButton
+--- !u!114 &1448022096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1448022090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
 --- !u!1 &1489088070
 GameObject:
   m_ObjectHideFlags: 0

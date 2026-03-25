@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 3461378476740492695}
   - component: {fileID: 7083774382178256022}
   - component: {fileID: 2019657152694183272}
+  - component: {fileID: -471539487375924640}
   m_Layer: 5
   m_Name: CostFilterLIstButton
   m_TagString: Untagged
@@ -285,3 +286,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Deck.CostFilterListButton
   cost: 0
   costText: {fileID: 734108801003392463}
+--- !u!114 &-471539487375924640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6215286312613810961}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 0
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7

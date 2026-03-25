@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 4233864597647474331}
   - component: {fileID: 4899498603284717123}
   - component: {fileID: 3679515035680010619}
+  - component: {fileID: -5237060007521223664}
   m_Layer: 5
   m_Name: SelectButton
   m_TagString: Untagged
@@ -95,6 +96,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &-5237060007521223664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3071457836128666474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScale: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &3984065268494713617
 GameObject:
   m_ObjectHideFlags: 0
