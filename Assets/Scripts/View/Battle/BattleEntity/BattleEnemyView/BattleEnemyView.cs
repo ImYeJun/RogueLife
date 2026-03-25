@@ -205,6 +205,7 @@ namespace View.BattleView
                 var actionIcon = iconObject.GetComponent<BattleEnemyActionIcon>();
                 actionIcon.Initialize(action);
                 actionIcons.Add(actionIcon);
+                actionIcon.SetUnshown();
 
                 presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_BaseIconAction + i, actionIcon.PlayAppliedPresentation());
             }
@@ -393,6 +394,7 @@ namespace View.BattleView
             yield return sequence.WaitForCompletion();
         }
 
+
         public override void OnInspect(IInspectorBuilder builder, RectTransform parent)
         {
             var nameText = builder.AddNameText(parent);
@@ -403,33 +405,26 @@ namespace View.BattleView
 
             var availableActionPanel = builder.AddSubPanel(parent);
             availableActionPanel.Header = "행동 종류";
+            
             foreach (var behaviour in enemy.Data.BehaviourDescriptions)
             {
-                var linkedGroup = builder.AddLinkedGroup(availableActionPanel.ItemContainer);
-
-                var horizontalLayoutGroup = builder.AddHorizontalLayout(linkedGroup.RectTransform);
+                var actionInfoPanelObject = builder.AddEnemyActionInfoPanel(availableActionPanel.ItemContainer);
+                var actionInfoPanel = actionInfoPanelObject.GetComponent<InspectorEnemyActionInfoPanel>();
                 
-                var actionIconObject = Instantiate(inspectActionIconPrefab, horizontalLayoutGroup.transform);
-                actionIconObject.transform.localScale = Vector3.one;
-                var actionIcon = actionIconObject.GetComponent<BattleEnemyActionIcon>();
                 var action = enemy.AvailableActions[behaviour.Id];
-                actionIcon.Initialize(action);
-
-                var availableBehaviourText = builder.AddBodyText(horizontalLayoutGroup.RectTransform);
-                availableBehaviourText.Text = $" : {behaviour.Description}";
-
+                
+                List<string> statusEffectTexts = new List<string>();
                 foreach (var associatedStatusEffect in behaviour.AssociatedStatusEffectIds)
                 {
                     var data = commander.GetStatusEffectData(associatedStatusEffect);
-
-                    var statusEffectText = builder.AddCaptionText(linkedGroup.RectTransform);
-                    statusEffectText.Text = $"{data.Name} : {data.Description}";
+                    statusEffectTexts.Add($"{data.Name} : {data.Description}");
                 }
+
+                actionInfoPanel.Initialize(action, behaviour.Description, statusEffectTexts, builder);
             }
 
             var intendedActionPanel = builder.AddSubPanel(parent);
             intendedActionPanel.Header = "하게 될 행동";
-
 
             var intendedActionhorizontalLayoutGroup = builder.AddHorizontalLayout(intendedActionPanel.ItemContainer);
             for (int i = 0; i < actionIcons.Count; i++)
@@ -438,12 +433,8 @@ namespace View.BattleView
                 actionIconObject.transform.localScale = Vector3.one;
                 var actionIcon = actionIconObject.GetComponent<BattleEnemyActionIcon>();
                 actionIcon.Initialize(actionIcons[i].Action);
-
-                if (i != actionIcons.Count - 1){
-                    var arrowText = builder.AddBodyText(intendedActionhorizontalLayoutGroup.RectTransform);
-                    arrowText.Text += " → ";
-                }
             }
+            intendedActionhorizontalLayoutGroup.LayoutGroup.spacing = 10;
             
             base.OnInspect(builder, parent);
         }

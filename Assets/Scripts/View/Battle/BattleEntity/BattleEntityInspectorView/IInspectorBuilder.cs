@@ -10,5 +10,6 @@ namespace View.BattleView{
         public InspectorNameText AddNameText(RectTransform parent);
         public InspectorSubPanel AddSubPanel(RectTransform parent);
         public InspectorHorizontalLayout AddHorizontalLayout(RectTransform parent);
+        public InspectorEnemyActionInfoPanel AddEnemyActionInfoPanel(RectTransform parent);
     }
 }

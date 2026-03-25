@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -208908964393434016, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_MinWidth
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -208908964393434016, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_MinHeight
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: -208908964393434016, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_FlexibleWidth
@@ -38,19 +38,19 @@ PrefabInstance:
       objectReference: {fileID: -2095123419, guid: 6a866324d0ff74e408a7878d15ff1450, type: 3}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 4.1641
+      value: 15.7188
       objectReference: {fileID: 0}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 6.9375
+      value: 25.3303
       objectReference: {fileID: 0}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 16.47
+      value: 65.4
       objectReference: {fileID: 0}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4.1
+      value: 17.2
       objectReference: {fileID: 0}
     - target: {fileID: 2553415525742267564, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_Name
@@ -82,11 +82,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6542440666992120062, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 20
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6542440666992120062, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 20
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6542440666992120062, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_LocalScale.x

@@ -49,11 +49,14 @@ namespace View.BattleView
 
         public bool HasExecuted { get; set;}
 
-        private void Awake() 
+        private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
             layoutElement = GetComponent<LayoutElement>();
+        }
 
+        public void SetUnshown()
+        {
             canvasGroup.alpha = 0;
             layoutElement.ignoreLayout = true;
         }
