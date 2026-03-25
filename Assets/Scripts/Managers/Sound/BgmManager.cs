@@ -28,13 +28,19 @@ public class BgmManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void Play(AudioClip bgm)
+    public void Play(AudioClip bgm, bool isLoop = true)
     {
         audioSource.Stop();
 
         currentBgm = bgm;
         audioSource.clip = currentBgm;
-
+        audioSource.loop = isLoop;
+        
         audioSource.Play();
+    }
+
+    public void Stop()
+    {
+        audioSource.Stop();
     }
 }

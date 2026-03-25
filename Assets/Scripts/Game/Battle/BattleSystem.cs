@@ -125,7 +125,7 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         }
 
         preparedStartData = new BattleStartData(
-            startPhaseCount, maxActionCost, firstTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, battleBelongings, enemies
+            startPhaseCount, maxActionCost, firstTurnDrawCount, turnStartDrawCount, startDrawDeck, battlePlayer, battleBelongings, enemies, mainEnemyData
         );
 
         onEngage?.Invoke();

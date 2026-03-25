@@ -30,9 +30,10 @@ public class BattleScheduler : IBattleScheduler
             data.StartDrawDeck, 
             data.BattlePlayer, 
             data.BattleBelongings,
-            data.Enemies
+            data.Enemies,
+            data.MainEnemyData
         ));
-        viewEventPublisher.Publish(new BattleStarted(viewEventPublisher.GetNextSequenceId()));
+        viewEventPublisher.Publish(new BattleStarted(viewEventPublisher.GetNextSequenceId(), data.MainEnemyData));
 
         StartPhase();
     }

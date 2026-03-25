@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Controller.Battle
         private BattleViewEventBus viewEventBus;
         private IBattleViewCommander viewCommander;
 
+        [SerializeField] private AudioData normalBgm;
         [SerializeField] private List<ViewBehaviour<IBattleViewEvent>> views;
         [SerializeField] private List<InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>> interacatbleViews;
         
@@ -28,19 +30,43 @@ namespace Controller.Battle
                 interactabelView.Initialize(random, viewEventBus, PresentationManager.Instance ,viewCommander);
             }
 
+            viewEventBus.Subscribe<BattleStarted>(OnBattleStarted);
             viewEventBus.Subscribe<BattleExited>(OnBattleExited);
 
             viewCommander.StartBattle();
         }
-
         private void OnDestroy()
         {
+            viewEventBus?.Unsubscribe<BattleStarted>(OnBattleStarted);
             viewEventBus?.Unsubscribe<BattleExited>(OnBattleExited);
+        }
+
+        private void OnBattleStarted(BattleStarted payload)
+        {
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleStarted_PlayBgm, PlayBgm(payload.MainEnemyData));
+        }
+        private IEnumerator PlayBgm(EnemyData mainEnemyData)
+        {
+            yield return null;
+            
+            var bgm = normalBgm;
+            if (mainEnemyData is BossEnemyData bossEnemyData)
+            {
+                bgm = bossEnemyData.BattleBgm;
+            }
+            SoundManager.Instance?.PlayeBgm(bgm);
         }
 
         private void OnBattleExited(BattleExited payload)
         {
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleExited_StopBgm, StopBgm());
             PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleExited_SceneTransition, SceneTransitionPresentation());
+        }
+
+        private IEnumerator StopBgm()
+        {
+            yield return null;
+            SoundManager.Instance?.StopBgm();
         }
 
         private IEnumerator SceneTransitionPresentation()

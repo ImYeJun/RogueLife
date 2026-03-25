@@ -105,8 +105,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 3
-        height: 5
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,10 +125,10 @@ TextureImporter:
       name: BehaviorNumber_1
       rect:
         serializedVersion: 2
-        x: 3
+        x: 16
         y: 0
-        width: 3
-        height: 5
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,8 +137,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3532802fbee02e64e805cd4bf241e690
-      internalID: -520372331
+      spriteID: aaa52354186eedc45af5fe78b99e4f1c
+      internalID: 1411823073
       vertices: []
       indices: 
       edges: []
@@ -147,10 +147,10 @@ TextureImporter:
       name: BehaviorNumber_2
       rect:
         serializedVersion: 2
-        x: 6
+        x: 32
         y: 0
-        width: 3
-        height: 5
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,8 +159,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f7079d7597320841a470ea0ff906233
-      internalID: -1324096577
+      spriteID: a86460bba6d183548ad667b9c819cd03
+      internalID: 2055838700
       vertices: []
       indices: 
       edges: []
@@ -169,10 +169,10 @@ TextureImporter:
       name: BehaviorNumber_3
       rect:
         serializedVersion: 2
-        x: 9
+        x: 48
         y: 0
-        width: 3
-        height: 5
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,8 +181,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b42a74692feacb40ac6922216d5ff3a
-      internalID: 2144949849
+      spriteID: e0bc81fa942f66a4ab596259f6b2d600
+      internalID: 2022074586
       vertices: []
       indices: 
       edges: []
@@ -191,10 +191,10 @@ TextureImporter:
       name: BehaviorNumber_4
       rect:
         serializedVersion: 2
-        x: 12
+        x: 64
         y: 0
-        width: 3
-        height: 5
+        width: 16
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,8 +203,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 42d68c87cf6f3604c9d273c91a67beb8
-      internalID: -2095123419
+      spriteID: 9168923d84709644389cefd601278512
+      internalID: 2101226290
       vertices: []
       indices: 
       edges: []
@@ -213,7 +213,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 8408f157b905fad4ab4570bdc92da3a6
+    spriteID: c3010a70a5638e644a455c35d263dba0
     internalID: 0
     vertices: []
     indices: 
@@ -223,13 +223,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":3.0,"y":5.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":16.0,"y":16.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       BehaviorNumber_0: 1967421425376554867
-      BehaviorNumber_1: -520372331
-      BehaviorNumber_2: -1324096577
-      BehaviorNumber_3: 2144949849
-      BehaviorNumber_4: -2095123419
+      BehaviorNumber_1: 1411823073
+      BehaviorNumber_2: 2055838700
+      BehaviorNumber_3: 2022074586
+      BehaviorNumber_4: 2101226290
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,7 +1,8 @@
 public static class PresentationPriority
 {
     //Game Ended
-    public const int GameEnded_SceneTransition = 10;
+    public const int RunEnded_StopBgm = 10;
+    public const int RunEnded_SceneTransition = 20;
 
     ///* -------------------------
     ///* StartMenu
@@ -54,8 +55,9 @@ public static class PresentationPriority
     public const int TransactionSelectRequested_ChoiceAppear = 10;
 
     // Battle Engaged
-    public const int BattleEngaged_FadeIn = 10;
-    public const int BattleEngaged_SceneTransition = 20;
+    public const int BattleEngaged_StopBgm = 10;
+    public const int BattleEngaged_FadeIn = 20;
+    public const int BattleEngaged_SceneTransition = 30;
 
     //Returned From Battle
     public const int ReturnedFromBattle_FadeOut = 10;
@@ -75,7 +77,8 @@ public static class PresentationPriority
     public const int PlayerHealed = 10;
 
     //Schedule Cleared
-    public const int ScheduleCleared_SceneTransition = 10;
+    public const int ScheduleCleared_StopBgm = 10;
+    public const int ScheduleCleared_SceneTransition = 20;
 
 
     ///* -------------------------
@@ -84,11 +87,12 @@ public static class PresentationPriority
     
     // Battle Started
     public const int BattleStarted_FadeOut = 10;
-    public const int BattleStarted_TurnViewShowingDown = 10;
+    public const int BattleStarted_PlayBgm = 20;
 
     // Battle Exited
-    public const int BattleExited_FadeOut = 10;
-    public const int BattleExited_SceneTransition = 20;
+    public const int BattleExited_StopBgm = 10;
+    public const int BattleExited_FadeOut = 20;
+    public const int BattleExited_SceneTransition = 30;
     
     // Player Turn Started
     public const int PlayerTurnStarted_TurnViewShowingDown = 10;
@@ -193,8 +197,9 @@ public static class PresentationPriority
     
     // Diary Written
     public const int DiaryWritten_FadeIn = 10;
-    public const int DiaryWritten_CommonPartPresentation = 20;
-    public const int DiaryWritten_SpecialPartPresentation = 30;
+    public const int DiaryWritten_PlayBgm = 20;
+    public const int DiaryWritten_CommonPartPresentation = 30;
+    public const int DiaryWritten_SpecialPartPresentation = 40;
 
     // Return To Main Menu Requested
     public const int ReturnToMainMenuRequested_FadeOut = 10;

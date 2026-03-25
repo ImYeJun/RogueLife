@@ -72,4 +72,4 @@ MonoBehaviour:
     sprite: {fileID: 2039240141471964177, guid: ed9b80fec780414479a1caf8dc0e3816, type: 3}
   - type: 1
     sprite: {fileID: -6639657771971595384, guid: ed9b80fec780414479a1caf8dc0e3816, type: 3}
-  battleBgm: {fileID: 8300000, guid: 3c9fa7e0fe06a8942823ab2b093e1461, type: 3}
+  battleBgm: {fileID: 11400000, guid: 1df7a3273965a434493d7eb4bfe6a7e8, type: 2}

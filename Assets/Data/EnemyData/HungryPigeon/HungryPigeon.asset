@@ -17,7 +17,7 @@ MonoBehaviour:
   tier: 2
   description: "\uC774\uC820 \uC778\uAC04\uC744 \uC548 \uBB34\uC11C\uC6CC\uD558\uB294
     \uAC78 \uB118\uC5B4 \uACF5\uACA9\uD558\uB294 \uBE44\uB458\uAE30"
-  maxBaseHealth: 101
+  maxBaseHealth: 300
   behaviourDescriptionList:
   - behaviourId: Enemy_HungryPigeon_Behavior_0
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 15\uC758 \uD53C\uD574\uB97C
@@ -57,4 +57,4 @@ MonoBehaviour:
     sprite: {fileID: -2969153619595600192, guid: a8eaa6c482b029148b09eb7c7a0553d2, type: 3}
   - type: 1
     sprite: {fileID: -3343111391487772240, guid: a8eaa6c482b029148b09eb7c7a0553d2, type: 3}
-  battleBgm: {fileID: 8300000, guid: b3e0423ea80bd0742b93d706d0e48d1f, type: 3}
+  battleBgm: {fileID: 11400000, guid: 03845bf680f862541b993cb41980bc23, type: 2}

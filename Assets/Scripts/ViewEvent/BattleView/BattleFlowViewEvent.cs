@@ -3,13 +3,16 @@ namespace ViewEvent.BattleView
     public readonly struct BattleStarted : IBattleViewEvent
     {
         private readonly int sequenceId;
+        private readonly EnemyData mainEnemyData;
 
-        public BattleStarted(int sequenceId)
+        public BattleStarted(int sequenceId, EnemyData mainEnemyData)
         {
             this.sequenceId = sequenceId;
+            this.mainEnemyData = mainEnemyData;
         }
 
         public int SequenceId { get => sequenceId; }
+        public EnemyData MainEnemyData => mainEnemyData;
     }
 
     public readonly struct PhaseStarted : IBattleViewEvent

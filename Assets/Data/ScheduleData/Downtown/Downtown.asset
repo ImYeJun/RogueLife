@@ -20,8 +20,8 @@ MonoBehaviour:
     \uB4F1\uB4F1 \uB2E4\uC591\uD55C \uAC74\uBB3C\uB4E4\uC774 \uC788\uB2E4."
   usualBackground: []
   battleBackground: {fileID: 0}
-  usualBGM: {fileID: 8300000, guid: 11cd76c940a1fd643bb820a7e0b5b68b, type: 3}
-  battleBGM: {fileID: 8300000, guid: e9fe02633baba524daa2ba65ac43ce39, type: 3}
+  usualBGM: {fileID: 11400000, guid: 54d520aa28d39a1449e4552b3908653a, type: 2}
+  battleBGM: {fileID: 11400000, guid: e0a0264538d727b45a1e695ba49fcde3, type: 2}
   choiceSprite: {fileID: 881676806763669821, guid: 31b3ccbd5a4593c4c8a5d3ff8c088670, type: 3}
   bossEntity: {fileID: 8311031345063822475, guid: 7ea9a81620170a04ab22e69c0a76ad91, type: 3}
   availableEliteEnemyEntities:

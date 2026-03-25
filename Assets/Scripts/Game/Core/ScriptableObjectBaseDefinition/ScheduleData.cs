@@ -10,8 +10,8 @@ public class ScheduleData : ScriptableObject
     [SerializeField, TextArea] private string description;
     [SerializeField] private Sprite[] usualBackground;
     [SerializeField] private Sprite battleBackground;
-    [SerializeField] private AudioClip usualBGM;
-    [SerializeField] private AudioClip battleBGM;
+    [SerializeField] private AudioData usualBGM;
+    [SerializeField] private AudioData battleBGM;
     [SerializeField] private Sprite choiceSprite;
     [SerializeField] private EnemyEntity bossEntity;
     [SerializeField] private List<EnemyEntity> availableEliteEnemyEntities;
@@ -23,8 +23,8 @@ public class ScheduleData : ScriptableObject
     public string Description { get => description; }
     public Sprite[] UsualBackground { get => usualBackground; }
     public Sprite BattleBackground { get => battleBackground; }
-    public AudioClip UsualBGM { get => usualBGM; }
-    public AudioClip BattleBGM { get => battleBGM; }
+    public AudioData UsualBGM { get => usualBGM; }
+    public AudioData BattleBGM { get => battleBGM; }
     public Sprite ChoiceSprite { get => choiceSprite; }
     public List<EnemyEntity> AvailableNormalEnemyData { get => availableNormalEnemyEntities; }
     public List<EnemyEntity> AvailableEliteEnemyData { get => availableEliteEnemyEntities; }

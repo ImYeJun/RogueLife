@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Controller.WriteDiary
     {
         private WriteDiaryViewEventBus viewEventBus;
         private IWriteDiaryViewCommander viewCommander;
+        [SerializeField] private AudioData bgm;
 
         [SerializeField] private List<ViewBehaviour<IWriteDiaryViewEvent>> views;
         [SerializeField] private List<InteractableViewBehaviour<IWriteDiaryViewEvent, IWriteDiaryViewCommander>> interacatbleViews;
@@ -31,12 +33,24 @@ namespace Controller.WriteDiary
             }
 
             viewEventBus.Subscribe<ReturnToMainMenuRequested>(OnReturnToMainMenuRequested);
-
+            viewEventBus.Subscribe<DiaryWritten>(OnDiaryWritten);
+            
             viewCommander.WriteDiary();
         }
 
         private void OnDestroy() {
             viewEventBus?.Unsubscribe<ReturnToMainMenuRequested>(OnReturnToMainMenuRequested);
+            viewEventBus?.Unsubscribe<DiaryWritten>(OnDiaryWritten);
+        }
+
+        private void OnDiaryWritten(DiaryWritten payload)
+        {
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.DiaryWritten_PlayBgm, PlayBgm());
+        }
+        private IEnumerator PlayBgm()
+        {
+            yield return null;
+            SoundManager.Instance?.PlayeBgm(bgm);
         }
 
         private void OnReturnToMainMenuRequested(ReturnToMainMenuRequested payload){

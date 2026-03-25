@@ -423,8 +423,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ce2c562ba41514ba0a5a7bfcb818d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: GameAssembly::SkeletonGenerateRuleManager
-  scheduleSkeletonRule: {fileID: 11400000, guid: d952499ae925a964cbf2cf2ff0c7d2ea, type: 2}
-  scheduleNodeTypeResolveRule: {fileID: 11400000, guid: b3e7b86e8ff687341b39a2e85ba7ab35, type: 2}
+  scheduleSkeletonRule: {fileID: 11400000, guid: 0d0ef002a0a5f85418f9b28d29601c06, type: 2}
+  scheduleNodeTypeResolveRule: {fileID: 11400000, guid: 6bb9d1f621ceac441a38ebadf223e4a5, type: 2}
 --- !u!4 &83840619
 Transform:
   m_ObjectHideFlags: 0

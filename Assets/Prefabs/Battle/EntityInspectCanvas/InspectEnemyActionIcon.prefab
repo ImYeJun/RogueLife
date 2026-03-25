@@ -38,19 +38,19 @@ PrefabInstance:
       objectReference: {fileID: -2095123419, guid: 6a866324d0ff74e408a7878d15ff1450, type: 3}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 15.7188
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 25.3303
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 65.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1496125296368567228, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 17.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2553415525742267564, guid: 66c8f1aa6f003334bbb763a0b835bda5, type: 3}
       propertyPath: m_Name

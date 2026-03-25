@@ -9,6 +9,7 @@ public class StartMenuManager : MonoBehaviour, IStartMenuViewCommander
     private SequenceIdGenerator sequenceIdGenerator = new SequenceIdGenerator();
 
     [SerializeField] private List<StartDeck> startDecks;
+    [SerializeField] private AudioData bgm;
     
     private StartMenuViewEventBus viewEventBus;
 
@@ -19,6 +20,7 @@ public class StartMenuManager : MonoBehaviour, IStartMenuViewCommander
         GameRunManager.Instance.StartNewRun(startDeck);
 
         viewEventBus.Publish(new ReadyToStartGame(sequenceIdGenerator.GetNextId()));
+        SoundManager.Instance?.StopBgm();
     }
 
     public void RequestStartDeckSelect()
@@ -29,5 +31,6 @@ public class StartMenuManager : MonoBehaviour, IStartMenuViewCommander
     private void Awake()
     {
         viewEventBus = new StartMenuViewEventBus();
+        SoundManager.Instance?.PlayeBgm(bgm);
     }
 }

@@ -33,6 +33,7 @@ namespace Controller.Schedule
             currentRun.ViewEventBus.Subscribe<RunEnded>(OnRunEnded);
             currentRun.ViewEventBus.Subscribe<ScheduleCleared>(OnScheduleCleared);
             viewEventBus.Subscribe<BattleEngaged>(OnBattleEngaged);
+            viewEventBus.Subscribe<ScheduleStateSynced>(OnScheduleStateSynced);
 
             viewCommander.BroadcastCurrentState();
             viewCommander.ResumeSchedule();
@@ -42,23 +43,39 @@ namespace Controller.Schedule
             currentRun?.ViewEventBus?.Unsubscribe<RunEnded>(OnRunEnded);
             currentRun?.ViewEventBus?.Unsubscribe<ScheduleCleared>(OnScheduleCleared);
             viewEventBus?.Unsubscribe<BattleEngaged>(OnBattleEngaged);
+            viewEventBus?.Unsubscribe<ScheduleStateSynced>(OnScheduleStateSynced);
         }
 
         public void OnRunEnded(RunEnded payload)
         {
             SceneName destination = payload.DiaryWritable ? SceneName.WRITE_DIARY : SceneName.MAIN_MENU;
-            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.GameEnded_SceneTransition, SceneTransitionPresentation(destination));
+
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.RunEnded_StopBgm, StopBgm());
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.RunEnded_SceneTransition, SceneTransitionPresentation(destination));
         }
         public void OnScheduleCleared(ScheduleCleared payload)
         {
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.ScheduleCleared_StopBgm, StopBgm());
             PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.ScheduleCleared_SceneTransition, SceneTransitionPresentation(SceneName.SCHEDULE_SELECTING));
         }
         public void OnBattleEngaged(BattleEngaged payload)
         {
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleEngaged_StopBgm, StopBgm());
             PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleEngaged_SceneTransition, SceneTransitionPresentation(SceneName.BATTLE));
         }
+        private void OnScheduleStateSynced(ScheduleStateSynced payload)
+        {
+            var bgm = payload.Schedule.Data.UsualBGM;
+            SoundManager.Instance?.PlayeBgm(bgm);
+        }
 
-        public IEnumerator SceneTransitionPresentation(SceneName name)
+        private IEnumerator StopBgm()
+        {
+            yield return null;
+            SoundManager.Instance?.StopBgm();
+        }
+
+        private IEnumerator SceneTransitionPresentation(SceneName name)
         {
             yield return null;
             GameSceneManager.Instance.LoadScene(name);

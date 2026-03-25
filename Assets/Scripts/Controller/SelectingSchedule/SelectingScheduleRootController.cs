@@ -57,7 +57,7 @@ namespace Controller.SelectingSchedule
         public void OnRunEnded(RunEnded payload)
         {
             SceneName destination = payload.DiaryWritable ? SceneName.WRITE_DIARY : SceneName.MAIN_MENU;
-            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.GameEnded_SceneTransition, SceneTransitionPresentation(destination));
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.RunEnded_SceneTransition, SceneTransitionPresentation(destination));
         }
         public IEnumerator SceneTransitionPresentation(SceneName name)
         {

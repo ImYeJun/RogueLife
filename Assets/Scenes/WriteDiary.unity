@@ -904,7 +904,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 914549814}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.23605043
+  m_Size: 0.2360504
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1409,6 +1409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12b558a6ff9653c49bc2428b8f843e56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controller.WriteDiary.WriteDiaryRootController
+  bgm: {fileID: 11400000, guid: 9951ff7029cd7cb478c01a30277d062b, type: 2}
   views:
   - {fileID: 591331774}
   - {fileID: 2058795497}

@@ -37,6 +37,7 @@ public class SoundManager : SingletonManager<SoundManager>
     }
 
     public void PlayeBgm(AudioData bgm) { bgmManager.Play(bgm.Clip); }
+    public void StopBgm() { bgmManager.Stop(); }
     public void PlayeSoundEffect(AudioData bgm) { bgmManager.Play(bgm.Clip); }
     public void PlaySoundEffectWithRandomPitch(AudioData soundEffect) { soundEffectManager.PlayWithRandomPitch(soundEffect.Clip); }
     public void PlaySoundEffectWithRandomPitch(AudioData soundEffect, float pitchShakeRange) { soundEffectManager.PlayWithRandomPitch(soundEffect.Clip, pitchShakeRange); }

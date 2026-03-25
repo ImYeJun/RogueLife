@@ -4680,6 +4680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5a222e280739f4a89a430fd81c786d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controller.Battle.BattleRootController
+  normalBgm: {fileID: 11400000, guid: e0a0264538d727b45a1e695ba49fcde3, type: 2}
   views:
   - {fileID: 537587725}
   - {fileID: 70812122}
