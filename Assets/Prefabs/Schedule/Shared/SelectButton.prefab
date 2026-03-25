@@ -108,10 +108,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &3984065268494713617
 GameObject:

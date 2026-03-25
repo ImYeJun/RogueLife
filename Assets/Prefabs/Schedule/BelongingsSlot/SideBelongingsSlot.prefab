@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7198725807746434897, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+      propertyPath: isFeedbackable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7198725807746434897, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+      propertyPath: specificScaleTarget
+      value: 
+      objectReference: {fileID: 2178344313208684968}
     - target: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
       propertyPath: m_Name
       value: SideBelongingsSlot
@@ -104,6 +112,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 5108351966127505866}
   m_SourcePrefab: {fileID: 100100000, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+--- !u!224 &2178344313208684968 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3637197132020487303, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+  m_PrefabInstance: {fileID: 3189361186192577839}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3396575760865764430 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}

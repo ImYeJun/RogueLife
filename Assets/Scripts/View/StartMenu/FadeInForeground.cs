@@ -28,6 +28,7 @@ namespace View.StartMenu
 
         public void OnReadyToStartGame(ReadyToStartGame payload)
         {
+            canvasGroup.gameObject.SetActive(true);
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.ReadyToStartGame_FadeIn, FadeInPresentation());
         }
 

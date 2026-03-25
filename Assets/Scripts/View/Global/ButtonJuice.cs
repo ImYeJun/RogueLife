@@ -7,9 +7,10 @@ namespace View.Global
 {
     public class ButtonJuice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
         [Header("Settings")]
+        [SerializeField] private bool isFeedbackable = true;
         [SerializeField] private bool isScaleAble = true;
         [SerializeField] private AudioData clickSound;
-        // [SerializeField] private Transform specificScaleTarget;
+        [SerializeField] private Transform specificScaleTarget;
 
         [Header("Scale Presentation")]
         [SerializeField] private float focusingPresentationDuration = 0.1f;
@@ -18,6 +19,9 @@ namespace View.Global
         
         private Tween currentFocusingTween;
         private Vector3 originalScale;
+
+        public bool IsFeedbackable { get => isFeedbackable; set => isFeedbackable = value; }
+
         private void Awake()
         {
             originalScale = transform.localScale;
@@ -31,15 +35,18 @@ namespace View.Global
 
         public void OnPointerClick(PointerEventData eventData)
         {
+            if (!isFeedbackable) { return; }
+
             SoundManager.Instance?.PlaySoundEffectWithRandomPitch(clickSound);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
         {
+            if (!isFeedbackable) { return; }
             if (!isScaleAble) { return; }
 
             var scaleTarget = transform;
-            // if (specificScaleTarget is not null) { scaleTarget = specificScaleTarget; }
+            if (specificScaleTarget != null) { scaleTarget = specificScaleTarget; }
 
             Vector3 targetScale = originalScale * focusingScaleMultiplier;
             currentFocusingTween?.Kill();
@@ -49,10 +56,11 @@ namespace View.Global
 
         public void OnPointerExit(PointerEventData eventData)
         {
+            if (!isFeedbackable) { return; }
             if (!isScaleAble) { return; }
 
             var scaleTarget = transform;
-            // if (specificScaleTarget is not null) { scaleTarget = specificScaleTarget; }
+            if (specificScaleTarget != null) { scaleTarget = specificScaleTarget; }
 
             Vector3 targetScale = originalScale;
             currentFocusingTween?.Kill();

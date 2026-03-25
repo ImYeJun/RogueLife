@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -7198725807746434897, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+      propertyPath: isFeedbackable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7198725807746434897, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+      propertyPath: specificScaleTarget
+      value: 
+      objectReference: {fileID: 5303420623469362236}
     - target: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
       propertyPath: m_Name
       value: MainBelongingsSlot
@@ -103,6 +111,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8519701459563316370}
+    - targetCorrespondingSourceObject: {fileID: 243736101090914657, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8142075795544721895}
   m_SourcePrefab: {fileID: 100100000, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
 --- !u!114 &3193730814578099799 stripped
 MonoBehaviour:
@@ -115,6 +126,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!224 &5303420623469362236 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3637197132020487303, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
+  m_PrefabInstance: {fileID: 8926243794345109691}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7209532738951265357 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2300500087106999542, guid: 4e9e31eea679cd148a30125d990e13ea, type: 3}
@@ -139,3 +155,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBag.MainBelongingsSlotView
   overlap: {fileID: 7209532738951265357}
   icon: {fileID: 3193730814578099799}
+--- !u!114 &8142075795544721895
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8683379616713267674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 5303420623469362236}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7

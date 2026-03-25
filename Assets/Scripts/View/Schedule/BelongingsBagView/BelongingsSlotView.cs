@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using View.Global;
 
 namespace View.ScheduleView.BelongingsBag
 {
@@ -25,7 +26,6 @@ namespace View.ScheduleView.BelongingsBag
 
             icon.sprite = belongings.Image;
             icon.gameObject.SetActive(true);
-
             isActivated = true;
         }
         public void Deactive()
