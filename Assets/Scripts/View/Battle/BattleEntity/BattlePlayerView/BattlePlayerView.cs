@@ -30,12 +30,14 @@ namespace View.BattleView
         [SerializeField] private TextMeshProUGUI battleHeatlhText;
         [SerializeField] private Image mentalityBar;
         [SerializeField] private TextMeshProUGUI mentaltiyText;
+        [SerializeField] private AudioData actionSFX;
 
         [Header("Action Presentation")]
         [SerializeField] private float actionDuration;
 
         [Header("Heal Presentation Settings")]
         [Tooltip("Settings for battle health heal.")]
+        [SerializeField] private AudioData healSFX;
         [SerializeField] private float healDuration = 0.3f;
         [SerializeField] private float healTextOffsetDuration = 0.2f;
         [SerializeField] private Ease healEase = Ease.OutQuad;
@@ -133,7 +135,7 @@ namespace View.BattleView
             presentationManager.Enqueue(
                 payload.SequenceId, 
                 PresentationPriority.PlayerHeal_HealthBarPresentation, 
-                UpdateHealHealthBarPresentation(startHealth, targetHealth, player.Health.MaxBattleHealth),
+                HealPresentation(startHealth, targetHealth, player.Health.MaxBattleHealth),
                 () =>
                 {
                     DrawBattleHealthBar(targetHealth, player.Health.MaxBattleHealth);
@@ -141,6 +143,12 @@ namespace View.BattleView
             );
 
             currentBattleHealth = targetHealth;
+        }
+
+        private IEnumerator HealPresentation(int startHealth, int targetHealth, int maxHealth)
+        {
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(healSFX);
+            yield return StartCoroutine(UpdateHealHealthBarPresentation(startHealth, targetHealth, maxHealth));
         }
         
         private IEnumerator UpdateHealHealthBarPresentation(int startHealth, int targetHealth, int maxHealth)
@@ -184,6 +192,7 @@ namespace View.BattleView
         public IEnumerator PlayActionPresentation()
         {
             bodyView.SetActionSprite();
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(actionSFX);
             yield return new WaitForSeconds(actionDuration);
             bodyView.SetIdleSprite();
         }

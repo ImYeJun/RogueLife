@@ -883,6 +883,8 @@ MonoBehaviour:
   actionIconView: {fileID: 4421735693550918179}
   actionIconsContainer: {fileID: 3949053645069490204}
   fadeDuration: 0.5
+  normalHurtSFX: {fileID: 11400000, guid: 36fd041006a417849907bf28c69c31b8, type: 2}
+  heavyHurtSFX: {fileID: 11400000, guid: 7b1067172ccba204494df692533a8590, type: 2}
   heavyHurtRatio: 0.5
   normalHurtDuration: 0.1
   heavyHurtDuration: 0.3
@@ -906,6 +908,7 @@ MonoBehaviour:
   heavyActionIconShakeAmount: {x: 0.1, y: 0.1, z: 0}
   normalStatusIconShakeAmount: {x: 0.05, y: 0, z: 0}
   heavyStatusIconShakeAmount: {x: 0.1, y: 0.1, z: 0}
+  healSFX: {fileID: 11400000, guid: 783b79ec77728e245b655d7890b24249, type: 2}
   healDuration: 0.3
   healTextOffsetDuration: 0.2
   healEase: 6

@@ -874,6 +874,7 @@ MonoBehaviour:
   battleHeatlhText: {fileID: 886982744983495145}
   mentalityBar: {fileID: 3603141181732516152}
   mentaltiyText: {fileID: 8315150540768635071}
+  actionSFX: {fileID: 0}
   actionDuration: 0
   healDuration: 0.3
   healTextOffsetDuration: 0.2
@@ -907,6 +908,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.PlayerHurtPresentation
   isFirstOverflowHurt: 1
+  battleHealthHurtSFX: {fileID: 11400000, guid: 36fd041006a417849907bf28c69c31b8, type: 2}
   battleHealthHurtDuration: 0.2
   battleHealthTextOffsetDuration: 0.2
   battleHealthShakeAmount: {x: 0.05, y: 0.05, z: 0}
@@ -914,6 +916,7 @@ MonoBehaviour:
   battleHealthShakeRandomness: 90
   battleHealthShakeRandomnessMode: 1
   battleHealthHurtEase: 10
+  mentalityHurtSFX: {fileID: 11400000, guid: 7b1067172ccba204494df692533a8590, type: 2}
   mentalityHurtDuration: 0.3
   mentalityHurtTextOffsetDuration: 0.1
   mentalityShakeAmount: {x: 0.15, y: 0.15, z: 0}

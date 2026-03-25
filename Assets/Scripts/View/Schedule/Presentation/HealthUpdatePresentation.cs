@@ -9,6 +9,10 @@ namespace View.ScheduleView
 {
     public class HealthUpdatePresentation : ViewBehaviour<IScheduleViewEvent>
     {
+        [SerializeField] private AudioData healSFX;
+        [SerializeField] private AudioData mentalityHurtSFX;
+        [SerializeField] private AudioData battleHealthHurtSFX;
+
         [SerializeField] private BattleHealthView battleHealthView;
         [SerializeField] private MentalityView mentalityView;
         [SerializeField] private PlayerStatusView playerStatusView;
@@ -87,7 +91,10 @@ namespace View.ScheduleView
                 battleHealthSeq.Join(playerImageView.GetHurtEffectTween());
             }
 
+            var sfx = payload.MentalityDamage > 0 ? mentalityHurtSFX : battleHealthHurtSFX;
+
             playerStatusView.SetHurtPortrait();
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(sfx);
             yield return mainSeq.WaitForCompletion();
             playerStatusView.SetIdlePortrait();
         }
@@ -122,7 +129,11 @@ namespace View.ScheduleView
             {
                 mainSeq.Join(battleHealthSeq);
             }
-
+            
+            if (totalHeal > 0)
+            {
+                SoundManager.Instance?.PlaySoundEffectWithRandomPitch(healSFX);
+            }
             yield return mainSeq.WaitForCompletion();
         }
     }

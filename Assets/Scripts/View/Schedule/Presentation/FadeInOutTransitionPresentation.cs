@@ -21,6 +21,7 @@ namespace View.ScheduleView.Presentation
 
 
         [Header("On Node Enter")]
+        [SerializeField] private AudioData nodeEnterSFX;
         [SerializeField] private float enterMoveDistance;
         [SerializeField] private float enterPlayerMoveDuration;
         [SerializeField] private Ease enterPlayerEasingType;
@@ -28,6 +29,7 @@ namespace View.ScheduleView.Presentation
         [SerializeField] private Ease enterForegroundEasingType;
 
         [Header("On Node Exit")]
+        [SerializeField] private AudioData nodeExitSFX;
         [SerializeField] private float exitMoveDistance;
         [SerializeField] private float exitPlayerMoveDuration;
         [SerializeField] private Ease exitPlayerEasingType;
@@ -35,6 +37,7 @@ namespace View.ScheduleView.Presentation
         [SerializeField] private Ease exitForegroundEasingType;
 
         [Header("Battle Engage")]
+        [SerializeField] private AudioData battleEngageSFX;
         [SerializeField] private float engageFadeDuration;
         [SerializeField] private Ease engageFadeEasingType;
 
@@ -94,6 +97,8 @@ namespace View.ScheduleView.Presentation
             int seed = random.Next(1000 + 1);
             tilingMaterial.SetFloat(SeedID, seed);
             tilingMaterial.SetFloat(ProgressID, 0);
+
+            SoundManager.Instance?.PlayeSoundEffect(battleEngageSFX);
             yield return tilingMaterial.DOFloat(1, ProgressID, engageFadeDuration).SetEase(engageFadeEasingType).WaitForCompletion();
 
             foregroundImage.material = null;
@@ -159,6 +164,7 @@ namespace View.ScheduleView.Presentation
             
             tween.Join(playerTween).Join(foregroundTween);
 
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(nodeEnterSFX);
             yield return tween.WaitForCompletion();
 
             foreground.SetActive(false);
@@ -198,6 +204,7 @@ namespace View.ScheduleView.Presentation
             
             tween.Join(playerTween).Join(foregroundTween);
 
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(nodeExitSFX);
             yield return tween.WaitForCompletion();
         }
 

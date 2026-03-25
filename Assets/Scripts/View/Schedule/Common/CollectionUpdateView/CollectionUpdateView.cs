@@ -16,6 +16,7 @@ namespace View.ScheduleView.CollectionUpdateView
         private BelongingsUpdateView belongingsUpdateView;
 
         [Header("Presentation")]
+        [SerializeField] private AudioData acquireSFX;
         [SerializeField] private float openDuration;
         [SerializeField] private Ease openEase;
         [SerializeField] private float closeDuration;
@@ -87,6 +88,7 @@ namespace View.ScheduleView.CollectionUpdateView
             while (updateQueue.Count > 0)
             {
                 var data = updateQueue.Dequeue();
+                SoundManager.Instance.PlaySoundEffectWithRandomPitch(acquireSFX);
                 yield return ShowItemPresentation(data);
             }
 

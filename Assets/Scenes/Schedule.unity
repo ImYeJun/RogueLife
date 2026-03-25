@@ -1310,16 +1310,19 @@ MonoBehaviour:
   playerImageView: {fileID: 1275263200}
   foreground: {fileID: 1027314861}
   tilingMaterial: {fileID: 2100000, guid: 3bb64454bb8d48f44a2055df35b0e060, type: 2}
+  nodeEnterSFX: {fileID: 11400000, guid: c01dca0798c0a724092950cfcf072004, type: 2}
   enterMoveDistance: 524
   enterPlayerMoveDuration: 0.8
   enterPlayerEasingType: 6
   enterForegroundMoveDuration: 1
   enterForegroundEasingType: 10
+  nodeExitSFX: {fileID: 11400000, guid: b236cd64a78598b46926fe98f383115d, type: 2}
   exitMoveDistance: 2000
   exitPlayerMoveDuration: 1
   exitPlayerEasingType: 11
   exitForegroundMoveDuration: 1.5
   exitForegroundEasingType: 22
+  battleEngageSFX: {fileID: 11400000, guid: 377ba84935a09894aa68d230db60b61d, type: 2}
   engageFadeDuration: 1.3
   engageFadeEasingType: 17
   returnFadeDuration: 1
@@ -1788,7 +1791,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &282196862
 GameObject:
@@ -1834,6 +1837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143e750d3e309d14d9ac549a3ac92d70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.HealthUpdatePresentation
+  healSFX: {fileID: 11400000, guid: 783b79ec77728e245b655d7890b24249, type: 2}
+  mentalityHurtSFX: {fileID: 11400000, guid: 7b1067172ccba204494df692533a8590, type: 2}
+  battleHealthHurtSFX: {fileID: 11400000, guid: 36fd041006a417849907bf28c69c31b8, type: 2}
   battleHealthView: {fileID: 49045446}
   mentalityView: {fileID: 2120220270}
   playerStatusView: {fileID: 1216537159}
@@ -2404,7 +2410,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1001 &379320230
 PrefabInstance:
@@ -2818,7 +2824,7 @@ MonoBehaviour:
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!114 &397571091 stripped
 MonoBehaviour:
@@ -3009,7 +3015,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &409982439
 GameObject:
@@ -3219,7 +3225,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &441254937
 GameObject:
@@ -5208,7 +5214,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &694075820
 GameObject:
@@ -5738,7 +5744,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &735551169
 GameObject:
@@ -6266,7 +6272,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &775941364
 GameObject:
@@ -7289,7 +7295,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &931468603
 GameObject:
@@ -7493,7 +7499,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &943483331
 GameObject:
@@ -8228,7 +8234,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &980535338
 GameObject:
@@ -9677,7 +9683,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1138755757
 GameObject:
@@ -11019,7 +11025,7 @@ MonoBehaviour:
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1246203085
 GameObject:
@@ -11710,11 +11716,6 @@ MonoBehaviour:
   popUpDuration: 0.3
   popUpAmount: 20
   popUpEase: 27
-  pointerEnterDuration: 0.2
-  pointerEnterScaleAmount: 1.05
-  pointerEnterEase: 9
-  pointerExitDuration: 0.2
-  pointerExitEase: 10
 --- !u!114 &1340759278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11730,7 +11731,7 @@ MonoBehaviour:
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1364740334
 GameObject:
@@ -12592,7 +12593,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1463804726
 GameObject:
@@ -14112,11 +14113,6 @@ MonoBehaviour:
   popUpDuration: 0.3
   popUpAmount: 20
   popUpEase: 27
-  pointerEnterDuration: 0.2
-  pointerEnterScaleAmount: 1.1
-  pointerEnterEase: 9
-  pointerExitDuration: 0.2
-  pointerExitEase: 10
   image: {fileID: 1715897527}
   nameText: {fileID: 699754200}
   descriptionText: {fileID: 465069593}
@@ -14173,7 +14169,7 @@ MonoBehaviour:
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1716746853
 GameObject:
@@ -15010,7 +15006,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1824499032
 GameObject:
@@ -15329,6 +15325,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.CollectionUpdateView
   panelView: {fileID: 710759933}
   panelCanvasGroup: {fileID: 710759937}
+  acquireSFX: {fileID: 11400000, guid: 3cdd88682629cc24898e571316b9be15, type: 2}
   openDuration: 0.3
   openEase: 4
   closeDuration: 0.3
@@ -15607,7 +15604,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!114 &1863312452 stripped
 MonoBehaviour:
@@ -15782,7 +15779,7 @@ MonoBehaviour:
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1890604183
 GameObject:
@@ -16528,7 +16525,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1960276464
 GameObject:
@@ -16799,7 +16796,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &1991554069
 GameObject:
@@ -17395,7 +17392,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &2025535947
 GameObject:
@@ -18055,7 +18052,7 @@ MonoBehaviour:
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &2078269906
 GameObject:
@@ -18222,7 +18219,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1 &2088051531
 GameObject:
@@ -18396,7 +18393,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1001 &2109007188
 PrefabInstance:
@@ -19509,7 +19506,7 @@ MonoBehaviour:
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
   focusingPresentationDuration: 0.1
-  focusingScale: 1.05
+  focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
 --- !u!1001 &8943809072897908177
 PrefabInstance:

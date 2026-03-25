@@ -22,7 +22,7 @@ namespace View.BattleView
         [SerializeField] private bool isFirstOverflowHurt = true;
 
         [Header("Battle Health Hurt Presentation Settings")]
-        [Tooltip("Settings for battle health hurt. (Shake Effect)")]
+        [SerializeField] private AudioData battleHealthHurtSFX;
         [SerializeField] private float battleHealthHurtDuration;
         [SerializeField] private float battleHealthTextOffsetDuration;
         [SerializeField] private Vector3 battleHealthShakeAmount; 
@@ -32,7 +32,7 @@ namespace View.BattleView
         [SerializeField] private Ease battleHealthHurtEase;
 
         [Header("Mentality Hurt Presentation Settings")]
-        [Tooltip("Settings for direct hits to Mentality. (Stronger Shake Effect)")]
+        [SerializeField] private AudioData mentalityHurtSFX;
         [SerializeField] private float mentalityHurtDuration;
         [SerializeField] private float mentalityHurtTextOffsetDuration;
         [SerializeField] private Vector3 mentalityShakeAmount; 
@@ -117,8 +117,11 @@ namespace View.BattleView
         public IEnumerator Play(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
         {
             var sequence = DOTween.Sequence();
+            AudioData audioData = battleHealthHurtSFX;
+
             if (payload.IsOverflowed)
             {
+                audioData = mentalityHurtSFX;
                 sequence.Append(PlayOverflowedHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
                 isFirstOverflowHurt = false;
             }
@@ -126,16 +129,18 @@ namespace View.BattleView
             {
                 if (payload.BattleHealthDamage > 0)
                 {
+                    audioData = battleHealthHurtSFX;
                     sequence.Append(PlayBattleHealthHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
                 }
                 if (payload.MentalityDamage > 0)
                 {
+                    audioData = mentalityHurtSFX;
                     sequence.Append(PlayMentalityHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
                 }
             }
 
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(audioData);
             yield return sequence.WaitForCompletion();
-            // return WrapAsCoroutine(sequence);
         }
 
         private Tween PlayBattleHealthHurtPresentation(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)

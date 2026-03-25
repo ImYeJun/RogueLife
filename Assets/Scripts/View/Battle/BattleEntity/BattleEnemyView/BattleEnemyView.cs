@@ -35,6 +35,8 @@ namespace View.BattleView
         [SerializeField] protected float fadeDuration = 0.5f;
 
         [Header("Hurt Presentation Settings")]
+        [SerializeField] private AudioData normalHurtSFX;
+        [SerializeField] private AudioData heavyHurtSFX;
         [SerializeField, Range(0, 1f)] private float heavyHurtRatio;
         [SerializeField] private float normalHurtDuration;
         [SerializeField] private float heavyHurtDuration;
@@ -64,6 +66,7 @@ namespace View.BattleView
 
         [Header("Heal Presentation Settings")]
         [Tooltip("Settings for enemy heal presentation.")]
+        [SerializeField] private AudioData healSFX;
         [SerializeField] private float healDuration = 0.3f;
         [SerializeField] private float healTextOffsetDuration = 0.2f;
         [SerializeField] private Ease healEase = Ease.OutQuad;
@@ -320,6 +323,8 @@ namespace View.BattleView
             var hurtShakeRandomnesMode = CheckHeavyHurt(damageRatio, newHealth) ? heavyHurtShakeRandomnessMode : normalHurtShakeRandomnessMode;
             Ease ease = CheckHeavyHurt(damageRatio, newHealth) ? heavyHurtEase : normalHurtEase;
 
+            AudioData audioData = CheckHeavyHurt(damageRatio, newHealth) ? heavyHurtSFX : normalHurtSFX;
+
             Sequence healthBarSequence = DOTween.Sequence();
             healthBarSequence.Join(healthBarImage.DOFillAmount(normalizedHealth, totalHealthDuration).SetEase(ease));
             healthBarSequence.Join(DOTween.To(
@@ -359,6 +364,7 @@ namespace View.BattleView
             finalSequence.Join(healthBarSequence);
             finalSequence.Join(shakeSequence);
 
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(audioData);
             yield return finalSequence.WaitForCompletion();
 
             DrawHealthBarDirectly(newHealth, maxH);
@@ -391,6 +397,7 @@ namespace View.BattleView
                 totalDuration
             ).SetEase(healEase));
 
+            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(healSFX);
             yield return sequence.WaitForCompletion();
         }
 

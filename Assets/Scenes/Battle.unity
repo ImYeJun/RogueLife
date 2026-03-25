@@ -4507,6 +4507,14 @@ PrefabInstance:
       value: BattlePlayer
       objectReference: {fileID: 0}
     - target: {fileID: 2204155370310336519, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: healSFX
+      value: 
+      objectReference: {fileID: 11400000, guid: 783b79ec77728e245b655d7890b24249, type: 2}
+    - target: {fileID: 2204155370310336519, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: actionSFX
+      value: 
+      objectReference: {fileID: 11400000, guid: 0a12a42a83a42a845a9277af27f43d80, type: 2}
+    - target: {fileID: 2204155370310336519, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: initialPos.x
       value: -5.63
       objectReference: {fileID: 0}
@@ -6705,8 +6713,8 @@ RectTransform:
   - {fileID: 70812119}
   - {fileID: 1395829481}
   - {fileID: 755915899}
-  - {fileID: 1096082021}
   - {fileID: 1978891040}
+  - {fileID: 1096082021}
   - {fileID: 1887423776}
   - {fileID: 1329006129}
   - {fileID: 1264185669}
