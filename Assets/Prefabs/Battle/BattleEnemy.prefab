@@ -420,6 +420,8 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4945011816906392779}
   targetableMaterial: {fileID: 2100000, guid: d8393db2212f3dc498f697028d1ca1dd, type: 2}
   targetableHoverMaterial: {fileID: 2100000, guid: 1261718ec43abba48a5369b7a7a82835, type: 2}
+  normalClickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  targetClickSound: {fileID: 11400000, guid: aa21b7cd83dcb274380b2a7cea8e0670, type: 2}
   focusingMultiplayAmount: 1.022
   focusingPresentationDuration: 0.1
   focusingPresentationEase: 10

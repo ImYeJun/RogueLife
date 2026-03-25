@@ -15,6 +15,8 @@ namespace View.BattleView
         private Material originalMaterial;
 
         [Header("Presentation")]
+        [SerializeField] private AudioData normalClickSound;
+        [SerializeField] private AudioData targetClickSound;
         [SerializeField] private float focusingMultiplayAmount;
         [SerializeField] private float focusingPresentationDuration;
         [SerializeField] private Ease focusingPresentationEase;
@@ -70,10 +72,12 @@ namespace View.BattleView
             if (isCardTargetable && onCardTargetedClickedCallback != null)
             {
                 onCardTargetedClickedCallback.Invoke(entity);
+                SoundManager.Instance?.PlaySoundEffectWithRandomPitch(targetClickSound);
             }
             else
             {
                 onEntityInspectClickedCallback.Invoke(inspectableEntity, transform, inspectorDirection);
+                SoundManager.Instance?.PlaySoundEffectWithRandomPitch(normalClickSound);
             }
         }
         

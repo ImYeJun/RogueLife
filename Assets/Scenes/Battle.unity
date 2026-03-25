@@ -2400,6 +2400,7 @@ GameObject:
   - component: {fileID: 708906918}
   - component: {fileID: 708906917}
   - component: {fileID: 708906919}
+  - component: {fileID: 708906920}
   m_Layer: 5
   m_Name: PlayerTurnEndButton
   m_TagString: Untagged
@@ -2555,6 +2556,23 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &708906920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 708906913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &732854858
 GameObject:
   m_ObjectHideFlags: 0
@@ -2781,6 +2799,7 @@ GameObject:
   - component: {fileID: 755915901}
   - component: {fileID: 755915900}
   - component: {fileID: 755915902}
+  - component: {fileID: 755915903}
   m_Layer: 5
   m_Name: GraveDeckView
   m_TagString: Untagged
@@ -2859,12 +2878,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acbf4ba4652064b4b99e11a135366fe3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.GraveDeckView
-  background: {fileID: 188496697}
   deckCountText: {fileID: 1361690152}
-  focusingScale: 1.2
-  focusingPresentationDuration: 0.1
-  focusingPresentationEase: 10
   deckInventoryView: {fileID: 34826561}
+--- !u!114 &755915903
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755915898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &756030656
 GameObject:
   m_ObjectHideFlags: 0
@@ -5701,6 +5733,7 @@ GameObject:
   - component: {fileID: 1395829481}
   - component: {fileID: 1395829483}
   - component: {fileID: 1395829484}
+  - component: {fileID: 1395829485}
   m_Layer: 5
   m_Name: DrawDeckView
   m_TagString: Untagged
@@ -5749,12 +5782,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b052b91309f15a42a6bd3a4d92d4f75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.DrawDeckView
-  background: {fileID: 862723777}
   deckCountText: {fileID: 1849721987}
-  focusingScale: 1.2
-  focusingPresentationDuration: 0.1
-  focusingPresentationEase: 10
   deckInventoryView: {fileID: 34826561}
+--- !u!114 &1395829485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1395829480}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1425491247
 GameObject:
   m_ObjectHideFlags: 0
@@ -6695,6 +6741,7 @@ GameObject:
   - component: {fileID: 1653912224}
   - component: {fileID: 1653912223}
   - component: {fileID: 1653912222}
+  - component: {fileID: 1653912225}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -6816,6 +6863,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1653912220}
   m_CullTransparentMesh: 1
+--- !u!114 &1653912225
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1653912220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isScaleAble: 1
+  clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  focusingPresentationDuration: 0.1
+  focusingScaleMultiplier: 1.05
+  focusingPresentationEase: 7
 --- !u!1 &1666633793
 GameObject:
   m_ObjectHideFlags: 0
