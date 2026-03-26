@@ -79,7 +79,7 @@ namespace Battle.Cards.Behaviours
             
             for (int i = 0; i < selecetdCandidate.number; i++)
             {
-                int damage = 10;
+                int damage = 15;
                 var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), damage, target.Enemy);
                 context.ActionScheduler.Enqueue(hurtAction);
             }

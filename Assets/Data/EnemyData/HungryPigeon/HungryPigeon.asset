@@ -17,7 +17,7 @@ MonoBehaviour:
   tier: 2
   description: "\uC774\uC820 \uC778\uAC04\uC744 \uC548 \uBB34\uC11C\uC6CC\uD558\uB294
     \uAC78 \uB118\uC5B4 \uACF5\uACA9\uD558\uB294 \uBE44\uB458\uAE30"
-  maxBaseHealth: 300
+  maxBaseHealth: 200
   behaviourDescriptionList:
   - behaviourId: Enemy_HungryPigeon_Behavior_0
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 15\uC758 \uD53C\uD574\uB97C

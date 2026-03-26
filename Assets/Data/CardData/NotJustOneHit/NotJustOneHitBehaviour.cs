@@ -43,7 +43,7 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, 25);
+            ExecuteCommonAction(context, caster, 30);
         }
 
         private void ExecuteCommonAction(BattleContext context, CardCaster caster, int damage)

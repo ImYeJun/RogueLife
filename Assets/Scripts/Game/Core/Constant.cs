@@ -54,7 +54,7 @@ public static class Constant
     public const int ELITE_ENEMY_MAX_BEHAVIOUR_COUNT = 3;
     public const int ELITE_ENEMY_OVER_BEHAVIOUR_COUNT = 4;
 
-    public const int BOSS_ENEMY_BEHAVIOUR_COUNT = 5;
+    public const int BOSS_ENEMY_BEHAVIOUR_COUNT = 4;
 
     // [적 멘탈리티 페널티 수치]
     public const int NORMAL_ENEMY_MENTALITY_PENALTY_AMOUNT = 10;

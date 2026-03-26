@@ -47,7 +47,6 @@ namespace Battle.Cards.Behaviours
 
             if (owner.CurrentActionCost <= 0) { return; }
 
-            // 💡 [수정됨] 범용 모디파이어 시스템으로 전환!
             var mod = new CardCostModifier(-1);
             var decreaseCardActionCostAcion = new AddCardCostModifierBattleAction((Card)owner, mod);
             context.ActionScheduler.Enqueue(decreaseCardActionCostAcion);
@@ -57,7 +56,7 @@ namespace Battle.Cards.Behaviours
         {
             var targetEnemy = target.Enemy;
 
-            var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 10, targetEnemy);
+            var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 15, targetEnemy);
 
             var itsFire = new BattleStatusEffect(burningEntity, 1, 1);
             var debuffApplyAction = new ApplyEntityStatusEffectBattleAction(targetEnemy, itsFire);

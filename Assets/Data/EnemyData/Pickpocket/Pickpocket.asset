@@ -17,7 +17,7 @@ MonoBehaviour:
   tier: 2
   description: "\uC9C0\uC544\uC758 \uC637 \uC8FC\uBA38\uB2C8\uC5D0\uC11C \uC9C0\uAC11,
     \uD578\uB4DC\uD3F0\uC744 \uD6D4\uCE5C \uB3C4\uB451"
-  maxBaseHealth: 300
+  maxBaseHealth: 250
   behaviourDescriptionList:
   - behaviourId: Enemy_Pickpocket_Behavior_0
     behaviourDescription: "\uB2E4\uC74C \uC790\uC2E0\uC5D0\uAC8C 2 \uD134 \uB3D9\uC548

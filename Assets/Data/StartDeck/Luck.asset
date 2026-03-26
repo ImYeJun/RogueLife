@@ -22,13 +22,13 @@ MonoBehaviour:
     entity: {fileID: 4342932490307470927, guid: 20ecb3748be65184d99d8a9528b6b54d, type: 3}
   - count: 3
     entity: {fileID: 2582747929828341327, guid: c23c4998f0f44bf469ab0cdddfce623a, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 1499817478586758885, guid: d4ebb4e0ed92f32419f3bdd00f01a711, type: 3}
   - count: 3
     entity: {fileID: 6052976201795054118, guid: b6c2fead88b97814ea7b39afe25d2e9c, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 3310107003490608406, guid: 8f87f3608599e6849aee59cafe1ee4cb, type: 3}
-  - count: 3
+  - count: 1
     entity: {fileID: 2714852556077873990, guid: 2237e17b64ad8be42b4089ce04cf827c, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 3384979370344267807, guid: 3e9c86d13745f5241b9b852706b94914, type: 3}

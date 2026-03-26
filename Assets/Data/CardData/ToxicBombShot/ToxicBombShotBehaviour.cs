@@ -48,7 +48,7 @@ namespace Battle.Cards.Behaviours
         {
             foreach (var enemy in target.Enemies)
             {
-                var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 10, enemy);
+                var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 15, enemy);
                 context.ActionScheduler.Enqueue(hurtAction);
             }
             foreach (var enemy in target.Enemies)

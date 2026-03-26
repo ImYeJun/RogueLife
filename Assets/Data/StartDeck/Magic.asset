@@ -20,15 +20,15 @@ MonoBehaviour:
     entity: {fileID: 1709211152515912858, guid: e85dee108b09a0f40a95cc68cf514681, type: 3}
   - count: 3
     entity: {fileID: 1338227754811386910, guid: e4dcfcf8bc1a0cc419713a45fd11cd3f, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 6958206540429176680, guid: 359ed467532983944a8c46306069853c, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 3344704001058240399, guid: 7da2313215238ce47b34cc8665a23652, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 6118823553987029490, guid: bf3339e81ae41bc45b69d1c3808fb28c, type: 3}
-  - count: 3
+  - count: 1
     entity: {fileID: 6884085236278464478, guid: 9e034eca29f816f45ada4beb4acf30fa, type: 3}
   - count: 3
     entity: {fileID: 1980450590199703907, guid: 1e0d23465a45d7d46bc7c034155474d7, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 4934031082082119086, guid: a4aa78337856c9e40bbd73c47a52fe87, type: 3}
