@@ -96,23 +96,36 @@ namespace View.ScheduleView.BelongingsBag
             DrawMainBag();
             DrawSideBag();
         }
+
         private void DrawMainBag()
         {
-            var bag = belongingsBag.MainBelongingsBag.Values.ToList();
-            for (int i = 0; i < bag.Count; i++)
+            var bagItems = belongingsBag.MainBelongingsBag.Values.ToList();
+            int itemCount = bagItems.Count;
+
+            for (int i = 0; i < mainSlots.Count; i++)
             {
                 var slot = mainSlots[i];
-                var belongings = bag[i];
 
-                slot.Activate(belongings, NotifySlotClicked, commander);
-                
-                if (focusedSlot == null && belongings == focusedBelongings)
+                if (i < itemCount)
                 {
-                    focusedSlot = slot;
-                    focusedSlot.OnFocused();
+                    var belongings = bagItems[i];
+
+                    slot.Activate(belongings, NotifySlotClicked, commander);
+                    slot.IsFeedbackable = true;
+
+                    if (focusedSlot == null && belongings == focusedBelongings)
+                    {
+                        focusedSlot = slot;
+                        focusedSlot.OnFocused();
+                    }
+                }
+                else
+                {
+                    slot.IsFeedbackable = false;
                 }
             }
         }
+
         private void DrawSideBag()
         {
             foreach (var belongings in belongingsBag.SideBelongingsBag.Values)
@@ -130,6 +143,7 @@ namespace View.ScheduleView.BelongingsBag
                 activeSideSlots.Add(slot);
             }
         }
+
         public void NotifySlotClicked(BelongingsSlotView slot)
         {
             focusedSlot?.OnUnfocused();

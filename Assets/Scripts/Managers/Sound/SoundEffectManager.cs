@@ -35,11 +35,13 @@ public class SoundEffectManager : MonoBehaviour
         }
     }
 
-    public void Play(AudioClip soundEffect)
+    public AudioSource Play(AudioClip soundEffect)
     {
         var audioSource = GetAvailableAudioSource();
 
         audioSource.PlayOneShot(soundEffect);
+
+        return audioSource;
     }
     public void PlayWithRandomPitch(AudioClip souneEffect)
     {

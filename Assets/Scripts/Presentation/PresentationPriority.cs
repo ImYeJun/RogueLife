@@ -91,8 +91,9 @@ public static class PresentationPriority
 
     // Battle Exited
     public const int BattleExited_StopBgm = 10;
-    public const int BattleExited_FadeOut = 20;
-    public const int BattleExited_SceneTransition = 30;
+    public const int BattleExited_PlaySFX = 20;
+    public const int BattleExited_FadeOut = 30;
+    public const int BattleExited_SceneTransition = 40;
     
     // Player Turn Started
     public const int PlayerTurnStarted_TurnViewShowingDown = 10;

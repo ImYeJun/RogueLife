@@ -176,7 +176,7 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         fieldActionCost = null;
         preparedStartData = null;
 
-        viewEventBus.Publish(new BattleExited(viewEventBus.GetNextSequenceId()));
+        viewEventBus.Publish(new BattleExited(viewEventBus.GetNextSequenceId(), hasResolved));
     }
 
     public void AddBattleStartEffect(BattleStartEffect effect)

@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BelongingsBag.MainBelongingsSlotView
   overlap: {fileID: 7209532738951265357}
   icon: {fileID: 3193730814578099799}
+  buttonJuice: {fileID: 8142075795544721895}
 --- !u!114 &8142075795544721895
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -101,12 +101,15 @@ namespace ViewEvent.BattleView
     public readonly struct BattleExited : IBattleViewEvent
     {
         private readonly int sequenceId;
+        private readonly bool hasResolved;
 
-        public BattleExited(int sequenceId)
+        public BattleExited(int sequenceId, bool hasResolved)
         {
             this.sequenceId = sequenceId;
+            this.hasResolved = hasResolved;
         }
 
         public int SequenceId { get => sequenceId; }
+        public bool HasResolved => hasResolved;
     }
 }

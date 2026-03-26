@@ -2568,8 +2568,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
   focusingPresentationDuration: 0.1
   focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
@@ -2892,8 +2894,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
   focusingPresentationDuration: 0.1
   focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
@@ -4858,6 +4862,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Controller.Battle.BattleRootController
   normalBgm: {fileID: 11400000, guid: e0a0264538d727b45a1e695ba49fcde3, type: 2}
+  winSFX: {fileID: 11400000, guid: 1984119b66bfb1941b35ec651f73f7d7, type: 2}
+  loseSFX: {fileID: 11400000, guid: f574556a83130a247b9dad9f607748d1, type: 2}
   views:
   - {fileID: 537587725}
   - {fileID: 70812122}
@@ -5941,8 +5947,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
   focusingPresentationDuration: 0.1
   focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
@@ -7021,8 +7029,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
   isScaleAble: 1
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
   focusingPresentationDuration: 0.1
   focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
@@ -7324,8 +7334,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
   focusingPresentationDuration: 0.1
   focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
@@ -7709,7 +7721,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 574121936}
   m_HandleRect: {fileID: 574121934}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -8424,8 +8436,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58566ea9f5f7b7546a6aba012fc55f66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.Global.ButtonJuice
+  isFeedbackable: 1
   isScaleAble: 0
   clickSound: {fileID: 11400000, guid: f171cfd0a0f57634e9fe6e5582fac3f5, type: 2}
+  specificScaleTarget: {fileID: 0}
   focusingPresentationDuration: 0.1
   focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7

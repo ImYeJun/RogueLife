@@ -13,6 +13,8 @@ namespace Controller.Battle
         private IBattleViewCommander viewCommander;
 
         [SerializeField] private AudioData normalBgm;
+        [SerializeField] private AudioData winSFX;
+        [SerializeField] private AudioData loseSFX;
         [SerializeField] private List<ViewBehaviour<IBattleViewEvent>> views;
         [SerializeField] private List<InteractableViewBehaviour<IBattleViewEvent, IBattleViewCommander>> interacatbleViews;
         
@@ -60,7 +62,16 @@ namespace Controller.Battle
         private void OnBattleExited(BattleExited payload)
         {
             PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleExited_StopBgm, StopBgm());
+            PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleExited_PlaySFX, PlayExitSFX(payload.HasResolved));
             PresentationManager.Instance.Enqueue(payload.SequenceId, PresentationPriority.BattleExited_SceneTransition, SceneTransitionPresentation());
+        }
+
+        private IEnumerator PlayExitSFX(bool hasResolved)
+        {
+            var audioData = hasResolved ? winSFX : loseSFX;
+            var audioSource = SoundManager.Instance?.PlayeSoundEffect(audioData);
+
+            yield return new WaitWhile(() => audioSource.isPlaying);
         }
 
         private IEnumerator StopBgm()
