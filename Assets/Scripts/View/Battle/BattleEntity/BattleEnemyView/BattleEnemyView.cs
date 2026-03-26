@@ -31,6 +31,9 @@ namespace View.BattleView
 
         private List<BattleEnemyActionIcon> actionIcons = new List<BattleEnemyActionIcon>();
 
+        [Header("Action Presentation Setting")]
+        [SerializeField] private float actionDuration = 0.5f;
+
         [Header("Fade Presentation Settings")]
         [SerializeField] protected float fadeDuration = 0.5f;
 
@@ -238,7 +241,8 @@ namespace View.BattleView
         private IEnumerator PlayActionPresentation(BattleEnemyActionIcon actionIcon)
         {
             bodyView.SetActionSprite();
-            yield return StartCoroutine(actionIcon.PlayExecutedPresentation());
+            StartCoroutine(actionIcon.PlayExecutedPresentation());
+            yield return new WaitForSeconds(actionDuration);
             bodyView.SetIdleSprite();
         }
 

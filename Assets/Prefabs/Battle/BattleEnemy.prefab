@@ -882,6 +882,7 @@ MonoBehaviour:
   inspectActionIconPrefab: {fileID: 5954366684193098318, guid: c86a48230b85a114aaec7c9668778759, type: 3}
   actionIconView: {fileID: 4421735693550918179}
   actionIconsContainer: {fileID: 3949053645069490204}
+  actionDuration: 0.9
   fadeDuration: 0.5
   normalHurtSFX: {fileID: 11400000, guid: 36fd041006a417849907bf28c69c31b8, type: 2}
   heavyHurtSFX: {fileID: 11400000, guid: 7b1067172ccba204494df692533a8590, type: 2}

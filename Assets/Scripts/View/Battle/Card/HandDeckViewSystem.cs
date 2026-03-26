@@ -160,7 +160,8 @@ namespace View.BattleView
 
         private void OnBattleEnded(BattleEnded payload)
         {
-            StartCoroutine(CloseHandDeckPresentation());
+            handDeckCanvasGroup.interactable = false;
+            handDeckCanvasGroup.blocksRaycasts = false;
         }
 
 

@@ -57,7 +57,8 @@ namespace View.BattleView
         }
         private void OnBattleEnded(BattleEnded ended)
         {
-            PlayDisappear();
+            canvasGroup.blocksRaycasts = false;
+            canvasGroup.interactable = false;
         }
 
         private IEnumerator ShowPresentation()
