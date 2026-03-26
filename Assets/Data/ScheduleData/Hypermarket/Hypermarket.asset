@@ -23,7 +23,8 @@ MonoBehaviour:
   battleBackground: {fileID: 0}
   usualBGM: {fileID: 11400000, guid: 40e234a3d73887748bb8a1324b66ba95, type: 2}
   battleBGM: {fileID: 11400000, guid: e0a0264538d727b45a1e695ba49fcde3, type: 2}
-  choiceSprite: {fileID: -6577420212743684982, guid: dc77096a47dce604c90f59f22f4af8ea, type: 3}
+  choiceIdleSprite: {fileID: 7966845503325722964, guid: 077138769883c704b8b5bc1827e03d9f, type: 3}
+  choiceHoveringSprite: {fileID: -8936273487671081805, guid: 2edc37ee3ae539b4fa97b927737bf0ce, type: 3}
   bossEntity: {fileID: 7805023692001381090, guid: 5bcd60cda037a594685f4add65269f11, type: 3}
   availableEliteEnemyEntities:
   - {fileID: 1461469586826816626, guid: 0a9162f8c1a822642954a6014890f9ff, type: 3}

@@ -12,8 +12,6 @@ namespace View.ScheduleSelecting
         IPointerEnterHandler,
         IPointerExitHandler
     {
-        [SerializeField] private GameObject onHoverImage;
-
         private ScheduleData data;
         private Image scheduleIcon;
         private TextMeshProUGUI text;
@@ -22,15 +20,13 @@ namespace View.ScheduleSelecting
         {
             scheduleIcon = GetComponentInChildren<Image>();
             text = GetComponentInChildren<TextMeshProUGUI>();
-
-            onHoverImage.SetActive(false);
         }
 
         public void SetData(ScheduleData data)
         {
             this.data = data;
 
-            scheduleIcon.sprite = data.ChoiceSprite;
+            scheduleIcon.sprite = data.ChoiceIdleSprite;
             text.text = data.ScheduleName;
         }
 
@@ -48,12 +44,12 @@ namespace View.ScheduleSelecting
 
         public void OnPointerEnter(PointerEventData eventData)
         {
-            onHoverImage.SetActive(true);
+            scheduleIcon.sprite = data.ChoiceHoveringSprite;
         }
 
         public void OnPointerExit(PointerEventData eventData)
         {
-            onHoverImage.SetActive(false);
+            scheduleIcon.sprite = data.ChoiceIdleSprite;
         }
     }
 }
