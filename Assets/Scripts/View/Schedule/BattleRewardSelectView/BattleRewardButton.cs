@@ -29,7 +29,7 @@ public class BattleRewardButton : MonoBehaviour
         canvasGroup.alpha = 0;
 
         if (reward is null) { return; }
-        text.text = $"{reward.Name} 획득하기";
+        text.text = $"{reward.Description}";
     }
 
     public Tween ShowPresentation()

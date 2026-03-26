@@ -7,7 +7,7 @@ public class BelongingsBattleReward : IBattleReward
         this.belongings = belongings;
     }
 
-    public string Name => $"{belongings.Name} (소지품)";
+    public string Description => $"{belongings.Name} (소지품)";
 
     public void Resolve(IScheduleViewCommander commander)
     {

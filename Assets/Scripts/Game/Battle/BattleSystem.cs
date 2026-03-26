@@ -152,13 +152,11 @@ public partial class BattleSystem : IFieldBattleSystem, IBattleViewCommander
         {
             BattleResultType.PLAYER_SPECIAL_CARD_WIN => new 
                 CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
-                    new ObtainCardCommand(mainEnemyTier),
-                    new ObtainBelongingsCommand(mainEnemyTier),
+                    new CompositeRewardBattleResultCommand(mainEnemyTier)
                 }),
             BattleResultType.PLAYER_ANNIHILATE_WIN => new 
                 CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
-                    new ObtainCardCommand(mainEnemyTier),
-                    new ObtainBelongingsCommand(mainEnemyTier),
+                    new CompositeRewardBattleResultCommand(mainEnemyTier)
                 }),
             BattleResultType.ALL_PHASE_END => new CompositeCommand(mainEnemyTier, new List<BattleResultCommand>(){ 
                         new ReceiveDamageCommand(mainEnemyTier),

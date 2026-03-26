@@ -10,7 +10,7 @@ public class CardBattleReward : IBattleReward
         this.card = card;
     }
 
-    public string Name => $"{card.CurrentName} (카드)";
+    public string Description => $"{card.CurrentName} (카드)";
 
     public void Resolve(IScheduleViewCommander commander)
     {

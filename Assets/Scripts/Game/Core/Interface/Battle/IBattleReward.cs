@@ -1,4 +1,4 @@
 public interface IBattleReward {
-    public string Name { get; }
+    public string Description { get; }
     public void Resolve(IScheduleViewCommander commander);
 }

@@ -53,6 +53,7 @@ namespace View.StartMenu
                 startDeckSelectButton.Initialize(payload.SequenceId, presentationManager, i, startDeck, () => OnDeckSelected(startDeck));
             }
 
+            viewCanvasGroup.alpha = 0;
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.StartDeckLoaded_ViewAppear, ViewAppearPresentation());
         }
 

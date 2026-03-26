@@ -22,7 +22,7 @@ MonoBehaviour:
   - behaviourId: Enemy_FastRevolvingDoor_Behavior_0
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 20 \uB9CC\uD07C\uC758
       \uD53C\uD574\uB97C \uC8FC\uACE0 \uB450 \uD134 \uB3D9\uC548 \uC9C0\uC18D\uD558\uB294
-      @\uCD9C\uD608 2 \uC2A4\uD0DD\uC744 \uC900\uB2E4."
+      \uCD9C\uD608 2 \uC2A4\uD0DD\uC744 \uC900\uB2E4."
     associatedStatusEffectIds:
     - Debuff_Bleeding
   - behaviourId: Enemy_FastRevolvingDoor_Behavior_1
