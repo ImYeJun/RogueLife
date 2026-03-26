@@ -121,8 +121,8 @@ namespace View.BattleView
             eventBus.Subscribe<CardRestored>(OnCardRestored);
             eventBus.Subscribe<CardTriggerResolved>(OnCardTriggerResolved);
             eventBus.Subscribe<CardActivationCancelled>(OnCardActivationCancelled); 
+            eventBus.Subscribe<BattleEnded>(OnBattleEnded);
         }
-
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
@@ -132,6 +132,7 @@ namespace View.BattleView
             eventBus?.Unsubscribe<CardRestored>(OnCardRestored);
             eventBus?.Unsubscribe<CardTriggerResolved>(OnCardTriggerResolved);
             eventBus?.Unsubscribe<CardActivationCancelled>(OnCardActivationCancelled);
+            eventBus?.Unsubscribe<BattleEnded>(OnBattleEnded);
         }
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
@@ -156,6 +157,12 @@ namespace View.BattleView
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, CloseHandDeckPresentation());
             isHandDeckOpened = false;
         }
+
+        private void OnBattleEnded(BattleEnded payload)
+        {
+            StartCoroutine(CloseHandDeckPresentation());
+        }
+
 
         private IEnumerator OpenHandDeckPresentation()
         {

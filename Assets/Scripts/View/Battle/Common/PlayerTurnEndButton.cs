@@ -4,6 +4,7 @@ using ViewEvent.Core;
 using ViewEvent.BattleView;
 using System.Collections;
 using DG.Tweening;
+using System;
 
 namespace View.BattleView
 {
@@ -41,18 +42,24 @@ namespace View.BattleView
         {
             eventBus.Subscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
             eventBus.Subscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
+            eventBus.Subscribe<BattleEnded>(OnBattleEnded);
         }
-
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
             eventBus?.Unsubscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
+            eventBus?.Unsubscribe<BattleEnded>(OnBattleEnded);
         }
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
         {
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_TurnEndButtonShow, ShowPresentation());
         }
+        private void OnBattleEnded(BattleEnded ended)
+        {
+            PlayDisappear();
+        }
+
         private IEnumerator ShowPresentation()
         {
             yield return PlayShow().WaitForCompletion();
