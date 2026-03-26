@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +8,8 @@ namespace View.ScheduleView.Map
     {
         [Header("Node Icons")]
         [SerializeField] private Sprite entryIconSprite;
-        [SerializeField] private Sprite battleIconSprite;
+        [SerializeField] private Sprite normalEnemyIconSprite;
+        [SerializeField] private Sprite eliteIconSprite;
         [SerializeField] private Sprite bossIconSprite;
         [SerializeField] private Sprite incidentIconSprite;
         [SerializeField] private Sprite transactionIconSprite;
@@ -27,7 +29,13 @@ namespace View.ScheduleView.Map
 
             selectedSprite = currentNode switch {
                 ScheduleEntryNode => entryIconSprite,
-                BattleNode battleNode => battleNode.IsBossNode ? bossIconSprite : battleIconSprite,
+                BattleNode battleNode => battleNode.MainEnemyData.Tier switch
+                {
+                    EnemyTier.NORMAL => normalEnemyIconSprite,
+                    EnemyTier.ELITE => eliteIconSprite,
+                    EnemyTier.BOSS => bossIconSprite,
+                    _ => throw new InvalidOperationException($"[MapNodeIcon/Initiate] {battleNode.MainEnemyData.Tier} is not valid")
+                },
                 IncidentNode => incidentIconSprite,
                 TransactionNode => transactionIconSprite,
                 _ => null

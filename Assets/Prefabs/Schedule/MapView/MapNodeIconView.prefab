@@ -59,11 +59,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7688b7a5d8f46f84eb1affe4853251df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.Map.MapNodeIcon
-  entryIconSprite: {fileID: 1443396633861118179, guid: c0af08624e746e643b84f8657e64e0d1, type: 3}
-  battleIconSprite: {fileID: 6829119827815150163, guid: ca29d9bc28ab2d64eae696b71f9452de, type: 3}
-  bossIconSprite: {fileID: -2324729806976072342, guid: 6365f6086bc2bea42950a99e611b3a7e, type: 3}
-  incidentIconSprite: {fileID: -5358620075308778581, guid: b78c9962cab242c4ca58fd32bc69d54b, type: 3}
-  transactionIconSprite: {fileID: -4670777941995635421, guid: 1c0e49517819a5c4599f8630608e92fa, type: 3}
+  entryIconSprite: {fileID: 3088242272853499822, guid: c54f0c7a8d11eed4ea57803ae328c4ea, type: 3}
+  normalEnemyIconSprite: {fileID: 3084278157110603860, guid: 90d82a7ad216446438eadfe079dfc09e, type: 3}
+  eliteIconSprite: {fileID: 7593957222638994666, guid: 787ce7da922b99e4bb4ca25b0416ccf7, type: 3}
+  bossIconSprite: {fileID: -6487844999730743576, guid: e5154bdc91401c149851ff15465aebe0, type: 3}
+  incidentIconSprite: {fileID: -2653574981746331255, guid: 2de5a8375bb840e46a09226e0cadcf9a, type: 3}
+  transactionIconSprite: {fileID: 8210037157427589089, guid: c7b34e05b8015f34dacc16e97b3c0809, type: 3}
   background: {fileID: 5365821021911980167}
   icon: {fileID: 7236006651583618540}
 --- !u!1 &5541033720667062468
