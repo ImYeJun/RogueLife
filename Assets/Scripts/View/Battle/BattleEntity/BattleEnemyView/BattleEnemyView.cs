@@ -194,7 +194,7 @@ namespace View.BattleView
             if (!payload.Enemy.Equals(enemy)) { return; }
             actionIcons.Clear();
 
-            int actionCount = enemy.PlannedActions.Count;
+            int actionCount = payload.PlannedActions.Count;
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_BaseIconAction, PlayActionPlannedPresentation(actionCount),
                 () =>
                 {
@@ -203,7 +203,7 @@ namespace View.BattleView
             
             for (int i = 0; i < actionCount; i++)
             {
-                var action = enemy.PlannedActions[i];
+                var action = payload.PlannedActions[i];
                 var iconObject = Instantiate(actionIconPrefab, actionIconsContainer);
                 var actionIcon = iconObject.GetComponent<BattleEnemyActionIcon>();
                 actionIcon.Initialize(action);

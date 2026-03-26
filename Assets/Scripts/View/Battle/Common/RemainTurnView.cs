@@ -26,14 +26,19 @@ namespace View.BattleView
         [SerializeField] float showingDownDuration;
         [SerializeField] Ease showingDownEasingType;
 
+        [Header("Phase Update Presentation")]
+        [SerializeField] float textPunchDuration = 0.3f;
+        [SerializeField] Vector3 textPunchScale = new Vector3(0.3f, 0.3f, 0f);
+        [SerializeField] float waitTimeBeforeHide = 0.5f;
+
         private Tween currentTween;
         private bool isViewVisible = false;
-        private int? pendingTurnValue = null;
 
         public override void OnInitialized()
         {
             rectTransform.anchoredPosition = disappearingUpDestination;
             isViewVisible = false;
+            remainTurnText.transform.localScale = Vector3.one;
 
             eventBus.Subscribe<InitialPhaseSettled>(OnInitialPhaseSettled);
             eventBus.Subscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
@@ -62,6 +67,12 @@ namespace View.BattleView
             currentTween?.Kill();
         }
 
+        public void OnInitialPhaseSettled(InitialPhaseSettled payload)
+        {
+            phase = payload.Phase;
+            DrawPhaseText(phase.ReaminTurn);
+        }
+
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
         {
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_TurnViewShowingDown, ShowingDownPresentation());
@@ -76,11 +87,6 @@ namespace View.BattleView
         {
             KillActiveTweens(); 
             
-            if (pendingTurnValue.HasValue)
-            {
-                DrawPhaseText(pendingTurnValue.Value);
-                pendingTurnValue = null;
-            }
             isViewVisible = true;
             
             currentTween = rectTransform.DOAnchorPos(showingPosition, showingDownDuration).SetEase(showingDownEasingType);
@@ -109,39 +115,32 @@ namespace View.BattleView
 
         public void OnPhaseIncreased(PhaseIncreased payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PhaseIncreased_UpdateView, PhaseUpdatePresentation(payload.CurrentPhase), () =>{
-                HandlePhaseUpdate(payload.CurrentPhase);
-            });
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PhaseIncreased_UpdateView, PhaseUpdatePresentation(payload.CurrentPhase));
         }
         
         public void OnPhaseDecreased(PhaseDecreased payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PhaseDecreased_UpdateView, PhaseUpdatePresentation(payload.CurrentPhase), () =>{
-                HandlePhaseUpdate(payload.CurrentPhase);
-            });
-        }
-
-        public void OnInitialPhaseSettled(InitialPhaseSettled payload)
-        {
-            phase = payload.Phase;
-            HandlePhaseUpdate(phase.ReaminTurn);
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PhaseDecreased_UpdateView, PhaseUpdatePresentation(payload.CurrentPhase));
         }
 
         private IEnumerator PhaseUpdatePresentation(int currentPhase)
         {
-            HandlePhaseUpdate(currentPhase);
-            yield return null;
-        }
+            bool wasHidden = !isViewVisible;
 
-        private void HandlePhaseUpdate(int currentPhase)
-        {
-            if (isViewVisible && !currentTween.IsActive())
+            if (wasHidden)
             {
-                DrawPhaseText(currentPhase);
+                yield return StartCoroutine(ShowingDownPresentation());
             }
-            else
+
+            DrawPhaseText(currentPhase);
+            
+            remainTurnText.transform.DOKill(true);
+            yield return remainTurnText.transform.DOPunchScale(textPunchScale, textPunchDuration, 5, 1).WaitForCompletion();
+
+            if (wasHidden)
             {
-                pendingTurnValue = currentPhase;
+                yield return new WaitForSeconds(waitTimeBeforeHide);
+                yield return StartCoroutine(MoveUpPresentation());
             }
         }
         

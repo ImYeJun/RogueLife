@@ -22,15 +22,18 @@ namespace ViewEvent.BattleView
     {
         private readonly int sequenceId;
         private readonly IReadOnlyBattleEnemy enemy;
+        private readonly IReadOnlyList<EnemyAction> plannedActions;
 
-        public EnemyActionPlanned(int sequenceId, IReadOnlyBattleEnemy enemy)
+        public EnemyActionPlanned(int sequenceId, IReadOnlyBattleEnemy enemy, IReadOnlyList<EnemyAction> plannedActions)
         {
             this.sequenceId = sequenceId;
             this.enemy = enemy;
+            this.plannedActions = plannedActions;
         }
 
         public int SequenceId => sequenceId;
         public IReadOnlyBattleEnemy Enemy => enemy;
+        public IReadOnlyList<EnemyAction> PlannedActions => plannedActions;
     }
 
     public readonly struct EnemyHurt : IBattleViewEvent

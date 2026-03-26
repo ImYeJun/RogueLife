@@ -50,7 +50,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         plannedActions = behaviourInstance.PlanAction(context);
         previousActionCount = plannedActions.Count;
 
-        viewEventPublisher.Publish(new EnemyActionPlanned(viewEventPublisher.GetNextSequenceId(), this));
+        viewEventPublisher.Publish(new EnemyActionPlanned(viewEventPublisher.GetNextSequenceId(), this, new List<EnemyAction>(plannedActions)));
 
         isFirstAction = false;
     }
@@ -82,7 +82,7 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
     {
         if (IsDead) { return; }
         
-        context.ActionScheduler.Enqueue(new HurtEnemyBattleAction(this, source, amount));
+        context.ActionScheduler.EnqueueFront(new HurtEnemyBattleAction(this, source, amount));
     }
 
     public void ReceiveDamage(int amount, BattleHurtSource source)
