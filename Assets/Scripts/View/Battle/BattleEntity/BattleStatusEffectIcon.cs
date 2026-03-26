@@ -72,7 +72,17 @@ namespace View.BattleView
                 BattleStatusEffectType.DEBUFF => "#FF4444", 
                 _ => "#FFFFFF"                              
             };
-            mainText.Text = $"<color={typeColorHex}>{currentEffect.Data.Name}</color> <size=80%>스택 : {currentEffect.StackCount}, 남은 턴 : {currentEffect.RemainTurn}</size>";
+
+            var mainContext = $"<color={typeColorHex}>{currentEffect.Data.Name}</color> <size=80%>스택 : {currentEffect.StackCount}";
+            if (currentEffect.IsDurationEternal)
+            {
+                mainContext += "</size>";
+            }
+            else
+            {
+                mainContext += $", 남은 턴 : {currentEffect.RemainTurn}</size>";
+            }
+            mainText.Text = mainContext;
 
             var captionText = builder.AddCaptionText(linkedGroup.RectTransform);
             captionText.Text = $"{currentEffect.Data.Description}";
