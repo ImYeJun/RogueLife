@@ -314,11 +314,9 @@ namespace View.BattleView
             currentTween?.Kill();
 
             currentTween = transform.DOMove(targetPos, moveDuration).SetEase(moveEase);
-            currentTween.OnComplete(() => SetInteractable(true));
             
             return currentTween;
         }
-
         public Tween PlayFadePresentation(float duration, Ease ease, bool isFadeIn = true)
         {
             SetInteractable(false);

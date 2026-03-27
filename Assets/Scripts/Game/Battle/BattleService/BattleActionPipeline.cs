@@ -16,6 +16,9 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     private ActionPipelinePhase preObservePhase = new ActionPipelinePhase();
     private ActionPipelinePhase postObservePhase = new ActionPipelinePhase();
     
+    public bool IsRunning => isRunning || actionQueue.Count > 0;
+    public event Action OnQueueEmpty; 
+
     public void SetContext(BattleContext context) { this.context = context; }
     
     public void Enqueue(IBattleAction action)
@@ -63,6 +66,11 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
         }
 
         isRunning = false;
+
+        if (isInBattle && !isPaused && actionQueue.Count == 0)
+        {
+            OnQueueEmpty?.Invoke();
+        }
     }
 
     public void Pause()
@@ -84,7 +92,6 @@ public class BattleActionPipeline : IBattleActionScheduler, IBattleActionObserve
     public void PushActionScope(BattleActionScope scope)
     {
         CurrentScope?.Increase();
-
         actionScopeStack.Push(scope);
     }
     private void PopActionScope()

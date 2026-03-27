@@ -139,7 +139,7 @@ namespace View.BattleView
                     actionIconView.position.z
                 );
             }
-}
+        }
 
         public void SetInvisibleDirectly()
         {
@@ -222,19 +222,19 @@ namespace View.BattleView
                     var size = new Vector2(actionCount * (ICONS_CONAINTER_LENGTH  + actionIconViewLayoutGroud.spacing), ICONS_CONAINTER_LENGTH);
                     actionIconView.sizeDelta = size;
                     actionIconsContainer.sizeDelta = size;
-                } );
-            
-            for (int i = 0; i < actionCount; i++)
-            {
-                var action = payload.PlannedActions[i];
-                var iconObject = Instantiate(actionIconPrefab, actionIconsContainer);
-                var actionIcon = iconObject.GetComponent<BattleEnemyActionIcon>();
-                actionIcon.Initialize(action);
-                actionIcons.Add(actionIcon);
-                actionIcon.SetUnshown();
 
-                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_BaseIconAction + i, actionIcon.PlayAppliedPresentation());
-            }
+                    for (int i = 0; i < actionCount; i++)
+                    {
+                        var action = payload.PlannedActions[i];
+                        var iconObject = Instantiate(actionIconPrefab, actionIconsContainer);
+                        var actionIcon = iconObject.GetComponent<BattleEnemyActionIcon>();
+                        actionIcon.Initialize(action);
+                        actionIcons.Add(actionIcon);
+                        actionIcon.SetUnshown();
+
+                        presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_BaseIconAction + i, actionIcon.PlayAppliedPresentation());
+                    }
+                } );
         }
 
         private IEnumerator PlayActionPlannedPresentation(int actionCount)
