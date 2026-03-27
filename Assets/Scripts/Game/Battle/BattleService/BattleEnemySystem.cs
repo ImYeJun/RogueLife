@@ -164,7 +164,7 @@ public partial class BattleEnemySystem : IBattleEnemySystemContext, IBattleEvent
                 foreach (var actionData in plannedActions)
                 {
                     var executeAction = new ExecuteEnemyActionBattleAction(enemy, actionData);
-                    context.ActionScheduler.EnqueueFront(new BattleEntityAction(enemy, executeAction));
+                    context.ActionScheduler.Enqueue(new BattleEntityAction(enemy, executeAction));
                 }
             }
         }

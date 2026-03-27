@@ -14,32 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_Freeze
   cardName: "\uC5BC\uC74C!"
-  description: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uAE4C\uC9C0, \uC790\uC2E0\uC744
-    \uD5A5\uD55C \uBAA8\uB4E0 \uD589\uB3D9\uC758 \uD6A8\uACFC\uB97C \uBC1B\uC9C0
-    \uC54A\uC9C0\uB9CC, \uC774\uBC88 \uD134\uC744 \uAC15\uC81C\uB85C \uC885\uB8CC\uD55C\uB2E4."
-  relfectionAppliedDescription: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uAE4C\uC9C0,
-    \uC790\uC2E0\uC744 \uD5A5\uD55C \uBAA8\uB4E0 \uD589\uB3D9\uC758 \uD6A8\uACFC\uB97C
-    \uBC1B\uC9C0 \uC54A\uACE0, \uCCB4\uB825 30\uC744 \uD68C\uBCF5\uD558\uC9C0\uB9CC,
-    \uC774\uBC88 \uD134\uC744 \uAC15\uC81C\uB85C \uC885\uB8CC\uD55C\uB2E4."
+  background: {fileID: 0}
+  description: "\uCCB4\uB825\uC744 20 \uD68C\uBCF5\uD558\uACE0 \uC774\uBC88 \uD134\uC744
+    \uAC15\uC81C \uC885\uB8CC\uD569\uB2C8\uB2E4.  \"\uBC29\uC5B4 \uD0DC\uC138\" 2\uD134
+    \uB3D9\uC548  6\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  relatedStatusEffectIds:
+  - Buff_DefensiveStance
+  relfectionAppliedDescription: "\uCCB4\uB825\uC744 20 \uD68C\uBCF5\uD558\uACE0 \uC774\uBC88
+    \uD134\uC744 \uAC15\uC81C \uC885\uB8CC \uD569\uB2C8\uB2E4.  \"\uBC29\uC5B4 \uD0DC\uC138\"
+    3\uD134 \uB3D9\uC548 6\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD558\uACE0, \uB2E4\uC74C
+    \uC790\uC2E0 \uD134 \uCF54\uC2A4\uD2B8\uB97C 2 \uC99D\uAC00\uC2DC\uD0B5\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds:
+  - Buff_DefensiveStance
   type: 3
   attribute: 2
   rarity: 2
   actionCost: 6
-  battleBehaviour:
-    rid: 1582000878922235979
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922235979
-      type: {class: Freeze, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922235980
-        reflectionTargetType:
-          rid: 1582000878922235981
-    - rid: 1582000878922235980
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922235981
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
