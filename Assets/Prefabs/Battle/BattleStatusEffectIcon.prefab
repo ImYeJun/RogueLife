@@ -414,6 +414,7 @@ MonoBehaviour:
   effectImage: {fileID: 7915039712946618872}
   stackText: {fileID: 5232811214554367938}
   remainTurnText: {fileID: 6464565986299148482}
+  presentationHoldDuration: 0.5
   appliedPresentationDuration: 0.3
   appliedPresentationEase: 10
   executedPresentationDuration: 0.3
@@ -421,6 +422,11 @@ MonoBehaviour:
   punchAmount: {x: 0.5, y: 0.5, z: 0}
   punchVibrato: 1
   punchElasticity: 1
+  timePerCount: 0.1
+  maxCountDuration: 1
+  updatedPunchDuration: 0.3
+  updatedPunchEase: 18
+  updatedCountEase: 1
   removedPresentationDuration: 0.3
   removedPresentationEase: 10
 --- !u!225 &5044922355700162174

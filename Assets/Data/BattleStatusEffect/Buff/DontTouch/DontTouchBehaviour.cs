@@ -24,7 +24,7 @@ namespace Battle.StatusEffects.Behaviour
 
         public override void OnMerged() { }
 
-        public void NullifyIfTouched(BattleEntityAction entityAction, BattleContext context )
+        public void NullifyIfTouched(BattleEntityAction entityAction, BattleContext context)
         {
             if (entityAction.Actor == owner) return; 
             

@@ -97,8 +97,8 @@ public static class PresentationPriority
     
     // Player Turn Started
     public const int PlayerTurnStarted_TurnViewShowingDown = 10;
-    public const int PlayerTurnStarted_OpenHandDeck = 10;
-    public const int PlayerTurnStarted_TurnEndButtonShow = 10;
+    public const int PlayerTurnStarted_OpenHandDeck = 20;
+    public const int PlayerTurnStarted_TurnEndButtonShow = 20;
 
     //Player Turn Ended
     public const int PlayerTurnEnded_TurnEndButtonDisappear = 10;
@@ -142,6 +142,9 @@ public static class PresentationPriority
 
     //Battle Status Effect Applied
     public const int BattleStatusEffectAplied_IconAction = 10;
+
+    //Battle Status Effect Updated
+    public const int BattleStatusEffectUpdated_IconAction = 10;
 
     //Battle Status Effect Executed
     public const int BattleStatusEffectExecuted_IconAction = 10;

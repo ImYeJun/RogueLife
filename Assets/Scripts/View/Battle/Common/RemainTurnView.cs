@@ -14,7 +14,8 @@ namespace View.BattleView
     {
         private IReadOnlyBattlePhase phase;
         [SerializeField] private RectTransform rectTransform;
-        [SerializeField, FormerlySerializedAs("remainPhaseText")] private TextMeshProUGUI remainTurnText;
+        [SerializeField] private TextMeshProUGUI remainTurnText;
+        [SerializeField] private TextMeshProUGUI turnTypeText;
 
         [Header("Disappearing Up Presentation")]
         [SerializeField] Vector2 disappearingUpDestination;
@@ -25,10 +26,14 @@ namespace View.BattleView
         [SerializeField] Vector2 showingPosition;
         [SerializeField] float showingDownDuration;
         [SerializeField] Ease showingDownEasingType;
+        
+        [Header("Turn Start Presentation")]
+        [SerializeField] float turnStartDisplayDuration;
 
         [Header("Phase Update Presentation")]
         [SerializeField] float textPunchDuration = 0.3f;
         [SerializeField] Vector3 textPunchScale = new Vector3(0.3f, 0.3f, 0f);
+        [SerializeField] float updateHoldDuration = 0.3f;
         [SerializeField] float waitTimeBeforeHide = 0.5f;
 
         private Tween currentTween;
@@ -75,12 +80,19 @@ namespace View.BattleView
 
         private void OnPlayerTurnStarted(PlayerTurnStarted payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_TurnViewShowingDown, ShowingDownPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_TurnViewShowingDown, AnnounceTurnStartPresentation("플레이어"));
         }
         
         private void OnEnemyTurnStarted(EnemyTurnStarted payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyTurnStarted_TurnViewShowingDown, ShowingDownPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyTurnStarted_TurnViewShowingDown, AnnounceTurnStartPresentation("적"));
+        }
+
+        private IEnumerator AnnounceTurnStartPresentation(string turnOwnerText)
+        {
+            turnTypeText.text = turnOwnerText;
+            yield return StartCoroutine(ShowingDownPresentation());
+            yield return new WaitForSeconds(turnStartDisplayDuration);
         }
         
         private IEnumerator ShowingDownPresentation()
@@ -142,6 +154,8 @@ namespace View.BattleView
                 yield return new WaitForSeconds(waitTimeBeforeHide);
                 yield return StartCoroutine(MoveUpPresentation());
             }
+
+            yield return new WaitForSeconds(updateHoldDuration);
         }
         
         private void DrawPhaseText(int currentPhase)

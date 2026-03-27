@@ -6,7 +6,7 @@ using ViewEvent.BattleView;
 using UnityEngine.EventSystems;
 using System.Collections;
 using DG.Tweening;
-using UnityEditor.Overlays;
+using UnityEngine.Serialization;
 
 namespace View.BattleView
 {
@@ -21,20 +21,37 @@ namespace View.BattleView
         private IReadOnlyBattleStatusEffect currentEffect;
         public IReadOnlyBattleStatusEffect CurrentEffect => currentEffect;
 
+        [SerializeField] float presentationHoldDuration = 0.5f;
+        
         [Header("Applied Presentation")]
         [SerializeField] private float appliedPresentationDuration;
         [SerializeField] private Ease appliedPresentationEase;
+        
         [Header("Executed Presentation")]
         [SerializeField] private float executedPresentationDuration;
         [SerializeField] private Ease executedPresentationEase;
         [SerializeField] private Vector3 punchAmount;
         [SerializeField] private int punchVibrato;
         [SerializeField] private float punchElasticity;
-        [Header("Applied Presentation")]
+
+        [Header("Updated Presentation (Number Count)")]
+        [SerializeField] private float timePerCount = 0.1f;
+        [SerializeField] private float maxCountDuration = 1.0f;
+        [SerializeField] private float updatedPunchDuration;
+        [SerializeField] private Ease updatedPunchEase;
+        
+        [FormerlySerializedAs("updatedPresentationEase")]
+        [SerializeField] private Ease updatedCountEase = Ease.Linear; 
+
+        [Header("Removed Presentation")]
         [SerializeField] private float removedPresentationDuration;
         [SerializeField] private Ease removedPresentationEase;
 
-        private void Awake() {
+        private int currentDisplayStack;
+        private int currentDisplayRemainTurn;
+
+        private void Awake() 
+        {
             canvasGroup = GetComponent<CanvasGroup>();
             layoutElement = GetComponent<LayoutElement>();
 
@@ -52,12 +69,22 @@ namespace View.BattleView
             currentEffect = effect;
             effectImage.sprite = effect.Data.Icon;
 
-            UpdateState(effect.RemainTurn, effect.StackCount);
+            currentDisplayStack = effect.StackCount;
+            currentDisplayRemainTurn = effect.RemainTurn;
+
+            ApplyTextUI(currentDisplayRemainTurn, currentDisplayStack);
         }
 
-        public void UpdateState(int remainTurn, int currentStack)
+        public void UpdateState(int currentStack, int remainTurn)
         {
-            stackText.text = currentStack > 1 ? $"x{currentStack}" : "";
+            currentDisplayStack = currentStack;
+            currentDisplayRemainTurn = remainTurn;
+            ApplyTextUI(currentDisplayRemainTurn, currentDisplayStack);
+        }
+
+        private void ApplyTextUI(int remainTurn, int stack)
+        {
+            stackText.text = stack > 1 ? $"x{stack}" : "";
             remainTurnText.text = currentEffect.IsDurationEternal ? "" : remainTurn.ToString();
         }
 
@@ -93,23 +120,76 @@ namespace View.BattleView
             layoutElement.ignoreLayout = false;
             canvasGroup.alpha = 0;
             yield return canvasGroup.DOFade(1, appliedPresentationDuration).SetEase(appliedPresentationEase).WaitForCompletion();
+            yield return new WaitForSeconds(presentationHoldDuration);
         }
-        public IEnumerator PlayExectuedPresentation()
+
+        public IEnumerator PlayExecutedPresentation()
         {
             yield return transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity).SetEase(executedPresentationEase).WaitForCompletion();
+            yield return new WaitForSeconds(presentationHoldDuration);
         }
-        public IEnumerator PlayUpdatedPresentation()
+
+        public IEnumerator PlayUpdatedPresentation(int targetStack, int targetRemainTurn)
         {
-            yield return null; //TODO Implement it
+            Sequence seq = DOTween.Sequence();
+
+            seq.Append(transform.DOPunchScale(punchAmount, updatedPunchDuration, punchVibrato, punchElasticity).SetEase(updatedPunchEase));
+
+            int stackDiff = Mathf.Abs(targetStack - currentDisplayStack);
+            int turnDiff = Mathf.Abs(targetRemainTurn - currentDisplayRemainTurn);
+            
+            bool isFirstCountTween = true;
+
+            if (stackDiff > 0)
+            {
+                float duration = Mathf.Min(stackDiff * timePerCount, maxCountDuration);
+                
+                Tween stackTween = DOVirtual.Int(currentDisplayStack, targetStack, duration, (val) =>
+                {
+                    currentDisplayStack = val;
+                    ApplyTextUI(currentDisplayRemainTurn, currentDisplayStack);
+                }).SetEase(updatedCountEase);
+
+                seq.Append(stackTween);
+                isFirstCountTween = false;
+            }
+
+            if (turnDiff > 0)
+            {
+                float duration = Mathf.Min(turnDiff * timePerCount, maxCountDuration);
+                
+                Tween turnTween = DOVirtual.Int(currentDisplayRemainTurn, targetRemainTurn, duration, (val) =>
+                {
+                    currentDisplayRemainTurn = val;
+                    ApplyTextUI(currentDisplayRemainTurn, currentDisplayStack);
+                }).SetEase(updatedCountEase);
+
+                if (isFirstCountTween)
+                {
+                    seq.Append(turnTween);
+                }
+                else
+                {
+                    seq.Join(turnTween);
+                }
+            }
+
+            if (seq.Duration() > 0)
+            {
+                yield return seq.WaitForCompletion();
+                yield return new WaitForSeconds(presentationHoldDuration);
+            }
         }
+
         public IEnumerator PlayRemovedPresentation()
         {
             canvasGroup.alpha = 1;
             yield return canvasGroup.DOFade(0, removedPresentationDuration).SetEase(removedPresentationEase).WaitForCompletion();
+            yield return new WaitForSeconds(presentationHoldDuration);
         }
 
 #if UNITY_EDITOR
-        [ContextMenu("Play Applied Presentation ")]
+        [ContextMenu("Play Applied Presentation")]
         public void TestAppliedPresentation()
         {
             canvasGroup.alpha = 0;
@@ -117,19 +197,26 @@ namespace View.BattleView
             canvasGroup.alpha = 1;
         }
 
-        [ContextMenu("Play Exectued Presentation ")]
-        public void TestExectuedPresentation()
+        [ContextMenu("Play Executed Presentation")]
+        public void TestExecutedPresentation()
         {
-            StartCoroutine(DelayTestPlay(PlayExectuedPresentation()));
+            StartCoroutine(DelayTestPlay(PlayExecutedPresentation()));
         }
 
-        [ContextMenu("Play Removed Presentation ")]
+        [ContextMenu("Play Updated Presentation (Test Count +5)")]
+        public void TestUpdatedPresentation()
+        {
+            StartCoroutine(DelayTestPlay(PlayUpdatedPresentation(currentDisplayStack + 5, currentDisplayRemainTurn)));
+        }
+
+        [ContextMenu("Play Removed Presentation")]
         public void TestRemovedPresentation()
         {
             canvasGroup.alpha = 1;
             StartCoroutine(DelayTestPlay(PlayRemovedPresentation()));
             canvasGroup.alpha = 0;
         }
+
         private IEnumerator DelayTestPlay(IEnumerator presentation)
         {
             yield return new WaitForSeconds(0.3f);

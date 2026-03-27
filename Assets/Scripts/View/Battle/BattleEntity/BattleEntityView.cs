@@ -89,7 +89,8 @@ namespace View.BattleView
             
             if (iconToUpdate != null)
             {
-                iconToUpdate.UpdateState(payload.RemainTurn, payload.CurrentStack);
+                var statusEffect = payload.BattleStatusEffect;
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectUpdated_IconAction, iconToUpdate.PlayUpdatedPresentation(statusEffect.StackCount, statusEffect.RemainTurn), () => iconToUpdate.UpdateState(statusEffect.StackCount, statusEffect.RemainTurn));
             }
             else
             {
@@ -108,7 +109,7 @@ namespace View.BattleView
                 throw new InvalidCastException($"[BattleEntityView/OnStatusEffectExecuted] Given Entity({gameObject.name}) doesn't contain battle status effect({payload.BattleStatusEffect.Data.Name}) but try to execute.");
             }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, iconView.PlayExectuedPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, iconView.PlayExecutedPresentation());
         }
 
         protected virtual void SetVisualConfigure()
