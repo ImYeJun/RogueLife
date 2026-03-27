@@ -176,7 +176,7 @@ public class BattleDeckSystem : IBattleDeckSystemContext, IBattleEventObserveSer
 
         viewEventPublisher.Publish(new InitialDeckSettled(
             sequenceId : viewEventPublisher.GetNextSequenceId(),
-            handDeck : this[BattleDeckType.DRAW],
+            handDeck : this[BattleDeckType.HAND],
             drawDeck : this[BattleDeckType.DRAW],
             graveDeck : this[BattleDeckType.GRAVE]
             ));
