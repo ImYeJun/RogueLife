@@ -3,20 +3,26 @@ using System.Collections;
 using DG.Tweening; 
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using View.Core;
 using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public class BattleCardView : ViewBehaviour<IBattleViewEvent>, IPointerClickHandler
+    public class BattleCardView : ViewBehaviour<IBattleViewEvent>, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     {
         [Header("Settings")]
         [SerializeField] private RectTransform rectTransform;
-        [SerializeField] private float popUpDistance = 0.5f; 
         [SerializeField] private SharedCardView sharedCardView;
-        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private CanvasGroup canvasGroup;   
+
+        [Header("Hover Presentation")]
+        [SerializeField] private float hoverPopUpDistance = 0.5f; 
+        [SerializeField] private float hoverMoveDuration = 0.1f;
+        [SerializeField] private Ease hoverMoveEase = Ease.OutBack;
 
         [Header("Focus Presentation")]
+        [SerializeField, FormerlySerializedAs("popUpDistance")] private float focusPopUpDistance = 0.5f; 
         [SerializeField] private float focusMoveDuration = 0.2f;
         [SerializeField] private Ease focusMoveEase = Ease.OutBack;
 
@@ -38,6 +44,8 @@ namespace View.BattleView
         private Vector3 baseLocalEulerAngles;
         private Vector3 baseLocalScale = Vector3.one;
         private Tween currentTween;
+        private bool isFocused;
+        private bool isPointerOver;
 
         public Card Card => sharedCardView.Card;
 
@@ -117,21 +125,76 @@ namespace View.BattleView
             canvasGroup.alpha = value;
         }
 
+        public void SetInteractable(bool isInteractable)
+        {
+            canvasGroup.interactable = isInteractable;
+            canvasGroup.blocksRaycasts = isInteractable;
+
+            if (isInteractable)
+            {
+                UpdateHoverPresentation();
+            }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            isPointerOver = true;
+            UpdateHoverPresentation();
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            isPointerOver = false;
+            UpdateHoverPresentation();
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (!canvasGroup.interactable || !canvasGroup.blocksRaycasts) return;
+
+            currentTween?.Kill();
+            onCardClicked?.Invoke(this);
+        }
+
+        private void UpdateHoverPresentation()
+        {
+            if (!canvasGroup.interactable || !canvasGroup.blocksRaycasts) return;
+            if (isFocused) return;
+
+            currentTween?.Kill();
+
+            if (isPointerOver)
+            {
+                Vector3 tiltDirection = transform.localRotation * Vector3.up;
+                Vector3 targetPos = baseLocalPosition + (tiltDirection * hoverPopUpDistance);
+                currentTween = rectTransform.DOAnchorPos(targetPos, hoverMoveDuration).SetEase(hoverMoveEase);
+            }
+            else
+            {
+                currentTween = rectTransform.DOAnchorPos(baseLocalPosition, hoverMoveDuration).SetEase(hoverMoveEase);
+            }
+        }
+
         public Tween PlayProcessMoveToLayoutTransform()
         {
+            SetInteractable(false);
             currentTween?.Kill();
+            
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, processMoveDuration).SetEase(processMoveEase));
             sequence.Join(transform.DORotate(baseLocalEulerAngles, processRotateDuration, RotateMode.Fast).SetEase(processRotateEase));
             sequence.Join(transform.DOScale(baseLocalScale, processMoveDuration).SetEase(processScaleEase));
             
+            sequence.OnComplete(() => SetInteractable(true));
             currentTween = sequence;
             return currentTween;
         }
 
         public Tween PlayTriggerFadePresentation()
         {
+            SetInteractable(false);
             currentTween?.Kill();
+            
             canvasGroup.alpha = 0;
             currentTween = canvasGroup.DOFade(1, triggerFadeDuration).SetEase(triggerFadeEase);
             return currentTween;
@@ -139,7 +202,9 @@ namespace View.BattleView
 
         public Tween PlayResolveFadePresentation()
         {
+            SetInteractable(false);
             currentTween?.Kill();
+            
             canvasGroup.alpha = 1;
             currentTween = canvasGroup.DOFade(0, resolveFadeDuration).SetEase(resolveFadeEase);
             return currentTween;
@@ -147,6 +212,7 @@ namespace View.BattleView
 
         public Tween PlayMoveToLayoutTransform(float moveDuration, float rotateDuration, Ease moveEase, Ease rotateEase)
         {
+            SetInteractable(false);
             currentTween?.Kill();
 
             var sequence = DOTween.Sequence();
@@ -154,18 +220,23 @@ namespace View.BattleView
             sequence.Join(transform.DORotate(baseLocalEulerAngles, rotateDuration, RotateMode.Fast).SetEase(rotateEase));
             sequence.Join(transform.DOScale(baseLocalScale, moveDuration).SetEase(moveEase));
             
+            sequence.OnComplete(() => SetInteractable(true));
+
             currentTween = sequence;
             return currentTween;
         }
 
         public Tween PlayDrawPresentation(float moveDuration, float rotateDuration, float scaleDuration, Ease moveEase, Ease rotateEase, Ease scaleEase)
         {
+            SetInteractable(false);
             currentTween?.Kill();
 
             var sequence = DOTween.Sequence();
             sequence.Join(rectTransform.DOAnchorPos(baseLocalPosition, moveDuration).SetEase(moveEase));
             sequence.Join(transform.DORotate(baseLocalEulerAngles, rotateDuration, RotateMode.Fast).SetEase(rotateEase));
             sequence.Join(transform.DOScale(baseLocalScale, scaleDuration).SetEase(scaleEase));
+            
+            sequence.OnComplete(() => SetInteractable(true));
 
             currentTween = sequence;
             return currentTween;
@@ -173,6 +244,7 @@ namespace View.BattleView
 
         public Tween PlayDiscardPresentation(Vector3 endPos, Vector3 controlPos, Vector3 endRot, float moveDuration, float rotateDuration, float scaleDuration, Ease moveEase, Ease rotateEase, Ease scaleEase)
         {
+            SetInteractable(false);
             currentTween?.Kill();
 
             var sequence = DOTween.Sequence();
@@ -207,39 +279,47 @@ namespace View.BattleView
 
         public Tween PlayRestorePresentation(Vector3 targetPos, float moveDuration, Ease moveEase)
         {
+            SetInteractable(false);
             currentTween = transform.DOMove(targetPos, moveDuration).SetEase(moveEase);
+            currentTween.OnComplete(() => SetInteractable(true));
+            
             return currentTween;
         }
 
         public Tween PlayFadePresentation(float duration, Ease ease, bool isFadeIn = true)
         {
+            SetInteractable(false);
             canvasGroup.alpha = isFadeIn ? 0 : 1;
 
             currentTween = canvasGroup.DOFade(isFadeIn ? 1 : 0, duration).SetEase(ease);
+            
+            if (isFadeIn) 
+            {
+                currentTween.OnComplete(() => SetInteractable(true));
+            }
+            
             return currentTween;
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            currentTween?.Kill();
-            onCardClicked?.Invoke(this);
         }
 
         public void Focus()
         {
+            if (!canvasGroup.interactable || !canvasGroup.blocksRaycasts) return;
+            
+            isFocused = true;
             currentTween?.Kill();
             
             Vector3 tiltDirection = transform.localRotation * Vector3.up;
-            Vector3 targetPos = baseLocalPosition + (tiltDirection * popUpDistance);
+            Vector3 targetPos = baseLocalPosition + (tiltDirection * focusPopUpDistance);
             
             currentTween = rectTransform.DOAnchorPos(targetPos, focusMoveDuration).SetEase(focusMoveEase);
         }
 
         public void Unfocus()
         {
-            currentTween?.Kill();
+            if (!canvasGroup.interactable || !canvasGroup.blocksRaycasts) return;
             
-            currentTween = rectTransform.DOAnchorPos(baseLocalPosition, focusMoveDuration).SetEase(focusMoveEase);
+            isFocused = false;
+            UpdateHoverPresentation();
         }
     }
 }

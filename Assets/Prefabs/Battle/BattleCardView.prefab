@@ -158,9 +158,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.BattleCardView
   rectTransform: {fileID: 2188953926507250836}
-  popUpDistance: 50
   sharedCardView: {fileID: 7710798999060977258}
   canvasGroup: {fileID: 6518359986212636166}
+  hoverPopUpDistance: 10
+  hoverMoveDuration: 0.1
+  hoverMoveEase: 9
+  focusPopUpDistance: 50
   focusMoveDuration: 0.2
   focusMoveEase: 27
   triggerFadeDuration: 0.2
