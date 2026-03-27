@@ -14,32 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_ManaRecovery
   cardName: "\uB9C8\uB098 \uD68C\uC218"
+  background: {fileID: -5680281149637959989, guid: 8689eca139fccc648990fb42e388f7df, type: 3}
   description: "\uC9C1\uC804 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758 \uD589\uB3D9\uB825
     \uB9CC\uD07C \uCF54\uC2A4\uD2B8\uB97C \uD68C\uBCF5\uD558\uACE0 \uD574\uB2F9 \uCE74\uB4DC\uB97C
     \uB371\uC73C\uB85C \uB418\uB3CC\uB9B0\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC9C1\uC804 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758
     \uD589\uB3D9\uB825 \uB9CC\uD07C \uCF54\uC2A4\uD2B8\uB97C \uD68C\uBCF5\uD558\uACE0
     \uD574\uB2F9 \uCE74\uB4DC\uB97C \uB371\uC73C\uB85C \uB418\uB3CC\uB9AC\uACE0 \uB371\uC5D0\uC11C
     \uD55C \uC7A5\uC744 \uAC00\uC838\uC628\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 5
   attribute: 2
   rarity: 2
   actionCost: 2
-  battleBehaviour:
-    rid: 1582000878922236016
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236016
-      type: {class: ManaRecovery, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236017
-        reflectionTargetType:
-          rid: 1582000878922236018
-    - rid: 1582000878922236017
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236018
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}

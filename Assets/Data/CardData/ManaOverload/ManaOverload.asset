@@ -14,35 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_ManaOverload
   cardName: "\uB9C8\uB098 \uACFC\uC801\uC751"
+  background: {fileID: -7981427974364964643, guid: 089c2cb3a1aa45d4ab5a19a091cb0061, type: 3}
   description: "\uC774\uBC88 \uC804\uD22C\uC5D0\uC11C \uC18C\uBAA8\uD55C \uCF54\uC2A4\uD2B8\uC758
     \uC591\uC774 20 \uC774\uC0C1\uC77C \uACBD\uC6B0 \uC0AC\uC6A9\uD560 \uC218 \uC788\uB2E4.
     \uCF54\uC2A4\uD2B8\uB97C 5 \uD68C\uBCF5\uD558\uACE0, \uD604\uC7AC \uC190 \uD328\uC758
     \uBAA8\uB4E0 \uCE74\uB4DC\uC758 \uD589\uB3D9\uB825\uC774 \uC774\uBC88 \uD134
     \uB3D9\uC548 2 \uAC10\uC18C\uD569\uB2C8\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC774\uBC88 \uC804\uD22C\uC5D0\uC11C \uC18C\uBAA8\uD55C
     \uCF54\uC2A4\uD2B8\uC758 \uC591\uC774 20 \uC774\uC0C1\uC77C \uACBD\uC6B0 \uC0AC\uC6A9\uD560
     \uC218 \uC788\uB2E4. \uCF54\uC2A4\uD2B8\uB97C 7 \uD68C\uBCF5\uD558\uACE0, \uD604\uC7AC
     \uC190 \uD328\uC758 \uBAA8\uB4E0 \uCE74\uB4DC\uC758 \uD589\uB3D9\uB825\uC774
     \uC774\uBC88 \uD134 \uB3D9\uC548 2 \uAC10\uC18C\uD569\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 4
   attribute: 2
   rarity: 2
   actionCost: 7
-  battleBehaviour:
-    rid: 1582000905641787467
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000905641787467
-      type: {class: ManaOverload, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000905641787468
-        reflectionTargetType:
-          rid: 1582000905641787469
-    - rid: 1582000905641787468
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000905641787469
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
