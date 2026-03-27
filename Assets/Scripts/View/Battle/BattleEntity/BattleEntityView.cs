@@ -90,7 +90,9 @@ namespace View.BattleView
             if (iconToUpdate != null)
             {
                 var statusEffect = payload.BattleStatusEffect;
-                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectUpdated_IconAction, iconToUpdate.PlayUpdatedPresentation(statusEffect.StackCount, statusEffect.RemainTurn), () => iconToUpdate.UpdateState(statusEffect.StackCount, statusEffect.RemainTurn));
+                int targetStackCount = statusEffect.StackCount;
+                int targetRemainTurn = statusEffect.RemainTurn;
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectUpdated_IconAction, iconToUpdate.PlayUpdatedPresentation(targetStackCount, targetRemainTurn), () => iconToUpdate.UpdateState(targetStackCount, targetRemainTurn));
             }
             else
             {

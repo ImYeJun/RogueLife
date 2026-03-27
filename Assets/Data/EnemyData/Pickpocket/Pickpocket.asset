@@ -21,9 +21,9 @@ MonoBehaviour:
   behaviourDescriptionList:
   - behaviourId: Enemy_Pickpocket_Behavior_0
     behaviourDescription: "\uB2E4\uC74C \uC790\uC2E0\uC5D0\uAC8C 2 \uD134 \uB3D9\uC548
-      \uC9C0\uC18D\uB418\uB294 \uC190 \uB300\uC9C0\uB9C8! 1 \uC2A4\uD0DD\uC744 \uAC74\uB2E4."
+      \uC9C0\uC18D\uB418\uB294 \uB290\uB824. 1 \uC2A4\uD0DD\uC744 \uAC74\uB2E4."
     associatedStatusEffectIds:
-    - Buff_DontTouch
+    - Buff_TooSlow
   - behaviourId: Enemy_Pickpocket_Behavior_1
     behaviourDescription: "\uB3C4\uC8FC\uB97C \uC704\uD55C \uC7A5\uC560\uBB3C 3\uAC1C\uB97C
       \uC0DD\uC131\uD55C\uB2E4.\r\n\uB3C4\uC8FC\uB97C \uC704\uD55C \uC7A5\uC560\uBB3C

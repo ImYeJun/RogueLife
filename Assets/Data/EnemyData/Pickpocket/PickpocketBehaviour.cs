@@ -16,7 +16,7 @@ namespace Battle.Enemies.Behaviours
         private const string FOURTH_ACTION = "Enemy_Pickpocket_Behavior_3";
         private const string FIFTH_ACTION = "Enemy_Pickpocket_Behavior_4";
 
-        [SerializeField] private BattleStatusEffectEntity dontTouchEntity;
+        [SerializeField] private BattleStatusEffectEntity tooSlowEntity;
         [SerializeField] private BattleStatusEffectEntity quickEscapeEntity;
         [SerializeField] private EnemyEntity obstacleForFleeingEntity;
 
@@ -25,13 +25,13 @@ namespace Battle.Enemies.Behaviours
         public Pickpocket() {}
         private Pickpocket(Pickpocket template, IEnemyBehaviourOwner owner) : base(owner)
         {
-            dontTouchEntity = template.dontTouchEntity;
+            tooSlowEntity = template.tooSlowEntity;
             quickEscapeEntity = template.quickEscapeEntity;
             obstacleForFleeingEntity = template.obstacleForFleeingEntity;
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplySelfStatusEffect(FIRST_ACTION, owner, dontTouchEntity, 1, 2) },
+                { FIRST_ACTION, new ApplySelfStatusEffect(FIRST_ACTION, owner, tooSlowEntity, 1, 2) },
                 { SECOND_ACTION, new SpawnEnemy(SECOND_ACTION, owner, obstacleForFleeingEntity, 3) },
                 { THIRD_ACTION, new ApplySelfStatusEffect(THIRD_ACTION, owner, quickEscapeEntity, 1, isLastAction : false, isOncePerTurn : true) },
                 { FOURTH_ACTION, new HealSelf(FOURTH_ACTION, owner, 20)},

@@ -47,7 +47,6 @@ MonoBehaviour:
   buffEntities:
   - {fileID: 735820330869655840, guid: 6f775ccf8d0454d4295ae4b3cf9ae826, type: 3}
   - {fileID: 3444761750699771790, guid: 9aff4d163c7176a47a5f8bd7d653738c, type: 3}
-  - {fileID: 7230161176750448165, guid: a880b8684c5598940b3c7da8d5743e5d, type: 3}
   - {fileID: 1720449476629460493, guid: c893c98f4b3ceee4eae2c18e1ec293c1, type: 3}
   - {fileID: 7845713386699510644, guid: 5f2fab588e7fe21498ce7def6aa6acd5, type: 3}
   - {fileID: 692099163767706470, guid: e9acdca6363a8da48917512ede4cfa79, type: 3}
