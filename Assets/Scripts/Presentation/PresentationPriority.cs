@@ -110,7 +110,7 @@ public static class PresentationPriority
 
     //Enemy Turn Ended
     public const int EnemyTurnEnded_ActionClear = 10;
-    public const int EnemyTurnEnded_TurnViewDisappearingUp = 0;
+    public const int EnemyTurnEnded_TurnViewDisappearingUp = 20;
 
     //Cost Consumed
     public const int CostConsumed_CountCost = 10;

@@ -154,7 +154,7 @@ namespace View.BattleView
             }
 
             UnfocusFoucsedCard();
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, CloseHandDeckPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnEnded_CloseHandDeck, CloseHandDeckPresentation());
             isHandDeckOpened = false;
         }
 

@@ -78,7 +78,7 @@ namespace View.BattleView
 
         private void OnPlayerTurnEnded(PlayerTurnEnded payload)
         {
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnEnded_TurnViewDisappearingUp, DisappearPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnEnded_TurnEndButtonDisappear, DisappearPresentation());
         }
         private IEnumerator DisappearPresentation()
         {

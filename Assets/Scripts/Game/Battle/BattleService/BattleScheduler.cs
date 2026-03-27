@@ -60,8 +60,9 @@ public class BattleScheduler : IBattleScheduler
     {
         if (!isBattleActive) { return; }
 
-        context.EventBus.Publish(new PlayerTurnEndBattleEvent());
+        context.EventBus.Publish(new PlayerTurnPreEndedBattleEvent());
         viewEventPublisher.Publish(new PlayerTurnEnded(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new PlayerTurnEndBattleEvent());
 
         StartEnemyTurn();
     }
@@ -78,8 +79,9 @@ public class BattleScheduler : IBattleScheduler
     {
         if (!isBattleActive) { return; }
 
-        context.EventBus.Publish(new EnemyTurnEndBattleEvent());
+        context.EventBus.Publish(new EnemyTurnPreEndedBattleEvent());
         viewEventPublisher.Publish(new EnemyTurnEnded(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new EnemyTurnEndBattleEvent());
 
         EndPhase();
     }

@@ -38,8 +38,8 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
     public void SubscribeEventBus(IBattleEventBus eventBus)
     {
         eventBus.Subscribe<BattleStartEvent>(InitiatePhase);
-        eventBus.Subscribe<PlayerTurnEndBattleEvent>(OnPlayerTurnEnded);
-        eventBus.Subscribe<EnemyTurnEndBattleEvent>(OnEnemyTurnEnded);
+        eventBus.Subscribe<PlayerTurnPreEndedBattleEvent>(OnPlayerTurnPreEnded);
+        eventBus.Subscribe<EnemyTurnPreEndedBattleEvent>(OnEnemyTurnPreEnded);
     }
 
     public void InitiatePhase(BattleStartEvent payload) { 
@@ -47,6 +47,6 @@ public class BattlePhase : IBattlePhaseContext, IBattleEventObserveService
 
         viewEventPublisher.Publish(new InitialPhaseSettled(viewEventPublisher.GetNextSequenceId(), this));
     }
-    public void OnPlayerTurnEnded(PlayerTurnEndBattleEvent payload) { Decrease(); }
-    public void OnEnemyTurnEnded(EnemyTurnEndBattleEvent payload) { Decrease(); }
+    public void OnPlayerTurnPreEnded(PlayerTurnPreEndedBattleEvent payload) { Decrease(); }
+    public void OnEnemyTurnPreEnded(EnemyTurnPreEndedBattleEvent payload) { Decrease(); }
 }
