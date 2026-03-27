@@ -13,7 +13,7 @@ namespace View.BattleView
 {
     public class BattleEnemyView : BattleEntityView<IReadOnlyBattleEnemy>
     {
-        private const float ICONS_CONAINTER_HEIGHT = 1;
+        private const float ICONS_CONAINTER_LENGTH = 0.45f;
 
         private IReadOnlyBattleEnemy enemy;
         private BattleEnemyBodyView bodyView;
@@ -27,6 +27,7 @@ namespace View.BattleView
         [SerializeField] private GameObject actionIconPrefab;
         [SerializeField] private GameObject inspectActionIconPrefab;
         [SerializeField] private RectTransform actionIconView;
+        [SerializeField] private HorizontalLayoutGroup actionIconViewLayoutGroud;
         [SerializeField] private RectTransform actionIconsContainer;
 
         private List<BattleEnemyActionIcon> actionIcons = new List<BattleEnemyActionIcon>();
@@ -91,7 +92,7 @@ namespace View.BattleView
         {
             base.OnInitialized();
             actionIcons.Clear();
-            actionIconView.sizeDelta = new Vector2(1, ICONS_CONAINTER_HEIGHT);
+            actionIconView.sizeDelta = new Vector2(ICONS_CONAINTER_LENGTH, ICONS_CONAINTER_LENGTH);
             bodyView = GetComponentInChildren<BattleEnemyBodyView>();
 
             eventBus.Subscribe<EnemyActionPlanned>(OnEnemyActionPlanned);
@@ -116,12 +117,29 @@ namespace View.BattleView
             this.viewTransitionManager = viewTransitionManager;
             this.enemy = enemy;
             bodyView.Initialize(enemy, this, viewTransitionManager.InspectEntity, BattleEntityInspectorView.InspectorDirection.Left);
+            SetVisualConfigure();
             entity = enemy;
 
             transform.position = spawnPos;
             
             DrawHealthBarDirectly(enemy.CurrentHealth, enemy.MaxHealth);
         }
+
+        protected override void SetVisualConfigure()
+        {
+            base.SetVisualConfigure();
+
+            if (spriteRenderer != null && spriteRenderer.sprite != null && actionIconView != null)
+            {
+                float worldTopY = spriteRenderer.bounds.max.y;
+
+                actionIconView.position = new Vector3(
+                    spriteRenderer.bounds.center.x, 
+                    worldTopY, 
+                    actionIconView.position.z
+                );
+            }
+}
 
         public void SetInvisibleDirectly()
         {
@@ -201,7 +219,9 @@ namespace View.BattleView
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyActionPlanned_BaseIconAction, PlayActionPlannedPresentation(actionCount),
                 () =>
                 {
-                    actionIconsContainer.sizeDelta = new Vector2(actionCount, ICONS_CONAINTER_HEIGHT);
+                    var size = new Vector2(actionCount * (ICONS_CONAINTER_LENGTH  + actionIconViewLayoutGroud.spacing), ICONS_CONAINTER_LENGTH);
+                    actionIconView.sizeDelta = size;
+                    actionIconsContainer.sizeDelta = size;
                 } );
             
             for (int i = 0; i < actionCount; i++)
@@ -219,7 +239,6 @@ namespace View.BattleView
 
         private IEnumerator PlayActionPlannedPresentation(int actionCount)
         {
-            actionIconsContainer.sizeDelta = new Vector2(actionCount, ICONS_CONAINTER_HEIGHT);
             yield return null;
         }
 

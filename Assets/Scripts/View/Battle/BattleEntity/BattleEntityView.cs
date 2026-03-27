@@ -19,7 +19,9 @@ namespace View.BattleView
         [SerializeField] protected GameObject body;
         [SerializeField] protected GameObject HealthBar;
         [SerializeField] protected SpriteRenderer spriteRenderer;
-        
+
+        [SerializeField] private BoxCollider2D bodyCollider;        
+        [SerializeField] private RectTransform entityStatus;
         [SerializeField] private GameObject battleStatusEffectIconPrefab;
         [SerializeField] protected Transform battleStatusEffectIconContainer;
 
@@ -33,6 +35,8 @@ namespace View.BattleView
             eventBus.Subscribe<BattleStatusEffectRemoved>(OnStatusEffectRemoved);
             eventBus.Subscribe<BattleStatusEffectChanged>(OnStatusEffectChanged);
             eventBus.Subscribe<BattleStatusEffectExecuted>(OnStatusEffectExecuted);
+
+            SetVisualConfigure();
         }
 
         public override void OnDestroy()
@@ -105,6 +109,23 @@ namespace View.BattleView
             }
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BattleStatusEffectExecuted_IconAction, iconView.PlayExectuedPresentation());
+        }
+
+        protected virtual void SetVisualConfigure()
+        {
+            if (spriteRenderer != null && spriteRenderer.sprite != null && entityStatus != null)
+            {
+                bodyCollider.size = spriteRenderer.sprite.bounds.size;
+                bodyCollider.offset = spriteRenderer.sprite.bounds.center;
+
+                float worldBottomY = spriteRenderer.bounds.min.y;
+
+                entityStatus.position = new Vector3(
+                    spriteRenderer.bounds.center.x, 
+                    worldBottomY, 
+                    entityStatus.position.z
+                );
+            }
         }
 
         public virtual void OnInspect(IInspectorBuilder builder, RectTransform parent)

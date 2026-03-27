@@ -866,6 +866,8 @@ MonoBehaviour:
   body: {fileID: 1057384318606716654}
   HealthBar: {fileID: 2754371417223970238}
   spriteRenderer: {fileID: 1262323659262396462}
+  bodyCollider: {fileID: 397722978824486992}
+  entityStatus: {fileID: 1487930226242013889}
   battleStatusEffectIconPrefab: {fileID: 7446987446512404855, guid: 658bb4fbe56f3dd4bafa553f941823b3, type: 3}
   battleStatusEffectIconContainer: {fileID: 6279267436393260905}
   initialPos: {x: 0, y: 0}
@@ -876,6 +878,7 @@ MonoBehaviour:
   mentaltiyText: {fileID: 8315150540768635071}
   actionSFX: {fileID: 0}
   actionDuration: 0
+  healSFX: {fileID: 0}
   healDuration: 0.3
   healTextOffsetDuration: 0.2
   healEase: 6
