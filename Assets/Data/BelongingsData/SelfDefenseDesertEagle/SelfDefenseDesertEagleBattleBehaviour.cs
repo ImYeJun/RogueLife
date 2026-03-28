@@ -24,15 +24,26 @@ namespace Belongingses.Behaviour
 
         protected override void OnApplied()
         {
-            context.EventBus.Subscribe<BattleStartEvent>(PostBattleStart, BattleEventObserverStage.POST);
+            context.EventBus.Subscribe<PhaseStartBattleEvent>(PostBattleStart);
         }
 
         protected override void OnRemoved()
         {
-            context.EventBus.Unsubscribe<BattleStartEvent>(PostBattleStart);
+            context.EventBus.Unsubscribe<PhaseStartBattleEvent>(PostBattleStart);
         }
 
-        public void PostBattleStart(BattleStartEvent payload)
+        /* 
+         * TODO: The Timing Hack
+         * Ideally, this should be observing the "BattleStarted" event as the description says.
+         * However, the View (presentation layer) initializes AFTER the "BattleStarted" logic is executed.
+         * 
+         * For now, to prevent the visual effects from skipping or breaking, the effect is applied 
+         * when the FIRST phase starts (PhaseStartBattleEvent) instead.
+         * 
+         * WARNING: If this timing workaround causes turn logic or status effects to blow up later, 
+         * we need to refactor the View initialization architecture and revert this back to "BattleStarted"!
+         */
+        public void PostBattleStart(PhaseStartBattleEvent payload)
         {
             var enemies = context.EnemySystem.GetBattleEnemies();
 
