@@ -68,6 +68,7 @@ public class BattleScheduler : IBattleScheduler
             data.MainEnemyData
         ));
         viewEventPublisher.Publish(new BattleStarted(viewEventPublisher.GetNextSequenceId(), data.MainEnemyData));
+        if (!isBattleActive) return;
 
         StartPhase();
     }
@@ -78,6 +79,7 @@ public class BattleScheduler : IBattleScheduler
         {
             viewEventPublisher.Publish(new PhaseStarted(viewEventPublisher.GetNextSequenceId()));
             context.EventBus.Publish(new PhaseStartBattleEvent());
+            if (!isBattleActive) return;
             
             StartPlayerTurn();
         });
@@ -99,8 +101,11 @@ public class BattleScheduler : IBattleScheduler
         RequestTransition(() => 
         {
             context.EventBus.Publish(new PlayerTurnPreEndedBattleEvent());
+            if (!isBattleActive) return;
+            
             viewEventPublisher.Publish(new PlayerTurnEnded(viewEventPublisher.GetNextSequenceId()));
             context.EventBus.Publish(new PlayerTurnEndBattleEvent());
+            if (!isBattleActive) return;
             
             StartEnemyTurn();
         });
@@ -120,8 +125,11 @@ public class BattleScheduler : IBattleScheduler
         RequestTransition(() => 
         {
             context.EventBus.Publish(new EnemyTurnPreEndedBattleEvent());
+            if (!isBattleActive) return;
+            
             viewEventPublisher.Publish(new EnemyTurnEnded(viewEventPublisher.GetNextSequenceId()));
             context.EventBus.Publish(new EnemyTurnEndBattleEvent());
+            if (!isBattleActive) return;
             
             EndPhase();
         });
@@ -134,19 +142,22 @@ public class BattleScheduler : IBattleScheduler
             viewEventPublisher.Publish(new PhaseEnded(viewEventPublisher.GetNextSequenceId()));
             context.EventBus.Publish(new PhaseEndBattleEvent());
             
+            if (!isBattleActive) return;
+            
             StartPhase();
         });
     }
 
     public void EndBattle(BattleResultType result)
     {
-        RequestTransition(() => 
-        {
-            viewEventPublisher.Publish(new BattleEnded(viewEventPublisher.GetNextSequenceId()));
-            context.EventBus.Publish(new BattleEndBattleEvent(result));
-            
-            OnBattleEnd?.Invoke(result);
-            isBattleActive = false;
-        });
+        if (!isBattleActive) return;
+
+        isBattleActive = false;
+        pendingTransition = null;
+
+        viewEventPublisher.Publish(new BattleEnded(viewEventPublisher.GetNextSequenceId()));
+        context.EventBus.Publish(new BattleEndBattleEvent(result));
+        
+        OnBattleEnd?.Invoke(result);
     }
 }

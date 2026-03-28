@@ -42,8 +42,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
-    - _Progress: 0
-    - _Seed: 523
+    - _Progress: 1
+    - _Seed: 154
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0

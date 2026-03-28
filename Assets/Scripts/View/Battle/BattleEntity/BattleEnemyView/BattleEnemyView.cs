@@ -273,7 +273,10 @@ namespace View.BattleView
                 presentationManager.Enqueue(payload.SequenceId, PresentationPriority.EnemyTurnEnded_ActionClear, actionIcon.PlayRemovedPresentation(),
                 () =>
                 {
-                    Destroy(actionIcon.gameObject);
+                    if (actionIcon != null)
+                    {
+                        Destroy(actionIcon.gameObject);
+                    }
                 }
                 );
             }

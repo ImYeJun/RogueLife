@@ -26,7 +26,11 @@ namespace View.BattleView
         [SerializeField] Vector2 showingPosition;
         [SerializeField] float showingDownDuration;
         [SerializeField] Ease showingDownEasingType;
+        [SerializeField] AudioData showingDownSFX;
         
+        [SerializeField, Tooltip("애니메이션 시작 후 사운드가 재생될 지연 시간(초)")] 
+        private float showingDownSfxDelay = 0f; 
+
         [Header("Turn Start Presentation")]
         [SerializeField] float turnStartDisplayDuration;
 
@@ -101,7 +105,15 @@ namespace View.BattleView
             
             isViewVisible = true;
             
-            currentTween = rectTransform.DOAnchorPos(showingPosition, showingDownDuration).SetEase(showingDownEasingType);
+            Sequence seq = DOTween.Sequence();
+            
+            seq.Append(rectTransform.DOAnchorPos(showingPosition, showingDownDuration).SetEase(showingDownEasingType));
+            seq.InsertCallback(showingDownSfxDelay, () => 
+            {
+                SoundManager.Instance?.PlayeSoundEffect(showingDownSFX);
+            });
+
+            currentTween = seq;
             yield return currentTween.WaitForCompletion();
         }
 
