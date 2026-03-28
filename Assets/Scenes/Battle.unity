@@ -2480,6 +2480,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::View.BattleView.PlayerTurnEndButton
   shownPosition: {x: 441, y: -372, z: 0}
   disappearPosition: {x: 441, y: -422, z: 0}
+  onPressed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1434894070}
+        m_TargetAssemblyTypeName: View.BattleView.HandDeckViewSystem, Assembly-CSharp
+        m_MethodName: OnTurnEndButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   showMoveDuration: 0.2
   showFadeDuration: 0.1
   showMoveEase: 10
@@ -7865,7 +7880,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 574121936}
   m_HandleRect: {fileID: 574121934}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

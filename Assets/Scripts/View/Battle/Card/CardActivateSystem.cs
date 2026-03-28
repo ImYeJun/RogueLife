@@ -5,7 +5,6 @@ using ViewEvent.BattleView;
 using System;
 using System.Collections.Generic;
 using System.Collections;
-using NUnit.Framework;
 
 namespace View.BattleView
 {
@@ -79,6 +78,7 @@ namespace View.BattleView
         {
             EnqueueTargetRequest(payload.Card, false, (card, target) => ActivateCard(card, target, payload.IsFreeUse, false), payload.SequenceId, 0);
         }
+        
         private void OnTriggerCardRequested(TriggerCardRequested payload)
         {
             EnqueueTargetRequest(payload.Card, true, (card, target) => TriggerCard(card, target, payload.IsReflection, true), payload.SequenceId, 0);
@@ -90,7 +90,7 @@ namespace View.BattleView
             
             if (!isTargeting)
             {
-                playerTurnEndButton.PlayDisappear();
+                playerTurnEndButton.SetTargetingState(true); 
                 ProcessNextRequest();
             }
         }
@@ -100,7 +100,7 @@ namespace View.BattleView
             if (targetingQueue.Count == 0)
             {
                 isTargeting = false;
-                playerTurnEndButton.PlayShow();
+                playerTurnEndButton.SetTargetingState(false); 
                 return;
             }
 

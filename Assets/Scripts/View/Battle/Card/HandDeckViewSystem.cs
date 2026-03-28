@@ -99,6 +99,8 @@ namespace View.BattleView
         private BattleCardView processingCardView;
         private float originalCardContainerY;
 
+        private bool hasTurnEnded;
+
         public override void OnInitialized()
         {
             handDeckRectransform.anchoredPosition = openedHandDeckPosition;
@@ -115,6 +117,7 @@ namespace View.BattleView
             cardActivateSystem.IsProcessingCard = IsProcessingCard;
 
             eventBus.Subscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
+            eventBus.Subscribe<PlayerTurnEnding>(OnPlayerTurnEnding);
             eventBus.Subscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
             eventBus.Subscribe<CardDrawed>(OnCardDrawed);
             eventBus.Subscribe<CardDiscarded>(OnCardDiscarded);
@@ -126,6 +129,7 @@ namespace View.BattleView
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<PlayerTurnStarted>(OnPlayerTurnStarted);
+            eventBus?.Unsubscribe<PlayerTurnEnding>(OnPlayerTurnEnding);
             eventBus?.Unsubscribe<PlayerTurnEnded>(OnPlayerTurnEnded);
             eventBus?.Unsubscribe<CardDrawed>(OnCardDrawed);
             eventBus?.Unsubscribe<CardDiscarded>(OnCardDiscarded);
@@ -142,8 +146,18 @@ namespace View.BattleView
                 return ;
             }
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, OpenHandDeckPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.PlayerTurnStarted_OpenHandDeck, OpenHandDeckPresentation(), () =>
+            {
+                hasTurnEnded = false;
+                SetHandCardInteractable(true);
+            });
             isHandDeckOpened = true;
+        }
+
+        private void OnPlayerTurnEnding(PlayerTurnEnding payload)
+        {
+            SetHandCardInteractable(false);
+            hasTurnEnded = true;
         }
 
         private void OnPlayerTurnEnded(PlayerTurnEnded payload)
@@ -160,8 +174,7 @@ namespace View.BattleView
 
         private void OnBattleEnded(BattleEnded payload)
         {
-            handDeckCanvasGroup.interactable = false;
-            handDeckCanvasGroup.blocksRaycasts = false;
+            SetHandCardInteractable(false);
         }
 
 
@@ -190,7 +203,6 @@ namespace View.BattleView
             yield return currentHandDeckTween.WaitForCompletion();
 
             handDeckRectransform.anchoredPosition = closedHandDeckPosition;
-            SetHandCardInteractable(true);
         }
 
         private void OnCardDrawed(CardDrawed payload)
@@ -523,6 +535,8 @@ namespace View.BattleView
 
         private void SetHandCardInteractable(bool value)
         {
+            if (hasTurnEnded) return;
+
             handDeckCanvasGroup.blocksRaycasts = value;
             handDeckCanvasGroup.interactable = value;
         }

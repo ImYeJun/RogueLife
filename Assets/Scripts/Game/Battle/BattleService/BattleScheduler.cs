@@ -94,6 +94,8 @@ public class BattleScheduler : IBattleScheduler
 
     public void EndPlayerTurn()
     {
+        viewEventPublisher.Publish(new PlayerTurnEnding(viewEventPublisher.GetNextSequenceId()));
+        
         RequestTransition(() => 
         {
             context.EventBus.Publish(new PlayerTurnPreEndedBattleEvent());
