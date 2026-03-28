@@ -117,7 +117,8 @@ namespace View.ScheduleView.TransactionNodeView
             {
                 if (mapping.ChoiceButton.gameObject.activeSelf) 
                 {
-                    buttonsAppearTween.Insert(currentDelay, mapping.ChoiceButton.PlayAppearPresentation());
+                    mapping.ChoiceButton.SetVisible(false);
+                    buttonsAppearTween.Insert(currentDelay, mapping.ChoiceButton.PlayShowPresentation());
                     currentDelay += buttonAppearDelay;
                 }
             }

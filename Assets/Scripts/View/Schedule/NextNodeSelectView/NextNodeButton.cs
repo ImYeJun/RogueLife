@@ -1,48 +1,19 @@
 using System;
-using System.Collections;
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
 
 namespace View.ScheduleView.NextNodeSelectView
 {
-    public class NextNodeButton : MonoBehaviour
+    public class NextNodeButton : DoubleTextSelectButton
     {
-        public enum NodeDirection { Left, Middle, Right }
+        public enum NodeDirection { Left = 0, Middle = 1, Right = 2 }
         
         private const string LEFT_NODE_MAIN_DESCRIPTION = "왼쪽으로 가기";
         private const string MIDDLE_NODE_MAIN_DESCRIPTION = "직진하기";
         private const string RIGHT_NODE_MAIN_DESCRIPTION = "오른쪽으로 가기";
 
-        [Header("Behaviour")]
-        [SerializeField] private TextMeshProUGUI mainText;
-        [SerializeField] private TextMeshProUGUI subText;
-
-        [Header("Presentation")]
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private RectTransform itemsContainer;
-        [SerializeField] private float initiateDuration;
-        [SerializeField] private Ease initiateEasingType;
-
-        private Node node;
-        private Action<Node> OnNextNodeSelected;
-        private Func<bool> checkNodeSelected;
-        private Tween initiateTween;
-
-        public void Initiate(int sequenceId, PresentationManager presentationManager, NodeDirection direction, Node node, Action<Node> onNextNodeSelected, Func<bool> checkNodeSelectedFunc)
+        public void Initiate(NodeDirection direction, Node node, Action<Node> onNextNodeSelected)
         {
-            itemsContainer.gameObject.SetActive(false);
-
-            this.node = node;
-            this.OnNextNodeSelected = onNextNodeSelected;
-            this.checkNodeSelected = checkNodeSelectedFunc;
-
-            mainText.text = GetMainText(direction);
-            subText.text = GetNodeTypeText(node);
-            
-            int index = GetIndex(direction);
-            
-            presentationManager.Enqueue(sequenceId, PresentationPriority.NodeSelect_NodeButtonBasePriority + index, InitiatePresentation());
+            Initialize(() => onNextNodeSelected?.Invoke(node), GetMainText(direction), GetNodeTypeText(node));
         }
 
         private string GetMainText(NodeDirection direction) => direction switch
@@ -61,55 +32,5 @@ namespace View.ScheduleView.NextNodeSelectView
             ScheduleExitNode => "일정 종료 하기",
             _ => throw new InvalidOperationException($"[NextNodeButton] {node.GetType()} is not expected to be a selecting node")
         };
-
-        private int GetIndex(NodeDirection direction) => direction switch
-        {
-            NodeDirection.Left => 0,
-            NodeDirection.Middle => 1,
-            NodeDirection.Right => 2,
-            _ => throw new InvalidOperationException($"[NextNodeButton] {direction} is not valid")
-        };
-
-        public void OnPressed()
-        {
-            OnNextNodeSelected?.Invoke(node);
-        }
-
-        public void SetInteractable(bool value)
-        {
-            canvasGroup.interactable = value;
-
-            if (value == false)
-            {
-                KillTween();
-            }
-        }
-
-        public void KillTween()
-        {
-            initiateTween?.Kill();
-        }
-
-        public IEnumerator InitiatePresentation()
-        {
-            if (checkNodeSelected != null && checkNodeSelected.Invoke()) yield break;
-
-            initiateTween?.Kill();
-            canvasGroup.interactable = false;
-
-            var startPosition = itemsContainer.sizeDelta;
-            itemsContainer.anchoredPosition = new Vector2(startPosition.x, itemsContainer.anchoredPosition.y);
-            var targetPosition = Vector2.zero;
-
-            itemsContainer.gameObject.SetActive(true);
-            
-            initiateTween = itemsContainer.DOAnchorPos(targetPosition, initiateDuration).SetEase(initiateEasingType);
-            yield return initiateTween.WaitForCompletion();
-
-            if (checkNodeSelected != null && checkNodeSelected.Invoke()) yield break;
-
-            itemsContainer.anchoredPosition = targetPosition;
-            canvasGroup.interactable = true;
-        }
     }
 }

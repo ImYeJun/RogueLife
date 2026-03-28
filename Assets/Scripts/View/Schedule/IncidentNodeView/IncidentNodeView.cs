@@ -123,7 +123,8 @@ namespace View.ScheduleView.IncidentNodeView
             float currentDelay = 0;
             foreach (var button in activeButtons)
             {
-                buttonsAppearTween.Insert(currentDelay, button.PlayAppearPresentation());
+                button.SetVisible(false);
+                buttonsAppearTween.Insert(currentDelay, button.PlayShowPresentation());
                 currentDelay += buttonAppearDelay;
             }
 
@@ -157,7 +158,7 @@ namespace View.ScheduleView.IncidentNodeView
             float currentDelay = 0;
             foreach (var button in activeButtons)
             {
-                buttonsAppearTween.Insert(currentDelay, button.PlayAppearPresentation());
+                buttonsAppearTween.Insert(currentDelay, button.PlayShowPresentation());
                 currentDelay += buttonAppearDelay;
             }
 

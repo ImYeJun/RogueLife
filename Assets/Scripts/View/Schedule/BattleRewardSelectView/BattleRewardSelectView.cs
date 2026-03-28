@@ -31,10 +31,6 @@ namespace View.ScheduleView
         public override void OnInitialized()
         {
             uiRoot.SetActive(false);
-
-            var buttonBehaviour = rewardCancleButton.GetComponent<BattleRewardButton>();
-            buttonBehaviour.Initiate(null, OnButtonSelected, commander);
-
             eventBus.Subscribe<BattleRewardSelectRequested>(OnBattleRewardSelectRequested);
         }
 
@@ -57,14 +53,16 @@ namespace View.ScheduleView
                 var rewardGameObject = Instantiate(rewardButtonPrefab, buttonsContainer);
 
                 var button = rewardGameObject.GetComponent<BattleRewardButton>();
+                button.SetVisible(false);
                 button.Initiate(candidate, OnButtonSelected, commander);
 
                 button.transform.SetAsLastSibling();
                 activeRewardIcons.Add(button);
             }
             
-            var closeButtonBehaviour = rewardCancleButton.GetComponent<BattleRewardButton>();
-            closeButtonBehaviour.Initiate(null, OnButtonSelected, commander);
+            var closeButtonBehaviour = rewardCancleButton.GetComponent<NoneBattleRewardButton>();
+            closeButtonBehaviour.SetVisible(false);
+            closeButtonBehaviour.Initiate(OnButtonSelected);
             rewardCancleButton.transform.SetAsLastSibling();
             LayoutRebuilder.ForceRebuildLayoutImmediate(buttonsContainer.GetComponent<RectTransform>());
 
@@ -83,9 +81,9 @@ namespace View.ScheduleView
             var sequence = DOTween.Sequence();
             foreach (var buttonBehaviour in activeRewardIcons)
             {
-                sequence.Append(buttonBehaviour.ShowPresentation());
+                sequence.Append(buttonBehaviour.PlayShowPresentation());
             }
-            sequence.Append(rewardCancleButton.GetComponent<BattleRewardButton>().ShowPresentation());
+            sequence.Append(rewardCancleButton.GetComponent<NoneBattleRewardButton>().PlayShowPresentation());
             sequence.Play();
 
             yield return new WaitWhile(() => isSelecting);

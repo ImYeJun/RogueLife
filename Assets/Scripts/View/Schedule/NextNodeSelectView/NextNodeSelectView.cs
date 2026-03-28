@@ -27,8 +27,6 @@ namespace View.ScheduleView.NextNodeSelectView
         [SerializeField] private Ease panelEasingType;
 
         private Tween panelTween;
-
-        // 💡 [핵심] 사용자가 이미 노드를 선택했는지 추적하는 플래그
         private bool isNodeSelected = false;
 
         private readonly NextNodeButton.NodeDirection[][] DirectionMap = {
@@ -76,7 +74,7 @@ namespace View.ScheduleView.NextNodeSelectView
 
         public void OnNextNodeSelectRequested(NextNodeSelectRequested payload)
         {
-            isNodeSelected = false; // 💡 새로운 선택이 시작될 때 플래그 초기화
+            isNodeSelected = false;
             uiRoot.SetActive(false);
             var nextNodes = payload.NextNodes;
 
@@ -91,8 +89,13 @@ namespace View.ScheduleView.NextNodeSelectView
                 var button = buttonPool.Get();
                 button.transform.SetAsLastSibling();
                 
-                button.Initiate(payload.SequenceId, presentationManager, directions[i], nextNodes[i], OnNextNodeSelected, () => isNodeSelected);
+                var direction = directions[i];
+                button.Initiate(direction, nextNodes[i], OnNextNodeSelected);
                 activeButtons.Add(button);
+                button.SetVisible(false);
+
+                int priorityOffset = (int)direction;
+                presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeSelect_NodeButtonBasePriority + priorityOffset, InitiateButtonPresentation(button));
             }
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeSelect_OpenPanel, OpenPanelPresentation());
@@ -117,13 +120,25 @@ namespace View.ScheduleView.NextNodeSelectView
 
             foreach (var button in activeButtons)
             {
-                // 💡 [핵심] 풀에 반환하기 전에 실행 중이던 애니메이션(Tween)을 무자비하게 찢어버림!
-                button.KillTween(); 
                 buttonPool.Release(button);
             }
 
             activeButtons.Clear();
             uiRoot.SetActive(false); 
+        }
+
+        private IEnumerator InitiateButtonPresentation(NextNodeButton button)
+        {
+            if (isNodeSelected) yield break;
+
+            button.SetInteractable(false);
+            button.gameObject.SetActive(true);
+
+            yield return button.PlayShowPresentation().WaitForCompletion();
+
+            if (isNodeSelected) yield break;
+
+            button.SetInteractable(true);
         }
 
         public IEnumerator OpenPanelPresentation()

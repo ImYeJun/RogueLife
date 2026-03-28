@@ -26,14 +26,14 @@ namespace Battle.BattleResultCommands
                 case EnemyTier.NORMAL:
                     cardRewardCount = random.Next(100) < 60 ? 1 : 2;
                     cardRarityWeights.Add((CardRarity.COMMON, 100));
-                    cardRewardTitle = $"일반 등급의 랜덤 카드 {cardRewardCount}장을 얻을 수 있다.";
+                    cardRewardTitle = $"일반 등급의 랜덤 카드 {cardRewardCount}장을 얻는다";
                     break;
 
                 case EnemyTier.ELITE:
                     cardRewardCount = 2;
                     cardRarityWeights.Add((CardRarity.COMMON, 40));
                     cardRarityWeights.Add((CardRarity.RARE, 60));
-                    cardRewardTitle = "고급 등급 이하의 랜덤 카드 2장을 얻을 수 있다.";
+                    cardRewardTitle = "고급 등급 이하의 랜덤 카드 2장을 얻는다";
                     break;
 
                 case EnemyTier.BOSS:
@@ -41,7 +41,7 @@ namespace Battle.BattleResultCommands
                     cardRarityWeights.Add((CardRarity.RARE, 70));
                     cardRarityWeights.Add((CardRarity.LEGENDARY, 30));
                     hasBelongingsReward = true;
-                    cardRewardTitle = "고급 등급 이상의 랜덤 카드 2장을 얻을 수 있다.";
+                    cardRewardTitle = "고급 등급 이상의 랜덤 카드 2장을 얻는다";
                     break;
 
                 default:
@@ -72,7 +72,7 @@ namespace Battle.BattleResultCommands
                 {
                     rewardCollector.AddCandidate(new CompositeBattleReward(
                         new List<IBattleReward>() { new BelongingsBattleReward(rewardingBelongings) },
-                        "무작위 보유하지 않은 소지품 1개를 얻을 수 있다."
+                        "무작위 보유하지 않은 소지품 1개를 얻는다"
                     ));
                 }
             }

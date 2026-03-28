@@ -1,51 +1,22 @@
 using System;
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
+using View.ScheduleView; 
 
-public class BattleRewardButton : MonoBehaviour
+public class BattleRewardButton : SingleTextSelectButton
 {
-    [Header("Behaviour")]
-    [SerializeField] private TextMeshProUGUI text;
-    [SerializeField] private CanvasGroup canvasGroup;
-    private RectTransform rectTransform;
     private IBattleReward reward;
-    private Action onButtonSelected;
     private IScheduleViewCommander commander;
-
-    [Header("Presentation")]
-    [SerializeField] private float fadeDuration;
-    [SerializeField] private Ease fadeEase;
-    [SerializeField] private float showDuration;
-    [SerializeField] private float showDistance;
-    [SerializeField] private Ease showEase;
 
     public void Initiate(IBattleReward reward, Action onButtonSelected, IScheduleViewCommander commander)
     {
         this.reward = reward;
-        this.onButtonSelected = onButtonSelected;
         this.commander = commander;
-        rectTransform = GetComponent<RectTransform>();
-        canvasGroup.alpha = 0;
 
-        if (reward is null) { return; }
-        text.text = $"{reward.Description}";
-    }
+        Action action = () => {
+            this.reward?.Resolve(this.commander);
+            onButtonSelected?.Invoke();
+        };
 
-    public Tween ShowPresentation()
-    {
-        var sequence = DOTween.Sequence();
-
-        sequence.Append(canvasGroup.DOFade(1, fadeDuration).From(0).SetEase(fadeEase).SetLink(gameObject));
-        sequence.Join(rectTransform.DOAnchorPosX(showDistance, showDuration).From(true).SetEase(showEase).SetLink(gameObject));
-
-        return sequence;
-    }
-
-    public void OnPressed()
-    {
-        reward?.Resolve(commander);
-
-        onButtonSelected.Invoke();
+        Initialize(action, reward?.Description);
     }
 }
