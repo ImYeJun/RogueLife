@@ -5,9 +5,6 @@ TextureImporter:
   - first:
       213: -2969153619595600192
     second: Enemy_HungryPigeon_0
-  - first:
-      213: -3343111391487772240
-    second: Enemy_HungryPigeon_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -108,8 +105,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 33
+        width: 28
+        height: 31
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,20 +125,20 @@ TextureImporter:
       name: Enemy_HungryPigeon_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 28
         y: 0
-        width: 96
-        height: 80
+        width: 28
+        height: 31
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 0b93fc9e6e1ea91d0800000000000000
-      internalID: -3343111391487772240
+      spriteID: df46d92b343641d4093f85f06d54ed40
+      internalID: 1882992908
       vertices: []
       indices: 
       edges: []
@@ -150,7 +147,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 97ffa3d82bc4af942b83526a4c38a859
+    spriteID: 2cb34ccf041ffa14e8c991c4a3a6fc1b
     internalID: 0
     vertices: []
     indices: 
@@ -160,10 +157,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":96.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":28.0,"y":31.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Enemy_HungryPigeon_0: -2969153619595600192
-      Enemy_HungryPigeon_1: -3343111391487772240
+      Enemy_HungryPigeon_1: 1882992908
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
