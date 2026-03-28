@@ -14,35 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_RewindingWorld
   cardName: "\uB418\uB3CC\uC544\uAC00\uB294 \uC138\uACC4"
+  background: {fileID: 7531274803430173859, guid: 1be116c80b11e7f4baa0d21b0d85eab3, type: 3}
   description: "- \uD574\uB2F9 \uD134\uC5D0 \uC0AC\uC6A9\uD55C \uB9C8\uBC95 \uC18D\uC131\uC758
     \uCE74\uB4DC\uC758 \uC6D0\uB798 \uD589\uB3D9\uB825\uB9CC\uD07C \uD589\uB3D9\uB825\uC774
     \uC904\uC5B4\uB4ED\uB2C8\uB2E4.\r\n- \uC774 \uCE74\uB4DC\uB97C \uC81C\uC678\uD55C
     \uD574\uB2F9 \uD134\uC5D0 \uC0AC\uC6A9\uD55C \uB9C8\uBC95 \uC18D\uC131 \uCE74\uB4DC\uB4E4\uC758
     \uBCF5\uAE30 \uD6A8\uACFC\uB97C \uBC1C\uB3D9\uD569\uB2C8\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "- \uD574\uB2F9 \uD134\uC5D0 \uC0AC\uC6A9\uD55C \uB9C8\uBC95
     \uC18D\uC131\uC758 \uCE74\uB4DC\uC758 \uC6D0\uB798 \uD589\uB3D9\uB825\uB9CC\uD07C
     \uD589\uB3D9\uB825\uC774 \uC904\uC5B4\uB4ED\uB2C8\uB2E4.\r\n- \uC774 \uCE74\uB4DC\uB97C
     \uC81C\uC678\uD55C \uD574\uB2F9 \uD134\uC5D0 \uC0AC\uC6A9\uD55C \uB9C8\uBC95
     \uC18D\uC131 \uCE74\uB4DC\uB4E4\uC758 \uBCF5\uAE30 \uD6A8\uACFC\uB97C \uBC1C\uB3D9\uD569\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 5
   attribute: 2
   rarity: 3
   actionCost: 20
-  battleBehaviour:
-    rid: 7557520067223355481
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557520067223355481
-      type: {class: RewindingWorld, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 7557520067223355482
-        reflectionTargetType:
-          rid: 7557520067223355483
-    - rid: 7557520067223355482
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 7557520067223355483
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

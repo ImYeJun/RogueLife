@@ -14,39 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_ScrollExplosion
   cardName: "\uC2A4\uD06C\uB864 \uD3ED\uBC1C"
+  background: {fileID: -1102041062494969331, guid: 4a3ee376d9a17df43b3bc471cad5bdc3, type: 3}
   description: "\uC0C1\uB300 \uD55C\uBA85\uC5D0\uAC8C \uC0C1\uB300\uBC29\uC774 \uAC00\uC9C4
     \uBC84\uD504/\uB514\uBC84\uD504\uC758 \uC218 X 10 \uB9CC\uD07C \uD53C\uD574\uB97C
     \uC90D\uB2C8\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC0C1\uB300 \uD55C\uBA85\uC5D0\uAC8C \uC790\uC2E0\uACFC
     \uC0C1\uB300\uBC29\uC774 \uAC00\uC9C4 \uBC84\uD504/\uB514\uBC84\uD504\uC758 \uC218
     X 10 \uB9CC\uD07C \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4. "
+  reflectionRelatedStatusEffectIds: []
   type: 1
   attribute: 2
   rarity: 1
   actionCost: 4
-  battleBehaviour:
-    rid: 1582000865578844253
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000865578844253
-      type: {class: ScrollExplosion, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000865578844254
-        reflectionTargetType:
-          rid: 1582000865578844255
-    - rid: 1582000865578844254
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000865578844255
-      type: {class: CompositeCardTargetType, ns: , asm: GameAssembly}
-      data:
-        requiredTypes:
-        - rid: 1582000865578844256
-        - rid: 1582000865578844257
-    - rid: 1582000865578844256
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000865578844257
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}

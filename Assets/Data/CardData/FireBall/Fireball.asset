@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_Fireball
   cardName: "\uD30C\uC774\uC5B4 \uBCFC"
-  background: {fileID: 0}
+  background: {fileID: -6607481912129624618, guid: a46ffe13d60127c4086bacdcc4d614e9, type: 3}
   description: "\uD558\uB098\uC758 \uC801\uC5D0\uAC8C 15 \uB9CC\uD07C\uC758 \uB370\uBBF8\uC9C0\uB97C
     \uC8FC\uACE0, \uD55C \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uBD88\uD0C4\uB2E4
     \uBD88! 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."

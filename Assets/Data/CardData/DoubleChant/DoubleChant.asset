@@ -14,16 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_DoubleChant
   cardName: "\uC774\uC911 \uC601\uCC3D"
-  background: {fileID: 0}
+  background: {fileID: 305651876856683760, guid: da3332c79ec645740ac0a5677c7efcaa, type: 3}
   description: "\uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uAC00 \uB2E4\uB978
     \uC885\uB958\uC758 \uCE74\uB4DC\uC758 \uACBD\uC6B0 \uC0AC\uC6A9\uD560 \uC218
     \uC788\uB2E4. \uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C
     \uBC1C\uB3D9\uD55C\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uAC00
     \uB2E4\uB978 \uC885\uB958\uC758 \uCE74\uB4DC\uC758 \uACBD\uC6B0 \uC0AC\uC6A9\uD560
     \uC218 \uC788\uB2E4. \uC9C1\uC804\uC5D0 \uC0AC\uC6A9\uD55C \uCE74\uB4DC\uC758
     \uD6A8\uACFC\uB97C \uBC1C\uB3D9\uD55C \uD6C4, \uCF54\uC2A4\uD2B8\uB97C \uD558\uB098
     \uD68C\uBCF5\uD55C\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 5
   attribute: 2
   rarity: 2

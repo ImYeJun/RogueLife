@@ -14,39 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_MysteriousScroll
   cardName: "\uC815\uCCB4\uBAA8\uB97C \uC2A4\uD06C\uB864"
+  background: {fileID: 150185444745953022, guid: da11938646d2ade44944d971a816f29c, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uC138 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uB79C\uB364\uD55C \uBC84\uD504 \uD55C \uC885\uB958 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uC138 \uD134\uB3D9\uC548
     \uC9C0\uC18D\uB418\uB294 \uB79C\uB364\uD55C \uBC84\uD504 \uD55C \uC885\uB958
     2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD558\uACE0, \uC0C1\uB300\uC5D0\uAC8C \uB79C\uB364\uD55C
     \uB514\uBC84\uD504 \uD55C \uC885\uB958 2\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 2
   attribute: 2
   rarity: 1
   actionCost: 4
-  battleBehaviour:
-    rid: 1582000905641787476
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000905641787476
-      type: {class: MysteriousScroll, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000905641787477
-        reflectionTargetType:
-          rid: 1582000905641787478
-    - rid: 1582000905641787477
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000905641787478
-      type: {class: CompositeCardTargetType, ns: , asm: GameAssembly}
-      data:
-        requiredTypes:
-        - rid: 1582000905641787479
-        - rid: 1582000905641787480
-    - rid: 1582000905641787479
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000905641787480
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
