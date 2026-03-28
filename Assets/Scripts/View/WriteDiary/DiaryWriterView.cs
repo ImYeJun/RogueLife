@@ -38,14 +38,10 @@ namespace View.WriteDiaryView
         private struct SpecialDiaryPresentationData
         {
             public Sprite image;
-            public string header;
-            public string content;
 
-            public SpecialDiaryPresentationData(Sprite image, string header, string content)
+            public SpecialDiaryPresentationData(Sprite image)
             {
                 this.image = image;
-                this.header = header;
-                this.content = content;
             }
         }
 
@@ -55,14 +51,11 @@ namespace View.WriteDiaryView
         [SerializeField] private Image stamp;
         [SerializeField] private List<StampImage> stampImages;
         [SerializeField] private GameObject returnToMainMenuButton;
+        [SerializeField] private AudioData stampingSFX;
+        private DiaryTextCurver textCurver;
         
         [Header("Special Diary")]
         [SerializeField] private Image specialDiaryImage;
-        [SerializeField] private TextMeshProUGUI specialDiaryName;
-        [SerializeField] private TextMeshProUGUI specialDiaryDescription;
-        [SerializeField] private Sprite commonDiarySprite;
-        [SerializeField] private string commonDiaryName;
-        [SerializeField] private string commonDiaryDescription;
 
         [Header("Presentation")]
         [SerializeField] private float characterTypeInterval;
@@ -74,6 +67,9 @@ namespace View.WriteDiaryView
         [SerializeField] private Ease stampEase;
         [SerializeField] private float specialDiaryPreInterval;
         [SerializeField] private float specialDiaryImagePostInterval;
+        [SerializeField] private float specialImageStartScale;
+        [SerializeField] private float specialImageDrawDuration;
+        [SerializeField] private Ease specialImageEase;
 
         [Header("Test Settings")]
         [SerializeField] private string testDate = "2026년 12월 25일";
@@ -81,15 +77,18 @@ namespace View.WriteDiaryView
         [SerializeField] private int testMentality = 80;
         [SerializeField] private SpecialDiaryData testSpecialDiaryData;
 
+        private void Awake() {
+            textCurver = GetComponent<DiaryTextCurver>();
+        }
+
         public override void OnInitialized()
         {
             dateText.text = "";
             cotentText.text = "";
             stamp.sprite = null;
             stamp.gameObject.SetActive(false);
+            specialDiaryImage.gameObject.SetActive(false);
             specialDiaryImage.sprite = null;
-            specialDiaryName.text = "";
-            specialDiaryDescription.text = "";
             returnToMainMenuButton.SetActive(false);
             
             eventBus.Subscribe<DiaryWritten>(OnDiaryWritten);
@@ -103,6 +102,7 @@ namespace View.WriteDiaryView
         private void OnDiaryWritten(DiaryWritten payload)
         {
             var diary = payload.Diary;
+            specialDiaryImage.gameObject.SetActive(false);
 
             int remainMentality = diary.ScheduleHistories.Last().Value.RemainMentalityOnExit;
             var stampImage = stampImages.FirstOrDefault(stamp => remainMentality >= stamp.minMentality).image;
@@ -111,6 +111,7 @@ namespace View.WriteDiaryView
             int totalEnemyEncounterCount = 0;
             int totalEnemyResovledCount = 0;
             int totalEncounterIncidentCount = 0;
+            stringBuilder.Append("\n");
             foreach (var historyIndex in diary.ScheduleHistories.Keys)
             {
                 var history = diary.ScheduleHistories[historyIndex];
@@ -153,17 +154,13 @@ namespace View.WriteDiaryView
             {
                 var specialDiaryData = diary.SpecialDiaryData;
                 specialDiaryPresentationData = new SpecialDiaryPresentationData(
-                    image : specialDiaryData.Image,
-                    header : specialDiaryData.Name,
-                    content : specialDiaryData.Description
+                    image : specialDiaryData.Image
                 );
             }
             else
             {
                 specialDiaryPresentationData = new SpecialDiaryPresentationData(
-                    image : commonDiarySprite,
-                    header : commonDiaryName,
-                    content : commonDiaryDescription
+                    image : null
                 );
             }
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.DiaryWritten_SpecialPartPresentation, PlaySpecialPartWritePresentation(specialDiaryPresentationData),
@@ -180,22 +177,24 @@ namespace View.WriteDiaryView
 
             tmpText.text = fullText;
             tmpText.maxVisibleCharacters = 0;
+            
             tmpText.ForceMeshUpdate();
+            int maxCharacterCount = tmpText.textInfo.characterCount;
 
             int currentVisibleCount = 1;
-            int maxCharacterCount = tmpText.textInfo.characterCount;
 
             while (currentVisibleCount <= maxCharacterCount)
             {
                 tmpText.maxVisibleCharacters = currentVisibleCount;
                 
+                textCurver.ApplyCurve(tmpText);
+
                 var randomIntervalDelta = UnityEngine.Random.Range(-contentTypeIntervalDeltaRange, contentTypeIntervalDeltaRange);
                 yield return new WaitForSeconds(characterTypeInterval + randomIntervalDelta);
                 
                 currentVisibleCount++;
             }
         }
-
         private IEnumerator PlayCommonPartWritePresentation(CommonDiaryPresentationData data)
         {
             stamp.gameObject.SetActive(false);
@@ -214,18 +213,25 @@ namespace View.WriteDiaryView
 
             yield return new WaitForSeconds(stampPreInterval);
             stamp.gameObject.SetActive(true);
-            yield return stamp.transform.DOScale(1, stampingDuration).From(stampStartScale).SetEase(stampEase).WaitForCompletion();
+
+            var sequence = DOTween.Sequence();
+            sequence.Append(stamp.transform.DOScale(1, stampingDuration).From(stampStartScale).SetEase(stampEase));
+            sequence.AppendCallback(() => SoundManager.Instance?.PlayeSoundEffect(stampingSFX));
+            yield return sequence.WaitForCompletion();
         }
 
         private IEnumerator PlaySpecialPartWritePresentation(SpecialDiaryPresentationData data)
         {
-            yield return new WaitForSeconds(specialDiaryPreInterval);
-
             specialDiaryImage.sprite = data.image;
+            yield return new WaitForSeconds(specialDiaryPreInterval);
             specialDiaryImage.gameObject.SetActive(true);
+
+            var sequence = DOTween.Sequence();
+            sequence.Append(specialDiaryImage.transform.DOScale(1, specialImageDrawDuration).From(specialImageStartScale).SetEase(specialImageEase));
+            sequence.AppendCallback(() => SoundManager.Instance?.PlayeSoundEffect(stampingSFX));
+            
+            yield return sequence.WaitForCompletion();
             yield return new WaitForSeconds(specialDiaryImagePostInterval);
-            yield return StartCoroutine(TypewriteText(specialDiaryName, data.header));
-            yield return StartCoroutine(TypewriteText(specialDiaryDescription, data.content));
         }
 
 
@@ -253,6 +259,7 @@ namespace View.WriteDiaryView
         private IEnumerator TestCommonRoutine()
         {
             yield return new WaitForSeconds(0.5f);
+            specialDiaryImage.gameObject.SetActive(false);
 
             Sprite testStamp = null;
             if (stampImages != null && stampImages.Count > 0)
@@ -273,17 +280,13 @@ namespace View.WriteDiaryView
             if (testSpecialDiaryData != null)
             {
                 specialData = new SpecialDiaryPresentationData(
-                    testSpecialDiaryData.Image,
-                    testSpecialDiaryData.Name,
-                    testSpecialDiaryData.Description
+                    testSpecialDiaryData.Image
                 );
             }
             else
             {
                 specialData = new SpecialDiaryPresentationData(
-                    commonDiarySprite,
-                    commonDiaryName,
-                    commonDiaryDescription
+                    null
                 );
                 Debug.Log("[DiaryWriterView] Test Special Diary Data가 없으므로 Common Diary용 연출로 진행합니다.");
             }
@@ -296,8 +299,6 @@ namespace View.WriteDiaryView
             bool isSpecial = testSpecialDiaryData != null;
             specialDiaryImage.gameObject.SetActive(false);
             returnToMainMenuButton.SetActive(false);
-            specialDiaryName.text = "";
-            specialDiaryDescription.text = "";
 
             yield return new WaitForSeconds(0.5f);
 
@@ -313,17 +314,13 @@ namespace View.WriteDiaryView
             if (isSpecial)
             {
                 specialData = new SpecialDiaryPresentationData(
-                    testSpecialDiaryData.Image,
-                    testSpecialDiaryData.Name,
-                    testSpecialDiaryData.Description
+                    testSpecialDiaryData.Image
                 );
             }
             else
             {
                 specialData = new SpecialDiaryPresentationData(
-                    commonDiarySprite,
-                    commonDiaryName,
-                    commonDiaryDescription
+                    null
                 );
                 Debug.Log("[DiaryWriterView] Test Special Diary Data가 없으므로 Full Test의 후반부는 Common Diary용 연출로 진행합니다.");
             }
