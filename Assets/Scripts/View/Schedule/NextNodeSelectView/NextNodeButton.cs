@@ -26,14 +26,16 @@ namespace View.ScheduleView.NextNodeSelectView
 
         private Node node;
         private Action<Node> OnNextNodeSelected;
+        private Func<bool> checkNodeSelected;
         private Tween initiateTween;
 
-        public void Initiate(int sequenceId, PresentationManager presentationManager, NodeDirection direction, Node node, Action<Node> onNextNodeSelected)
+        public void Initiate(int sequenceId, PresentationManager presentationManager, NodeDirection direction, Node node, Action<Node> onNextNodeSelected, Func<bool> checkNodeSelectedFunc)
         {
             itemsContainer.gameObject.SetActive(false);
 
             this.node = node;
             this.OnNextNodeSelected = onNextNodeSelected;
+            this.checkNodeSelected = checkNodeSelectedFunc;
 
             mainText.text = GetMainText(direction);
             subText.text = GetNodeTypeText(node);
@@ -73,8 +75,25 @@ namespace View.ScheduleView.NextNodeSelectView
             OnNextNodeSelected?.Invoke(node);
         }
 
+        public void SetInteractable(bool value)
+        {
+            canvasGroup.interactable = value;
+
+            if (value == false)
+            {
+                KillTween();
+            }
+        }
+
+        public void KillTween()
+        {
+            initiateTween?.Kill();
+        }
+
         public IEnumerator InitiatePresentation()
         {
+            if (checkNodeSelected != null && checkNodeSelected.Invoke()) yield break;
+
             initiateTween?.Kill();
             canvasGroup.interactable = false;
 
@@ -86,6 +105,8 @@ namespace View.ScheduleView.NextNodeSelectView
             
             initiateTween = itemsContainer.DOAnchorPos(targetPosition, initiateDuration).SetEase(initiateEasingType);
             yield return initiateTween.WaitForCompletion();
+
+            if (checkNodeSelected != null && checkNodeSelected.Invoke()) yield break;
 
             itemsContainer.anchoredPosition = targetPosition;
             canvasGroup.interactable = true;

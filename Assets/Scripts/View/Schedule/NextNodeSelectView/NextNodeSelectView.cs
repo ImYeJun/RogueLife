@@ -28,6 +28,9 @@ namespace View.ScheduleView.NextNodeSelectView
 
         private Tween panelTween;
 
+        // 💡 [핵심] 사용자가 이미 노드를 선택했는지 추적하는 플래그
+        private bool isNodeSelected = false;
+
         private readonly NextNodeButton.NodeDirection[][] DirectionMap = {
             Array.Empty<NextNodeButton.NodeDirection>(), 
             new[] { NextNodeButton.NodeDirection.Middle },
@@ -73,6 +76,7 @@ namespace View.ScheduleView.NextNodeSelectView
 
         public void OnNextNodeSelectRequested(NextNodeSelectRequested payload)
         {
+            isNodeSelected = false; // 💡 새로운 선택이 시작될 때 플래그 초기화
             uiRoot.SetActive(false);
             var nextNodes = payload.NextNodes;
 
@@ -87,7 +91,7 @@ namespace View.ScheduleView.NextNodeSelectView
                 var button = buttonPool.Get();
                 button.transform.SetAsLastSibling();
                 
-                button.Initiate(payload.SequenceId, presentationManager, directions[i], nextNodes[i], OnNextNodeSelected);
+                button.Initiate(payload.SequenceId, presentationManager, directions[i], nextNodes[i], OnNextNodeSelected, () => isNodeSelected);
                 activeButtons.Add(button);
             }
 
@@ -96,13 +100,25 @@ namespace View.ScheduleView.NextNodeSelectView
 
         public void OnNextNodeSelected(Node nextNode)
         {
+            if (isNodeSelected) return; 
+            isNodeSelected = true;
+
+            foreach (var button in activeButtons)
+            {
+                button.SetInteractable(false);
+            }
+
             commander.SettleNextNode(nextNode);
         }
 
         public void OnNodeExited(NodeExited payload)
         {
+            isNodeSelected = true;
+
             foreach (var button in activeButtons)
             {
+                // 💡 [핵심] 풀에 반환하기 전에 실행 중이던 애니메이션(Tween)을 무자비하게 찢어버림!
+                button.KillTween(); 
                 buttonPool.Release(button);
             }
 
@@ -120,44 +136,5 @@ namespace View.ScheduleView.NextNodeSelectView
             panelTween = panelCanvasGroup.DOFade(1.0f, duration).SetEase(panelEasingType);
             yield return panelTween.WaitForCompletion();
         }
-
-#if UNITY_EDITOR
-        [ContextMenu("Test: Open panel without button")]
-        public void TestOpenPanelPresentation()
-        {
-            presentationManager.Enqueue(0, PresentationPriority.NodeSelect_OpenPanel, OpenPanelPresentation());
-        }
-
-        [ContextMenu("Test: Open panel wtth 3 buttons")]
-        public void TestFullPresentation()
-        {
-            foreach (var button in activeButtons)
-            {
-                buttonPool.Release(button);
-            }
-            activeButtons.Clear();
-
-            var dummyNodes = new List<Node>
-            {
-                new BattleNode(Guid.NewGuid(), null, new List<EnemyDataSlot>()),
-                new IncidentNode(Guid.NewGuid(), null),
-                new TransactionNode(Guid.NewGuid())
-            };
-
-            uiRoot.SetActive(false);
-
-            var directions = DirectionMap[3];
-            for (int i = 0; i < 3; i++)
-            {
-                var button = buttonPool.Get();
-                button.transform.SetAsLastSibling();
-
-                button.Initiate(0, presentationManager, directions[i], dummyNodes[i], OnNextNodeSelected);
-                activeButtons.Add(button);
-            }
-
-            presentationManager.Enqueue(0, PresentationPriority.NodeSelect_OpenPanel, OpenPanelPresentation());
-        }
-#endif
     }
 }
