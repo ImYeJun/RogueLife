@@ -52,6 +52,14 @@ namespace View.ScheduleView.BattleNodes
             if (payload.EnteringNode is not BattleNode battleNode) { return; }
 
             currentMainEnemy = battleNode.MainEnemyData;
+
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_StageSet, BattleNodeEnterStageSetPresentation());
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_Specific, BattleNodeEnterPresentation());
+        }
+
+        private IEnumerator BattleNodeEnterStageSetPresentation()
+        {
+            battleNodeView.SetActive(true);
             
             mainEnemyUsualImage.sprite = currentMainEnemy.UsualSprite;
             mainEnemyUsualImage.gameObject.SetActive(true);
@@ -62,12 +70,11 @@ namespace View.ScheduleView.BattleNodes
 
             enemyLineView.SetLine(random, currentMainEnemy.EncounterLines);
 
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_Specific, BattleNodeEnterPresentation());
+            yield return null;
         }
 
         private IEnumerator BattleNodeEnterPresentation()
         {
-            battleNodeView.SetActive(true);
             yield return new WaitForSeconds(enterImageToLineDelay);
             enemyLineView.gameObject.SetActive(true);
             yield return new WaitForSeconds(enterLineHoldDuration);
