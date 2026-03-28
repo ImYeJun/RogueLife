@@ -117,37 +117,37 @@ namespace View.BattleView
         public IEnumerator Play(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
         {
             var sequence = DOTween.Sequence();
-            AudioData audioData = battleHealthHurtSFX;
 
             if (payload.IsOverflowed)
             {
-                audioData = mentalityHurtSFX;
                 sequence.Append(PlayOverflowedHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
-                isFirstOverflowHurt = false;
+                sequence.OnComplete(() => isFirstOverflowHurt = false);
             }
             else
             {
                 if (payload.BattleHealthDamage > 0)
                 {
-                    audioData = battleHealthHurtSFX;
                     sequence.Append(PlayBattleHealthHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
                 }
                 if (payload.MentalityDamage > 0)
                 {
-                    audioData = mentalityHurtSFX;
                     sequence.Append(PlayMentalityHurtPresentation(payload, existingBattleHealth, existingMentality, statusEffectIcons));
                 }
             }
 
-            SoundManager.Instance?.PlaySoundEffectWithRandomPitch(audioData);
             yield return sequence.WaitForCompletion();
         }
 
         private Tween PlayBattleHealthHurtPresentation(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
         {
             int maxHealth = payload.Player.Health.MaxBattleHealth;
-
             Sequence result = DOTween.Sequence();
+
+            result.InsertCallback(0, () =>
+            {
+                if (battleHealthHurtSFX != null)
+                    SoundManager.Instance?.PlaySoundEffectWithRandomPitch(battleHealthHurtSFX);
+            });
 
             Sequence healthBarSequence = CreateBarUpdateSequence(
                 targetBar: battleHealthBar,
@@ -179,8 +179,13 @@ namespace View.BattleView
         private Tween PlayMentalityHurtPresentation(PlayerHurt payload, int existingBattleHealth, int existingMentality, List<Transform> statusEffectIcons)
         {
             int maxHealth = payload.Player.Health.MaxMentality;
-
             Sequence result = DOTween.Sequence();
+
+            result.InsertCallback(0, () =>
+            {
+                if (mentalityHurtSFX != null)
+                    SoundManager.Instance?.PlaySoundEffectWithRandomPitch(mentalityHurtSFX);
+            });
 
             Sequence healthBarSequence = CreateBarUpdateSequence(
                 targetBar: mentalityBar,
@@ -245,6 +250,11 @@ namespace View.BattleView
 
             phase1.Join(battleHealthBarSequence);
             phase1.Join(whole.DOShakePosition(bhDuration, bhShakeAmount, bhShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(Ease.Linear));
+            phase1.InsertCallback(0, () =>
+            {
+                if (battleHealthHurtSFX != null)
+                    SoundManager.Instance?.PlaySoundEffectWithRandomPitch(battleHealthHurtSFX);
+            });
 
             Sequence phase2 = DOTween.Sequence();
             phase2.AppendInterval(hitStopDuration);
@@ -264,7 +274,12 @@ namespace View.BattleView
             phase3.Join(mentalityBarSequence);
             phase3.Join(whole.DOShakePosition(menDuration, menShakeAmount, menShakeVibrato, mentalityShakeRandomness, false, false, mentalityShakeRandomnessMode).SetEase(menEase));
             phase3.Insert(menDuration, healthBarContainer.DOShakePosition(overflowedFollowThroughDuration, healthBarShakeAmount, followThroughShakeVibrato, followThroughShakeRandomness, false, false, followThroughShakeRandomnessMode).SetEase(menEase));
-            
+            phase3.InsertCallback(0, () =>
+            {
+                if (mentalityHurtSFX != null)
+                    SoundManager.Instance?.PlaySoundEffectWithRandomPitch(mentalityHurtSFX);
+            });
+
             foreach (var icon in statusEffectIcons)
             {
                 if (icon == null) continue;
