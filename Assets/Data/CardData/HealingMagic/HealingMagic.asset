@@ -14,27 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_HealingMagic
   cardName: "\uD68C\uBCF5 \uB9C8\uBC95"
+  background: {fileID: 5469404173572300093, guid: f7931701b70d00c48b2a9b143ba8c8f2, type: 3}
   description: "\uCCB4\uB825\uC744 35 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uCCB4\uB825\uC744 50 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 2
   attribute: 2
   rarity: 2
   actionCost: 5
-  battleBehaviour:
-    rid: 1582000878922235988
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922235988
-      type: {class: HealingMagic, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922235989
-        reflectionTargetType:
-          rid: 1582000878922235990
-    - rid: 1582000878922235989
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922235990
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}

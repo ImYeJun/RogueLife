@@ -43,4 +43,4 @@ MonoBehaviour:
   - type: 0
     sprite: {fileID: 5350985606892670454, guid: 89ce89748a0f1e34ea086a69b25cf1a3, type: 3}
   - type: 1
-    sprite: {fileID: -447263127427165782, guid: 89ce89748a0f1e34ea086a69b25cf1a3, type: 3}
+    sprite: {fileID: -281859847, guid: 89ce89748a0f1e34ea086a69b25cf1a3, type: 3}

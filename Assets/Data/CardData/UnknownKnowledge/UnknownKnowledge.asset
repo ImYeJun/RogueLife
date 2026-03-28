@@ -14,31 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_UnknownKnowledge
   cardName: "\uBBF8\uC9C0\uC758 \uC9C0\uC2DD"
+  background: {fileID: -3627912547304256405, guid: 17b6c4f5cba48f64cb7842e4646994af, type: 3}
   description: "\uD604\uC7AC \uC790\uC2E0\uC758 \uC190 \uD328\uC5D0 \uC5C6\uB294
     \uB9C8\uBC95 \uC18D\uC131\uC758 \uACE0\uAE09 \uC774\uD558 \uB4F1\uAE09 \uCE74\uB4DC\uC758
     \uBCF5\uAE30 \uD6A8\uACFC\uB97C \uBC1C\uB3D9\uD55C\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uD604\uC7AC \uC790\uC2E0\uC758 \uC190 \uD328\uC5D0
     \uC5C6\uB294 \uB9C8\uBC95 \uC18D\uC131\uC758 \uACE0\uAE09 \uB4F1\uAE09 \uCE74\uB4DC\uC758
     \uBCF5\uAE30 \uD6A8\uACFC\uB97C \uBC1C\uB3D9\uD55C\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 2
   attribute: 2
   rarity: 2
   actionCost: 7
-  battleBehaviour:
-    rid: 7557520067223355469
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557520067223355469
-      type: {class: UnknownKnowledge, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 7557520067223355470
-        reflectionTargetType:
-          rid: 7557520067223355471
-    - rid: 7557520067223355470
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 7557520067223355471
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

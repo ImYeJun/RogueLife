@@ -5,9 +5,6 @@ TextureImporter:
   - first:
       213: 5350985606892670454
     second: Enemy_RipoffSalesperson_0
-  - first:
-      213: -447263127427165782
-    second: Enemy_RipoffSalesperson_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -108,8 +105,8 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 80
+        width: 28
+        height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,20 +125,20 @@ TextureImporter:
       name: Enemy_RipoffSalesperson_1
       rect:
         serializedVersion: 2
-        x: 96
+        x: 28
         y: 0
-        width: 96
-        height: 80
+        width: 28
+        height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: aa1d2982e800bc9f0800000000000000
-      internalID: -447263127427165782
+      spriteID: 2e07de4ebc56f534c8f184fa443d26aa
+      internalID: -281859847
       vertices: []
       indices: 
       edges: []
@@ -150,7 +147,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4793d7139803ac7469962b57b1d9c643
+    spriteID: b3622bc7647ae9942af2e38c6e749f1d
     internalID: 0
     vertices: []
     indices: 
@@ -160,10 +157,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":96.0,"y":80.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":28.0,"y":46.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       Enemy_RipoffSalesperson_0: 5350985606892670454
-      Enemy_RipoffSalesperson_1: -447263127427165782
+      Enemy_RipoffSalesperson_1: -281859847
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
