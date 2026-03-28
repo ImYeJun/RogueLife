@@ -13,6 +13,7 @@ namespace View.ScheduleView.BattleNodes
     {
         [Header("References")]
         [SerializeField] private GameObject battleNodeView;
+        [SerializeField] private GameObject buttonsView;
         [SerializeField] private Image mainEnemyUsualImage;
         [SerializeField] private EnemyLineView enemyLineView; 
         private EnemyData currentMainEnemy;
@@ -59,6 +60,7 @@ namespace View.ScheduleView.BattleNodes
 
         private IEnumerator BattleNodeEnterStageSetPresentation()
         {
+            buttonsView.SetActive(false);
             battleNodeView.SetActive(true);
             
             mainEnemyUsualImage.sprite = currentMainEnemy.UsualSprite;

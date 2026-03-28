@@ -16401,6 +16401,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.BattleNodeEnterPresentation
   battleNodeView: {fileID: 1824499032}
+  buttonsView: {fileID: 1268403893}
   mainEnemyUsualImage: {fileID: 119358878}
   enemyLineView: {fileID: 1502667216}
   enterImageToLineDelay: 1
