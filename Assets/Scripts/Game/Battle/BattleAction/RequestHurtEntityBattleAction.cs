@@ -28,6 +28,6 @@ public class RequestHurtEntityBattleAction : IBattleAction, IEntityTargetedBattl
     }
 
     public void AddDamage(int amount) { damage += amount; }
-    public void ReduceDamage(int amount) { damage = Mathf.Min(damage - amount, 0); }
+    public void ReduceDamage(int amount) { damage = Mathf.Max(damage - amount, 0); }
     public void Nullify() { hasNullified = true; }
 }
