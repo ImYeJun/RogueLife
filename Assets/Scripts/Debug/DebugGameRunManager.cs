@@ -27,93 +27,113 @@ public partial class GameRunManager
     [SerializeField] private int enemyHurtAmount; 
     [SerializeField] private int enemyHealAmount;
 
+    [Header("Battle Status Effect Test")]
+    [SerializeField] private GameObject statusEffectTargetViewObject; 
+    [SerializeField] private BattleStatusEffectEntity statusEffectData;
+    [SerializeField] private int effectStack;
+    [SerializeField] private int effectDuration;
+    [SerializeField] private bool isEffectEternal;
+    [SerializeField] private BattleStatusEffectIcon statusEffectIconToRemove;
+
     public void TestAddBelongings()
     {
-        if (!CheckGameRunExsited()) { return; }
-
-        foreach (var entity in testBelongingsEntities)
-        {
-            CurrentRun.TestAddBelongings(entity);
-        }
-
+        if (!CheckGameRunExsited()) return;
+        foreach (var entity in testBelongingsEntities) CurrentRun.TestAddBelongings(entity);
         Debug.Log("테스트 소지품 지급 완료!");
     }
 
     public void TestAddCard()
     {
-        if (!CheckGameRunExsited()) { return; }
-
-        foreach (var entity in testCardEntities)
-        {
-            CurrentRun.TestAddCard(entity);
-        }
-
+        if (!CheckGameRunExsited()) return;
+        foreach (var entity in testCardEntities) CurrentRun.TestAddCard(entity);
         Debug.Log("테스트 카드 지급 완료!");
     }
 
     public void TestRemoveCard()
     {
-        if (!CheckGameRunExsited()) { return; }
-
-        foreach (var entity in testRemoveCardEntities)
-        {
-            CurrentRun.TestRemoveCard(entity);
-        }
-
+        if (!CheckGameRunExsited()) return;
+        foreach (var entity in testRemoveCardEntities) CurrentRun.TestRemoveCard(entity);
         Debug.Log("테스트 카드 삭제 완료!");
     }
 
     public void TestHurtPlayer()
     {
-        if (!CheckGameRunExsited()) { return; }
-        
+        if (!CheckGameRunExsited()) return;
         CurrentRun.TestHurtPlayer(testHurtDamage, isOverflowable);
-
         Debug.Log($"플레이어에게 \"{testHurtDamage}\" 만큼의 데미지 가격 (초과 데미지 적용: {isOverflowable})");
     }
 
     public void TestHealMentality()
     {
-        if (!CheckGameRunExsited()) { return; }
-
+        if (!CheckGameRunExsited()) return;
         CurrentRun.TestHealMentality(testHealAmount, isHealOverflowable);
         Debug.Log($"플레이어의 멘탈을 \"{testHealAmount}\" 만큼 회복 (초과 회복 적용: {isHealOverflowable})");
     }
 
     public void TestHealBattleHealth()
     {
-        if (!CheckGameRunExsited()) { return; }
-
+        if (!CheckGameRunExsited()) return;
         CurrentRun.TestHealBattleHealth(testHealAmount);
         Debug.Log($"플레이어의 전투 체력을 \"{testHealAmount}\" 만큼 회복");
     }
 
     public void TestHurtEnemy()
     {
-        if (!CheckGameRunExsited()) { return; }
-        if (enemy == null)
-        {
-            Debug.LogWarning("[GameRunManager/TestHurtEnemy] Target enemy view is not assigned.");
-            return;
-        }
-
+        if (!CheckGameRunExsited()) return;
+        if (enemy == null) { Debug.LogWarning("[GameRunManager/TestHurtEnemy] Target enemy view is not assigned."); return; }
         CurrentRun.TestHurtEnemy(enemy, enemyHurtAmount);
         Debug.Log($"적에게 \"{enemyHurtAmount}\" 만큼의 데미지 가격");
     }
 
     public void TestHealEnemy()
     {
-        if (!CheckGameRunExsited()) { return; }
-        if (enemy == null)
-        {
-            Debug.LogWarning("[GameRunManager/TestHealEnemy] Target enemy view is not assigned.");
-            return;
-        }
-
+        if (!CheckGameRunExsited()) return;
+        if (enemy == null) { Debug.LogWarning("[GameRunManager/TestHealEnemy] Target enemy view is not assigned."); return; }
         CurrentRun.TestHealEnemy(enemy, enemyHealAmount);
         Debug.Log($"적을 \"{enemyHealAmount}\" 만큼 회복");
     }
 
+    private BattleEntity ExtractTargetEntity()
+    {
+        if (statusEffectTargetViewObject == null) return null;
+
+        if (statusEffectTargetViewObject.TryGetComponent<BattlePlayerView>(out var playerView))
+            return playerView.Player as BattleEntity;
+            
+        if (statusEffectTargetViewObject.TryGetComponent<BattleEnemyView>(out var enemyView))
+            return enemyView.Enemy as BattleEntity;
+
+        return null;
+    }
+
+    public void TestApplyBattleStatusEffect()
+    {
+        if (!CheckGameRunExsited()) return;
+        
+        var targetEntity = ExtractTargetEntity();
+        if (targetEntity == null)
+        {
+            Debug.LogWarning("[GameRunManager/Test] 할당된 GameObject에서 유효한 BattleEntityView(Player/Enemy)를 찾을 수 없습니다.");
+            return;
+        }
+
+        CurrentRun.TestApplyBattleStatusEffect(targetEntity, statusEffectData, effectStack, effectDuration, isEffectEternal);
+    }
+
+    public void TestRemoveBattleStatusEffect()
+    {
+        if (!CheckGameRunExsited()) return;
+        
+        var targetEntity = ExtractTargetEntity();
+        if (targetEntity == null)
+        {
+            Debug.LogWarning("[GameRunManager/Test] 할당된 GameObject에서 유효한 BattleEntityView(Player/Enemy)를 찾을 수 없습니다.");
+            return;
+        }
+
+        CurrentRun.TestRemoveBattleStatusEffect(targetEntity, statusEffectIconToRemove);
+    }
+    
     private bool CheckGameRunExsited()
     {
         if (CurrentRun == null)
@@ -121,7 +141,6 @@ public partial class GameRunManager
             Debug.LogWarning("CurrentRun이 존재 하지 않습니다.");
             return false;
         }
-
         return true;
     }
 #endif

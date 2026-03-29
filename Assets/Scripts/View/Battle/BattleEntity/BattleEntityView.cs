@@ -28,6 +28,7 @@ namespace View.BattleView
         private List<BattleStatusEffectIcon> battleStatusEffectIcons = new List<BattleStatusEffectIcon>();
         
         protected T entity;
+        public T Entity { get => entity; }
 
         public override void OnInitialized()
         {

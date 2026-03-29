@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 using View.BattleView;
 
 public partial class GameRun
@@ -44,6 +45,16 @@ public partial class GameRun
     public void TestHealEnemy(BattleEnemyView view, int amount)
     {
         battleSystem?.TestHealEnemy(view, amount);
+    }
+
+    public void TestApplyBattleStatusEffect(BattleEntity targetEntity, BattleStatusEffectEntity effectEntity, int stack, int duration, bool isEffectEternal)
+    {
+        battleSystem?.TestApplyBattleStatusEffect(targetEntity, effectEntity, stack, duration, isEffectEternal);
+    }
+
+    public void TestRemoveBattleStatusEffect(BattleEntity targetEntity, BattleStatusEffectIcon iconToRemove)
+    {
+        battleSystem?.TestRemoveBattleStatusEffect(targetEntity, iconToRemove);
     }
 #endif
 }
