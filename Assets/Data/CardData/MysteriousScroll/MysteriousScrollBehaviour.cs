@@ -47,7 +47,7 @@ namespace Battle.Cards.Behaviours
             var enemyTarget = target.GetTarget<SingleEnemyCardTarget>();
             var enemy = enemyTarget.Enemy;
 
-            var randomDebuffData = context.BattleStatusEffectDatabase.GetRandomData(context.Random, BattleStatusEffectType.DEBUFF);
+            var randomDebuffData = context.BattleStatusEffectDatabase.GetRandomData(context.Random, BattleStatusEffectType.DEBUFF, BattleEntityTrait.ENEMY);
 
             if (randomDebuffData is null) { return; }
 
@@ -59,7 +59,7 @@ namespace Battle.Cards.Behaviours
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget playerTarget)
         {
             var player = playerTarget.Player;
-            var randomBuffData = context.BattleStatusEffectDatabase.GetRandomData(context.Random, BattleStatusEffectType.BUFF);
+            var randomBuffData = context.BattleStatusEffectDatabase.GetRandomData(context.Random, BattleStatusEffectType.BUFF, BattleEntityTrait.PLAYER);
 
             if (randomBuffData is null) { return; }
 

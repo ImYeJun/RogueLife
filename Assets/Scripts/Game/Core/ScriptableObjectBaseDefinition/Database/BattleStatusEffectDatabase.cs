@@ -67,6 +67,33 @@ public class BattleStatusEffectDatabase : MonoBehaviour, IBattleBattleStatusEffe
         }
     }
 
+    public BattleStatusEffectEntity? GetRandomData(System.Random random, BattleStatusEffectType type, BattleEntityTrait trait)
+    {
+        var filteredBuffs = buffEntities.Where(e => e.Data.RequiredTraits.HasFlag(trait)).ToList();
+        var filteredDebuffs = debuffEntities.Where(e => e.Data.RequiredTraits.HasFlag(trait)).ToList();
+
+        switch (type)
+        {
+            case BattleStatusEffectType.BUFF:
+                return filteredBuffs.Count == 0 ? null : filteredBuffs[random.Next(filteredBuffs.Count)];
+            
+            case BattleStatusEffectType.DEBUFF:
+                return filteredDebuffs.Count == 0 ? null : filteredDebuffs[random.Next(filteredDebuffs.Count)];
+            
+            case BattleStatusEffectType.ANY:
+                if (filteredBuffs.Count == 0 && filteredDebuffs.Count == 0) return null;
+                
+                if (filteredBuffs.Count == 0) return filteredDebuffs[random.Next(filteredDebuffs.Count)];
+                if (filteredDebuffs.Count == 0) return filteredBuffs[random.Next(filteredBuffs.Count)];
+                
+                var selectedList = random.NextDouble() < 0.5 ? filteredBuffs : filteredDebuffs;
+                return selectedList[random.Next(selectedList.Count)];
+            
+            default:
+                throw new InvalidOperationException($"[BattleStatusEffectDatabase] {type} is not supported");
+        }
+    }
+
     public BattleStatusEffectData? GetData(string id)
     {
         var entity = idLookUp[id];
