@@ -77,12 +77,12 @@ namespace Battle.Cards.Behaviours
         {
             var selecetdCandidate = SelecetCandidate(context.Random, candidates);
             
-            for (int i = 0; i < selecetdCandidate.number; i++)
-            {
-                int damage = 15;
+            // for (int i = 0; i < selecetdCandidate.number; i++)
+            // {
+                int damage = 15 * selecetdCandidate.number;
                 var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), damage, target.Enemy);
                 context.ActionScheduler.Enqueue(hurtAction);
-            }
+            // }
         }
 
         private CandidateNumber SelecetCandidate(Random random, List<CandidateNumber> candidates)
