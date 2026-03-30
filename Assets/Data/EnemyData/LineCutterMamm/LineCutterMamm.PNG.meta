@@ -3,11 +3,11 @@ guid: 1f547049b0b792645ab8030533763614
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3392885455431205278
-    second: wall1_0
+      213: 7495531571898746380
+    second: LineCutterMamm_0
   - first:
-      213: 6644639944261141914
-    second: wall1_1
+      213: 8005403424976791166
+    second: LineCutterMamm_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -103,12 +103,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wall1_0
+      name: LineCutterMamm_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 75
         height: 53
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -118,19 +118,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 26efe6197ac0ae0d0800000000000000
-      internalID: -3392885455431205278
+      spriteID: c0600c9604a750860800000000000000
+      internalID: 7495531571898746380
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: wall1_1
+      name: LineCutterMamm_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 75
         y: 0
-        width: 64
+        width: 75
         height: 53
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -140,8 +140,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a958e0213d0863c50800000000000000
-      internalID: 6644639944261141914
+      spriteID: e76ef652008e81f60800000000000000
+      internalID: 8005403424976791166
       vertices: []
       indices: 
       edges: []
@@ -150,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 5d6c67a56815cf444816618a144be13d
+    spriteID: bf8616ec7e8c982499cfafd5fa9e3bfd
     internalID: 0
     vertices: []
     indices: 
@@ -160,10 +160,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":53.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":75.0,"y":53.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      wall1_0: -3392885455431205278
-      wall1_1: 6644639944261141914
+      LineCutterMamm_0: 7495531571898746380
+      LineCutterMamm_1: 8005403424976791166
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
