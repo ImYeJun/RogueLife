@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 034beb1a91704034dbff559d81ab6992
+guid: 51280ab2768d5ef438837aa5c43cfd41
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8925497293891402069
-    second: CartRidingKidsIdle_0
+      213: 8696735672070337327
+    second: jammineAction1_0
+  - first:
+      213: -9219742422471301971
+    second: jammineAction1_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: CartRidingKidsIdle_0
+      name: jammineAction1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 80
+        width: 82
+        height: 79
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ba684e12083422480800000000000000
-      internalID: -8925497293891402069
+      spriteID: f237837340301b870800000000000000
+      internalID: 8696735672070337327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: jammineAction1_1
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 0
+        width: 82
+        height: 79
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da4aff37d15ec0080800000000000000
+      internalID: -9219742422471301971
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 475a3218c4b99fc4d8ed7088f78c8f07
+    spriteID: 60ad771bb0f880944bb74ec54a210a1a
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +158,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":82.0,"y":79.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      CartRidingKidsIdle_0: -8925497293891402069
+      jammineAction1_0: 8696735672070337327
+      jammineAction1_1: -9219742422471301971
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

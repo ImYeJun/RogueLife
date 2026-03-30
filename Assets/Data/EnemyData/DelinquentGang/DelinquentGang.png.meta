@@ -1,10 +1,31 @@
 fileFormatVersion: 2
-guid: 94295936fc3355a41ac4a8729b352af7
+guid: ea514301cdaf8b849b14824d2ea86a76
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7298467135535728887
-    second: GhostingTeammateAction_0
+      213: 5513989408819873743
+    second: DelinquentGang_0
+  - first:
+      213: 553420015953581962
+    second: DelinquentGang_1
+  - first:
+      213: 8499155675748588849
+    second: DelinquentGang_2
+  - first:
+      213: 7733505925961408255
+    second: DelinquentGang_3
+  - first:
+      213: -1251095135967125878
+    second: DelinquentGang_4
+  - first:
+      213: 7387372243633758103
+    second: DelinquentGang_5
+  - first:
+      213: -8916884368435595271
+    second: DelinquentGang_6
+  - first:
+      213: -3108716025492351513
+    second: DelinquentGang_7
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +121,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GhostingTeammateAction_0
+      name: DelinquentGang_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 80
+        width: 86
+        height: 71
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +136,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7f8487ad03d594560800000000000000
-      internalID: 7298467135535728887
+      spriteID: fc789f72720a58c40800000000000000
+      internalID: 5513989408819873743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DelinquentGang_1
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 0
+        width: 86
+        height: 71
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a87118682942ea700800000000000000
+      internalID: 553420015953581962
       vertices: []
       indices: 
       edges: []
@@ -125,7 +168,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e9b11f658f78b0e45afa0ccf84b1f3c6
+    spriteID: 877ff27f738d5304388d170223f96df5
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +176,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":86.0,"y":71.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      GhostingTeammateAction_0: 7298467135535728887
+      DelinquentGang_0: 5513989408819873743
+      DelinquentGang_1: 553420015953581962
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

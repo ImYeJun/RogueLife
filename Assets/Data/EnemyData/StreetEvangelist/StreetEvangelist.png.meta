@@ -1,22 +1,13 @@
 fileFormatVersion: 2
-guid: 048119265f4489a45aaf7dacdae69e5b
+guid: 97ebfa4a33261ea44a397599b9754ee3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7947527401462574721
-    second: FastRevolvingDoorAction_0
+      213: 2045544099510697113
+    second: StreetEvangelist_0
   - first:
-      213: -6067441968663879482
-    second: FastRevolvingDoorAction_1
-  - first:
-      213: 4289183319473472239
-    second: FastRevolvingDoorAction_2
-  - first:
-      213: 8474304451818322262
-    second: FastRevolvingDoorAction_3
-  - first:
-      213: -8374516047965353352
-    second: FastRevolvingDoorAction_4
+      213: 4062312371414399897
+    second: StreetEvangelist_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -112,23 +103,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FastRevolvingDoorAction_1
+      name: StreetEvangelist_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 80
+        width: 31
+        height: 58
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 6c02e7a1dad1ccba0800000000000000
-      internalID: -6067441968663879482
+      spriteID: 99c3bbf458b336c10800000000000000
+      internalID: 2045544099510697113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: StreetEvangelist_1
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 0
+        width: 41
+        height: 58
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99b74d8249b306830800000000000000
+      internalID: 4062312371414399897
       vertices: []
       indices: 
       edges: []
@@ -137,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 4379be0d799488e4e81a0ac7f38a947f
+    spriteID: 
     internalID: 0
     vertices: []
     indices: 
@@ -147,11 +160,8 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      FastRevolvingDoorAction_0: -7947527401462574721
-      FastRevolvingDoorAction_1: -6067441968663879482
-      FastRevolvingDoorAction_2: 4289183319473472239
-      FastRevolvingDoorAction_3: 8474304451818322262
-      FastRevolvingDoorAction_4: -8374516047965353352
+      StreetEvangelist_0: 2045544099510697113
+      StreetEvangelist_1: 4062312371414399897
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

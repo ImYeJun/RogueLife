@@ -1,10 +1,22 @@
 fileFormatVersion: 2
-guid: 6f020125ab33ed249b9948b3e0b031ac
+guid: fe941d99fb510b7429becdcffc460ec2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2462692810420775587
-    second: StrangePuddleAction_0
+      213: 2573200318151600594
+    second: fast_revolvingdoor1_0
+  - first:
+      213: -885794648203460701
+    second: fast_revolvingdoor1_1
+  - first:
+      213: -7505628010643757971
+    second: fast_revolvingdoor1_2
+  - first:
+      213: -9018983571288520173
+    second: fast_revolvingdoor1_3
+  - first:
+      213: 8890729335637216772
+    second: fast_revolvingdoor1_4
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +112,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: StrangePuddleAction_0
+      name: fast_revolvingdoor1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 80
+        width: 87
+        height: 47
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +127,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d5516f3dfe1c2ddd0800000000000000
-      internalID: -2462692810420775587
+      spriteID: 2d929535e08d5b320800000000000000
+      internalID: 2573200318151600594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fast_revolvingdoor1_1
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 0
+        width: 87
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aff3e9e57605b3f0800000000000000
+      internalID: -885794648203460701
       vertices: []
       indices: 
       edges: []
@@ -125,7 +159,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 665b169411c91f643b15029e7471c57b
+    spriteID: 2b78d3d55b1134e4a8eb60dd373a8ea5
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +167,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":87.0,"y":47.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      StrangePuddleAction_0: -2462692810420775587
+      fast_revolvingdoor1_0: 2573200318151600594
+      fast_revolvingdoor1_1: -885794648203460701
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

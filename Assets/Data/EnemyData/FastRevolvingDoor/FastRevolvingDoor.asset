@@ -46,6 +46,6 @@ MonoBehaviour:
   usualSprite: {fileID: 0}
   battleSprites:
   - type: 0
-    sprite: {fileID: 3647105428300542522, guid: e490004bfad81c74189f029b08bb663f, type: 3}
+    sprite: {fileID: 2573200318151600594, guid: fe941d99fb510b7429becdcffc460ec2, type: 3}
   - type: 1
-    sprite: {fileID: -6067441968663879482, guid: 048119265f4489a45aaf7dacdae69e5b, type: 3}
+    sprite: {fileID: -885794648203460701, guid: fe941d99fb510b7429becdcffc460ec2, type: 3}

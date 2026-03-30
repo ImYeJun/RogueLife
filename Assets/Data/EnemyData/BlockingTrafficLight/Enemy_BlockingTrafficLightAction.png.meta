@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 44a026ff95590c6458b92c277f47f33f
+guid: 9931d6e0c1473544ba2d7b77b0e3c2a1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5046704809890833929
-    second: GhostingTeammateIdle_0
+      213: 3568840415590161349
+    second: Enemy_BlockingTrafficLightAction_0
+  - first:
+      213: -3818218566270345416
+    second: Enemy_BlockingTrafficLightAction_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +103,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GhostingTeammateIdle_0
+      name: Enemy_BlockingTrafficLightAction_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 96
-        height: 80
+        width: 82
+        height: 74
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +118,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9066cc7394f790640800000000000000
-      internalID: 5046704809890833929
+      spriteID: 5cb1f4f0371178130800000000000000
+      internalID: 3568840415590161349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Enemy_BlockingTrafficLightAction_1
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 0
+        width: 82
+        height: 74
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83f97aa9176f20bc0800000000000000
+      internalID: -3818218566270345416
       vertices: []
       indices: 
       edges: []
@@ -125,7 +150,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 690e5f2431dca564c95c2ad6c83e443d
+    spriteID: 8d28c825b91688648bd48d2601a439ba
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +158,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":2.0,"y":1.0},"gridSpriteSize":{"x":82.0,"y":74.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      GhostingTeammateIdle_0: 5046704809890833929
+      Enemy_BlockingTrafficLightAction_0: 3568840415590161349
+      Enemy_BlockingTrafficLightAction_1: -3818218566270345416
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
