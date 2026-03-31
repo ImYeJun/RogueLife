@@ -22,6 +22,8 @@ namespace Controller.StartMenu
         
         protected override void OnInitialize()
         {
+            mainMenuManager.Initialize();
+
             viewCommander = mainMenuManager;
             viewEventBus = mainMenuManager.ViewEventBus;
 
@@ -33,7 +35,6 @@ namespace Controller.StartMenu
             {
                 interactabelView.Initialize(viewEventBus, PresentationManager.Instance, viewCommander);
             }
-
             viewEventBus.Subscribe<ReadyToStartGame>(OnReadyToStartGame);
         }
 

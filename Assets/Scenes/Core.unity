@@ -1660,6 +1660,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7389696470646769876, guid: 3b8523b037fd3dd418da2bbe7557ba5f, type: 3}
   m_PrefabInstance: {fileID: 6479496801746780139}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1247330025
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1247330027}
+  - component: {fileID: 1247330026}
+  m_Layer: 0
+  m_Name: StartMenuDiaryPender
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1247330026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247330025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196d8124c0898004591e15b057072b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartMenuDiaryPender
+--- !u!4 &1247330027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1247330025}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1340589592
 GameObject:
   m_ObjectHideFlags: 0
@@ -3090,6 +3134,7 @@ MonoBehaviour:
   statusEffectIconToRemove: {fileID: 0}
   databaseManager: {fileID: 20736402}
   skeletonGenerateRuleManager: {fileID: 83840618}
+  startDeckForEmptyRun: {fileID: 11400000, guid: 2f08f9a8ffb6c84438f3121eca615331, type: 2}
 --- !u!4 &2117917723
 Transform:
   m_ObjectHideFlags: 0
@@ -3448,5 +3493,6 @@ SceneRoots:
   - {fileID: 83840619}
   - {fileID: 850013527}
   - {fileID: 2117917723}
+  - {fileID: 1247330027}
   - {fileID: 1411558847}
   - {fileID: 123333466}

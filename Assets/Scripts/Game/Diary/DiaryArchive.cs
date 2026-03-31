@@ -101,6 +101,27 @@ public class DiaryArchive
             new Diary(id, date, scheduleHistories, areAllScheduleFinished, finalEquipment);
     }
 
+    public List<Diary> GetRecentDiaries(int count = 5)
+    {
+        return diaries.OrderBy(diary => diary.Date).Take(count).ToList();
+    }
+
+    public bool TryGetSpecialDiary(SpecialDiaryData data, out Diary diary)
+    {
+        var findedDiary = diaries.FirstOrDefault(d => d.SpecialDiaryData == data);
+
+        if (findedDiary == null)
+        {
+            diary = null;
+            return false;
+        }
+        else
+        {
+            diary = findedDiary;
+            return true;
+        }
+    }
+
     public bool HasDiary(Diary operand)
     {
         return diaries.Any(diary => diary.Equals(operand));

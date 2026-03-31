@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DatabaseManager : MonoBehaviour
+public class DatabaseManager : SingletonManager<DatabaseManager>
 {
     [SerializeField] private SpecialDiaryDatabase specialDiaryDatabase;
     [SerializeField] private ScheduleDatabase scheduleDatabase;

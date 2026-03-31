@@ -11,6 +11,7 @@ public partial class GameRunManager : SingletonManager<GameRunManager>
     
     [SerializeField] private DatabaseManager databaseManager;
     [SerializeField] private SkeletonGenerateRuleManager skeletonGenerateRuleManager;
+    [SerializeField] private StartDeck startDeckForEmptyRun;
     
 
     public void StartNewRun(StartDeck startDeck)
@@ -20,6 +21,14 @@ public partial class GameRunManager : SingletonManager<GameRunManager>
 
         CurrentRun = new GameRun(rules, databases, startDeck, OnRunEnded);
         CurrentRun.StartGame();
+    }
+
+    public GameRun GetEmptyRun()
+    {
+        var databases = databaseManager.Databaes;
+        var rules = skeletonGenerateRuleManager.Rules;
+
+        return new GameRun(rules, databases, startDeckForEmptyRun, OnRunEnded);
     }
 
     public void OnRunEnded()

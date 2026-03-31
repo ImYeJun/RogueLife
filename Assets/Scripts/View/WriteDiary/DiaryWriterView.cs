@@ -92,6 +92,7 @@ namespace View.WriteDiaryView
             returnToMainMenuButton.SetActive(false);
             
             eventBus.Subscribe<DiaryWritten>(OnDiaryWritten);
+            CheckStartMenuPend();
         }
 
         public override void OnDestroy()
@@ -99,11 +100,27 @@ namespace View.WriteDiaryView
             eventBus?.Unsubscribe<DiaryWritten>(OnDiaryWritten);
         }
 
+        private void CheckStartMenuPend()
+        {
+            if (StartMenuDiaryPender.Instance is null) { return; }
+
+            var diary = StartMenuDiaryPender.Instance.pendingDiary;
+            if (diary is null) { return; }
+            var (commonData, specialData) = SetupDiaryPresentationData(diary);
+            EnqueueDiaryPresentations(-1, commonData, specialData);
+        }
+
         private void OnDiaryWritten(DiaryWritten payload)
         {
             var diary = payload.Diary;
-            specialDiaryImage.gameObject.SetActive(false);
+            var (commonData, specialData) = SetupDiaryPresentationData(diary);
 
+            EnqueueDiaryPresentations(payload.SequenceId, commonData, specialData);
+        } 
+
+        private (CommonDiaryPresentationData, SpecialDiaryPresentationData) SetupDiaryPresentationData(Diary diary)
+        {
+            specialDiaryImage.gameObject.SetActive(false);
             int remainMentality = diary.ScheduleHistories.Last().Value.RemainMentalityOnExit;
             var stampImage = stampImages.FirstOrDefault(stamp => remainMentality >= stamp.minMentality).image;
             
@@ -111,7 +128,9 @@ namespace View.WriteDiaryView
             int totalEnemyEncounterCount = 0;
             int totalEnemyResovledCount = 0;
             int totalEncounterIncidentCount = 0;
+            
             stringBuilder.Append("\n");
+            
             foreach (var historyIndex in diary.ScheduleHistories.Keys)
             {
                 var history = diary.ScheduleHistories[historyIndex];
@@ -120,11 +139,11 @@ namespace View.WriteDiaryView
                 foreach (var encounteredEnemy in history.EncounterEnemies)
                 {
                     var data = encounteredEnemy.Key;
-                    var encounterInfo = encounteredEnemy.Value;
-                    stringBuilder.Append($"{data.EnemyName} : {encounterInfo.encounerCount}회 조우, {encounterInfo.resolvedCount}회 해결\n");
+                    var (encounerCount, resolvedCount) = encounteredEnemy.Value;
+                    stringBuilder.Append($"{data.EnemyName} : {encounerCount}회 조우, {resolvedCount}회 해결\n");
 
-                    totalEnemyEncounterCount += encounterInfo.encounerCount;
-                    totalEnemyResovledCount += encounterInfo.resolvedCount;
+                    totalEnemyEncounterCount += encounerCount;
+                    totalEnemyResovledCount += resolvedCount;
                 }
 
                 foreach (var encounteredIncident in history.EncounterIncidents)
@@ -147,29 +166,42 @@ namespace View.WriteDiaryView
                 content : stringBuilder.ToString(),
                 stampImage : stampImage
             );
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.DiaryWritten_CommonPartPresentation, PlayCommonPartWritePresentation(commonPartData));
 
-            SpecialDiaryPresentationData specialDiaryPresentationData;
+            SpecialDiaryPresentationData specialPartData;
             if (diary.IsSpecial)
             {
-                var specialDiaryData = diary.SpecialDiaryData;
-                specialDiaryPresentationData = new SpecialDiaryPresentationData(
-                    image : specialDiaryData.Image
+                specialPartData = new SpecialDiaryPresentationData(
+                    image : diary.SpecialDiaryData.Image
                 );
             }
             else
             {
-                specialDiaryPresentationData = new SpecialDiaryPresentationData(
+                specialPartData = new SpecialDiaryPresentationData(
                     image : null
                 );
             }
-            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.DiaryWritten_SpecialPartPresentation, PlaySpecialPartWritePresentation(specialDiaryPresentationData),
+
+            return (commonPartData, specialPartData);
+        }
+
+        private void EnqueueDiaryPresentations(int sequenceId, CommonDiaryPresentationData commonData, SpecialDiaryPresentationData specialData)
+        {
+            presentationManager.Enqueue(
+                sequenceId, 
+                PresentationPriority.DiaryWritten_CommonPartPresentation, 
+                PlayCommonPartWritePresentation(commonData)
+            );
+
+            presentationManager.Enqueue(
+                sequenceId, 
+                PresentationPriority.DiaryWritten_SpecialPartPresentation, 
+                PlaySpecialPartWritePresentation(specialData),
                 () =>
                 {
                     returnToMainMenuButton.SetActive(true);
                 }
             );
-        }  
+        }
 
         private IEnumerator TypewriteText(TextMeshProUGUI tmpText, string fullText)
         {

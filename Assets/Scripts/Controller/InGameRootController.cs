@@ -13,9 +13,8 @@ public abstract class InGameRootController : SceneRootController{
 
         if (currentRun is null)
         {
-            Debug.LogError("[SceneRootController] There's no GameRunManager or GameRun.");
-
-            return;
+            Debug.LogWarning("[SceneRootController] There's no GameRunManager or GameRun. Creating a empty Run");
+            currentRun = GameRunManager.Instance?.GetEmptyRun();
         }
 
         random = currentRun.Random;

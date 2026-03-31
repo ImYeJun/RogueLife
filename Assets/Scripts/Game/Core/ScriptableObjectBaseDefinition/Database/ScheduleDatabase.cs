@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ScheduleDatabase", menuName = "Scriptable Objects/Database/ScheduleDatabase")]
-public class ScheduleDatabase : ScriptableObject, ISerializationCallbackReceiver {
+public class ScheduleDatabase : ScriptableObject 
+{
     [SerializeField] private List<ScheduleData> availableScheduleData;
     private Dictionary<string, ScheduleData> idLookUp = new Dictionary<string, ScheduleData>();
 
@@ -16,16 +17,23 @@ public class ScheduleDatabase : ScriptableObject, ISerializationCallbackReceiver
         return null;
     }
 
-    public void OnAfterDeserialize()
+    private void OnEnable()
+    {
+        InitializeDictionary();
+    }
+
+    private void InitializeDictionary()
     {
         idLookUp.Clear();
+        if (availableScheduleData == null) return;
         
         foreach(var scheduleData in availableScheduleData)
         {
             if (scheduleData == null) continue;
 
             string id = scheduleData.Id;
-            if (id is null) { continue; }
+            if (string.IsNullOrEmpty(id)) { continue; } 
+
             if (idLookUp.ContainsKey(id))
             {
                 Debug.LogWarning($"[ScheduleDatabase] Duplicate data detected: {id}. the previous data was overwritten.");
@@ -34,8 +42,6 @@ public class ScheduleDatabase : ScriptableObject, ISerializationCallbackReceiver
             idLookUp[id] = scheduleData;
         }
     }
-
-    public void OnBeforeSerialize() { }
 
 #if UNITY_EDITOR
     private void OnValidate()

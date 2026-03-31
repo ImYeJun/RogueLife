@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SpecialDiaryDatabase : MonoBehaviour
 {
     [SerializeField] private List<SpecialDiaryEntity> availableSpeicalDiaryEntities;
     private Dictionary<string, SpecialDiaryEntity> idLookUp = new Dictionary<string, SpecialDiaryEntity>();
+
+    public List<SpecialDiaryData> AvailableData => idLookUp.Values.Select(entity => entity.Data).ToList();
 
     private void Awake()
     {

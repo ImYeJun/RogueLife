@@ -4,6 +4,11 @@ using UnityEngine;
 public static class Constant
 {
     // ---------------------------------------------------------
+    // * 시작 메뉴 관련 (Start Menu)
+    // ---------------------------------------------------------
+    public const int RECENT_DIARY_COUNT = 5;
+
+    // ---------------------------------------------------------
     // * 플레이어 기본 스탯 (Player Base Stats)
     // ---------------------------------------------------------
     public const int INITIAL_MAX_BATTLE_HEALTH = 50;
