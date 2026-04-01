@@ -22,13 +22,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: 2
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554029
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554029
-      type: {class: QuickEscape, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 4814660386854264244, guid: fa11e711be8ea434e8fdbc2a0e532e54, type: 3}

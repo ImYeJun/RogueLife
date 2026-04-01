@@ -21,13 +21,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554037
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554037
-      type: {class: DeadlyPoision, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -2645088020062206643, guid: 03e144b0af8fe5e4289c7d7bd8ea92a4, type: 3}

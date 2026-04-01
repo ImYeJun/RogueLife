@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554043
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554043
-      type: {class: WaterFist, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 7731973750988536795, guid: 4994b416842ce8e4ba074e3616439470, type: 3}

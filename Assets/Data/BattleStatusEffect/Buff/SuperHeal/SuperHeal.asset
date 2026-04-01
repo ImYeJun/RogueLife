@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554031
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554031
-      type: {class: SuperHeal, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 6839423054181262777, guid: 2522f8c1630a2d14bbb3bef18cf758f6, type: 3}

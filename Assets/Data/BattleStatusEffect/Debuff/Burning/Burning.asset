@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554036
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554036
-      type: {class: Burning, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -8828734915781763635, guid: a033a95fffc74a0408704357b6cc499c, type: 3}

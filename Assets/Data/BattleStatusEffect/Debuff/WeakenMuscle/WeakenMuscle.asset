@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554044
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554044
-      type: {class: WeakenMuscle, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -6856787763406443007, guid: 595736625b06c244896369027af48157, type: 3}

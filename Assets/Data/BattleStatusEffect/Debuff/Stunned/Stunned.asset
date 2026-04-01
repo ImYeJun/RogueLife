@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: -1
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554041
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554041
-      type: {class: Stunned, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 9210170261589129839, guid: 1ee7b8908d0c0474cb90da0c4787d64b, type: 3}

@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554042
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554042
-      type: {class: ThatsWeakSpot, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 6736575034064072953, guid: 210accf5bb5807f4a987af1e46843a87, type: 3}
