@@ -6,6 +6,7 @@ public class IncidentEntity : MonoBehaviour {
     [SerializeReference, SubclassSelector] private List<IIncidentChoiceData> choices;
     
     public string Id { get => data.Id; }
+    public Sprite Image { get => data.Image; }
     public string IncidentName { get => data.IncidentName; }
     public IncidentData Data => data;
     

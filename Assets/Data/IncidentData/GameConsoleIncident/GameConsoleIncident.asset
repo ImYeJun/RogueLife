@@ -14,29 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::IncidentData
   id: Incident_GameConsole
   incidentName: "\uAC8C\uC784\uAE30 \uC0AC\uAC74"
-  choices:
-  - rid: 1582000786587254985
-  - rid: 1582000786587254984
-  references:
-    version: 2
-    RefIds:
-    - rid: 1582000786587254984
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
-      data:
-        description: "\uC544\uBB34\uAC70\uB098 \uC8FC\uC6B0\uBA74 \uBD80\uC815\uD0C4\uB2E4\uD588\uC5B4"
-        effect:
-          rid: 1582000786587254986
-    - rid: 1582000786587254985
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
-      data:
-        description: "\uC7AC\uBC0C\uC5B4\uBCF4\uC778\uB2E4\u2026. \uC9D1\uAC00\uC11C
-          \uD574\uBD10\uC57C\uACA0\uC5B4"
-        effect:
-          rid: 1582000786587254987
-    - rid: 1582000786587254986
-      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
-      data: 
-    - rid: 1582000786587254987
-      type: {class: ChoiceSetBossEffect, ns: , asm: GameAssembly}
-      data:
-        bossData: {fileID: 11400000, guid: 76a04ef44963798408e1be3d6de622d6, type: 2}
+  image: {fileID: -1939880257866363010, guid: 500b7e51adb0e0e408137ace9c89bc8f, type: 3}

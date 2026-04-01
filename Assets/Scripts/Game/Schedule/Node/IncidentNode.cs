@@ -6,6 +6,8 @@ public class IncidentNode : Node
 {    
     private IncidentEntity entity;
 
+    public Sprite IncidentImage => entity.Image;
+
     public IncidentNode(Guid skeletonId, IncidentEntity entity) : base(skeletonId)
     {
         this.entity = entity;

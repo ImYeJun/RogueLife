@@ -14,42 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::IncidentData
   id: Incident_Puddle
   incidentName: "\uBB3C \uC6C5\uB369\uC774 \uC0AC\uAC74"
-  choices:
-  - rid: 7557519912807170206
-  - rid: 7557519912807170207
-  - rid: 7557519912807170208
-  references:
-    version: 2
-    RefIds:
-    - rid: 1582000786587254968
-      type: {class: ChoiceEngageBattleEffect, ns: , asm: GameAssembly}
-      data:
-        engaingEnemyData:
-        - {fileID: 11400000, guid: 4dc57660ce0c54843b1aad101a750169, type: 2}
-    - rid: 1582000786587254969
-      type: {class: ChoiceHealMentalityEffect, ns: , asm: GameAssembly}
-      data:
-        amount: 5
-        isOverflowable: 0
-    - rid: 1582000786587254970
-      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
-      data: 
-    - rid: 7557519912807170206
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
-      data:
-        description: "\uCCA8\uBC99\uCCA8\uBC99, \uC774\uAC74 \uBABB\uCC38\uC9C0!"
-        effect:
-          rid: 1582000786587254968
-    - rid: 7557519912807170207
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
-      data:
-        description: "\uC5D0\uC787 \uC774\uC815\uB3C8 \uB6F0\uC5B4\uB118\uC744\uC218\uC788\uC9C0
-          \uC74F\uCC60"
-        effect:
-          rid: 1582000786587254969
-    - rid: 7557519912807170208
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
-      data:
-        description: "\uC816\uAE30 \uC2EB\uC73C\uB2C8\uAE4C \uADF8\uB0E5 \uD53C\uD574\uAC00\uC57C\uC9C0"
-        effect:
-          rid: 1582000786587254970
+  image: {fileID: 3965329551586833284, guid: c6e73b6535c71bf449d2c25dea93c93e, type: 3}

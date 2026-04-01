@@ -14,43 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::IncidentData
   id: Incident_BloodDonation
   incidentName: "\uD5CC\uD608 \uC0AC\uAC74"
-  choices:
-  - rid: 1582000786587254989
-  - rid: 1582000786587254988
-  references:
-    version: 2
-    RefIds:
-    - rid: 1582000786587254988
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
-      data:
-        description: "\uADF8\uCE58\uB9CC\u2026 \uC8FC\uC0AC\uBC14\uB298\uC740 \uBB34\uC11C\uC6CC!
-          \uBBF8\uC548\uD574\uC694!"
-        effect:
-          rid: 1582000786587254990
-    - rid: 1582000786587254989
-      type: {class: SingleIncidentChoiceData, ns: , asm: GameAssembly}
-      data:
-        description: "\uBCD1\uC6D0\uC5D0 \uD53C\uAC00 \uBD80\uC871\uD558\uB2E4\uB294\uB370
-          \uB2F9\uC5F0\uD788 \uD574\uC57C\uC8E0!"
-        effect:
-          rid: 1582000786587254991
-    - rid: 1582000786587254990
-      type: {class: ChoiceNoneEffect, ns: , asm: GameAssembly}
-      data: 
-    - rid: 1582000786587254991
-      type: {class: ChoiceSequenceCompositeEffect, ns: , asm: GameAssembly}
-      data:
-        choiceEffects:
-        - rid: 1582000786587254992
-        - rid: 1582000786587254993
-    - rid: 1582000786587254992
-      type: {class: ChoiceHurtBattleHealth, ns: , asm: GameAssembly}
-      data:
-        amount: 15
-        isOverflowable: 1
-    - rid: 1582000786587254993
-      type: {class: ChoiceObtainRandomCardEffect, ns: , asm: GameAssembly}
-      data:
-        rarity: 2
-        type: 0
-        attribute: 0
+  image: {fileID: -5036466312721759248, guid: af8c4c3eef8288142b40a8005d0c0936, type: 3}

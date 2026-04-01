@@ -67,6 +67,7 @@ namespace View.ScheduleView.IncidentNodeView
             currentNode = incidentNode;
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.NodeEnter_StageSet, SetStage(), () =>
             {
+                incidentImage.sprite = incidentNode.IncidentImage;
                 uiRoot.SetActive(true);
             });
         }
@@ -96,11 +97,6 @@ namespace View.ScheduleView.IncidentNodeView
 
         public void OnIncidentSelectRequested(IncidentSelectRequested payload)
         {
-            if (payload.Data.Image is not null)
-            {
-                incidentImage.sprite = payload.Data.Image;
-            }
-
             foreach (var choice in payload.Choices)
             {
                 var button = pool.Get();
