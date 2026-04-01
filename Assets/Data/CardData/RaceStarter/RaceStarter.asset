@@ -14,33 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_RaceStarter
   cardName: "\uB808\uC774\uC2A4 \uC2A4\uD0C0\uD130"
+  background: {fileID: 3718820622366704659, guid: 8cabbcf05e5a4fd4fa3fe3b1e419ddbb, type: 3}
   description: "\uC774\uBC88 \uD134, \uC544\uBB34\uB7F0 \uCE74\uB4DC\uB97C \uC0AC\uC6A9\uD558\uC9C0
     \uC54A\uC558\uC744 \uACBD\uC6B0, \uC0AC\uC6A9\uD560 \uC218 \uC788\uB2E4. \uB2E4\uC74C
     \uC0AC\uC6A9\uD558\uB294 \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C 2\uBC30\uB85C
     \uB9CC\uB4E0\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC774\uBC88 \uD134, \uC544\uBB34\uB7F0 \uCE74\uB4DC\uB97C
     \uC0AC\uC6A9\uD558\uC9C0 \uC54A\uC558\uC744 \uACBD\uC6B0, \uC0AC\uC6A9\uD560
     \uC218 \uC788\uB2E4. \uB2E4\uC74C 2\uBC88\uC758 \uCE74\uB4DC \uC0AC\uC6A9 \uB3D9\uC548,
     \uCE74\uB4DC\uC758 \uD6A8\uACFC\uB97C 2\uBC30\uB85C \uB9CC\uB4E0\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 4
   attribute: 3
   rarity: 1
   actionCost: 3
-  battleBehaviour:
-    rid: 1582000878922235985
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922235985
-      type: {class: RaceStarter, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922235986
-        reflectionTargetType:
-          rid: 1582000878922235987
-    - rid: 1582000878922235986
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922235987
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

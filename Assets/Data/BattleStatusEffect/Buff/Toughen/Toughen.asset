@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554034
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554034
-      type: {class: Toughen, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 958526766575294014, guid: 85e1a562c1fd91a40bdd7b9c08946ce3, type: 3}

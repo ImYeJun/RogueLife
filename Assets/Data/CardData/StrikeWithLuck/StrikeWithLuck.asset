@@ -14,30 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_StrikeWithLuck
   cardName: "\uACF5\uACA9, \uADFC\uB370 \uC6B4\uC744 \uACC1\uB4E4\uC778"
+  background: {fileID: -4619924853935175025, guid: 6d9c9c35d6cf4b040912f3d7610092d9, type: 3}
   description: "\uC0C1\uB300\uBC29\uC5D0\uAC8C 10 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C
     \uC8FC\uACE0, 30% \uD655\uB960\uB85C 30\uC758 \uD53C\uD574\uB97C \uB354 \uC90D\uB2C8\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC0C1\uB300\uBC29\uC5D0\uAC8C 10 \uB9CC\uD07C\uC758
     \uD53C\uD574\uB97C \uC8FC\uACE0, 40% \uD655\uB960\uB85C 30\uC758 \uD53C\uD574\uB97C
     \uB354 \uC90D\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 1
   attribute: 3
   rarity: 1
   actionCost: 1
-  battleBehaviour:
-    rid: 1582000878922236065
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236065
-      type: {class: StrikeWithLuck, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236066
-        reflectionTargetType:
-          rid: 1582000878922236067
-    - rid: 1582000878922236066
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236067
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}

@@ -21,13 +21,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554035
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554035
-      type: {class: Bleeding, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 7389999546325347055, guid: 8abb3916bafd4f6468d55b9034d070da, type: 3}

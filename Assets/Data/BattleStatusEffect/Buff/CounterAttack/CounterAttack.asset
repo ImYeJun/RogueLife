@@ -20,13 +20,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554019
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554019
-      type: {class: CounterAttack, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -493796460033064703, guid: ba606d72074d2fb41ac5bd69165cf172, type: 3}

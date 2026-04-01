@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554024
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554024
-      type: {class: IWillKillYou, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 3812756773199996498, guid: 43cd50f47e42257458e92c16eae32dff, type: 3}

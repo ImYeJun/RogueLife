@@ -20,13 +20,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: 1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554025
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554025
-      type: {class: LightBody, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 372140528357298763, guid: 5daa3c99805976d4897b7d68a42f79a1, type: 3}

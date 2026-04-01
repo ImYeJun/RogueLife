@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 1
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554039
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554039
-      type: {class: Nani, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 1435064901317658135, guid: ba84a075523d2dc4d8d82c737bdbd171, type: 3}

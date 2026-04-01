@@ -20,13 +20,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554027
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554027
-      type: {class: NanoMachine, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -1815091514640725466, guid: 6a65faec33a04d04dbe06c4e236196d1, type: 3}

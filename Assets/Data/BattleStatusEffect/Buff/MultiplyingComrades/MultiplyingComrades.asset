@@ -22,13 +22,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: 2
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554026
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554026
-      type: {class: MultiplyingComrades, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -7075035775353618376, guid: 8d5ca7201ba27f44d8dd99ab90060890, type: 3}

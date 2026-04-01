@@ -14,33 +14,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_LegendaryCollection
   cardName: "\uC804\uC124\uC758 \uCEEC\uB809\uC158"
+  background: {fileID: 1862558078459477194, guid: b29b0412739680b4b8fe1856fd2d7915, type: 3}
   description: "\uC190 \uD328\uC5D0 \uC774 \uCE74\uB4DC\uB97C \uD3EC\uD568\uD55C
     \uAC01 \uC18D\uC131 \uBCC4\uB85C \uBAA8\uB4E0 \uC720\uD615\uC758 \uCE74\uB4DC\uB4E4\uC774
     \uB2E8 \uD55C\uC7A5\uC529 \uC788\uC744 \uACBD\uC6B0, \uD574\uB2F9 \uC804\uD22C\uB97C
     \uC2B9\uB9AC\uD55C\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC190 \uD328\uC5D0 \uC774 \uCE74\uB4DC\uB97C \uD3EC\uD568\uD55C
     \uAC01 \uC18D\uC131 \uBCC4\uB85C \uBAA8\uB4E0 \uC720\uD615\uC758 \uCE74\uB4DC\uB4E4\uC774
     \uB2E8 \uD55C\uC7A5\uC529 \uC788\uC744 \uACBD\uC6B0, \uD574\uB2F9 \uC804\uD22C\uB97C
     \uC2B9\uB9AC\uD55C\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 4
   attribute: 3
   rarity: 3
   actionCost: 10
-  battleBehaviour:
-    rid: 1582000865578844230
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000865578844230
-      type: {class: LegendaryCollectionBehaviour, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000865578844231
-        reflectionTargetType:
-          rid: 1582000865578844232
-    - rid: 1582000865578844231
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000865578844232
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

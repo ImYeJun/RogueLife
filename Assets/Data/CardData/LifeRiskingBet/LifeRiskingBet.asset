@@ -14,53 +14,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_LifeRiskingBet
   cardName: "\uBAA9\uC228\uC744 \uAC74 \uBCA0\uD305"
+  background: {fileID: 4605468945972756757, guid: 9a2442a8e57d52549958be7473bd68cc, type: 3}
   description: "\uD50C\uB808\uC774\uC5B4\uC758 \uCCB4\uB825\uACFC \uC0C1\uB300\uC758
     \uCCB4\uB825\uC758 \uCC28\uC774\uAC00 30~70 \uC77C \uACBD\uC6B0 \uBC1C\uB3D9
     \uD560 \uC218 \uC788\uB2E4, \uCCB4\uB825\uC758 \uCC28\uC774 \uB9CC\uD07C\uC758
     \uD655\uB960\uB85C \uC0C1\uB300\uBC29\uC5D0\uAC8C \uCCB4\uB825 \uCC28\uC774 \uB9CC\uD07C
     \uD53C\uD574\uB97C \uC900\uB2E4, \uADF8\uB807\uC9C0 \uBABB \uD588\uC744 \uACBD\uC6B0,
     \uADF8 \uCC28\uC774\uC758 \uC808\uBC18\uB9CC\uD07C \uB370\uBBF8\uC9C0\uB97C \uC785\uB294\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uD50C\uB808\uC774\uC5B4\uC758 \uCCB4\uB825\uACFC
     \uC0C1\uB300\uC758 \uCCB4\uB825\uC758 \uCC28\uC774\uAC00 30~100 \uC77C \uACBD\uC6B0
     \uBC1C\uB3D9 \uD560 \uC218 \uC788\uB2E4, \uCCB4\uB825\uC758 \uCC28\uC774 \uB9CC\uD07C\uC758
     \uD655\uB960\uB85C \uC0C1\uB300\uBC29\uC5D0\uAC8C \uCCB4\uB825 \uCC28\uC774 \uB9CC\uD07C
     \uD53C\uD574\uB97C \uC900\uB2E4, \uADF8\uB807\uC9C0 \uBABB \uD588\uC744 \uACBD\uC6B0,
     \uADF8 \uCC28\uC774\uC758 \uC808\uBC18\uB9CC\uD07C \uB370\uBBF8\uC9C0\uB97C \uC785\uB294\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 4
   attribute: 3
   rarity: 2
   actionCost: 4
-  battleBehaviour:
-    rid: 1582000878922236034
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236034
-      type: {class: LifeRiskingBet, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236037
-        reflectionTargetType:
-          rid: 1582000878922236036
-    - rid: 1582000878922236036
-      type: {class: CompositeCardTargetType, ns: , asm: GameAssembly}
-      data:
-        requiredTypes:
-        - rid: 1582000878922236040
-        - rid: 1582000878922236041
-    - rid: 1582000878922236037
-      type: {class: CompositeCardTargetType, ns: , asm: GameAssembly}
-      data:
-        requiredTypes:
-        - rid: 1582000878922236038
-        - rid: 1582000878922236039
-    - rid: 1582000878922236038
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236039
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236040
-      type: {class: PlayerCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236041
-      type: {class: SingleEnemyCardTargetType, ns: , asm: GameAssembly}

@@ -20,13 +20,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554023
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554023
-      type: {class: HolyShield, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -4500701046044335359, guid: fa8d031fdbe06f74f965b3794e5aec46, type: 3}

@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554032
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554032
-      type: {class: ThatsFoul, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: -8068112533298180238, guid: 13074f55a22e0ce44b889a85d20b3685, type: 3}

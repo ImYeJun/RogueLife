@@ -19,13 +19,4 @@ MonoBehaviour:
   type: 0
   grantedCondition: 0
   requiredTraits: -1
-  icon: {fileID: 0}
-  behaviour:
-    rid: 7557519985129554033
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557519985129554033
-      type: {class: TooSlow, ns: Battle.StatusEffects.Behaviour, asm: GameAssembly}
+  icon: {fileID: 4942456730542426168, guid: ca553c9f1e785614a88856975be08da5, type: 3}
