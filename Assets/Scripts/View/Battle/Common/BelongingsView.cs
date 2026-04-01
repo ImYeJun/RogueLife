@@ -29,8 +29,14 @@ namespace View.BattleView
                 throw new InvalidOperationException($"[BelongingsView] cannot draw more than {icons.Count} belonings but {belongings.Count} belonings were settled.");
             }
 
-            for (int i = 0; i < belongings.Count; i++)
+            for (int i = 0; i < icons.Count; i++)
             {
+                if (i >= belongings.Count)
+                {
+                    icons[i].gameObject.SetActive(false);
+                    continue;
+                }
+
                 icons[i].Initialize(belongings[i]);
             }
         }
