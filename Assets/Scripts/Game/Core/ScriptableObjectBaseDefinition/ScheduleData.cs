@@ -8,7 +8,7 @@ public class ScheduleData : ScriptableObject
     [SerializeField] private string id;
     [SerializeField] private string scheduleName;
     [SerializeField, TextArea] private string description;
-    [SerializeField] private Sprite[] usualBackground;
+    [SerializeField] private Sprite usualBackground;
     [SerializeField] private Sprite battleBackground;
     [SerializeField] private AudioData usualBGM;
     [SerializeField] private AudioData battleBGM;
@@ -22,7 +22,7 @@ public class ScheduleData : ScriptableObject
     public string Id { get => id; }
     public string ScheduleName { get => scheduleName; }
     public string Description { get => description; }
-    public Sprite[] UsualBackground { get => usualBackground; }
+    public Sprite UsualBackground { get => usualBackground; }
     public Sprite BattleBackground { get => battleBackground; }
     public AudioData UsualBGM { get => usualBGM; }
     public AudioData BattleBGM { get => battleBGM; }

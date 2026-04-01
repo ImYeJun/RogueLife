@@ -18,7 +18,7 @@ MonoBehaviour:
     \uD574\uB2F9 \uC9C0\uC5ED\uB0B4\uC5D0\uC11C \uAF64\uB098 \uD070 \uCEA0\uD37C\uC2A4\uC774\uB2E4.\r\n-
     \uCEA0\uD37C\uC2A4 \uB0B4\uBD80\uC5D4 \uB3C4\uC11C\uAD00, \uC2DD\uB2F9, \uCE74\uD398\uB4F1
     \uD3B8\uC758 \uC2DC\uC124 \uB610\uD55C \uC874\uC7AC\uD55C\uB2E4."
-  usualBackground: []
+  usualBackground: {fileID: -2240232482610174784, guid: 48732a7ba8919144b8fcde9b7f7ff093, type: 3}
   battleBackground: {fileID: 0}
   usualBGM: {fileID: 11400000, guid: 9b562ba8a1487114aaacb0e12e54d0eb, type: 2}
   battleBGM: {fileID: 11400000, guid: e0a0264538d727b45a1e695ba49fcde3, type: 2}
