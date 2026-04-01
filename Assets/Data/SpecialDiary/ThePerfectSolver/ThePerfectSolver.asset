@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ThePerfectSolver
   m_EditorClassIdentifier: GameAssembly::SpecialDiaryData
   id: SpecialDiary_ThePerfectSolver
-  image: {fileID: 0}
+  image: {fileID: 2611109832512071917, guid: 2fd35cf3990e58d47b4069eacc1c2c36, type: 3}
   specialDiaryName: "\uC644\uBCBD\uD55C \uBB38\uC81C \uD574\uACB0\uC0AC"
   description: "\uBAA8\uB4E0\uAC8C \uC644\uBCBD\uD574!"
   requirements:

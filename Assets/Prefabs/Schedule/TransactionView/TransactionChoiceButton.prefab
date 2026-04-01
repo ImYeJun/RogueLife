@@ -8,25 +8,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -103.0147
+    - target: {fileID: 1519988455303921308, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_margin.w
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: -102.9302
+    - target: {fileID: 1519988455303921308, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_margin.x
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 12.8562
+    - target: {fileID: 1519988455303921308, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_margin.y
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1597987025060391471, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: -99.0918
+    - target: {fileID: 1519988455303921308, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_margin.z
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1597987025060391471, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 29.6918
+    - target: {fileID: 1519988455303921308, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Name
@@ -58,11 +58,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 464
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 241.3445
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -112,6 +112,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8273178739993283593, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -140.7031
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273178739993283593, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -158.9872
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273178739993283593, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 61.580963
+      objectReference: {fileID: 0}
+    - target: {fileID: 8273178739993283593, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -71.20369
+      objectReference: {fileID: 0}
+    - target: {fileID: 8451748476062564833, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7471758956757015744, guid: ecff302a3d5930244b41d9459c92354a, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -149,7 +169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.TransactionNodeView.TransactionChoiceButton
   canvasGroup: {fileID: 9209491055433524932}
-  rectTransform: {fileID: 8511620052423534884}
   fadeDuration: 0.1
   fadeEase: 10
   moveDuration: 0.3
@@ -157,11 +176,6 @@ MonoBehaviour:
   moveEase: 27
   mainDescription: {fileID: 8719124793367676141}
   subDescription: {fileID: 6469132029697943843}
---- !u!224 &8511620052423534884 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 5539124335197476799}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8719124793367676141 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}

@@ -8,41 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+    - target: {fileID: 1958571477521333444, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 148575179132875410, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -27.1455
       objectReference: {fileID: 0}
     - target: {fileID: 1958571477521333444, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
+      propertyPath: m_AnchoredPosition.y
+      value: 6.4727
       objectReference: {fileID: 0}
     - target: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Name
@@ -57,6 +29,10 @@ PrefabInstance:
     - target: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_fontSize
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_margin.w
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Pivot.x
@@ -84,11 +60,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 150
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -168,7 +144,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.IncidentNodeView.IncidentChoiceButton
   canvasGroup: {fileID: 2563686076502102083}
-  rectTransform: {fileID: 1622796767533856250}
   fadeDuration: 0.1
   fadeEase: 10
   moveDuration: 0.3
@@ -187,11 +162,6 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!224 &1622796767533856250 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 3189921158575213409}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1844929474524698675 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}

@@ -12,9 +12,21 @@ PrefabInstance:
       propertyPath: specificScaleTarget
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1958571477521333444, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -26.9455
+      objectReference: {fileID: 0}
+    - target: {fileID: 1958571477521333444, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 6.3727
+      objectReference: {fileID: 0}
     - target: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Name
       value: BattleAwardButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
+      propertyPath: m_margin.w
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Pivot.x
@@ -42,11 +54,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 464
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 241.3445
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -123,18 +135,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BattleRewardButton
   canvasGroup: {fileID: 4610535728645628717}
-  rectTransform: {fileID: 3902967023346396365}
   fadeDuration: 0.1
   fadeEase: 10
   moveDuration: 0.3
   moveDistance: 10
   moveEase: 27
   mainDescription: {fileID: 4122424573546234116}
---- !u!224 &3902967023346396365 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 931025486862160470}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4122424573546234116 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}

@@ -8,38 +8,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 464
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 242
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5870199000715524, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.32775
-      objectReference: {fileID: 0}
     - target: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_Name
       value: NextNodeSelectButton
@@ -70,11 +38,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 464
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 241.3445
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       propertyPath: m_LocalPosition.x
@@ -131,9 +99,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 3071457836128666474, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7747863510895533872}
-    - targetCorrespondingSourceObject: {fileID: 3012097237747840522, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 42350125032323207}
   m_SourcePrefab: {fileID: 100100000, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
 --- !u!114 &5401099215311815177 stripped
 MonoBehaviour:
@@ -146,11 +111,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!224 &7290535081875718670 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4233864597647474331, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 6912069320383724693}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7652455370103287751 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3881647618749731666, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
@@ -185,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::View.ScheduleView.NextNodeSelectView.NextNodeButton
   canvasGroup: {fileID: 7853390456316661230}
-  rectTransform: {fileID: 7290535081875718670}
   fadeDuration: 0.1
   fadeEase: 10
   moveDuration: 0.3
@@ -193,20 +152,3 @@ MonoBehaviour:
   moveEase: 27
   mainDescription: {fileID: 7652455370103287751}
   subDescription: {fileID: 5401099215311815177}
---- !u!1 &8512230001884383903 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3012097237747840522, guid: 4798f1fe8d0a07749999a50299179dea, type: 3}
-  m_PrefabInstance: {fileID: 6912069320383724693}
-  m_PrefabAsset: {fileID: 0}
---- !u!225 &42350125032323207
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8512230001884383903}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0

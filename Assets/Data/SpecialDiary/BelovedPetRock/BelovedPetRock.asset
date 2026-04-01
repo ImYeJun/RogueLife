@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BelovedPetRock
   m_EditorClassIdentifier: GameAssembly::SpecialDiaryData
   id: SpecialDiary_BelovedPetRock
-  image: {fileID: 0}
+  image: {fileID: 2611109832512071917, guid: 2fd35cf3990e58d47b4069eacc1c2c36, type: 3}
   specialDiaryName: "\uB0B4 \uC18C\uC911\uD55C \uC560\uC644 \uB3CC\uB9F9\uC774"
   description: "\uC73C\uD5E4~"
   requirements:
