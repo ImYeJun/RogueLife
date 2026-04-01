@@ -4880,10 +4880,54 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 397722978824486992, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_Size.x
+      value: 1.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 397722978824486992, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_Size.y
+      value: 2.9375
+      objectReference: {fileID: 0}
+    - target: {fileID: 397722978824486992, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 1.875
+      objectReference: {fileID: 0}
+    - target: {fileID: 397722978824486992, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 2.9375
+      objectReference: {fileID: 0}
+    - target: {fileID: 448407328801773905, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 448407328801773905, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 448407328801773905, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 448407328801773905, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.058
+      objectReference: {fileID: 0}
+    - target: {fileID: 448407328801773905, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.265
+      objectReference: {fileID: 0}
+    - target: {fileID: 448407328801773905, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 754717184939208493, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: m_Name
       value: BattlePlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 1262323659262396462, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 3797814882397699187, guid: f9bff96d9729321488224c4fb4345ff2, type: 3}
     - target: {fileID: 2204155370310336519, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: healSFX
       value: 
@@ -4902,12 +4946,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2204155370310336519, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: actionDuration
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2204155370310336519, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: viewTransitionManager
       value: 
       objectReference: {fileID: 1879123892}
+    - target: {fileID: 2433302998257475618, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: idleSprite
+      value: 
+      objectReference: {fileID: 3797814882397699187, guid: f9bff96d9729321488224c4fb4345ff2, type: 3}
+    - target: {fileID: 2433302998257475618, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
+      propertyPath: actionSprite
+      value: 
+      objectReference: {fileID: -6598010820056054620, guid: f9bff96d9729321488224c4fb4345ff2, type: 3}
     - target: {fileID: 6855730422780328402, guid: 7f1be17b8c83a64478fb011e3c124d1e, type: 3}
       propertyPath: battleEnemyViewController
       value: 
