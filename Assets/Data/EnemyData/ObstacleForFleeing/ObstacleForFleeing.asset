@@ -17,6 +17,7 @@ MonoBehaviour:
   tier: 0
   description: 
   maxBaseHealth: 1
+  behaviourDescriptionList: []
   encounterLines:
   - 
   actionLines:
@@ -26,13 +27,8 @@ MonoBehaviour:
   defeatLines:
   - 
   usualSprite: {fileID: 0}
-  battleSprite: {fileID: 0}
-  battleBehaviour:
-    rid: 7557520110087307356
-  references:
-    version: 2
-    RefIds:
-    - rid: 7557520110087307356
-      type: {class: ObstacleForFleeing, ns: Battle.Enemies.Behaviours, asm: GameAssembly}
-      data:
-        pickPockectData: {fileID: 11400000, guid: 33999fd26b7b42f4d80c018bb3b6c69d, type: 2}
+  battleSprites:
+  - type: 0
+    sprite: {fileID: -8605574092893669006, guid: fef9a60659a448640863b33925e8ce05, type: 3}
+  - type: 1
+    sprite: {fileID: -8605574092893669006, guid: fef9a60659a448640863b33925e8ce05, type: 3}
