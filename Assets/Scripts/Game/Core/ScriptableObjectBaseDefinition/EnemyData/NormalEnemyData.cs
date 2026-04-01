@@ -1,4 +1,3 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NormalEnemyData", menuName = "Scriptable Objects/EnemyData/Normal")]
