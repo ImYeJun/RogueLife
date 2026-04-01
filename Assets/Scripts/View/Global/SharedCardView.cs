@@ -11,18 +11,21 @@ public class SharedCardView : MonoBehaviour
     public struct CardAsset
     {
         [SerializeField] private CardAttribute attribute;
+        [SerializeField] private Sprite reflectionIcon;
         [SerializeField] private Sprite frame;
         [SerializeField] private Sprite defaultBackground;
 
         public CardAttribute Attribute { get => attribute; }
         public Sprite Frame { get => frame; }
         public Sprite DefaultBackground { get => defaultBackground; }
+        public Sprite ReflectionIcon { get => reflectionIcon; }
     }
 
     private Card card;
     [SerializeField] private List<CardAsset> assets;
     [SerializeField] private Image frame;
     [SerializeField] private Image background;
+    [SerializeField] private Image reflectionIconImage;
     [SerializeField] private TextMeshProUGUI cardName;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI cost;
@@ -114,5 +117,14 @@ public class SharedCardView : MonoBehaviour
     public void DrawDescription(bool isReflection)
     {
         description.text = isReflection ? card.ReflectionEffectDescription : card.NormalEffectDescription;
+        
+        reflectionIconImage.gameObject.SetActive(isReflection);
+        if (isReflection)
+        {
+            var attribute = card.CurrentAttribute;
+            var asset = assets.First(asset => asset.Attribute == attribute);
+
+            reflectionIconImage.sprite = asset.ReflectionIcon;
+        }
     }
 }

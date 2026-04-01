@@ -239,6 +239,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5318879194460654835, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: reflectionIconImage
+      value: 
+      objectReference: {fileID: 3394228908354206578}
     - target: {fileID: 7619494552376503853, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_Name
       value: CardSlotView
@@ -278,6 +282,17 @@ MonoBehaviour:
   focusingPresentationDuration: 0.1
   focusingScaleMultiplier: 1.05
   focusingPresentationEase: 7
+--- !u!114 &3394228908354206578 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6847137000667780467, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+  m_PrefabInstance: {fileID: 8079268505946222081}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!224 &5525315024487788556 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4373715813284568589, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}

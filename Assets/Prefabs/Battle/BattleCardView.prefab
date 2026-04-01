@@ -104,10 +104,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4582285725458884447, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.31393433
+      objectReference: {fileID: 0}
     - target: {fileID: 5306426239839974760, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_fontSizeMin
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5318879194460654835, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+      propertyPath: reflectionIconImage
+      value: 
+      objectReference: {fileID: 9067958779890372586}
     - target: {fileID: 5985513952171809556, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
       propertyPath: m_fontSize
       value: 8
@@ -198,3 +206,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ebb062eef0ac774cbce5f450810ab18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SharedCardView
+--- !u!114 &9067958779890372586 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6847137000667780467, guid: f5fb9b3cfd7f3974c9ccbbb18cd7348f, type: 3}
+  m_PrefabInstance: {fileID: 2509128021818776217}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image

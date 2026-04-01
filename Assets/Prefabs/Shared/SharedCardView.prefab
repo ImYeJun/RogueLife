@@ -349,6 +349,81 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &7467533158843612022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4582285725458884447}
+  - component: {fileID: 3029490552848854759}
+  - component: {fileID: 6847137000667780467}
+  m_Layer: 5
+  m_Name: ReflectionIcon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4582285725458884447
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7467533158843612022}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4373715813284568589}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.07918468, y: 0.7561665}
+  m_AnchorMax: {x: 0.257, y: 0.87717146}
+  m_AnchoredPosition: {x: -0.018798828, y: 0.1309967}
+  m_SizeDelta: {x: -0.6653, y: -0.26180005}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &3029490552848854759
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7467533158843612022}
+  m_CullTransparentMesh: 1
+--- !u!114 &6847137000667780467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7467533158843612022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 7778999466122066627, guid: 12fec69f2ccb17d46bf4e9e635c60543, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7619494552376503853
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,6 +458,7 @@ RectTransform:
   - {fileID: 9200327049827289859}
   - {fileID: 3663918347470016082}
   - {fileID: 1817794445629547170}
+  - {fileID: 4582285725458884447}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -404,16 +480,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SharedCardView
   assets:
   - attribute: 1
+    reflectionIcon: {fileID: 206818262323284520, guid: 12fec69f2ccb17d46bf4e9e635c60543, type: 3}
     frame: {fileID: 6912371370750322128, guid: 70cbff00eb563d848894a6a5d5df706a, type: 3}
     defaultBackground: {fileID: 1981710315760817362, guid: 82d4971d272df964890cd81efa4f86fe, type: 3}
   - attribute: 2
+    reflectionIcon: {fileID: -998538983851372923, guid: 12fec69f2ccb17d46bf4e9e635c60543, type: 3}
     frame: {fileID: 5817589384847550592, guid: 70cbff00eb563d848894a6a5d5df706a, type: 3}
     defaultBackground: {fileID: -8520122205329907317, guid: 82d4971d272df964890cd81efa4f86fe, type: 3}
   - attribute: 3
+    reflectionIcon: {fileID: 7778999466122066627, guid: 12fec69f2ccb17d46bf4e9e635c60543, type: 3}
     frame: {fileID: -8135582131814928150, guid: 70cbff00eb563d848894a6a5d5df706a, type: 3}
     defaultBackground: {fileID: -6915263459784397292, guid: 82d4971d272df964890cd81efa4f86fe, type: 3}
   frame: {fileID: 5126997730003263064}
   background: {fileID: 6539990578488745006}
+  reflectionIconImage: {fileID: 6847137000667780467}
   cardName: {fileID: 5985513952171809556}
   description: {fileID: 3903518039320139436}
   cost: {fileID: 5306426239839974760}
