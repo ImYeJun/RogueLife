@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_DamnMiss
   cardName: "\uAC10\uB098\uBE57!"
-  background: {fileID: 0}
+  background: {fileID: -6289209560101832968, guid: d28ee4fa7b81d604eb8c1918f1470d58, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uAC04 \uC9C0\uC18D\uB418\uB294
     \uB290\uB824. 1 \uC2A4\uD0DD\uC744 20% \uD655\uB960\uB85C \uBD80\uC5EC\uD55C\uB2E4."
   relatedStatusEffectIds:

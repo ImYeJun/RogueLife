@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_MysteriousAura
   cardName: "\uC54C \uC218 \uC5C6\uB294 \uAE30\uC6B4"
-  background: {fileID: 0}
+  background: {fileID: -4847828624996544045, guid: 752ff70618db0404d80eaafc23879117, type: 3}
   description: "\uC790\uC2E0 \uB610\uB294 \uC0C1\uB300\uC5D0\uAC8C \uC0AC\uC6A9\uD558\uC5EC
     \uB2E4\uC74C \uC544\uB798\uC758 \uD6A8\uACFC \uC911 \uD558\uB098\uB97C \uC801\uC6A9\uD55C\uB2E4.\n<size=90%>\uB450
     \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654 4 \uC2A4\uD0DD\uC744

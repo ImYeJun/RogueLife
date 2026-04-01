@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_LowPointDefense
   cardName: "\uC800\uC810 \uBC29\uC5B4"
-  background: {fileID: 0}
+  background: {fileID: 5461407356268224303, guid: d392733865853694dbc3f1b1f4dd062b, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uBC29\uC5B4\uD0DC\uC138 3 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   relatedStatusEffectIds:

@@ -14,29 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_DejaVu
   cardName: "\uB370\uC790\uBDF0, \uB290\uAEF4\uBCF8 \uC801 \uC788\uC5B4?"
+  background: {fileID: 2309673231072677192, guid: 4b032408b93a5f0408384136db561d44, type: 3}
   description: "1% \uD655\uB960\uB85C \uC190 \uD328\uC758 \uBAA8\uB4E0 \uCE74\uB4DC\uC758
     \uBCF5\uAE30\uD6A8\uACFC\uAC00 \uCF1C\uC9D1\uB2C8\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "1% \uD655\uB960\uB85C \uC774\uBC88 \uD134 \uC0AC\uC6A9\uD558\uB294
     \uBAA8\uB4E0 \uCE74\uB4DC\uC758 \uBCF5\uAE30\uD6A8\uACFC\uAC00 \uCF1C\uC9D1\uB2C8\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 5
   attribute: 3
   rarity: 2
   actionCost: 0
-  battleBehaviour:
-    rid: 1582000878922236022
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 1582000878922236022
-      type: {class: DejaVu, ns: Battle.Cards.Behaviours, asm: GameAssembly}
-      data:
-        targetType:
-          rid: 1582000878922236023
-        reflectionTargetType:
-          rid: 1582000878922236024
-    - rid: 1582000878922236023
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}
-    - rid: 1582000878922236024
-      type: {class: NoneCardTargetType, ns: , asm: GameAssembly}

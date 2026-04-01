@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_DestinyDiceRoll
   cardName: "\uC6B4\uBA85\uC758 \uB2E4\uC774\uC2A4 \uB864!"
-  background: {fileID: 0}
+  background: {fileID: -3002352271191023079, guid: b11191afd9f1c9c428dc2b296abc1f02, type: 3}
   description: "\uB2E8\uC77C \uC801\uC5D0\uAC8C 1~6 \uC0AC\uC774\uC758 \uC22B\uC790
     X 15 \uB9CC\uD07C\uC758 \uB370\uBBF8\uC9C0\uB97C \uAC00\uD55C\uB2E4.\r\n{ \uD655\uB960
     = 1 (30%), 2 (25%), 3 (20%), 4 (13%), 5 (8%), 6 (3%) }"

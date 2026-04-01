@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: GameAssembly::CardData
   id: Card_WhyAmITheOnlyOneToHurt
   cardName: "\uC65C \uB098\uB9CC \uB9DE\uC544\uC57C\uD574?"
-  background: {fileID: 0}
+  background: {fileID: 9110722473920670679, guid: 5bf0cb0aba1458849b96a14a80491aa3, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uC131\uC2A4\uB7EC\uC6B4 \uBCF4\uD638\uB9C9 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4"
   relatedStatusEffectIds:
