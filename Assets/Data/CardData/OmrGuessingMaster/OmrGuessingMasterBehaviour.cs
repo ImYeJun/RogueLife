@@ -98,7 +98,7 @@ namespace Battle.Cards.Behaviours
         {
             var requestId = Guid.NewGuid();
             var requestDrawAction = new RequestDrawCardBattleAction(requestId);
-            context.ActionScheduler.Enqueue(requestDrawAction);
+            context.ActionScheduler.EnqueueFront(requestDrawAction);
 
             var observer = new Observer(context, requestId, target, successHealAmount);
             context.ActionObserverHub.SubscribePostObserver<DrawCardBattleAction>(observer.PostDrawCard);
