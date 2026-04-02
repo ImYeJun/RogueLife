@@ -11,7 +11,7 @@ public static class CardRarityExtenstions
         {
             CardRarity.ANY     => "전체",
             CardRarity.COMMON  => "일반",
-            CardRarity.RARE  => "희귀",
+            CardRarity.RARE  => "고급",
             CardRarity.LEGENDARY  => "전설",
             _                => rarity.ToString()
         };

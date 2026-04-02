@@ -17,7 +17,7 @@ MonoBehaviour:
   tier: 1
   description: "\uB0B4\uAC00 \uC9C0\uB098\uAC00\uB824\uACE0 \uD558\uBA74 \uBE68\uAC04
     \uBD88\uC774 \uB418\uB294 \uC2E0\uD638\uB4F1"
-  maxBaseHealth: 200
+  maxBaseHealth: 160
   behaviourDescriptionList:
   - behaviourId: Enemy_BlockingTrafficLight_Behavior_0
     behaviourDescription: "\uC790\uC2E0\uC758 \uCCB4\uB825\uC744 50 \uD68C\uBCF5\uD558\uACE0,
