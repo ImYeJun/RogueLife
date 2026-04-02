@@ -52,7 +52,7 @@ namespace Battle.Cards.Behaviours
             foreach (var selectedCard in selectedCards)
             {
                 var action = new ApplyReflectEffectOnCard(selectedCard);
-                context.ActionScheduler.Enqueue(action);
+                context.ActionScheduler.EnqueueFront(action);
             }
         }
     }
