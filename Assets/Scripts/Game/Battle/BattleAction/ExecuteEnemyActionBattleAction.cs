@@ -11,10 +11,12 @@ public class ExecuteEnemyActionBattleAction : IBattleAction
         this.action = action;
     }
 
-    public EnemyAction Action { get => action;  }
+    public EnemyAction Action { get => action; }
 
     public void Execute(BattleContext context)
     {
+        if (actor.IsDead) { return; }
+
         context.EventBus.Publish(new EnemyActionExecutedBattleEvent(actor, action));
         action.Execute(context);
     }

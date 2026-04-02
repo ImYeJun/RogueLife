@@ -411,6 +411,8 @@ namespace View.BattleView
         public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentBuffs => new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
         public IReadOnlyDictionary<BattleStatusEffectData, BattleStatusEffect> CurrentDebuffs => new Dictionary<BattleStatusEffectData, BattleStatusEffect>();
 
+        public bool IsDead => false;
+
         public MockBattlePlayer(int startBh, int maxBh, int startMen, int maxMen)
         {
             mockHealth = new MockHealth()
