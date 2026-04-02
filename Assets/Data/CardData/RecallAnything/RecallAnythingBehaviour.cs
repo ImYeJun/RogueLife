@@ -43,12 +43,12 @@ namespace Battle.Cards.Behaviours
             ExecuteCommonAction(context, 2);
         }
 
-        private static void ExecuteCommonAction(BattleContext context, int count)
+        private void ExecuteCommonAction(BattleContext context, int count)
         {
             var random = context.Random;
             var handCards = context.HandDeck.GetCards();
-
-            var selectedCards = handCards.Where(card => !card.IsReflectionApplied).OrderBy(card => random.Next()).Take(count);
+            
+            var selectedCards = handCards.Where(card => owner != card && !card.IsReflectionApplied).OrderBy(card => random.Next()).Take(count);
             foreach (var selectedCard in selectedCards)
             {
                 var action = new ApplyReflectEffectOnCard(selectedCard);
