@@ -42,7 +42,7 @@ namespace Battle.Enemies.Behaviours
                     context.ActionScheduler.Enqueue(killAction);
                 }
 
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     var spawnedGraduate = new BattleEnemy(context, labSlaveEntity);
                     var spawnAction = new SpawnEnemyBattleAction(spawnedGraduate);
@@ -130,17 +130,9 @@ namespace Battle.Enemies.Behaviours
                         determinedStatusEffect = new BattleStatusEffect(defensiveStanceData, 2, 4);
                         determinedTarget = owner.AsEntity;
                         break;
-                    case 2:
+                    default:
                         determinedStatusEffect = new BattleStatusEffect(iWillKillYouData, 4, 3);
                         determinedTarget = owner.AsEntity;
-                        break;
-                    case 3:
-                        determinedStatusEffect = new BattleStatusEffect(heavyBodyData, 2, 2);
-                        determinedTarget = context.PlayerContainer.Player;
-                        break;
-                    default:
-                        determinedStatusEffect = new BattleStatusEffect(ohMyData, 1, 2);
-                        determinedTarget = context.PlayerContainer.Player;
                         break;
                 }
 
@@ -162,7 +154,7 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 30) },
+                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 20) },
                 { SECOND_ACTION, new LabReorganization(SECOND_ACTION, owner, labSlaveEntity) },
                 { THIRD_ACTION, new ForcedLabor(THIRD_ACTION, owner, labSlaveEntity) },
                 { FOURTH_ACTION, new TakeCredit(FOURTH_ACTION, owner, labSlaveEntity)},

@@ -88,7 +88,7 @@ namespace Battle.Cards.Behaviours
             for (int i = handCards.Count - 1; i >= 0; i--)
             {
                 // 💡 [수정됨] 범용 모디파이어 시스템으로 전환!
-                var mod = new CardCostModifier(-2);
+                var mod = new CardCostModifier(-3);
                 context.ActionScheduler.Enqueue(new AddCardCostModifierBattleAction(handCards[i], mod));
                 modifiersDict[handCards[i]] = mod;
             }

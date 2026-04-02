@@ -18,7 +18,7 @@ MonoBehaviour:
   startCards:
   - count: 3
     entity: {fileID: 6868585300364053543, guid: 47ef257878a66824ea48b54e253974d6, type: 3}
-  - count: 3
+  - count: 2
     entity: {fileID: 4342932490307470927, guid: 20ecb3748be65184d99d8a9528b6b54d, type: 3}
   - count: 3
     entity: {fileID: 2582747929828341327, guid: c23c4998f0f44bf469ab0cdddfce623a, type: 3}

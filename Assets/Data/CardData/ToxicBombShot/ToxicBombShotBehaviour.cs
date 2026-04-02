@@ -37,23 +37,23 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, AllEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, target, 2);
+            ExecuteCommonAction(context, caster, target, 20, 3);
         }
 
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, AllEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, target, 3);
+            ExecuteCommonAction(context, caster, target, 25, 4);
         }
-        private void ExecuteCommonAction(BattleContext context, CardCaster caster, AllEnemyCardTarget target, int debuffDuration)
+        private void ExecuteCommonAction(BattleContext context, CardCaster caster, AllEnemyCardTarget target, int damage, int debuffDuration)
         {
             foreach (var enemy in target.Enemies)
             {
-                var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 15, enemy);
+                var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), damage, enemy);
                 context.ActionScheduler.Enqueue(hurtAction);
             }
             foreach (var enemy in target.Enemies)
             {
-                var statusEffect = new BattleStatusEffect(deadlyPoisionEntity, 2, debuffDuration);
+                var statusEffect = new BattleStatusEffect(deadlyPoisionEntity, 3, debuffDuration);
                 var debuffAction = new ApplyEntityStatusEffectBattleAction(enemy, statusEffect);
                 context.ActionScheduler.Enqueue(debuffAction);
             }

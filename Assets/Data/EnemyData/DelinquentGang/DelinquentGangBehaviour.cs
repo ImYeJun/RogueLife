@@ -47,8 +47,8 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new ApplyPlayerStatusEffect(FIRST_ACTION, owner, waterFistEntity, 2, 2) },
-                { SECOND_ACTION, new HurtPlayer(SECOND_ACTION, owner, 30) },
+                { FIRST_ACTION, new ApplyPlayerStatusEffect(FIRST_ACTION, owner, waterFistEntity, 1, 2) },
+                { SECOND_ACTION, new HurtPlayer(SECOND_ACTION, owner, 20) },
                 { THIRD_ACTION, new Imitate(THIRD_ACTION, owner) }
             };
 

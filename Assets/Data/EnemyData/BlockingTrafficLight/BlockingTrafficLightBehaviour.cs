@@ -29,7 +29,7 @@ namespace Battle.Enemies.Behaviours
             {
                 { FIRST_ACTION, new CompositeEnemyAction(FIRST_ACTION, owner, new List<EnemyAction>()
                 {
-                    new HealSelf(FIRST_ACTION + "_sub1", owner, 50),
+                    new HealSelf(FIRST_ACTION + "_sub1", owner, 40),
                     new RemoveItselfStatusEffect(FIRST_ACTION + "_sub2", owner, BattleStatusEffectType.DEBUFF, 1)
                 }, BattleEnemyActionType.Effect) },
                 { SECOND_ACTION, new ApplySelfStatusEffect(SECOND_ACTION, owner, nanoMachineEntity, 1, 4) },

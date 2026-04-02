@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Linq;
 using Battle.Cards.Casters;
 using UnityEngine;
 
@@ -34,31 +35,41 @@ namespace Battle.Cards.Behaviours
         }
 
         protected override void OnExecute(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
-        {
-            var targetEnemy = target.Enemy;
+            {
+                var targetEnemy = target.Enemy;
 
-            int totalCount = targetEnemy.CurrentBuffs.Count + targetEnemy.CurrentDebuffs.Count;
+                int totalStackCount = targetEnemy.CurrentBuffs.Sum(buff => buff.Value.StackCount) 
+                                    + targetEnemy.CurrentDebuffs.Sum(debuff => debuff.Value.StackCount);
 
-            int baseDamage = 10;
-            var hurtEnemyAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), totalCount * baseDamage, targetEnemy);
-            context.ActionScheduler.Enqueue(hurtEnemyAction);
-        }
-        protected override void OnExecuteReflection(BattleContext context, CardCaster caster, CompositeCardTarget target)
-        {
-            var enemyCardTarget = target.GetTarget<SingleEnemyCardTarget>();
-            var playerCardTarget = target.GetTarget<PlayerCardTarget>();
-            if (enemyCardTarget == null || playerCardTarget == null) { throw new InvalidOperationException("[ScrollExplosion] Seriously? Check the required types in the editor!!"); }
+                int baseDamage = 10;
+                var hurtEnemyAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), totalStackCount * baseDamage, targetEnemy);
+                context.ActionScheduler.Enqueue(hurtEnemyAction);
+            }
 
-            var targetEnemy = enemyCardTarget.Enemy;
-            var player = playerCardTarget.Player;
+            protected override void OnExecuteReflection(BattleContext context, CardCaster caster, CompositeCardTarget target)
+            {
+                var enemyCardTarget = target.GetTarget<SingleEnemyCardTarget>();
+                var playerCardTarget = target.GetTarget<PlayerCardTarget>();
+                
+                if (enemyCardTarget == null || playerCardTarget == null) 
+                { 
+                    throw new InvalidOperationException("[ScrollExplosion] Seriously? Check the required types in the editor!!"); 
+                }
 
-            int enemyCount = targetEnemy.CurrentBuffs.Count + targetEnemy.CurrentDebuffs.Count;
-            int playerCount = player.CurrentBuffs.Count + player.CurrentDebuffs.Count;
-            int totalCount = enemyCount + playerCount;
+                var targetEnemy = enemyCardTarget.Enemy;
+                var player = playerCardTarget.Player;
 
-            int baseDamage = 10;
-            var hurtEnemyAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), totalCount * baseDamage, targetEnemy);
-            context.ActionScheduler.Enqueue(hurtEnemyAction);
-        }
+                int enemyStackCount = targetEnemy.CurrentBuffs.Sum(buff => buff.Value.StackCount) 
+                                    + targetEnemy.CurrentDebuffs.Sum(debuff => debuff.Value.StackCount);
+                                    
+                int playerStackCount = player.CurrentBuffs.Sum(buff => buff.Value.StackCount) 
+                                    + player.CurrentDebuffs.Sum(debuff => debuff.Value.StackCount);
+                                    
+                int totalStackCount = enemyStackCount + playerStackCount;
+
+                int baseDamage = 10;
+                var hurtEnemyAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), totalStackCount * baseDamage, targetEnemy);
+                context.ActionScheduler.Enqueue(hurtEnemyAction);
+            }
     }
 }

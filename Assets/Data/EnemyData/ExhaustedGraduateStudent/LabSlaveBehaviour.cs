@@ -24,7 +24,7 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, Actions.EnemyAction>
             {
-                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 20) },
+                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 15) },
                 { SECOND_ACTION, new ApplySelfStatusEffect(SECOND_ACTION, owner, thatsFoulEntity, 1, 2) }
             };
         }

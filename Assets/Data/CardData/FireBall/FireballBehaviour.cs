@@ -38,12 +38,12 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, target);
+            ExecuteCommonAction(context, caster, target, 20, 2);
         }
 
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, target);
+            ExecuteCommonAction(context, caster, target, 25, 3);
 
             if (owner.CurrentActionCost <= 0) { return; }
 
@@ -52,13 +52,13 @@ namespace Battle.Cards.Behaviours
             context.ActionScheduler.Enqueue(decreaseCardActionCostAcion);
         }
         
-        private void ExecuteCommonAction(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
+        private void ExecuteCommonAction(BattleContext context, CardCaster caster, SingleEnemyCardTarget target, int damage, int duration)
         {
             var targetEnemy = target.Enemy;
 
-            var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), 15, targetEnemy);
+            var hurtAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), damage, targetEnemy);
 
-            var itsFire = new BattleStatusEffect(burningEntity, 1, 1);
+            var itsFire = new BattleStatusEffect(burningEntity, 1, duration);
             var debuffApplyAction = new ApplyEntityStatusEffectBattleAction(targetEnemy, itsFire);
 
             context.ActionScheduler.Enqueue(hurtAction);
