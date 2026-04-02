@@ -47,8 +47,11 @@ namespace Battle.Cards.Behaviours
             var cards = context.BattleDeckHistory.GetRecentlyGravedCard(3);
             foreach (var card in cards)
             {
-                var restoringAction = new MoveCardToDeckBattleAction(card, BattleDeckType.DRAW);
-                context.ActionScheduler.Enqueue(restoringAction);
+                if (!context.DrawDeck.HasCard(card))
+                {
+                    var restoringAction = new MoveCardToDeckBattleAction(card, BattleDeckType.DRAW);
+                    context.ActionScheduler.Enqueue(restoringAction);
+                }
             }
 
             var drawAction = new RequestDrawCardBattleAction(CardRarity.ANY, CardAttribute.ANY, CardType.ANY, Guid.NewGuid());

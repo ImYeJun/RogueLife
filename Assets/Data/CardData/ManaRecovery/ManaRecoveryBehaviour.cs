@@ -53,10 +53,13 @@ namespace Battle.Cards.Behaviours
             if (context.HandDeck.HasCard(previousUsedCard)) { return; }
             
             var restoreCostAction = new RestoreActionCostBattleAction(previousUsedCard.CurrentActionCost);
-            var moveCardAction = new MoveCardToDeckBattleAction(previousUsedCard, BattleDeckType.DRAW);
-
             context.ActionScheduler.Enqueue(restoreCostAction);
-            context.ActionScheduler.Enqueue(moveCardAction);
+
+            if (!context.DrawDeck.HasCard(previousUsedCard))
+            {
+                var moveCardAction = new MoveCardToDeckBattleAction(previousUsedCard, BattleDeckType.DRAW);
+                context.ActionScheduler.Enqueue(moveCardAction);
+            }
         }
     }
 }
