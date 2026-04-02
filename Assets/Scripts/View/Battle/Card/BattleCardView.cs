@@ -90,6 +90,8 @@ namespace View.BattleView
 
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.CardReflectionChanged_UpdateView, CardReflectionChangedPresentation(), () =>
             {
+                if (this == null || gameObject == null) return;
+
                 sharedCardView.DrawDescription(payload.IsReflection);
             });
         }
