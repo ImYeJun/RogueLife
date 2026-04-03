@@ -109,5 +109,8 @@ public class PresentationManager : SingletonManager<PresentationManager>
     {
         StopAllCoroutines();
         DOTween.KillAll();
+        queue.Clear();
+        
+        isPlaying = false;
     }
 }
