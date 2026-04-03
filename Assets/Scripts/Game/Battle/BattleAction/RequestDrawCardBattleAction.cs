@@ -38,6 +38,6 @@ public class RequestDrawCardBattleAction : IBattleAction
 
         Card? drawingCard = context.DeckSystem.RequestDrawingCard(context.Random, rarity, attribute, type);
         if (drawingCard is null) { return; }
-        context.ActionScheduler.Enqueue(new DrawCardBattleAction(requestId, drawingCard));
+        context.ActionScheduler.EnqueueFront(new DrawCardBattleAction(requestId, drawingCard));
     }
 }

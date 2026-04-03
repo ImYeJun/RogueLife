@@ -16,6 +16,6 @@ public class DrawCardBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(card, BattleDeckType.HAND));
+        context.ActionScheduler.EnqueueFront(new MoveCardToDeckBattleAction(card, BattleDeckType.HAND));
     }
 }

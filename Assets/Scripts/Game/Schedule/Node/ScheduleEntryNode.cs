@@ -11,12 +11,11 @@ public class ScheduleEntryNode : Node
     {
         base.OnEnter(context, flowHandler, scheduleHistory);
 
-        context.Health.OnMentalBreakDown += OnPlayerMentalBroken; //! Test
+        context.Health.OnMentalBreakDown += OnPlayerMentalBroken;
 
         RequestNextNodeSelection();
     }
 
-     //! Test
     public override void OnExit(Node nextNode)
     {
         context.Health.OnMentalBreakDown -= OnPlayerMentalBroken;
