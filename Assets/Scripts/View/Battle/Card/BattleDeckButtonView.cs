@@ -15,14 +15,18 @@ namespace View.BattleView
         [SerializeField] private TextMeshProUGUI deckCountText;
         protected IReadOnlyBattleDeck deck;
 
+        protected abstract BattleDeckType TargetDeckType { get; } 
+
         public override void OnInitialized()
         {
             eventBus.Subscribe<InitialDeckSettled>(OnInitialDeckSettled);
+            eventBus.Subscribe<CardDiscarded>(OnCardDiscarded);
         }
 
         public override void OnDestroy()
         {
             eventBus?.Unsubscribe<InitialDeckSettled>(OnInitialDeckSettled);
+            eventBus?.Unsubscribe<CardDiscarded>(OnCardDiscarded);
         }
 
         public abstract void OnInitialDeckSettled(InitialDeckSettled payload);
@@ -36,6 +40,19 @@ namespace View.BattleView
         {
             yield return null;
             DrawDeckCountText(currentCount);
+        }
+
+        protected virtual void OnCardDiscarded(CardDiscarded payload)
+        {
+            if (payload.Destination != TargetDeckType) { return; }
+
+            int targetCount = deck.Count;
+
+            presentationManager.Enqueue(
+                payload.SequenceId, 
+                PresentationPriority.CardDiscarded_DrawDeckCount, 
+                DrawDeckCountTextPresentation(targetCount)
+            );
         }
 
         public abstract void OnPointerClick(PointerEventData eventData);

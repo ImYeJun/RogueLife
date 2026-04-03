@@ -124,7 +124,7 @@ public static class PresentationPriority
     
     //Card Discarded
     public const int CardDiscarded_HandDeckPresentation = 10;
-    public const int CardDiscarded_DrawGraveDeckCount = 20;
+    public const int CardDiscarded_DrawDeckCount = 20;
 
     //Card Restored
     public const int CardRestored_HandDeckPresentation = 10;

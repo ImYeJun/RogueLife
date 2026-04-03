@@ -9,6 +9,8 @@ namespace View.BattleView
         [Header("DrawDeckButtonView Behaviour")]
         [SerializeField] private DeckInventoryView deckInventoryView;
 
+        protected override BattleDeckType TargetDeckType => BattleDeckType.DRAW;
+
         public override void OnInitialDeckSettled(InitialDeckSettled payload)
         {
             deck = payload.DrawDeck;
@@ -26,6 +28,7 @@ namespace View.BattleView
             base.OnDestroy();
             eventBus?.Unsubscribe<CardDrawed>(OnCardDrawed);
         }
+
         private void OnCardDrawed(CardDrawed payload)
         {
             int targetCount = deck.Count; 
