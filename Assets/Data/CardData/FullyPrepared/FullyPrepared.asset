@@ -16,13 +16,13 @@ MonoBehaviour:
   cardName: "\uC900\uBE44 \uB9CC\uC804"
   background: {fileID: 1116814111528658927, guid: 0df6c870aa3d7ed4a897f08e4cfb9063, type: 3}
   description: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uC5D0, \uC790\uC2E0\uC5D0\uAC8C
-    \uD55C \uD134\uAC04 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654 2 \uC2A4\uD0DD\uC744
-    \uBD80\uC5EC\uD55C\uB2E4"
+    1\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654 2\uC2A4\uD0DD\uC744
+    \uBD80\uC5EC\uD55C\uB2E4."
   relatedStatusEffectIds:
   - Buff_StrengthenMuscle
   relfectionAppliedDescription: "\uB2E4\uC74C \uC790\uC2E0\uC758 \uD134\uC5D0, \uC790\uC2E0\uC5D0\uAC8C
-    \uD55C \uD134\uAC04 \uC9C0\uC18D\uB418\uB294 \uC8FD\uC5EC\uC8FC\uB9C8! 2 \uC2A4\uD0DD\uC744
-    \uBD80\uC5EC\uD55C\uB2E4"
+    1\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uC8FD\uC5EC\uC8FC\uB9C8! 2\uC2A4\uD0DD\uC744
+    \uBD80\uC5EC\uD55C\uB2E4."
   reflectionRelatedStatusEffectIds:
   - Buff_IWillKillYou
   type: 2

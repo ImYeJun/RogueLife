@@ -15,10 +15,12 @@ MonoBehaviour:
   id: Card_ProteinSupplement
   cardName: "\uD504\uB85C\uD2F4 \uBCF4\uCDA9"
   background: {fileID: -7804570087867069310, guid: 7dfd39cbc4d9848488e98cadb6998c75, type: 3}
-  description: "\uB371\uC5D0\uC11C \uBB3C\uB9AC \uC18D\uC131 \uCE74\uB4DC \uD55C
-    \uC7A5\uC744 \uAC00\uC838\uC635\uB2C8\uB2E4."
+  description: "\uB371\uC5D0\uC11C \uBB3C\uB9AC \uC18D\uC131 \uCE74\uB4DC 1\uC7A5\uC744
+    \uAC00\uC838\uC628\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uB371\uC5D0\uC11C \uBB3C\uB9AC \uC18D\uC131 \uCE74\uB4DC
-    \uD55C \uC7A5\uC744 \uAC00\uC838\uC624\uACE0 \uCCB4\uB825\uC744 10 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
+    1\uC7A5\uC744 \uAC00\uC838\uC624\uACE0, \uCCB4\uB825\uC744 10 \uD68C\uBCF5\uD55C\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 2
   attribute: 1
   rarity: 1

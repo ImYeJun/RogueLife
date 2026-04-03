@@ -16,12 +16,12 @@ MonoBehaviour:
   cardName: "\uB7EC\uC2DC\uC548 \uB8F0\uB81B"
   background: {fileID: -7245872293569124135, guid: ea80d94fa8238ac4586b21752b05b726, type: 3}
   description: "\uC790\uC2E0 \uB610\uB294 \uC0C1\uB300\uBC29\uC5D0\uAC8C 30\uC758
-    \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+    \uD53C\uD574\uB97C \uC900\uB2E4."
   relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC790\uC2E0 \uB610\uB294 \uC0C1\uB300\uBC29\uC5D0\uAC8C
-    30\uC758 \uD53C\uD574\uB97C \uC8FC\uACE0, \uC790\uC2E0\uC774 \uD53C\uD574\uB97C
-    \uBC1B\uC558\uC744 \uACBD\uC6B0 \uCE74\uB4DC \uD55C \uC7A5\uC744 \uB371\uC5D0\uC11C
-    \uAC00\uC838\uC635\uB2C8\uB2E4. "
+    30\uC758 \uD53C\uD574\uB97C \uC900\uB2E4. \uB9CC\uC57D, \uC790\uC2E0\uC774 \uD53C\uD574\uB97C
+    \uBC1B\uC558\uC744 \uACBD\uC6B0 \uCE74\uB4DC 1\uC7A5\uC744 \uB371\uC5D0\uC11C
+    \uAC00\uC838\uC628\uB2E4."
   reflectionRelatedStatusEffectIds: []
   type: 1
   attribute: 3

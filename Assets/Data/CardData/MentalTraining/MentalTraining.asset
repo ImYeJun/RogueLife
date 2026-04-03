@@ -15,12 +15,12 @@ MonoBehaviour:
   id: Card_MentalTraining
   cardName: "\uC815\uC2E0 \uC218\uB828"
   background: {fileID: 1043943578262147987, guid: 62896bab5158e94479eca0b66642b56d, type: 3}
-  description: "\uC790\uC2E0\uC5D0\uAC8C \uD55C \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
-    \uAC00\uBCBC\uC6CC\uC9C4 \uBAB8 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+  description: "\uC790\uC2E0\uC5D0\uAC8C 1\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+    \uAC00\uBCBC\uC6CC\uC9C4 \uBAB8 1\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   relatedStatusEffectIds:
   - Buff_LightBody
-  relfectionAppliedDescription: "\uB2E4\uC74C 3\uBC88\uC758 \uCE74\uB4DC \uC0AC\uC6A9\uB3D9\uC548
-    \uD589\uB3D9\uB825\uC774 1 \uAC10\uC18C\uD55C\uB2E4."
+  relfectionAppliedDescription: "\uB2E4\uC74C 3\uBC88\uC758 \uCE74\uB4DC \uC0AC\uC6A9
+    \uB3D9\uC548 \uD589\uB3D9\uB825\uC774 1 \uAC10\uC18C\uD55C\uB2E4."
   reflectionRelatedStatusEffectIds: []
   type: 2
   attribute: 2

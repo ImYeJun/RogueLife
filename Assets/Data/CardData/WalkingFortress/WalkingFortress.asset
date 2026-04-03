@@ -15,15 +15,15 @@ MonoBehaviour:
   id: Card_WalkingFortress
   cardName: "\uAC78\uC5B4 \uB2E4\uB2C8\uB294 \uCCA0\uC639\uC131"
   background: {fileID: 2096755540838747387, guid: 5d8385b5303c22748a4e6daca2078fd0, type: 3}
-  description: "\uC790\uC2E0\uC5D0\uAC8C \uC774\uBC88 \uC804\uD22C\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+  description: "\uC790\uC2E0\uC5D0\uAC8C \uC774\uBC88 \uC804\uD22C \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
     \uADFC\uB825 \uC57D\uD654 1\uC2A4\uD0DD\uACFC \uBC29\uC5B4\uD0DC\uC138 6\uC2A4\uD0DD\uC744
-    \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+    \uBD80\uC5EC\uD55C\uB2E4."
   relatedStatusEffectIds:
   - Debuff_WeakenMuscle
   - Buff_DefensiveStance
-  relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uC774\uBC88 \uC804\uD22C\uB3D9\uC548
-    \uC9C0\uC18D\uB418\uB294 \uBC18\uACA9  2\uC2A4\uD0DD\uACFC \uBC29\uC5B4\uD0DC\uC138
-    6\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C \uC774\uBC88 \uC804\uD22C
+    \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uBC18\uACA9  2\uC2A4\uD0DD\uACFC \uBC29\uC5B4\uD0DC\uC138
+    6\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   reflectionRelatedStatusEffectIds:
   - Buff_CounterAttack
   - Buff_DefensiveStance

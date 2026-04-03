@@ -16,9 +16,11 @@ MonoBehaviour:
   cardName: "\uD0DC! \uAD8C! \uB3C4!"
   background: {fileID: 4299399653739545917, guid: 748a70a433703264da5b181417797c72, type: 3}
   description: "\uC0C1\uB300\uBC29\uC5D0\uAC8C 10\uC758 \uD53C\uD574\uB97C 3\uBC88
-    \uC785\uD799\uB2C8\uB2E4"
+    \uC785\uD78C\uB2E4."
+  relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC0C1\uB300\uBC29\uC5D0\uAC8C 10\uC758 \uD53C\uD574\uB97C
-    4\uBC88 \uC785\uD799\uB2C8\uB2E4."
+    4\uBC88 \uC785\uD78C\uB2E4."
+  reflectionRelatedStatusEffectIds: []
   type: 1
   attribute: 1
   rarity: 1

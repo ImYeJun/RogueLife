@@ -17,11 +17,11 @@ MonoBehaviour:
   background: {fileID: -1102041062494969331, guid: 4a3ee376d9a17df43b3bc471cad5bdc3, type: 3}
   description: "\uC0C1\uB300 \uD55C\uBA85\uC5D0\uAC8C \uC0C1\uB300\uBC29\uC774 \uAC00\uC9C4
     \uBAA8\uB4E0 \uBC84\uD504\xB7\uB514\uBC84\uD504\uC758 \uC2A4\uD0DD X 10 \uB9CC\uD07C
-    \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
+    \uD53C\uD574\uB97C \uC900\uB2E4."
   relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC0C1\uB300 \uD55C\uBA85\uC5D0\uAC8C \uC790\uC2E0\uACFC
     \uC0C1\uB300\uBC29\uC774 \uAC00\uC9C4 \uBAA8\uB4E0 \uBC84\uD504\xB7\uB514\uBC84\uD504\uC758
-    \uC2A4\uD0DD X 10 \uB9CC\uD07C \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4. "
+    \uC2A4\uD0DD X 10 \uB9CC\uD07C \uD53C\uD574\uB97C \uC900\uB2E4."
   reflectionRelatedStatusEffectIds: []
   type: 1
   attribute: 2
