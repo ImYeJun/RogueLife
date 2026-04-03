@@ -77,20 +77,37 @@ namespace View.BattleView
 
         public IEnumerator PlayAppliedPresentation()
         {
+            if (this == null || canvasGroup == null || layoutElement == null) yield break;
+
             layoutElement.ignoreLayout = false;
             canvasGroup.alpha = 0;
-            yield return canvasGroup.DOFade(1, appliedPresentationDuration).SetEase(appliedPresentationEase).WaitForCompletion();
+            
+            yield return canvasGroup.DOFade(1, appliedPresentationDuration)
+                .SetEase(appliedPresentationEase)
+                .SetLink(gameObject)
+                .WaitForCompletion();
         }
 
         public IEnumerator PlayExecutedPresentation()
         {
-            yield return transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity).SetEase(executedPresentationEase).WaitForCompletion();
+            if (this == null) yield break;
+
+            yield return transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity)
+                .SetEase(executedPresentationEase)
+                .SetLink(gameObject)
+                .WaitForCompletion();
         }
 
         public IEnumerator PlayRemovedPresentation()
         {
+            if (this == null || canvasGroup == null) yield break;
+
             canvasGroup.alpha = 1;
-            yield return canvasGroup.DOFade(0, removedPresentationDuration).SetEase(removedPresentationEase).WaitForCompletion();
+            
+            yield return canvasGroup.DOFade(0, removedPresentationDuration)
+                .SetEase(removedPresentationEase)
+                .SetLink(gameObject)
+                .WaitForCompletion();
         }
 
 #if UNITY_EDITOR
