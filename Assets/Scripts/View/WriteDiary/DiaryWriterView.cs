@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using DG.Tweening;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -92,7 +93,7 @@ namespace View.WriteDiaryView
             returnToMainMenuButton.SetActive(false);
             
             eventBus.Subscribe<DiaryWritten>(OnDiaryWritten);
-            CheckStartMenuPend();
+            // CheckStartMenuPend();
         }
 
         public override void OnDestroy()
@@ -100,25 +101,25 @@ namespace View.WriteDiaryView
             eventBus?.Unsubscribe<DiaryWritten>(OnDiaryWritten);
         }
 
-        private void CheckStartMenuPend()
-        {
-            if (StartMenuDiaryPender.Instance is null) { return; }
+        // private void CheckStartMenuPend()
+        // {
+        //     if (StartMenuDiaryPender.Instance is null) { return; }
 
-            var diary = StartMenuDiaryPender.Instance.pendingDiary;
-            if (diary is null) { return; }
-            var (commonData, specialData) = SetupDiaryPresentationData(diary);
-            EnqueueDiaryPresentations(-1, commonData, specialData);
-        }
+        //     var diary = StartMenuDiaryPender.Instance.pendingDiary;
+        //     if (diary is null) { return; }
+        //     var (commonData, specialData) = SetupDiaryPresentationData(diary);
+        //     EnqueueDiaryPresentations(-1, commonData, specialData);
+        // }
 
         private void OnDiaryWritten(DiaryWritten payload)
         {
             var diary = payload.Diary;
-            var (commonData, specialData) = SetupDiaryPresentationData(diary);
+            var (commonData, specialData, isSpecial) = SetupDiaryPresentationData(diary);
 
-            EnqueueDiaryPresentations(payload.SequenceId, commonData, specialData);
+            EnqueueDiaryPresentations(payload.SequenceId, commonData, specialData, isSpecial);
         } 
 
-        private (CommonDiaryPresentationData, SpecialDiaryPresentationData) SetupDiaryPresentationData(Diary diary)
+        private (CommonDiaryPresentationData, SpecialDiaryPresentationData, bool) SetupDiaryPresentationData(Diary diary)
         {
             specialDiaryImage.gameObject.SetActive(false);
             int remainMentality = diary.ScheduleHistories.Last().Value.RemainMentalityOnExit;
@@ -181,26 +182,40 @@ namespace View.WriteDiaryView
                 );
             }
 
-            return (commonPartData, specialPartData);
+            return (commonPartData, specialPartData, diary.IsSpecial);
         }
 
-        private void EnqueueDiaryPresentations(int sequenceId, CommonDiaryPresentationData commonData, SpecialDiaryPresentationData specialData)
+        private void EnqueueDiaryPresentations(int sequenceId, CommonDiaryPresentationData commonData, SpecialDiaryPresentationData specialData, bool isSpecial)
         {
-            presentationManager.Enqueue(
-                sequenceId, 
-                PresentationPriority.DiaryWritten_CommonPartPresentation, 
-                PlayCommonPartWritePresentation(commonData)
-            );
-
-            presentationManager.Enqueue(
-                sequenceId, 
-                PresentationPriority.DiaryWritten_SpecialPartPresentation, 
-                PlaySpecialPartWritePresentation(specialData),
-                () =>
-                {
-                    returnToMainMenuButton.SetActive(true);
-                }
-            );
+            if (isSpecial)
+            {
+                presentationManager.Enqueue(
+                    sequenceId, 
+                    PresentationPriority.DiaryWritten_CommonPartPresentation, 
+                    PlayCommonPartWritePresentation(commonData)
+                );
+                presentationManager.Enqueue(
+                    sequenceId, 
+                    PresentationPriority.DiaryWritten_SpecialPartPresentation, 
+                    PlaySpecialPartWritePresentation(specialData),
+                    () =>
+                    {
+                        returnToMainMenuButton.SetActive(true);
+                    }
+                );
+            }
+            else
+            {
+                presentationManager.Enqueue(
+                    sequenceId, 
+                    PresentationPriority.DiaryWritten_CommonPartPresentation, 
+                    PlayCommonPartWritePresentation(commonData),
+                    () =>
+                    {
+                        returnToMainMenuButton.SetActive(true);
+                    }
+                );
+            }
         }
 
         private IEnumerator TypewriteText(TextMeshProUGUI tmpText, string fullText)
