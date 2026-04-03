@@ -17,18 +17,5 @@ MonoBehaviour:
   image: {fileID: 5073546384916370267, guid: edc9c89c028572c4f9b7ad6f798ea54d, type: 3}
   description: "\uD604\uC7AC \uC804\uD22C \uCCB4\uB825\uC744 \uB118\uB294 \uB370\uBBF8\uC9C0\uAC00
     \uB4E4\uC5B4\uC62C \uACBD\uC6B0, \uC815\uC2E0\uB825\uC5D0 \uAC00\uD574\uC9C0\uB294
-    \uB370\uBBF8\uC9C0\uAC00 0\uC774 \uB41C\uB2E4 (\uC804\uD22C \uB178\uB4DC\uB2F9
+    \uB370\uBBF8\uC9C0\uAC00 0\uC774 \uB41C\uB2E4. (\uC804\uD22C \uB178\uB4DC\uB2F9
     \uD55C\uBC88)"
-  fieldBehaviour:
-    rid: 7557520071594606724
-  battleBehaviour:
-    rid: 7557520071594606725
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557520071594606724
-      type: {class: FieldCarrotCarrot, ns: Belongingses.Behaviour, asm: GameAssembly}
-    - rid: 7557520071594606725
-      type: {class: BattleCarrotCarrot, ns: Belongingses.Behaviour, asm: GameAssembly}

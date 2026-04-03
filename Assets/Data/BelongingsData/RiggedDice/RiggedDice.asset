@@ -19,17 +19,4 @@ MonoBehaviour:
     5% \uD655\uB960\uB85C \uCE74\uB4DC \uD6A8\uACFC\uC744 \uC7AC\uBC1C\uB3D9 \uD558\uAC70\uB098,
     (\uBCF5\uC81C\uB41C \uD6A8\uACFC\uC5D0\uC11C \uBCF5\uAE30 \uD6A8\uACFC\uB294
     \uBBF8\uD3EC\uD568) 15% \uD655\uB960\uB85C 20\uB9CC\uD07C \uD53C\uD574\uB97C
-    \uBC1B\uB294\uB2E4"
-  fieldBehaviour:
-    rid: 7557520071594606728
-  battleBehaviour:
-    rid: 7557520071594606729
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557520071594606728
-      type: {class: FieldRiggedDice, ns: Belongingses.Behaviour, asm: GameAssembly}
-    - rid: 7557520071594606729
-      type: {class: BattleRiggedDice, ns: Belongingses.Behaviour, asm: GameAssembly}
+    \uBC1B\uB294\uB2E4."
