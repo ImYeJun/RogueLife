@@ -117,21 +117,39 @@ namespace View.BattleView
 
         public IEnumerator PlayAppliedPresentation()
         {
+            if (this == null || canvasGroup == null || layoutElement == null) yield break;
+
             layoutElement.ignoreLayout = false;
             canvasGroup.alpha = 0;
-            yield return canvasGroup.DOFade(1, appliedPresentationDuration).SetEase(appliedPresentationEase).WaitForCompletion();
+            
+            yield return canvasGroup.DOFade(1, appliedPresentationDuration)
+                .SetEase(appliedPresentationEase)
+                .SetLink(gameObject)
+                .WaitForCompletion();
+
+            if (this == null) yield break;
             yield return new WaitForSeconds(presentationHoldDuration);
         }
 
         public IEnumerator PlayExecutedPresentation()
         {
-            yield return transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity).SetEase(executedPresentationEase).WaitForCompletion();
+            if (this == null) yield break;
+
+            yield return transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity)
+                .SetEase(executedPresentationEase)
+                .SetLink(gameObject)
+                .WaitForCompletion();
+
+            if (this == null) yield break;
             yield return new WaitForSeconds(presentationHoldDuration);
         }
 
         public IEnumerator PlayUpdatedPresentation(int targetStack, int targetRemainTurn)
         {
+            if (this == null) yield break;
+
             Sequence seq = DOTween.Sequence();
+            seq.SetLink(gameObject);
 
             seq.Append(transform.DOPunchScale(punchAmount, updatedPunchDuration, punchVibrato, punchElasticity).SetEase(updatedPunchEase));
 
@@ -146,6 +164,7 @@ namespace View.BattleView
                 
                 Tween stackTween = DOVirtual.Int(currentDisplayStack, targetStack, duration, (val) =>
                 {
+                    if (this == null) return;
                     currentDisplayStack = val;
                     ApplyTextUI(currentDisplayRemainTurn, currentDisplayStack);
                 }).SetEase(updatedCountEase);
@@ -160,6 +179,7 @@ namespace View.BattleView
                 
                 Tween turnTween = DOVirtual.Int(currentDisplayRemainTurn, targetRemainTurn, duration, (val) =>
                 {
+                    if (this == null) return;
                     currentDisplayRemainTurn = val;
                     ApplyTextUI(currentDisplayRemainTurn, currentDisplayStack);
                 }).SetEase(updatedCountEase);
@@ -177,14 +197,24 @@ namespace View.BattleView
             if (seq.Duration() > 0)
             {
                 yield return seq.WaitForCompletion();
+                
+                if (this == null) yield break;
                 yield return new WaitForSeconds(presentationHoldDuration);
             }
         }
 
         public IEnumerator PlayRemovedPresentation()
         {
+            if (this == null || canvasGroup == null) yield break;
+
             canvasGroup.alpha = 1;
-            yield return canvasGroup.DOFade(0, removedPresentationDuration).SetEase(removedPresentationEase).WaitForCompletion();
+            
+            yield return canvasGroup.DOFade(0, removedPresentationDuration)
+                .SetEase(removedPresentationEase)
+                .SetLink(gameObject)
+                .WaitForCompletion();
+
+            if (this == null) yield break;
             yield return new WaitForSeconds(presentationHoldDuration);
         }
 
