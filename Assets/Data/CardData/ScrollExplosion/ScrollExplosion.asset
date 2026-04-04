@@ -26,4 +26,4 @@ MonoBehaviour:
   type: 1
   attribute: 2
   rarity: 1
-  actionCost: 0
+  actionCost: 1

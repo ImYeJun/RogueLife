@@ -16,14 +16,14 @@ MonoBehaviour:
   cardName: "\uAC10\uB098\uBE57!"
   background: {fileID: -6289209560101832968, guid: d28ee4fa7b81d604eb8c1918f1470d58, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
-    \uB290\uB824. 1\uC2A4\uD0DD\uC744 20% \uD655\uB960\uB85C \uBD80\uC5EC\uD55C\uB2E4."
+    \uB290\uB824. 1\uC2A4\uD0DD\uC744 50% \uD655\uB960\uB85C \uBD80\uC5EC\uD55C\uB2E4."
   relatedStatusEffectIds:
   - Buff_TooSlow
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
-    \uB290\uB824. 1\uC2A4\uD0DD\uC744 40% \uD655\uB960\uB85C \uBD80\uC5EC\uD55C\uB2E4."
+    \uB290\uB824. 1\uC2A4\uD0DD\uC744 80% \uD655\uB960\uB85C \uBD80\uC5EC\uD55C\uB2E4."
   reflectionRelatedStatusEffectIds:
   - Buff_TooSlow
   type: 3
   attribute: 3
   rarity: 2
-  actionCost: 3
+  actionCost: 1

@@ -72,11 +72,11 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, target, 20);
+            ExecuteCommonAction(context, caster, target, 35);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, target, 25);
+            ExecuteCommonAction(context, caster, target, 40);
         }
         private void ExecuteCommonAction(BattleContext context, CardCaster caster, SingleEnemyCardTarget target, int damage)
         {

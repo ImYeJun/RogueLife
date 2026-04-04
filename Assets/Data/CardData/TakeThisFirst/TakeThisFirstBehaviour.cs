@@ -34,7 +34,7 @@ namespace Battle.Cards.Behaviours
         protected override void OnExecute(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
             var hurtSource = owner.GetAsHurtSource(caster);
-            int damage = 20;
+            int damage = 30;
             var targetEntity = target.Enemy;
 
             var action = new RequestHurtEntityBattleAction(hurtSource, damage, targetEntity);
@@ -44,7 +44,7 @@ namespace Battle.Cards.Behaviours
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
             var hurtSource = owner.GetAsHurtSource(caster);
-            int damage = 25;
+            int damage = 35;
             var targetEntity = target.Enemy;
 
             var action = new RequestHurtEntityBattleAction(hurtSource, damage, targetEntity);

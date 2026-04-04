@@ -20,10 +20,10 @@ MonoBehaviour:
   relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC790\uC2E0 \uB610\uB294 \uC0C1\uB300\uBC29\uC5D0\uAC8C
     30\uC758 \uD53C\uD574\uB97C \uC900\uB2E4. \uB9CC\uC57D, \uC790\uC2E0\uC774 \uD53C\uD574\uB97C
-    \uBC1B\uC558\uC744 \uACBD\uC6B0 \uCE74\uB4DC 1\uC7A5\uC744 \uB371\uC5D0\uC11C
+    \uBC1B\uC558\uC744 \uACBD\uC6B0 \uCE74\uB4DC 2\uC7A5\uC744 \uB371\uC5D0\uC11C
     \uAC00\uC838\uC628\uB2E4."
   reflectionRelatedStatusEffectIds: []
   type: 1
   attribute: 3
   rarity: 1
-  actionCost: 3
+  actionCost: 1

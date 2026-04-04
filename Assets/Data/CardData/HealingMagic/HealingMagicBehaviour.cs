@@ -34,11 +34,11 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            ExecuteCommonAction(context, target, 35);
+            ExecuteCommonAction(context, target, 25);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            ExecuteCommonAction(context, target, 50);
+            ExecuteCommonAction(context, target, 40);
         }
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, int healAmount)
         {

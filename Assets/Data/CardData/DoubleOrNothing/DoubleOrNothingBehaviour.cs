@@ -49,7 +49,7 @@ namespace Battle.Cards.Behaviours
                 context.ActionScheduler.Enqueue(moveCardAction);
             }
 
-            if (context.Random.NextDouble() > 0.4) { return; }
+            if (context.Random.NextDouble() > 0.6) { return; }
 
             for (int i = 0; i < drawCount; i++)
             {

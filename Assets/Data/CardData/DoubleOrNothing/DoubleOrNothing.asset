@@ -16,14 +16,14 @@ MonoBehaviour:
   cardName: "\uBB3B\uACE0 \uB354\uBE14\uB85C \uAC00!"
   background: {fileID: -2210617187082581757, guid: 100d4a2a9b0cfb446b77d6e2edf89c47, type: 3}
   description: "\uC790\uC2E0\uC744 \uC81C\uC678\uD55C \uC190 \uD328\uC758 \uCE74\uB4DC
-    \uD55C \uC7A5\uC744 \uB371\uC73C\uB85C \uB418\uB3CC\uB9AC\uACE0, 40% \uD655\uB960\uB85C
+    \uD55C \uC7A5\uC744 \uB371\uC73C\uB85C \uB418\uB3CC\uB9AC\uACE0, 60% \uD655\uB960\uB85C
     \uB450 \uC7A5\uC744 \uB371\uC5D0\uC11C \uAC00\uC838\uC628\uB2E4."
   relatedStatusEffectIds: []
   relfectionAppliedDescription: "\uC790\uC2E0\uC744 \uC81C\uC678\uD55C  \uC190 \uD328\uC758
     \uCE74\uB4DC \uD55C \uC7A5\uC744 \uB371\uC73C\uB85C \uB418\uB3CC\uB9AC\uACE0,
-    40% \uD655\uB960\uB85C \uC138 \uC7A5\uC744 \uB371\uC5D0\uC11C \uAC00\uC838\uC628\uB2E4."
+    60% \uD655\uB960\uB85C \uC138 \uC7A5\uC744 \uB371\uC5D0\uC11C \uAC00\uC838\uC628\uB2E4."
   reflectionRelatedStatusEffectIds: []
   type: 2
   attribute: 3
   rarity: 1
-  actionCost: 4
+  actionCost: 3

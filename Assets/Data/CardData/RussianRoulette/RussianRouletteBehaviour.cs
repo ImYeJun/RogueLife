@@ -26,8 +26,11 @@ namespace Battle.Cards.Behaviours
 
                 if (hurtPlayer.TotalDamage != 0)
                 {
-                    var requestDrawAction = new RequestDrawCardBattleAction(Guid.NewGuid());
-                    context.ActionScheduler.Enqueue(requestDrawAction);
+                    for (int i = 0; i < 2; i++)
+                    {
+                        var requestDrawAction = new RequestDrawCardBattleAction(Guid.NewGuid());
+                        context.ActionScheduler.Enqueue(requestDrawAction);
+                    }
                 }
 
                 CleanItself();

@@ -59,7 +59,7 @@ namespace Battle.Cards.Behaviours
 
             if (context.Random.Next(100) < difference)
             {
-                var hurtEnemyAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), difference, enemy);
+                var hurtEnemyAction = new RequestHurtEntityBattleAction(owner.GetAsHurtSource(caster), difference * 2, enemy);
                 context.ActionScheduler.Enqueue(hurtEnemyAction);
             }
             else

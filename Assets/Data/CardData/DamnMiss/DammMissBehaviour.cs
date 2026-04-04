@@ -40,11 +40,11 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            ExecuteCommonAction(context, target, 0.2);
+            ExecuteCommonAction(context, target, 0.5);
         }
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, PlayerCardTarget target)
         {
-            ExecuteCommonAction(context, target, 0.4);
+            ExecuteCommonAction(context, target, 0.8);
         }
         private void ExecuteCommonAction(BattleContext context, PlayerCardTarget target, double probability)
         {

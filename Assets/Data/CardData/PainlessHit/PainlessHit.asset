@@ -16,11 +16,11 @@ MonoBehaviour:
   cardName: "\uC548 \uC544\uD504\uAC8C \uB9DE\uB294 \uBC95"
   background: {fileID: 7384054959168860984, guid: 74b2a01960479004ba58d17d4dab88b0, type: 3}
   description: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
-    \uB2E8\uB2E8\uD574\uC9C0\uAE30 2\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    \uB2E8\uB2E8\uD574\uC9C0\uAE30 3\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   relatedStatusEffectIds:
   - Buff_Toughen
   relfectionAppliedDescription: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9 \uC9C0\uC18D\uB418\uB294
-    \uB2E8\uB2E8\uD574\uC9C0\uAE30 3\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    \uB2E8\uB2E8\uD574\uC9C0\uAE30 4\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   reflectionRelatedStatusEffectIds:
   - Buff_Toughen
   type: 3
