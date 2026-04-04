@@ -22,7 +22,11 @@ namespace UI.Global
         private void CheckGameRun()
         {
             bool isGameRunning = GameRunManager.Instance.CurrentRun is not null;
+            SetInGameIndicatorActive(isGameRunning);
+        }
 
+        public void SetInGameIndicatorActive(bool isGameRunning)
+        {
             gotoMainMenuButton.SetActive(isGameRunning);
             warningText.SetActive(isGameRunning);
         }

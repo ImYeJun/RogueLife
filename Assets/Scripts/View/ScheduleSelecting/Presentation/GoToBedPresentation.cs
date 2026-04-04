@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using DG.Tweening;
+using UI.Global;
 using UnityEngine;
 using UnityEngine.UI;
 using View.Core;
@@ -26,6 +27,7 @@ namespace View.ScheduleSelecting
 
         private void OnWentToBed(WentToBed payload)
         {
+            GlobalUIManager.Instance?.SetInGameIndicatorActive(false);
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.WentToBed_FadeOut, WentToBedPresentation());
         }
 
