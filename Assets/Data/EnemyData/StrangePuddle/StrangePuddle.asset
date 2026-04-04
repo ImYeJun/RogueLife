@@ -19,7 +19,7 @@ MonoBehaviour:
   maxBaseHealth: 200
   behaviourDescriptionList:
   - behaviourId: Enemy_StrangePuddle_Behavior_0
-    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 3\uD134\uB3D9\uC548
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 3\uD134 \uB3D9\uC548
       \uC9C0\uC18D\uB418\uB294 \uB9F9\uB3C5 2\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Debuff_DeadlyPoision

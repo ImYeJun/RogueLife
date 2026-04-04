@@ -21,7 +21,7 @@ MonoBehaviour:
   behaviourDescriptionList:
   - behaviourId: Enemy_RipoffSalesperson_Behavior_0
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4 \uC190\uD328\uC758 \uCE74\uB4DC
-      \uD55C \uC7A5\uC744 \uB79C\uB364\uC73C\uB85C \uBC84\uB9B0\uB2E4."
+      1\uC7A5\uC744 \uB79C\uB364\uC73C\uB85C \uBC84\uB9B0\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_RipoffSalesperson_Behavior_1
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 20 \uB9CC\uD07C\uC758

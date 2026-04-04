@@ -30,7 +30,7 @@ MonoBehaviour:
     associatedStatusEffectIds:
     - Buff_MultiplyingComrades
   - behaviourId: Enemy_HungryPigeon_Behavior_2
-    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
       \uB2E8\uB2E8\uD574\uC9C0\uAE30 3\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Buff_Toughen

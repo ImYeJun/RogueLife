@@ -24,8 +24,8 @@ MonoBehaviour:
       \uD53C\uD574\uB97C \uC900\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_DrunkenMan_Behavior_1
-    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
-      \uCDE8\uAE30 2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uCDE8\uAE30 2\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Buff_Drunk
   encounterLines:

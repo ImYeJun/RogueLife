@@ -21,11 +21,11 @@ MonoBehaviour:
   behaviourDescriptionList:
   - behaviourId: Enemy_ExhaustedGraduateStudent_Behavior_0
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 15 \uB9CC\uD07C\uC758
-      \uD53C\uD574\uB97C \uC900\uB2E4"
+      \uD53C\uD574\uB97C \uC900\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_ExhaustedGraduateStudent_Behavior_1
-    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
-      \uADF8\uAC70 \uBC18\uCE59\uC774\uC57C 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uADF8\uAC70 \uBC18\uCE59\uC774\uC57C 1\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Buff_ThatsFoul
   encounterLines:

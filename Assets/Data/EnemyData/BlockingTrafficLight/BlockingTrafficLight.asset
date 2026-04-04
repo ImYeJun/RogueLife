@@ -22,17 +22,17 @@ MonoBehaviour:
   - behaviourId: Enemy_BlockingTrafficLight_Behavior_0
     behaviourDescription: "\uC790\uC2E0\uC758 \uCCB4\uB825\uC744 40 \uD68C\uBCF5\uD558\uACE0,
       \uC790\uC2E0\uC774 \uC18C\uC720\uD55C \uB514\uBC84\uD504 \uC911 \uD558\uB098\uB97C
-      \uC81C\uAC70\uD569\uB2C8\uB2E4."
+      \uC81C\uAC70\uD55C\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_BlockingTrafficLight_Behavior_1
-    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C 4\uD134\uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
-      \uB098\uB178\uBA38\uC2E0 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C 4\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294
+      \uB098\uB178\uBA38\uC2E0 1\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Buff_NanoMachine
   - behaviourId: Enemy_BlockingTrafficLight_Behavior_2
-    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 2\uD134\uB3D9\uC548
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 2\uD134 \uB3D9\uC548
       \uC9C0\uC18D\uB418\uB294 \uBB34\uAC70\uC6CC\uC9C4 \uBAB8 2\uC2A4\uD0DD\uC744
-      \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+      \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Debuff_HeavyBody
   encounterLines:
