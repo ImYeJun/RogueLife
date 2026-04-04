@@ -32,12 +32,12 @@ namespace Battle.StatusEffects.Behaviour
         public void HurtOnPlayerTurnEnd(PlayerTurnEndBattleEvent payload)
         {
             OnExecuted();
-            owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
+            owner.TryHurt(state.StackCount * 5, new NoneEntitySource());
         }
         public void HurtOnEnemyTurnEnd(EnemyTurnEndBattleEvent payload)
         {
             OnExecuted();
-            owner.RequestHurt(state.StackCount * 5, new NoneEntitySource());
+            owner.TryHurt(state.StackCount * 5, new NoneEntitySource());
         }
 
         public void OnOwnerActioned(BattleEntityAction battleEntityAction, BattleContext context)
@@ -52,7 +52,7 @@ namespace Battle.StatusEffects.Behaviour
         public void BleedAfterAction(BattleContext context)
         {
             OnExecuted();
-            owner.RequestHurt(5, new NoneEntitySource());
+            owner.TryHurt(5, new NoneEntitySource());
         }
 
         public override BattleStatusEffectBehaviour Clone(BattleContext context, IBattleStatusEffectOwner owner, IBattleStatusEffectState state)

@@ -51,6 +51,11 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
     abstract public BattleHurtSource GetAsHurtSource();
 
     public abstract void RequestHurt(int amount, BattleHurtSource source);
+    public void TryHurt(int amount, BattleHurtSource source)
+    {
+        var hurtAction = new RequestHurtEntityBattleAction(source, amount, this);
+        context.ActionScheduler.EnqueueFront(hurtAction);
+    }
     public abstract void Heal(int amount);
     public void RequestHeal(int amount)
     {

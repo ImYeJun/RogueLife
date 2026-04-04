@@ -30,13 +30,13 @@ namespace Battle.StatusEffects.Behaviour
         public void HurtOnPlayerTurnEnd(PlayerTurnEndBattleEvent payload)
         {
             OnExecuted();
-            owner.RequestHurt(state.StackCount, new NoneEntitySource());
+            owner.TryHurt(state.StackCount, new NoneEntitySource());
             RequestExpire();
         }
         public void HurtOnEnemyTurnEnd(EnemyTurnEndBattleEvent payload)
         {
             OnExecuted();
-            owner.RequestHurt(state.StackCount, new NoneEntitySource());
+            owner.TryHurt(state.StackCount, new NoneEntitySource());
             RequestExpire();
         }
 

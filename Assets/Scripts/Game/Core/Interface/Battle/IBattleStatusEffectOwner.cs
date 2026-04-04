@@ -2,7 +2,7 @@ using Battle.HurtSources;
 
 public interface IBattleStatusEffectOwner
 {
-    public void RequestHurt(int amount, BattleHurtSource source);
+    public void TryHurt(int amount, BattleHurtSource source);
     public void RequestHeal(int amount);
     public BattleHurtSource GetAsHurtSource();
 }

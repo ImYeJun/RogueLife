@@ -2992,7 +2992,7 @@ MonoBehaviour:
   statusEffectData: {fileID: 5053196897390440036, guid: 91d4a2757336c03469989c78640608fa, type: 3}
   effectStack: 1
   effectDuration: 0
-  isEffectEternal: 1
+  isEffectEternal: 0
   statusEffectIconToRemove: {fileID: 0}
   databaseManager: {fileID: 20736402}
   skeletonGenerateRuleManager: {fileID: 83840618}
