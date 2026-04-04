@@ -19,7 +19,7 @@ MonoBehaviour:
   maxBaseHealth: 300
   behaviourDescriptionList:
   - behaviourId: Enemy_UnknownEntity_Behavior_0
-    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 50\uC758 \uD53C\uD574\uB97C
+    behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 35\uC758 \uD53C\uD574\uB97C
       \uC900\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_UnknownEntity_Behavior_1
@@ -32,16 +32,15 @@ MonoBehaviour:
     associatedStatusEffectIds: []
   - behaviourId: Enemy_UnknownEntity_Behavior_3
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 2\uD134 \uB3D9\uC548
-      \uC9C0\uC18D\uB418\uB294 \uBD88\uD0C4\uB2E4 \uBD88! 2 \uC2A4\uD0DD, \uB9F9\uB3C5
-      1 \uC2A4\uD0DD, \uCD9C\uD608 1 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+      \uC9C0\uC18D\uB418\uB294 \uBD88\uD0C4\uB2E4 \uBD88! 1\uC2A4\uD0DD, \uCD9C\uD608
+      1\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Debuff_Burning
-    - Debuff_DeadlyPoision
     - Debuff_Bleeding
   - behaviourId: Enemy_UnknownEntity_Behavior_4
     behaviourDescription: "\uC774\uC804 \uD50C\uB808\uC774\uC5B4\uC758 \uD134\uC5D0
-      \uBC1C\uB3D9\uD55C \uCE74\uB4DC\uC758 \uD6A8\uACFC X 10 \uB9CC\uD07C\uC758
-      \uD53C\uD574\uB97C \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C \uC900\uB2E4."
+      \uBC1C\uB3D9\uD55C \uCE74\uB4DC\uC758 \uD6A8\uACFC X 5 \uB9CC\uD07C\uC758 \uD53C\uD574\uB97C
+      \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C \uC900\uB2E4."
     associatedStatusEffectIds: []
   encounterLines:
   - "\uCE58\uC9C1.. \uCE58\uC9C0\uC9C0\uC9C1!"

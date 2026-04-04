@@ -50,7 +50,7 @@ namespace Battle.Enemies.Behaviours
             }
 
             var hurtItself = new RequestHurtEntityBattleAction(owner.AsHurtSource, 1, owner.AsEntity);
-            var hurtPlayer = new RequestHurtEntityBattleAction(owner.AsHurtSource, 20, context.PlayerContainer.Player);
+            var hurtPlayer = new RequestHurtEntityBattleAction(owner.AsHurtSource, 15, context.PlayerContainer.Player);
 
             context.ActionScheduler.EnqueueFront(hurtPlayer);
             context.ActionScheduler.EnqueueFront(hurtItself);

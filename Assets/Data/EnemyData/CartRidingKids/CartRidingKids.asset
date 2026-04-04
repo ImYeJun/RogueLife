@@ -17,15 +17,15 @@ MonoBehaviour:
   tier: 1
   description: "\uB9C8\uD2B8 \uCE74\uD2B8\uB97C \uD0C0\uACE0 \uB9C8\uD2B8 \uC548\uC744
     \uB6F0\uC5B4\uB2E4\uB2C8\uB294 \uC5B4\uB9B0 \uC544\uC774\uB4E4"
-  maxBaseHealth: 200
+  maxBaseHealth: 180
   behaviourDescriptionList:
   - behaviourId: Enemy_CartRidingKids_Behavior_0
     behaviourDescription: "\uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C 40\uC758 \uD53C\uD574\uB97C
       \uC8FC\uACE0, \uC790\uC2E0\uC758 \uD134\uC744 \uB05D\uB0B8\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_CartRidingKids_Behavior_1
-    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C \uB450 \uD134 \uB3D9\uC548 \uC9C0\uC18D\uD558\uB294
-      \uADFC\uB825 \uAC15\uD654  2 \uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
+    behaviourDescription: "\uC790\uC2E0\uC5D0\uAC8C 2\uD134 \uB3D9\uC548 \uC9C0\uC18D\uD558\uB294
+      \uADFC\uB825 \uAC15\uD654 2\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
     associatedStatusEffectIds:
     - Buff_StrengthenMuscle
   - behaviourId: Enemy_CartRidingKids_Behavior_2

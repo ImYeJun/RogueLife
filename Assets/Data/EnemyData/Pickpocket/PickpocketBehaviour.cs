@@ -32,7 +32,7 @@ namespace Battle.Enemies.Behaviours
             availableActions = new Dictionary<string, EnemyAction>
             {
                 { FIRST_ACTION, new ApplySelfStatusEffect(FIRST_ACTION, owner, tooSlowEntity, 1, 2) },
-                { SECOND_ACTION, new SpawnEnemy(SECOND_ACTION, owner, obstacleForFleeingEntity, 3) },
+                { SECOND_ACTION, new SpawnEnemy(SECOND_ACTION, owner, obstacleForFleeingEntity, 2) },
                 { THIRD_ACTION, new ApplySelfStatusEffect(THIRD_ACTION, owner, quickEscapeEntity, 1, isLastAction : false, isOncePerTurn : true) },
                 { FOURTH_ACTION, new HealSelf(FOURTH_ACTION, owner, 20)},
                 { FIFTH_ACTION, new DecreasePhaseCount(FIFTH_ACTION, owner, 2) }

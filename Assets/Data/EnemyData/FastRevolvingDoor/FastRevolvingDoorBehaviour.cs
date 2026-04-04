@@ -90,7 +90,7 @@ namespace Battle.Enemies.Behaviours
                     new ApplyPlayerStatusEffect(FIRST_ACTION + "_sub2", owner, bleedingEntity, 2, 2)
                 }, BattleEnemyActionType.Attack) },
                 { SECOND_ACTION, new RecklessSpin(SECOND_ACTION, owner) },
-                { THIRD_ACTION, new HurtSelf(THIRD_ACTION, owner, 40) }
+                { THIRD_ACTION, new HurtSelf(THIRD_ACTION, owner, 35) }
             };
 
             availablePatterns = new List<Pattern>

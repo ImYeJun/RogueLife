@@ -29,7 +29,7 @@ namespace Battle.Enemies.Behaviours
             public override void Execute(BattleContext context)
             {
                 var executeEffectCounts = context.BattleDeckHistory.GetExecuteCardEffectCount(BattleScope.TURN);
-                int damage = executeEffectCounts * 10;
+                int damage = executeEffectCounts * 5;
 
                 var hurtPlayerAction = new RequestHurtEntityBattleAction(owner.AsHurtSource, damage, context.PlayerContainer.Player);
                 context.ActionScheduler.Enqueue(hurtPlayerAction);
@@ -47,7 +47,7 @@ namespace Battle.Enemies.Behaviours
 
             availableActions = new Dictionary<string, EnemyAction>
             {
-                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 50) },
+                { FIRST_ACTION, new HurtPlayer(FIRST_ACTION, owner, 35) },
                 { SECOND_ACTION, new CompositeEnemyAction(SECOND_ACTION, owner, new List<EnemyAction>()
                 {
                     new RemovePlayerStatusEffect(SECOND_ACTION + "_sub1", owner, BattleStatusEffectType.BUFF),
@@ -56,8 +56,7 @@ namespace Battle.Enemies.Behaviours
                 { THIRD_ACTION, new DumpPlayerHandCard(THIRD_ACTION, owner, 3) },
                 { FOURTH_ACTION, new CompositeEnemyAction(FOURTH_ACTION, owner, new List<EnemyAction>()
                 {
-                    new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub1", owner, burningEntity, 2, 2),
-                    new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub2", owner, deadlyPoisionEntity, 1, 2),
+                    new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub1", owner, burningEntity, 1, 2),
                     new ApplyPlayerStatusEffect(FOURTH_ACTION + "_sub3", owner, bleedingEntity, 1, 2),
                 }, BattleEnemyActionType.Effect)},
                 { FIFTH_ACTION, new Payback(FIFTH_ACTION, owner) }
