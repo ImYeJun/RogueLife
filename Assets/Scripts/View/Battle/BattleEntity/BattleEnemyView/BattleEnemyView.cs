@@ -161,19 +161,19 @@ namespace View.BattleView
 
         public Tween PlayAppearPresentation()
         {
-            Sequence seq = DOTween.Sequence();
+            Sequence seq = DOTween.Sequence().SetLink(gameObject); 
 
             if (spriteRenderer != null)
             {
-                seq.Join(spriteRenderer.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad));
+                seq.Join(spriteRenderer.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad).SetLink(spriteRenderer.gameObject)); 
             }
             if (entityStatusCanvasGroup != null)
             {
-                seq.Join(entityStatusCanvasGroup.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad));
+                seq.Join(entityStatusCanvasGroup.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad).SetLink(entityStatusCanvasGroup.gameObject)); 
             }
             if (plannedActionsCanvasGroup != null)
             {
-                seq.Join(plannedActionsCanvasGroup.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad));
+                seq.Join(plannedActionsCanvasGroup.DOFade(1f, fadeDuration).SetEase(Ease.OutQuad).SetLink(plannedActionsCanvasGroup.gameObject)); 
             }
 
             return seq;
@@ -181,19 +181,19 @@ namespace View.BattleView
 
         public Tween PlayDisappearPresentation()
         {
-            Sequence seq = DOTween.Sequence();
+            Sequence seq = DOTween.Sequence().SetLink(gameObject); 
 
             if (spriteRenderer != null)
             {
-                seq.Join(spriteRenderer.DOFade(0f, fadeDuration).SetEase(Ease.InQuad));
+                seq.Join(spriteRenderer.DOFade(0f, fadeDuration).SetEase(Ease.InQuad).SetLink(spriteRenderer.gameObject)); 
             }
             if (entityStatusCanvasGroup != null)
             {
-                seq.Join(entityStatusCanvasGroup.DOFade(0f, fadeDuration).SetEase(Ease.InQuad));
+                seq.Join(entityStatusCanvasGroup.DOFade(0f, fadeDuration).SetEase(Ease.InQuad).SetLink(entityStatusCanvasGroup.gameObject)); 
             }
             if (plannedActionsCanvasGroup != null)
             {
-                seq.Join(plannedActionsCanvasGroup.DOFade(0f, fadeDuration).SetEase(Ease.InQuad));
+                seq.Join(plannedActionsCanvasGroup.DOFade(0f, fadeDuration).SetEase(Ease.InQuad).SetLink(plannedActionsCanvasGroup.gameObject)); 
             }
 
             return seq;
@@ -202,7 +202,7 @@ namespace View.BattleView
         public Tween UpdatePosition(Vector2 targetPosition, int positionIndex)
         {
             bodyView.SetSpriteSortingOrder(positionIndex);
-            return transform.DOMove(targetPosition, positionDuration).SetEase(positioningEase);
+            return transform.DOMove(targetPosition, positionDuration).SetEase(positioningEase).SetLink(gameObject); 
         }
 
         public void OnEnemyActionPlanned(EnemyActionPlanned payload)
@@ -351,8 +351,8 @@ namespace View.BattleView
 
             AudioData audioData = CheckHeavyHurt(damageRatio, newHealth) ? heavyHurtSFX : normalHurtSFX;
 
-            Sequence healthBarSequence = DOTween.Sequence();
-            healthBarSequence.Join(healthBarImage.DOFillAmount(normalizedHealth, totalHealthDuration).SetEase(ease));
+            Sequence healthBarSequence = DOTween.Sequence().SetLink(gameObject); 
+            healthBarSequence.Join(healthBarImage.DOFillAmount(normalizedHealth, totalHealthDuration).SetEase(ease).SetLink(healthBarImage.gameObject)); 
             healthBarSequence.Join(DOTween.To(
                 () => currentHealth,
                 (health) =>
@@ -362,19 +362,19 @@ namespace View.BattleView
                 },
                 newHealth,
                 totalHealthDuration
-            ).SetEase(ease));
+            ).SetEase(ease).SetLink(gameObject));
 
-            Sequence shakeSequence = DOTween.Sequence();
+            Sequence shakeSequence = DOTween.Sequence().SetLink(gameObject); 
 
-            shakeSequence.Append(whole.transform.DOShakePosition(duration, bodyShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease));
+            shakeSequence.Append(whole.transform.DOShakePosition(duration, bodyShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease).SetLink(whole.gameObject)); 
 
-            shakeSequence.Insert(duration, HealthBar.transform.DOShakePosition(followThroughDuration, hpBarShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease));
+            shakeSequence.Insert(duration, HealthBar.transform.DOShakePosition(followThroughDuration, hpBarShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease).SetLink(HealthBar.gameObject)); 
 
             foreach (var actionIcon in actionIcons)
             {
                 if (actionIcon != null)
                 {
-                    shakeSequence.Insert(duration, actionIcon.transform.DOShakePosition(followThroughDuration, actionShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease));
+                    shakeSequence.Insert(duration, actionIcon.transform.DOShakePosition(followThroughDuration, actionShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease).SetLink(actionIcon.gameObject)); 
                 }
             }
 
@@ -382,11 +382,11 @@ namespace View.BattleView
             {
                 foreach (Transform statusIcon in battleStatusEffectIconContainer)
                 {
-                    shakeSequence.Insert(duration, statusIcon.DOShakePosition(followThroughDuration, statusShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease));
+                    shakeSequence.Insert(duration, statusIcon.DOShakePosition(followThroughDuration, statusShake, hurtShakeVibartor, huerShakeRandomNesss, false, false, hurtShakeRandomnesMode).SetEase(ease).SetLink(statusIcon.gameObject)); 
                 }
             }
 
-            Sequence finalSequence = DOTween.Sequence();
+            Sequence finalSequence = DOTween.Sequence().SetLink(gameObject); 
             finalSequence.Join(healthBarSequence);
             finalSequence.Join(shakeSequence);
 
@@ -407,9 +407,9 @@ namespace View.BattleView
             float targetNormalized = maxH == 0 ? 0 : (float)targetHealth / maxH;
             float totalDuration = healDuration + healTextOffsetDuration;
 
-            Sequence sequence = DOTween.Sequence();
+            Sequence sequence = DOTween.Sequence().SetLink(gameObject);
 
-            sequence.Join(healthBarImage.DOFillAmount(targetNormalized, healDuration).SetEase(healEase));
+            sequence.Join(healthBarImage.DOFillAmount(targetNormalized, healDuration).SetEase(healEase).SetLink(healthBarImage.gameObject));
 
             int tempHealth = startHealth;
             sequence.Join(DOTween.To(
@@ -421,7 +421,7 @@ namespace View.BattleView
                 },
                 targetHealth,
                 totalDuration
-            ).SetEase(healEase));
+            ).SetEase(healEase).SetLink(gameObject));
 
             SoundManager.Instance?.PlaySoundEffectWithRandomPitch(healSFX);
             yield return sequence.WaitForCompletion();
