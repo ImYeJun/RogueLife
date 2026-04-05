@@ -1,13 +1,16 @@
 using System;
+using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using View.Core;
+using ViewEvent.BattleView;
 
 namespace View.BattleView
 {
-    public class BelongingsIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    public class BelongingsIcon : ViewBehaviour<IBattleViewEvent>, IPointerEnterHandler, IPointerExitHandler
     {
         private BattleBelongings belongings = null;
 
@@ -17,10 +20,19 @@ namespace View.BattleView
         [SerializeField] private TextMeshProUGUI nameText;
         [SerializeField] private TextMeshProUGUI descriptionText;
 
-        [Header("Presentation")]
+        [Header("Focusing Presentation")]
         [SerializeField] private float focusingPresentationDuration;
         [SerializeField] private float focusingScale;
         [SerializeField] private Ease focusingPresentationEase;
+
+        [Header("Executed Presentation")]
+        [SerializeField] private float executedPresentationDuration;
+        [SerializeField] private Ease executedPresentationEase;
+        [SerializeField] private Vector3 punchAmount;
+        [SerializeField] private int punchVibrato;
+        [SerializeField] private float punchElasticity;
+        [SerializeField] float executePresentationHoldDuration = 0.3f;
+
         private Tween currentFocusingTween;
 
         public void Initialize(BattleBelongings belongings)
@@ -47,6 +59,34 @@ namespace View.BattleView
             {
                 panelRect.sizeDelta = new Vector2(panelRect.sizeDelta.x, panelHeight);
             }
+        }
+
+        public override void OnInitialized()
+        {
+            eventBus.Subscribe<BelongingsEffectExecuted>(OnBelongingsEffectExecuted);
+        }
+
+        public override void OnDestroy()
+        {
+            eventBus?.Unsubscribe<BelongingsEffectExecuted>(OnBelongingsEffectExecuted);
+        }
+
+        private void OnBelongingsEffectExecuted(BelongingsEffectExecuted payload)
+        {
+            presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BeloningsEffectExecuted, PlayExecutePresentation());
+        }
+
+        private IEnumerator PlayExecutePresentation()
+        {
+            if (this == null) yield break;
+
+            yield return image.transform.DOPunchScale(punchAmount, executedPresentationDuration, punchVibrato, punchElasticity)
+                .SetEase(executedPresentationEase)
+                .SetLink(gameObject)
+                .WaitForCompletion();
+
+            if (this == null) yield break;
+            yield return new WaitForSeconds(executePresentationHoldDuration);
         }
 
         public void OnPointerEnter(PointerEventData eventData)

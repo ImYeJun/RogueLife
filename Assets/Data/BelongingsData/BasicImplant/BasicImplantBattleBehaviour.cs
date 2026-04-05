@@ -42,6 +42,7 @@ namespace Belongingses.Behaviour
             var stunned = new BattleStatusEffect(stunnedEntity, 1, 1);
             var applyDebuffAction = new ApplyEntityStatusEffectBattleAction(context.PlayerContainer.Player, stunned);
 
+            OnExecuted();
             context.ActionScheduler.Enqueue(applyDebuffAction);
         }
     }

@@ -52,6 +52,7 @@ namespace Belongingses.Behaviour
                 var thatsWeakSpot = new BattleStatusEffect(thatsWeakSpotEntity, 1, 1);
                 var applyDebuffAction = new ApplyEntityStatusEffectBattleAction(enemy, thatsWeakSpot);
 
+                OnExecuted();
                 context.ActionScheduler.Enqueue(applyDebuffAction);
             }
 

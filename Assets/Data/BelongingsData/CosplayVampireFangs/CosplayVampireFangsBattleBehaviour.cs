@@ -40,6 +40,8 @@ namespace Belongingses.Behaviour
             hasTriggeredThisTurn = true; 
 
             var healAction = new HealEntityBattleAction(player, 5);
+
+            OnExecuted();
             context.ActionScheduler.Enqueue(healAction);
         }
     }

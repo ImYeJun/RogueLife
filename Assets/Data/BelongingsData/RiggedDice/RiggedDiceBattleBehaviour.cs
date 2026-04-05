@@ -30,11 +30,15 @@ namespace Belongingses.Behaviour
             if (pivot <= 0.05)
             {
                 var requestRequestTriggerCard = new RequestTryTriggerCardBattleAction(card, false);
+
+                OnExecuted();
                 context.ActionScheduler.Enqueue(requestRequestTriggerCard);
             }
             else if (pivot <= 0.2)
             {
                 var hurtAction = new RequestHurtEntityBattleAction(new NoneEntitySource(), 20, context.PlayerContainer.Player);
+
+                OnExecuted();
                 context.ActionScheduler.Enqueue(hurtAction);
             }
         }

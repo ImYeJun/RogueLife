@@ -30,6 +30,7 @@ namespace Belongingses.Behaviour
             {
                 var restoreCostAction = new RestoreActionCostBattleAction(1);
 
+                OnExecuted();
                 context.ActionScheduler.Enqueue(restoreCostAction);
             }
         }

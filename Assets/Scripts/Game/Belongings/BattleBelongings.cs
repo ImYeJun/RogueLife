@@ -1,4 +1,5 @@
 using UnityEngine;
+using ViewEvent.BattleView;
 
 public class BattleBelongings
 {
@@ -6,6 +7,7 @@ public class BattleBelongings
     private BelongingsData data;
     private BattleBelongingsBehaviour behaviourInstance;
     private IBattleBelongingsOwner owner;
+    private IBattleViewEventPublisher viewEventPublisher;
 
     public BattleBelongings(BelongingsEntity entity, IBattleBelongingsOwner owner)
     {
@@ -19,9 +21,15 @@ public class BattleBelongings
     public string Name => data.BelongingsName;
     public string Description => data.Description;
 
-    public void OnEngageBattle(BattleContext context)
+    public void OnEngageBattle(BattleContext context, IBattleViewEventPublisher viewEventPublisher)
     {
-        behaviourInstance.OnEngageBattle(context);
+        this.viewEventPublisher = viewEventPublisher;
+        behaviourInstance.OnEngageBattle(context, OnExecuted);
+    }
+
+    public void OnExecuted()
+    {
+        viewEventPublisher.Publish(new BelongingsEffectExecuted(this, viewEventPublisher.GetNextSequenceId()));
     }
 
     public BattleBelongingsBehaviour BehaviourInstance { get => behaviourInstance; }

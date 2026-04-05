@@ -38,6 +38,8 @@ namespace Belongingses.Behaviour
                 remainOpportunity--;
 
                 var requestDrawCardAction = new RequestDrawCardBattleAction(Guid.NewGuid());
+                
+                OnExecuted();
                 context.ActionScheduler.Enqueue(requestDrawCardAction);
             }
         }

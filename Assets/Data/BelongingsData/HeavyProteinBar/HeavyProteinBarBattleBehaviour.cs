@@ -27,6 +27,8 @@ namespace Belongingses.Behaviour
             if (cardSource.SourceCard.CurrentAttribute != CardAttribute.PHYSICAL) { return; }
 
             var hurtAction = new RequestHurtEntityBattleAction(new NoneEntitySource(), 10, payload.Victim);
+
+            OnExecuted();
             context.ActionScheduler.EnqueueFront(hurtAction);
         }
     }

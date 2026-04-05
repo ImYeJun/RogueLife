@@ -30,7 +30,7 @@ public class BattleBelongingsBag : IBattleBelongingsBag, IBattleEventObserveServ
 
         foreach (var belongings in belongingsBag)
         {
-            belongings.OnEngageBattle(context);
+            belongings.OnEngageBattle(context, viewEventPublisher);
         }
 
         viewEventPublisher.Publish(new BelongingsSettled(viewEventPublisher.GetNextSequenceId(), this));

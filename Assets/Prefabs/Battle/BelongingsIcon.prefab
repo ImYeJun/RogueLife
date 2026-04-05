@@ -203,6 +203,12 @@ MonoBehaviour:
   focusingPresentationDuration: 0.1
   focusingScale: 1.2
   focusingPresentationEase: 10
+  executedPresentationDuration: 0.3
+  executedPresentationEase: 18
+  punchAmount: {x: 0.5, y: 0.5, z: 0}
+  punchVibrato: 1
+  punchElasticity: 1
+  executePresentationHoldDuration: 0.3
 --- !u!1 &5627578310487490570
 GameObject:
   m_ObjectHideFlags: 0

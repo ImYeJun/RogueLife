@@ -4,11 +4,13 @@ using System;
 public abstract class BattleBelongingsBehaviour
 {
     protected BattleContext context;
+    private Action onExecuted;
     private bool isActivate;
 
-    public void OnEngageBattle(BattleContext context)
+    public void OnEngageBattle(BattleContext context, Action onExecuted)
     {
         this.context = context;
+        this.onExecuted = onExecuted;
         isActivate = true;
 
         context.EventBus.Subscribe<BattleEndBattleEvent>(OnBattleEnd);
@@ -28,6 +30,11 @@ public abstract class BattleBelongingsBehaviour
     public void OnBattleEnd(BattleEndBattleEvent payload)
     {
         Deactivate();
+    }
+
+    protected void OnExecuted()
+    {
+        onExecuted?.Invoke();
     }
 
     protected abstract void OnApplied();

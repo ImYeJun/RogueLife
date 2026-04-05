@@ -24,6 +24,7 @@ namespace Belongingses.Behaviour
         {
             if (hurtPlayer.MentalityDamage <= 0) { return; }
 
+            OnExecuted();
             hurtPlayer.NullifyMentalityDamage();
 
             Deactivate();

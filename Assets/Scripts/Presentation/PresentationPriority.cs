@@ -131,6 +131,9 @@ public static class PresentationPriority
     public const int CardRestored_DrawGraveDeckCount = 20;
     public const int CardRestored_DrawDrawDeckCount = 20;
 
+    //Belongings Effect Executed
+    public const int BeloningsEffectExecuted = 10;
+
     //Card Effect Executed
     public const int CardEffectExecuted_CasterAction = 10;
 

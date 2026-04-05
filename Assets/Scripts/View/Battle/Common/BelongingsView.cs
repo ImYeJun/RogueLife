@@ -38,6 +38,7 @@ namespace View.BattleView
                 }
 
                 icons[i].Initialize(belongings[i]);
+                icons[i].Initialize(random, eventBus, presentationManager);
             }
         }
     }
