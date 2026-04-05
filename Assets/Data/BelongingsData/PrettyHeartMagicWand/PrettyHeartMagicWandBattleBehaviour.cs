@@ -26,7 +26,7 @@ namespace Belongingses.Behaviour
             if (card.CurrentAttribute != CardAttribute.MAGIC || !card.IsReflectionApplied) { return; }
             
             var pivot = context.Random.NextDouble();
-            if (pivot <= 0.1)
+            if (pivot <= 0.3)
             {
                 var restoreCostAction = new RestoreActionCostBattleAction(1);
 

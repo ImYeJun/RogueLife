@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Battle.HurtSources;
 
 namespace Belongingses.Behaviour
@@ -25,21 +27,39 @@ namespace Belongingses.Behaviour
         {
             var card = useCard.Card;
             if (card.CurrentAttribute != CardAttribute.LUCK) { return; }
-            
-            var pivot = context.Random.NextDouble();
-            if (pivot <= 0.05)
-            {
-                var requestRequestTriggerCard = new RequestTryTriggerCardBattleAction(card, false);
 
-                OnExecuted();
-                context.ActionScheduler.Enqueue(requestRequestTriggerCard);
-            }
-            else if (pivot <= 0.2)
+            var outcomes = new List<(double weight, Action action)>
             {
-                var hurtAction = new RequestHurtEntityBattleAction(new NoneEntitySource(), 20, context.PlayerContainer.Player);
+                (20.0, () => 
+                {
+                    var requestRequestTriggerCard = new RequestTryTriggerCardBattleAction(card, false);
+                    OnExecuted();
+                    context.ActionScheduler.Enqueue(requestRequestTriggerCard);
+                }),
+                (15.0, () => 
+                {
+                    var hurtAction = new RequestHurtEntityBattleAction(new NoneEntitySource(), 15, context.PlayerContainer.Player);
+                    OnExecuted();
+                    context.ActionScheduler.Enqueue(hurtAction);
+                }),
+                (65.0, () => 
+                {
+                })
+            };
 
-                OnExecuted();
-                context.ActionScheduler.Enqueue(hurtAction);
+            double totalWeight = outcomes.Sum(o => o.weight);
+
+            double randomValue = context.Random.NextDouble() * totalWeight;
+
+            double currentWeight = 0;
+            foreach (var outcome in outcomes)
+            {
+                currentWeight += outcome.weight;
+                if (randomValue <= currentWeight)
+                {
+                    outcome.action?.Invoke();
+                    break;
+                }
             }
         }
     }

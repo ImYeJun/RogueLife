@@ -16,18 +16,5 @@ MonoBehaviour:
   belongingsName: "\uD504\uB9AC\uD2F0 \uD558\uD2B8 \uC694\u2606\uC220\u2606\uBD09"
   image: {fileID: -2547629797082303527, guid: f6902f25376c9724c8270ab499f0d7fc, type: 3}
   description: "\uB9C8\uBC95 \uC18D\uC131\uC758 \uBCF5\uAE30 \uD6A8\uACFC\uAC00 \uC801\uC6A9\uB41C
-    \uCE74\uB4DC\uB97C \uC0AC\uC6A9 \uD560 \uACBD\uC6B0, 10% \uD655\uB960\uB85C \uCF54\uC2A4\uD2B8
+    \uCE74\uB4DC\uB97C \uC0AC\uC6A9 \uD560 \uACBD\uC6B0, 30% \uD655\uB960\uB85C \uCF54\uC2A4\uD2B8
     1 \uD68C\uBCF5\uD55C\uB2E4."
-  fieldBehaviour:
-    rid: 7557520071594606742
-  battleBehaviour:
-    rid: 7557520071594606743
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557520071594606742
-      type: {class: FieldPrettyHeartMagicWand, ns: Belongingses.Behaviour, asm: GameAssembly}
-    - rid: 7557520071594606743
-      type: {class: BattlePrettyHeartMagicWand, ns: Belongingses.Behaviour, asm: GameAssembly}

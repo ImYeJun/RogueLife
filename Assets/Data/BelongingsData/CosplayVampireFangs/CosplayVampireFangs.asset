@@ -16,17 +16,4 @@ MonoBehaviour:
   belongingsName: "\uBC40\uD30C\uC774\uC5B4 \uCF54\uC2A4\uD504\uB808\uC6A9 \uC774\uBE68"
   image: {fileID: 6206721082491365919, guid: 605dfd93c741d334bb1574545a0638ba, type: 3}
   description: "\uC0C1\uB300\uC5D0\uAC8C \uD53C\uD574\uB97C \uC785\uD790 \uACBD\uC6B0,
-    5 \uB9CC\uD07C \uD68C\uBCF5\uD55C\uB2E4. (\uD55C \uD134\uC5D0 \uD55C\uBC88)"
-  fieldBehaviour:
-    rid: 7557520071594606733
-  battleBehaviour:
-    rid: 7557520071594606734
-  references:
-    version: 2
-    RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
-    - rid: 7557520071594606733
-      type: {class: FieldCosplayVampireFangs, ns: Belongingses.Behaviour, asm: GameAssembly}
-    - rid: 7557520071594606734
-      type: {class: BattleCosplayVampireFangs, ns: Belongingses.Behaviour, asm: GameAssembly}
+    10 \uB9CC\uD07C \uD68C\uBCF5\uD55C\uB2E4. (\uD55C \uD134\uC5D0 \uD55C\uBC88)"
