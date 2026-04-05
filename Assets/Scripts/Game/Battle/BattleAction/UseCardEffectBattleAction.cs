@@ -20,18 +20,25 @@ public class UseCardEffectBattleAction : IBattleAction
 
     public void Execute(BattleContext context)
     {
-        var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
-
-        for (int i = 0; i < executeTimes; i++)
+        if (executeTimes > 0)
         {
             context.EventBus.Publish(new CardEffectExecutedBattleEvent(card, caster, target));
             card.Use(context, caster, target);
             context.BattleDeckHistory.RecordExecuteCardEffect(card, card.IsReflectionApplied);
         }
-        context.BattleDeckHistory.RecordUseCard(card, card.IsReflectionApplied);
 
-        context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(card, destination));
-        if (card.IsReflectionApplied) { context.ActionScheduler.Enqueue(new UnapplyReflectEffectOnCardBattleAction(card)); }
-        context.ActionScheduler.Enqueue(new NotifyCardExecutionCompletedBattleAction(card));
+        if (executeTimes > 1)
+        {
+            context.ActionScheduler.Enqueue(new UseCardEffectBattleAction(card, caster, target, executeTimes - 1));
+        }
+        else
+        {
+            var destination = card.IsReflectionApplied ? BattleDeckType.DRAW : BattleDeckType.GRAVE;
+            context.BattleDeckHistory.RecordUseCard(card, card.IsReflectionApplied);
+
+            context.ActionScheduler.Enqueue(new MoveCardToDeckBattleAction(card, destination));
+            if (card.IsReflectionApplied) { context.ActionScheduler.Enqueue(new UnapplyReflectEffectOnCardBattleAction(card)); }
+            context.ActionScheduler.Enqueue(new NotifyCardExecutionCompletedBattleAction(card));
+        }
     }
 }

@@ -17,7 +17,7 @@ public class TriggerCardEffectBattleAction : IBattleAction
 
     public Card Card { get => card; }
     public CardTarget CardTarget { get => targetEntity; }
-    public int ExecuteTimes { get => executeTimes; set => executeTimes = value; }
+    public int ExecuteTimes { get => executeTimes; }
 
     public void Execute(BattleContext context)
     {
@@ -25,14 +25,21 @@ public class TriggerCardEffectBattleAction : IBattleAction
 
         context.DeckSystem.AddActiveTriggerCard(card);
 
-        for (int i = 0; i < executeTimes; i++)
+        if (executeTimes > 0)
         {
             context.EventBus.Publish(new CardEffectExecutedBattleEvent(card, caster, targetEntity));
             card.Trigger(context, caster, targetEntity, isReflection);
             context.BattleDeckHistory.RecordExecuteCardEffect(card, isReflection);
         }
 
-        context.ActionScheduler.Enqueue(new ResolveCardTriggerBattleAction(card));
-        context.ActionScheduler.Enqueue(new NotifyCardExecutionCompletedBattleAction(card));
+        if (executeTimes > 1)
+        {
+            context.ActionScheduler.Enqueue(new TriggerCardEffectBattleAction(card, targetEntity, executeTimes - 1, isReflection));
+        }
+        else
+        {
+            context.ActionScheduler.Enqueue(new ResolveCardTriggerBattleAction(card));
+            context.ActionScheduler.Enqueue(new NotifyCardExecutionCompletedBattleAction(card));
+        }
     }
 }
