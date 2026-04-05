@@ -24,6 +24,7 @@ MonoBehaviour:
     1\uC2A4\uD0DD\uC744 \uBD80\uC5EC\uD55C\uB2E4."
   reflectionRelatedStatusEffectIds:
   - Buff_HolyShield
+  - Buff_NanoMachine
   type: 4
   attribute: 3
   rarity: 2

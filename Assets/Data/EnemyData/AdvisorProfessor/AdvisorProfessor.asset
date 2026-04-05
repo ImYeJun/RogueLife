@@ -29,9 +29,8 @@ MonoBehaviour:
       \uC18C\uD658\uD55C\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_AdvisorProfessor_Behavior_2
-    behaviourDescription: "\uC18C\uD658\uD55C \uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD
-      \uB4E4\uC5D0\uAC8C 10\uB9CC\uD07C\uC758 \uACF5\uACA9\uC744 \uD558\uB3C4\uB85D
-      \uD55C\uB2E4."
+    behaviourDescription: "\uC18C\uD658\uD55C \uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD\uB4E4\uC5D0\uAC8C
+      10\uB9CC\uD07C\uC758 \uACF5\uACA9\uC744 \uD558\uB3C4\uB85D \uD55C\uB2E4."
     associatedStatusEffectIds: []
   - behaviourId: Enemy_AdvisorProfessor_Behavior_3
     behaviourDescription: "\uB0A8\uC740 \uD53C\uACE4\uC5D0 \uCC0C\uB4E0 \uB300\uD559\uC6D0\uC0DD\uB4E4\uC744
