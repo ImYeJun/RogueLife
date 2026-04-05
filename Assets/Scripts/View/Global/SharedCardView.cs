@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SharedCardView : MonoBehaviour
 {
     [Serializable]
-    public struct CardAsset
+    public struct CardAttributeAsset
     {
         [SerializeField] private CardAttribute attribute;
         [SerializeField] private Sprite reflectionIcon;
@@ -20,12 +21,28 @@ public class SharedCardView : MonoBehaviour
         public Sprite DefaultBackground { get => defaultBackground; }
         public Sprite ReflectionIcon { get => reflectionIcon; }
     }
+    
+    [Serializable]
+    public struct CardTypeAsset
+    {
+        [SerializeField] private CardType type;
+        [SerializeField] private Sprite image;
+
+        public CardType Type { get => type; }
+        public Sprite Image { get => image; }
+    }
 
     private Card card;
-    [SerializeField] private List<CardAsset> assets;
+
+    [Header("Assets")]
+    [SerializeField] private List<CardAttributeAsset> attributeAssets;
+    [SerializeField] private List<CardTypeAsset> typeAssets;
+
+    [Header("Reference")]
     [SerializeField] private Image frame;
     [SerializeField] private Image background;
     [SerializeField] private Image reflectionIconImage;
+    [SerializeField] private Image typeImage;
     [SerializeField] private TextMeshProUGUI cardName;
     [SerializeField] private TextMeshProUGUI description;
     [SerializeField] private TextMeshProUGUI cost;
@@ -79,15 +96,30 @@ public class SharedCardView : MonoBehaviour
 
     private void DrawSync()
     {
-        var attribute = card.CurrentAttribute;
-        var asset = assets.First(asset => asset.Attribute == attribute);
+        DrawByAttribute();
+        DrawByType();
 
-        frame.sprite = asset.Frame;
-        background.sprite = card.Data.Background ?? asset.DefaultBackground;
-        
         DrawCost(card.CurrentActionCost);
+        
         cardName.text = card.CurrentName;
         DrawDescription(card.IsReflectionApplied);
+    }
+
+    private void DrawByAttribute()
+    {
+        var attribute = card.CurrentAttribute;
+
+        var asset = attributeAssets.First(asset => asset.Attribute == attribute);
+        frame.sprite = asset.Frame;
+        background.sprite = card.Data.Background ?? asset.DefaultBackground;
+    }
+
+    private void DrawByType()
+    {
+        var type = card.CurrentType;
+
+        var asset = typeAssets.First(asset => asset.Type == type);
+        typeImage.sprite = asset.Image;
     }
 
     public void DrawCost(int currentCost)
@@ -122,7 +154,7 @@ public class SharedCardView : MonoBehaviour
         if (isReflection)
         {
             var attribute = card.CurrentAttribute;
-            var asset = assets.First(asset => asset.Attribute == attribute);
+            var asset = attributeAssets.First(asset => asset.Attribute == attribute);
 
             reflectionIconImage.sprite = asset.ReflectionIcon;
         }
