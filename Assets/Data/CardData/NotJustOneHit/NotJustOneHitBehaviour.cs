@@ -38,24 +38,19 @@ namespace Battle.Cards.Behaviours
 
         protected override void OnExecute(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, 20);
+            ExecuteCommonAction(context, caster, target.Enemy, 20);
         }
 
         protected override void OnExecuteReflection(BattleContext context, CardCaster caster, SingleEnemyCardTarget target)
         {
-            ExecuteCommonAction(context, caster, 30);
+            ExecuteCommonAction(context, caster, target.Enemy, 30);
         }
 
-        private void ExecuteCommonAction(BattleContext context, CardCaster caster, int damage)
+        private void ExecuteCommonAction(BattleContext context, CardCaster caster, BattleEnemy enemy, int damage)
         {
-            var hurtEnemies = context.EnemyHistory.HurtEnemies(BattleScope.PHASE);
-
-            foreach (var enemy in hurtEnemies)
-            {
-                var hurtSource = owner.GetAsHurtSource(caster);
-                var action = new RequestHurtEntityBattleAction(hurtSource, damage, enemy);
-                context.ActionScheduler.Enqueue(action);
-            }
+            var hurtSource = owner.GetAsHurtSource(caster);
+            var action = new RequestHurtEntityBattleAction(hurtSource, damage, enemy);
+            context.ActionScheduler.Enqueue(action);
         }
     }
 }
