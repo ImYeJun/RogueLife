@@ -29,7 +29,7 @@ namespace Battle.Cards.Behaviours
         private bool CheckCommonCondition(BattleContext context)
         {
             return
-                context.HandDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.LUCK, CardType.ANY) == 0 &&
+                context.HandDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.LUCK, CardType.ANY) == 1 &&
                 context.HandDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.MAGIC, CardType.ANY) == 1 &&
                 context.HandDeck.GetCardsCountByCondition(CardRarity.ANY, CardAttribute.PHYSICAL, CardType.ANY) == 1;
         }
