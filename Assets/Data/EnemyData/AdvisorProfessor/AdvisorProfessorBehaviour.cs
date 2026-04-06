@@ -56,7 +56,7 @@ namespace Battle.Enemies.Behaviours
         {
             private EnemyEntity labSlaveEntity;
 
-            public ForcedLabor(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, BattleEnemyActionType.Effect, isLastAction, isOncePerTurn)
+            public ForcedLabor(string id, IEnemyBehaviourOwner owner, EnemyEntity labSlaveEntity, bool isLastAction = false, bool isOncePerTurn = false) : base(id, owner, BattleEnemyActionType.Attack, isLastAction, isOncePerTurn)
             {
                 this.labSlaveEntity = labSlaveEntity;
             }
