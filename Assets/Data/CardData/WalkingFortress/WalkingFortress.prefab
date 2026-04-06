@@ -50,19 +50,19 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
+    - rid: 2332257824786350152
+      type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2332257824786350153
+      type: {class: PlayerCardTargetType, ns: , asm: Assembly-CSharp}
+      data: 
     - rid: 2642317808700490025
       type: {class: WalkingFortress, ns: Battle.Cards.Behaviours, asm: Assembly-CSharp}
       data:
         targetType:
-          rid: 2642317808700490026
+          rid: 2332257824786350152
         reflectionTargetType:
-          rid: 2642317808700490027
+          rid: 2332257824786350153
         defensiveStanceEntity: {fileID: 3444761750699771790, guid: 9aff4d163c7176a47a5f8bd7d653738c, type: 3}
         weakenMuscleEntity: {fileID: 8473865381798110161, guid: c52f4d227de2a1143a6ab4e6e704d9cf, type: 3}
         counterAttackEntity: {fileID: 735820330869655840, guid: 6f775ccf8d0454d4295ae4b3cf9ae826, type: 3}
-    - rid: 2642317808700490026
-      type: {class: NoneCardTargetType, ns: , asm: Assembly-CSharp}
-      data: 
-    - rid: 2642317808700490027
-      type: {class: NoneCardTargetType, ns: , asm: Assembly-CSharp}
-      data: 
