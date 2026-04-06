@@ -215,6 +215,21 @@ namespace ViewEvent.ScheduleView
         public IncidentData Data => data;
     }
 
+    public readonly struct IncidentSelcted : IScheduleViewEvent
+    {
+        private readonly int sequenceId;
+        private readonly string effectDescription;
+
+        public IncidentSelcted(int sequenceId, string effectDescription)
+        {
+            this.sequenceId = sequenceId;
+            this.effectDescription = effectDescription;
+        }
+
+        public int SequenceId => sequenceId;
+        public string EffectDescription => effectDescription;
+    }
+
     public readonly struct BattleEngaged : IScheduleViewEvent
     {
         private readonly int sequenceId;

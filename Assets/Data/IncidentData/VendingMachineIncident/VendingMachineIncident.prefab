@@ -48,23 +48,69 @@ MonoBehaviour:
   choices:
   - rid: 2642317903642755313
   - rid: 2642317903642755310
-  - rid: 2642317903642755312
+  - rid: 2332257824786350155
   references:
     version: 2
     RefIds:
+    - rid: 2332257824786350155
+      type: {class: RandomCompositeIncidentChoiceData, ns: , asm: Assembly-CSharp}
+      data:
+        candidates:
+        - effect:
+            rid: 2332257824786350156
+          description: "\uD760\u2026 \uBD80\uC218\uBA74 \uC548\uC5D0 \uC788\uB294
+            \uC74C\uB8CC\uB97C \uB2E4 \uBA39\uC744 \uC218 \uC788\uB294\uAC70 \uC544\uB2CC\uAC00?"
+          effectDescription: "\uB2E4\uC74C \uC804\uD22C\uC2DC \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C
+            \uD55C\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654
+            4\uC2A4\uD0DD\uC744 \uBD80\uC5EC\n\uC815\uC2E0\uB825 10 \uCD08\uACFC
+            \uD68C\uBCF5\n\uB2E4\uC74C \uC804\uD22C\uC5D0 \uD55C \uD574, \uCD5C\uB300
+            \uCF54\uC2A4\uD2B8 5 \uC99D\uAC00"
+          weight: 20
+        - effect:
+            rid: 2332257824786350157
+          description: "\uD760\u2026 \uBD80\uC218\uBA74 \uC548\uC5D0 \uC788\uB294
+            \uC74C\uB8CC\uB97C \uB2E4 \uBA39\uC744 \uC218 \uC788\uB294\uAC70 \uC544\uB2CC\uAC00?"
+          effectDescription: "\uC804\uD22C \uCCB4\uB825 20 \uAC10\uC18C"
+          weight: 80
+        pickCount: 1
+    - rid: 2332257824786350156
+      type: {class: ChoiceSequenceCompositeEffect, ns: , asm: Assembly-CSharp}
+      data:
+        choiceEffects:
+        - rid: 2332257824786350158
+        - rid: 2332257824786350159
+        - rid: 2332257824786350160
+    - rid: 2332257824786350157
+      type: {class: ChoiceHurtBattleHealth, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 20
+        isOverflowable: 1
+    - rid: 2332257824786350158
+      type: {class: ChoiceApplyPlayerBattleStartStatusEffectEffect, ns: , asm: Assembly-CSharp}
+      data:
+        statusEffectEntity: {fileID: 260859648227605929, guid: 52bd3ce89aa649743a8a3d5ad6ec53da, type: 3}
+        isStatusEffectEternal: 0
+        startDuration: 1
+        startStack: 4
+        isBattleStartEffectEternal: 0
+        remainBattleCount: 1
+    - rid: 2332257824786350159
+      type: {class: ChoiceHealMentalityEffect, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 10
+        isOverflowable: 1
+    - rid: 2332257824786350160
+      type: {class: ChoiceIncreaseMaxActionCostEffect, ns: , asm: Assembly-CSharp}
+      data:
+        amount: 5
+        duration: 0
     - rid: 2642317903642755310
       type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
       data:
         description: "\uB3C8\uC774 \uC5C6\uB124.. \uADF8\uB0E5 \uAC00\uC57C\uC9C0"
+        effectDescription: 
         effect:
           rid: 2642317903642755317
-    - rid: 2642317903642755312
-      type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
-      data:
-        description: "\uD760\u2026 \uBD80\uC218\uBA74 \uC548\uC5D0 \uC788\uB294 \uC74C\uB8CC\uB97C
-          \uB2E4 \uBA39\uC744 \uC218 \uC788\uB294\uAC70 \uC544\uB2CC\uAC00?"
-        effect:
-          rid: 2642317903642755319
     - rid: 2642317903642755313
       type: {class: RandomCompositeIncidentChoiceData, ns: , asm: Assembly-CSharp}
       data:
@@ -73,15 +119,21 @@ MonoBehaviour:
             rid: 2642317903642755314
           description: "\uD1A1\uD1A1 \uD280\uB294 \uD0C4\uC0B0 \uC74C\uB8CC\uB97C
             \uBA39\uACE0\uC2F6\uC5B4"
+          effectDescription: "\uB2E4\uC74C \uC804\uD22C\uC2DC \uD50C\uB808\uC774\uC5B4\uC5D0\uAC8C
+            \uD55C\uD134 \uB3D9\uC548 \uC9C0\uC18D\uB418\uB294 \uADFC\uB825 \uAC15\uD654
+            4\uC2A4\uD0DD\uC744 \uBD80\uC5EC"
           weight: 10
         - effect:
             rid: 2642317903642755315
           description: "\uAC74\uAC15\uC5D0 \uC88B\uC740 \uC57C\uCC44 \uC74C\uB8CC\uB97C
             \uBA39\uC5B4\uC57C\uC9C0"
+          effectDescription: "\uC815\uC2E0\uB825 10 \uCD08\uACFC \uD68C\uBCF5"
           weight: 10
         - effect:
             rid: 2642317903642755316
           description: "\uCE74\uD398\uC778 \uBCF4\uCDA9! \uCEE4\uD53C\uB97C \uBA39\uC5B4\uC57C\uC9C0"
+          effectDescription: "\uB2E4\uC74C \uC804\uD22C\uC5D0 \uD55C \uD574, \uCD5C\uB300
+            \uCF54\uC2A4\uD2B8 5 \uC99D\uAC00"
           weight: 10
         pickCount: 1
     - rid: 2642317903642755314
@@ -106,45 +158,3 @@ MonoBehaviour:
     - rid: 2642317903642755317
       type: {class: ChoiceNoneEffect, ns: , asm: Assembly-CSharp}
       data: 
-    - rid: 2642317903642755319
-      type: {class: ChoiceRandomCompositeEffect, ns: , asm: Assembly-CSharp}
-      data:
-        candidates:
-        - effect:
-            rid: 2642317903642755321
-          weight: 20
-        - effect:
-            rid: 2642317903642755320
-          weight: 80
-        pickCount: 1
-    - rid: 2642317903642755320
-      type: {class: ChoiceHurtBattleHealth, ns: , asm: Assembly-CSharp}
-      data:
-        amount: 20
-        isOverflowable: 1
-    - rid: 2642317903642755321
-      type: {class: ChoiceSequenceCompositeEffect, ns: , asm: Assembly-CSharp}
-      data:
-        choiceEffects:
-        - rid: 2642317903642755322
-        - rid: 2642317903642755323
-        - rid: 2642317903642755324
-    - rid: 2642317903642755322
-      type: {class: ChoiceApplyPlayerBattleStartStatusEffectEffect, ns: , asm: Assembly-CSharp}
-      data:
-        statusEffectEntity: {fileID: 260859648227605929, guid: 52bd3ce89aa649743a8a3d5ad6ec53da, type: 3}
-        isStatusEffectEternal: 0
-        startDuration: 1
-        startStack: 4
-        isBattleStartEffectEternal: 0
-        remainBattleCount: 1
-    - rid: 2642317903642755323
-      type: {class: ChoiceHealMentalityEffect, ns: , asm: Assembly-CSharp}
-      data:
-        amount: 10
-        isOverflowable: 1
-    - rid: 2642317903642755324
-      type: {class: ChoiceIncreaseMaxActionCostEffect, ns: , asm: Assembly-CSharp}
-      data:
-        amount: 5
-        duration: 0

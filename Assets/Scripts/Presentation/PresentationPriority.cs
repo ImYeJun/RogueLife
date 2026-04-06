@@ -51,6 +51,9 @@ public static class PresentationPriority
     //Incident Select Requested
     public const int IncidentSelectRequested_ChoiceAppear = 10;
 
+    //Incident Selected
+    public const int IncidentSelected = 10;
+
     //Transaction Select Requested
     public const int TransactionSelectRequested_ChoiceAppear = 10;
 

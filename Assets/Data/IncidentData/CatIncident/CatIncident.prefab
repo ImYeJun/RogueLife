@@ -57,6 +57,7 @@ MonoBehaviour:
       data:
         description: "\uC73C\uC73C\u2026 \uB108\uBB34 \uADC0\uC5FD\uC9C0\uB9CC..
           \uBC14\uC058\uB2E4.. \uBBF8\uC548\uD574!"
+        effectDescription: 
         effect:
           rid: 2642317903642755265
     - rid: 2642317903642755262
@@ -64,12 +65,14 @@ MonoBehaviour:
       data:
         description: "\uAC04\uC2DD\uC744 \uC918\uC57C\uACA0\uB2E4 \uCE04\uB974\uAC00
           \uC5B4\uB514\uC788\uB354\uB77C.."
+        effectDescription: "\uC18C\uC9C0\uD488 \uD68D\uB4DD"
         effect:
           rid: 2642317903642755273
     - rid: 2642317903642755263
       type: {class: SingleIncidentChoiceData, ns: , asm: Assembly-CSharp}
       data:
         description: "\uADC0\uC5EC\uC6CC! \uC4F0\uB2E4\uB4EC\uACE0 \uC2F6\uC5B4!"
+        effectDescription: "\uC815\uC2E0\uB825 10 \uCD08\uACFC \uD68C\uBCF5"
         effect:
           rid: 2642317903642755264
     - rid: 2642317903642755264

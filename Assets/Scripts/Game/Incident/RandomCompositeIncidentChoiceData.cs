@@ -18,7 +18,7 @@ public class RandomCompositeIncidentChoiceData : IIncidentChoiceData
         for (int i = 0; i < pickCount; i++)
         {
             var selected = SelectCandidate(context, remainPool);
-            selectedCandidates.Add(new DeterminedIncidentChoice(selected.Description, selected.Effect));
+            selectedCandidates.Add(new DeterminedIncidentChoice(selected.Description, selected.EffectDescription, selected.Effect));
             remainPool.Remove(selected);
         }
 

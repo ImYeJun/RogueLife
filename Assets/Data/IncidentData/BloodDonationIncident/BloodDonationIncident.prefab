@@ -56,6 +56,7 @@ MonoBehaviour:
       data:
         description: "\uADF8\uCE58\uB9CC\u2026 \uC8FC\uC0AC\uBC14\uB298\uC740 \uBB34\uC11C\uC6CC!
           \uBBF8\uC548\uD574\uC694!"
+        effectDescription: 
         effect:
           rid: 2642317903642755245
     - rid: 2642317903642755244
@@ -63,6 +64,8 @@ MonoBehaviour:
       data:
         description: "\uBCD1\uC6D0\uC5D0 \uD53C\uAC00 \uBD80\uC871\uD558\uB2E4\uB294\uB370
           \uB2F9\uC5F0\uD788 \uD574\uC57C\uC8E0!"
+        effectDescription: "\uC804\uD22C \uCCB4\uB825 15 \uAC10\uC18C, \uACE0\uAE09
+          \uB4F1\uAE09 \uCE74\uB4DC \uD68D\uB4DD"
         effect:
           rid: 2642317903642755246
     - rid: 2642317903642755245

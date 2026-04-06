@@ -58,21 +58,26 @@ MonoBehaviour:
         - effect:
             rid: 2642317903642755253
           description: "\uB4E0\uB4E0\uD55C \uC81C\uC721\uB36E\uBC25\uC744 \uBA39\uC5B4\uC57C\uC9C0"
+          effectDescription: "\uC815\uC2E0\uB825 15 \uD68C\uBCF5"
           weight: 10
         - effect:
             rid: 2642317903642755258
           description: "\uAC74\uAC15\uC744 \uC0DD\uAC01\uD574\uC11C \uC0D0\uB7EC\uB4DC\uB97C
             \uBA39\uC5B4\uC57C\uACA0\uB2E4"
+          effectDescription: "\uC804\uD22C \uCCB4\uB825 20 \uD68C\uBCF5"
           weight: 10
         - effect:
             rid: 2642317903642755255
           description: "\uB3C8\uC5C6\uB294 \uB300\uD559\uC0DD\uC758 \uADFC\uBCF8,
             \uB77C\uBA74\uC744 \uBA39\uC744\uB798"
+          effectDescription: "\uCD5C\uB300 \uCF54\uC2A4\uD2B8 2 \uC99D\uAC00"
           weight: 10
         - effect:
             rid: 2642317903642755256
           description: " \uC624\uB298\uB9CC \uD310\uB9E4\uD558\uB294 \uC624\uB298\uC758
             \uD2B9\uC2DD\uC744 \uBA39\uC744\uB798!"
+          effectDescription: "\uC815\uC2E0\uB825 15 \uD68C\uBCF5\n\uC804\uD22C \uCCB4\uB825
+            20 \uD68C\uBCF5\n\uCD5C\uB300 \uCF54\uC2A4\uD2B8 2 \uC99D\uAC00"
           weight: 10
         pickCount: 2
     - rid: 2642317903642755250
@@ -80,6 +85,7 @@ MonoBehaviour:
       data:
         description: "\uBCC4\uB85C \uBC30\uACE0\uD504\uC9C0\uB3C4 \uC54A\uC740\uB370
           \uAD76\uC5B4\uC57C\uACA0\uB2E4"
+        effectDescription: 
         effect:
           rid: 2642317903642755251
     - rid: 2642317903642755251

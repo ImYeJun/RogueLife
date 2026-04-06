@@ -208,6 +208,7 @@ public class ScheduleSystem : IFieldScheduleSystem, ISelectingScheduleViewComman
     }
     public void SettleIncidentChoice(DeterminedIncidentChoice choice)
     {
+        scheduleViewEventBus.Publish(new IncidentSelcted(sequenceIdGenerator.GetNextId(), choice.EffectDescription));
         currentSchedule.SettleIncidentChoice(choice);
     }
 
