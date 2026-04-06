@@ -108,8 +108,10 @@ public class BattleEnemy : BattleEntity, IEnemyBehaviourOwner, ICloneableBattleE
         clone.currentMaxHealth = newMaxHealth;
         clone.currentHealth = newMaxHealth;
 
-        var spawnEnemyAction = new SpawnEnemyBattleAction(clone);
-        context.ActionScheduler.Enqueue(spawnEnemyAction);
+        //TODO Fix this hack to work with Pipeline
+        context.EnemySystem.SpawnEnemy(clone);
+        // var spawnEnemyAction = new SpawnEnemyBattleAction(clone);
+        // context.ActionScheduler.Enqueue(spawnEnemyAction);
     }
 
     public override BattleHurtSource GetAsHurtSource()
