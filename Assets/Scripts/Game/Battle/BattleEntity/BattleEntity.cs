@@ -57,10 +57,18 @@ public abstract class BattleEntity : IBattleStatusEffectOwner, IReadOnlyBattleEn
         context.ActionScheduler.EnqueueFront(hurtAction);
     }
     public abstract void Heal(int amount);
-    public void RequestHeal(int amount)
+    public void RequestHeal(int amount, bool isFrontQueue = false)
     {
         if (isDead) return;
-        context.ActionScheduler.Enqueue(new HealEntityBattleAction(this, amount));
+
+        if (isFrontQueue)
+        {
+            context.ActionScheduler.EnqueueFront(new HealEntityBattleAction(this, amount));
+        }
+        else
+        {
+            context.ActionScheduler.Enqueue(new HealEntityBattleAction(this, amount));
+        }
     }
     public void Kill() { 
         if (isDead) return;
