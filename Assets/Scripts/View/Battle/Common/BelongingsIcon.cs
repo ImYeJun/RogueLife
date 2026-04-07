@@ -73,6 +73,8 @@ namespace View.BattleView
 
         private void OnBelongingsEffectExecuted(BelongingsEffectExecuted payload)
         {
+            if (payload.Belongings != belongings) { return; }
+
             presentationManager.Enqueue(payload.SequenceId, PresentationPriority.BeloningsEffectExecuted, PlayExecutePresentation());
         }
 
